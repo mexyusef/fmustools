@@ -1,0 +1,2287 @@
+--% index/fmus
+__PWD,d
+    ?pick
+    	section1.txt,f(e=__FILE__=section1)
+    	section2.txt,f(e=__FILE__=section2)
+    	section2test.txt,f(e=__CURDIR__/funcstack2.fmus=section2test)
+    	section3.txt,f(e=__FILE__=section3)
+    	section4.txt,f(e=__FILE__=section4)
+    	section5.txt,f(e=__FILE__=section5)
+    	section6.txt,f(e=__FILE__=section6)
+    	section6test.txt,f(e=__CURDIR__/funcstack2.fmus=section6test)
+    	section7.txt,f(e=__FILE__=section7)
+    	section7test.txt,f(e=__CURDIR__/funcstack2.fmus=section7test)
+    	section8.txt,f(e=__FILE__=section8)
+    	section8test.txt,f(e=__CURDIR__/funcstack2.fmus=section8test)
+    	section9.txt,f(e=__FILE__=section9)
+    	section10.txt,f(e=__FILE__=section10)
+    	#section11.txt,f(e=__FILE__=section11)
+    	section12.txt,f(e=__FILE__=section12)
+--#
+
+--% section1
+function fact(n) {
+    if (n === 0) {
+        return 1;
+    } else {
+        return n * fact(n - 1);
+    }
+}
+console.log(fact(5)); // 120
+
+const fact2 = n => {
+    if (n === 0) {
+        return 1;
+    } else {
+        return n * fact2(n - 1);
+    }
+};
+console.log(fact2(5)); // also 120
+
+const fact3 = n => (n === 0 ? 1 : n * fact3(n - 1));
+console.log(fact3(5)); // again 120
+
+
+function newCounter() {
+    let count = 0;
+    return function() {
+        count++;
+        return count;
+    };
+}
+const nc = newCounter();
+console.log(nc()); // 1
+console.log(nc()); // 2
+console.log(nc()); // 3
+
+function sum3(a, b, c) {
+    return a + b + c;
+}
+
+const x = [1, 2, 3];
+const y = sum3(...x); // equivalent to sum3(1,2,3)
+console.log(y); // 6
+
+const f = [1, 2, 3];
+const g = [4, ...f, 5]; // [4,1,2,3,5]1
+console.log(g);
+
+const h = [...f, ...g]; // [1,2,3,4,1,2,3,5]
+console.log(h);
+
+const p = { some: 3, data: 5 };
+const q = { more: 8, ...p }; // { more:8, some:3, data:5 }
+console.log(q);
+
+const numbers = [2, 2, 9, 6, 0, 1, 2, 4, 5, 6];
+const minA = Math.min(...numbers); // 0
+console.log(minA);
+
+const maxArray = arr => Math.max(...arr);
+const maxA = maxArray(numbers); // 9
+console.log(maxA);
+--#
+--% section2
+--#
+--% section3
+var colors = [
+    "violet",
+    "indigo",
+    "blue",
+    "green",
+    "yellow",
+    "orange",
+    "red"
+];
+colors.sort();
+console.log(colors);
+// ["blue", "green", "indigo", "orange", "red", "violet", "yellow"]
+
+var someNumbers = [3, 20, 100];
+someNumbers.sort();
+console.log(someNumbers);
+// [100, 20, 3]
+
+var palabras = ["ñandú", "oasis", "mano", "natural", "mítico", "musical"];
+palabras.sort();
+console.log(palabras);
+// ["mano", "musical", "mítico", "natural", "oasis", "ñandú"] -- wrong result!
+
+palabras.sort((a, b) => a.localeCompare(b, "es"));
+console.log(palabras);
+// ["mano", "mítico", "musical", "natural", "ñandú", "oasis"]
+
+const spanishComparison = (a, b) => a.localeCompare(b, "es");
+
+palabras.sort(spanishComparison);
+// sorts the palabras array according to Spanish rules:
+// ["mano", "mítico", "musical", "natural", "ñandú", "oasis"]
+
+
+
+function ready() {
+    console.log("ready");
+}
+function set() {
+    console.log("set");
+}
+function go() {
+    console.log("go");
+}
+ready();
+set();
+go();
+
+function set() {
+    console.log("UNEXPECTED...");
+}
+// "ready"
+// "UNEXPECTED"
+// "go"
+
+(function() {
+    function ready() {
+        console.log("ready");
+    }
+    function set() {
+        console.log("set");
+    }
+    function go() {
+        console.log("go");
+    }
+    ready();
+    set();
+    go();
+})();
+
+function set() {
+    console.log("UNEXPECTED...");
+}
+// "ready"
+// "set"
+// "go"
+
+const myCounter = (function() {
+    let count = 0;
+    return function() {
+        count++;
+        return count;
+    };
+})();
+--#
+--% section4
+let limitYear = 1999;
+const isOldEnough = birthYear => birthYear <= limitYear;
+console.log(isOldEnough(1960)); // true
+console.log(isOldEnough(2001)); // false
+
+const PI = 3.14159265358979;
+const circleArea = r => PI * Math.pow(r, 2); // or PI * r ** 2
+
+const roundFix = (function() {
+    let accum = 0;
+    return n => {
+        // reals get rounded up or down
+        // depending on the sign of accum
+        let nRounded = accum > 0 ? Math.ceil(n) : Math.floor(n);
+        console.log("accum", accum.toFixed(5), " result", nRounded);
+        accum += n - nRounded;
+        return nRounded;
+    };
+})();
+
+roundFix(3.14159); // accum  0.00000    result 3
+roundFix(2.71828); // accum  0.14159    result 3
+roundFix(2.71828); // accum -0.14013    result 2
+roundFix(3.14159); // accum  0.57815    result 4
+roundFix(2.71828); // accum -0.28026    result 2
+roundFix(2.71828); // accum  0.43802    result 3
+roundFix(2.71828); // accum  0.15630    result 3
+
+const maxStrings = a => a.sort().pop();
+let countries = ["Argentina", "Uruguay", "Brasil", "Paraguay"];
+console.log(maxStrings(countries)); // "Uruguay"
+console.log(countries); // ["Argentina", "Brasil", "Paraguay"]
+
+const maxStrings2 = a => [...a].sort().pop();
+countries = ["Argentina", "Uruguay", "Brasil", "Paraguay"];
+console.log(maxStrings2(countries)); // "Uruguay"
+console.log(countries); // ["Argentina", "Uruguay", "Brasil", "Paraguay"]
+
+const getRandomLetter = () => {
+    const min = "A".charCodeAt();
+    const max = "Z".charCodeAt();
+    return String.fromCharCode(
+        Math.floor(Math.random() * (1 + max - min)) + min
+    );
+};
+
+const getRandomFileName = (fileExtension = "") => {
+    const NAME_LENGTH = 12;
+    let namePart = new Array(NAME_LENGTH);
+    for (let i = 0; i < NAME_LENGTH; i++) {
+        namePart[i] = getRandomLetter();
+    }
+    return namePart.join("") + fileExtension;
+};
+
+console.log(getRandomFileName(".pdf")); // "SVHSSKHXPQKG.pdf"
+console.log(getRandomFileName(".pdf")); // "DCHKTMNWFHYZ.pdf"
+console.log(getRandomFileName(".pdf")); // "GBTEFTVVHADO.pdf"
+console.log(getRandomFileName(".pdf")); // "ATCBVUOSXLXW.pdf"
+console.log(getRandomFileName(".pdf")); // "OIFADZKKNVAH.pdf"
+
+const isOldEnough2 = birthYear =>
+    birthYear <= new Date().getFullYear() - 18;
+console.log(isOldEnough2(1960)); // true
+console.log(isOldEnough2(2001)); // false
+
+var mult = 1;
+const f = x => {
+    mult = -mult;
+    return x * mult;
+};
+console.log(f(2) + f(5)); //  3
+console.log(f(5) + f(2)); // -3
+
+const fib = n => {
+    if (n == 0) {
+        return 0;
+    } else if (n == 1) {
+        return 1;
+    } else {
+        return fib(n - 2) + fib(n - 1);
+    }
+};
+console.log(fib(10)); // 55, a bit slowly
+
+let cache = [];
+const fib2 = n => {
+    if (cache[n] == undefined) {
+        if (n == 0) {
+            cache[0] = 0;
+        } else if (n == 1) {
+            cache[1] = 1;
+        } else {
+            cache[n] = fib2(n - 2) + fib2(n - 1);
+        }
+    }
+    return cache[n];
+};
+console.log(fib2(10)); // 55, as before, but more quickly!
+
+const roundFix1 = (function() {
+    let accum = 0;
+    return n => {
+        let nRounded = accum > 0 ? Math.ceil(n) : Math.floor(n);
+        accum += n - nRounded;
+        return nRounded;
+    };
+})();
+
+const roundFix2 = (a, n) => {
+    let r = a > 0 ? Math.ceil(n) : Math.floor(n);
+    a += n - r;
+    return {a, r};
+};
+
+let accum = 0;
+
+// ...some other code...
+
+let {a, r} = roundFix2(accum, 3.1415);
+accum = a;
+console.log(accum, r); // 0.1415 3
+
+const getRandomFileName2 = (
+    fileExtension = "",
+    randomLetterFunc = getRandomLetter
+) => {
+    const NAME_LENGTH = 12;
+    let namePart = new Array(NAME_LENGTH);
+    for (let i = 0; i < NAME_LENGTH; i++) {
+        namePart[i] = randomLetterFunc();
+    }
+    return namePart.join("") + fileExtension;
+};
+let fn = getRandomFileName2(".pdf", getRandomLetter);
+console.log(fn);
+
+const sum3 = (x, y, z) => x + y + z;
+let x = {};
+x.valueOf = Math.random;
+let y = 1;
+let z = 2;
+console.log(sum3(x, y, z)); // 3.2034400919849431
+console.log(sum3(x, y, z)); // 3.8537045249277906
+console.log(sum3(x, y, z)); // 3.0833258308458734
+--#
+--% section5
+const myArray = [22, 9, 60, 12, 4, 56];
+const sum = (x, y) => x + y;
+const mySum = myArray.reduce(sum, 0); // 163
+console.log(mySum);
+
+const sumAndLog = (x, y) => {
+    console.log(`${x}+${y}=${x + y}`);
+    return x + y;
+};
+myArray.reduce(sumAndLog, 0);
+
+const average = arr => arr.reduce(sum, 0) / arr.length;
+console.log(average(myArray)); // 27.166667
+
+const average2 = (sum, val, ind, arr) => {
+    sum += val;
+    return ind == arr.length - 1 ? sum / arr.length : sum;
+};
+console.log(myArray.reduce(average2, 0)); // 27.166667
+
+Array.prototype.average = function() {
+    return this.reduce((x, y) => x + y, 0) / this.length;
+};
+let myAvg = [22, 9, 60, 12, 4, 56].average(); // 27.166667
+console.log(myAvg);
+
+const average3 = arr => {
+    const sc = arr.reduce(
+        (ac, val) => ({sum: val + ac.sum, count: ac.count + 1}),
+        {sum: 0, count: 0}
+    );
+    return sc.sum / sc.count;
+};
+console.log(average3(myArray)); // 27.166667
+
+const average4 = arr => {
+    const sc = arr.reduce((ac, val) => [ac[0] + val, ac[1] + 1], [0, 0]);
+    return sc[0] / sc[1];
+};
+console.log(average4(myArray)); // 27.166667
+
+const reverseString = str => {
+    let arr = str.split("");
+    arr.reverse();
+    return arr.join("");
+};
+console.log(reverseString("MONTEVIDEO")); // OEDIVETNOM
+
+const reverseString2 = str =>
+    str.split("").reduceRight((x, y) => x + y, "");
+console.log(reverseString2("OEDIVETNOM")); // MONTEVIDEO
+
+const markers = [
+    {name: "UY", lat: -34.9, lon: -56.2},
+    {name: "AR", lat: -34.6, lon: -58.4},
+    {name: "BR", lat: -15.8, lon: -47.9},
+    // ...
+    {name: "BO", lat: -16.5, lon: -68.1}
+];
+
+let averageLat = average(markers.map(x => x.lat));
+let averageLon = average(markers.map(x => x.lon));
+console.log(averageLat, averageLon);
+
+let averageLat2 = markers.map(x => x.lat).average();
+let averageLon2 = markers.map(x => x.lon).average();
+console.log(averageLat2, averageLon2);
+
+console.log(["123.45", "67.8", "90"].map(parseFloat));
+// [123.45, 67.8, 90]
+
+console.log(["123.45", "-67.8", "90"].map(parseInt));
+// [123, NaN, NaN]
+
+console.log(["123.45", "-67.8", "90"].map(x => parseFloat(x)));
+// [123.45, -67.8, 90]
+
+console.log(["123.45", "-67.8", "90"].map(x => parseInt(x)));
+// [123, -67, 90]
+
+const range = (start, stop) =>
+    new Array(stop - start).fill(0).map((v, i) => start + i);
+let from2To6 = range(2, 7); // [2, 3, 4, 5, 6];
+console.log(from2To6);
+
+const factorialByRange = n => range(1, n + 1).reduce((x, y) => x * y, 1);
+console.log(factorialByRange(5)); // 120
+console.log(factorialByRange(3)); // 6
+
+const ALPHABET = range("A".charCodeAt(), "Z".charCodeAt() + 1).map(x =>
+    String.fromCharCode(x)
+);
+// ["A", "B", "C", ... "X", "Y", "Z"]
+console.log(ALPHABET);
+
+const myMap = (arr, fn) => arr.reduce((x, y) => x.concat(fn(y)), []);
+const dup = x => 2 * x;
+console.log(myArray.map(dup)); // [44, 18, 120, 24, 8, 112]
+console.log(myMap(myArray, dup)); // [44, 18, 120, 24, 8, 112]
+console.log(myArray); // [22, 9, 60, 12, 4, 56]
+
+const objCopy = obj => {
+    let copy = Object.create(Object.getPrototypeOf(obj));
+    Object.getOwnPropertyNames(obj).forEach(prop =>
+        Object.defineProperty(
+            copy,
+            prop,
+            Object.getOwnPropertyDescriptor(obj, prop)
+        )
+    );
+    return copy;
+};
+const myObj = {fk: 22, st: 12, desc: "couple"};
+const myCopy = objCopy(myObj);
+console.log(myObj, myCopy); // {fk: 22, st: 12, desc: "couple"}, twice
+
+const factorial4 = n => {
+    let result = 1;
+    range(1, n + 1).forEach(v => result *= v);
+    return result;
+};
+console.log(factorial4(5)); // 120
+
+const serviceResult = {
+    accountsData: [
+        {
+            id: "F220960K",
+            balance: 1024
+        },
+        {
+            id: "S120456T",
+            balance: 2260
+        },
+        {
+            id: "J140793A",
+            balance: -38
+        },
+        {
+            id: "M120396V",
+            balance: -114
+        },
+        {
+            id: "A120289L",
+            balance: 55000
+        }
+    ]
+};
+const delinquent = serviceResult.accountsData.filter(v => v.balance < 0);
+console.log(delinquent); // two objects, with id's J140793A and M120396V
+
+const delinquentIds = delinquent.map(v => v.id);
+console.log(delinquentIds);
+
+const delinquentIds2 = serviceResult.accountsData
+    .filter(v => v.balance < 0)
+    .map(v => v.id);
+console.log(delinquentIds2);
+
+const myFilter = (arr, fn) =>
+    arr.reduce((x, y) => (fn(y) ? x.concat(y) : x), []);
+
+console.log(myFilter(serviceResult.accountsData, v => v.balance < 0));
+// two objects, with id's J140793A and M120396V
+
+let brazilData = markers.find(v => v.name === "BR");
+// {name:"BR", lat:-15.8, lon:-47.9}
+console.log(brazilData);
+
+let brazilIndex = markers.findIndex(v => v.name === "BR"); // 2
+console.log(brazilIndex);
+let mexicoIndex = markers.findIndex(v => v.name === "MX"); // -1
+console.log(mexicoIndex);
+
+console.log(markers.every(v => v.lat < 0 && v.lon < 0)); // false
+console.log(markers.some(v => v.lat < 0 && v.lon < 0)); // true
+
+const none = (arr, fn) => arr.every(v => !fn(v));
+Array.prototype.none = function(fn) {
+    return this.every(v => !fn(v));
+};
+--#
+--% section6
+const addLogging = fn => (...args) => {
+    console.log(`entering ${fn.name}: ${args})`);
+    const valueToReturn = fn(...args);
+    console.log(`exiting ${fn.name}: ${valueToReturn}`);
+    return valueToReturn;
+};
+
+function subtract(a, b) {
+    b = changeSign(b);
+    return a + b;
+}
+
+function changeSign(a) {
+    return -a;
+}
+
+subtract = addLogging(subtract);
+changeSign = addLogging(changeSign);
+let x = subtract(7, 5);
+
+const addLogging2 = fn => (...args) => {
+    console.log(`entering ${fn.name}: ${args}`);
+    try {
+        const valueToReturn = fn(...args);
+        console.log(`exiting ${fn.name}: ${valueToReturn}`);
+        return valueToReturn;
+    } catch (thrownError) {
+        console.log(`exiting ${fn.name}: threw ${thrownError}`);
+        throw thrownError;
+    }
+};
+
+const addLogging3 = (fn, logger = console.log) => (...args) => {
+    logger(`entering ${fn.name}: ${args}`);
+    try {
+        const valueToReturn = fn(...args);
+        logger(`exiting ${fn.name}: ${valueToReturn}`);
+        return valueToReturn;
+    } catch (thrownError) {
+        logger(`exiting ${fn.name}: threw ${thrownError}`);
+        throw thrownError;
+    }
+};
+
+const myLogger = t => console.log(t);
+subtract = addLogging3(subtract, myLogger);
+changeSign = addLogging3(changeSign, myLogger);
+x = subtract(7, 5);
+
+const myPut = (text, name, tStart, tEnd) =>
+    console.log(`${name} - ${text} ${tEnd - tStart} ms`);
+
+const myGet = () => performance.now();
+
+const addTiming = (fn, getTime = myGet, output = myPut) => (...args) => {
+    let tStart = getTime();
+    try {
+        const valueToReturn = fn(...args);
+        output("normal exit", fn.name, tStart, getTime());
+        return valueToReturn;
+    } catch (thrownError) {
+        output("exception thrown", fn.name, tStart, getTime());
+        throw thrownError;
+    }
+};
+
+subtract = addTiming(subtract);
+x = subtract(7, 5);
+console.log(x);
+y = subtract(4, 0);
+console.log(y);
+
+function fib(n) {
+    if (n == 0) {
+        return 0;
+    } else if (n == 1) {
+        return 1;
+    } else {
+        return fib(n - 2) + fib(n - 1);
+    }
+}
+
+const memoize = fn => {
+    let cache = {};
+    return x => (x in cache ? cache[x] : (cache[x] = fn(x)));
+};
+
+const testFib = n => fib(n);
+//addTiming(testFib)(45); // 15,382.255 ms
+//addTiming(testFib)(40); //  1,600.600 ms
+//addTiming(testFib)(35); //    146.900 ms
+
+const testMemoFib = memoize(n => fib(n));
+//addTiming(testMemoFib)(45); // 15,537.575 ms
+//addTiming(testMemoFib)(45); //          0.005 ms
+//addTiming(testMemoFib)(40); //  1,368.880 ms
+//addTiming(testMemoFib)(35); //    123.970 ms
+
+fib = memoize(fib);
+addTiming(testFib)(45); // 0.080 ms
+addTiming(testFib)(45); // 0.080 ms
+addTiming(testFib)(40); // 0.025 ms
+addTiming(testFib)(35); // 0.009 ms
+
+const memoize2 = fn => {
+    if (fn.length === 1) {
+        let cache = {};
+        return x => (x in cache ? cache[x] : (cache[x] = fn(x)));
+    } else {
+        return fn;
+    }
+};
+
+const memoize3 = fn => {
+    let cache = {};
+    const PRIMITIVES = ["number", "string", "boolean"];
+    return (...args) => {
+        let strX = args.length === 1 && PRIMITIVES.includes(typeof args[0])
+            ? args[0]
+            : JSON.stringify(args);
+        return strX in cache ? cache[strX] : (cache[strX] = fn(...args));
+    };
+};
+
+const memoize4 = fn => {
+    let cache = {};
+    return (...args) => {
+        let strX = JSON.stringify(args);
+        return strX in cache ? cache[strX] : (cache[strX] = fn(...args));
+    };
+};
+
+const once = func => {
+    let done = false;
+    return (...args) => {
+        if (!done) {
+            done = true;
+            func(...args);
+        }
+    };
+};
+
+const once2 = func => {
+    let done = false;
+    let result;
+    return (...args) => {
+        if (!done) {
+            done = true;
+            result = func(...args);
+        }
+        return result;
+    };
+};
+
+const onceAndAfter = (f, g) => {
+    let done = false;
+    return (...args) => {
+        if (!done) {
+            done = true;
+            return f(...args);
+        } else {
+            return g(...args);
+        }
+    };
+};
+
+const onceAndAfter2 = (f, g) => {
+    let toCall = f;
+    return (...args) => {
+        let result = toCall(...args);
+        toCall = g;
+        return result;
+    };
+};
+
+const squeak = x => console.log(x, "squeak!!");
+const creak = x => console.log(x, "creak!!");
+const makeSound = onceAndAfter2(squeak, creak);
+makeSound("door"); // "door squeak!!"
+makeSound("door"); // "door creak!!"
+makeSound("door"); // "door creak!!"
+makeSound("door"); // "door creak!!"
+
+const serviceResult = {
+    accountsData: [
+        {
+            id: "F220960K",
+            balance: 1024
+        },
+        {
+            id: "S120456T",
+            balance: 2260
+        },
+        {
+            id: "J140793A",
+            balance: -38
+        },
+        {
+            id: "M120396V",
+            balance: -114
+        },
+        {
+            id: "A120289L",
+            balance: 55000
+        }
+    ]
+};
+const delinquent = serviceResult.accountsData.filter(v => v.balance < 0);
+const notDelinquent = serviceResult.accountsData.filter(
+    v => v.balance >= 0
+);
+console.log(notDelinquent);
+const notDelinquent2 = serviceResult.accountsData.filter(
+    v => !(v.balance < 0)
+);
+console.log(notDelinquent2);
+const isNegativeBalance = v => v.balance < 0;
+const delinquent2 = serviceResult.accountsData.filter(isNegativeBalance);
+console.log(delinquent2);
+const not = fn => (...args) => !fn(...args);
+const notDelinquent3 = serviceResult.accountsData.filter(
+    not(isNegativeBalance)
+);
+console.log(notDelinquent3);
+
+const filterNot = arr => fn => arr.filter(not(fn));
+const invert = fn => (...args) => -fn(...args);
+const spanishComparison = (a, b) => a.localeCompare(b, "es");
+
+var palabras = ["ñandú", "oasis", "mano", "natural", "mítico", "musical"];
+
+palabras.sort(spanishComparison);
+// ["mano", "mítico", "musical", "natural", "ñandú", "oasis"]
+console.log(palabras);
+
+palabras.sort(invert(spanishComparison));
+// ["oasis", "ñandú", "natural", "musical", "mítico", "mano"]
+console.log(palabras);
+
+console.log(["123.45", "-67.8", "90"].map(parseInt)); // problem: parseInt isn't monadic!
+// [123, NaN, NaN]
+const unary = fn => (...args) => fn(args[0]);
+console.log(["123.45", "-67.8", "90"].map(unary(parseInt)));
+// [123, -67, 90]
+
+const binaryOp1 = op => {
+    switch (op) {
+        case "+":
+            return (x, y) => x + y;
+        case "-":
+            return (x, y) => x - y;
+        case "*":
+            return (x, y) => x * y;
+        //
+        // etc.
+        //
+    }
+};
+const binaryOp2 = op => new Function("x", "y", `return x ${op} y;`);
+const binaryLeftOp = (x, op) => y => binaryOp2(op)(x, y);
+const binaryOpRight = (op, y) => x => binaryOp2(op)(x, y);
+const binaryLeftOp2 = (x, op) => y => binaryOp2(op)(x, y);
+const binaryOpRight2 = (op, y) => x => binaryOp2(op)(x, y);
+
+const myArray = [22, 9, 60, 12, 4, 56];
+const mySum = myArray.reduce(binaryOp2("+"), 0);
+
+const range = (start, stop) =>
+    new Array(stop - start).fill(0).map((v, i) => start + i);
+const factorialByRange = n => range(1, n + 1).reduce(binaryOp2("*"), 1);
+
+const isNegative1 = binaryLeftOp(0, ">");
+const isNegative2 = binaryOpRight("<", 0);
+const isNegative3 = x => x < 0;
+
+const promisify = fn => (...args) =>
+    new Promise((resolve, reject) =>
+        fn(...args, (err, data) => (err ? reject(err) : resolve(data)))
+    );
+
+/*
+const fs = require("fs");
+const cb = (err, data) =>
+    err ? console.log("ERROR", err) : console.log("SUCCESS", data);
+fs.readFile("./exists.txt", cb); // success, list the data
+fs.readFile("./doesnt_exist.txt", cb); // failure, show exception
+
+const fspromise = promisify(fs.readFile.bind(fs));
+const goodRead = data => console.log("SUCCESSFUL PROMISE", data);
+const badRead = err => console.log("UNSUCCESSFUL PROMISE", err);
+
+fspromise("./readme.txt") // success
+    .then(goodRead)
+    .catch(badRead);
+
+fspromise("./readmenot.txt") // failure
+    .then(goodRead)
+    .catch(badRead);
+*/
+const getField = attr => obj => obj[attr];
+
+const sum = (x, y) => x + y;
+const average = arr => arr.reduce(sum, 0) / arr.length;
+const markers = [
+    {name: "UY", lat: -34.9, lon: -56.2},
+    {name: "AR", lat: -34.6, lon: -58.4},
+    {name: "BR", lat: -15.8, lon: -47.9},
+    // ...
+    {name: "BO", lat: -16.5, lon: -68.1}
+];
+let averageLat = average(markers.map(getField("lat")));
+let averageLon = average(markers.map(getField("lon")));
+console.log(averageLat, averageLon);
+
+const getId = getField("id");
+const delinquentIds = delinquent.map(getId);
+
+const demethodize1 = fn => (arg0, ...args) => fn.apply(arg0, args);
+const demethodize2 = fn => (arg0, ...args) => fn.call(arg0, ...args);
+const demethodize3 = fn => (...args) => fn.bind(...args)();
+const name = "FUNCTIONAL";
+const result = name.split("").map(x => x.toUpperCase());
+// ["F", "U", "N", "C", "T", "I", "O", "N", "A", "L"]
+
+const map = demethodize3(Array.prototype.map);
+const toUpperCase = demethodize3(String.prototype.toUpperCase);
+const result2 = map(name, toUpperCase);
+// ["F", "U", "N", "C", "T", "I", "O", "N", "A", "L"]
+
+const toLocaleString = demethodize3(Number.prototype.toLocaleString);
+
+const numbers = [2209.6, 124.56, 1048576];
+const strings = numbers.map(toLocaleString);
+// ["2,209.6", "124.56", "1,048,576"]
+const strings2 = map(numbers, toLocaleString);
+
+const findOptimum = arr => Math.max(...arr);
+console.log(findOptimum(myArray)); // 60
+
+const findOptimum2 = fn => arr => arr.reduce(fn);
+const findMaximum = findOptimum2((x, y) => (x > y ? x : y));
+const findMinimum = findOptimum2((x, y) => (x < y ? x : y));
+console.log(findMaximum(myArray)); // 60
+console.log(findMinimum(myArray)); // 4
+
+const compareHeroes = (card1, card2) => {
+    const oneIfBigger = (x, y) => (x > y ? 1 : 0);
+
+    const wins1 =
+        oneIfBigger(card1.strength, card2.strength) +
+        oneIfBigger(card1.powers, card2.powers) +
+        oneIfBigger(card1.tech, card2.tech);
+
+    const wins2 =
+        oneIfBigger(card2.strength, card1.strength) +
+        oneIfBigger(card2.powers, card1.powers) +
+        oneIfBigger(card2.tech, card1.tech);
+
+    return wins1 > wins2 ? card1 : card2;
+};
+
+function Hero(n, s, p, t) {
+    this.name = n;
+    this.strength = s;
+    this.powers = p;
+    this.tech = t;
+}
+
+const codingLeagueOfAmerica = [
+    new Hero("Forceful", 20, 15, 2),
+    new Hero("Electrico", 12, 21, 8),
+    new Hero("Speediest", 8, 11, 4),
+    new Hero("TechWiz", 6, 16, 30)
+];
+
+const findBestHero = findOptimum2(compareHeroes);
+console.log(findBestHero(codingLeagueOfAmerica)); // Electrico is the top hero!
+
+--#
+--% section7
+const make3 = (a, b, c) => String(100 * a + 10 * b + c);
+
+const make3curried = a => b => c => String(100 * a + 10 * b + c);
+
+const make3curried2 = function(a) {
+  return function(b) {
+    return function(c) {
+      return String(100 * a + 10 * b + c);
+    };
+  };
+};
+
+const addVAT = (rate, amount) => amount * (1 + rate / 100);
+console.log(addVAT(20, 500)); // 600 -- that is, 500 + 20%
+console.log(addVAT(15, 200)); // 230 -- 200 +15%
+
+const addVATcurried = rate => amount => amount * (1 + rate / 100);
+const addNationalVAT = addVATcurried(6);
+console.log(addNationalVAT(1500)); // 1590 -- 1500 + 6%
+
+
+let myLog = (severity, logText) => {
+    // display logText in an appropriate way,
+    // according to its severity ("NORMAL", "WARNING", or "ERROR")
+	console.log("SEVERITY",severity,"TEXT",logText);
+};
+
+const curryByBind = fn =>
+    fn.length === 0 ? fn() : p => curryByBind(fn.bind(null, p));
+    
+const f1 = curryByBind(make3); // f1 is a function, that will fix make3's 1st parameter
+const f2 = f1(6); // f2 is a function, that will fix make3's 2nd parameter
+const f3 = f2(5); // f3 is a function, that will fix make3's last parameter
+const f4 = f3(8); // "658" is calculated, since there are no more parameters to fix
+console.log(f4);
+
+const step1 = make3.bind(null, 6);
+const step2 = step1.bind(null, 5);
+const step3 = step2.bind(null, 8);
+console.log(step3()); // "658"
+
+const curryByBind2 = (fn, len = fn.length) =>
+    len === 0 ? fn() : p => curryByBind2(fn.bind(null, p), len - 1);
+
+const sum2 = (...args) => args.reduce((x, y) => x + y, 0);
+console.log(sum2.length); // 0; curryByBind() wouldn't work
+
+console.log(sum2(1, 5, 3)); // 9
+console.log(sum2(1, 5, 3, 7)); // 16
+console.log(sum2(1, 5, 3, 7, 4)); // 20
+
+curriedSum5 = curryByBind2(sum2, 5); // curriedSum5 will expect 5 parameters
+console.log(curriedSum5(1)(5)(3)(7)(4)); // 20
+
+const range = (start, stop) =>
+    new Array(stop - start).fill(0).map((v, i) => start + i);
+
+const curryByEval = (fn, len = fn.length) =>
+    eval(`${range(0, len).map(i => `x${i}`).join("=>")} => 
+        ${fn.name}(${range(0, len).map(i => `x${i}`).join(",")})`);
+
+console.log(curryByEval(make3)); // x0=>x1=>x2=> make3(x0,x1,x2)
+
+const curryByEval2 = (fn, len = fn.length) =>
+    eval(`${range(0, len).map(i => `x${i}`).join("=>")} => 
+        (${fn.toString()})(${range(0, len).map(i => `x${i}`).join(",")})`);
+
+console.log(curryByEval2(make3)); // x0=>x1=>x2=> ((a,b,c) => 100*a+10*b+c)(x0,x1,x2)
+
+const add = (x, y) => x + y;
+
+add(2, 5); // 7
+add(2, 5); // 7
+((x, y) => x + y)(2, 5); // 7
+
+curry = curryByEval;
+myLog = curry(myLog);
+// replace myLog by a curried version of itself
+
+const myNormalLog = myLog("NORMAL");
+const myWarningLog = myLog("WARNING");
+const myErrorLog = myLog("ERROR");
+const myNormalLog2 = curry(myLog)("NORMAL");
+const myWarningLog2 = curry(myLog)("WARNING");
+const myErrorLog2 = curry(myLog)("ERROR");
+ 
+const sum = (x, y) => {
+    if (x !== undefined && y !== undefined) {
+        return x + y;
+    } else if (x !== undefined && y == undefined) {
+        return z => sum(x, z);
+    } else {
+        return sum;
+    }
+};
+
+sum(3, 5); // 8; did you expect otherwise?
+const add2 = sum(2);
+console.log(add2(3)); // 5
+console.log(sum(2)(7)); // 9 -- as if it were curried
+
+
+const nonsense = (a, b, c, d, e) => `${a}/${b}/${c}/${d}/${e}`;
+const fix2and5 = (a, c, d) => nonsense(a, 22, c, d, 1960);
+const fixLast = (a, c) => fix2and5(a, c, 9);
+
+const partialByEval = (fn, ...args) => {
+    const rangeArgs = range(0, fn.length);
+    const leftList = rangeArgs
+        .map(v => (args[v] === undefined ? `x${v}` : null))
+        .filter(v => !!v)
+        .join(",");
+    const rightList = rangeArgs
+        .map(v => (args[v] === undefined ? `x${v}` : args[v]))
+        .join(",");
+    return eval(`(${leftList}) => ${fn.name}(${rightList})`);
+};
+
+const partialByEval2 = (fn, ...args) =>
+    eval(
+        `(${range(0, fn.length)
+            .map(v => (args[v] === undefined ? `x${v}` : null))
+            .filter(v => !!v)
+            .join(",")}) => ${fn.name}(${range(0, fn.length)
+            .map(v => (args[v] == undefined ? `x${v}` : args[v]))
+            .join(",")})`
+    );
+    
+ const partialByClosure = (fn, ...args) => {
+    const partialize = (...args1) => (...args2) => {
+        for (let i = 0; i < args1.length && args2.length; i++) {
+            if (args1[i] === undefined) {
+                args1[i] = args2.shift();
+            }
+        }
+        const allParams = [...args1, ...args2];
+        return (allParams.includes(undefined) ||
+        allParams.length < fn.length
+            ? partialize
+            : fn)(...allParams);
+    };
+    
+    return partialize(...args);
+};
+
+const ff1 = partialByClosure(make3, undefined, 4);
+const ff2 = ff1(7);
+const ff3 = ff2(9);
+console.log(ff3)
+
+
+const partialCurryingByBind = fn =>
+    fn.length === 0
+        ? fn()
+        : (...pp) => partialCurryingByBind(fn.bind(null, ...pp));
+
+const fg1 = partialCurryingByBind(make3);
+const fg2 = fg1(6, 5); // f2 is a function, that fixes make3's first two arguments
+const fg3 = fg2(8); // "658" is calculated, since there are no more parameters to fix
+console.log(fg3);
+
+const g1 = partialCurryingByBind(make3)(8, 7);
+const g2 = g1(6); // "876"
+console.log(g2);
+
+const partialCurryingByBind2 = (fn, len = fn.length) =>
+    len === 0
+        ? fn()
+        : (...pp) =>
+              partialCurryingByBind2(
+                  fn.bind(null, ...pp),
+                  len - pp.length
+              );
+
+pcSum5 = partialCurryingByBind2(sum2, 5); // curriedSum5 will expect 5 parameters
+console.log(pcSum5(1, 5)(3)(7, 4)); // 20
+
+const partialCurryByClosure = fn => {
+    const curryize = (...args1) => (...args2) => {
+        const allParams = [...args1, ...args2];
+        return (allParams.length < func.length ? curryize : fn)(
+            ...allParams
+        );
+    };
+    return curryize();
+};
+
+const partialCurryByClosure2 = (fn, len = fn.length) => {
+    const curryize = (...args1) => (...args2) => {
+        const allParams = [...args1, ...args2];
+        return (allParams.length < len ? curryize : fn)(...allParams);
+    };
+    return curried();
+};
+
+const pcNonsense = partialCurryingByBind(nonsense);
+const fix1And2 = pcNonsense(9, 22); // fix1And2 is now a ternary function
+const fix3 = fix1And2(60); // fix3 is a binary function
+const fix4and5 = fix3(12, 4); // fix4and5 === nonsense(9,22,60,12,4), "9/22/60/12/4"
+console.log(fix4and5);
+
+
+--#
+--% section8
+const markers = [
+    {name: "UY", lat: -34.9, lon: -56.2},
+    {name: "AR", lat: -34.6, lon: -58.4},
+    {name: "BR", lat: -15.8, lon: -47.9},
+    // ...
+    {name: "BO", lat: -16.5, lon: -68.1}
+];
+const binary = fn => (x,y) => fn(x,y);
+
+const curry = fn =>
+    fn.length === 0 ? fn() : p => curry(fn.bind(null, p));
+
+const flipTwo = fn => (arg1,arg2) => fn(arg2,arg1);
+const demethodize = fn => (arg0, ...args) => fn.apply(arg0, args);
+const map = demethodize(Array.prototype.map);
+
+const pipeTwo = (f, g) => (...args) => g(f(...args));
+const pipeline = (...fns) => (...args) => {
+    let result = fns[0](...args);
+    for (let i = 1; i < fns.length; i++) {
+        result = fns[i](result);
+    }
+    return result;
+};
+const pipeline2 = (...fns) => fns.reduce((result, f) => (...args) => f(result(...args)));
+const pipeline3 = (...fns) => fns.reduce(pipeTwo);
+
+const sum = (x,y) => x+y;
+const average = arr => arr.reduce(sum, 0) / arr.length;
+const getField = attr => obj => obj[attr];
+const myMap = curry(flipTwo(binary(map)));
+
+const getLat = curry(getField)("lat");
+console.log(myMap(getLat)(markers)) 
+console.log(map(markers, getLat))
+const getAllLats = curry(myMap)(getLat);
+
+let averageLat = pipeline(getAllLats, average);
+console.log(map(markers, getLat));
+console.log(myMap(getLat)(markers));
+// and similar code to average longitudes
+console.log(averageLat(markers));
+
+let averageLat2 = pipeline(curry(myMap)(curry(getField)("lat")), average);
+let averageLon2 = pipeline(curry(myMap)(curry(getField)("lon")), average);
+console.log(averageLat2(markers));
+
+/* Node-only code
+function getDir(path) {
+    const fs = require("fs");
+    const files = fs.readdirSync(path);
+    return files;
+}
+const filterByText = (text, arr) => arr.filter(v => v.endsWith(text));
+const filterOdt = arr => filterByText(".odt", arr);
+const filterOdt2 = curry(filterByText)(".odt");
+const count = arr => arr.length;
+const countOdtFiles = (path) => {
+    const files = getDir(path);
+    const filteredFiles = filterOdt(files);
+    const countOfFiles = count(filteredFiles);
+    return countOfFiles;
+}
+countOdtFiles("/home/fkereki/Documents"); // 4, as with the command line solution
+const countOdtFiles2 = path => count(filterOdt(getDir(path)));
+countOdtFiles2("/home/fkereki/Documents"); // 4, as before
+const countOdtFiles3 = path =>
+    pipeTwo(pipeTwo(getDir, filterOdt), count)(path);
+const countOdtFiles4 = path =>
+    pipeTwo(getDir, pipeTwo(filterOdt, count))(path);
+
+countOdtFiles3("/home/fkereki/Documents") ===
+  pipeTwo(pipeTwo(getDir, filterOdt), count)("/home/fkereki/Documents") ===
+    count(pipeTwo(getDir, filterOdt)("/home/fkereki/Documents")) ===
+      count(filterOdt(getDir("/home/fkereki/Documents"))) // 4
+countOdtFiles4("/home/fkereki/Documents") ===
+  pipeTwo(getDir, pipeTwo(filterOdt, count))("/home/fkereki/Documents") ===
+    pipeTwo(filterOdt, count)(getDir("/home/fkereki/Documents")) ===
+      count(filterOdt(getDir("/home/fkereki/Documents"))) // 4
+pipeline(getDir, filterOdt, count)("/home/fkereki/Documents"); // still 4
+pipeline2(getDir, filterOdt, count)("/home/fkereki/Documents"); // 4
+pipeline3(getDir, filterOdt, count)("/home/fkereki/Documents"); // again 4
+
+const countOdtFiles3b = pipeTwo(pipeTwo(getDir, filterOdt), count);
+const countOdtFiles4b = pipeTwo(getDir, pipeTwo(filterOdt, count));
+*/
+
+const tap = curry((fn, x) => (fn(x), x));
+const tap2 = fn => x => (fn(x), x);
+
+const tee = arg => {
+    console.log(arg);
+    return arg;
+};
+const tee2 = (arg, logger = console.log) => {
+    logger(arg);
+    return args;
+};
+const tee3 = tap(console.log);
+
+
+class City {
+    constructor(name, lat, long) {
+        this.name = name;
+        this.lat = lat;
+        this.long = long;
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    setName(newName) {
+        this.name = newName;
+    }
+
+    setLat(newLat) {
+        this.lat = newLat;
+    }
+
+    setLong(newLong) {
+        this.long = newLong;
+    }
+
+    getCoords() {
+        return [this.lat, this.long];
+    }
+}
+let myCity = new City("Montevideo, Uruguay", -34.9011, -56.1645);
+console.log(myCity.getCoords(), myCity.getName());
+// [ -34.9011, -56.1645 ] 'Montevideo, Uruguay'
+
+
+const getHandler = {
+    get(target, property, receiver) {
+        if (typeof target[property] === "function") {
+            // requesting a method? return a wrapped version
+            return (...args) => {
+                const result = target[property](...args);
+                return result === undefined ? receiver : result;
+            };
+        } else {
+            // an attribute was requested - just return it
+            return target[property];
+        }
+    }
+};
+
+const chainify = obj => new Proxy(obj, getHandler);
+
+myCity = chainify(myCity);
+
+console.log(myCity
+    .setName("Pune, India")
+    .setLat(18.5626)
+    .setLong(73.8087)
+    .getCoords(), 
+    myCity.getName());
+// [ 18.5626, 73.8087 ] 'Pune, India'
+
+const binaryOp = op => new Function("x", "y", `return x ${op} y;`);
+const binaryLeftOp = (x, op) => (y) => binaryOp2(op)(x,y);
+const binaryOpRight = (op, y) => (x) => binaryOp2(op)(x,y);
+const unaryOp = op  => new Function("x", `return ${op}(x);`);
+
+
+const getBalance = curry(getField)("balance");
+const isNegative = x => x < 0;
+const isNegativeBalance = v => v.balance < 0;
+const isNegativeBalance2 = pipeline(getBalance, isNegative);
+const isNegative2= curry(binaryOp(">"))(0);
+const isNegative3 = binaryOpRight("<", 0);
+const isNegativeBalance3 = pipeline(
+    curry(getField)("balance"),
+    curry(binaryOp(">"))(0)
+);
+const isNegativeBalance4 = pipeline(
+    curry(getField)("balance"),
+    binaryOpRight("<", 0)
+);
+
+
+const composeTwo = (f, g) => (...args) => f(g(...args));
+const composeTwoByFlipping = flipTwo(pipeTwo);
+const compose = (...fns) => pipeline(...(fns.reverse()));
+const compose2 = (...fns) => fns.reduceRight(pipeTwo);
+const compose2b = (...fns) => 
+    fns.reduceRight((f,g) => (...args) => g(f(...args)));
+const compose3 = (...fns) => fns.reduce(composeTwo);
+
+const not = fn => (...args) => !fn(...args);
+const positiveBalance = not(isNegativeBalance);
+const logicalNot = unaryOp("!");
+const positiveBalance2 = compose(logicalNot, isNegativeBalance);
+const changeSign = unaryOp("-");
+
+var palabras = ["ñandú", "oasis", "mano", "natural", "mítico", "musical"];
+const spanishComparison = (a, b) => a.localeCompare(b, "es");
+palabras.sort(spanishComparison);
+palabras.sort(compose(changeSign, spanishComparison));
+console.log(palabras);
+
+/* Node only
+const countOdtFiles2b = path => compose(count, filterOdt, getDir)(path);
+countOdtFiles2b("/home/fkereki/Documents"); // 4, no change here
+compose(count, filterOdt, getDir)("/home/fkereki/Documents");
+*/
+
+const removeNonAlpha = str => str.replace(/[^a-z]/gi, " ");
+const toUpperCase = demethodize(String.prototype.toUpperCase);
+const splitInWords = str => str.trim().split(/\s+/);
+const arrayToSet = arr => new Set(arr);
+const setToList = set => Array.from(set).sort();
+const getUniqueWords = compose(
+    setToList,
+    arrayToSet,
+    splitInWords,
+    toUpperCase,
+    removeNonAlpha
+);
+const getUniqueWords1 = str => {
+    const str1 = removeNonAlpha(str);
+    const str2 = toUpperCase(str1);
+    const arr1 = splitInWords(str2);
+    const set1 = arrayToSet(arr1);
+    const arr2 = setToList(set1);
+    return arr2;
+};
+const getUniqueWords2 = str =>
+    setToList(arrayToSet(splitInWords(toUpperCase(removeNonAlpha(str)))));
+const getUniqueWords3 = composeTwo(
+    setToList,
+    composeTwo(
+        arrayToSet,
+        composeTwo(splitInWords, composeTwo(toUpperCase, removeNonAlpha))
+    )
+);
+
+--#
+--% section9
+const search = (arr, key) => {
+    if (arr.length === 0) {
+        return false;
+    } else if (arr[0] === key) {
+        return true;
+    } else {
+        return search(arr.slice(1), key);
+    }
+};
+
+const search2 = (arr, key) =>
+    arr.length === 0
+        ? false
+        : arr[0] === key || search2(arr.slice(1), key);
+        
+const search3 = (arr,key) => arr.length && (arr[0] === key || search3(arr.slice(1), key));
+
+
+const powerN = (base, power) => {
+    if (power === 0) {
+        return 1;
+    } else if (power % 2) { // odd power?
+        return base * powerN(base, power - 1);
+    } else { // even power?
+        return powerN(base * base, power / 2);
+    }
+};
+
+
+
+const hanoi = (disks, from, to, extra) => {
+    if (disks === 1) {
+        console.log(`Move disk 1 from post ${from} to post ${to}`);
+    } else {
+        hanoi(disks - 1, from, extra, to);
+        console.log(`Move disk ${disks} from post ${from} to post ${to}`);
+        hanoi(disks - 1, extra, to, from);
+    }
+};
+const hanoi2 = (disks, from, to, extra) => {
+    if (disks > 0) {
+        hanoi(disks - 1, from, extra, to);
+        console.log(`Move disk ${disks} from post ${from} to post ${to}`);
+        hanoi(disks - 1, extra, to, from);
+    }
+};
+
+
+const quicksort = arr => {
+  if (arr.length < 2) {
+    return arr;
+  } else {
+    const pivot = arr[0];
+    const smaller = arr.slice(1).filter(x => x < pivot);
+    const greaterEqual = arr.slice(1).filter(x => x >= pivot);
+    return [...quicksort(smaller), pivot, ...quicksort(greaterEqual)];
+  }
+};
+
+
+const makeChange = (n, bills) => {
+    if (n < 0) {
+        return 0; // no way of paying negative amounts
+       
+    } else if (n == 0) {
+        return 1; // one single way of paying $0: with no bills
+        
+    } else if (bills.length == 0) {
+        // here, n>0
+        return 0; // no bills? no way of paying
+        
+    } else {
+        return (
+            makeChange(n, bills.slice(1)) + makeChange(n - bills[0], bills)
+        );
+    }
+};
+
+const memoize3 = fn => {
+    let cache = {};
+    return (...args) => {
+        let strX = JSON.stringify(args);
+        return strX in cache ? cache[strX] : (cache[strX] = fn(...args));
+    };
+};
+
+const makeChange2 = memoize3((n, bills) => {
+    if (n < 0) {
+        return 0; // no way of paying negative amounts
+       
+    } else if (n == 0) {
+        return 1; // one single way of paying $0: with no bills
+        
+    } else if (bills.length == 0) {
+        // here, n>0
+        return 0; // no bills? no way of paying
+        
+    } else {
+        return (
+            makeChange2(n, bills.slice(1)) + makeChange2(n - bills[0], bills)
+        );
+    }
+});
+
+
+const mapR = (arr, cb) =>
+    arr.length === 0 ? [] : [cb(arr[0])].concat(mapR(arr.slice(1), cb));
+const mapR2 = (arr, cb, i = 0, orig = arr) =>
+    arr.length == 0
+        ? []
+        : [cb(arr[0], i, orig)].concat(
+              mapR2(arr.slice(1), cb, i + 1, orig)
+          );
+const mapR3 = (orig, cb) => {
+    const mapLoop = (arr, i) =>
+        arr.length == 0
+            ? []
+            : [cb(arr[0], i, orig)].concat(
+                  mapR3(arr.slice(1), cb, i + 1, orig)
+              );
+    
+    return mapLoop(orig, 0);
+};
+const mapR4 = (orig, cb) => {
+    const mapLoop = (arr, i) => {
+        if (arr.length == 0) {
+            return [];
+        } else {
+            const mapRest = mapR4(arr.slice(1), cb, i + 1, orig);
+            if (!(0 in arr)) {
+                return [,].concat(mapRest);
+            } else {
+                return [cb(arr[0], i, orig)].concat(mapRest);
+            }
+        }
+    };
+    return mapLoop(orig, 0);
+};
+
+
+const filterR = (orig, cb) => {
+    const filterLoop = (arr, i) => {
+        if (arr.length == 0) {
+            return [];
+        } else {
+            const filterRest = filterR(arr.slice(1), cb, i + 1, orig);
+            if (!(0 in arr)) {
+                return filterRest;
+            } else if (cb(arr[0], i, orig)) {
+                return [arr[0]].concat(filterRest);
+            } else {
+                return filterRest;
+            }
+        }
+    };
+    return filterLoop(orig, 0);
+};
+
+
+const reduceR = (orig, cb, accum) => {
+    const reduceLoop = (arr, i) => {
+        return arr.length == 0
+            ? accum
+            : reduceR(
+                  arr.slice(1),
+                  cb,
+                  !(0 in arr) ? accum : cb(accum, arr[0], i, orig),
+                  i + 1,
+                  orig
+              );
+    };
+    return reduceLoop(orig, 0);
+};
+
+const findR = (arr, cb) => {
+    if (arr.length === 0) {
+        return undefined;
+    } else {
+        return cb(arr[0]) ? arr[0] : findR(arr.slice(1), cb);
+    }
+};
+const findR2 = (arr, cb) =>
+    arr.length === 0
+        ? undefined
+        : cb(arr[0]) ? arr[0] : findR(arr.slice(1), cb);
+
+
+
+const pipelineR = (first, ...rest) =>
+    rest.length == 0
+        ? first
+        : (...args) => pipelineR(...rest)(first(...args));
+
+
+
+const SIZE = 8;
+let places = Array(SIZE);
+let solutions = 0;
+const checkPlace = (column, row) =>
+    places
+        .slice(0, column)
+        .every((v, i) => v !== row && Math.abs(v - row) !== column - i);
+const checkPlace2 = (column, row) => {
+    const checkColumn = i => {
+        if (i == column) {
+            return true;
+        } else if (
+            places[i] == row ||
+            Math.abs(places[i] - row) == column - i
+        ) {
+            return false;
+        } else {
+            return checkColumn(i + 1);
+        }
+    };
+    return checkColumn(0);
+};
+const finder = (column = 0) => {
+    if (column === SIZE) {
+        // all columns tried out?
+        console.log(places.map(x => x + 1)); // print out solution
+        solutions++; // count it
+        
+    } else {
+        const testRowsInColumn = j => {
+            if (j < SIZE) {
+                if (checkPlace2(column, j)) {
+                    places[column] = j;
+                    finder(column + 1);
+                }
+                testRowsInColumn(j + 1);
+            }
+        };
+        testRowsInColumn(0);
+    }
+};
+finder();
+console.log(`Solutions found: ${solutions}`);
+
+
+/* Node-only code
+const fs = require("fs");
+
+const recursiveDir = path => {
+    console.log(path);
+    fs.readdirSync(path).forEach(entry => {
+        if (entry.startsWith(".")) {
+            // skip it!
+            
+        } else {
+            const full = path + "/" + entry;
+            const stats = fs.lstatSync(full);
+            if (stats.isSymbolicLink()) {
+                console.log("L ", full); // symlink, don't follow
+                
+            } else if (stats.isDirectory()) {
+                console.log("D ", full);
+                recursiveDir(full);
+                
+            } else {
+                console.log(" ", full);
+            }
+        }
+    });
+};
+*/
+
+const traverseDom = (node, depth = 0) => {
+    console.log(`${"| ".repeat(depth)}<${node.nodeName.toLowerCase()}>`);
+    for (let i = 0; i < node.children.length; i++) {
+        traverseDom(node.children[i], depth + 1);
+    }
+};
+const traverseDom2 = (node, depth = 0) => {
+    console.log(`${"| ".repeat(depth)}<${node.nodeName.toLowerCase()}>`);
+    Array.from(node.children).forEach(child =>
+        traverseDom2(child, depth + 1)
+    );
+};
+var traverseDom3 = (node, depth = 0) => {
+    console.log(`${"| ".repeat(depth)}<${node.nodeName.toLowerCase()}>`);
+    
+    const traverseChildren = (children, i = 0) => {
+        if (i < children.length) {
+            traverseDom3(children[i], depth + 1);
+            return traverseChildren(children, i + 1); // loop
+        }
+        return;
+    };
+    
+    return traverseChildren(Array.from(node.children));
+};
+var traverseDom3C = (node, depth = 0, cont = () => {}) => {
+    console.log(`${"| ".repeat(depth)}<${node.nodeName.toLowerCase()}>`);
+    
+    const traverseChildren = (children, i = 0) => {
+        if (i < children.length) {
+            return traverseDom3C(children[i], depth + 1, () =>
+                traverseChildren(children, i + 1)
+            );
+        }
+        return cont();
+    };
+    
+    return traverseChildren(Array.from(node.children));
+};
+
+
+function detectTCO() {
+    const outerStackLen = new Error().stack.length;
+    return (function inner() {
+        const innerStackLen = new Error().stack.length;
+        return innerStackLen <= outerStackLen;
+    })();
+}
+
+
+function fact(n) {
+    if (n === 0) {
+        return 1;
+    } else {
+        return n * fact(n - 1);
+    }
+}
+function fact2(n) {
+    if (n === 0) {
+        return 1;
+    } else {
+        const aux = fact2(n - 1);
+        return n * aux;
+    }
+}
+function factC(n, cont) {
+    if (n === 0) {
+        return cont(1);
+    } else {
+        return factC(n - 1, x => cont(n * x));
+    }
+}
+factC(7, x => x); // 5040, correctly
+
+
+
+function getTime() {
+    return new Date().toTimeString();
+}
+console.log(getTime()); // "21:00:24 GMT+0530 (IST)"
+
+function getTime2(cont) {
+    return cont(new Date().toTimeString());
+}
+getTime2(console.log); // similar result as above
+
+
+
+const fibC = (n, cont) => {
+    if (n <= 1) {
+        return cont(n);
+    } else {
+        return fibC(n - 2, p => fibC(n - 1, q => cont(p + q)));
+    }
+};
+
+
+const trampoline = (fn) => {
+    while (typeof fn === 'function') {
+        fn = fn();
+    }
+    return fn;
+};
+const sumAll = n => (n == 0 ? 0 : n + sumAll(n - 1));
+const sumAllC = (n, cont) =>
+    n === 0 ? cont(0) : sumAllC(n - 1, v => cont(v + n));
+// this will crash: sumAllC(10000, console.log); // crash as earlier
+const sumAllT = (n, cont) =>
+    n === 0 ? () => cont(0) : () => sumAllT(n - 1, v => () => cont(v + n));
+const sumAll2 = n => trampoline(sumAllT(n, x => x));
+const sumAll3 = n => {
+    const sumAllT = (n, cont) =>
+        n === 0
+            ? () => cont(0)
+            : () => sumAllT(n - 1, v => () => cont(v + n));
+    
+    return trampoline(sumAllT(n, x => x));
+};
+
+function Thunk(fn) {
+    this.fn = fn;
+}
+
+var trampoline2 = thk => {
+    while (typeof thk === "object" && thk.constructor.name === "Thunk") {
+        thk = thk.fn();
+    }
+    return thk;
+};
+--#
+--% section10
+const maxStrings2 = a => [...a].sort().pop();
+const maxStrings3 = a => a.slice().sort().pop();
+
+let countries = ["Argentina", "Uruguay", "Brasil", "Paraguay"];
+console.log(maxStrings3(countries)); // "Uruguay"
+console.log(countries); // ["Argentina", "Uruguay", "Brasil", "Paraguay"] - unchanged
+const myObj = {d: 22, m: 9};
+console.log(myObj);
+// {d: 22, m: 9}
+
+// myObj = {d: 12, m: 4};
+// Uncaught TypeError: Assignment to constant variable.
+
+myObj.d = 12; // but this is fine!
+myObj.m = 4;
+console.log(myObj);
+// {d: 12, m: 4}
+myObj.m = 9;
+
+Object.freeze(myObj);
+
+myObj.d = 12; // won't have effect...
+console.log(myObj);
+// Object {d: 22, m: 9}
+
+let myObj3 = {
+    d: 22,
+    m: 9,
+    o: {c: "MVD", i: "UY", f: {a: 56}}
+};
+Object.freeze(myObj3);
+console.log(myObj3);
+// {d:22, m:9, o:{c:"MVD", i:"UY", f:{ a:56}}}
+myObj3.d = 8888;          // wont' work
+myObj3.o.f.a = 9999; // oops, does work!!
+console.log(myObj3);
+// {d:22, m:9, o:{c:"MVD", i:"UY", f:{ a:9999 }}}
+
+const deepFreeze = obj => {
+    if (obj && typeof obj === "object" && !Object.isFrozen(obj)) {
+        Object.freeze(obj);
+        Object.getOwnPropertyNames(obj).forEach(prop =>
+            deepFreeze(obj[prop])
+        );
+    }
+    return obj;
+};
+
+let oldObject = {
+    d: 22,
+    m: 9,
+    o: {c: "MVD", i: "UY", f: {a: 56}}
+};
+
+let newObject = {
+    d: oldObject.d,
+    m: oldObject.m,
+    o: {c: oldObject.o.c, i: oldObject.o.i, f: {a: oldObject.o.f.a}}
+};
+
+let newObject1 = Object.assign({}, myObj);
+let newObject2 = {...myObj};
+let myArray= [1, 2, 3, 4];
+let newArray1 = myArray.slice();
+let newArray2 = [...myArray];
+
+oldObject = {
+    d: 22,
+    m: 9,
+    o: { c: "MVD", i: "UY", f: { a: 56 } }
+};
+newObject = Object.assign({}, oldObject);
+
+newObject.d = 8888;
+newObject.o.f.a = 9999;
+
+console.log(newObject);
+// {d:8888, m:9, o: {c:"MVD", i:"UY", f: {a:9999}}} -- ok
+
+console.log(oldObject);
+// {d:22, m:9, o: {c:"MVD", i:"UY", f: {a:9999}}} -- oops!!
+
+const jsonCopy = obj => JSON.parse(JSON.stringify(obj));
+
+let myDate = new Date();
+let newDate = jsonCopy(myDate);
+console.log(typeof myDate, typeof newDate); // object string
+
+const deepCopy = obj => {
+    let aux = obj;
+    if (obj && typeof obj === "object") {
+        aux = new obj.constructor();
+        Object.getOwnPropertyNames(obj).forEach(
+            prop => (aux[prop] = deepCopy(obj[prop]))
+        );
+    }
+    return aux;
+};
+
+oldObject = {
+    d: 22,
+    m: 9,
+    o: { c: "MVD", i: "UY", f: { a: 56 } }
+};
+
+newObject = deepCopy(oldObject);
+newObject.d = 8888;
+newObject.o.f.a = 9999;
+console.log(newObject);
+// {d:8888, m:9, o:{c:"MVD", i:"UY", f:{a:9999}}}
+console.log(oldObject);
+// {d:22, m:9, o:{c:"MVD", i:"UY", f:{a:56}}} -- unchanged!
+
+const getField = attr => obj => obj[attr];
+const getByPath = (arr, obj) => {
+    if (arr[0] in obj) {
+        return arr.length > 1
+            ? getByPath(arr.slice(1), obj[arr[0]])
+            : deepCopy(obj[arr[0]]);
+    } else {
+        return undefined;
+    }
+};
+myObj3 = {
+    d: 22,
+    m: 9,
+    o: {c: "MVD", i: "UY", f: {a: 56}}
+};
+deepFreeze(myObj3);
+console.log(getByPath(["d"], myObj3)); // 22
+console.log(getByPath(["o"], myObj3)); // {c: "MVD", i: "UY", f: {a: 56}}
+console.log(getByPath(["o", "c"], myObj3)); // "MVD"
+console.log(getByPath(["o", "f", "a"], myObj3)); // 56
+let fObj = getByPath(["o", "f"], myObj3);
+console.log(fObj); // {a: 56}
+fObj.a = 9999;
+console.log(fObj); // {a: 9999} -- it's not frozen
+
+const setByPath = (arr, value, obj) => {
+    if (!(arr[0] in obj)) {
+        obj[arr[0]] =
+            arr.length === 1 ? null : Number.isInteger(arr[1]) ? [] : {};
+    }
+    
+    if (arr.length > 1) {
+        return setByPath(arr.slice(1), value, obj[arr[0]]);
+    } else {
+        obj[arr[0]] = value;
+        return obj;
+    }
+};
+const updateObject = (arr, obj, value) => {
+    let newObj = deepCopy(obj);
+    setByPath(arr, value, newObj);
+    return deepFreeze(newObj);
+};
+
+let new1 = updateObject(["m"], myObj3, "sep");
+// {d: 22, m: "sep", o: {c: "MVD", i: "UY", f: {a: 56}}};
+console.log(new1);
+
+let new2 =updateObject(["b"], myObj3, 220960);
+// {d: 22, m: 9, o: {c: "MVD", i: "UY", f: {a: 56}}, b: 220960};
+console.log(new2);
+
+let new3 =updateObject(["o", "f", "a"], myObj3, 9999);
+// {d: 22, m: 9, o: {c: "MVD", i: "UY", f: {a: 9999}}};
+console.log(new3);
+
+let new4 =updateObject(["o", "f", "j", "k", "l"], myObj3, "deep");
+// {d: 22, m: 9, o: {c: "MVD", i: "UY", f: {a: 56, j: {k: "deep"}}}};
+console.log(new4);
+
+// 
+
+class ListNode {
+   constructor(value, next = null) {
+       this.value = value;
+       this.next = next;
+   }
+}
+const setIn = (arr, val, obj) => {
+    const newObj = Number.isInteger(arr[0]) ? [] : {};
+    
+    Object.keys(obj).forEach(k => {
+        newObj[k] = k !== arr[0] ? obj[k] : null;
+    });
+    
+    newObj[arr[0]] =
+        arr.length > 1 ? setIn(arr.slice(1), val, obj[arr[0]]) : val;
+    return newObj;
+};
+let myObj1 = {
+    a: 111,
+    b: 222,
+    c: 333,
+    d: {
+        e: 444,
+        f: 555,
+        g: {
+            h: 666,
+            i: 777
+        },
+        j: [{k: 100}, {k: 200}, {k: 300}]
+    }
+};
+let myObj2 = setIn(["d", "f"], 88888, myObj1);
+console.log(myObj1.d === myObj2.d);     // false
+console.log(myObj1.d.f === myObj2.d.f); // false
+console.log(myObj1.d.g === myObj2.d.g); // true
+
+myObj3 = setIn(["d", "j", 1, "k"], 99999, myObj2);
+console.log(myObj1.d.j === myObj3.d.j);       // false
+console.log(myObj1.d.j[0] === myObj3.d.j[0]); // true
+console.log(myObj1.d.j[1] === myObj3.d.j[1]); // false
+console.log(myObj1.d.j[2] === myObj3.d.j[2]); // true
+
+const deleteIn = (arr, obj) => {
+    const newObj = Number.isInteger(arr[0]) ? [] : {};
+    
+    Object.keys(obj).forEach(k => {
+        if (k !== arr[0]) {
+            newObj[k] = obj[k];
+        }
+    });
+    
+    if (arr.length > 1) {
+        newObj[arr[0]] = deleteIn(arr.slice(1), obj[arr[0]]);
+    }
+    return newObj;
+};
+
+let myObj4 = deleteIn(["d", "g"], myObj3);
+let myObj5 = deleteIn(["d", "j"], myObj4);
+// {a: 111, b: 222, c: 333, d: {e: 444, f: 88888}};
+console.log(myObj5);
+--#
+
+--% section11
+--#
+
+--% section12
+// Boolean.map :: Boolean ⇝ (Boolean → a) → Boolean
+Boolean.prototype.map = function(fn) {
+    return !!fn(this);
+};
+
+// Number.map :: Number ⇝ (Number → a) → Number
+Number.prototype.map = function(fn) {
+    return Number(fn(this));
+};
+
+// String.map :: String ⇝ (String → a) → String
+String.prototype.map = function(fn) {
+    return String(fn(this));
+};
+
+// Function.map :: (a → b) ⇝ (b → c) → (a → c)
+Function.prototype.map = function(fn) {
+    return (...args) => fn(this(...args));
+};
+
+const plus1 = x => x + 1;
+const by10 = y => 10 * y;
+
+console.log(plus1.map(by10)(3));
+// 40: first add 1 to 3, then multiply by 10
+
+const VALUE = Symbol("Value");
+
+class Container {
+    constructor(x) {
+        this[VALUE] = x;
+    }
+    
+    map(fn) {
+        return fn(this[VALUE]);
+    }
+    
+    static of(x) {
+        return new Container(x);
+    }
+    
+    toString() {
+        return `${this.constructor.name}(${this[VALUE]})`;
+    }
+
+    valueOf() {
+        return this[VALUE];
+    }
+}
+
+class Functor extends Container {
+    static of(x) {
+        return new Functor(x);
+    }
+
+    map(fn) {
+        return Functor.of(fn(this[VALUE]));
+    }
+}
+
+class Nothing extends Functor {
+    isNothing() {
+        return true;
+    }
+    
+    toString() {
+        return "Nothing()";
+    }
+    
+    map(fn) {
+        return this;
+    }
+}
+
+class Just extends Functor {
+    isNothing() {
+        return false;
+    }
+    
+    map(fn) {
+        return Maybe.of(fn(this[VALUE]));
+    }
+}
+
+class Maybe extends Functor {
+    constructor(x) {
+        return x === undefined || x === null
+            ? new Nothing()
+            : new Just(x);
+    }
+  
+    static of(x) {
+        return new Maybe(x);
+    }
+    
+    orElse(v) {
+        return this.isNothing() ? v : this.valueOf();
+    }    
+}
+
+console.log(Maybe.of(2209).map(plus1).map(plus1).toString()); // "Just(2211)"
+console.log(Maybe.of(null).map(plus1).map(plus1).toString()); // "Nothing()"
+
+/* Node.JS code:
+const request = require("superagent");
+
+const getAlerts = (lat, long, callback) => {
+    const SERVER = "https://api.darksky.net/forecast";
+    const UNITS = "units=si";
+    const EXCLUSIONS = "exclude=minutely,hourly,daily,flags";
+    const API_KEY = "you.need.to.get.your.own.api.key";
+    
+    request
+        .get(`${SERVER}/${API_KEY}/${lat},${long}?${UNITS}&${EXCLUSIONS}`)
+        .end(function(err, res) {
+            if (err) {
+                callback({});
+            } else {
+                callback(JSON.parse(res.text));
+            }
+        });
+};
+
+const getField = attr => obj => obj[attr];
+const os = require("os");
+
+const produceAlertsTable = weatherObj =>
+    Maybe.of(weatherObj)
+        .map(getField("alerts"))
+        .map(a =>
+            a.map(
+                x =>
+                    `<tr><td>${x.title}</td>` +
+                    `<td>${x.description.substr(0, 500)}...</td></tr>`
+            )
+        )
+        .map(a => a.join(os.EOL))
+        .map(s => `<table>${s}</table>`)
+
+getAlerts(29.76, -95.37, x =>
+    console.log(produceAlertsTable(x).valueOf())
+);
+*/
+
+class Monad extends Functor {
+    static of(x) {
+        return new Monad(x);
+    }
+    
+    map(fn) {
+        return Monad.of(fn(this[VALUE]));
+    }
+    
+    unwrap() {
+        const myValue = this[VALUE];
+        return myValue instanceof Container ? myValue.unwrap() : this;
+    }
+    
+    chain(fn) {
+        return this.map(fn).unwrap();
+    }
+    
+    ap(m) {
+        return m.map(this.valueOf());
+    }
+}
+
+const add = x => y => x+y; // or curry((x,y) => x+y)
+const something = Monad.of(2).map(add);
+const monad5 = something.ap(Monad.of(3));
+console.log(monad5.toString()); 
+
+class Left extends Monad {
+    isLeft() {
+        return true;
+    }
+    
+    map(fn) {
+        return this;
+    }
+}
+
+class Right extends Monad {
+    isLeft() {
+        return false;
+    }
+    
+    map(fn) {
+        return Either.of(null, fn(this[VALUE]));
+    }
+}
+
+class Either extends Monad {
+    constructor(left, right) {
+        return right === undefined || right === null
+            ? new Left(left)
+            : new Right(right);
+    }
+    
+    static of(left, right) {
+        return new Either(left, right);
+    }
+}
+
+class Try extends Either {
+    constructor(fn, msg) {
+        try {
+            return Either.of(null, fn());
+        } catch (e) {
+            return Either.of(msg || e, null);
+        }
+    }
+    
+    static of(fn, msg) {
+        return new Try(fn, msg);
+    }
+}
+
+const getField2 = attr => obj => Try.of(() => obj[attr], "NULL OBJECT");
+const x = getField2("somefield")(null);
+console.log(x.isLeft()); // true
+console.log(x.toString()); // Left(NULL OBJECT)
+
+
+
+const Tree = (value, left, right) => (destructure, __) =>
+    destructure(value, left, right);
+
+const EmptyTree = () => (__, destructure) => destructure();
+
+const myTree = Tree(
+    22,
+    Tree(
+        9,
+        Tree(4, EmptyTree(), EmptyTree()),
+        Tree(12, EmptyTree(), EmptyTree())
+    ),
+    Tree(
+        60,
+        Tree(56, EmptyTree(), EmptyTree()),
+        EmptyTree()
+    )
+);
+
+const myRoot = myTree((value, left, right) => value, () => null);
+
+const treeRoot = tree => tree((value, left, right) => value, () => null);
+const treeLeft = tree => tree((value, left, right) => left, () => null);
+const treeRight = tree => tree((value, left, right) => right, () => null);
+
+const treeIsEmpty = tree => tree(() => false, () => true);
+
+const treeCount = aTree => aTree(
+    (value, left, right) => 1 + treeCount(left) + treeCount(right),
+    () => 0
+);
+console.log(treeCount(myTree));
+
+const treeToObject = tree =>
+    tree((value, left, right) => {
+        const leftBranch = treeToObject(left);
+        const rightBranch = treeToObject(right);
+        const result = { value };
+        if (leftBranch) {
+            result.left = leftBranch;
+        }
+        if (rightBranch) {
+            result.right = rightBranch;
+        }
+        return result;
+    }, () => null);
+console.log(treeToObject(myTree));
+
+const treeSearch = (findValue, tree) =>
+    tree(
+        (value, left, right) =>
+            findValue === value
+                ? true
+                : findValue < value
+                  ? treeSearch(findValue, left)
+                  : treeSearch(findValue, right),
+        () => false
+    );
+
+const treeInsert = (newValue, tree) =>
+    tree(
+        (value, left, right) =>
+            newValue <= value
+                ? Tree(value, treeInsert(newValue, left), right)
+                : Tree(value, left, treeInsert(newValue, right)),
+        () => Tree(newValue, EmptyTree(), EmptyTree())
+    );
+    
+const compare = (obj1, obj2) =>
+    obj1.key === obj2.key ? 0 : obj1.key < obj2.key ? -1 : 1;
+
+const treeInsert2 = (comparator, newValue, tree) =>
+    tree(
+        (value, left, right) =>
+            comparator(newValue, value) === 0
+                ? Tree(newValue, left, right)
+                : comparator(newValue, value) < 0
+                  ? Tree(
+                        value,
+                        treeInsert2(comparator, newValue, left),
+                        right
+                    )
+                  : Tree(
+                        value,
+                        left,
+                        treeInsert2(comparator, newValue, right)
+                    ),
+        () => Tree(newValue, EmptyTree(), EmptyTree())
+    );
+
+const treeMap = (fn, tree) =>
+    tree(
+        (value, left, right) =>
+            Tree(fn(value), treeMap(fn, left), treeMap(fn, right)),
+        () => EmptyTree()
+    );  
+--#

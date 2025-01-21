@@ -1,0 +1,1504 @@
+--% index/fmus
+__PWD,d
+    step.js,f(e=__CURDIR__/steps.fmus=step0)
+        $ more step.js
+    step.js,f(e=__FILE__=step1)
+        $ more step.js
+    step.js,f(e=__FILE__=step2)
+        $ more step.js
+    step.js,f(e=__FILE__=step3)
+        $ more step.js
+    step.js,f(e=__FILE__=step4)
+        $ more step.js
+    step.js,f(e=__FILE__=step5)
+        $ more step.js
+    step.js,f(e=__FILE__=step6)
+        $ more step.js
+    step.js,f(e=__FILE__=step7)
+        $ more step.js
+    step.js,f(e=__FILE__=step8)
+        $ more step.js
+    step.js,f(e=__FILE__=step9)
+        $ more step.js
+    step10.js,f(e=__FILE__=step10)
+        $ more step10.js
+--#
+
+--% step1
+//Run this example on JSBin REPL - http://jsbin.com/
+
+//Function Declarations
+function add(a,b){
+ return a+b;
+}
+c = add(1,2);
+console.log(c);  //prints 3
+
+//function expressions
+var add = function(a,b){
+ return a+b;
+}
+c = add(1,2);
+console.log(c);  //prints 3
+
+var facto = function factorial(n) {
+ if (n <= 1)
+   return 1;
+ return n * factorial(n - 1);
+};
+console.log(facto(3));  //prints 6
+
+//Self invoking function expressions
+(function sayHello() {
+  console.log("hello!");
+})();
+
+//Function passed as parameter to another function
+function changeCase(val) {
+ return val.toUpperCase();
+}
+function demofunc(a, passfunction) {
+ console.log(passfunction(a));
+}
+demofunc("smallcase", changeCase);
+--#
+
+--% step2
+//Run this example on JSBin REPL - http://jsbin.com/
+var validateDataForAge = function(data) {
+ person = data();
+ console.log(person);
+ if (person.age <1 || person.age > 99){
+   return true;
+ }else{
+   return false;
+ }
+};
+var errorHandlerForAge = function(error) {
+ console.log("Error while processing age");
+};
+function parseRequest(data,validateData,errorHandler) {
+ var error = validateData(data);
+ if (!error) {
+   console.log("no errors");
+ } else {
+   errorHandler();
+ }
+}
+var generateDataForScientist = function() {
+ return {
+   name: "Albert Einstein",
+   age : Math.floor(Math.random() * (100 - 1)) + 1,
+ };
+};
+var generateDataForComposer = function() {
+     return {
+       name: "J S Bach",
+       age : Math.floor(Math.random() * (100 - 1)) + 1,
+     };
+};
+//parse request
+parseRequest(generateDataForScientist, validateDataForAge, errorHandlerForAge);
+parseRequest(generateDataForComposer, validateDataForAge, errorHandlerForAge);
+--#
+
+--% step3
+//Run this example on JSBin REPL - http://jsbin.com/
+//Global Scope
+var a = 1;
+function scopeTest() {
+ a = 2; //Overwrites global variable 2, you omit 'var'
+ console.log(a);
+}
+console.log(a); //prints 1
+scopeTest();  //prints 2
+console.log(a); //prints 2 (global value is overwritten)
+
+//LocalScope
+var scope_name = "Global";
+function showScopeName () {
+ // local variable; only accessible in this function
+ var scope_name = "Local";
+ console.log (scope_name); // Local
+}
+console.log (scope_name);     //prints - Global
+showScopeName();             //prints – Local
+--#
+
+--% step4
+var a = 1;
+//Lets introduce a function -scope
+//1. Add a named function foo() into the global scope
+function foo() {
+var a = 2;
+ console.log( a ); // 2
+}
+//2. Now call the named function foo() foo();
+console.log( a ); // 1
+
+//Same thing with a better approach 
+var x = 1;
+//Lets introduce a function -scope
+//1. Add a named function foo() into the global scope
+(function foo() {
+var x = 2;
+	console.log( x ); // 2
+})(); 
+//<---this function executes immediately console.log( x ); // 1
+
+//IIFE with params
+(function foo(b) {
+    var a = 2;
+    console.log( a + b );
+})(3); //prints 5
+
+//Inline function expressions
+function setActiveTab(activeTabHandler, tab){
+     //set active tab
+     //call handler
+     activeTabHandler();
+}
+setActiveTab( function (){
+console.log( "Setting active tab" ); }, 1 );
+   //prints "Setting active tab"
+--#
+
+--% step5
+var sum = function () {
+ var i, total = 0;
+ for (i = 0; i < arguments.length; i += 1) {
+   total += arguments[i];
+ }
+ return total;
+};
+console.log(sum(1,2,3,4,5,6,7,8,9)); // prints 45
+console.log(sum(1,2,3,4,5)); // prints 15
+--#
+
+--% step6
+var outer = 'Outer'; //Variable declared in global scope
+ var copy;
+ function outerFn(){  //Function declared in global scope
+   var inner = 'Inner'; //Variable has function scope only, can not be
+   //accessed from outside
+   function innerFn(){     //Inner function within Outer function,
+     //both global context and outer
+     //context are available hence can access
+     //'outer' and 'inner'
+     console.log(outer);
+     console.log(inner);
+   }
+   copy=innerFn;          //Store reference to inner function,
+   //because 'copy' itself is declared
+   //in global context, it will be available
+   //outside also
+ }
+ outerFn();
+ copy();  //Cant invoke innerFn() directly but can invoke via a variable declared in global scope
+--#
+
+--% step7
+function delay(message) {
+     setTimeout( function timerFn(){
+       console.log( message );
+     }, 1000 );
+   }
+ delay( "Hello World" );
+--#
+
+--% step8
+function privateTest(){
+     var points=0;
+     this.getPoints=function(){
+       return points;
+     };
+     this.score=function(){
+		points++; 
+	 };
+}
+var private = new privateTest();
+private.score();
+console.log(private.points); // undefined
+console.log(private.getPoints());
+
+--#
+
+--% step9
+//Loops and closures
+for (var i=1; i<=5; i++) {
+     setTimeout( function delay(){
+       console.log( i );
+     }, i*100);
+}
+
+//Correct way
+ for (var i=1; i<=5; i++) {
+     (function(j){
+       setTimeout( function delay(){
+         console.log( j );
+     }, j*100);
+  })( i );
+}
+--#
+
+--% step10
+//Modules
+var superModule = (function (){
+ var secret = 'supersecretkey';
+ var passcode = 'nuke';
+ function getSecret() {
+   console.log( secret );
+}
+ function getPassCode() {
+   console.log( passcode );
+}
+return {
+   getSecret: getSecret,
+   getPassCode: getPassCode
+}; })();
+
+superModule.getSecret();
+superModule.getPassCode();
+--#
+
+--% step11
+var pattern = /orange/;
+console.log(pattern.test("orange")); // true
+var patternIgnoreCase = /orange/i;
+console.log(patternIgnoreCase.test("Orange")); // true
+var patternGlobal = /orange/ig;
+console.log(patternGlobal.test("Orange Juice")); // true	
+--#
+
+--% step12
+var pattern = /[abc]/;
+console.log(pattern.test('a')); //true
+console.log(pattern.test('d')); //false
+
+var pattern = /[^abc]/;
+console.log(pattern.test('a')); //false
+console.log(pattern.test('d')); //true	
+
+var pattern = /[0-5]/;
+console.log(pattern.test(3)); //true
+console.log(pattern.test(12345)); //true
+console.log(pattern.test(9)); //false
+console.log(pattern.test(6789)); //false
+console.log(/[0123456789]/.test("This is year 2015")); //true
+--#
+
+--% step13
+
+var strToMatch = 'A Toyota! Race fast, safe car! A Toyota!';
+var regExAt = /Toy/;
+var arrMatches = regExAt.exec(strToMatch);
+console.log(arrMatches);
+
+var strToMatch = 'A Toyota! Race fast, safe car! A Toyota!';
+var regExAt = /oyo/g;
+var arrMatches = regExAt.exec(strToMatch);
+console.log(arrMatches);
+
+var strToMatch = 'A Toyota! Race fast, safe car! A Toyota!';
+var regExAt = /Toy/;
+var arrMatches = strToMatch.match(regExAt);
+console.log(arrMatches);
+
+var strToMatch = 'Blue is your favorite color ?';
+var regExAt = /Blue/;
+console.log(strToMatch.replace(regExAt, "Red"));
+//Output- "Red is your favorite color ?"
+
+var strToMatch = 'Blue is your favorite color ?';
+var regExAt = /Blue/;
+console.log(strToMatch.replace(regExAt, function(matchingText){
+return 'Red';
+}));
+//Output- "Red is your favorite color ?"
+
+var sColor = 'sun,moon,stars';
+var reComma = /\,/;
+console.log(sColor.split(reComma));
+//Output - ["sun", "moon", "stars"]
+
+var strToMatch = 'wooden bat, smelly Cat,a fat cat';
+var re = /[bcf]at/gi;
+var arrMatches = strToMatch.match(re);
+console.log(arrMatches);
+//["bat", "Cat", "fat", "cat"]
+
+var strToMatch = 'i1,i2,i3,i4,i5,i6,i7,i8,i9';
+var re = /i[0-5]/gi;
+var arrMatches = strToMatch.match(re);
+console.log(arrMatches);
+//["i1", "i2", "i3", "i4", "i5"]
+
+var strToMatch = 'i1,i2,i3,i4,i5,i6,i7,i8,i9';
+var re = /i[^0-5]/gi;
+var arrMatches = strToMatch.match(re);
+console.log(arrMatches);
+//["i6", "i7", "i8", "i9"]
+
+var strToMatch = '123-456-7890';
+var re = /[0-9][0-9][0-9]-[0-9][0-9][0-9]/;
+var arrMatches = strToMatch.match(re);
+console.log(arrMatches);
+//["123-456"]
+
+var strToMatch = '123-456-7890';
+var re = /\d\d\d-\d\d\d/;
+var arrMatches = strToMatch.match(re);
+console.log(arrMatches);
+//["123-456"]
+--#
+
+--% step14
+var str = /behaviou?r/;
+console.log(str.test("behaviour"));
+// true
+console.log(str.test("behavior"));
+// true
+
+console.log(/'\d+'/.test("'123'")); // true
+
+var heartyLaugh = /Ha+(Ha+)+/i;
+console.log(heartyLaugh.test("HaHaHaHaHaHaHaaaaaaaaaaa"));
+//true
+
+console.log(/cat/.test('a black cat')); //true
+
+console.log(/\bcat/.test('a black cat')); //true
+
+console.log(/\bcat/.test('tomcat')); //false
+
+console.log(/cat\b/.test('tomcat')); //true
+
+console.log(/\bcat\b/.test('a black cat')); //true
+
+console.log(/\bcat\b/.test("concatenate")); //false
+var match = /\d+/.exec("There are 100 ways to do this");
+console.log(match);
+// ["100"]
+console.log(match.index);
+// 10
+--#
+
+--% step15
+var orig = "1234 5678";
+var re = /(\d{4}) (\d{4})/;
+var modifiedStr = orig.replace(re, "$2 $1");
+console.log(modifiedStr); //outputs "5678 1234"
+--#
+
+--% step16
+function trim(str) {
+ return (str || "").replace(/^\s+|\s+$/g, "");
+}
+console.log("--"+trim("   test    ")+"--");
+//"--test--"
+
+re=/\s+/g;
+console.log('There are    a lot      of spaces'.replace(re,' '));
+//"There are a lot of spaces"	
+--#
+
+--% step17
+var arr = [10];
+var arr = Array(10); // Creates an array with no element, but with arr.length set to 10
+// The above code is equivalent to
+var arr = [];
+arr.length = 10;
+
+var days = [];
+days[0] = "Sunday";
+days[1] = "Monday";
+
+var arr_generic = new Array("A String", myCustomValue, 3.14);
+var fruits = ["Mango", "Apple", "Orange"];
+
+var arr = ['string', 42.0, true, false, null, undefined,['sub', 'array'], {object: true}, NaN];
+
+var days = ["Sunday", "Monday", "Tuesday"];
+
+var colors = [];
+colors[30] = ['Green'];
+console.log(colors.length); // 31
+
+var colors = ['Red', 'Blue', 'Yellow'];
+console.log(colors.length); // 3
+colors.length = 2;
+console.log(colors); // ["Red","Blue"] - Yellow has been removed
+colors.length = 0;
+console.log(colors); // [] the colors array is empty
+colors.length = 3;
+console.log(colors); // [undefined, undefined, undefined]
+
+var colors = ['red', 'green', 'blue'];
+for (var i = 0; i < colors.length; i++) {
+	console.log(colors[i]);
+}
+
+var colors = ['red', 'green', 'blue'];
+colors.forEach(function(color) {
+ console.log(color);
+});
+
+var myArray = new Array("33", "44", "55");
+myArray = myArray.concat("3", "2", "1");
+console.log(myArray);
+// ["33", "44", "55", "3", "2", "1"]
+
+var myArray = new Array('Red','Blue','Yellow');
+var list = myArray.join(" ~ ");
+console.log(list);
+//"Red - Blue - Yellow"
+
+var myArray = new Array("1", "2", "3");
+var last = myArray.pop();
+// myArray = ["1", "2"], last = "3"
+
+var myArray = new Array("1", "2");
+myArray.push("3");
+// myArray = ["1", "2", "3"]
+
+var myArray = new Array ("1", "2", "3");
+var first = myArray.shift();
+// myArray = ["2", "3"], first = "1"
+
+var myArray = new Array ("1", "2", "3");
+myArray.unshift("4", "5");
+// myArray = ["4", "5", "1", "2", "3"]
+
+var myArray = new Array ("1", "2", "3");
+myArray.reverse();
+// transposes the array so that myArray = [ "3", "2", "1" ]
+
+var myArray = new Array("A", "C", "B");
+myArray.sort();
+// sorts the array so that myArray = [ "A","B","c" ]
+--#
+
+--% step18
+var a = ['a', 'b', 'a', 'b', 'a','c','a'];
+console.log(a.indexOf('b')); // 1
+// Now try again, starting from after the last match
+console.log(a.indexOf('b', 2)); // 3
+console.log(a.indexOf('1')); // -1, 'q' is not found
+
+var a = ['a', 'b', 'c', 'd', 'a', 'b'];
+console.log(a.lastIndexOf('b')); //  5
+// Now try again, starting from before the last match
+console.log(a.lastIndexOf('b', 4)); //  1
+console.log(a.lastIndexOf('z')); //  -1
+--#
+
+--% step19
+//Object Notation
+var nothing = {};
+var author = {
+	"firstname": "Douglas",
+    "lastname": "Crockford"
+}
+
+var author_javascript = {
+     firstname : "Douglas",
+     lastname : "Crockford",
+     book : {
+       title:"JavaScript- The Good Parts",
+       pages:"172"
+     }
+};
+console.log(author_javascript['firstname']); //Douglas
+console.log(author_javascript.lastname);     //Crockford
+console.log(author_javascript.book.title);   // JavaScript- The Good Parts
+console.log(author.age); //Undefined
+console.log(author.age || "No Age Found"); //No Age Found
+
+//Updating an object property
+author.book.pages = 190;
+console.log(author.book.pages); //190
+
+//functions as object property
+var meetingRoom = {};
+   meetingRoom.book = function(roomId){
+     console.log("booked meeting room -"+roomId);
+}
+meetingRoom.book("VL");
+--#
+
+--% step20
+//Prototype
+//A function that returns nothing and creates nothing
+function Player() {}
+
+//Add a function to the prototype property of the function
+Player.prototype.usesBat = function() {
+ return true;
+}
+//We call player() as a function and prove that nothing happens
+var crazyBob = Player();
+if(crazyBob === undefined){
+ console.log("CrazyBob is not defined");
+}
+//Now we call player() as a constructor along with 'new'
+//1. The instance is created
+//2. method usesBat() is derived from the prototype of the function
+var swingJay = new Player();
+if(swingJay && swingJay.usesBat && swingJay.usesBat()){
+ console.log("SwingJay exists and can use bat");
+}
+--#
+
+--% step21
+function Player() {
+ this.isAvailable = function() {
+   return "Instance method says - he is hired";
+ };
+}
+Player.prototype.isAvailable = function() {
+ return "Prototype method says - he is Not hired";
+};
+var crazyBob = new Player();
+console.log(crazyBob.isAvailable());
+--#
+
+--% step22
+function Player(name,sport,age,country){
+     this.constructor.noOfPlayers++;
+     // Private Properties and Functions
+     // Can only be viewed, edited or invoked by privileged members
+     var retirementAge = 40;
+     var available=true;
+     var playerAge = age?age:18;
+     
+     function isAvailable(){ 
+          return available && (playerAge<retirementAge); 
+     }
+
+     var playerName=name ? name :"Unknown";
+     var playerSport = sport ? sport : "Unknown";
+     // Privileged Methods
+     // Can be invoked from outside and can access private members
+     // Can be replaced with public counterparts
+     this.book=function(){
+       if (!isAvailable()){
+         this.available=false;
+       } else {
+         console.log("Player is unavailable");
+       } 
+     };
+
+     this.getSport=function(){ return playerSport; };
+
+     // Public properties, modifiable from anywhere
+     this.batPreference="Lefty";
+     this.hasCelebGirlfriend=false;
+     this.endorses="Super Brand";
+}
+// Public methods - can be read or written by anyone
+// Can only access public and prototype properties
+Player.prototype.switchHands = function(){ this. batPreference="righty"; };
+Player.prototype.dateCeleb = function(){ this.hasCelebGirlfriend=true; };
+Player.prototype.fixEyes = function(){ this.wearGlasses=false; };
+// Prototype Properties - can be read or written by anyone (or overridden)
+Player.prototype.wearsGlasses=true;
+// Static Properties - anyone can read or write
+Player.noOfPlayers = 0;
+
+(function PlayerTest(){
+     //New instance of the Player object created.
+     var cricketer=new Player("Vivian","Cricket",23,"England");
+     var golfer =new Player("Pete","Golf",32,"USA");
+     console.log("So far there are " + Player.noOfPlayers + " in the guild");
+     //Both these functions share the common 'Player.prototype. wearsGlasses' variable
+     cricketer.fixEyes();
+     golfer.fixEyes();
+     cricketer.endorses="Other Brand";//public variable can be updated
+     //Both Player's public method is now changed via their prototype
+     Player.prototype.fixEyes=function(){
+       this.wearGlasses=true;
+     };
+     //Only Cricketer's function is changed
+     cricketer.switchHands=function(){
+       this.batPreference="undecided";
+     };
+})();
+--#
+
+--% step23
+function Person() {}
+Person.prototype.cry = function() {
+ console.log("Crying");
+}
+function Child() {}
+Child.prototype = {cry: Person.prototype.cry};
+var aChild = new Child();
+console.log(aChild instanceof Child);  //true
+console.log(aChild instanceof Person); //false
+console.log(aChild instanceof Object); //true
+--#
+
+--% step24
+function Person() {}
+	Person.prototype.cry = function() {
+	console.log("Crying");
+}
+function Child() {}
+Child.prototype = new Person();
+var aChild = new Child();
+console.log(aChild instanceof Child);  //true
+console.log(aChild instanceof Person); //true
+console.log(aChild instanceof Object); //true
+
+--#
+
+--% step25
+function Employee() {
+     this.name = '';
+     this.dept = 'None';
+     this.salary = 0.00;
+}
+function Manager() {
+ Employee.call(this);
+ this.reports = [];
+}
+Manager.prototype = Object.create(Employee.prototype);
+
+function IndividualContributor() {
+   Employee.call(this);
+   this.active_projects = [];
+ }
+ IndividualContributor.prototype = Object.create(Employee.prototype);
+ function TeamLead() {
+   Manager.call(this);
+   this.dept = "Software";
+   this.salary = 100000;
+ }
+ TeamLead.prototype = Object.create(Manager.prototype);
+ function Engineer() {
+   TeamLead.call(this);
+   this.dept = "JavaScript";
+   this.desktop_id = "8822" ;
+   this.salary = 80000;
+ }
+Engineer.prototype = Object.create(TeamLead.prototype);
+
+var genericEmployee = new Employee();
+console.log(genericEmployee);
+--#
+
+--% step26
+String.prototype.reverse = function() {
+     return Array.prototype.reverse.apply(this.split('')).join('');
+   };
+var str = 'JavaScript';
+console.log(str.reverse()); //"tpircSavaJ"
+--#
+
+--% step27
+var person = {
+ firstname: "Albert",
+ lastname: "Einstein",
+ setLastName: function(_lastname){
+   this.lastname= _lastname;
+ },
+ setFirstName: function (_firstname){
+   this.firstname= _firstname;
+ },
+ getFullName: function (){
+   return this.firstname + ' '+ this.lastname;
+ }
+};
+person.setLastName('Newton');
+person.setFirstName('Issac');
+console.log(person.getFullName());
+--#
+
+--% step28
+var person = {
+ firstname: "Albert",
+ lastname: "Einstein",
+ get fullname() {
+   return this.firstname +" "+this.lastname;
+ },
+ set fullname(_name){
+   var words = _name.toString().split(' ');
+   this.firstname = words[0];
+   this.lastname = words[1];
+} };
+person.fullname = "Issac Newton";
+console.log(person.firstname); //"Issac"
+console.log(person.lastname);  //"Newton"
+console.log(person.fullname);  //"Issac Newton"
+--#
+
+--% step29
+var person = {
+ firstname: "Albert",
+ lastname: "Einstein",
+};
+Object.defineProperty(person, 'fullname', {
+ get: function() {
+   return this.firstname + ' ' + this.lastname;
+ },
+ set: function(name) {
+   var words = name.split(' ');
+   this.firstname = words[0];
+   this.lastname = words[1];
+} });
+person.fullname = "Issac Newton";
+console.log(person.firstname); //"Issac"
+console.log(person.lastname);  //"Newton"
+console.log(person.fullname);  //"Issac Newton"
+--#
+
+--% step30
+function Car() {}
+function BMW() {}
+var engines = 1;
+var features = {
+	seats: 6,
+	airbags:6 
+};
+
+// Single global object
+var CARFACTORY = CARFACTORY || {};
+CARFACTORY.Car = function () {};
+CARFACTORY.BMW = function () {};
+CARFACTORY.engines = 1;
+CARFACTORY.features = {
+	seats: 6,
+	airbags:6 
+};
+--#
+
+--% step31
+var basicServerConfig = {
+ environment: "production",
+ startupParams: {
+   cacheTimeout: 30,
+   locale: "en_US"
+ },
+ init: function () {
+   console.log( "Initializing the server" );
+ },
+ updateStartup: function( params ) {
+     this.startupParams = params;
+     console.log( this.startupParams.cacheTimeout );
+     console.log( this.startupParams.locale );
+} };
+basicServerConfig.init(); //"Initializing the server"
+basicServerConfig.updateStartup({cacheTimeout:60,locale:"en_UK"}); //60, en_UK
+--#
+
+--% step32
+var basicServerConfig = (function () {
+ var environment= "production";
+ startupParams= {
+   cacheTimeout: 30,
+   locale: "en_US"
+ };
+ return {
+   init: function () {
+     console.log( "Initializing the server" );
+   },
+   updateStartup: function( params ) {
+     this.startupParams = params;
+     console.log( this.startupParams.cacheTimeout );
+     console.log( this.startupParams.locale );
+   } 
+  };
+})();
+basicServerConfig.init(); //"Initializing the server"
+basicServerConfig.updateStartup({cacheTimeout:60,locale:"en_UK"}); //60, en_UK
+--#
+
+--% step33
+// Single global object
+   var SERVER = SERVER||{};
+   SERVER.basicServerConfig = (function () {
+     var environment= "production";
+     startupParams= {
+     cacheTimeout: 30,
+      locale: "en_US"
+  };
+  return {
+    init: function () {
+      console.log( "Initializing the server" );
+    },
+    updateStartup: function( params ) {
+      this.startupParams = params;
+      console.log( this.startupParams.cacheTimeout );
+      console.log( this.startupParams.locale );
+    } 
+   };
+})();
+SERVER.basicServerConfig.init(); //"Initializing the server"
+SERVER.basicServerConfig.updateStartup({cacheTimeout:60,locale:"en_UK"}); //60, en_UK
+--#
+
+--% step34
+var modulePattern = function(){
+ var privateOne = 1;
+ function privateFn(){
+   console.log('privateFn called');
+ }
+ return {
+   publicTwo: 2,
+   publicFn:function(){
+     modulePattern.publicFnTwo();
+   },
+   publicFnTwo:function(){
+     privateFn();
+   } 
+  }
+}();
+modulePattern.publicFn(); "privateFn called"
+--#
+
+--% step35
+var revealingExample = function(){
+ var privateOne = 1;
+ function privateFn(){
+   console.log('privateFn called');
+ }
+ var publicTwo = 2;
+ function publicFn(){
+   publicFnTwo();
+ }
+ function publicFnTwo(){
+   privateFn();
+ }
+ function getCurrentState(){
+return 2; }
+ // reveal private variables by assigning public pointers
+ return {
+   setup:publicFn,
+   count:publicTwo,
+   increaseCount:publicFnTwo,
+   current:getCurrentState()
+}; }();
+console.log(revealingExample.current); // 2
+revealingExample.setup(); //privateFn called
+--#
+
+--% step36
+// Factory Constructor
+function CarFactory() {}
+CarFactory.prototype.info = function() {
+ console.log("This car has "+this.doors+" doors and a
+   "+this.engine_capacity+" liter engine");
+};
+// the static factory method
+CarFactory.make = function (type) {
+   var constr = type;
+   var car;
+   CarFactory[constr].prototype = new CarFactory();
+   // create a new instance
+   car = new CarFactory[constr]();
+   return car;
+};
+CarFactory.Compact = function () {
+   this.doors = 4;
+   this.engine_capacity = 2;
+};
+CarFactory.Sedan = function () {
+  this.doors = 2;
+  this.engine_capacity = 2;
+};
+CarFactory.SUV = function () {
+  this.doors = 4;
+  this.engine_capacity = 6;
+};
+var golf = CarFactory.make('Compact');
+var vento = CarFactory.make('Sedan');
+var touareg = CarFactory.make('SUV');
+golf.info(); //"This car has 4 doors and a 2 liter engine"
+--#
+
+--% step37
+var _ = require('underscore');
+   //Shared functionality encapsulated into a CustomLogger
+   var logger = (function () {
+     var CustomLogger = {
+       log: function (message) {
+         console.log(message);
+       }
+     };
+     return CustomLogger;
+   }());
+   //An object that will need the custom logger to log system specific logs
+   var Server = (function (Logger) {
+     var CustomServer = function () {
+       this.init = function () {
+         this.log("Initializing Server...");
+     };
+    };
+     // This copies/extends the members of the 'CustomLogger' into 'CustomServer'
+     _.extend(CustomServer.prototype, Logger);
+     return CustomServer;
+   }(logger));
+   (new Server()).init(); //Initializing Server...
+
+--#
+
+--% step38
+//Implement BasicServer that does the bare minimum
+   function BasicServer() {
+     this.pid = 1;
+     console.log("Initializing basic Server");
+     this.decorators_list = []; //Empty list of decorators
+   }
+   //List of all decorators
+   BasicServer.decorators = {};
+   //Add each decorator to the list of BasicServer's decorators
+   //Each decorator in this list will be applied on the BasicServer
+     instance
+   BasicServer.decorators.reverseProxy = {
+     init: function(pid) {
+       console.log("Started Reverse Proxy");
+       return pid + 1;
+} };
+   BasicServer.decorators.servePHP = {
+     init: function(pid) {
+       console.log("Started serving PHP");
+       return pid + 1;
+     }
+   };
+   BasicServer.decorators.serveNode = {
+     init: function(pid) {
+       console.log("Started serving Node");
+       return pid + 1;
+} };
+//Push the decorator to this list everytime decorate() is called
+   BasicServer.prototype.decorate = function(decorator) {
+     this.decorators_list.push(decorator);
+   };
+   //init() method looks through all the applied decorators on
+     BasicServer
+   //and executes init() method on all of them
+   BasicServer.prototype.init = function () {
+     var running_processes = 0;
+     var pid = this.pid;
+     for (i = 0; i < this.decorators_list.length; i += 1) {
+       decorator_name = this.decorators_list[i];
+       running_processes =
+         BasicServer.decorators[decorator_name].init(pid);
+     }
+     return running_processes;
+   };
+var phpServer = new BasicServer();
+phpServer = phpServer.decorate('reverseProxy');
+phpServer = phpServer.decorate('servePHP');
+phpServer = phpServer.decorate('80');
+phpServer = phpServer.decorate('serveStaticAssets');
+phpServer.init();
+
+var nodeServer = new BasicServer();
+nodeServer = nodeServer.decorate('serveNode');
+nodeServer = nodeServer.decorate('3000');
+nodeServer.init();
+--#
+
+--% step39
+var Subject = ( function(  ) {
+   function Subject() {
+     this.observer_list = [];
+   }
+   // this method will handle adding observers to the internal list
+   Subject.prototype.add_observer = function ( obj ) {
+     console.log( 'Added observer' );
+     this.observer_list.push( obj );
+   };
+   Subject.prototype.remove_observer = function ( obj ) {
+     for( var i = 0; i < this.observer_list.length; i++ ) {
+       if( this.observer_list[ i ] === obj ) {
+         this.observer_list.splice( i, 1 );
+         console.log( 'Removed Observer' );
+       } 
+    }
+  };
+  Subject.prototype.notify = function () {
+     var args = Array.prototype.slice.call( arguments, 0 );
+     for( var i = 0; i<this.observer_list.length; i++ ) {
+       this.observer_list[i].update(args);
+     } 
+  };
+  return Subject;
+})();
+--#
+
+--% step40
+function Tweeter() {
+     var subject = new Subject();
+     this.addObserver = function ( observer ) {
+       subject.add_observer( observer );
+     };
+     this.removeObserver = function (observer) {
+       subject.remove_observer(observer);
+     };
+     this.fetchTweets = function fetchTweets() {
+       // tweet
+       var tweet = {
+         tweet: "This is one nice observer"
+       };
+       // notify our observers of the stock change
+       subject.notify( tweet );
+     };
+}
+
+var TweetUpdater = {
+     update : function() {
+       console.log( 'Updated Tweet -  ', arguments );
+     }
+ };
+var TweetFollower = {
+  update : function() {
+    console.log( '"Following this tweet -  ', arguments );
+  }
+};
+
+var tweetApp = new Tweeter();
+tweetApp.addObserver( TweetUpdater );
+tweetApp.addObserver( TweetFollower );
+tweetApp.fetchTweets();
+tweetApp.removeObserver(TweetUpdater);
+tweetApp.removeObserver(TweetFollower);
+--#
+
+--% step41
+//Block scoping for IIFE
+var a = 1;
+(function blockscope(){
+var a = 2;
+   console.log(a);  // 2
+})();
+console.log(a);     // 1
+--#
+
+--% step42
+"use strict";
+var a = 1;
+{
+let a = 2;
+  console.log( a ); // 2
+}
+console.log( a ); // 1
+--#
+
+--% step43
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+function fooey() {
+     console.log(foo); // ReferenceError
+     let foo = 5000;
+}
+for (let i = 0; i<5; i++) {
+    console.log(i);
+}
+console.log(i); // i is not defined
+
+--#
+
+--% step44
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+if(true){
+     const a=1;
+     console.log(a);
+     a=100;  ///"a" is read-only, you will get a TypeError
+}
+--#
+
+--% step45
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+function sum(a,b){
+ a = a || 0;
+ b = b || 0;
+ return (a+b);
+}
+console.log(sum(9,9)); //18
+console.log(sum(9));   //9
+
+function sum(a=0, b=0){
+ return (a+b);
+}
+console.log(sum(9,9)); //18
+console.log(sum(9));   //9
+--#
+
+--% step46
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+function print(a, b){
+ console.log(a,b);
+}
+print(...[1,2]);  //1 [2]
+
+var a = [1,2];
+var b = [ 0, ...a, 3 ];
+console.log( b ); //[0,1,2,3]   
+
+function print (a,...b){
+ console.log(a,b);
+}
+console.log(print(1,2,3,4,5,6,7));  //1 [2,3,4,5,6,7]
+--#
+
+--% step47
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+var [start, end] = [0,5];
+for (let i=start; i<end; i++){
+ console.log(i);
+}
+//prints - 0,1,2,3,4
+
+function fn() {
+ return [1,2,3];
+}
+var [a,b,c]=fn();
+console.log(a,b,c); //1 2 3
+//We can skip one of them
+var [d,,f]=fn();
+console.log(d,f);   //1 3
+//Rest of the values are not used
+var [e,] = fn();
+console.log(e); //1
+
+--#
+
+--% step48
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+//Object Destructuring
+function f() {
+     return {
+       a: 'a',
+       b: 'b',
+       c: 'c'
+	}; 
+}
+var { a: a, b: b, c: c } = f();
+console.log(a,b,c); //a b c
+//this is target: source - which is incorrect
+var { x: a, x: b, x: c } = f();
+console.log(x,y,z); //x is undefined, y is undefined z is undefined
+//this is source: target - correct
+var { a: x, b: y, c: z } = f();
+console.log(x,y,z); // a b c
+--#
+
+--% step49
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+function SuperLogger(level, clazz, msg){
+     console.log(`${level} : Exception happened in class: ${clazz} - Exception : ${msg}`);
+}
+SuperLogger("Log","Logger","Unknown Exception");
+--#
+
+--% step50
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+var quote =
+   `Good night, good night!
+   Parting is such sweet sorrow,
+   that I shall say good night
+   till it be morrow.`;
+console.log( quote );
+
+function sum(a,b){
+ console.log(`The sum seems to be ${a + b}`);
+}
+sum(1,2); //The sum seems to be 3
+
+--#
+
+--% step51
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+function emmy(key, ...values){
+	console.log(key);
+	console.log(values);
+}
+let category="Best Movie";
+let movie="Adventures in ES6";
+emmy`And the award for ${category} goes to ${movie}`;
+//["And the award for "," goes to ",""]
+//["Best Movie","Adventures in ES6"]
+--#
+
+--% step52
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+function priceFilter(s, ...v){
+  //Bump up discount
+  return s[0]+ (v[0] + 5);
+}
+let default_discount = 20;
+let greeting = priceFilter `Your purchase has a discount of
+${default_discount} percent`;
+console.log(greeting); //Your purchase has a discount of 25
+--#
+
+--% step53
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+let m = new Map();
+let s = { 'seq' : 101 };
+m.set('1','Albert');
+m.set('MAX', 99);
+m.set(s,'Einstein');
+console.log(m.has('1')); //true
+console.log(m.get(s)); //Einstein
+console.log(m.size); //3
+m.delete(s);
+m.clear();
+
+
+let m2 = new Map([
+   [ 1, 'Albert' ],
+   [ 2, 'Douglas' ],
+   [ 3, 'Clive' ],
+]);
+for (let a of m2.entries()){
+ console.log(a);
+}
+//[1,"Albert"] [2,"Douglas"][3,"Clive"]
+for (let a of m2.keys()){
+ console.log(a);
+} //1 2 3
+for (let a of m2.values()){
+console.log(a);
+}
+//Albert Douglas Clive
+--#
+
+--% step54
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+let x = {'first': 'Albert'};
+   let s = new Set([1,2,'Sunday',x]);
+   //console.log(s.has(x));  //true
+   s.add(300);
+   //console.log(s);  //[1,2,"Sunday",{"first":"Albert"},300]
+   for (let a of s.entries()){
+     console.log(a);
+   }
+   //[1,1]
+   //[2,2]
+   //["Sunday","Sunday"]
+   //[{"first":"Albert"},{"first":"Albert"}]
+   //[300,300]
+   for (let a of s.keys()){
+   console.log(a);
+}
+//1
+//2
+//Sunday
+//{"first":"Albert"}
+//300
+for (let a of s.values()){
+  console.log(a);
+}
+//1
+//2
+//Sunday
+//{"first":"Albert"}
+//300
+--#
+
+--% step55
+//Run this only on BabelJS REPL - https://babeljs.io/repl/
+var a = [1,2];
+var i = a[Symbol.iterator]();
+console.log(i.next());
+console.log(i.next());
+console.log(i.next());
+// { value: 1, done: false }
+// { value: 2, done: false }
+// { value: undefined, done: true }
+
+var list = ['Sunday','Monday','Tuesday'];
+for (let i in list){
+ console.log(i);  //0 1 2
+}
+for (let i of list){
+ console.log(i);  //Sunday Monday Tuesday
+}
+--#
+
+--% step56
+//Traditional Function
+function multiply(a,b) {
+	return a*b; 
+}
+//Arrow
+var multiply = (a,b) => a*b;
+console.log(multiply(1,2)); //2
+
+// single argument, single statement
+//arg => expression;
+var f1 = x => console.log("Just X");
+f1(); //Just X
+// multiple arguments, single statement
+//(arg1 [, arg2]) => expression;
+var f2 = (x,y) => x*y;
+console.log(f2(2,2)); //4
+// single argument, multiple statements
+// arg => {
+//     statements;
+// }
+var f3 = x => {
+ if(x>5){
+   console.log(x);
+ }
+ else {
+   console.log(x+5);
+ } 
+}
+f3(6); //6
+// multiple arguments, multiple statements
+// ([arg] [, arg]) => {
+//   statements
+// }
+var f4 = (x,y) => {
+if(x!=0 && y!=0){
+	return x*y; }
+}
+console.log(f4(2,2));//4
+// with no arguments, single statement
+//() => expression;
+var f5 = () => 2*2;
+console.log(f5()); //4
+//IIFE
+console.log(( x => x * 3 )( 3 )); // 9
+--#
+
+--% step57
+<html>
+  <head>
+    <title>DOM</title>
+    <script>
+    // run this function when the document is loaded
+      window.onload = function() {
+        var doc = document.documentElement;
+        var body = doc.body;
+        var _head = doc.firstChild;
+        var _body = doc.lastChild;
+        var _head_ = doc.childNodes[0];
+        var title = _head.firstChild;
+        alert(_head.parentNode === doc); //true
+		} 
+	</script>
+	</head>
+	<body>
+	<p>Hello World!</p>
+	</body>
+</html>
+--#
+
+--% step58
+<html>
+ <head>
+   <title>DOM</title>
+   <script>
+     showFeelings = function() {
+       var feelings = document.getElementsByName("feeling");
+       alert(feelings[0].getAttribute("value"));
+       alert(feelings[1].getAttribute("value"));
+      }
+   </script>
+ </head>
+ <body>
+   <p>Hello World!</p>
+   <form method="post" action="/post">
+      <fieldset>
+        <p>How are you feeling today?</p>
+          <input type="radio" name="feeling" value="Happy" />Happy<br />
+          <input type="radio" name="feeling" value="Sad" />Sad<br />
+     </fieldset>
+     <input type="button" value="Submit" onClick="showFeelings()"/> </form>
+ </body>
+</html>
+--#
+
+--% step59
+<html>
+  <head>
+  <title>DOM</title>
+	<script>
+	  window.onload= function() {
+	    var greeting = document.getElementById("greeting");
+	        alert(greeting.innerHTML); //shows "Hello World" alert
+		} 
+	</script>
+  </head>
+  <body>
+	<p id="greeting">Hello World!</p>
+    <p id="identify">Earthlings</p>
+  </body>
+</html>
+--#
+
+--% step60
+ <html>
+     <head>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+       <script>
+               $(document).ready(function() {
+                   $('#greeting').html('Hello World Martian');
+               });
+       </script>
+     </head>
+     <body>
+       <p id="greeting">Hello World Earthling ! </p>
+     </body>
+</html>
+--#
+
+--% step61
+ <html>
+     <head>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+       <script>
+            $(function() {
+               $('h1').html(function(index, oldHTML){
+                 return oldHTML + "Finally?";
+               });
+               $('h1').addClass('highlight-blue');
+               $('#header > h1 ').css('background-color', 'cyan');
+               $('ul li:not(.highlight-blue)').addClass(
+                 'highlight-green');
+               $('tr:nth-child(odd)').addClass('zebra');
+            });
+       </script>
+       <style>
+         .highlight-blue {
+           color: blue;
+         }
+         .highlight-green{
+           color: green;
+         }
+         .zebra{
+           background-color: #666666;
+           color: white;
+          } 
+        </style> 
+</head>
+<body>
+<div id=header>
+  <h1>Are we there yet ? </h1>
+  <span class="highlight">
+    <p>Journey to Mars</p>
+    <ul>
+      <li>First</li>
+      <li>Second</li>
+      <li class="highlight-blue">Third</li>
+    </ul>
+  </span>
+  <table>
+      <tr>
+        <th>Id</th>
+        <th>First name</th>
+        <th>Last Name</th>
+      </tr>
+     <tr><td>1</td><td>Albert</td><td>Einstein</td></tr>
+     <tr><td>2</td><td>Issac</td><td>Newton</td></tr>
+     <tr><td>3</td><td>Enrico</td><td>Fermi</td></tr>
+     <tr><td>4</td><td>Richard</td><td>Feynman</td></tr>
+  </table>
+ </div>
+</body>
+</html>
+--#

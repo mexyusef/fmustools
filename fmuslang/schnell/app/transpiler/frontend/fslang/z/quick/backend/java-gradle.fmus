@@ -1,0 +1,636 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	.gitignore,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/.gitignore)
+	build.gradle,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/build.gradle)
+	gradlew.bat,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/gradlew.bat)
+	LICENSE,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/LICENSE)
+	README.md,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/README.md)
+	settings.gradle,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/settings.gradle)
+	src,d(/mk)
+		main,d(/mk)
+			java,d(/mk)
+				com,d(/mk)
+					hmtmcse,d(/mk)
+						tool,d(/mk)
+							Bismillah.java,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/src/main/java/com/hmtmcse/tool/Bismillah.java)
+			resources,d(/mk)
+				empty,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/src/main/resources/empty)
+		test,d(/mk)
+			java,d(/mk)
+				com,d(/mk)
+					hmtmcse,d(/mk)
+						tool,d(/mk)
+							BismillahTest.java,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/src/test/java/com/hmtmcse/tool/BismillahTest.java)
+			resources,d(/mk)
+				empty,f(e=utama=E:/java-boilerplate/gradle-boilerplate-project/src/test/resources/empty)
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/.gitignore
+.idea
+/ex-plugins
+out
+.gradle
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/build.gradle
+plugins {
+    id 'java'
+    id "org.ajoberstar.grgit" version "3.1.1"
+}
+
+group 'com.hmtmcse.tool'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+jar {
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    manifest {
+        attributes(
+                'Implementation-Title': 'Jar Making Exaple',
+                "Main-Class": "com.hmtmcse.tool.Bismillah"
+        )
+    }
+    destinationDirectory = file("$rootDir/my-jar")
+    archivesBaseName = 'app'
+}
+
+
+// All Git repository List 
+def repositoryMap =  [
+        "java-common" : "https://github.com/hmtmcse/java-common.git",
+]
+
+
+// Clone Repository Task
+task cloneRepositories {
+    doLast {
+        repositoryMap.each { name, url ->
+            println("------------------------------------------------------------------------------------------")
+            def destination = file("ex-plugins/${name}")
+            try{
+                println("Cloning Project ${name}")
+                org.ajoberstar.grgit.Grgit.clone(dir: destination, uri: url)
+            }catch(Exception e){
+                println(e.getMessage())
+            }
+            println("------------------------------------------------------------------------------------------\n")
+        }
+    }
+}
+
+
+dependencies {
+
+    // if external source repositories directory is available then add those as dependency
+    File exRepositories = file('ex-plugins/')
+    if (exRepositories.exists()){
+        exRepositories.list().each {
+            implementation project(":${it}")
+        }
+    }
+    
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/gradlew.bat
+@if "%DEBUG%" == "" @echo off
+@rem ##########################################################################
+@rem
+@rem  Gradle startup script for Windows
+@rem
+@rem ##########################################################################
+
+@rem Set local scope for the variables with windows NT shell
+if "%OS%"=="Windows_NT" setlocal
+
+set DIRNAME=%~dp0
+if "%DIRNAME%" == "" set DIRNAME=.
+set APP_BASE_NAME=%~n0
+set APP_HOME=%DIRNAME%
+
+@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+set DEFAULT_JVM_OPTS="-Xmx64m"
+
+@rem Find java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
+
+set JAVA_EXE=java.exe
+%JAVA_EXE% -version >NUL 2>&1
+if "%ERRORLEVEL%" == "0" goto init
+
+echo.
+echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+
+if exist "%JAVA_EXE%" goto init
+
+echo.
+echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:init
+@rem Get command-line arguments, handling Windows variants
+
+if not "%OS%" == "Windows_NT" goto win9xME_args
+
+:win9xME_args
+@rem Slurp the command line arguments.
+set CMD_LINE_ARGS=
+set _SKIP=2
+
+:win9xME_args_slurp
+if "x%~1" == "x" goto execute
+
+set CMD_LINE_ARGS=%*
+
+:execute
+@rem Setup the command line
+
+set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
+
+@rem Execute Gradle
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %CMD_LINE_ARGS%
+
+:end
+@rem End local scope for the variables with windows NT shell
+if "%ERRORLEVEL%"=="0" goto mainEnd
+
+:fail
+rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
+rem the _cmd.exe /c_ return code!
+if  not "" == "%GRADLE_EXIT_CONSOLE%" exit 1
+exit /b 1
+
+:mainEnd
+if "%OS%"=="Windows_NT" endlocal
+
+:omega
+
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/LICENSE
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [2019] [H.M.Touhid Mia (HMTMCSE)]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/README.md
+# Gradle Boilerplate Project
+
+## Project Branches
+
+This project based on multiple branch, each branch has specific Implementation, so if you want then you can switch 
+branch for see the specific implementations. you may use diff for find out changes. :)
+
+1. **[master](https://github.com/hmtmcse-com/gradle-boilerplate-project/tree/master)** : Master Branch Consist with all branches Implementations
+2. **[git-source-dependency-clone](https://github.com/hmtmcse-com/gradle-boilerplate-project/tree/git-source-dependency-clone)** : How to clone git source using gradle?
+3. **[gradle-upgrade-4-to-5](https://github.com/hmtmcse-com/gradle-boilerplate-project/tree/gradle-upgrade-4-to-5)**: How to upgrade gradle version 4 to version 5
+4. **[java-jar-using-gradle](https://github.com/hmtmcse-com/gradle-boilerplate-project/tree/java-jar-using-gradle)**: How do i make a executable /  library jar using gradle?
+
+
+
+<br><br><br>
+
+## How to create Gradle Project with git Source Dependency? [YouTube Video Link](https://www.youtube.com/watch?v=Rv0Zm4L85PI)
+
+**Project Git Branch:**  git-source-dependency-clone
+
+Here we will going to use **grgit** gradle plugin let's follow the Steps
+
+
+
+<br><br>
+
+### settings.gradle 
+Add below codes into **settings.gradle**
+
+```
+rootProject.name = 'GradleBoilerplateProject'
+
+File exRepositories = file('ex-plugins/')
+if (exRepositories.exists()){
+    exRepositories.list().each {
+        include(it)
+        project(":${it}").projectDir = file("ex-plugins/${it}")
+    }
+}
+```
+
+**[Full Source of settings.gradle](https://github.com/hmtmcse-com/gradle-boilerplate-project/blob/master/settings.gradle)**
+
+
+
+<br><br><br><br>
+
+### build.gradle
+Add below codes into **build.gradle**
+
+```
+plugins {
+    id 'java'
+    id "org.ajoberstar.grgit" version "3.1.1"
+}
+
+group 'com.hmtmcse.tool'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+// All Git repository List 
+def repositoryMap =  [
+        "java-common" : "https://github.com/hmtmcse/java-common.git",
+]
+
+
+// Clone Repository Task
+task cloneRepositories {
+    doLast {
+        repositoryMap.each { name, url ->
+            println("------------------------------------------------------------------------------------------")
+            def destination = file("ex-plugins/${name}")
+            try{
+                println("Cloning Project ${name}")
+                org.ajoberstar.grgit.Grgit.clone(dir: destination, uri: url)
+            }catch(Exception e){
+                println(e.getMessage())
+            }
+            println("------------------------------------------------------------------------------------------\n")
+        }
+    }
+}
+
+
+dependencies {
+
+    // if external source repositories directory is available then add those as dependency
+    File exRepositories = file('ex-plugins/')
+    if (exRepositories.exists()){
+        exRepositories.list().each {
+            implementation project(":${it}")
+        }
+    }
+    
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+```
+
+
+**[Full Source of build.gradle](https://github.com/hmtmcse-com/gradle-boilerplate-project/blob/master/build.gradle)**
+
+
+<br><br>
+
+**Reference**
+1. Gradle grplugin: https://plugins.gradle.org/plugin/org.ajoberstar.grgit
+
+
+
+<br><br><br>
+
+## How to Upgrade Gradle version 4 to Gradle Version 5? [YouTube Video Link](https://www.youtube.com/watch?v=UsxNGGgavPo)
+
+**Project Git Branch:**  gradle-upgrade-4-to-5
+
+Run the belong command from Gradle source, before run command please make sure, you have gradle wrapper on your project
+and also the **gradlew** (For unix system), **gradlew.bat** (For Windows System) Available. These commands will not run if you
+haven't Java home set.
+
+```
+gradle wrapper --gradle-version 5.0
+
+# For Windows and With Gradle Wrapper
+gradlew.bat wrapper --gradle-version 5.0
+
+
+# For Unix / Mac / Linux and With Gradle Wrapper
+gradlew.bat wrapper --gradle-version 5.0
+```
+
+<br><br>
+
+**Here** 
+1. **--gradle-version xx** could be anything. for instance --gradle-version 7.0
+
+
+<br><br>
+
+**Reference**
+1. **Gradle Upgrade**: https://docs.gradle.org/current/userguide/upgrading_version_4.html
+2. **Java Home Setup** https://www.youtube.com/watch?v=qEk8Q-N4Hz4
+
+
+
+<br><br><br>
+
+## How to Create Jar file using Gradle? [YouTube Video Link](https://www.youtube.com/watch?v=9zetwHIMUWk)
+
+**Project Git Branch:**  java-jar-using-gradle
+
+Please add the below codes into your **build.gradle** file 
+
+```
+jar {
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    manifest {
+        attributes(
+                'Implementation-Title': 'Jar Making Exaple',
+                "Main-Class": "com.hmtmcse.tool.Bismillah"
+        )
+    }
+    destinationDirectory = file("$rootDir/my-jar")
+    archivesBaseName = 'app'
+}
+```
+
+<br><br>
+
+**Here** 
+1. **form :** This Closure telling gradle to what's are need to include into .jar file. It will include all dependency
+2. **manifest :** Meta Description of a jar file.
+3. **destinationDirectory :** output directory
+4. **archivesBaseName :** jar name
+
+
+
+<br><br>
+
+**Reference**
+1. **Java Manifest Documentations :** https://docs.oracle.com/javase/tutorial/deployment/jar/manifestindex.html
+2. **Gradle Jar properties :** https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
+3. **Gradle Build Java Libraries :** https://guides.gradle.org/building-java-libraries/
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/settings.gradle
+rootProject.name = 'GradleBoilerplateProject'
+
+File exRepositories = file('ex-plugins/')
+if (exRepositories.exists()){
+    exRepositories.list().each {
+        include(it)
+        project(":${it}").projectDir = file("ex-plugins/${it}")
+    }
+}
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/src/main/java/com/hmtmcse/tool/Bismillah.java
+package com.hmtmcse.tool;
+
+import com.hmtmcse.common.TMConfigHolder;
+import com.hmtmcse.common.util.TMUtil;
+
+public class Bismillah {
+
+
+    public static void main(String[] args) {
+        TMConfigHolder.isDebug = true;
+        TMUtil.print("Bismillah");
+    }
+
+}
+
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/src/main/resources/empty
+
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/src/test/java/com/hmtmcse/tool/BismillahTest.java
+package com.hmtmcse.tool;
+
+public class BismillahTest {
+}
+
+--#
+
+--% E:/java-boilerplate/gradle-boilerplate-project/src/test/resources/empty
+
+--#
+

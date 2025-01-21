@@ -1,0 +1,103 @@
+
+/home/usef/usef/usef/mex/flaskfaker/flaskapp/mmm/zau
+/home/usef/usef/usef/mex/flaskfaker/flaskapp/mmm/actors.txt
+self.run_configuration['flaskapp'] = joiner(self.run_configuration['flaskfaker'], 'flaskapp')
+self.run_configuration['mmm'] = joiner(self.run_configuration['flaskapp'], 'mmm')
+self.run_configuration['actors'] = joiner(self.run_configuration['mmm'], 'actors.txt')
+actor_file = 
+
+
+
+  def find_definition(self, word, bilangan):
+    """
+    di sini ada ngeprint yellow/black: kata yg ditemukan
+    masih bermasalah:
+    misal def mar
+    maka yg terprint adlh maraud
+    krn salah di file:
+    maraud
+    mar
+    harusnya
+    mar
+    maraud
+    """
+    filename = '%03d.txt' % bilangan
+    filepath = joiner(self.zau_folder, filename) # dapatkan file NNN.txt dimana kata berada
+    result = []
+    collecting = False
+    f = open(filepath, encoding='utf8')
+    for line in f: # for linenum, line in enumerate(f, 1): utk dapatkan line number dari index 1
+      if collecting:
+        if re.search('{} (.*)'.format(KUNCI), line): # ketemu mulai kata selanjutnya, kembalikan yg sdh dikumpulkan
+          return result
+        result.append( line )
+      else:
+        '''
+        jk ketemu kata yg diprefix word, 
+        maka baris2 berikutnya kita kumpulkan ke list
+        krn itu yg pengen kita gunakan
+        '''
+        exact_word = re.search(f'{KUNCI}\\s*({word})\\s*$', line)
+        prefix_word = re.search(f'{KUNCI}\\s*({word}.*)\\s*$', line)
+        if prefix_word:
+          indah0(f"{' '*40}{prefix_word.group(1)}", warna='yellow', layar='black', newline=True)
+          collecting = True
+    
+    return result
+
+
+def get_definition(self, code=None):
+  if not code:
+    '''random
+    - random open_and_glob_actors
+    - grep file nya
+    - ambil daftar kata
+    - random get kata (random.choice saja)
+    - find_definition...
+    '''
+    found = False
+    while not found:
+      bilangan = random.randint(0, len(self.open_and_glob_actors()))
+      filepath = joiner(self.zau_folder, '%03d.txt' % bilangan)
+      if pathlib.Path(filepath).is_file():
+        wordlist = self.grepper(filepath)
+        if wordlist != []:
+          choice = random.choice(wordlist)
+          found = True
+          code = choice.decode()
+  else:
+    '''code adlh kata spt deflate
+    kita dapatkan zau-nya DEA
+    lalu dptkan bilangannya = 80
+    lalu dptkan definisinya (deflate, 80)
+    80 diperlukan utk buka file 080.txt
+    '''
+    zau = self.filter_zau(code)
+    bilangan = self.zau_to_number(zau)
+
+  sys.stdout.write('Definition for: ')
+  sys.stdout.flush()
+  indah0(code, warna='green', layar='black', newline=True)
+
+  self.herstory.add(code)
+
+  definisi = self.find_definition(code, bilangan)
+  string_definisi = b''.join([ str(item).encode('utf-8') for item in definisi])
+  kembalian = str(string_definisi, encoding='latin-1')
+  tabs = (bilangan % 5) * '\t'
+  
+  self.herstory.addo(kembalian)
+
+  print(f"{self.zau_process_digit_header(bilangan) [0]}\n{tabs}*/{VOCALS[bilangan % 5]}\n{'-'*10}\n{kembalian}")
+  return True
+
+
+self.config['actors']
+
+def open_and_glob_actors(self):
+  if ACTOR.ACTOR_CACHE == []:
+    with open(self.actor_file, encoding='utf8') as f:
+      self.ACTOR_CACHE = [item.lower().strip() for item in f.readlines() if item]
+
+  return self.ACTOR_CACHE
+

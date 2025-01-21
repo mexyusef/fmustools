@@ -1,0 +1,10 @@
+C:\portfolio\flight_tracker_backend,d
+    run.bat,f(n=python app.py)
+    /ketik)run
+C:\portfolio\flight_tracker_frontend,d
+    /ketik)pd
+
+Warning: Invalid DOM property `class`. Did you mean `className`?
+    at p
+    at div
+    at FlightsPage (webpack-internal:///./src/components/flights/FlightsPage.jsx:40:74)

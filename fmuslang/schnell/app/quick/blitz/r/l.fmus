@@ -1,0 +1,28 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+		main.js,f(code[go]=fM)
+			$* code .
+        __PRC__TEMP__PRC__/play,d(/mk)
+            main.js,f(code[go]=fM)
+            $* code .
+        %__TEMPLATE_MANAGER=pnpm
+        $* __TEMPLATE_MANAGER add react-icons
+        $* __TEMPLATE_MANAGER add @react-icons/all-files
+
+
+        $* code ULIBPY_BASEDIR\app\quick\blitz\r\l.fmus
+--#
+
+--% react-icons
+.,d
+    /file>i/__INPUT__/import { FaBeer } from 'react-icons/fa';
+    /file>i/__INPUT__/import { FaBeer } from 'react-icons/all-files/fa/FaBeer';
+--#
+

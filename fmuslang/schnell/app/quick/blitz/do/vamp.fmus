@@ -1,0 +1,16 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @diri sendiri*
+            ?pick
+                @ceritakan tentang dirimu*
+                @apa kekuatanmu*
+                @apa kelemahanmu*
+                @kenapa gabung*
+                @dirimu dalam 5-10 th*
+        @backend*
+        @frontend*
+        @tdd*
+        @devops*
+        @soft skill dan personality*
+--#

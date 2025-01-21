@@ -1,0 +1,11 @@
+__TAB(2)$$GANTI_DENGAN_MODEL_LOWER$$,d(/mk)
+__TAB(3)%__TEMPLATE_MODELNAME=$$GANTI_DENGAN_MODEL_UPPER$$
+__TAB(3)%__TEMPLATE_Modelname=$$GANTI_DENGAN_MODEL_TITLE$$
+__TAB(3)%__TEMPLATE_modelname=$$GANTI_DENGAN_MODEL_LOWER$$
+__TAB(3)%__TEMPLATE_MODELNAMES=$$GANTI_DENGAN_MODEL_UPPER_PLURAL$$
+__TAB(3)%__TEMPLATE_modelnames=$$GANTI_DENGAN_MODEL_LOWER_PLURAL$$
+__TAB(3)index.js,f(e=utama=/node-apollo-template/apps/$$GANTI_DENGAN_MODEL_LOWER$$/index.js)
+__TAB(3)$$GANTI_DENGAN_MODEL_LOWER$$.service.js,f(e=utama=/node-apollo-template/apps/$$GANTI_DENGAN_MODEL_LOWER$$/$$GANTI_DENGAN_MODEL_LOWER$$.service.js)
+__TAB(3)$$GANTI_DENGAN_MODEL_LOWER$$.model.js,f(e=utama=/node-apollo-template/apps/$$GANTI_DENGAN_MODEL_LOWER$$/$$GANTI_DENGAN_MODEL_LOWER$$.model.js)
+__TAB(3)$$GANTI_DENGAN_MODEL_LOWER$$.controller.js,f(e=utama=/node-apollo-template/apps/$$GANTI_DENGAN_MODEL_LOWER$$/$$GANTI_DENGAN_MODEL_LOWER$$.controller.js)
+__TAB(3)$$GANTI_DENGAN_MODEL_LOWER$$.graphql.js,f(e=utama=/node-apollo-template/apps/$$GANTI_DENGAN_MODEL_LOWER$$/$$GANTI_DENGAN_MODEL_LOWER$$.graphql.js)

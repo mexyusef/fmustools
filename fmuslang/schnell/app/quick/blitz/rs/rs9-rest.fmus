@@ -1,0 +1,673 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	content-rocket,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/Cargo.toml)
+		Rocket.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/Rocket.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/test.sh)
+		migrations,d(/mk)
+			.gitkeep,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/migrations/.gitkeep)
+			2018-11-22-192300_create_tables,d(/mk)
+				down.sql,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/migrations/2018-11-22-192300_create_tables/down.sql)
+				up.sql,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/migrations/2018-11-22-192300_create_tables/up.sql)
+		src,d(/mk)
+			comment.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/src/comment.rs)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/src/main.rs)
+	emails-nickel,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/Cargo.toml)
+		postfix.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/postfix.sh)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/test.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/src/main.rs)
+		templates,d(/mk)
+			confirm.tpl,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/templates/confirm.tpl)
+	logs-gotham,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/logs-gotham/Cargo.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/logs-gotham/src/main.rs)
+	users-rouille,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/Cargo.toml)
+		diesel.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/diesel.toml)
+		migrate.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/migrate.sh)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/test.sh)
+		migrations,d(/mk)
+			.gitkeep,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/migrations/.gitkeep)
+			2018-11-22-192300_create_tables,d(/mk)
+				down.sql,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/migrations/2018-11-22-192300_create_tables/down.sql)
+				up.sql,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/migrations/2018-11-22-192300_create_tables/up.sql)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/src/main.rs)
+			models.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/src/models.rs)
+			schema.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/src/schema.rs)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/Cargo.toml
+[package]
+name = "content-rocket"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+
+[dependencies]
+rocket = "0.4.0-rc.1"
+rocket_contrib = { version = "0.4.0-rc.1", features = ["diesel_sqlite_pool"] }
+serde = "1.0"
+serde_json = "1.0"
+serde_derive = "1.0"
+diesel = { version = "1.3", features = ["sqlite", "r2d2"] }
+diesel_migrations = "1.3"
+log = "0.4"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/Rocket.toml
+[global]
+template_dir = "static"
+address = "127.0.0.1"
+port = 8003
+
+[global.databases.sqlite_database]
+url = "test.db"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/test.sh
+curl -d 'uid=user_id&text="this is a comment"' -X POST http://localhost:8003/new_comment
+curl http://localhost:8003/list
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/migrations/.gitkeep
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/migrations/2018-11-22-192300_create_tables/down.sql
+DROP TABLE comments;
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/migrations/2018-11-22-192300_create_tables/up.sql
+CREATE TABLE comments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  uid TEXT NOT NULL,
+  text TEXT NOT NULL
+);
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/src/comment.rs
+use diesel::{self, prelude::*};
+
+mod schema {
+    table! {
+        comments {
+            id -> Nullable<Integer>,
+            uid -> Text,
+            text -> Text,
+        }
+    }
+}
+
+use self::schema::comments;
+use self::schema::comments::dsl::{comments as all_comments};
+
+#[table_name="comments"]
+#[derive(Serialize, Queryable, Insertable, Debug, Clone)]
+pub struct Comment {
+    pub id: Option<i32>,
+    pub uid: String,
+    pub text: String,
+}
+
+#[derive(FromForm)]
+pub struct NewComment {
+    pub uid: String,
+    pub text: String,
+}
+
+impl Comment {
+    pub fn all(conn: &SqliteConnection) -> Vec<Comment> {
+        all_comments.order(comments::id.desc()).load::<Comment>(conn).unwrap()
+    }
+
+    pub fn insert(comment: NewComment, conn: &SqliteConnection) -> bool {
+        let t = Comment { id: None, uid: comment.uid, text: comment.text };
+        diesel::insert_into(comments::table).values(&t).execute(conn).is_ok()
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/content-rocket/src/main.rs
+#![feature(proc_macro_hygiene, decl_macro)]
+
+#[macro_use]
+extern crate rocket;
+#[macro_use]
+extern crate diesel;
+#[macro_use]
+extern crate diesel_migrations;
+#[macro_use]
+extern crate log;
+#[macro_use]
+extern crate serde_derive;
+#[macro_use]
+extern crate rocket_contrib;
+
+mod comment;
+
+use rocket::fairing::AdHoc;
+use rocket::request::Form;
+use rocket_contrib::json::Json;
+use diesel::SqliteConnection;
+use comment::{Comment, NewComment};
+
+embed_migrations!();
+
+#[database("sqlite_database")]
+pub struct Db(SqliteConnection);
+
+#[post("/new_comment", data = "<comment_form>")]
+fn add_new(comment_form: Form<NewComment>, conn: Db) {
+    let comment = comment_form.into_inner();
+    Comment::insert(comment, &conn);
+}
+
+#[get("/list")]
+fn list(conn: Db) -> Json<Vec<Comment>> {
+    Json(Comment::all(&conn))
+}
+
+fn main() {
+    rocket::ignite()
+        .attach(Db::fairing())
+        .attach(AdHoc::on_attach("Database Migrations", |rocket| {
+            let conn = Db::get_one(&rocket).expect("no database connection");
+            match embedded_migrations::run(&*conn) {
+                Ok(_) => Ok(rocket),
+                Err(err) => {
+                    error!("Failed to run database migrations: {:?}", err);
+                    Err(rocket)
+                },
+            }
+        }))
+        .mount("/", routes![list, add_new])
+        .launch();
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/Cargo.toml
+[package]
+name = "emails-nickel"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+
+[dependencies]
+failure = "0.1"
+lettre = { git = "https://github.com/lettre/lettre" }
+lettre_email = { git = "https://github.com/lettre/lettre" }
+nickel = "0.10"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/postfix.sh
+docker run -it --rm --name test-smtp -p 2525:25  \
+       -e SMTP_SERVER=smtp.example.com \
+       -e SMTP_USERNAME=admin@example.com \
+       -e SMTP_PASSWORD=password \
+       -e SERVER_HOSTNAME=smtp.example.com \
+       juanluisbaptiste/postfix
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/test.sh
+if [ -z "$1" ]; then
+    echo "email argument not set"
+    exit 1
+fi
+
+curl -d "to=$1&code=passcode" -X POST http://localhost:8002/send
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/src/main.rs
+extern crate failure;
+#[macro_use]
+extern crate nickel;
+extern crate lettre;
+
+use failure::{format_err, Error};
+use lettre::{ClientSecurity, SendableEmail, EmailAddress, Envelope, SmtpClient, SmtpTransport, Transport};
+use lettre::smtp::authentication::IntoCredentials;
+use nickel::{Nickel, HttpRouter, FormBody, Request, Response, MiddlewareResult};
+use nickel::status::StatusCode;
+use nickel::template_cache::{ReloadPolicy, TemplateCache};
+use std::collections::HashMap;
+use std::thread;
+use std::sync::Mutex;
+use std::sync::mpsc::{channel, Sender};
+
+fn spawn_sender() -> Sender<SendableEmail> {
+    let (tx, rx) = channel();
+    let smtp = SmtpClient::new("localhost:2525", ClientSecurity::None)
+        .expect("can't start smtp client");
+    let credentials = ("admin@example.com", "password").into_credentials();
+    let client = smtp.credentials(credentials);
+    thread::spawn(move || {
+        let mut mailer = SmtpTransport::new(client);
+        for email in rx.iter() {
+            let result = mailer.send(email);
+            if let Err(err) = result {
+                println!("Can't send mail: {}", err);
+            }
+        }
+        mailer.close();
+    });
+    tx
+}
+
+fn send_impl(req: &mut Request<Data>) -> Result<(), Error> {
+    let (to, code) = {
+        let params = req.form_body().map_err(|_| format_err!(""))?;
+        let to = params.get("to").ok_or(format_err!("to field not set"))?.to_owned();
+        let code = params.get("code").ok_or(format_err!("code field not set"))?.to_owned();
+        (to, code)
+    };
+    let data = req.server_data();
+    let to = EmailAddress::new(to.to_owned())?;
+    let envelope = Envelope::new(None, vec![to])?;
+    let mut params: HashMap<&str, &str> = HashMap::new();
+    params.insert("code", &code);
+    let mut body: Vec<u8> = Vec::new();
+    data.cache.render("templates/confirm.tpl", &mut body, &params)?;
+    let email = SendableEmail::new(envelope, "Confirm email".to_string(), Vec::new());
+    let sender = data.sender.lock().unwrap().clone();
+    sender.send(email).map_err(|_| format_err!("can't send email"))?;
+    Ok(())
+}
+
+fn send<'mw>(req: &mut Request<Data>, res: Response<'mw, Data>) -> MiddlewareResult<'mw, Data> {
+    try_with!(res, send_impl(req).map_err(|_| StatusCode::BadRequest));
+    res.send("true")
+}
+
+struct Data {
+    sender: Mutex<Sender<SendableEmail>>,
+    cache: TemplateCache,
+}
+
+fn main() {
+    let tx = spawn_sender();
+
+    let data = Data {
+        sender: Mutex::new(tx),
+        cache: TemplateCache::with_policy(ReloadPolicy::Always),
+    };
+
+    let mut server = Nickel::with_data(data);
+    server.get("/", middleware!("Mailer Microservice"));
+    server.post("/send", send);
+    server.listen("127.0.0.1:8002").unwrap();
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/emails-nickel/templates/confirm.tpl
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Confirm Email</title>
+  </head>
+  <body>
+    <!-- page content -->
+  </body>
+</html>
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/logs-gotham/Cargo.toml
+[package]
+name = "logs-gotham"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+failure = "0.1"
+futures = "0.1"
+gotham = "0.3"
+gotham_derive = "0.3"
+hyper = "0.12"
+tokio = "0.1"
+tokio-postgres = { git = "https://github.com/sfackler/rust-postgres" }
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/logs-gotham/src/main.rs
+use failure::{Error, format_err};
+use futures::{Future, Stream, future};
+use gotham::handler::HandlerFuture;
+use gotham::middleware::state::StateMiddleware;
+use gotham::pipeline::single::single_pipeline;
+use gotham::pipeline::single_middleware;
+use gotham::router::Router;
+use gotham::router::builder::{DefineSingleRoute, DrawRoutes, build_router};
+use gotham::state::{FromState, State};
+use gotham_derive::StateData;
+use hyper::{Response, StatusCode};
+use hyper::header::{HeaderMap, USER_AGENT};
+use std::sync::{Arc, Mutex};
+use tokio::runtime::Runtime;
+use tokio_postgres::{Client, NoTls};
+
+#[derive(Clone, StateData)]
+struct ConnState {
+    client: Arc<Mutex<Client>>,
+}
+
+impl ConnState {
+    fn new(client: Client) -> Self {
+        Self {
+            client: Arc::new(Mutex::new(client)),
+        }
+    }
+}
+
+fn register_user_agent(state: State) -> Box<HandlerFuture> {
+    let user_agent = HeaderMap::borrow_from(&state)
+        .get(USER_AGENT)
+        .map(|value| value.to_str().unwrap().to_string())
+        .unwrap_or_else(|| "<undefined>".into());
+
+    let conn = ConnState::borrow_from(&state);
+    let client_1 = conn.client.clone();
+    let client_2 = conn.client.clone();
+
+    let res = future::ok(())
+        .and_then(move |_| {
+            let mut client = client_1.lock().unwrap();
+            client.prepare("INSERT INTO agents (agent) VALUES ($1)
+                            RETURNING agent")
+        })
+        .and_then(move |statement| {
+            let mut client = client_2.lock().unwrap();
+            client.query(&statement, &[&user_agent]).collect().map(|rows| {
+                rows[0].get::<_, String>(0)
+            })
+        })
+        .then(|res| {
+            let mut builder = Response::builder();
+            let body = {
+                match res {
+                    Ok(value) => {
+                        let value = format!("User-Agent: {}", value);
+                        builder.status(StatusCode::OK);
+                        value.into()
+                    }
+                    Err(err) => {
+                        builder.status(StatusCode::INTERNAL_SERVER_ERROR);
+                        err.to_string().into()
+                    }
+                }
+            };
+            let response = builder.body(body).unwrap();
+            Ok((state, response))
+        });
+
+    Box::new(res)
+}
+
+fn router(state: ConnState) -> Router {
+    let middleware = StateMiddleware::new(state);
+    let pipeline = single_middleware(middleware);
+    let (chain, pipelines) = single_pipeline(pipeline);
+    build_router(chain, pipelines, |route| {
+        route.get("/").to(register_user_agent);
+    })
+}
+
+pub fn main() -> Result<(), Error> {
+    let mut runtime = Runtime::new()?;
+
+    let handshake = tokio_postgres::connect("postgres://postgres@localhost:5432", NoTls);
+    let (mut client, connection) = runtime.block_on(handshake)?;
+    runtime.spawn(connection.map_err(drop));
+
+    let execute = client.batch_execute(
+        "CREATE TABLE IF NOT EXISTS agents (
+            agent TEXT NOT NULL,
+            timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );");
+    runtime.block_on(execute)?;
+
+    let state = ConnState::new(client);
+    let router = router(state);
+
+    let addr = "127.0.0.1:7878";
+    println!("Listening for requests at http://{}", addr);
+    gotham::start_on_executor(addr, router, runtime.executor());
+    runtime
+        .shutdown_on_idle()
+        .wait()
+        .map_err(|()| format_err!("can't wait for the runtime"))
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/Cargo.toml
+[package]
+name = "users-rouille"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+
+[dependencies]
+clap = "2.32"
+diesel = { version = "^1.1.0", features = ["sqlite", "r2d2"] }
+env_logger = "0.6"
+failure = "0.1"
+log = "0.4"
+r2d2 = "0.8"
+rouille = "2.2"
+rust-crypto = "0.2"
+serde = "1.0"
+serde_derive = "1.0"
+uuid = { version = "0.5", features = ["serde", "v4"] }
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/diesel.toml
+# For documentation on how to configure this file,
+# see diesel.rs/guides/configuring-diesel-cli
+
+[print_schema]
+file = "src/schema.rs"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/migrate.sh
+DATABASE_URL=test.db diesel migration run
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/test.sh
+curl -d "email=user@example.com&password=password" -X POST http://localhost:8001/signup
+curl -d "email=user@example.com&password=password" -X POST http://localhost:8001/signin
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/migrations/.gitkeep
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/migrations/2018-11-22-192300_create_tables/down.sql
+DROP TABLE users;
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/migrations/2018-11-22-192300_create_tables/up.sql
+CREATE TABLE users (
+  id TEXT PRIMARY KEY NOT NULL,
+  email TEXT NOT NULL,
+  password TEXT NOT NULL
+);
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/src/main.rs
+extern crate crypto;
+#[macro_use]
+extern crate diesel;
+extern crate env_logger;
+extern crate failure;
+extern crate log;
+#[macro_use]
+extern crate rouille;
+extern crate serde_derive;
+
+use crypto::pbkdf2::{pbkdf2_check, pbkdf2_simple};
+use diesel::prelude::*;
+use diesel::dsl::{exists, select};
+use diesel::r2d2::ConnectionManager;
+use failure::{format_err, Error};
+use log::debug;
+use rouille::{router, Request, Response};
+use serde_derive::Serialize;
+
+type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
+
+mod models;
+mod schema;
+
+#[derive(Serialize)]
+struct UserId {
+    id: String,
+}
+
+fn main() {
+    env_logger::init();
+    let manager = ConnectionManager::<SqliteConnection>::new("test.db");
+    let pool = Pool::builder()
+        .build(manager)
+        .expect("Failed to create pool.");
+    rouille::start_server("127.0.0.1:8001", move |request| {
+        match handler(&request, &pool) {
+            Ok(response) => {
+                response
+            },
+            Err(err) => {
+                Response::text(err.to_string())
+                    .with_status_code(500)
+            }
+        }
+    })
+}
+
+fn handler(request: &Request, pool: &Pool) -> Result<Response, Error> {
+    debug!("Request: {:?}", request);
+    let resp = router!(request,
+        (GET) (/) => {
+            Response::text("Users Microservice")
+        },
+        (POST) (/signup) => {
+            let data = post_input!(request, {
+                email: String,
+                password: String,
+            })?;
+            debug!("Signup for {}", data.email);
+            let user_email = data.email.trim().to_lowercase();
+            let user_password = pbkdf2_simple(&data.password, 12345)?;
+            {
+                use self::schema::users::dsl::*;
+                let conn = pool.get()?;
+                let user_exists: bool = select(exists(users.filter(email.eq(user_email.clone()))))
+                    .get_result(&conn)?;
+                if !user_exists {
+                    let uuid = format!("{}", uuid::Uuid::new_v4());
+                    let new_user = models::NewUser {
+                        id: &uuid,
+                        email: &user_email,
+                        password: &user_password,
+                    };
+
+                    diesel::insert_into(schema::users::table)
+                        .values(&new_user)
+                        .execute(&conn)?;
+
+                    Response::json(&())
+                } else {
+                    Response::text(format!("user {} exists", data.email))
+                        .with_status_code(400)
+                }
+            }
+        },
+        (POST) (/signin) => {
+            let data = post_input!(request, {
+                email: String,
+                password: String,
+            })?;
+            debug!("Signin for {}", data.email);
+            let user_email = data.email;
+            let user_password = data.password;
+            {
+                use self::schema::users::dsl::*;
+                let conn = pool.get()?;
+                let user = users.filter(email.eq(user_email))
+                    .first::<models::User>(&conn)?;
+                let valid = pbkdf2_check(&user_password, &user.password)
+                    .map_err(|err| format_err!("pass check error: {}", err))?;
+                if valid {
+                    let user_id = UserId {
+                        id: user.id,
+                    };
+                    // grpc?
+                    Response::json(&user_id)
+                        .with_status_code(200)
+                } else {
+                    Response::text("access denied")
+                        .with_status_code(403)
+                }
+            }
+        },
+        _ => {
+            Response::empty_404()
+        }
+    );
+    Ok(resp)
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/src/models.rs
+use serde_derive::Serialize;
+use super::schema::users;
+
+#[derive(Debug, Serialize, Queryable)]
+pub struct User {
+    pub id: String,
+    pub email: String,
+    pub password: String,
+}
+
+#[derive(Insertable)]
+#[table_name = "users"]
+pub struct NewUser<'a> {
+    pub id: &'a str,
+    pub email: &'a str,
+    pub password: &'a str,
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter09/users-rouille/src/schema.rs
+table! {
+    users (id) {
+        id -> Text,
+        email -> Text,
+        password -> Text,
+    }
+}
+
+--#
+

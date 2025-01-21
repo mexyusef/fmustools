@@ -1,0 +1,50 @@
+--% index/fmus
+__PWD,d
+    %__TEMPLATE_JUDUL__=MySimplePage
+    %__TEMPLATE_HTML_FILENAME=index
+	?pick
+		.,d(/load=__FILE__=html5/code*)
+        @create css grid project*
+        @create sass/scss project*
+        @create less project*
+        @create bootstrap project*
+        @create jquery project*
+
+        @create jinja2 project*
+        @create other templates (ejs?) project*
+
+        @CDN js, css, dll*
+            ?pick
+                @https://cdnjs.com/libraries/dropzone | https://docs.dropzone.dev/*
+                    ?pick
+                        @files...*
+                            @https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/basic.css
+                            @https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/basic.min.css
+                            @https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone-min.js
+                            @https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone-min.min.js
+                            @https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone.css
+                            @https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone.js
+                            @https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone.min.css
+                            @https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone.min.js
+                        $* npm install --save dropzone                        
+--#
+
+--% html5/code
+__PWD,d
+    __TEMPLATE_HTML_FILENAME.html,f(e=__FILE__=html5/isi)
+--#
+
+--% html5/isi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>__TEMPLATE_JUDUL__</title>
+</head>
+<body>
+    
+</body>
+</html>
+--#

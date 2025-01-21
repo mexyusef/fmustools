@@ -1,0 +1,127 @@
+make a Java Quarkus endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+make the graphql version
+
+Open sidebar
+Java Quarkus Todo Endpoint
+
+
+User
+make a Java Quarkus endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+ChatGPT
+Certainly! Here's an example of a Java Quarkus endpoint REST controller class for creating a todo table:
+
+java
+Copy code
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.Date;
+
+@Path("/todos")
+public class TodoController {
+
+    @Inject
+    EntityManager entityManager;
+
+    @POST
+    @Transactional
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createTodo(TodoDto todoDto) {
+        try {
+            Todo todo = new Todo();
+            todo.setId(todoDto.getId());
+            todo.setPriority(todoDto.getPriority());
+            todo.setCompleted(todoDto.isCompleted());
+            todo.setTask(todoDto.getTask());
+            todo.setDueDate(todoDto.getDueDate());
+            todo.setCreatedAt(new Date());
+
+            entityManager.persist(todo);
+            entityManager.flush();
+
+            return Response.status(Response.Status.CREATED).entity(todo).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+}
+In this example, we assume you have defined the Todo entity class with appropriate getters and setters. The TodoDto class is used to receive the JSON payload in the request body.
+
+Make sure to include the necessary dependencies in your pom.xml file for Quarkus and JPA persistence.
+
+Note that this code is a basic example and may require additional error handling, validation, and exception handling depending on your specific requirements.
+
+
+
+
+
+User
+make the graphql version
+
+ChatGPT
+Certainly! Here's an example of a Java Quarkus endpoint GraphQL controller class for creating a Todo table:
+
+java
+Copy code
+import io.smallrye.graphql.api.Subscription;
+import io.smallrye.graphql.api.annotations.GraphQLApi;
+import io.smallrye.graphql.api.annotations.GraphQLMutation;
+import io.smallrye.graphql.api.annotations.GraphQLNonNull;
+import io.smallrye.graphql.api.annotations.GraphQLSubscription;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
+
+import javax.inject.Inject;
+import java.time.LocalDateTime;
+
+@GraphQLApi
+public class TodoController {
+
+    @Inject
+    TodoRepository todoRepository;
+
+    @GraphQLMutation
+    public Uni<Todo> createTodo(@GraphQLNonNull TodoInput input) {
+        Todo todo = new Todo();
+        todo.setPriority(input.getPriority());
+        todo.setCompleted(input.isCompleted());
+        todo.setTask(input.getTask());
+        todo.setDueDate(input.getDueDate());
+        todo.setCreatedAt(LocalDateTime.now());
+
+        return todoRepository.persist(todo)
+                .map(ignore -> todo);
+    }
+
+    @GraphQLSubscription
+    public Multi<Todo> onTodoCreated() {
+        return todoRepository.getTodoCreatedPublisher();
+    }
+}
+In this example, we assume you have defined the Todo entity class with appropriate getters and setters. The TodoInput class is used to receive the input data for creating a Todo.
+
+Make sure to include the necessary dependencies in your pom.xml file for Quarkus, SmallRye GraphQL, and JPA persistence.
+
+The TodoRepository class is responsible for persisting and retrieving Todo entities. You would need to create this repository class and implement the necessary methods for persistence and retrieval.
+
+Note that this code is a basic example and may require additional error handling, validation, and exception handling depending on your specific requirements.

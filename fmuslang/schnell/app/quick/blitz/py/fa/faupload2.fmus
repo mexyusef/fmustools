@@ -1,0 +1,125 @@
+--% index/fmus 
+__PWD,d
+	README.md,f(e=__FILE=README.md)
+	templates,d(/mk)
+		home.html,f(e=__FILE__=home.html)
+        second.html,f(e=__FILE__=second.html)
+    static,d(/mk)
+	main.py,f(e=__FILE__=app.py)
+    schemas.py,f(e=__FILE__=schemas.py)
+	?pick
+		@https://www.youtube.com/watch?v=L4WBFRQB7Lk, Forms and File Uploads with FastAPI and Jinja2*
+	@run app*
+		?pick
+			$* uvicorn main:app
+            $* python main.py
+--#
+
+--% README.md
+...
+--#
+
+--% app.py
+import uvicorn
+from fastapi import FastAPI, Request, Form, Depends, UploadFile, File
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from schemas import SecondForm
+
+app = FastAPI()
+
+templates = Jinja2Templates(directory='templates')
+app.mount('/static', StaticFiles(directory='static'), name='static')
+
+@app.get('/basic', response_class=HTMLResponse)
+def get_basic_form(request: Request):
+    return templates.TemplateResponse('home.html', {'request':request})
+
+@app.post('/basic', response_class=HTMLResponse)
+def post_basic_form(request: Request, username: str=Form(...), password: str=Form(...)):
+    print(f'user: {username}, pass: {password}')
+    return templates.TemplateResponse('home.html', {'request':request})
+
+@app.post('/basic', response_class=HTMLResponse)
+async def post_basic_form(request: Request, username: str=Form(...), password: str=Form(...), file: UploadFile=File(...)):
+    content = await file.read()
+    print(f'user: {username}, pass: {password}')
+    print(content)
+    return templates.TemplateResponse('home.html', {'request':request})
+
+@app.get('/second', response_class=HTMLResponse)
+def getform2(request: Request):
+    return templates.TemplateResponse('second.html', {'request':request})
+
+@app.post('/second', response_class=HTMLResponse)
+def postform2(request: Request, form_data: SecondForm=Depends(SecondForm.as_form)):
+    print(f'data: {form_data}')
+    return templates.TemplateResponse('home.html', {'request':request})
+
+if __name__ == '__main__':
+    uvicorn.run(app)
+--#
+
+--% schemas.py
+from fastapi import Form, UploadFile, File
+from pydantic import BaseModel
+
+class SecondForm(BaseModel):
+    username: str
+    password: str
+    file: UploadFile
+
+    @clasmethod
+    def as_form(cls, username: str=Form(...), password: str=Form(...), file: UploadFile=File(...)):
+        return cls(username=username, password=password, file=file)
+--#
+
+
+--% home.html
+<html>
+<head>
+    <title>Upload</title>
+    <link href='{{ url_for('static', path='/styles.css') }}' rel='stylesheet'>    
+</head>
+<body>
+
+<h1>Form</h1>
+<form method='post' enctype='multipart/form-data'>
+    <label for='username'>Username:</label><br/>
+	<input type='text' name='username'><br/>
+
+    <label for='password'>Password:</label><br/>
+	<input type='text' name='password'><br/>
+
+    <input type='file' name='file'><br/>
+	<input type='submit' name='Submit'>
+</form>
+
+</body>
+</html>
+--#
+
+--% second.html
+<html>
+<head>
+    <title>Upload</title>
+    <link href='{{ url_for('static', path='/styles.css') }}' rel='stylesheet'>    
+</head>
+<body>
+
+<h1>Form</h1>
+<form method='post' enctype='multipart/form-data'>
+    <label for='username'>Username:</label><br/>
+	<input type='text' name='username'><br/>
+
+    <label for='password'>Password:</label><br/>
+	<input type='text' name='password'><br/>
+
+    <input type='file' name='file'><br/>
+	<input type='submit' name='Submit'>
+</form>
+
+</body>
+</html>
+--#

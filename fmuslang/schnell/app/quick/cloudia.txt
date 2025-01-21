@@ -1,0 +1,1220 @@
+fm//aws)ec2/kp/+mysidoarjokeypair
+    [cloudia] ec2 function...
+    SSH key fingerprint: 28:ff:5b:b8:22:e2:25:22:51:a7:c6:ce:67:05:00:a8:36:0e:3d:2e
+    Private SSH key: -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEA4/kgAgZdLcOKfvxij4/t2w9mKsJMmK2eOsAIQ8y22/Pz/+qI
+    mSr9ErBDV+AOkev8zCaxbj06rspdvmhtRhVXmMPmymAnlTYAAACgAV7HuwuJXU3u
+    tYLkHSODDVfRIN/BoCuT0HSVE/Cn01mTCjHnrzl+qJwItaBCPMc585Sper+8vJGN
+    IU5FjFIGWtqfMT3Ea6OR4OoC+Rm92SQ5TqKJgZF8oO7h1uglZqvUbLZBj+LVd4a7
+    l1zDrT4s/hLE0zFu39v/Kvvcx439r5UJATBw2AZ3lH8qr89LtlcHcgBjtZkU0RpZ
+    3xANOVzWUPDrALOA4d2ROY1rocd6cg34NLJX2QIDAQABAoIBAQCy2yxSil2mXuiU
+    sjw9d+Vb3VwBpgjkLCqc2zZgwwaf0GiZWo8q5EBC3kknc2Da+TOPk7fWznDw21Hq
+    5hD9UBc2glPaaNAFT6V2WwctrAe1ZtqxekgS3gtMFSVnXYN0cDiAClBg1mZzi3aP
+    6ZHkCL1Fiy0k6a4nmQD+oCuGQBcrdjE0VG1rP4sglxK8fjipjF88IWm+U+8uqH2l
+    HIKmiufn9q92v8NTxXHUP9V08OmCx8f5KWNGrXPCMIqistaWjOU588nUcQbQMlEn
+    KJ+Dj/Y71VPIuIhy4QaHv/oI71xaT7Ky772xlVclFspZTCr0h6YNlHJ6vAf+WdtF
+    ATnnDMeRAoGBAPpf34PKSMhbMqw3yP0P040KH9VwbjCu6pjEc40+oUdZnW0aPTG6
+    VWps2DwEKQupbsZs4u9fVwiMa7xuV8naKNCikpeaT90OHaM93RFK2pkgXTSJXI6n
+    G14Fz9E1gZO7N1gSezuJyWJC7EnFIl6ffqbNkwkGISCEmtyGN7Kr2xp1AoGBAOkY
+    ZtiuyiYONuQFD6+QkthgRYkMahbL5WLNHNrUPEaq58fSp/BaB2IKEwm1lpfw89BD
+    Ts+MpSSl1PCh5+7zqLXx12df8bE4kcUZjGYflPYODBhMpqOa11JIylGKgLU7qOzu
+    pVQ6YoVo3/1QD/1fUQJ2Q26Mdo0h2u4Tw+o10HNVAoGBAMa/Chd8oK/irOPGWJaB
+    VKX1rnVojR+6CeGAuFUbrTyNJ4kutfredeVIR5HEn6xxL8z1LGNlpBnWFcN7N9a0
+    hYewNXuAc/r+tIoblnuels3Mwg/tJfrbLb9CD8h7l8NkbrdL3GTTqHeGtjiM8w53
+    vzq7nwcfxXYhrSh2pon/H6rtAoGANYkRNfsPGqZxHPW8oIoH8AJMdimPxCSYTpTl
+    Z60PGvvtuAs93woOYAoITVaTe9ovZUnQNAMNetlLiujkqBD2UrN00Z1LmXRwpmAz
+    ytC+GbUoOfyA2Vqa0Z8+OHQjE3zcU26MMkgmkJWBvGBDC+J0bKhU3HMOV2PLMJsB
+    iC1L7vECgYAH7oSaIe6AvSBEdS2cEReBQSenSPxQytENABRkBT0vY+PsRfS40Ybx
+    dgsRFxxMNPW89A9+D85Mhzv9NlHblwlQC6pf+zPvdH2s29Lfjj5PMg1X+aVJSa/P
+    5Fg13vlR2E1L49sniYIO8Tt1ZhBD78/tqoNpYuUV02eDyv0X0CchhA==
+    -----END RSA PRIVATE KEY-----
+
+fm//aws)ec2/kp/list
+    [cloudia] ec2 function...
+    SSH key "mysidoarjokeypair" fingerprint: 28:ff:5b:b8:22:e2:25:22:51:a7:c6:ce:67:05:00:a8:36:0e:3d:2e
+
+fm//aws)ec2/kp/-mysidoarjokeypair
+    [cloudia] ec2 function...
+    SSH key "mysidoarjokeypair" successfully deleted
+
+fm//aws)ec2/sg/list
+    [cloudia] ec2 function...
+    Security Groups:
+    - sg-072ac00cdcc8a039e
+    - sg-0be5340059868598e
+
+fm//aws)ec2/sg/detail/sg-072ac00cdcc8a039e
+    [cloudia] ec2 function...
+    Security Group sg-072ac00cdcc8a039e attributes:
+    {
+        "Description": "Created by RDS management console",
+        "GroupName": "db",
+        "IpPermissions": [
+            {
+                "FromPort": 5432,
+                "IpProtocol": "tcp",
+                "IpRanges": [
+                    {
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "Ipv6Ranges": [],
+                "PrefixListIds": [],
+                "ToPort": 5432,
+                "UserIdGroupPairs": []
+            }
+        ],
+        "OwnerId": "146669583780",
+        "GroupId": "sg-072ac00cdcc8a039e",
+        "IpPermissionsEgress": [
+            {
+                "IpProtocol": "-1",
+                "IpRanges": [
+                    {
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "Ipv6Ranges": [],
+                "PrefixListIds": [],
+                "UserIdGroupPairs": []
+            }
+        ],
+        "VpcId": "vpc-0d85e7324a1cc3495"
+    }
+
+fm//aws)ec2/sg/detail/sg-0be5340059868598e
+    [cloudia] ec2 function...
+    Security Group sg-0be5340059868598e attributes:
+    {
+        "Description": "default VPC security group",
+        "GroupName": "default",
+        "IpPermissions": [
+            {
+                "IpProtocol": "-1",
+                "IpRanges": [],
+                "Ipv6Ranges": [],
+                "PrefixListIds": [],
+                "UserIdGroupPairs": [
+                    {
+                        "GroupId": "sg-0be5340059868598e",
+                        "UserId": "146669583780"
+                    }
+                ]
+            }
+        ],
+        "OwnerId": "146669583780",
+        "GroupId": "sg-0be5340059868598e",
+        "IpPermissionsEgress": [
+            {
+                "IpProtocol": "-1",
+                "IpRanges": [
+                    {
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "Ipv6Ranges": [],
+                "PrefixListIds": [],
+                "UserIdGroupPairs": []
+            }
+        ],
+        "VpcId": "vpc-0d85e7324a1cc3495"
+    }
+
+fm//aws)ec2/sn/list
+    [cloudia] ec2 function...
+    {'AssignIpv6AddressOnCreation': False,
+    'AvailabilityZone': 'us-east-1d',
+    'AvailabilityZoneId': 'use1-az2',
+    'AvailableIpAddressCount': 4091,
+    'CidrBlock': '172.31.80.0/20',
+    'DefaultForAz': True,
+    'EnableDns64': False,
+    'Ipv6CidrBlockAssociationSet': [],
+    'Ipv6Native': False,
+    'MapCustomerOwnedIpOnLaunch': False,
+    'MapPublicIpOnLaunch': True,
+    'OwnerId': '146669583780',
+    'PrivateDnsNameOptionsOnLaunch': {'EnableResourceNameDnsAAAARecord': False,
+                                    'EnableResourceNameDnsARecord': False,
+                                    'HostnameType': 'ip-name'},
+    'State': 'available',
+    'SubnetArn': 'arn:aws:ec2:us-east-1:146669583780:subnet/subnet-06be7bc2ad7fac6b9',
+    'SubnetId': 'subnet-06be7bc2ad7fac6b9',
+    'VpcId': 'vpc-0d85e7324a1cc3495'}
+
+    {'AssignIpv6AddressOnCreation': False,
+    'AvailabilityZone': 'us-east-1e',
+    'AvailabilityZoneId': 'use1-az3',
+    'AvailableIpAddressCount': 4091,
+    'CidrBlock': '172.31.48.0/20',
+    'DefaultForAz': True,
+    'EnableDns64': False,
+    'Ipv6CidrBlockAssociationSet': [],
+    'Ipv6Native': False,
+    'MapCustomerOwnedIpOnLaunch': False,
+    'MapPublicIpOnLaunch': True,
+    'OwnerId': '146669583780',
+    'PrivateDnsNameOptionsOnLaunch': {'EnableResourceNameDnsAAAARecord': False,
+                                    'EnableResourceNameDnsARecord': False,
+                                    'HostnameType': 'ip-name'},
+    'State': 'available',
+    'SubnetArn': 'arn:aws:ec2:us-east-1:146669583780:subnet/subnet-021fe07a1621c55ae',
+    'SubnetId': 'subnet-021fe07a1621c55ae',
+    'VpcId': 'vpc-0d85e7324a1cc3495'}
+
+    {'AssignIpv6AddressOnCreation': False,
+    'AvailabilityZone': 'us-east-1c',
+    'AvailabilityZoneId': 'use1-az1',
+    'AvailableIpAddressCount': 4091,
+    'CidrBlock': '172.31.0.0/20',
+    'DefaultForAz': True,
+    'EnableDns64': False,
+    'Ipv6CidrBlockAssociationSet': [],
+    'Ipv6Native': False,
+    'MapCustomerOwnedIpOnLaunch': False,
+    'MapPublicIpOnLaunch': True,
+    'OwnerId': '146669583780',
+    'PrivateDnsNameOptionsOnLaunch': {'EnableResourceNameDnsAAAARecord': False,
+                                    'EnableResourceNameDnsARecord': False,
+                                    'HostnameType': 'ip-name'},
+    'State': 'available',
+    'SubnetArn': 'arn:aws:ec2:us-east-1:146669583780:subnet/subnet-0e0ebe944941d3c8f',
+    'SubnetId': 'subnet-0e0ebe944941d3c8f',
+    'VpcId': 'vpc-0d85e7324a1cc3495'}
+
+    {'AssignIpv6AddressOnCreation': False,
+    'AvailabilityZone': 'us-east-1f',
+    'AvailabilityZoneId': 'use1-az5',
+    'AvailableIpAddressCount': 4091,
+    'CidrBlock': '172.31.64.0/20',
+    'DefaultForAz': True,
+    'EnableDns64': False,
+    'Ipv6CidrBlockAssociationSet': [],
+    'Ipv6Native': False,
+    'MapCustomerOwnedIpOnLaunch': False,
+    'MapPublicIpOnLaunch': True,
+    'OwnerId': '146669583780',
+    'PrivateDnsNameOptionsOnLaunch': {'EnableResourceNameDnsAAAARecord': False,
+                                    'EnableResourceNameDnsARecord': False,
+                                    'HostnameType': 'ip-name'},
+    'State': 'available',
+    'SubnetArn': 'arn:aws:ec2:us-east-1:146669583780:subnet/subnet-0cb84a3f95e6346a9',
+    'SubnetId': 'subnet-0cb84a3f95e6346a9',
+    'VpcId': 'vpc-0d85e7324a1cc3495'}
+
+    {'AssignIpv6AddressOnCreation': False,
+    'AvailabilityZone': 'us-east-1a',
+    'AvailabilityZoneId': 'use1-az4',
+    'AvailableIpAddressCount': 4091,
+    'CidrBlock': '172.31.16.0/20',
+    'DefaultForAz': True,
+    'EnableDns64': False,
+    'Ipv6CidrBlockAssociationSet': [],
+    'Ipv6Native': False,
+    'MapCustomerOwnedIpOnLaunch': False,
+    'MapPublicIpOnLaunch': True,
+    'OwnerId': '146669583780',
+    'PrivateDnsNameOptionsOnLaunch': {'EnableResourceNameDnsAAAARecord': False,
+                                    'EnableResourceNameDnsARecord': False,
+                                    'HostnameType': 'ip-name'},
+    'State': 'available',
+    'SubnetArn': 'arn:aws:ec2:us-east-1:146669583780:subnet/subnet-0aae6dfda3ae7e735',
+    'SubnetId': 'subnet-0aae6dfda3ae7e735',
+    'VpcId': 'vpc-0d85e7324a1cc3495'}
+
+    {'AssignIpv6AddressOnCreation': False,
+    'AvailabilityZone': 'us-east-1b',
+    'AvailabilityZoneId': 'use1-az6',
+    'AvailableIpAddressCount': 4091,
+    'CidrBlock': '172.31.32.0/20',
+    'DefaultForAz': True,
+    'EnableDns64': False,
+    'Ipv6CidrBlockAssociationSet': [],
+    'Ipv6Native': False,
+    'MapCustomerOwnedIpOnLaunch': False,
+    'MapPublicIpOnLaunch': True,
+    'OwnerId': '146669583780',
+    'PrivateDnsNameOptionsOnLaunch': {'EnableResourceNameDnsAAAARecord': False,
+                                    'EnableResourceNameDnsARecord': False,
+                                    'HostnameType': 'ip-name'},
+    'State': 'available',
+    'SubnetArn': 'arn:aws:ec2:us-east-1:146669583780:subnet/subnet-0d3c87f7b761e44bb',
+    'SubnetId': 'subnet-0d3c87f7b761e44bb',
+    'VpcId': 'vpc-0d85e7324a1cc3495'}
+
+#
+
+fm//aws)ec2/+/name=wiekes-ec2,ami=ami-0c4f7023847b90238
+    [cloudia] ec2 function...
+    EC2 instance "i-061148269d4bcff40" has been launched
+    EC2 instance "i-061148269d4bcff40" has been started
+
+fm//aws)ec2/list
+    [cloudia] ec2 function...
+    [cloudia] ec2/list...
+    EC2 instance i-061148269d4bcff40" information:
+    Instance state: running
+    Instance AMI: ami-0c4f7023847b90238
+    Instance platform: None
+    Instance type: "t2.micro"
+    Public IPv4 address: 3.95.201.145
+    ------------------------------------------------------------
+    ec2.Instance(id='i-061148269d4bcff40')
+    ============================================================
+
+fm//aws)ec2/detail/i-061148269d4bcff40
+    [cloudia] ec2 function...
+    Instance i-061148269d4bcff40 attributes:
+    {
+        "Groups": [],
+        "Instances": [
+            {
+                "AmiLaunchIndex": 0,
+                "ImageId": "ami-0c4f7023847b90238",
+                "InstanceId": "i-061148269d4bcff40",
+                "InstanceType": "t2.micro",
+                "LaunchTime": "2022-05-06T14:40:33+00:00",
+                "Monitoring": {
+                    "State": "disabled"
+                },
+                "Placement": {
+                    "AvailabilityZone": "us-east-1a",
+                    "GroupName": "",
+                    "Tenancy": "default"
+                },
+                "PrivateDnsName": "ip-172-31-27-39.ec2.internal",
+                "PrivateIpAddress": "172.31.27.39",
+                "ProductCodes": [],
+                "PublicDnsName": "ec2-3-95-201-145.compute-1.amazonaws.com",
+                "PublicIpAddress": "3.95.201.145",
+                "State": {
+                    "Code": 16,
+                    "Name": "running"
+                },
+                "StateTransitionReason": "",
+                "SubnetId": "subnet-0aae6dfda3ae7e735",
+                "VpcId": "vpc-0d85e7324a1cc3495",
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "AttachTime": "2022-05-06T14:40:34+00:00",
+                            "DeleteOnTermination": true,
+                            "Status": "attached",
+                            "VolumeId": "vol-0b3783f84dd1ffe44"
+                        }
+                    }
+                ],
+                "ClientToken": "948615fc-04cd-4956-98c7-21e11de65c8d",
+                "EbsOptimized": false,
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "NetworkInterfaces": [
+                    {
+                        "Association": {
+                            "IpOwnerId": "amazon",
+                            "PublicDnsName": "ec2-3-95-201-145.compute-1.amazonaws.com",
+                            "PublicIp": "3.95.201.145"
+                        },
+                        "Attachment": {
+                            "AttachTime": "2022-05-06T14:40:33+00:00",
+                            "AttachmentId": "eni-attach-086023ec9a2c84ec3",
+                            "DeleteOnTermination": true,
+                            "DeviceIndex": 0,
+                            "Status": "attached",
+                            "NetworkCardIndex": 0
+                        },
+                        "Description": "",
+                        "Groups": [
+                            {
+                                "GroupName": "default",
+                                "GroupId": "sg-0be5340059868598e"
+                            }
+                        ],
+                        "Ipv6Addresses": [],
+                        "MacAddress": "0a:97:be:db:ff:1d",
+                        "NetworkInterfaceId": "eni-07dad6a0c29700422",
+                        "OwnerId": "146669583780",
+                        "PrivateDnsName": "ip-172-31-27-39.ec2.internal",
+                        "PrivateIpAddress": "172.31.27.39",
+                        "PrivateIpAddresses": [
+                            {
+                                "Association": {
+                                    "IpOwnerId": "amazon",
+                                    "PublicDnsName": "ec2-3-95-201-145.compute-1.amazonaws.com",
+                                    "PublicIp": "3.95.201.145"
+                                },
+                                "Primary": true,
+                                "PrivateDnsName": "ip-172-31-27-39.ec2.internal",
+                                "PrivateIpAddress": "172.31.27.39"
+                            }
+                        ],
+                        "SourceDestCheck": true,
+                        "Status": "in-use",
+                        "SubnetId": "subnet-0aae6dfda3ae7e735",
+                        "VpcId": "vpc-0d85e7324a1cc3495",
+                        "InterfaceType": "interface"
+                    }
+                ],
+                "RootDeviceName": "/dev/sda1",
+                "RootDeviceType": "ebs",
+                "SecurityGroups": [
+                    {
+                        "GroupName": "default",
+                        "GroupId": "sg-0be5340059868598e"
+                    }
+                ],
+                "SourceDestCheck": true,
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "wiekes-ec2"
+                    }
+                ],
+                "VirtualizationType": "hvm",
+                "CpuOptions": {
+                    "CoreCount": 1,
+                    "ThreadsPerCore": 1
+                },
+                "CapacityReservationSpecification": {
+                    "CapacityReservationPreference": "open"
+                },
+                "HibernationOptions": {
+                    "Configured": false
+                },
+                "MetadataOptions": {
+                    "State": "applied",
+                    "HttpTokens": "optional",
+                    "HttpPutResponseHopLimit": 1,
+                    "HttpEndpoint": "enabled",
+                    "HttpProtocolIpv6": "disabled",
+                    "InstanceMetadataTags": "disabled"
+                },
+                "EnclaveOptions": {
+                    "Enabled": false
+                },
+                "PlatformDetails": "Linux/UNIX",
+                "UsageOperation": "RunInstances",
+                "UsageOperationUpdateTime": "2022-05-06T14:40:33+00:00",
+                "PrivateDnsNameOptions": {
+                    "HostnameType": "ip-name",
+                    "EnableResourceNameDnsARecord": false,
+                    "EnableResourceNameDnsAAAARecord": false
+                }
+            }
+        ],
+        "OwnerId": "146669583780",
+        "ReservationId": "r-0853271295f36186d"
+    }
+
+fm//aws)ec2/stop/i-061148269d4bcff40
+    [cloudia] ec2 function...
+    Stopping EC2 instance: i-061148269d4bcff40
+    EC2 instance "i-061148269d4bcff40" has been stopped
+
+fm//aws)ec2/terminate/i-061148269d4bcff40
+    [cloudia] ec2 function...
+    Terminating EC2 instance: i-061148269d4bcff40
+    EC2 instance "i-061148269d4bcff40" has been terminated
+
+(jadi hrs bikin dulu key pair)
+fm//aws)ec2/+/name=wiekes-ec2,ami=ami-0c4f7023847b90238,kp=kp-wieke-gaia-pair
+botocore.exceptions.ClientError: An error occurred (InvalidKeyPair.NotFound) when calling the RunInstances operation: The key pair 'kp-wieke-gaia-pair' does not exist
+
+fm//aws)ec2/kp/+kp-wiekegaia
+    [cloudia] ec2 function...
+    SSH key fingerprint: 20:77:b8:79:62:34:4d:15:d3:e4:48:6a:f7:72:c6:8c:ad:b8:37:73
+    Private SSH key: -----BEGIN RSA PRIVATE KEY-----
+
+fm//aws)ec2/+/name=wiekes-ec2,ami=ami-0c4f7023847b90238,kp=kp-wiekegaia
+    [cloudia] ec2 function...
+    EC2 instance "i-08d5e2502203d936e" has been launched
+    EC2 instance "i-08d5e2502203d936e" has been started
+
+ssh -l usef 54.224.169.186
+ssh: connect to host 54.224.169.186 port 22: Connection timed out
+
+fm//aws)ec2/stop/i-08d5e2502203d936e
+    [cloudia] ec2 function...
+    Stopping EC2 instance: i-08d5e2502203d936e
+    EC2 instance "i-08d5e2502203d936e" has been stopped
+
+fm//aws)ec2/terminate/i-08d5e2502203d936e
+    [cloudia] ec2 function...
+    Terminating EC2 instance: i-08d5e2502203d936e
+    EC2 instance "i-08d5e2502203d936e" has been terminated
+
+https://intellipaat.com/community/41966/how-to-delete-an-ec2-instance-using-python-boto3
+
+ids = ['i-1','i-2','i-3','i-4','i-5']
+ec2 = boto3.resource('ec2')
+ec2.instances.filter(InstanceIds = ids).terminate()
+
+jd terminate itu hapus...
+
+==
+
+fm//aws)ec2/sg/ssh/+/vpc-0d85e7324a1cc3495
+    [cloudia] ec2 function...
+    Security Group sg-0ae73eeb533d3b736 has been created
+fm//aws)ec2/sg/list
+    [cloudia] ec2 function...
+    ...
+    Security Group sg-0ae73eeb533d3b736 attributes:
+    {
+        "Description": "Allow inbound SSH traffic",
+        "GroupName": "allow-inbound-ssh",
+        "IpPermissions": [
+            {
+                "FromPort": 22,
+                "IpProtocol": "tcp",
+                "IpRanges": [
+                    {
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "Ipv6Ranges": [],
+                "PrefixListIds": [],
+                "ToPort": 22,
+                "UserIdGroupPairs": []
+            }
+        ],
+        "OwnerId": "146669583780",
+        "GroupId": "sg-0ae73eeb533d3b736",
+        "IpPermissionsEgress": [
+            {
+                "IpProtocol": "-1",
+                "IpRanges": [
+                    {
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "Ipv6Ranges": [],
+                "PrefixListIds": [],
+                "UserIdGroupPairs": []
+            }
+        ],
+        "Tags": [
+            {
+                "Key": "Name",
+                "Value": "allow-inbound-ssh"
+            }
+        ],
+        "VpcId": "vpc-0d85e7324a1cc3495"
+    }
+    Security Groups:
+    - sg-072ac00cdcc8a039e
+    - sg-0be5340059868598e
+    - sg-0ae73eeb533d3b736
+fm//aws)ec2/list
+    [cloudia] ec2 function...
+    [cloudia] ec2/list...
+    EC2 instance i-09bc30dc82cda73a2" information:
+    Instance state: running
+    Instance AMI: ami-0c4f7023847b90238
+    Instance platform: None
+    Instance type: "t2.micro"
+    Public IPv4 address: 3.94.152.168
+    ------------------------------------------------------------
+    ec2.Instance(id='i-09bc30dc82cda73a2')
+    ============================================================
+
+fm//aws)ec2/sg/attach/sg-0ae73eeb533d3b736/i-09bc30dc82cda73a2
+    [cloudia] ec2 function...
+    Security Group sg-0ae73eeb533d3b736 has been attached to EC2 instance i-09bc30dc82cda73a2
+ fm//aws)ec2/detail/i-09bc30dc82cda73a2
+    [cloudia] ec2 function...
+    Instance i-09bc30dc82cda73a2 attributes:
+    {
+        "Groups": [],
+        "Instances": [
+            {
+                "AmiLaunchIndex": 0,
+                "ImageId": "ami-0c4f7023847b90238",
+                "InstanceId": "i-09bc30dc82cda73a2",
+                "InstanceType": "t2.micro",
+                "KeyName": "kp-wiekegaia",
+                "LaunchTime": "2022-05-06T22:09:07+00:00",
+                "Monitoring": {
+                    "State": "disabled"
+                },
+                "Placement": {
+                    "AvailabilityZone": "us-east-1a",
+                    "GroupName": "",
+                    "Tenancy": "default"
+                },
+                "PrivateDnsName": "ip-172-31-23-36.ec2.internal",
+                "PrivateIpAddress": "172.31.23.36",
+                "ProductCodes": [],
+                "PublicDnsName": "ec2-3-94-152-168.compute-1.amazonaws.com",
+                "PublicIpAddress": "3.94.152.168",
+                "State": {
+                    "Code": 16,
+                    "Name": "running"
+                },
+                "StateTransitionReason": "",
+                "SubnetId": "subnet-0aae6dfda3ae7e735",
+                "VpcId": "vpc-0d85e7324a1cc3495",
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "AttachTime": "2022-05-06T22:09:08+00:00",
+                            "DeleteOnTermination": true,
+                            "Status": "attached",
+                            "VolumeId": "vol-0d8a83b35f8e40908"
+                        }
+                    }
+                ],
+                "ClientToken": "505d7f9f-f4f5-435c-bb47-6e1c29487ad2",
+                "EbsOptimized": false,
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "NetworkInterfaces": [
+                    {
+                        "Association": {
+                            "IpOwnerId": "amazon",
+                            "PublicDnsName": "ec2-3-94-152-168.compute-1.amazonaws.com",
+                            "PublicIp": "3.94.152.168"
+                        },
+                        "Attachment": {
+                            "AttachTime": "2022-05-06T22:09:07+00:00",
+                            "AttachmentId": "eni-attach-0c3c2d5d25265f348",
+                            "DeleteOnTermination": true,
+                            "DeviceIndex": 0,
+                            "Status": "attached",
+                            "NetworkCardIndex": 0
+                        },
+                        "Description": "",
+                        "Groups": [
+                            {
+                                "GroupName": "allow-inbound-ssh",
+                                "GroupId": "sg-0ae73eeb533d3b736"
+                            }
+                        ],
+                        "Ipv6Addresses": [],
+                        "MacAddress": "0a:8d:ad:05:27:fb",
+                        "NetworkInterfaceId": "eni-0c72db334eb01dc69",
+                        "OwnerId": "146669583780",
+                        "PrivateDnsName": "ip-172-31-23-36.ec2.internal",
+                        "PrivateIpAddress": "172.31.23.36",
+                        "PrivateIpAddresses": [
+                            {
+                                "Association": {
+                                    "IpOwnerId": "amazon",
+                                    "PublicDnsName": "ec2-3-94-152-168.compute-1.amazonaws.com",
+                                    "PublicIp": "3.94.152.168"
+                                },
+                                "Primary": true,
+                                "PrivateDnsName": "ip-172-31-23-36.ec2.internal",
+                                "PrivateIpAddress": "172.31.23.36"
+                            }
+                        ],
+                        "SourceDestCheck": true,
+                        "Status": "in-use",
+                        "SubnetId": "subnet-0aae6dfda3ae7e735",
+                        "VpcId": "vpc-0d85e7324a1cc3495",
+                        "InterfaceType": "interface"
+                    }
+                ],
+                "RootDeviceName": "/dev/sda1",
+                "RootDeviceType": "ebs",
+                "SecurityGroups": [
+                    {
+                        "GroupName": "allow-inbound-ssh",
+                        "GroupId": "sg-0ae73eeb533d3b736"
+                    }
+                ],
+                "SourceDestCheck": true,
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "wiekes-ec2"
+                    }
+                ],
+                "VirtualizationType": "hvm",
+                "CpuOptions": {
+                    "CoreCount": 1,
+                    "ThreadsPerCore": 1
+                },
+                "CapacityReservationSpecification": {
+                    "CapacityReservationPreference": "open"
+                },
+                "HibernationOptions": {
+                    "Configured": false
+                },
+                "MetadataOptions": {
+                    "State": "applied",
+                    "HttpTokens": "optional",
+                    "HttpPutResponseHopLimit": 1,
+                    "HttpEndpoint": "enabled",
+                    "HttpProtocolIpv6": "disabled",
+                    "InstanceMetadataTags": "disabled"
+                },
+                "EnclaveOptions": {
+                    "Enabled": false
+                },
+                "PlatformDetails": "Linux/UNIX",
+                "UsageOperation": "RunInstances",
+                "UsageOperationUpdateTime": "2022-05-06T22:09:07+00:00",
+                "PrivateDnsNameOptions": {
+                    "HostnameType": "ip-name",
+                    "EnableResourceNameDnsARecord": false,
+                    "EnableResourceNameDnsAAAARecord": false
+                }
+            }
+        ],
+        "OwnerId": "146669583780",
+        "ReservationId": "r-0c63c27ba52a158cb"
+    }
+langkah ec2 instance
+vpc -> vpc id -> security group ssh -> create ec2
+dont:
+    fm//aws)ec2/+/name=wiekes-ec2,ami=ami-0c4f7023847b90238,kp=kp-wiekegaia,vpc=...
+mending:
+    fm//aws)ec2/+/name=wiekes-ec2,ami=ami-0c4f7023847b90238,kp=kp-wiekegaia
+
+    fm//aws)ec2/list
+        perlu utk instanceid
+
+    fm//aws)vpc/list
+        perlu utk create new sg
+
+    fm//aws)ec2/sg/ssh/+/vpcid
+    fm//aws)ec2/sg/ssh/+/vpc-0d85e7324a1cc3495
+        ini adlh create sg
+    fm//aws)ec2/sg/list
+
+    fm//aws)ec2/sg/attach/sgid/instanceid
+    fm//aws)ec2/sg/attach/sg-0ae73eeb533d3b736/i-09bc30dc82cda73a2
+
+    fm//aws)ec2/detail/i-09bc30dc82cda73a2
+ternyata ada attach sg ke instance
+jadi bisa belakangan utk sg
+
+fm//aws)vpc/list
+    [cloudia] vpc function...
+    [cloudia] vpc/list...
+    {'CidrBlock': '172.31.0.0/16',
+    'CidrBlockAssociationSet': [{'AssociationId': 'vpc-cidr-assoc-0ddd5fc0b273e1819',
+                                'CidrBlock': '172.31.0.0/16',
+                                'CidrBlockState': {'State': 'associated'}}],
+    'DhcpOptionsId': 'dopt-00ddb670234b6bbd1',
+    'InstanceTenancy': 'default',
+    'IsDefault': True,
+    'OwnerId': '146669583780',
+    'State': 'available',
+    'VpcId': 'vpc-0d85e7324a1cc3495'}
+    
+fm//aws)vpc/detail/vpc-0d85e7324a1cc3495
+    [cloudia] vpc function...
+    {
+        "ResponseMetadata": {
+            "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "986",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Fri, 06 May 2022 21:35:02 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "9728ed72-c094-453a-b6f6-76c15f609ef2"
+            },
+            "HTTPStatusCode": 200,
+            "RequestId": "9728ed72-c094-453a-b6f6-76c15f609ef2",
+            "RetryAttempts": 0
+        },
+        "Vpcs": [
+            {
+                "CidrBlock": "172.31.0.0/16",
+                "CidrBlockAssociationSet": [
+                    {
+                        "AssociationId": "vpc-cidr-assoc-0ddd5fc0b273e1819",
+                        "CidrBlock": "172.31.0.0/16",
+                        "CidrBlockState": {
+                            "State": "associated"
+                        }
+                    }
+                ],
+                "DhcpOptionsId": "dopt-00ddb670234b6bbd1",
+                "InstanceTenancy": "default",
+                "IsDefault": true,
+                "OwnerId": "146669583780",
+                "State": "available",
+                "VpcId": "vpc-0d85e7324a1cc3495"
+            }
+        ]
+    }
+
+fm//aws)vpc/+
+    botocore.exceptions.ClientError: 
+    An error occurred (DefaultVpcAlreadyExists) when calling the CreateDefaultVpc operation: 
+    A Default VPC already exists for this account in this region.
+
+konek ssh
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connection-prereqs.html
+Get the user name for your instance.
+
+You can connect to your instance using the user name for your user account 
+or the default user name for the AMI that you used to launch your instance.
+
+    Get the user name for your user account.
+
+    For more information about how to create a user account, 
+        see Manage user accounts on your Amazon Linux instance.
+
+    Get the default user name for the AMI that you used to launch your instance:
+
+    For Amazon Linux 2 or the Amazon Linux AMI, the user name is ec2-user.
+    For a CentOS AMI, the user name is centos or ec2-user.
+    For a Debian AMI, the user name is admin.
+    For a Fedora AMI, the user name is fedora or ec2-user.
+    For a RHEL AMI, the user name is ec2-user or root.
+    For a SUSE AMI, the user name is ec2-user or root.
+    For an Ubuntu AMI, the user name is ubuntu.
+    For an Oracle AMI, the user name is ec2-user.
+    For a Bitnami AMI, the user name is bitnami.
+    Otherwise, check with the AMI provider.
+
+Locate the private key and set the permissions
+
+    Locate the private key
+
+    Get the fully-qualified path to the location on your computer of the .pem file for the key pair that you specified when you launched the instance. For more information, see Identify the key pair that was specified at launch . If you can't find your private key file, see I've lost my private key. How can I connect to my Linux instance?
+
+    Set the permissions of your private key
+
+    If you will use an SSH client on a macOS or Linux computer to connect to your Linux instance, use the following command to set the permissions of your private key file so that only you can read it.
+
+chmod 400 my-key-pair.pem
+If you do not set these permissions, then you cannot connect to your instance using this key pair. For more information, see Error: Unprotected private key file.
+
+ssh -i /path/my-key-pair.pem my-instance-user-name@my-instance-public-dns-name
+
+fm//aws)ec2/kp/list
+    [cloudia] ec2 function...
+    SSH key "kp-wiekegaia" fingerprint: 20:77:b8:79:62:34:4d:15:d3:e4:48:6a:f7:72:c6:8c:ad:b8:37:73
+
+fm//aws)ec2/kp/detail/kp-wiekegaia
+    [cloudia] ec2 function...
+    SSH key "kp-wiekegaia" fingerprint: 20:77:b8:79:62:34:4d:15:d3:e4:48:6a:f7:72:c6:8c:ad:b8:37:73
+    --------------------
+    ec2.KeyPairInfo(name='kp-wiekegaia')
+    ----------------------------------------
+
+    Instance i-09bc30dc82cda73a2 attributes:
+    {
+        "Groups": [],
+        "Instances": [
+            {
+                "AmiLaunchIndex": 0,
+                "ImageId": "ami-0c4f7023847b90238",
+                "InstanceId": "i-09bc30dc82cda73a2",
+                "InstanceType": "t2.micro",
+                "KeyName": "kp-wiekegaia",
+                "LaunchTime": "2022-05-06T22:09:07+00:00",
+                "Monitoring": {
+                    "State": "disabled"
+                },
+                "Placement": {
+                    "AvailabilityZone": "us-east-1a",
+                    "GroupName": "",
+                    "Tenancy": "default"
+                },
+                "PrivateDnsName": "ip-172-31-23-36.ec2.internal",
+                "PrivateIpAddress": "172.31.23.36",
+                "ProductCodes": [],
+                "PublicDnsName": "ec2-3-94-152-168.compute-1.amazonaws.com",
+                "PublicIpAddress": "3.94.152.168",
+                "State": {
+                    "Code": 16,
+                    "Name": "running"
+                },
+    ...
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html
+
+https://stackoverflow.com/questions/32233873/create-new-ec2-keypair-on-aws-with-boto3
+
+Add the feature to save to local keypair file
+
+$ cat keypair.py
+
+import boto3
+
+keypair_name = "python_keypair"
+
+ec2 = boto3.client('ec2')
+keypair = ec2.create_key_pair(KeyName=keypair_name)
+
+private_key_file=open(keypair_name,"w")
+private_key_file.write(response['KeyMaterial'])
+private_key_file.close
+
+chmod 400 my-key-pair.pem (ini bisa dilakukan dari python)
+
+now you should get the private key locally
+
+$ cat python_keypair.pem
+
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA14D9GAC7zVSRr3iHUyEaIF8ol5ccWBj9InVqYnF28l10EUCz
+g5OLL5Ll6WiIYvlxhcRHM5d0os2Lg5SuKi0mTktYQ7QVD8RkdoEYIVrqgBir3VMf
+8jG08JRhaJs4/OQk2+WAGecjcVx6joz9yXTRT3Maaec/4qNigfYMLpSsdAoZ0hrk
+....
+
+move it to ~/.ssh and change permission to 600
+
+proses ec2 sampai bisa ssh:
+
+fm//aws)ec2/kp/++kp-wiekegaia
+    ++ utk simpan pem file
+fm//aws)ec2/+/name=wiekes-ec2,ami=ami-0c4f7023847b90238,kp=kp-wiekegaia
+
+fm//aws)ec2/list
+    perlu utk instanceid
+
+fm//aws)vpc/list
+    perlu utk create new sg
+
+fm//aws)ec2/sg/ssh/+/vpcid
+fm//aws)ec2/sg/ssh/+/vpc-0d85e7324a1cc3495
+    ini adlh create sg menggunakan default vpc
+    kembalikan security_group dari res.create_security_group, ada sgid di sini.
+        ternyata ada groupid, vpcid, dan ippermissions+egress, group name, tag name
+fm//aws)ec2/sg/list
+    dapatkan sgid
+
+fm//aws)ec2/sg/attach/sgid/instanceid
+fm//aws)ec2/sg/attach/sg-0ae73eeb533d3b736/i-09bc30dc82cda73a2
+
+sshutils
+exec_ssh_connect_with_retry(ip_address, commands=['pwd', 'ls -al'], privkey_pemfile='./config/image_rec_auth.pem', retries=0)
+
+    keypair -----------------|
+                          instance
+    vpc default --> new sg --|
+
+proses peroleh vpc id dari default vpc
+fm//aws)vpc/0
+    print pertama dari dalam vpc
+        [cloudia] vpc function...
+        {'CidrBlock': '172.31.0.0/16',
+        'CidrBlockAssociationSet': [{'AssociationId': 'vpc-cidr-assoc-0ddd5fc0b273e1819',
+                                    'CidrBlock': '172.31.0.0/16',
+                                    'CidrBlockState': {'State': 'associated'}}],
+        'DhcpOptionsId': 'dopt-00ddb670234b6bbd1',
+        'InstanceTenancy': 'default',
+        'IsDefault': True,
+        'OwnerId': '146669583780',
+        'State': 'available',
+        'VpcId': 'vpc-0d85e7324a1cc3495'}
+    print kedua dari dalam cloudia
+        {'CidrBlock': '172.31.0.0/16',
+        'CidrBlockAssociationSet': [{'AssociationId': 'vpc-cidr-assoc-0ddd5fc0b273e1819',
+                                    'CidrBlock': '172.31.0.0/16',
+                                    'CidrBlockState': {'State': 'associated'}}],
+        'DhcpOptionsId': 'dopt-00ddb670234b6bbd1',
+        'InstanceTenancy': 'default',
+        'IsDefault': True,
+        'OwnerId': '146669583780',
+        'State': 'available',
+        'VpcId': 'vpc-0d85e7324a1cc3495'}
+    ...
+fm//aws)ec2/-/i-0343afdd50dd524aa
+    [cloudia] ec2 function...
+    Stopping EC2 instance: i-0343afdd50dd524aa
+    EC2 instance "i-0343afdd50dd524aa" has been stopped
+    Terminating EC2 instance: i-0343afdd50dd524aa
+    EC2 instance "i-0343afdd50dd524aa" has been terminated
+
+fm//aws)ec2/++/name=wiekes-ec2,ami=ami-0c4f7023847b90238,kp=mysidoarjokeypair
+
+cari info gimana dapatkan data dari dalam sini
+ec2.Instance(id='i-02f7571e46fcb0fb6')
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#instance
+These are the resource's available identifiers:
+
+    id
+
+These are the resource's available attributes:
+    ami_launch_index
+    architecture
+    block_device_mappings
+    boot_mode
+    capacity_reservation_id
+    capacity_reservation_specification
+    client_token
+    cpu_options
+    ebs_optimized
+    elastic_gpu_associations
+    elastic_inference_accelerator_associations
+    ena_support
+    enclave_options
+    hibernation_options
+    hypervisor
+    iam_instance_profile
+    image_id
+    instance_id
+    instance_lifecycle
+    instance_type
+    ipv6_address
+    kernel_id
+    key_name
+    launch_time
+    licenses
+    maintenance_options
+    metadata_options
+    monitoring
+    network_interfaces_attribute
+    outpost_arn
+    placement
+    platform
+    platform_details
+    private_dns_name
+    private_dns_name_options
+    private_ip_address
+    product_codes
+    public_dns_name
+    public_ip_address
+    ramdisk_id
+    root_device_name
+    root_device_type
+    security_groups
+    source_dest_check
+    spot_instance_request_id
+    sriov_net_support
+    state
+    state_reason
+    state_transition_reason
+    subnet_id
+    tags
+    usage_operation
+    usage_operation_update_time
+    virtualization_type
+    vpc_id
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#vpc
+These are the resource's available identifiers:
+
+    id
+
+These are the resource's available attributes:
+
+    cidr_block
+    cidr_block_association_set
+    dhcp_options_id
+    instance_tenancy
+    ipv6_cidr_block_association_set
+    is_default
+    owner_id
+    state
+    tags
+    vpc_id
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#securitygroup
+These are the resource's available identifiers:
+
+    id
+
+These are the resource's available attributes:
+
+    description
+    group_id
+    group_name
+    ip_permissions
+    ip_permissions_egress
+    owner_id
+    tags
+    vpc_id
+
+harus dibaca berulang2
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html
+
+fm//aws)ec2/test
+    [cloudia] ec2 function...
+    [sshutils] exec_ssh_connect_with_retry started...
+    [sshutils] SSH into the instance: ec2-54-145-223-160.compute-1.amazonaws.com
+    2022-05-08 01:37:43,646: INFO: Connected (version 2.0, client OpenSSH_8.2p1)
+    2022-05-08 01:37:45,046: INFO: Authentication (publickey) successful!
+    stdout: /home/ubuntu
+    Linux ip-172-31-22-216 5.13.0-1022-aws #24~20.04.1-Ubuntu SMP Thu Apr 7 22:10:15 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+    Filesystem     1K-blocks    Used Available Use% Mounted on
+    /dev/root        8065444 1520920   6528140  19% /
+    devtmpfs          488948       0    488948   0% /dev
+    tmpfs             495580       0    495580   0% /dev/shm
+    tmpfs              99116     824     98292   1% /run
+    tmpfs               5120       0      5120   0% /run/lock
+    tmpfs             495580       0    495580   0% /sys/fs/cgroup
+    /dev/loop0         27392   27392         0 100% /snap/amazon-ssm-agent/5163
+    /dev/loop1         56960   56960         0 100% /snap/core18/2344
+    /dev/loop2         63488   63488         0 100% /snap/core20/1405
+    /dev/loop3         69504   69504         0 100% /snap/lxd/22753
+    /dev/loop4         44800   44800         0 100% /snap/snapd/15177
+    tmpfs              99116       0     99116   0% /run/user/1000
+
+fm//aws)iam/roles/+/my-eks-cluster-1
+    [cloudia] iam function...
+    [app.aws.iam] create role
+                pilihan: 1
+                nilai pilihan: {'Service': 'eks.amazonaws.com'}
+    "ini bentuk response dari create role"
+    {
+        'Role': {
+            'Path': '/', 
+            'RoleName': 'my-eks-cluster-1', 
+            'RoleId': 'AROASEJRQHWSG6OLPBCRP', 
+            'Arn': 'arn:aws:iam::146669583780:role/my-eks-cluster-1', 
+            'CreateDate': datetime.datetime(2022, 5, 8, 15, 35, 12, tzinfo=tzutc()), 'AssumeRolePolicyDocument': {
+                'Version': '2012-10-17', 
+                'Statement': [{
+                    'Effect': 'Allow', 
+                    'Principal': {'Service': 'eks.amazonaws.com'}, 
+                    'Action': 'sts:AssumeRole'
+                }]
+            }
+        }, 
+        'ResponseMetadata': {
+            'RequestId': '8ff18587-0edb-4dcf-95c3-7eb7c7553ff6', 
+            'HTTPStatusCode': 200, 
+            'HTTPHeaders': {
+                'x-amzn-requestid': '8ff18587-0edb-4dcf-95c3-7eb7c7553ff6', 
+                'content-type': 'text/xml', 
+                'content-length': '783', 
+                'date': 'Sun, 08 May 2022 15:35:11 GMT'
+            }, 
+            'RetryAttempts': 0
+        }
+    }
+
+fm//aws)iam/roles/list
+    [cloudia] iam function...
+    [cloudia] roles/read-list...
+    Account roles:
+    - aws-elasticbeanstalk-ec2-role
+    - aws-elasticbeanstalk-service-role
+    - AWSServiceRoleForAPIGateway
+    - AWSServiceRoleForAutoScaling
+    - AWSServiceRoleForElasticLoadBalancing
+    - AWSServiceRoleForRDS
+    - AWSServiceRoleForSupport
+    - AWSServiceRoleForTrustedAdvisor
+    - java-starter-JavaApiGatewayEventExampleRole-W0UDX7J8XRO2
+    - java-starter-JavaFunctionOneRole-1INW5SWDS24OZ
+    - java-starter-JavaFunctionTwoRole-1CL37VDCW5XR0
+    - my-eks-cluster-1
+    - node-starter-NodeFunctionRole-1UR5JG4BMQ8WI
+
+fm//aws)iam/roles/-/my-eks-cluster-1
+    [cloudia] iam function...
+    IAM role has been deleted
+
+fm//aws)iam/roles/list
+    [cloudia] iam function...
+    [cloudia] roles/read-list...
+    Account roles:
+    - aws-elasticbeanstalk-ec2-role
+    - aws-elasticbeanstalk-service-role
+    - AWSServiceRoleForAPIGateway
+    - AWSServiceRoleForAutoScaling
+    - AWSServiceRoleForElasticLoadBalancing
+    - AWSServiceRoleForRDS
+    - AWSServiceRoleForSupport
+    - AWSServiceRoleForTrustedAdvisor
+    - java-starter-JavaApiGatewayEventExampleRole-W0UDX7J8XRO2
+    - java-starter-JavaFunctionOneRole-1INW5SWDS24OZ
+    - java-starter-JavaFunctionTwoRole-1CL37VDCW5XR0
+    - node-starter-NodeFunctionRole-1UR5JG4BMQ8WI
+
+cidr_block = '10.0.0.0/16'
+subnet_cidr = '10.0.0.0/24'
+subnet_cidr2 = '10.0.1.0/24'
+create_vpc_response = ec2_client.create_vpc(CidrBlock=cidr_block)
+vpc = ec2_resource.Vpc(create_vpc_response["Vpc"]["VpcId"])
+subnet = vpc.create_subnet(CidrBlock=subnet_cidr)
+subnet2 = vpc.create_subnet(CidrBlock=subnet_cidr2)
+
+fm//aws)ec2/subnet/list/vpc-048da46c5c4860b45
+    [cloudia] ec2 function...
+    {'AssignIpv6AddressOnCreation': False,
+*    'AvailabilityZone': 'us-east-1c',
+    'AvailabilityZoneId': 'use1-az1',
+    'AvailableIpAddressCount': 251,
+    'CidrBlock': '10.0.0.0/24',
+    'DefaultForAz': False,
+    'EnableDns64': False,
+    'Ipv6CidrBlockAssociationSet': [],
+    'Ipv6Native': False,
+    'MapCustomerOwnedIpOnLaunch': False,
+    'MapPublicIpOnLaunch': False,
+    'OwnerId': '146669583780',
+    'PrivateDnsNameOptionsOnLaunch': {'EnableResourceNameDnsAAAARecord': False,
+                                    'EnableResourceNameDnsARecord': False,
+                                    'HostnameType': 'ip-name'},
+    'State': 'available',
+    'SubnetArn': 'arn:aws:ec2:us-east-1:146669583780:subnet/subnet-01df53a9ffcbbe21f',
+    'SubnetId': 'subnet-01df53a9ffcbbe21f',
+    'VpcId': 'vpc-048da46c5c4860b45'}
+    {'AssignIpv6AddressOnCreation': False,
+    'AvailabilityZone': 'us-east-1c',
+    'AvailabilityZoneId': 'use1-az1',
+    'AvailableIpAddressCount': 251,
+    'CidrBlock': '10.0.1.0/24',
+    'DefaultForAz': False,
+    'EnableDns64': False,
+    'Ipv6CidrBlockAssociationSet': [],
+    'Ipv6Native': False,
+    'MapCustomerOwnedIpOnLaunch': False,
+    'MapPublicIpOnLaunch': False,
+    'OwnerId': '146669583780',
+    'PrivateDnsNameOptionsOnLaunch': {'EnableResourceNameDnsAAAARecord': False,
+                                    'EnableResourceNameDnsARecord': False,
+                                    'HostnameType': 'ip-name'},
+    'State': 'available',
+    'SubnetArn': 'arn:aws:ec2:us-east-1:146669583780:subnet/subnet-0fc5976d823dff75d',
+    'SubnetId': 'subnet-0fc5976d823dff75d',
+    'VpcId': 'vpc-048da46c5c4860b45'}
+    {'AssignIpv6AddressOnCreation': False,
+*    'AvailabilityZone': 'us-east-1b',
+    'AvailabilityZoneId': 'use1-az6',
+    'AvailableIpAddressCount': 251,
+    'CidrBlock': '10.0.2.0/24',
+    'DefaultForAz': False,
+    'EnableDns64': False,
+    'Ipv6CidrBlockAssociationSet': [],
+    'Ipv6Native': False,
+    'MapCustomerOwnedIpOnLaunch': False,
+    'MapPublicIpOnLaunch': False,
+    'OwnerId': '146669583780',
+    'PrivateDnsNameOptionsOnLaunch': {'EnableResourceNameDnsAAAARecord': False,
+                                    'EnableResourceNameDnsARecord': False,
+                                    'HostnameType': 'ip-name'},
+    'State': 'available',
+    'SubnetArn': 'arn:aws:ec2:us-east-1:146669583780:subnet/subnet-0dd6c6f0b1d6c14f3',
+    'SubnetId': 'subnet-0dd6c6f0b1d6c14f3',
+    'VpcId': 'vpc-048da46c5c4860b45'}
+
+tambah client auth ke kafka cluster
+fm//aws)kafka/auth/arn:aws:kafka:us-east-1:146669583780:cluster/wieka-1/97361b08-2132-4aac-b196-f18244d2cc66-23
+    [cloudia] kafka function...
+    {'ClusterArn': 'arn:aws:kafka:us-east-1:146669583780:cluster/wieka-1/97361b08-2132-4aac-b196-f18244d2cc66-23',
+    'ClusterOperationArn': 'arn:aws:kafka:us-east-1:146669583780:cluster-operation/wieka-1/97361b08-2132-4aac-b196-f18244d2cc66-23/335a5bd8-eea5-4317-b482-ac6e1a749c46',
+    'ResponseMetadata': {...}}
+butuh waktu selama updating...
+jadi hrs cek dulu....
+
+fm//aws)kafka/status/arn:aws:kafka:us-east-1:146669583780:cluster/wieka-1/97361b08-2132-4aac-b196-f18244d2cc66-23
+    {'ClusterInfo': {'ActiveOperationArn': 'arn:aws:kafka:us-east-1:146669583780:cluster-operation/wieka-1/97361b08-2132-4aac-b196-f18244d2cc66-23/335a5bd8-eea5-4317-b482-ac6e1a749c46',
+        'ClusterArn': 'arn:aws:kafka:us-east-1:146669583780:cluster/wieka-1/97361b08-2132-4aac-b196-f18244d2cc66-23',
+        'ClusterName': 'wieka-1',
+        'ClusterType': 'PROVISIONED',
+        'CreationTime': datetime.datetime(2022, 5, 15, 5, 38, 5, 203000, tzinfo=tzutc()),
+        'CurrentVersion': 'K3P5ROKL5A1OLE',
+        ...
+        'State': 'UPDATING',
+        'Tags': {}},
+
+stlh status active maka coba kita bikin "public"
+but...masih belum jawab soal, ingress ya...
+

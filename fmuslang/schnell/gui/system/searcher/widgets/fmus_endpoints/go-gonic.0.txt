@@ -1,0 +1,291 @@
+make a Go Gonic endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+make the graphql version
+
+Open sidebar
+Create Go Gonic REST Controller
+
+
+User
+make a Go Gonic endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+ChatGPT
+Certainly! Here's an example of a Go Gonic endpoint REST controller class for creating a todo table using MySQL as the database:
+
+go
+Copy code
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	"log"
+	"net/http"
+	"strconv"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
+)
+
+type Todo struct {
+	ID        int       `json:"id"`
+	Priority  float64   `json:"priority"`
+	Completed bool      `json:"completed"`
+	Task      string    `json:"task"`
+	DueDate   time.Time `json:"due_date"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+func main() {
+	r := gin.Default()
+	r.POST("/todos", createTodo)
+	log.Fatal(r.Run(":8080"))
+}
+
+func createTodo(c *gin.Context) {
+	var todo Todo
+	if err := c.ShouldBindJSON(&todo); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db, err := sql.Open("mysql", "user:password@tcp(localhost:3306)/database")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database"})
+		return
+	}
+	defer db.Close()
+
+	stmt, err := db.Prepare("INSERT INTO todo (id, priority, completed, task, due_date, created_at) VALUES (?, ?, ?, ?, ?, ?)")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to prepare the SQL statement"})
+		return
+	}
+	defer stmt.Close()
+
+	result, err := stmt.Exec(todo.ID, todo.Priority, todo.Completed, todo.Task, todo.DueDate, todo.CreatedAt)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to execute the SQL statement"})
+		return
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get the number of affected rows"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": fmt.Sprintf("Todo created successfully. Rows affected: %d", rowsAffected)})
+}
+Make sure to replace "user:password@tcp(localhost:3306)/database" with your actual MySQL database connection string.
+
+This example uses the github.com/gin-gonic/gin package as the web framework and the github.com/go-sql-driver/mysql package as the MySQL driver. It defines a Todo struct to represent a todo item and creates a createTodo function to handle the HTTP POST request to create a new todo item.
+
+In the createTodo function, it first binds the JSON payload from the request to the todo struct. If there's an error in binding, it returns a JSON response with the error message.
+
+Next, it opens a connection to the MySQL database using the provided connection string and defers closing the connection after the function finishes.
+
+Then, it prepares an SQL statement to insert the todo data into the todo table and defers closing the prepared statement. It executes the statement with the provided todo data and retrieves the result.
+
+Finally, it checks the number of affected rows and returns a JSON response with a success message and the number of affected rows.
+
+Note: This example assumes that you have already imported the necessary packages and set up your Go environment properly.
+
+
+
+
+
+User
+make the graphql version
+
+ChatGPT
+Certainly! Here's an example of a Go Gonic endpoint GraphQL controller class for creating a Todo table using MySQL as the database:
+
+go
+Copy code
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	"log"
+	"net/http"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/graphql-go/graphql"
+	_ "github.com/go-sql-driver/mysql"
+)
+
+type Todo struct {
+	ID        int       `json:"id"`
+	Priority  float64   `json:"priority"`
+	Completed bool      `json:"completed"`
+	Task      string    `json:"task"`
+	DueDate   time.Time `json:"due_date"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+var todoType = graphql.NewObject(graphql.ObjectConfig{
+	Name: "Todo",
+	Fields: graphql.Fields{
+		"id":         &graphql.Field{Type: graphql.Int},
+		"priority":   &graphql.Field{Type: graphql.Float},
+		"completed":  &graphql.Field{Type: graphql.Boolean},
+		"task":       &graphql.Field{Type: graphql.String},
+		"due_date":   &graphql.Field{Type: graphql.String},
+		"created_at": &graphql.Field{Type: graphql.String},
+	},
+})
+
+func main() {
+	r := gin.Default()
+	r.POST("/graphql", graphqlHandler)
+	log.Fatal(r.Run(":8080"))
+}
+
+func graphqlHandler(c *gin.Context) {
+	db, err := sql.Open("mysql", "user:password@tcp(localhost:3306)/database")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database"})
+		return
+	}
+	defer db.Close()
+
+	schema, err := graphql.NewSchema(graphql.SchemaConfig{
+		Query:    buildRootQuery(),
+		Mutation: buildRootMutation(db),
+	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create the GraphQL schema"})
+		return
+	}
+
+	result := executeGraphQLQuery(c.PostForm("query"), schema)
+
+	c.JSON(http.StatusOK, result)
+}
+
+func buildRootQuery() *graphql.Object {
+	return graphql.NewObject(graphql.ObjectConfig{
+		Name: "Query",
+		Fields: graphql.Fields{
+			"todo": &graphql.Field{
+				Type:        todoType,
+				Description: "Get a todo by ID",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
+					},
+				},
+				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+					id, ok := params.Args["id"].(int)
+					if !ok {
+						return nil, fmt.Errorf("Invalid argument type for 'id'")
+					}
+
+					// Retrieve the todo from the database by ID
+					// ...
+
+					return nil, nil // Replace with actual todo data
+				},
+			},
+		},
+	})
+}
+
+func buildRootMutation(db *sql.DB) *graphql.Object {
+	return graphql.NewObject(graphql.ObjectConfig{
+		Name: "Mutation",
+		Fields: graphql.Fields{
+			"createTodo": &graphql.Field{
+				Type:        todoType,
+				Description: "Create a new todo",
+				Args: graphql.FieldConfigArgument{
+					"priority": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Float),
+					},
+					"completed": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Boolean),
+					},
+					"task": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"due_date": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+					priority, ok := params.Args["priority"].(float64)
+					if !ok {
+						return nil, fmt.Errorf("Invalid argument type for 'priority'")
+					}
+
+					completed, ok := params.Args["completed"].(bool)
+					if !ok {
+						return nil, fmt.Errorf("Invalid argument type for 'completed'")
+					}
+
+					task, ok := params.Args["task"].(string)
+					if !ok {
+						return nil, fmt.Errorf("Invalid argument type for 'task'")
+					}
+
+					dueDateStr, ok := params.Args["due_date"].(string)
+					if !ok {
+						return nil, fmt.Errorf("Invalid argument type for 'due_date'")
+					}
+
+					dueDate, err := time.Parse("2006-01-02", dueDateStr)
+					if err != nil {
+						return nil, fmt.Errorf("Invalid format for 'due_date'")
+					}
+
+					createdAt := time.Now()
+
+					// Insert the new todo into the database
+					// ...
+
+					return nil, nil // Replace with the created todo data
+				},
+			},
+		},
+	})
+}
+
+func executeGraphQLQuery(query string, schema graphql.Schema) *graphql.Result {
+	result := graphql.Do(graphql.Params{
+		Schema:        schema,
+		RequestString: query,
+	})
+
+	if len(result.Errors) > 0 {
+		log.Printf("GraphQL query execution errors: %v", result.Errors)
+	}
+
+	return result
+}
+Make sure to replace "user:password@tcp(localhost:3306)/database" with your actual MySQL database connection string.
+
+This example uses the github.com/gin-gonic/gin package as the web framework, the github.com/graphql-go/graphql package as the GraphQL implementation, and the github.com/go-sql-driver/mysql package as the MySQL driver.
+
+The example defines a Todo struct to represent a todo item and creates a GraphQL schema with a root query and a root mutation. The root query provides a todo field to retrieve a todo by ID, and the root mutation provides a createTodo field to create a new todo. Both the todo and createTodo fields have their respective resolve functions where you can implement the database operations.
+
+In the graphqlHandler function, it opens a connection to the MySQL database using the provided connection string and defers closing the connection after the function finishes. It then creates a GraphQL schema with the defined root query and mutation. It executes the GraphQL query from the request and returns the result as a JSON response.
+
+Note: This example assumes that you have already imported the necessary packages and set up your Go environment properly.

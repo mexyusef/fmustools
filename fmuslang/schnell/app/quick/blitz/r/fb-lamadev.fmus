@@ -1,0 +1,2285 @@
+--% index/fmus
+__PWD,d
+  .,d(/load=__FILE__=index/under)
+--#
+
+--% index/under
+__INPUT__,d(/mk)
+	%utama=__FILE__
+	.env,f(e=utama=C:/work/youtube2022/.env)
+	.gitignore,f(e=utama=C:/work/youtube2022/.gitignore)
+	package.json,f(e=utama=C:/work/youtube2022/package.json)
+	README.md,f(e=utama=C:/work/youtube2022/README.md)
+	public,d(/mk)
+		index.html,f(e=utama=C:/work/youtube2022/public/index.html)
+	src,d(/mk)
+		App.js,f(e=utama=C:/work/youtube2022/src/App.js)
+		datatablesource.js,f(e=utama=C:/work/youtube2022/src/datatablesource.js)
+		firebase.js,f(e=utama=C:/work/youtube2022/src/firebase.js)
+		formSource.js,f(e=utama=C:/work/youtube2022/src/formSource.js)
+		index.js,f(e=utama=C:/work/youtube2022/src/index.js)
+		components,d(/mk)
+			chart,d(/mk)
+				Chart.jsx,f(e=utama=C:/work/youtube2022/src/components/chart/Chart.jsx)
+				chart.scss,f(e=utama=C:/work/youtube2022/src/components/chart/chart.scss)
+			datatable,d(/mk)
+				Datatable.jsx,f(e=utama=C:/work/youtube2022/src/components/datatable/Datatable.jsx)
+				datatable.scss,f(e=utama=C:/work/youtube2022/src/components/datatable/datatable.scss)
+			featured,d(/mk)
+				Featured.jsx,f(e=utama=C:/work/youtube2022/src/components/featured/Featured.jsx)
+				featured.scss,f(e=utama=C:/work/youtube2022/src/components/featured/featured.scss)
+			navbar,d(/mk)
+				Navbar.jsx,f(e=utama=C:/work/youtube2022/src/components/navbar/Navbar.jsx)
+				navbar.scss,f(e=utama=C:/work/youtube2022/src/components/navbar/navbar.scss)
+			sidebar,d(/mk)
+				Sidebar.jsx,f(e=utama=C:/work/youtube2022/src/components/sidebar/Sidebar.jsx)
+				sidebar.scss,f(e=utama=C:/work/youtube2022/src/components/sidebar/sidebar.scss)
+			table,d(/mk)
+				Table.jsx,f(e=utama=C:/work/youtube2022/src/components/table/Table.jsx)
+				table.scss,f(e=utama=C:/work/youtube2022/src/components/table/table.scss)
+			widget,d(/mk)
+				Widget.jsx,f(e=utama=C:/work/youtube2022/src/components/widget/Widget.jsx)
+				widget.scss,f(e=utama=C:/work/youtube2022/src/components/widget/widget.scss)
+		context,d(/mk)
+			AuthContext.js,f(e=utama=C:/work/youtube2022/src/context/AuthContext.js)
+			AuthReducer.js,f(e=utama=C:/work/youtube2022/src/context/AuthReducer.js)
+			darkModeContext.js,f(e=utama=C:/work/youtube2022/src/context/darkModeContext.js)
+			darkModeReducer.js,f(e=utama=C:/work/youtube2022/src/context/darkModeReducer.js)
+		pages,d(/mk)
+			home,d(/mk)
+				Home.jsx,f(e=utama=C:/work/youtube2022/src/pages/home/Home.jsx)
+				home.scss,f(e=utama=C:/work/youtube2022/src/pages/home/home.scss)
+			list,d(/mk)
+				List.jsx,f(e=utama=C:/work/youtube2022/src/pages/list/List.jsx)
+				list.scss,f(e=utama=C:/work/youtube2022/src/pages/list/list.scss)
+			login,d(/mk)
+				Login.jsx,f(e=utama=C:/work/youtube2022/src/pages/login/Login.jsx)
+				login.scss,f(e=utama=C:/work/youtube2022/src/pages/login/login.scss)
+			new,d(/mk)
+				New.jsx,f(e=utama=C:/work/youtube2022/src/pages/new/New.jsx)
+				new.scss,f(e=utama=C:/work/youtube2022/src/pages/new/new.scss)
+			single,d(/mk)
+				Single.jsx,f(e=utama=C:/work/youtube2022/src/pages/single/Single.jsx)
+				single.scss,f(e=utama=C:/work/youtube2022/src/pages/single/single.scss)
+		style,d(/mk)
+			dark.scss,f(e=utama=C:/work/youtube2022/src/style/dark.scss)
+--#
+
+--% C:/work/youtube2022/.env
+REACT_APP_FIREBASE_KEY = YOUR KEY
+
+--#
+
+--% C:/work/youtube2022/.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+--#
+
+--% C:/work/youtube2022/package.json
+{
+  "name": "lamadmin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.4.4",
+    "@mui/material": "^5.4.4",
+    "@mui/x-data-grid": "^5.5.1",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.3",
+    "@testing-library/user-event": "^13.5.0",
+    "firebase": "^9.6.10",
+    "react": "^17.0.2",
+    "react-circular-progressbar": "^2.0.4",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.2",
+    "react-scripts": "5.0.0",
+    "recharts": "^2.1.9",
+    "sass": "^1.49.9",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/README.md
+# Getting Started with Create React App
+
+https://www.youtube.com/watch?v=D9W7AFeJ3kk
+https://github.com/safak/youtube2022/tree/react-firebase
+
+
+--#
+
+--% C:/work/youtube2022/public/index.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Nunito', sans-serif;
+      margin: 0;
+    }
+  </style>
+  <title>React Admin App</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+
+</html>
+--#
+
+--% C:/work/youtube2022/src/App.js
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import List from "./pages/list/List";
+import Single from "./pages/single/Single";
+import New from "./pages/new/New";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { productInputs, userInputs } from "./formSource";
+import "./style/dark.scss";
+import { useContext } from "react";
+import { DarkModeContext } from "./context/darkModeContext";
+import { AuthContext } from "./context/AuthContext";
+
+function App() {
+  const { darkMode } = useContext(DarkModeContext);
+
+  const {currentUser} = useContext(AuthContext)
+
+  const RequireAuth = ({ children }) => {
+    return currentUser ? children : <Navigate to="/login" />;
+  };
+
+  return (
+    <div className={darkMode ? "app dark" : "app"}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route path="login" element={<Login />} />
+            <Route
+              index
+              element={
+                <RequireAuth>
+                  <Home />
+                </RequireAuth>
+              }
+            />
+            <Route path="users">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <List />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":userId"
+                element={
+                  <RequireAuth>
+                    <Single />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <New inputs={userInputs} title="Add New User" />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="products">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <List />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":productId"
+                element={
+                  <RequireAuth>
+                    <Single />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <New inputs={productInputs} title="Add New Product" />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+
+--#
+
+--% C:/work/youtube2022/src/datatablesource.js
+export const userColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "user",
+    headerName: "User",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.img} alt="avatar" />
+          {params.row.username}
+        </div>
+      );
+    },
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 230,
+  },
+
+  {
+    field: "address",
+    headerName: "Address",
+    width: 100,
+  },
+  {
+    field: "status",
+    headerName: "Status",
+    width: 160,
+    renderCell: (params) => {
+      return (
+        <div className={`cellWithStatus ${params.row.status}`}>
+          {params.row.status}
+        </div>
+      );
+    },
+  },
+];
+
+--#
+
+--% C:/work/youtube2022/src/firebase.js
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+
+
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
+  authDomain: "tutorial-5a2cf.firebaseapp.com",
+  projectId: "tutorial-5a2cf",
+  storageBucket: "tutorial-5a2cf.appspot.com",
+  messagingSenderId: "585126334212",
+  appId: "1:585126334212:web:8539eafc56885e1b4c4a51"
+};
+
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const auth = getAuth();
+export const storage = getStorage(app);
+
+--#
+
+--% C:/work/youtube2022/src/formSource.js
+export const userInputs = [
+    {
+      id: "username",
+      label: "Username",
+      type: "text",
+      placeholder: "john_doe",
+    },
+    {
+      id: "displayName",
+      label: "Name and surname",
+      type: "text",
+      placeholder: "John Doe",
+    },
+    {
+      id: "email",
+      label: "Email",
+      type: "mail",
+      placeholder: "john_doe@gmail.com",
+    },
+    {
+      id: "phone",
+      label: "Phone",
+      type: "text",
+      placeholder: "+1 234 567 89",
+    },
+    {
+      id: "password",
+      label: "Password",
+      type: "password",
+    },
+    {
+      id: "address",
+      label: "Address",
+      type: "text",
+      placeholder: "Elton St. 216 NewYork",
+    },
+    {
+      id: "country",
+      label: "Country",
+      type: "text",
+      placeholder: "USA",
+    },
+  ];
+  
+  export const productInputs = [
+    {
+      id: 1,
+      label: "Title",
+      type: "text",
+      placeholder: "Apple Macbook Pro",
+    },
+    {
+      id: 2,
+      label: "Description",
+      type: "text",
+      placeholder: "Description",
+    },
+    {
+      id: 3,
+      label: "Category",
+      type: "text",
+      placeholder: "Computers",
+    },
+    {
+      id: 4,
+      label: "Price",
+      type: "text",
+      placeholder: "100",
+    },
+    {
+      id: 5,
+      label: "Stock",
+      type: "text",
+      placeholder: "in stock",
+    },
+  ];
+  
+--#
+
+--% C:/work/youtube2022/src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { AuthContextProvider } from "./context/AuthContext";
+import { DarkModeContextProvider } from "./context/darkModeContext";
+
+ReactDOM.render(
+  <React.StrictMode>
+    <DarkModeContextProvider>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </DarkModeContextProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+
+--#
+
+--% C:/work/youtube2022/src/components/chart/Chart.jsx
+import "./chart.scss";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+const data = [
+  { name: "January", Total: 1200 },
+  { name: "February", Total: 2100 },
+  { name: "March", Total: 800 },
+  { name: "April", Total: 1600 },
+  { name: "May", Total: 900 },
+  { name: "June", Total: 1700 },
+];
+
+const Chart = ({ aspect, title }) => {
+  return (
+    <div className="chart">
+      <div className="title">{title}</div>
+      <ResponsiveContainer width="100%" aspect={aspect}>
+        <AreaChart
+          width={730}
+          height={250}
+          data={data}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        >
+          <defs>
+            <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="name" stroke="gray" />
+          <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
+          <Tooltip />
+          <Area
+            type="monotone"
+            dataKey="Total"
+            stroke="#8884d8"
+            fillOpacity={1}
+            fill="url(#total)"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+export default Chart;
+
+--#
+
+--% C:/work/youtube2022/src/components/chart/chart.scss
+.chart {
+  flex: 4;
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+  padding: 10px;
+  color: gray;
+
+  .title {
+    margin-bottom: 20px;
+  }
+
+  .chartGrid {
+    stroke: rgb(228, 225, 225);
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/components/datatable/Datatable.jsx
+import "./datatable.scss";
+import { DataGrid } from "@mui/x-data-grid";
+import { userColumns, userRows } from "../../datatablesource";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+
+const Datatable = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    // const fetchData = async () => {
+    //   let list = [];
+    //   try {
+    //     const querySnapshot = await getDocs(collection(db, "users"));
+    //     querySnapshot.forEach((doc) => {
+    //       list.push({ id: doc.id, ...doc.data() });
+    //     });
+    //     setData(list);
+    //     console.log(list);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    // fetchData();
+
+    // LISTEN (REALTIME)
+    const unsub = onSnapshot(
+      collection(db, "users"),
+      (snapShot) => {
+        let list = [];
+        snapShot.docs.forEach((doc) => {
+          list.push({ id: doc.id, ...doc.data() });
+        });
+        setData(list);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    return () => {
+      unsub();
+    };
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "users", id));
+      setData(data.filter((item) => item.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const actionColumn = [
+    {
+      field: "action",
+      headerName: "Action",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="cellAction">
+            <Link to="/users/test" style={{ textDecoration: "none" }}>
+              <div className="viewButton">View</div>
+            </Link>
+            <div
+              className="deleteButton"
+              onClick={() => handleDelete(params.row.id)}
+            >
+              Delete
+            </div>
+          </div>
+        );
+      },
+    },
+  ];
+  return (
+    <div className="datatable">
+      <div className="datatableTitle">
+        Add New User
+        <Link to="/users/new" className="link">
+          Add New
+        </Link>
+      </div>
+      <DataGrid
+        className="datagrid"
+        rows={data}
+        columns={userColumns.concat(actionColumn)}
+        pageSize={9}
+        rowsPerPageOptions={[9]}
+        checkboxSelection
+      />
+    </div>
+  );
+};
+
+export default Datatable;
+
+--#
+
+--% C:/work/youtube2022/src/components/datatable/datatable.scss
+.datatable {
+  height: 600px;
+  padding: 20px;
+  
+  .datatableTitle{
+    width: 100%;
+    font-size: 24px;
+    color: gray;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .link{
+      text-decoration: none;
+      color: green;
+      font-size: 16px;
+      font-weight: 400;
+      border: 1px solid green;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .cellWithImg {
+    display: flex;
+    align-items: center;
+
+    .cellImg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+  }
+
+  .cellWithStatus {
+    padding: 5px;
+    border-radius: 5px;
+
+    &.active {
+      background-color: rgba(0, 128, 0, 0.05);
+      color: green;
+    }
+    &.pending {
+      background-color: rgba(255, 217, 0, 0.05);
+      color: goldenrod;
+    }
+    &.passive {
+      background-color: rgba(255, 0, 0, 0.05);
+      color: crimson;
+    }
+  }
+
+  .cellAction {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .viewButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: darkblue;
+      border: 1px dotted rgba(0, 0, 139, 0.596);
+      cursor: pointer;
+    }
+    
+    .deleteButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: crimson;
+      border: 1px dotted rgba(220, 20, 60, 0.6);
+      cursor: pointer;
+    }
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/components/featured/Featured.jsx
+import "./featured.scss";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+
+const Featured = () => {
+  return (
+    <div className="featured">
+      <div className="top">
+        <h1 className="title">Total Revenue</h1>
+        <MoreVertIcon fontSize="small" />
+      </div>
+      <div className="bottom">
+        <div className="featuredChart">
+          <CircularProgressbar value={70} text={"70%"} strokeWidth={5} />
+        </div>
+        <p className="title">Total sales made today</p>
+        <p className="amount">$420</p>
+        <p className="desc">
+          Previous transactions processing. Last payments may not be included.
+        </p>
+        <div className="summary">
+          <div className="item">
+            <div className="itemTitle">Target</div>
+            <div className="itemResult negative">
+              <KeyboardArrowDownIcon fontSize="small"/>
+              <div className="resultAmount">$12.4k</div>
+            </div>
+          </div>
+          <div className="item">
+            <div className="itemTitle">Last Week</div>
+            <div className="itemResult positive">
+              <KeyboardArrowUpOutlinedIcon fontSize="small"/>
+              <div className="resultAmount">$12.4k</div>
+            </div>
+          </div>
+          <div className="item">
+            <div className="itemTitle">Last Month</div>
+            <div className="itemResult positive">
+              <KeyboardArrowUpOutlinedIcon fontSize="small"/>
+              <div className="resultAmount">$12.4k</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Featured;
+
+--#
+
+--% C:/work/youtube2022/src/components/featured/featured.scss
+.featured {
+  flex: 2;
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+  padding: 10px;
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: gray;
+
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  .bottom {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    .featuredChart {
+      width: 100px;
+      height: 100px;
+    }
+
+    .title {
+      font-weight: 500;
+      color: gray;
+    }
+
+    .amount {
+      font-size: 30px;
+    }
+
+    .desc {
+      font-weight: 300;
+      font-size: 12px;
+      color: gray;
+      text-align: center;
+    }
+
+    .summary {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .item {
+        text-align: center;
+
+        .itemTitle {
+          font-size: 14px;
+          color: gray;
+        }
+
+        .itemResult {
+          display: flex;
+          align-items: center;
+          margin-top: 10px;
+          font-size: 14px;
+
+          &.positive {
+            color: green;
+          }
+
+          &.negative {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/components/navbar/Navbar.jsx
+import "./navbar.scss";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
+import { DarkModeContext } from "../../context/darkModeContext";
+import { useContext } from "react";
+
+const Navbar = () => {
+  const { dispatch } = useContext(DarkModeContext);
+
+  return (
+    <div className="navbar">
+      <div className="wrapper">
+        <div className="search">
+          <input type="text" placeholder="Search..." />
+          <SearchOutlinedIcon />
+        </div>
+        <div className="items">
+          <div className="item">
+            <LanguageOutlinedIcon className="icon" />
+            English
+          </div>
+          <div className="item">
+            <DarkModeOutlinedIcon
+              className="icon"
+              onClick={() => dispatch({ type: "TOGGLE" })}
+            />
+          </div>
+          <div className="item">
+            <FullscreenExitOutlinedIcon className="icon" />
+          </div>
+          <div className="item">
+            <NotificationsNoneOutlinedIcon className="icon" />
+            <div className="counter">1</div>
+          </div>
+          <div className="item">
+            <ChatBubbleOutlineOutlinedIcon className="icon" />
+            <div className="counter">2</div>
+          </div>
+          <div className="item">
+            <ListOutlinedIcon className="icon" />
+          </div>
+          <div className="item">
+            <img
+              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              alt=""
+              className="avatar"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
+
+--#
+
+--% C:/work/youtube2022/src/components/navbar/navbar.scss
+.navbar {
+  height: 50px;
+  border-bottom: 0.5px solid rgb(231, 228, 228);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+
+  .wrapper {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .search {
+      display: flex;
+      align-items: center;
+      border: 0.5px solid lightgray;
+      padding: 3px;
+
+      input {
+        border: none;
+        outline: none;
+        background: transparent;
+
+        &::placeholder {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .items {
+      display: flex;
+      align-items: center;
+
+      .item {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        position: relative;
+
+        .icon {
+          font-size: 20px;
+        }
+
+        .avatar {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+
+        .counter {
+          width: 15px;
+          height: 15px;
+          background-color: red;
+          border-radius: 50%;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          font-weight: bold;
+          position: absolute;
+          top: -5px;
+          right: -5px;
+        }
+      }
+    }
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/components/sidebar/Sidebar.jsx
+import "./sidebar.scss";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import StoreIcon from "@mui/icons-material/Store";
+import InsertChartIcon from "@mui/icons-material/InsertChart";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
+import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { Link } from "react-router-dom";
+import { DarkModeContext } from "../../context/darkModeContext";
+import { useContext } from "react";
+
+const Sidebar = () => {
+  const { dispatch } = useContext(DarkModeContext);
+  return (
+    <div className="sidebar">
+      <div className="top">
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <span className="logo">lamadmin</span>
+        </Link>
+      </div>
+      <hr />
+      <div className="center">
+        <ul>
+          <p className="title">MAIN</p>
+          <li>
+            <DashboardIcon className="icon" />
+            <span>Dashboard</span>
+          </li>
+          <p className="title">LISTS</p>
+          <Link to="/users" style={{ textDecoration: "none" }}>
+            <li>
+              <PersonOutlineIcon className="icon" />
+              <span>Users</span>
+            </li>
+          </Link>
+          <Link to="/products" style={{ textDecoration: "none" }}>
+            <li>
+              <StoreIcon className="icon" />
+              <span>Products</span>
+            </li>
+          </Link>
+          <li>
+            <CreditCardIcon className="icon" />
+            <span>Orders</span>
+          </li>
+          <li>
+            <LocalShippingIcon className="icon" />
+            <span>Delivery</span>
+          </li>
+          <p className="title">USEFUL</p>
+          <li>
+            <InsertChartIcon className="icon" />
+            <span>Stats</span>
+          </li>
+          <li>
+            <NotificationsNoneIcon className="icon" />
+            <span>Notifications</span>
+          </li>
+          <p className="title">SERVICE</p>
+          <li>
+            <SettingsSystemDaydreamOutlinedIcon className="icon" />
+            <span>System Health</span>
+          </li>
+          <li>
+            <PsychologyOutlinedIcon className="icon" />
+            <span>Logs</span>
+          </li>
+          <li>
+            <SettingsApplicationsIcon className="icon" />
+            <span>Settings</span>
+          </li>
+          <p className="title">USER</p>
+          <li>
+            <AccountCircleOutlinedIcon className="icon" />
+            <span>Profile</span>
+          </li>
+          <li>
+            <ExitToAppIcon className="icon" />
+            <span>Logout</span>
+          </li>
+        </ul>
+      </div>
+      <div className="bottom">
+        <div
+          className="colorOption"
+          onClick={() => dispatch({ type: "LIGHT" })}
+        ></div>
+        <div
+          className="colorOption"
+          onClick={() => dispatch({ type: "DARK" })}
+        ></div>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
+
+--#
+
+--% C:/work/youtube2022/src/components/sidebar/sidebar.scss
+.sidebar {
+  flex: 1;
+  border-right: 0.5px solid rgb(230, 227, 227);
+  min-height: 100vh;
+  background-color: white;
+
+  .top {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #6439ff;
+    }
+  }
+
+  hr {
+    height: 0;
+    border: 0.5px solid rgb(230, 227, 227);
+  }
+
+  .center {
+    padding-left: 10px;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      .title {
+        font-size: 10px;
+        font-weight: bold;
+        color: #999;
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ece8ff;
+        }
+
+        .icon {
+          font-size: 18px;
+          color: #7451f8;
+        }
+
+        span{
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            margin-left: 10px;
+        }
+      }
+    }
+  }
+
+  .bottom{
+      display: flex;
+      align-items: center;
+      margin: 10px;
+
+      .colorOption{
+          width: 20px;
+          height: 20px;
+          border-radius: 5px;
+          border: 1px solid #7451f8;
+          cursor: pointer;
+          margin: 5px;
+
+          &:nth-child(1){
+              background-color: whitesmoke;
+          }
+          &:nth-child(2){
+              background-color: #333;
+          }
+          &:nth-child(3){
+              background-color: darkblue;
+          }
+      }
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/components/table/Table.jsx
+import "./table.scss";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+
+const List = () => {
+  const rows = [
+    {
+      id: 1143155,
+      product: "Acer Nitro 5",
+      img: "https://m.media-amazon.com/images/I/81bc8mA3nKL._AC_UY327_FMwebp_QL65_.jpg",
+      customer: "John Smith",
+      date: "1 March",
+      amount: 785,
+      method: "Cash on Delivery",
+      status: "Approved",
+    },
+    {
+      id: 2235235,
+      product: "Playstation 5",
+      img: "https://m.media-amazon.com/images/I/31JaiPXYI8L._AC_UY327_FMwebp_QL65_.jpg",
+      customer: "Michael Doe",
+      date: "1 March",
+      amount: 900,
+      method: "Online Payment",
+      status: "Pending",
+    },
+    {
+      id: 2342353,
+      product: "Redragon S101",
+      img: "https://m.media-amazon.com/images/I/71kr3WAj1FL._AC_UY327_FMwebp_QL65_.jpg",
+      customer: "John Smith",
+      date: "1 March",
+      amount: 35,
+      method: "Cash on Delivery",
+      status: "Pending",
+    },
+    {
+      id: 2357741,
+      product: "Razer Blade 15",
+      img: "https://m.media-amazon.com/images/I/71wF7YDIQkL._AC_UY327_FMwebp_QL65_.jpg",
+      customer: "Jane Smith",
+      date: "1 March",
+      amount: 920,
+      method: "Online",
+      status: "Approved",
+    },
+    {
+      id: 2342355,
+      product: "ASUS ROG Strix",
+      img: "https://m.media-amazon.com/images/I/81hH5vK-MCL._AC_UY327_FMwebp_QL65_.jpg",
+      customer: "Harold Carol",
+      date: "1 March",
+      amount: 2000,
+      method: "Online",
+      status: "Pending",
+    },
+  ];
+  return (
+    <TableContainer component={Paper} className="table">
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell className="tableCell">Tracking ID</TableCell>
+            <TableCell className="tableCell">Product</TableCell>
+            <TableCell className="tableCell">Customer</TableCell>
+            <TableCell className="tableCell">Date</TableCell>
+            <TableCell className="tableCell">Amount</TableCell>
+            <TableCell className="tableCell">Payment Method</TableCell>
+            <TableCell className="tableCell">Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell className="tableCell">{row.id}</TableCell>
+              <TableCell className="tableCell">
+                <div className="cellWrapper">
+                  <img src={row.img} alt="" className="image" />
+                  {row.product}
+                </div>
+              </TableCell>
+              <TableCell className="tableCell">{row.customer}</TableCell>
+              <TableCell className="tableCell">{row.date}</TableCell>
+              <TableCell className="tableCell">{row.amount}</TableCell>
+              <TableCell className="tableCell">{row.method}</TableCell>
+              <TableCell className="tableCell">
+                <span className={`status ${row.status}`}>{row.status}</span>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
+
+export default List;
+
+--#
+
+--% C:/work/youtube2022/src/components/table/table.scss
+.table {
+  .cellWrapper {
+    display: flex;
+    align-items: center;
+
+    .image {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+  }
+
+  .status {
+    padding: 5px;
+    border-radius: 5px;
+
+    &.Approved {
+      color: green;
+      background-color: rgba(0, 128, 0, 0.151);
+    }
+    &.Pending {
+      color: goldenrod;
+      background-color: rgba(189, 189, 3, 0.103);
+    }
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/components/widget/Widget.jsx
+import "./widget.scss";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import { useEffect, useState } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
+
+const Widget = ({ type }) => {
+  const [amount, setAmount] = useState(null);
+  const [diff, setDiff] = useState(null);
+  let data;
+
+  switch (type) {
+    case "user":
+      data = {
+        title: "USERS",
+        isMoney: false,
+        link: "See all users",
+        query:"users",
+        icon: (
+          <PersonOutlinedIcon
+            className="icon"
+            style={{
+              color: "crimson",
+              backgroundColor: "rgba(255, 0, 0, 0.2)",
+            }}
+          />
+        ),
+      };
+      break;
+    case "order":
+      data = {
+        title: "ORDERS",
+        isMoney: false,
+        link: "View all orders",
+        icon: (
+          <ShoppingCartOutlinedIcon
+            className="icon"
+            style={{
+              backgroundColor: "rgba(218, 165, 32, 0.2)",
+              color: "goldenrod",
+            }}
+          />
+        ),
+      };
+      break;
+    case "earning":
+      data = {
+        title: "EARNINGS",
+        isMoney: true,
+        link: "View net earnings",
+        icon: (
+          <MonetizationOnOutlinedIcon
+            className="icon"
+            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
+          />
+        ),
+      };
+      break;
+    case "product":
+      data = {
+        title: "PRODUCTS",
+        query:"products",
+        link: "See details",
+        icon: (
+          <AccountBalanceWalletOutlinedIcon
+            className="icon"
+            style={{
+              backgroundColor: "rgba(128, 0, 128, 0.2)",
+              color: "purple",
+            }}
+          />
+        ),
+      };
+      break;
+    default:
+      break;
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const today = new Date();
+      const lastMonth = new Date(new Date().setMonth(today.getMonth() - 1));
+      const prevMonth = new Date(new Date().setMonth(today.getMonth() - 2));
+
+      const lastMonthQuery = query(
+        collection(db, data.query),
+        where("timeStamp", "<=", today),
+        where("timeStamp", ">", lastMonth)
+      );
+      const prevMonthQuery = query(
+        collection(db, data.query),
+        where("timeStamp", "<=", lastMonth),
+        where("timeStamp", ">", prevMonth)
+      );
+
+      const lastMonthData = await getDocs(lastMonthQuery);
+      const prevMonthData = await getDocs(prevMonthQuery);
+
+      setAmount(lastMonthData.docs.length);
+      setDiff(
+        ((lastMonthData.docs.length - prevMonthData.docs.length) / prevMonthData.docs.length) *
+          100
+      );
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <div className="widget">
+      <div className="left">
+        <span className="title">{data.title}</span>
+        <span className="counter">
+          {data.isMoney && "$"} {amount}
+        </span>
+        <span className="link">{data.link}</span>
+      </div>
+      <div className="right">
+        <div className={`percentage ${diff < 0 ? "negative" : "positive"}`}>
+          {diff < 0 ? <KeyboardArrowDownIcon/> : <KeyboardArrowUpIcon/> }
+          {diff} %
+        </div>
+        {data.icon}
+      </div>
+    </div>
+  );
+};
+
+export default Widget;
+
+--#
+
+--% C:/work/youtube2022/src/components/widget/widget.scss
+.widget {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  padding: 10px;
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+  border-radius: 10px;
+  height: 100px;
+
+  .left,
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .title {
+      font-weight: bold;
+      font-size: 14px;
+      color: rgb(160, 160, 160);
+    }
+
+    .counter {
+      font-size: 28px;
+      font-weight: 300;
+    }
+
+    .link {
+      width: max-content;
+      font-size: 12px;
+      border-bottom: 1px solid gray;
+    }
+
+    .percentage {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+
+      &.positive {
+        color: green;
+      }
+      &.negative {
+        color: red;
+      }
+    }
+
+    .icon {
+      font-size: 18px;
+      padding: 5px;
+      border-radius: 5px;
+      align-self: flex-end;
+    }
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/context/AuthContext.js
+import { createContext, useEffect, useReducer } from "react";
+import AuthReducer from "./AuthReducer";
+
+const INITIAL_STATE = {
+  currentUser: JSON.parse(localStorage.getItem("user")) || null,
+};
+
+export const AuthContext = createContext(INITIAL_STATE);
+
+export const AuthContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(state.currentUser));
+  }, [state.currentUser]);
+
+  return (
+    <AuthContext.Provider value={{ currentUser: state.currentUser, dispatch }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+--#
+
+--% C:/work/youtube2022/src/context/AuthReducer.js
+const AuthReducer = (state, action) => {
+  switch (action.type) {
+    case "LOGIN": {
+      return {
+        currentUser: action.payload,
+      };
+    }
+    case "LOGOUT": {
+      return {
+        currentUser: null,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+export default AuthReducer;
+
+--#
+
+--% C:/work/youtube2022/src/context/darkModeContext.js
+import { createContext, useReducer } from "react";
+import DarkModeReducer from "./darkModeReducer";
+
+const INITIAL_STATE = {
+  darkMode: false,
+};
+
+export const DarkModeContext = createContext(INITIAL_STATE);
+
+export const DarkModeContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(DarkModeReducer, INITIAL_STATE);
+
+  return (
+    <DarkModeContext.Provider value={{ darkMode: state.darkMode, dispatch }}>
+      {children}
+    </DarkModeContext.Provider>
+  );
+};
+
+--#
+
+--% C:/work/youtube2022/src/context/darkModeReducer.js
+const DarkModeReducer = (state, action) => {
+  switch (action.type) {
+    case "LIGHT": {
+      return {
+        darkMode: false,
+      };
+    }
+    case "DARK": {
+      return {
+        darkMode: true,
+      };
+    }
+    case "TOGGLE": {
+      return {
+        darkMode: !state.darkMode,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+export default DarkModeReducer;
+
+--#
+
+--% C:/work/youtube2022/src/pages/home/Home.jsx
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import "./home.scss";
+import Widget from "../../components/widget/Widget";
+import Featured from "../../components/featured/Featured";
+import Chart from "../../components/chart/Chart";
+import Table from "../../components/table/Table";
+
+const Home = () => {
+  return (
+    <div className="home">
+      <Sidebar />
+      <div className="homeContainer">
+        <Navbar />
+        <div className="widgets">
+          <Widget type="user" />
+          <Widget type="product" />
+          <Widget type="order" />
+          <Widget type="earning" />
+        </div>
+        <div className="charts">
+          <Featured />
+          <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
+        </div>
+        <div className="listContainer">
+          <div className="listTitle">Latest Transactions</div>
+          <Table />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Home;
+
+--#
+
+--% C:/work/youtube2022/src/pages/home/home.scss
+.home {
+  display: flex;
+
+  .homeContainer {
+    flex: 6;
+
+    .widgets,
+    .charts {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .charts {
+      padding: 5px 20px;
+    }
+
+    .listContainer {
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      padding: 20px;
+      margin: 20px;
+
+      .listTitle {
+        font-weight: 500;
+        color: gray;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/pages/list/List.jsx
+import "./list.scss"
+import Sidebar from "../../components/sidebar/Sidebar"
+import Navbar from "../../components/navbar/Navbar"
+import Datatable from "../../components/datatable/Datatable"
+
+const List = () => {
+  return (
+    <div className="list">
+      <Sidebar/>
+      <div className="listContainer">
+        <Navbar/>
+        <Datatable/>
+      </div>
+    </div>
+  )
+}
+
+export default List
+--#
+
+--% C:/work/youtube2022/src/pages/list/list.scss
+.list {
+  display: flex;
+  width: 100%;
+  .listContainer {
+    flex: 6;
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/pages/login/Login.jsx
+import { useContext, useState } from "react";
+import "./login.scss";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useNavigate } from "react-router-dom";
+import {AuthContext} from "../../context/AuthContext"
+
+const Login = () => {
+  const [error, setError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navitage = useNavigate()
+
+  const {dispatch} = useContext(AuthContext)
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        dispatch({type:"LOGIN", payload:user})
+        navitage("/")
+      })
+      .catch((error) => {
+        setError(true);
+      });
+  };
+
+  return (
+    <div className="login">
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Login</button>
+        {error && <span>Wrong email or password!</span>}
+      </form>
+    </div>
+  );
+};
+
+export default Login;
+
+--#
+
+--% C:/work/youtube2022/src/pages/login/login.scss
+.login{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      input{
+        width: 200px;
+        height: 30px;
+        margin: 10px;
+      }
+
+      button{
+        width: 200px;
+        height: 30px;
+        border: none;
+        background-color: purple;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      span{
+        font-size: 12px;
+        color: red;
+        margin-top: 10px;
+      }
+    }
+}
+--#
+
+--% C:/work/youtube2022/src/pages/new/New.jsx
+import "./new.scss";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import { useEffect, useState } from "react";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
+import { auth, db, storage } from "../../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
+
+const New = ({ inputs, title }) => {
+  const [file, setFile] = useState("");
+  const [data, setData] = useState({});
+  const [per, setPerc] = useState(null);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const uploadFile = () => {
+      const name = new Date().getTime() + file.name;
+
+      console.log(name);
+      const storageRef = ref(storage, file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          setPerc(progress);
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setData((prev) => ({ ...prev, img: downloadURL }));
+          });
+        }
+      );
+    };
+    file && uploadFile();
+  }, [file]);
+
+  console.log(data);
+
+  const handleInput = (e) => {
+    const id = e.target.id;
+    const value = e.target.value;
+
+    setData({ ...data, [id]: value });
+  };
+
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      await setDoc(doc(db, "users", res.user.uid), {
+        ...data,
+        timeStamp: serverTimestamp(),
+      });
+      navigate(-1)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <div className="new">
+      <Sidebar />
+      <div className="newContainer">
+        <Navbar />
+        <div className="top">
+          <h1>{title}</h1>
+        </div>
+        <div className="bottom">
+          <div className="left">
+            <img
+              src={
+                file
+                  ? URL.createObjectURL(file)
+                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+              }
+              alt=""
+            />
+          </div>
+          <div className="right">
+            <form onSubmit={handleAdd}>
+              <div className="formInput">
+                <label htmlFor="file">
+                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  style={{ display: "none" }}
+                />
+              </div>
+
+              {inputs.map((input) => (
+                <div className="formInput" key={input.id}>
+                  <label>{input.label}</label>
+                  <input
+                    id={input.id}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                    onChange={handleInput}
+                  />
+                </div>
+              ))}
+              <button disabled={per !== null && per < 100} type="submit">
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default New;
+
+--#
+
+--% C:/work/youtube2022/src/pages/new/new.scss
+.new {
+  width: 100%;
+  display: flex;
+
+  .newContainer {
+    flex: 6;
+
+    .top,
+    .bottom {
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      padding: 10px;
+      margin: 20px;
+      display: flex;
+
+      h1 {
+        color: lightgray;
+        font-size: 20px;
+      }
+
+      .left {
+        flex: 1;
+        text-align: center;
+
+        img {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+
+      .right {
+        flex: 2;
+
+        form {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 30px;
+          justify-content: space-around;
+
+          .formInput {
+            width: 40%;
+
+            label {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+
+              .icon {
+                cursor: pointer;
+              }
+            }
+
+            input {
+              width: 100%;
+              padding: 5px;
+              border: none;
+              border-bottom: 1px solid gray;
+            }
+          }
+
+          button {
+            width: 150px;
+            padding: 10px;
+            border: none;
+            background-color: teal;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+
+            &:disabled{
+              background-color: rgba(3, 92, 92, 0.322);
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/pages/single/Single.jsx
+import "./single.scss";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import Chart from "../../components/chart/Chart";
+import List from "../../components/table/Table";
+
+const Single = () => {
+  return (
+    <div className="single">
+      <Sidebar />
+      <div className="singleContainer">
+        <Navbar />
+        <div className="top">
+          <div className="left">
+            <div className="editButton">Edit</div>
+            <h1 className="title">Information</h1>
+            <div className="item">
+              <img
+                src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+                alt=""
+                className="itemImg"
+              />
+              <div className="details">
+                <h1 className="itemTitle">Jane Doe</h1>
+                <div className="detailItem">
+                  <span className="itemKey">Email:</span>
+                  <span className="itemValue">janedoe@gmail.com</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Phone:</span>
+                  <span className="itemValue">+1 2345 67 89</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Address:</span>
+                  <span className="itemValue">
+                    Elton St. 234 Garden Yd. NewYork
+                  </span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Country:</span>
+                  <span className="itemValue">USA</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="right">
+            <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
+          </div>
+        </div>
+        <div className="bottom">
+        <h1 className="title">Last Transactions</h1>
+          <List/>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Single;
+
+--#
+
+--% C:/work/youtube2022/src/pages/single/single.scss
+.single {
+  display: flex;
+  width: 100%;
+  .singleContainer {
+    flex: 6;
+
+    .top {
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+
+      .left {
+        flex: 1;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+        padding: 20px;
+        position: relative;
+
+        .editButton {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 5px;
+          font-size: 12px;
+          color: #7451f8;
+          background-color: #7551f818;
+          cursor: pointer;
+          border-radius: 0px 0px 0px 5px;
+        }
+
+        .item {
+          display: flex;
+          gap: 20px;
+
+          .itemImg {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .details {
+            .itemTitle {
+              margin-bottom: 10px;
+              color: #555;
+            }
+
+            .detailItem {
+              margin-bottom: 10px;
+              font-size: 14px;
+
+              .itemKey {
+                font-weight: bold;
+                color: gray;
+                margin-right: 5px;
+              }
+
+              .itemValue {
+                font-weight: 300;
+              }
+            }
+          }
+        }
+      }
+
+      .right {
+        flex: 2;
+      }
+    }
+
+    .bottom {
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      padding: 20px;
+      margin: 10px 20px;
+    }
+
+    .title {
+      font-size: 16px;
+      color: lightgray;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+--#
+
+--% C:/work/youtube2022/src/style/dark.scss
+.app.dark {
+  background-color: #111;
+  color: rgb(156, 156, 156);
+
+  .chartGrid {
+    stroke: rgba(228, 228, 228, 0.219);
+  }
+
+  .table {
+    background-color: #111;
+
+    .tableCell {
+      color: gray;
+    }
+  }
+
+  .navbar {
+    color: #999;
+    border-color: #333;
+
+    .search {
+      border-color: gray;
+    }
+  }
+
+  .sidebar {
+    background-color: #111;
+    border-color: #333;
+
+    .top {
+      .logo {
+        color: #999;
+      }
+    }
+    hr {
+      border-color: #333;
+    }
+
+    ul {
+      li {
+        &:hover {
+          background-color: #333;
+        }
+
+        .icon {
+          color: #999;
+        }
+      }
+    }
+  }
+
+  .datatable {
+    .datagrid {
+      color: gray;
+      border: none;
+
+      .viewButton,
+      .deleteButton,
+      .cellWithStatus {
+        color: gray;
+        border: none;
+      }
+    }
+  }
+
+  input{
+      background-color: transparent;
+  }
+}
+
+--#
+

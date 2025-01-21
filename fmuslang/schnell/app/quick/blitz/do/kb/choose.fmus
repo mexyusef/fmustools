@@ -1,0 +1,7 @@
+--% index/fmus
+__PWD,d
+    ?pick
+    	@kubernetes 1*
+    	@kubernetes 2*
+    	@kubernetes 3*
+--#

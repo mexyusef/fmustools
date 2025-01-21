@@ -1,0 +1,12 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+        @ "cg" langchoice? "=" singkat_folder "=" HURUF_FOLDER_NEXTJS -> ambil_entry_codegen *
+            @ cg[java]=file_template=cari_baris *
+--#

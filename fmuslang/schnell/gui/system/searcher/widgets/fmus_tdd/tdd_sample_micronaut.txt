@@ -1,0 +1,70 @@
+# TDD Examples in Micronaut
+TDD in Micronaut: show me some examples
+
+ChatGPT
+Certainly! Test-driven development (TDD) is a popular approach to software development where tests are written before the actual code implementation. It helps ensure that the code is well-tested and meets the desired requirements. Here are some examples of TDD in Micronaut, a lightweight microservices framework for Java and Kotlin:
+
+Writing a Controller Test:
+java
+Copy code
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.client.RxHttpClient;
+import io.micronaut.http.client.annotation.Client;
+import io.micronaut.runtime.server.EmbeddedServer;
+import io.micronaut.test.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
+
+import javax.inject.Inject;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@MicronautTest
+public class MyControllerTest {
+
+    @Inject
+    @Client("/")
+    private RxHttpClient client;
+
+    @Inject
+    private EmbeddedServer server;
+
+    @Test
+    public void testGetEndpoint() {
+        HttpRequest<String> request = HttpRequest.GET("/myendpoint")
+                .accept(MediaType.TEXT_PLAIN);
+
+        String body = client.toBlocking().retrieve(request);
+
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertEquals("Hello, World!", body);
+    }
+}
+In this example, a controller test is written using Micronaut's @MicronautTest annotation. It injects an RxHttpClient and an EmbeddedServer for making HTTP requests and starting an embedded server for testing. The test method testGetEndpoint sends an HTTP GET request to /myendpoint and verifies the response status and body.
+
+Writing a Service Test:
+java
+Copy code
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
+
+import javax.inject.Inject;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@MicronautTest
+public class MyServiceTest {
+
+    @Inject
+    private MyService myService;
+
+    @Test
+    public void testAddNumbers() {
+        int result = myService.addNumbers(2, 3);
+        assertEquals(5, result);
+    }
+}
+In this example, a service test is written using Micronaut's @MicronautTest annotation. The MyService instance is injected, and the test method testAddNumbers verifies that the addNumbers method returns the expected result.
+
+These examples demonstrate the basic structure of TDD tests in Micronaut. By following the TDD approach, you can continue writing tests for your code and ensure its correctness as you develop your application further.

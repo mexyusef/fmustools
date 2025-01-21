@@ -1,0 +1,87 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        **showtext=__FILE__=readme
+
+        @https://pythonhosted.org/pykml/tutorial.html
+            @https://github.com/tylere/pykml
+            @https://stackoverflow.com/questions/67454345/google-kml-file-to-python
+            @https://stackoverflow.com/questions/tagged/kml
+        @https://simplekml.readthedocs.io/en/latest/
+            @https://simplekml.readthedocs.io/en/latest/gettingstarted.html#getting-started
+            @https://github.com/tjlang/simplekml
+            @https://github.com/crankycoder/SimpleKML
+            @https://github.com/Sakartu/simplekml
+            @http://fredgibbs.net/tutorials/create-kml-file-python.html
+--#
+
+--% readme
+https://docs.greppo.io/
+Greppo is a Python library that makes it easy for Data Scientists to quickly build geospatial apps natively in Python. You do not need any fonr-end or back-end experience to start using this. Out-of-the-box, the library provides front-end components and APIs to connect to the back-end.
+pip install greppo
+
+# greppo serve app.py
+from greppo import app
+import numpy as np
+x = app.number(name="x", value=3)
+print('Numbers list: ', np.ones(10) * x)
+
+###
+
+from greppo import app
+import geopandas as gpd
+
+app.base_layer(
+    name="CartoDB Light",
+    visible=True,
+    url="https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png",
+    subdomains=None,
+    attribution='&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+)
+
+buildings_gdf = gpd.read_file("./data/buildings.geojson")
+
+app.overlay_layer(
+    buildings_gdf,
+    name="Buildings",
+    description="Buildings in a neighbourhood in Amsterdam",
+    style={"fillColor": "#F87979"},
+    visible=True,
+)
+
+###
+
+from greppo import app
+import geopandas as gpd
+
+app.base_layer(
+    name="CartoDB Light",
+    visible=True,
+    url="https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png",
+    subdomains=None,
+    attribution='&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+)
+
+buildings_gdf = gpd.read_file("./data/buildings.geojson")
+
+filter_select = app.multiselect(name="Filter building", options=["apartments", "retail", "house"], default=["house"])
+
+buildings_gdf_filtered = buildings_gdf[buildings_gdf.building == filter_select.get_value()[0]]
+
+app.overlay_layer(
+    buildings_gdf_filtered,
+    title="Buildings",
+    description="Buildings in a neighbourhood in Amsterdam",
+    style={"fillColor": "#F87979"},
+    visible=True,
+)
+
+# Initialize an empty GeoDataFrame for referencing the draw features.
+draw_features = gpd.GeoDataFrame()
+draw_feature_input = app.draw_feature(
+    name="Draw random features", features=draw_features
+)
+
+###
+https://docs.greppo.io/demo.html
+--#

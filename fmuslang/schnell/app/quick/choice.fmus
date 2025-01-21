@@ -1,0 +1,131 @@
+--% index/fmus
+__PWD__,d
+	?pick
+		@python /home/usef/work/ulibs/schnell/wmcer.py -m turbo.us (wsl/linux)*
+			@siap-siap...*
+			$*cp /home/usef/work/ulibs/schnell/app/special/turbo.us .
+			$*python /home/usef/work/ulibs/schnell/wmcer.py -m turbo.us
+		@python c:\\work\\sidoarjo\\schnell\\wmcer.py -m turbo.us (windows)*
+			@siap-siap...*
+			$*copy c:\\work\\sidoarjo\\schnell\\app\\special\\turbo.us .
+			$*python c:\\work\\sidoarjo\\schnell\\wmcer.py -m turbo.us
+		@python /data/data/com.termux/files/home/sidoarjo/schnell/wmcer.py -m turbo.us (termux/android)*
+			@siap-siap...*
+			$*cp /data/data/com.termux/files/home/sidoarjo/schnell/app/special/turbo.us .
+			$*python /data/data/com.termux/files/home/sidoarjo/schnell/wmcer.py -m turbo.us
+		@edit choice.fmus @wsl*
+			$*code \\\\wsl$\\Ubuntu-20.04\\home\\usef\\work\\ulibs\\schnell\\app\\quick\\choice.fmus
+		@edit choice.fmus @termux*
+			$*nano /data/data/com.termux/files/home/sidoarjo/schnell/app/quick/choice.fmus
+		//.clearload ULIBPY_ROOTDIR/database/geura
+		//.clearload ULIBPY_ROOTDIR/database/refcards
+		//.clearload ULIBPY_ROOTDIR/database/ageh
+		//.clearload ULIBPY_ROOTDIR/data/karya
+		//.clearload ULIBPY_ROOTDIR/data/model-data
+		//.clearload ULIBPY_ROOTDIR/data/snippets
+		//.clearload ULIBPY_ROOTDIR/data/vamp
+		//.clearload ULIBPY_ROOTDIR/data/with-me
+		$*code ULIBPY_BASEDIR/app/quick/choice.fmus
+		@pwd: __PWD__ curdir: __CURDIR file: __FILE
+		$* cls && pytest ivy_tests/test_ivy/test_frontends/test_torch/test_reduction_ops.py
+		$* flake8 ivy_tests/test_ivy/test_frontends/test_torch/test_reduction_ops.py
+		$* cls && pytest ivy_tests/test_ivy/test_functional/test_core/test_extensions.py
+		$* flake8 ivy_tests/test_ivy/test_functional/test_core/test_extensions.py
+		__PRC__TEMP__PRC__/go-play,d(/mk)
+			main.go,f(code[go]=fM)
+			$* code .
+		__PRC__TEMP__PRC__/py-ipynb-play,d(/mk)
+			main.py,f(code[py]=fM)
+			notebook.ipynb,f(t=)
+			/nb>import pandas as pd/import numpy as np|notebook.ipynb
+			$* code .
+		ULIBPY_DATA_FOLDER_ABS/py-ipynb-play/turing,d(/mk)
+			%__TEMPLATE_PORT=__INPUT||9000
+			/l)http://localhost:__TEMPLATE_PORT
+			$* jupyter-notebook --port __TEMPLATE_PORT			
+		ULIBPY_DATA_FOLDER_ABS/py-ipynb-play,d(/mk)
+			main.py,f(code[py]=fM)
+			notebook.ipynb,f(t=)
+			/nb>import pandas as pd/import numpy as np|__WORKDIR__/notebook.ipynb
+		ULIBPY_DATA_FOLDER_ABS/py-play,d(/mk)
+			main.py,f(code[py]=fM)
+			$* code .
+--#
+
+--% sidoarjo
+@sidoarjo*
+	?pick
+		@Highly familiar with best practices AWS API development using core services: EC2, Lambda, RDS, API Gateway, ELB,  AWS Service (DynamoDB, lambda, API gateway, kinesis, etc)*
+			?pick
+				@ECS2*
+				@lambda*
+				@rds*
+				@api gateway*
+				@ELB*
+				@dynamo db*
+				@kinesis*
+		@You will get the ability to modularize the serverless project and deploy it into AWS: Snowflake, Dynamo DB, "Cloud Native" which is the future trend/modern way of software development (application/architecture/paradigm)*
+			?pick
+				@serverless dg nodejs*
+				@cloud native dg springboot*
+		@Familiarity with CICD and workflow automation for developing APIs on AWS, Service Automation*
+			?pick
+				@jenkins*
+				@github actions*
+				@gitlab actions*
+				@terraform*
+		@You have working knowledge and experience with: Cloud Computing such as: AWS, Azure, Google Cloud*
+		@You have working knowledge and experience with: Message Driven applications*
+			?pick
+				@rabbitmq*
+				@redis pubsub*
+				@zeromq*
+		@Strong understanding of MVC design patterns and microservice architectures*
+		@Mobile app development experience is a plus*
+			?pick
+				@android-kotlin*
+				@flutter*
+				@react-native*
+		@You are well versed in best practices in OOP, design patterns, SOLID principles, and data-driven design, Comfortable with AOP, Understanding of the application of Design Patterns*
+			?pick
+				@aop*
+				@design patterns*
+		@Understanding the nature of asynchronous programming and its quirks and workarounds*
+			?pick
+				@promise*
+				@callback*
+				@async/await*
+		@Good understanding of server-side templating languages such as Jade*
+			?pick
+				@jade*
+		@Basic understanding of front-end technologies, such as HTML5, and CSS3, Good understanding of server-side CSS preprocessors, JQuery, Ajax, JSON, CSS, HTML, Front end development (HTML5, CSS3, SPA)*
+			?pick
+				@sass*
+				@less*
+				@css*
+				@jquery*
+				@ajax*
+				@spa*
+		@Strong demonstrated experience in Angular, JavaScript, TypeScript, Redux, HTML5 and CSS3, ReactJs (use Hooks and Saga)*
+			?pick
+				@hooks, redux, saga, thunk, redux-toolkit*
+		@You have experience in Java reporting tools such as: Jasper Report, Apache POI*
+		@SQL and hands on experience with ORM frameworks such as Hibernate, ibatis, mybatis*
+		@Java Template engine technologies such as: Thymeleaf, Freemarker, Pebble*
+		@Java Build tools such as: Maven, Gradle*
+			?pick
+				@gradle project*
+				@maven project*
+		@Java unit-test frameworks such as: Junit, TestNG*
+		@Java 8 features such as: Time API, Lambda, Functional Programming Style, Stream API*
+		@Spring or Spring Boot, or other equivalent JEE frameworks*
+		@Very strong C++ experience including the latest language features from C++ 11 and above*
+		@Understanding of the C++ standard namespace std:: features such as std::vector, std::set and std::for_each*
+		@Experience in C++ technologies such as standard library, STL containers, algorithms, dynamic polymorphism and C++ specific notions, such as friend classes*
+		@Processing of streams in C++*
+		@API Integration in C++*
+		@Experience with Javascript ECMAScript 2015 (ES6)*
+		@Unit testing mostly using JEST, CHAI*
+		@SNMP, WMI, web services, HTTP listener, perfmon gatherer, networking (TCP/UDP), and parsers;*
+		@Excellent knowledge of event-based programming in Node.JS with Javascript - event loop?*
+--#

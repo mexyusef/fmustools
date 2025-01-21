@@ -1,0 +1,20 @@
+--% index/fmus
+__PWD,d
+	# u -e"/b>n/choose"
+	?pick
+		@create node-js project*
+			?pick
+				@create middlewares*
+				@create REST endpoint*
+		@create node-ts project*
+			?pick
+				@create middlewares*
+				@create REST endpoint*
+				@create gql query*
+				@create gql resolver*
+				@create gql mutation*
+		@create nest-js project*
+		@create nest-ts project*
+		@create next-js project*
+		@create next-ts project*
+--#

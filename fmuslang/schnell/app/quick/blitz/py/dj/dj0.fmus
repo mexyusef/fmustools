@@ -1,0 +1,7 @@
+--% index/fmus
+__PWD,d
+    %__TEMPLATE_DJANGOPROJECT=__INPUT__
+    $* django-admin startproject __TEMPLATE_DJANGOPROJECT
+    __TEMPLATE_DJANGOPROJECT,d
+        $* python manage.py runserver 0.0.0.0:__NILAI_SERVER_PORT__
+--#

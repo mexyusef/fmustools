@@ -1,0 +1,40 @@
+--% index/fmus
+__PWD,d
+    main.py,f(e=__FILE__=template1)
+    $* python main.py
+--#
+
+--% template1
+import pandas as pd
+data = pd.read_csv("nba.csv", index_col ="Name")
+first = data.loc["Avery Bradley"]
+second = data.loc["R.J. Hunter"] 
+print(first, "\n\n\n", second)
+--#
+
+--% single-column-select
+import pandas as pd
+# making data frame from csv file
+data = pd.read_csv("nba.csv", index_col ="Name")
+# retrieving columns by indexing operator
+first = data["Age"]
+--#
+
+--% single-row-select
+import pandas as pd
+# making data frame from csv file
+data = pd.read_csv("nba.csv", index_col ="Name")
+# retrieving row by loc method
+first = data.loc["Avery Bradley"]
+second = data.loc["R.J. Hunter"]
+print(first, "\n\n\n", second)
+--#
+
+--% single-row
+import pandas as pd
+# making data frame from csv file
+data = pd.read_csv("nba.csv", index_col ="Name")
+# retrieving rows by iloc method 
+row2 = data.iloc[3] 
+print(row2)
+--#

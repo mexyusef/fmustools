@@ -1,0 +1,301 @@
+--% index/fmus
+__PWD,d
+    README.md,f(e=__FILE__=README.md)
+    ?pick
+        @ dont use: go get -u github.com/gocolly/colly/...
+            $* go get -u github.com/gocolly/colly/...
+        @ dont use: go get github.com/gocolly/colly
+            $* go get github.com/gocolly/colly
+        $* go get github.com/gocolly/colly/v2
+        @jalankan salah satu contoh*
+            $* go mod init hapus
+            ?pick
+                main.go,f(e=__FILE__=title.go)
+                main.go,f(e=__FILE__=callbacks.go)
+                @baca words.html dan oprek*
+                    main.go,f(e=__FILE__=local.go)
+                    words.html,f(e=__FILE__=words.html)
+                main.go,f(e=__FILE__=retail.go)
+                main.go,f(e=__FILE__=links.go)
+                main.go,f(e=__FILE__=stackoverflow.go)
+                main.go,f(e=__FILE__=async.go)                
+
+            $* go run main.go
+                
+--#
+
+--% README.md
+https://zetcode.com/golang/colly/
+--#
+
+--% title.go
+package main
+
+import (
+    "fmt"
+    "github.com/gocolly/colly/v2"
+)
+
+func main() {
+
+    c := colly.NewCollector()
+
+    c.OnHTML("title", func(e *colly.HTMLElement) {
+        fmt.Println(e.Text)
+    })
+
+    c.Visit("http://webcode.me")
+}
+--#
+
+--% callbacks.go
+package main
+
+import (
+    "fmt"
+
+    "github.com/gocolly/colly/v2"
+)
+
+func main() {
+
+    c := colly.NewCollector()
+    c.UserAgent = "Go program"
+
+    c.OnRequest(func(r *colly.Request) {
+
+        for key, value := range *r.Headers {
+            fmt.Printf("%s: %s\n", key, value)
+        }
+
+        fmt.Println(r.Method)
+    })
+
+    c.OnHTML("title", func(e *colly.HTMLElement) {
+
+        fmt.Println("-----------------------------")
+
+        fmt.Println(e.Text)
+    })
+
+    c.OnResponse(func(r *colly.Response) {
+
+        fmt.Println("-----------------------------")
+
+        fmt.Println(r.StatusCode)
+
+        for key, value := range *r.Headers {
+            fmt.Printf("%s: %s\n", key, value)
+        }
+    })
+
+    c.Visit("http://webcode.me")
+}
+--#
+
+--% words.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document title</title>
+</head>
+<body>
+<p>List of words</p>
+<ul>
+    <li>dark</li>
+    <li>smart</li>
+    <li>war</li>
+    <li>cloud</li>
+    <li>park</li>
+    <li>cup</li>
+    <li>worm</li>
+    <li>water</li>
+    <li>rock</li>
+    <li>warm</li>
+</ul>
+<footer>footer for words</footer>
+</body>
+</html>
+--#
+
+--% local.go
+package main
+
+import (
+    "fmt"
+    "net/http"
+
+    "github.com/gocolly/colly/v2"
+)
+
+func main() {
+
+    t := &http.Transport{}
+    t.RegisterProtocol("file", http.NewFileTransport(http.Dir(".")))
+
+    c := colly.NewCollector()
+    c.WithTransport(t)
+
+    words := []string{}
+
+    c.OnHTML("li", func(e *colly.HTMLElement) {
+        words = append(words, e.Text)
+    })
+
+    c.Visit("file://./words.html")
+
+    for _, p := range words {
+        fmt.Printf("%s\n", p)
+    }
+}
+--#
+
+--% retail.go
+package main
+
+import (
+    "fmt"
+
+    "github.com/gocolly/colly/v2"
+)
+
+func main() {
+
+    c := colly.NewCollector()
+
+    i := 0
+    scan := true
+
+    c.OnHTML("#stores-list--section-16266 td.data-cell-0,td.data-cell-1,td.data-cell-2,td.data-cell-3",
+        func(e *colly.HTMLElement) {
+
+            if scan {
+
+                fmt.Printf("%s ", e.Text)
+            }
+            i++
+
+            if i%4 == 0 && i < 40 {
+                fmt.Println()
+            }
+
+            if i == 40 {
+                scan = false
+                fmt.Println()
+            }
+        })
+
+    c.Visit("https://nrf.com/resources/top-retailers/top-100-retailers/top-100-retailers-2019")
+}
+--#
+
+--% links.go
+package main
+
+import (
+    "fmt"
+
+    "github.com/gocolly/colly/v2"
+)
+
+func main() {
+
+    c := colly.NewCollector()
+
+    c.OnHTML("title", func(e *colly.HTMLElement) {
+        fmt.Println(e.Text)
+    })
+
+    c.OnHTML("a[href]", func(e *colly.HTMLElement) {
+
+        link := e.Attr("href")
+        c.Visit(e.Request.AbsoluteURL(link))
+    })
+
+    c.Visit("http://webcode.me/small.html")
+}
+--#
+
+--% stackoverflow.go
+package main
+
+import (
+    "fmt"
+
+    "github.com/gocolly/colly/v2"
+)
+
+type question struct {
+    title   string
+    excerpt string
+}
+
+func main() {
+
+    c := colly.NewCollector()
+    qs := []question{}
+
+    c.OnHTML("div.summary", func(e *colly.HTMLElement) {
+        fmt.Println("--- OnHTML")
+        q := question{}
+        q.title = e.ChildText("a.question-hyperlink")
+        q.excerpt = e.ChildText(".excerpt")
+
+        qs = append(qs, q)
+    })
+
+    c.OnScraped(func(r *colly.Response) {
+        fmt.Println("--- OnScraped")
+        for idx, q := range qs {
+            fmt.Println("---------------------------------")
+            fmt.Println(idx + 1)
+            fmt.Printf("Q: %s \n\n", q.title)
+            fmt.Println(q.excerpt)
+        }
+    })
+
+    c.Visit("https://stackoverflow.com/questions/tagged/perl")
+}
+--#
+
+--% async.go
+package main
+
+import (
+    "fmt"
+
+    "github.com/gocolly/colly/v2"
+)
+
+func main() {
+
+    urls := []string{
+        "http://webcode.me",
+        "https://example.com",
+        "http://httpbin.org",
+        "https://www.perl.org",
+        "https://www.php.net",
+        "https://www.python.org",
+        "https://code.visualstudio.com",
+        "https://clojure.org",
+    }
+
+    c := colly.NewCollector(
+        colly.Async(),
+    )
+
+    c.OnHTML("title", func(e *colly.HTMLElement) {
+        fmt.Println(e.Text)
+    })
+
+    for _, url := range urls {
+
+        c.Visit(url)
+    }
+
+    c.Wait()
+
+}
+--#
+

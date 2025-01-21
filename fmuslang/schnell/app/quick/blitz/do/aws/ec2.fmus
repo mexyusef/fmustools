@@ -1,0 +1,605 @@
+--% index/fmus
+__PWD,d
+    style1,d(/mk)
+    	ec2.py,f(e=__FILE__=ec2.py)
+    	vpc.py,f(e=__FILE__=vpc.py)
+    	clientlocator.py,f(e=__FILE__=clientlocator.py)
+    	testdeploy.py,f(e=__FILE__=testdeploy.py)
+    style2,d(/mk)
+        list-ec2-services-using-client.py,f(e=__FILE__=list-ec2-services-using-client.py)
+        list-ec2-services-using-resourceobject.py,f(e=__FILE__=list-ec2-services-using-resourceobject.py)
+        menu-driven-script-on-ec2-actions-using-client.py,f(e=__FILE__=menu-driven-script-on-ec2-actions-using-client.py)
+        menu-driven-script-on-ec2-actions-using-resource.py,f(e=__FILE__=menu-driven-script-on-ec2-actions-using-resource.py)
+        ec2-waiter.py,f(e=__FILE__=ec2-waiter.py)
+        list-all-regions-for-ec2-with-metaobject.py,f(e=__FILE__=list-all-regions-for-ec2-with-metaobject.py)
+        ec2-colletions-intro.py,f(e=__FILE__=ec2-colletions-intro.py)
+        ec2-start-stop-all-instances.py,f(e=__FILE__=ec2-start-stop-all-instances.py)
+
+        ec2-delete-unused-untagged-volumes-using-resource.py,f(e=__FILE__=ec2-delete-unused-untagged-volumes-using-resource.py)
+        ec2-instance-discovery-using-resource.py,f(e=__FILE__=ec2-instance-discovery-using-resource.py)
+        ec2-list-all-snaps-based-on-size.py,f(e=__FILE__=ec2-list-all-snaps-based-on-size.py)
+--#
+
+--% ec2.py
+class EC2:
+    def __init__(self, client):
+        self._client = client
+        """ :type : pyboto3.ec2 """
+
+    def create_key_pair(self, key_name):
+        print('Creating a key pair with name ' + key_name)
+        return self._client.create_key_pair(KeyName=key_name)
+
+    def create_security_group(self, group_name, description, vpc_id):
+        print('Creating a Security Group with name ' + group_name + ' for VPC ' + vpc_id)
+        return self._client.create_security_group(
+            GroupName=group_name,
+            Description=description,
+            VpcId=vpc_id
+        )
+
+    def add_inbound_rule_to_sg(self, security_group_id):
+        print('Adding inbound public access to Security Group ' + security_group_id)
+        self._client.authorize_security_group_ingress(
+            GroupId=security_group_id,
+            IpPermissions=[
+                {
+                    'IpProtocol': 'tcp',
+                    'FromPort': 80,
+                    'ToPort': 80,
+                    'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
+                },
+                {
+                    'IpProtocol': 'tcp',
+                    'FromPort': 22,
+                    'ToPort': 22,
+                    'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
+                }
+            ]
+        )
+
+    def launch_ec2_instance(self, image_id, key_name, min_count, max_count, security_group_id, subnet_id, user_data):
+        print('Launching EC2 Instance(s) within Subnet ' + subnet_id)
+        return self._client.run_instances(
+            ImageId=image_id,
+            KeyName=key_name,
+            MinCount=min_count,
+            MaxCount=max_count,
+            InstanceType='t2.micro',
+            SecurityGroupIds=[security_group_id],
+            SubnetId=subnet_id,
+            UserData=user_data
+        )
+
+    def describe_ec2_instances(self):
+        print('Describing EC2 Instances...')
+        return self._client.describe_instances()
+
+    def modify_ec2_instance(self, instance_id):
+        print('Modifying EC2 Instance ' + instance_id)
+        return self._client.modify_instance_attribute(
+            InstanceId=instance_id,
+            DisableApiTermination={'Value': True}
+        )
+
+    def stop_instance(self, instance_id):
+        print('Stopping EC2 Instance ' + instance_id)
+        return self._client.stop_instances(
+            InstanceIds=[instance_id]
+        )
+
+    def start_instance(self, instance_id):
+        print('Starting EC2 Instance ' + instance_id)
+        return self._client.start_instances(
+            InstanceIds=[instance_id]
+        )
+
+    def terminate_instance(self, instance_id):
+        print('Terminating EC2 Instance ' + instance_id)
+        return self._client.terminate_instances(
+            InstanceIds=[instance_id]
+        )
+--#
+
+--% vpc.py,f
+class VPC:
+    def __init__(self, client):
+        self._client = client
+        """ :type : pyboto3.ec2 """
+
+    def create_vpc(self):
+        print('Creating a VPC...')
+        return self._client.create_vpc(
+            CidrBlock='10.0.0.0/16'
+        )
+
+    def add_name_tag(self, resource_id, resource_name):
+        print('Adding ' + resource_name + ' tag to the ' + resource_id)
+        return self._client.create_tags(
+            Resources=[resource_id],
+            Tags=[{
+                'Key': 'Name',
+                'Value': resource_name
+            }]
+        )
+
+    def create_internet_gateway(self):
+        print('Creating an Internet Gateway...')
+        return self._client.create_internet_gateway()
+
+    def attach_igw_to_vpc(self, vpc_id, igw_id):
+        print('Attaching Internet Gateway ' + igw_id + ' to VPC ' + vpc_id)
+        return self._client.attach_internet_gateway(
+            InternetGatewayId=igw_id,
+            VpcId=vpc_id
+        )
+
+    def create_subnet(self, vpc_id, cidr_block):
+        print('Creating a subnet for VPC' + vpc_id + ' with CIDR block ' + cidr_block)
+        return self._client.create_subnet(
+            VpcId=vpc_id,
+            CidrBlock=cidr_block
+        )
+
+    def create_public_route_table(self, vpc_id):
+        print('Creating public Route Table for VPC ' + vpc_id)
+        return self._client.create_route_table(VpcId=vpc_id)
+
+    def create_igw_route_to_public_route_table(self, rtb_id, igw_id):
+        print('Adding route for IGW ' + igw_id + ' to Route Table ' + rtb_id)
+        return self._client.create_route(
+            RouteTableId=rtb_id,
+            GatewayId=igw_id,
+            DestinationCidrBlock='0.0.0.0/0'
+        )
+
+    def associate_subnet_with_route_table(self, subnet_id, rtb_id):
+        print('Associating subnet ' + subnet_id + ' with Route Table ' + rtb_id)
+        return self._client.associate_route_table(
+            SubnetId=subnet_id,
+            RouteTableId=rtb_id
+        )
+
+    def allow_auto_assign_ip_addresses_for_subnet(self, subnet_id):
+        return self._client.modify_subnet_attribute(
+            SubnetId=subnet_id,
+            MapPublicIpOnLaunch={'Value': True}
+        )
+--#
+
+--% clientlocator.py,f
+import boto3
+
+
+class ClientLocator:
+    def __init__(self, client):
+        self._client = boto3.client(client, region_name="eu-central-1")
+
+    def get_client(self):
+        return self._client
+
+
+class EC2Client(ClientLocator):
+    def __init__(self):
+        super().__init__('ec2')
+--#
+
+--% testdeploy.py,f
+from vpc import VPC
+from ec2 import EC2
+from clientlocator import EC2Client
+
+
+def main():
+    # Create a VPC
+    ec2_client = EC2Client().get_client()
+    vpc = VPC(ec2_client)
+
+    vpc_response = vpc.create_vpc()
+
+    print('VPC created:' + str(vpc_response))
+
+    # Add name tag to VPC
+    vpc_name = 'Boto3-VPC'
+    vpc_id = vpc_response['Vpc']['VpcId']
+    vpc.add_name_tag(vpc_id, vpc_name)
+
+    print('Added ' + vpc_name + ' to ' + vpc_id)
+
+    # Create an IGW
+    igw_response = vpc.create_internet_gateway()
+
+    igw_id = igw_response['InternetGateway']['InternetGatewayId']
+
+    vpc.attach_igw_to_vpc(vpc_id, igw_id)
+
+    # Create a public subnet
+    public_subnet_response = vpc.create_subnet(vpc_id, '10.0.1.0/24')
+
+    public_subnet_id = public_subnet_response['Subnet']['SubnetId']
+
+    print('Subnet created for VPC ' + vpc_id + ':' + str(public_subnet_response))
+
+    # Add name tag to Public Subnet
+    vpc.add_name_tag(public_subnet_id, 'Boto3-Public-Subnet')
+
+    # Create a public route table
+    public_route_table_response = vpc.create_public_route_table(vpc_id)
+
+    rtb_id = public_route_table_response['RouteTable']['RouteTableId']
+
+    # Adding the IGW to public route table
+    vpc.create_igw_route_to_public_route_table(rtb_id, igw_id)
+
+    # Associate Public Subnet with Route Table
+    vpc.associate_subnet_with_route_table(public_subnet_id, rtb_id)
+
+    # Allow auto-assign public ip addresses for subnet
+    vpc.allow_auto_assign_ip_addresses_for_subnet(public_subnet_id)
+
+    # Create a Private Subnet
+    private_subnet_response = vpc.create_subnet(vpc_id, '10.0.2.0/24')
+    private_subnet_id = private_subnet_response['Subnet']['SubnetId']
+
+    print('Created private subnet ' + private_subnet_id + ' for VPC ' + vpc_id)
+
+    # Add name tag to private subnet
+    vpc.add_name_tag(private_subnet_id, 'Boto3-Private-Subnet')
+
+    # EC2 Instances
+    ec2 = EC2(ec2_client)
+
+    # Create a key pair
+    key_pair_name = 'Boto3-KeyPair'
+    key_pair_response = ec2.create_key_pair(key_pair_name)
+
+    print('Created Key Pair with name ' + key_pair_name + ':' + str(key_pair_response))
+
+    # Create a Security Group
+    public_security_group_name = 'Boto3-Public-SG'
+    public_security_group_description = 'Public Security Group for Public Subnet Internet Access'
+    public_security_group_response = ec2.create_security_group(public_security_group_name, public_security_group_description, vpc_id)
+
+    public_security_group_id = public_security_group_response['GroupId']
+
+    # Add Public Access to Security Group
+    ec2.add_inbound_rule_to_sg(public_security_group_id)
+
+    print('Added public access rule to Security Group ' + public_security_group_name)
+
+    user_data = """#!/bin/bash
+                yum update -y
+                yum install httpd24 -y
+                service httpd start
+                chkconfig httpd on
+                echo "<html><body><h1>Hello from <b>Boto3</b> using Python!</h1></body></html>" > /var/www/html/index.html"""
+
+    ami_id = 'ami-1b316af0'
+
+    # Launch a public EC2 Instance
+    ec2.launch_ec2_instance(ami_id, key_pair_name, 1, 1, public_security_group_id, public_subnet_id, user_data)
+
+    print('Launching Public EC2 Instance using AMI ' + ami_id)
+
+    # Adding another Security Group for Private EC2 Instance
+    private_security_group_name = 'Boto3-Private-SG'
+    private_security_group_description = 'Private Security Group for Private Subnet'
+    private_security_group_response = ec2.create_security_group(private_security_group_name, private_security_group_description, vpc_id)
+
+    private_security_group_id = private_security_group_response['GroupId']
+
+    # Add rule to private security group
+    ec2.add_inbound_rule_to_sg(private_security_group_id)
+
+    # Launch a private EC2 Instance
+    ec2.launch_ec2_instance(ami_id, key_pair_name, 1, 1, private_security_group_id, private_subnet_id, """""")
+
+    print('Launching Private EC2 Instance using AMI' + ami_id)
+
+
+def describe_instances():
+    ec2_client = EC2Client().get_client()
+    ec2 = EC2(ec2_client)
+
+    ec2_response = ec2.describe_ec2_instances()
+
+    print(str(ec2_response))
+
+
+def modify_instance():
+    ec2_client = EC2Client().get_client()
+    ec2 = EC2(ec2_client)
+
+    ec2.modify_ec2_instance('i-01560b6cd12a884a1')
+
+
+def stop_instance():
+    ec2_client = EC2Client().get_client()
+    ec2 = EC2(ec2_client)
+
+    ec2.stop_instance('i-049f27f4be7441270')
+
+
+def start_instance():
+    ec2_client = EC2Client().get_client()
+    ec2 = EC2(ec2_client)
+
+    ec2.start_instance('i-049f27f4be7441270')
+
+
+def terminate_instance():
+    ec2_client = EC2Client().get_client()
+    ec2 = EC2(ec2_client)
+
+    ec2.terminate_instance('i-049f27f4be7441270')
+
+
+if __name__ == '__main__':
+    # main()
+    # describe_instances()
+    # modify_instance()
+    # stop_instance()
+    # start_instance()
+    terminate_instance()
+--#
+
+--% list-ec2-services-using-client.py
+import boto3
+from pprint import pprint
+aws_mag_con=boto3.session.Session(profile_name="ec2_developer")
+ec2_con_cli=aws_mag_con.client(service_name="ec2",region_name="us-east-1")
+'''
+response=ec2_con_cli.describe_instances()['Reservations']
+for each_item in response:
+    for each in each_item['Instances']:
+        print("=============================")
+        print("The Image Id is: {}\nThe Instance Id Is: {}\nThe Instance Launch Time is: {}".format(each['ImageId'],each['InstanceId'],each['LaunchTime'].strftime("%Y-%m-%d")))
+'''
+response=ec2_con_cli.describe_volumes()['Volumes']
+for each_item in response:
+    print("=======================")
+    print("The volume id is: {}\nThe AvailabilityZone is: {}\nThe VolumeType is: {}".format(each_item['VolumeId'],each_item['AvailabilityZone'],each_item['VolumeType']))
+--#
+
+--% list-ec2-services-using-resourceobject.py
+import boto3
+from pprint import pprint
+aws_mag_con=boto3.session.Session(profile_name="ec2_developer")
+ec2_con_re=aws_mag_con.resource(service_name="ec2",region_name="us-east-1")
+'''
+for each_instance in ec2_con_re.instances.all():
+    #print(dir(each_instance))
+    print("The Image Id is: {}\nThe Instance Id Is: {}\nThe Instance Launch Time is: {}".format(each_instance.image_id,each_instance.instance_id,each_instance.launch_time.strftime("%Y-%m-%d")))
+    print("-------------------")
+'''
+for each_volume in ec2_con_re.volumes.all():
+    #print(dir(each_volume))
+    print("The volume id is: {}\nThe AvailabilityZone is: {}\nThe VolumeType is: {}".format(each_volume.volume_id,each_volume.availability_zone,each_volume.volume_type))
+    print("-----------------------------")    
+--#
+
+--% menu-driven-script-on-ec2-actions-using-client.py
+import boto3
+import sys
+aws_mag_con=boto3.session.Session(profile_name="ec2_developer")
+ec2_con_re=aws_mag_con.resource(service_name="ec2",region_name="us-east-1")
+ec2_con_cli=aws_mag_con.client(service_name="ec2",region_name="us-east-1")
+
+while True:
+    print("This script performs the following actions on ec2 instance")
+    print("""
+        1. start
+        2. stop
+        3. terminate
+        4. Exit""")
+    opt=int(input("Enter your option: "))
+    if opt==1:
+            instance_id=input('Enter your EC2 Instance Id: ')
+            #print(dir(my_req_instance_object))
+            print("Starting ec2 instance.....")
+            ec2_con_cli.start_instances(InstanceIds=[instance_id])
+    elif opt==2:
+            instance_id=input('Enter your EC2 Instance Id: ')
+            print("Stopping ec2 instance.....")
+            ec2_con_cli.stop_instances(InstanceIds=[instance_id])
+    elif opt==3:
+            instance_id=input('Enter your EC2 Instance Id: ')
+            print("Terminating ec2 instance.....")
+            ec2_con_cli.terminate_instances(InstanceIds=[instance_id])
+    elif opt==4:
+            print("Thank you for using this script")
+            sys.exit()
+    else:
+        print("Your option is invalid. Please try once again")
+--#
+
+--% menu-driven-script-on-ec2-actions-using-resource.py
+import boto3
+import sys
+aws_mag_con=boto3.session.Session(profile_name="ec2_developer")
+ec2_con_re=aws_mag_con.resource(service_name="ec2",region_name="us-east-1")
+ec2_con_cli=aws_mag_con.client(service_name="ec2",region_name="us-east-1")
+
+while True:
+    print("This script performs the following actions on ec2 instance")
+    print("""
+        1. start
+        2. stop
+        3. terminate
+        4. Exit""")
+    opt=int(input("Enter your option: "))
+    if opt==1:
+            instance_id=input('Enter your EC2 Instance Id: ')
+            my_req_instance_object=ec2_con_re.Instance(instance_id)
+            #print(dir(my_req_instance_object))
+            print("Starting ec2 instance.....")
+            my_req_instance_object.start()
+    elif opt==2:
+            instance_id=input('Enter your EC2 Instance Id: ')
+            my_req_instance_object=ec2_con_re.Instance(instance_id)
+            print("Stopping ec2 instance.....")
+            my_req_instance_object.stop()
+    elif opt==3:
+            instance_id=input('Enter your EC2 Instance Id: ')
+            my_req_instance_object=ec2_con_re.Instance(instance_id)
+            print("Terminating ec2 instance.....")
+            my_req_instance_object.terminate()
+    elif opt==4:
+            print("Thank you for using this script")
+            sys.exit()
+    else:
+        print("Your option is invalid. Please try once again")
+--#
+
+--% ec2-waiter.py
+import boto3 
+import time
+aws_con=boto3.session.Session(profile_name="ec2_developer")
+ec2_con_re=aws_con.resource(service_name="ec2",region_name="us-east-1")
+ec2_con_cli=aws_con.client(service_name="ec2",region_name="us-east-1")
+'''
+my_inst_ob=ec2_con_re.Instance("i-002d4110f1199166f")
+print("Starting given instance....")
+my_inst_ob.start()
+my_inst_ob.wait_until_running()  #Resource waiter waits for 200sec(40 checks after every 5 sec)
+print("Now your instance is up and running")
+'''
+'''
+print("Starting ec2 instace...")
+ec2_con_cli.start_instances(InstanceIds=['i-002d4110f1199166f'])
+waiter=ec2_con_cli.get_waiter('instance_running')
+waiter.wait(InstanceIds=['i-002d4110f1199166f']) #40 checks after every 15 sec
+print("Now your ec2 instace is up and running")
+'''
+my_inst_ob=ec2_con_re.Instance("i-002d4110f1199166f")
+print("Starting given instance....")
+my_inst_ob.start()
+waiter=ec2_con_cli.get_waiter('instance_running')
+waiter.wait(InstanceIds=['i-002d4110f1199166f'])
+print("Now your ec2 instace is up and running")
+
+'''
+while True:
+    my_inst_ob=ec2_con_re.Instance("i-002d4110f1199166f")
+    print("The current status of ec2 is: ",my_inst_ob.state['Name'])
+    if my_inst_ob.state['Name']=="running":
+        break
+    print("Wating to get running status....")
+    time.sleep(5)
+'''
+--#
+
+--% list-all-regions-for-ec2-with-metaobject.py
+import boto3
+aws_mag_con=boto3.session.Session(profile_name="root")
+ec2_con_re=aws_mag_con.resource(service_name="ec2")
+
+for each_item in ec2_con_re.meta.client.describe_regions()['Regions']:
+    print(each_item['RegionName'])
+--#
+
+--% ec2-colletions-intro.py
+import boto3
+aws_mag_con=boto3.session.Session(profile_name="root")
+ec2_con_re=aws_mag_con.resource(service_name="ec2",region_name="us-east-1")
+f1={"Name": "instance-state-name", "Values":['running','stopped']}
+f2={"Name":"instance-type","Values":['t2.micro']}
+for each in ec2_con_re.instances.filter(Filters=[f1,f2]):
+    print(each)
+--#
+
+--% ec2-start-stop-all-instances.py
+import boto3
+aws_mag_con=boto3.session.Session(profile_name="root")
+ec2_con_re=aws_mag_con.resource(service_name="ec2",region_name="us-east-1")
+ec2_con_cli=aws_mag_con.client(service_name="ec2",region_name="us-east-1")
+
+'''
+all_instances_ids=[]
+for each_in in ec2_con_re.instances.all():
+    all_instances_ids.append(each_in.id)
+#print(dir(ec2_con_re.instances))
+waiter=ec2_con_cli.get_waiter('instance_running')
+print("Starting all instances ......")
+ec2_con_re.instances.start()
+waiter.wait(InstanceIds=all_instances_ids)
+print("your all instaces are up and running")
+'''
+
+'''
+np_sers_ids=[]
+f1={"Name": "tag:Name", "Values":['Non_Prod']}
+for each_in in ec2_con_re.instances.filter(Filters=[f1]):
+    np_sers_ids.append(each_in.id)
+
+print(np_sers_ids)
+
+print("----------------------------")
+'''
+
+np_sers_ids=[]
+f1={"Name": "tag:Name", "Values":['Non_Prod']}
+for each_item in ec2_con_cli.describe_instances(Filters=[f1])['Reservations']:
+    for each_in in each_item['Instances']:
+        np_sers_ids.append(each_in['InstanceId'])
+print(np_sers_ids)
+
+print("Starting intances with ids of : ",np_sers_ids)
+ec2_con_cli.start_instances(InstanceIds=np_sers_ids)
+waiter=ec2_con_cli.get_waiter('instance_running')
+waiter.wait(InstanceIds=np_sers_ids)
+print("Your np instances are up and running....")
+--#
+
+--% ec2-delete-unused-untagged-volumes-using-resource.py
+import boto3
+
+aws_mag_con=boto3.session.Session(profile_name="ec2_developer")
+'''
+ec2_con_re=aws_mag_con.resource(service_name="ec2",region_name='us-east-1')
+f_ebs_unused={"Name":"status","Values":["available"]}
+for each_volume in ec2_con_re.volumes.filter(Filters=[f_ebs_unused]):
+    if not each_volume.tags:
+        print(each_volume.id, each_volume.state,each_volume.tags)
+        print("Deleting unused and untagged volumes.....")
+        each_volume.delete()
+
+print("Delted all unused unatageed volumes.")
+'''
+ec2_con_cli=aws_mag_con.client(service_name="ec2",region_name='us-east-1')
+for each_item in ec2_con_cli.describe_volumes()['Volumes']:
+    if not "Tags" in each_item  and each_item['State']=='available':
+        print('Deleting ',each_item['VolumeId'])
+        ec2_con_cli.delete_volume(VolumeId=each_item['VolumeId'])
+print("Delete all unused and untagged volumes.")
+--#
+
+--% ec2-instance-discovery-using-resource.py
+import boto3
+import csv
+aws_mag_con=boto3.session.Session(profile_name="ec2_developer")
+ec2_con_re=aws_mag_con.resource(service_name="ec2",region_name="us-east-1")
+cnt=1
+csv_ob=open("inventory_info.csv","w",newline='')
+csv_w=csv.writer(csv_ob)
+csv_w.writerow(["S_NO","Instance_Id",'Instance_Type','Architecture','LaunchTime','Privat_Ip'])
+for each in ec2_con_re.instances.all():
+    print(cnt,each,each.instance_id,each.instance_type,each.architecture,each.launch_time.strftime("%Y-%m-%d"),each.private_ip_address)
+    csv_w.writerow([cnt,each.instance_id,each.instance_type,each.architecture,each.launch_time.strftime("%Y-%m-%d"),each.private_ip_address])
+
+    cnt+=1
+csv_ob.close()
+--#
+
+--% ec2-list-all-snaps-based-on-size.py
+import boto3
+aws_mag_con=boto3.session.Session(profile_name="root")
+ec2_con_re=aws_mag_con.resource(service_name="ec2",region_name="us-west-1")
+
+sts_con_cli=aws_mag_con.client(service_name="sts",region_name="us-east-1")
+response=sts_con_cli.get_caller_identity()
+my_own_id=response.get('Account')
+f_size={"Name":"volume-size","Values":['10']}
+for each_snap in ec2_con_re.snapshots.filter(OwnerIds=[my_own_id],Filters=[f_size]):
+    print(each_snap)
+--#

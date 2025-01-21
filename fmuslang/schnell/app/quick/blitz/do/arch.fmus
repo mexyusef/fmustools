@@ -1,0 +1,11 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @cqrs*
+            @https://www.baeldung.com/cqrs-event-sourcing-java*
+            @https://en.wikipedia.org/wiki/Command%E2%80%93query_separation*
+        @solid*
+        @clean code*
+        @event sourcing*
+        @event loop*
+--#

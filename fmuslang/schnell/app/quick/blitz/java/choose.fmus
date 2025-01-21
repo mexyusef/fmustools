@@ -1,0 +1,36 @@
+--% index/fmus
+__PWD,d
+  ?pick
+    @orm - databases*
+        ?pick
+            @quick hibernate project*
+            @quick mybatis project*
+            @quick jpa project*
+    @quick project*
+        ?pick
+            @quick spring/springmvc project*
+            @quick springcloud project*
+            @quick springsecurity project*
+            @quick vert.x project*
+            @quick undertow project*
+            @quick micronaut project*
+            @quick dropwizard project*
+            @quick quarkus project*
+            @quick rxjava project*
+    @gui project*
+        ?pick
+            @javafx project*
+            @eclipse swt project*
+            @java swing/awt project*
+    @enterprise*
+        ?pick            
+            @apache camel*
+            @apache karaf*
+            @apache activemq*
+            @apache kafka*
+            @apache elasticsearch*
+            @apache hadoop*
+            @apache spark*
+            @filenet*
+            @camunda*
+--#

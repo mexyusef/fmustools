@@ -1,0 +1,13 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@create nest.js project*
+		@create nest typescript project*
+		$* nest new nescafka
+		$* yarn add kafkajs
+		$* nest generate module kafka
+		$* nest new api-gateway
+		$* nest new billing
+		$* nest new auth
+		$* yarn add @nestjs/microservices kafkajs
+--#

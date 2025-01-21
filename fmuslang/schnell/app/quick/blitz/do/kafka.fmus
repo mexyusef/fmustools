@@ -1,0 +1,20 @@
+--% index/fmus
+__PWD,d
+	@ u -e"/b>do/kafka" *
+	?pick
+		@kafka heroku *
+			@ https://github.com/heroku/heroku-kafka-demo-java *
+			@ https://github.com/heroku/heroku-kafka-jsplugin *
+		@generate docker-compose.yml - versi lama*
+			%utama=__CURDIR__/../../../special/elk.fmus
+			kafka,d(/mk)
+				broker-list.sh,f(e=utama=C:/work/oprek/dc/kafka/broker-list.sh)
+				create-topics.sh,f(e=utama=C:/work/oprek/dc/kafka/create-topics.sh)
+				Dockerfile.kafka,f(e=utama=C:/work/oprek/dc/kafka/Dockerfile.kafka)
+				download-kafka.sh,f(e=utama=C:/work/oprek/dc/kafka/download-kafka.sh)
+				kafka.yml,f(e=utama=C:/work/oprek/dc/kafka/kafka.yml)
+				start-kafka.sh,f(e=utama=C:/work/oprek/dc/kafka/start-kafka.sh)
+				versions.sh,f(e=utama=C:/work/oprek/dc/kafka/versions.sh)
+				overrides,d(/mk)
+					0.9.0.1.sh,f(e=utama=C:/work/oprek/dc/kafka/overrides/0.9.0.1.sh)
+--#

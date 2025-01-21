@@ -1,0 +1,1071 @@
+--% index/fmus
+__PWD,d
+	?pick
+		$* yarn add global ramda
+				$* yarn add readline-sync
+		pca.js,f(f=__CURDIR__/pca.js)
+			$* node pca.js
+		comp1.js,f(f=__CURDIR__/comp1.js)
+			$* node comp1.js
+		comp2.js,f(f=__CURDIR__/comp2.js)
+			$* node comp2.js
+		comp4.js,f(f=__CURDIR__/comp4.js)
+			$* node comp4.js
+		capcay1.js,f(e=__FILE__=capcay1)
+			$* node capcay1.js
+		@more complex example*
+			app,d(/load=__FILE__=244/main*)
+				@cek apakah ini berhasil jadi di dalam app folder?
+				lib,d(/load=__FILE__=244/lib*)
+		functor.js,f(f=__CURDIR__/functor.js)
+			$* node functor.js
+		functor2.js,f(f=__CURDIR__/functor2.js)
+			$* node functor2.js
+		identity.js,f(f=__CURDIR__/identity.js)
+			$* node identity.js
+			@nomer 10*
+		io.js,f(f=__CURDIR__/io.js)
+			$* node io.js
+			@nomer 11*
+		maybe.js,f(f=__CURDIR__/maybe.js)
+			$* node maybe.js
+			@nomer 12*
+		.,d(/load=__CURDIR__/maybe2.fmus=index/fmus*)
+				@wah ini nyambung ke yg lain/sebelumnya - nomer 13*
+		either.js,f(f=__CURDIR__/either.js)
+			$* node either.js
+			@nomer 14*
+		.,d(/load=__CURDIR__/either2.fmus=index/fmus*)
+				@wah ini nyambung ke yg lain/sebelumnya - nomer 15*
+		add.js,f(f=__CURDIR__/add.js)
+			$* node add.js
+			@nomer 16*
+		.,d(/load=__CURDIR__/remoteslide.fmus=index/fmus*)
+				@wah ini nyambung ke yg lain/sebelumnya - nomer 17*
+		observer.js,f(f=__CURDIR__/observer.js)
+			$* node observer.js
+			@nomer 18*
+		ramdatest.js,f(f=__CURDIR__/ramdatest.js)
+			$* node ramdatest.js
+			@nomer 19*
+		.,d(/load=__CURDIR__/firebase.fmus=index/fmus*)
+		.,d(/load=__CURDIR__/firebase2.fmus=index/fmus*)
+		.,d(/load=__CURDIR__/firebase3.fmus=index/fmus*)
+		.,d(/load=__CURDIR__/choose2.fmus=index/fmus*)
+		.,d(/load=__CURDIR__/choose3.fmus=index/fmus*)
+		.,d(/load=__CURDIR__/steps.fmus=index/fmus*)
+		.,d(/load=__CURDIR__/steps2.fmus=index/fmus*)
+		.,d(/load=__CURDIR__/steps3.fmus=index/fmus*)
+		.,d(/load=__CURDIR__/steps4.fmus=index/fmus*)
+--#
+
+--% capcay1
+const { log } = console;
+const K = (x) => (y) => x
+const always = K
+always([1, 4])
+const ten = K(10)
+log( ten() ) // 10
+
+const oneTwo = K([1, 2])
+const nums = oneTwo()
+nums.push(3)
+log(oneTwo()) // [1,2,3]
+--#
+
+--% 244/main
+.,d
+	app,d(/mk)
+		?pick
+			index.jsx,f(e=__FILE__=index1)
+			index.jsx,f(e=__FILE__=index2)
+	please-compare,d(/mk)
+		data,d
+			redux-ish1.js,f(e=__FILE__=data/redux-ish1)
+			reducers.js,f(e=__FILE__=data/reducer)
+			redux-ish.js,f(e=__FILE__=data/redux-ish)
+--#
+
+--% index1
+import R from 'ramda'
+import dom, { renderDOM } from 'utils/dom'
+import compose from 'utils/compose'
+import { createStore } from './data/redux-ish'
+
+// initialState :: Object
+const initialState = { title: '', slides: [] }
+
+// mainReducer :: (Object, Object) -> Object
+const mainReducer = (state, action) => {
+	switch (action.value) {
+		case 'TEST_ACTION':
+			return R.merge(state, { title: 'Packt Pub Presentation App' })
+		case default:
+			return state
+	}
+}
+
+const {
+	getState, dispatch, subscribe
+} = createStore(mainReducer, initialState)
+
+
+const update = renderDOM((state) => {
+	return (
+		<div className='container'>
+			<h1>{ state.title }</h1>
+		</div>
+	)
+}, document.getElementById('packtPubApp'))
+--#
+
+--% redux-ish1
+
+import R from 'ramda'
+import colorLog from 'utils/colorLog'
+
+const logAction = colorLog('Action', 'rgb(179, 63, 132)')
+const logCurrentState = colorLog('State: ', 'rgb(177, 116, 45)')
+const logNextState = colorLog('Next State: ', 'rgb(53, 69, 180)')
+
+// State :: Object
+// Action :: Object { type }
+// Store :: Object { subscribe, dispatch, getState }
+// createStore :: (((State, Action) -> State), State) -> Store
+export function createStore(reducer, state, middleware) {
+	let currentState = state
+	let currentSubscribers = []
+	let nextSubscribers = []
+	let isDispatching = false
+
+	const getState = () => currentState
+	const subscribe = listenerFn => {
+		nextSubscribers = nextSubscribers.slice(0)
+		nextSubscribers.push(listenerFn)
+	}
+
+	const dispatch = action => {
+		if (isDispatching) {
+			throw new Error('Dispatch should never be called inside of a reducer!')
+		}
+		isDispatching = true
+
+		try {
+			const nextState = reducer(currentState, action)
+			logAction(action)
+			logCurrentState(currentState)
+			logNextState(nextState)
+
+			currentState = nextState
+		} finally {
+			isDispatching = false
+		}
+
+		currentSubscribers = nextSubscribers
+		R.map(R.call, currentSubscribers)
+	}
+
+	return {
+		getState,
+		subscribe,
+		dispatch,
+	}
+}
+--#
+
+--% index2
+import R from 'ramda'
+import dom, { renderDOM } from 'utils/dom'
+import compose from 'utils/compose'
+import { createStore } from './data/redux-ish'
+import Slideshow from './components/Slideshow'
+import mainReducer from './data/reducers'
+
+// initialState :: Object
+const initialState = { title: '', money: 0 }
+
+const middleware = R.curry((createStore, reducer, initState) => {
+
+	const actionHistory = []
+	const store = createStore((state, action) => {
+		switch (action.type) {
+			case '@@/JUMP':
+				return R.reduce((accState, nextAction) => {
+					console.log(nextAction.type, nextAction.value)
+					return reducer(accState, nextAction)
+				}, initState, action.value)
+
+			default:
+
+				return reducer(state, action)
+		}
+	}, initState)
+
+	window.changeState = (i) => {
+		actionHistory[i] && store.dispatch({ type: '@@/JUMP', value: R.slice(0, i, actionHistory) })
+	}
+
+	const middleDispatch = (action) => {
+		store.dispatch(action)
+		actionHistory.push(action)
+		console.log(actionHistory)
+	}
+
+	return {
+		getState: store.getState,
+
+		dispatch: middleDispatch,
+
+		subscribe: store.subscribe,
+	}
+})
+
+const {
+	getState, dispatch, subscribe
+} = createStore(mainReducer, initialState, middleware)
+
+
+const update = renderDOM((state) => {
+	return (
+		<div className='container'>
+		<h1>{ state.title }</h1>
+	<h5>MONEY: { state.money }</h5>
+	<Slideshow  slides={ state.slides || [] } />
+	</div>
+	)
+}, document.getElementById('packtPubApp'))
+
+
+subscribe(() => {
+	update(getState(), dispatch)
+})
+
+dispatch({ type: 'TEST_ACTION' })
+dispatch({
+	type: 'DEPOSIT',
+	value: 60,
+})
+dispatch({
+	type: 'WITHDRAW',
+	value: 20,
+})
+dispatch({
+	type: 'DEPOSIT',
+	value: 200,
+})
+dispatch({
+	type: 'DEPOSIT',
+	value: 10,
+})
+--#
+
+--% data/reducer
+import R from 'ramda'
+import compose from 'utils/compose'
+// mainReducer :: (Object, Object) -> Object
+function mainReducer (state, action = {}) {
+
+	switch (action.type) {
+		case 'TEST_ACTION':
+			return R.merge(state, { title: 'Packt Pub Presentation App' })
+
+		case 'CUSTOM_TITLE':
+			const title = action.type
+			return { ...state, title } // same as Object.assign({}, state, { title })
+
+		case 'DEPOSIT':
+			return R.over(
+				R.lensProp('money'), R.add(action.value), state
+			)
+
+		case 'WITHDRAW':
+			const money = state.money - action.value
+			return { ...state, money }
+
+		default:
+			// We don't know how to handle this action
+			return state
+	}
+}
+
+export default mainReducer
+--#
+
+--% data/redux-ish
+import R from 'ramda'
+import colorLog from 'utils/colorLog'
+
+const logAction = colorLog('Action', 'rgb(179, 63, 132)')
+const logCurrentState = colorLog('State: ', 'rgb(177, 116, 45)')
+const logNextState = colorLog('Next State: ', 'rgb(53, 69, 180)')
+
+// State :: Object
+// Action :: Object { type }
+// Store :: Object { subscribe, dispatch, getState }
+// createStore :: (((State, Action) -> State), State) -> Store
+export function createStore(reducer, state, middleware) {
+	let currentState = state
+	let currentSubscribers = []
+	let nextSubscribers = []
+	let isDispatching = false
+
+	if (R.is(Function, middleware)) {
+		return middleware(createStore)(reducer, state)
+	}
+
+	const getState = () => currentState
+	const subscribe = listenerFn => {
+		nextSubscribers = nextSubscribers.slice(0)
+		nextSubscribers.push(listenerFn)
+	}
+
+	const dispatch = action => {
+		if (isDispatching) {
+			throw new Error('Dispatch should never be called inside of a reducer!')
+		}
+		isDispatching = true
+
+		try {
+			const nextState = reducer(currentState, action)
+			logAction(action)
+			logCurrentState(currentState)
+			logNextState(nextState)
+
+			currentState = nextState
+		} finally {
+			isDispatching = false
+		}
+
+		currentSubscribers = nextSubscribers
+		R.map(R.call, currentSubscribers)
+	}
+
+	return {
+		getState,
+		subscribe,
+		dispatch,
+	}
+}
+--#
+
+--% 244/lib
+.,d
+	.,d(/load=__FILE__=components*)
+	.,d(/load=__FILE__=data*)
+	.,d(/load=__FILE__=styles*)
+	.,d(/load=__FILE__=utils*)
+--#
+
+--% components
+.,d
+	Controls.jsx,f(e=__FILE__=Controls.jsx)
+	SlideMap.jsx,f(e=__FILE__=SlideMap.jsx)
+	SlidesColumns.jsx,f(e=__FILE__=SlidesColumns.jsx)
+	Slideshow.jsx,f(e=__FILE__=Slideshow)
+--#
+
+--% Controls.jsx
+import R from 'ramda'
+import dom from 'utils/dom'
+import SlideMap from './SlideMap'
+import { existsObjAt } from 'utils/slide-utils'
+const { o } = R
+
+const up = R.over(R.lensIndex(1), R.dec)
+const down = R.over(R.lensIndex(1), R.inc)
+
+const left = o(
+	R.set(R.lensIndex(1), 0),
+	R.over(R.lensIndex(0), R.dec)
+)
+const right = o(
+	R.set(R.lensIndex(1), 0),
+	R.over(R.lensIndex(0), R.inc)
+)
+
+export default (props) => {
+	const {
+		slides = [],
+		slidePos = [0,0],
+		settings = {},
+		dispatch
+	} = props
+
+	const moveToSlide = o(
+		dispatch,
+		R.flip(R.assoc('value'))({ type: 'MOVE_TO_SLIDE' })
+	)
+
+	const changeSetting = (setting, value) => {
+		dispatch({ type: 'CHANGE_SETTING', value: [setting, value] })
+	}
+	const slidesLoaded = !!(slides && slides.length)
+
+	const buttons  = [
+		[left(slidePos), 'left'],
+		[right(slidePos), 'right'],
+		[' - '],
+		[up(slidePos), 'up'],
+		[down(slidePos), 'down'],
+	]
+
+	return (
+		<aside className='slide-controls'>
+
+			<SlideMap slides={ slides } />
+
+			{
+				buttons.map(([btnFn, dir], index) => R.is(String, btnFn) ? <span>{ btnFn }</span> : (
+					<button
+						className='btn btn-lg btn-info btn-outline'
+						onclick={ () => moveToSlide(btnFn) }
+						disabled={ R.not(existsObjAt(btnFn)(slides)) }
+					>
+						<i className={ `fa fa-arrow-${ dir }` }></i>
+						<span className="hidden">{ dir }</span>
+					</button>
+				))
+			}
+
+			<button
+				className='btn btn-lg btn-info btn-outline'
+				onclick={ () => changeSetting(
+					'fullscreen', !R.prop('fullscreen', settings)
+				) }
+			>
+				<i className={ `fa fa-${
+					R.prop('fullscreen', settings) ? 'compress' : 'expand'}`
+				}></i>
+				<span className="hidden">Up</span>
+			</button>
+
+			&nbsp; - &nbsp;
+			{  !slidesLoaded ? null : (
+				<button
+					onclick={ () => moveToSlide([0, 0]) }
+					className='btn btn-md btn-danger'
+				>
+					<i className="fa fa-refresh"></i>
+					<span className="hidden">Restart</span>
+				</button>)
+			}
+		</aside>
+	)
+}
+--#
+
+--% SlideMap.jsx
+import R from 'ramda'
+import dom from 'utils/dom'
+
+export default ({ slides }) => {
+	return (
+		<div>
+			<items className='slide-map'>
+				{ slides.map((column, i) => {
+					return (<span className='column' >
+								{ column.map((slide, j)=> {
+									return (<span className={ `slide-item ${ slide.active ? 'active' : '' }` } />)
+								}) }
+							<span className="clearfix"></span>
+								</span>
+					)
+				})
+				}
+			</items>
+			<div className="clearfix"></div>
+
+		</div>
+	)
+}
+--#
+
+--% SlidesColumns.jsx
+import dom, { fromHTML } from 'utils/dom'
+import R from 'ramda'
+
+// slideClass :: Slide -> String
+const slideClass = (slide) => `slide ${ !slide.active ? '' : 'active' }`
+
+// Img :: Obj -> VNode
+const Img = ({ src, alt = ''}) => <img src={ src } alt={ alt } />
+
+
+// Slide :: [Slide] -> VNode
+const Slide = (slide) => (
+	<div style={ slide.style } className={ slideClass(slide) }>
+		<div className='header'>
+			<div className='header title'>
+				<h1 className='display-4'>
+					<strong className='lead'>
+					</strong> { slide.title || '' }
+				</h1>
+			</div>
+		</div>
+		<div className='body'>
+			{ slide.html ? fromHTML(slide.html) : null }
+		</div>
+		<div className='img img-responsive'>
+			{ slide.img ? Img(slide.img) : null }
+		</div>
+		<footer className='footer'>
+			{ slide.text ? <blockquote>{ slide.text }</blockquote> : null }
+		</footer>
+	</div>
+)
+
+
+// Column :: [Slide] -> VNode
+export const Column = ({ slides, fullscreen = false }) => (
+	<div
+		className={`presentation column ${
+			fullscreen ? 'fullscreen' : ''
+		}`}>
+		{ R.map(Slide, slides) }
+	</div>
+)
+--#
+
+--% Slideshow.jsx
+import dom from 'utils/dom'
+import { Column } from './SlidesColumns'
+import R from 'ramda'
+
+export default ({ slides = [], settings = {}}) => {
+	return (
+		<div>
+			{ R.map((colSlides) => (
+				<Column fullscreen={ R.propOr(false, 'fullscreen', settings) }
+								slides={ colSlides } />
+			), slides) }
+		</div>
+	)
+}
+--#
+
+--% data
+.,d
+	reducers.js,f(e=__FILE__=reducers.js)
+	redux-ish.js,f(e=__FILE__=redux-ish.js)
+	slides.js,f(e=__FILE__=slides.js)
+--#
+
+--% reducers.js
+import R from 'ramda'
+import compose from 'utils/compose'
+import { setupSlides, activeSlide } from 'utils/slide-utils'
+
+
+// mainReducer :: (Object, Object) -> Object
+function mainReducer (state, action = {}) {
+
+	const { settings = {} } = state
+	const { type, value } = action
+
+	switch (type) {
+		case 'SETUP_SLIDES':
+			return { ...state, slides: setupSlides(action.value) }
+
+		case 'MOVE_TO_SLIDE':
+			const slidePos = value
+			const slides = state.slides || []
+			return { ...state, slides: activeSlide(slidePos)(slides), slidePos }
+
+		case 'TEST_ACTION':
+			return R.merge(state, { title: 'Packt Pub Presentation App' })
+
+		case 'CUSTOM_TITLE':
+			const title = value
+			return { ...state, title } // same as Object.assign({}, state, { title })
+
+		case 'CHANGE_SETTING':
+			return { ...state, settings: R.merge(settings, R.fromPairs([value]))}
+
+		case 'DEPOSIT':
+			return R.over(
+				R.lensProp('money'), R.add(action.value), state
+			)
+		case 'WITHDRAW':
+			const money = state.money - action.value
+			return { ...state, money }
+
+		default:
+			// We don't know how to handle this action
+			return state
+	}
+}
+
+export default mainReducer
+--#
+
+--% redux-ish.js
+import R from 'ramda'
+import colorLog from 'utils/colorLog'
+
+const logAction = colorLog('Action', 'rgb(179, 63, 132)')
+const logCurrentState = colorLog('State: ', 'rgb(177, 116, 45)')
+const logNextState = colorLog('Next State: ', 'rgb(53, 69, 180)')
+
+// State :: Object
+// Action :: Object { type }
+// Store :: Object { subscribe, dispatch, getState }
+// createStore :: (((State, Action) -> State), State) -> Store
+export function createStore(reducer, state, middleware) {
+	let currentState = state
+	let currentSubscribers = []
+	let nextSubscribers = []
+	let isDispatching = false
+
+	if (R.is(Function, middleware)) {
+		return middleware(createStore)(reducer, state)
+	}
+
+	const getState = () => currentState
+	const subscribe = listenerFn => {
+		nextSubscribers = nextSubscribers.slice(0)
+		nextSubscribers.push(listenerFn)
+	}
+
+	const dispatch = action => {
+		if (isDispatching) {
+			throw new Error('Dispatch should never be called inside of a reducer!')
+		}
+		isDispatching = true
+
+		try {
+			const nextState = reducer(currentState, action)
+			logAction(action)
+			logCurrentState(currentState)
+			logNextState(nextState)
+
+			currentState = nextState
+		} finally {
+			isDispatching = false
+		}
+
+		currentSubscribers = nextSubscribers
+		R.map(R.call, currentSubscribers)
+	}
+
+	return {
+		getState,
+		subscribe,
+		dispatch,
+	}
+}
+--#
+
+--% slides.js
+/**
+ * State (Stored in LocalStorage)
+ * {
+ *   title: str
+ *   slides: [ SlideObjects ]
+ * }
+ */
+export default {
+	title: "Packt Pub Slideshow",
+	slides: [
+		{
+			id: 1,
+			order: 0,
+			title: 'Welcome to the Amazing Presentation',
+			html: '<h3 class="lead">This presentation is brought to you by <small>Functional Programming and Packt Publishing</small></h3>',
+			text: 'Enjoy! Copyright 2017',
+			img: {
+				src: 'img/slide-one.png',
+				alt: 'An amazing presentation',
+			}
+		},
+		{
+			id: 2,
+			title: 'I/O Here We Go!',
+			text: 'Input and Output are what make the world go round.',
+			style: {
+				background: '#4C5F6B',
+				color: '#DBE4EE',
+			},
+		}, {
+			id: 4,
+			title: 'Thanks for attending the Input/Output paradox presentation!',
+			html: '<p>This is the final slide I am afraid</p>',
+			style: {
+				background: '#FB4D3D',
+				color: '#DBE4EE',
+			},
+		},
+		{
+			id: 2,
+			title: 'I/O Here We Go!',
+			order: 3,
+			html: `<ul>
+							 <li>Nobody knows where "input" comes from</li>
+							 <li>But if we analyze Input, we see the word "put"</li>
+						 </ul>`,
+			text: 'Input and Output are what make the world go round.',
+			style: {
+				background: '#4C5F6B',
+				color: '#DBE4EE',
+			},
+		},
+		{
+			id: 2,
+			title: 'I/O Here We Go!',
+			order: 1,
+			html: `<ul>
+							 <li>Nobody knows where "input" comes from</li>
+						 </ul>`,
+			text: 'Input and Output are what make the world go round.',
+			style: {
+				background: '#4C5F6B',
+				color: '#DBE4EE',
+			},
+		},
+		{
+			id: 1,
+			order: 1,
+			title: 'Welcome to the Amazing Presentation',
+			html: '<h3 class="lead">This presentation is brought to you by <small>Functional Programming and Packt Publishing</small></h3>',
+			text: 'Enjoy! Copyright 2017',
+			img: {
+				src: 'img/slide-one.png',
+				alt: 'An amazing presentation',
+			},
+			style: {
+				background: '#f5f0f0',
+				color: '#333',
+			},
+		},
+		{
+			id: 3,
+			order: 1,
+			title: 'Third Slide',
+			html: '<p>I ran out of reliable information for this story</p>',
+			style: {
+				background: '#00838f',
+				color: '#dad3df',
+			}
+		},
+		{
+			id: 2,
+			title: 'I/O Here We Go!',
+			order: 2,
+			html: `<ul>
+							 <li>Nobody knows where "input" comes from</li>
+							 <li>But if we analyze Input, we see the word "put"</li>
+							 <li>We see that Input is related to Output. We can prove this by: <pre>In + ( Output - Out ) = Input!</pre></li>
+						 </ul>`,
+			text: 'Input and Output are what make the world go round.',
+			style: {
+				background: '#00838f',
+				color: '#dad3df',
+			},
+		},
+	],
+}
+--#
+
+--% styles
+.,d
+	main.scss,f(e=__FILE__=main.scss)
+--#
+
+--% main.scss
+$controlsBg: #1d2f32;
+$slideMapItem: #658eff;
+
+
+html {
+	font-size: 18px;
+	height: 100%;
+}
+
+html, body,
+#packtPubApp,
+.main-content,
+.full-height {
+	height: 100%;
+}
+
+.slide-controls {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background: $controlsBg;
+	border: darken($controlsBg, 40);
+	padding: .66rem;
+	opacity: 0.45;
+	&:hover {
+		opacity: 1.0;
+		.slide-map {
+			height: 100%;
+			right: 0;
+		}
+	}
+	.btn {
+		margin-left: .66rem;
+		&:disabled {
+			background: desaturate($slideMapItem, 80);
+			color: #565656;
+		}
+	}
+
+	.slide-map {
+		height: 0;
+		right: 100%;
+		transition: opacity .3s ease-in-out;
+		overflow: hidden;
+		display: block;
+		width: 100%;
+		clear: both;
+		.column {
+			float: left;
+			display: block;
+			height: 100%;
+			width: 1.25rem;
+			.slide-item {
+				display: inline-block;
+				width: 1rem;
+				height: 1rem;
+				background: $slideMapItem;
+				border: 0.1rem solid #1d2f32;
+				border-radius: .2rem;
+				&.active {
+					background: #ff5881;
+				}
+			}
+		}
+	}
+}
+.presentation.column {
+	width: 100%;
+	overflow-x: hidden;
+	position: absolute;
+	box-sizing: border-box;
+	&.fullscreen {
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+	.slide {
+		display: none;
+		height: 0;
+		&.active {
+			height: 100%;
+			display: block;
+		}
+		margin-bottom: 1rem;
+		width: 100%;
+		min-height: 20rem;
+		background: whitesmoke;
+		border: .05rem double #303030;
+		padding: 1.33rem;
+		height: 100%;
+	}
+}
+--#
+
+--% utils
+.,d
+	action-history-middleware.js,f(e=__FILE__=utils-action)
+	colorLog.js,f(e=__FILE__=utils-color)
+	compose.js,f(e=__FILE__=utils-compose)
+	dom.js,f(e=__FILE__=utils-dom)
+		$ yarn add virtual-dom html-to-vdom
+	localStore.js,f(e=__FILE__=utils-local)
+		@ada manggil utils/containers yg gak ada nih
+	slide-utils.js,f(e=__FILE__=utils-slide)
+--#
+
+--% utils-action
+import R from 'ramda'
+
+export default R.curry((createStore, reducer, initState) => {
+
+	const actionHistory = []
+	const store = createStore((state, action) => {
+		switch (action.type) {
+			case '@@/JUMP':
+				return R.reduce((accState, nextAction) => {
+					console.log(nextAction.type, nextAction.value)
+					return reducer(accState, nextAction)
+				}, initState, action.value)
+
+			default:
+
+				return reducer(state, action)
+		}
+	}, initState)
+
+	window.changeState = (i) => {
+		actionHistory[i] && store.dispatch({ type: '@@/JUMP', value: R.slice(0, i, actionHistory) })
+	}
+
+	const middleDispatch = (action) => {
+		store.dispatch(action)
+		actionHistory.push(action)
+		console.log(actionHistory)
+	}
+
+	return {
+		getState: store.getState,
+
+		dispatch: middleDispatch,
+
+		subscribe: store.subscribe,
+	}
+})
+--#
+
+--% utils-color
+export default (text = '', color = '') => logMessage =>
+	console.log(
+		`%c${ text }`,
+		`font-weight:bold;color:${ color }`,
+		logMessage
+	)
+--#
+
+--% utils-compose
+const apply = require('ramda/src/apply')
+const prepend = require('ramda/src/prepend')
+const compose = require('ramda/src/compose')
+const reduce = require('ramda/src/reduce')
+
+// I :: a -> a
+const I = (x) => x
+const Identity = I
+const S = (f) => (g) => (x) => f(x)(g(x))
+const K = (x) => (y) => x
+// tap :: Function -> a -> a
+const tap = (f) => (x) => {
+	f(x)
+	return x
+}
+
+// trace :: a -> a
+const trace = tap(console.log.bind(console))
+
+// compose.clog :: ((a -> b), ... (y -> z)) -> (z -> a)
+compose.log = compose(
+	apply(compose), // apply is compose.apply
+	prepend(trace),
+	reduce((acc, fn) => acc.concat(fn, trace), []),
+	Array
+)
+
+module.exports = compose
+--#
+
+--% utils-dom
+import VNode from 'virtual-dom/vnode/vnode'
+import VText from 'virtual-dom/vnode/vtext'
+import HTML from 'html-to-vdom'
+import h from 'virtual-dom/h'
+import patch from 'virtual-dom/patch'
+import diff from 'virtual-dom/diff'
+import createElement from 'virtual-dom/create-element'
+import {compose} from 'ramda'
+
+export const fromHTML = HTML({
+	VNode: VNode,
+	VText: VText
+})
+
+/**
+ * The first time a root tree is rendered it is handled with renderDOM.
+ * This function will return a function that can be used to subsequently
+ * update the DOM when state changes occur.
+ *
+ * @param {function} treeBuilder - probably JSX or Virtual-Dom function
+ * @param {HTMLElement} root     - parent node to insert template
+ * @param {object} [_state={}]   - optional initial state
+ * @returns {function}           - function to diff and render updated UI
+ */
+export function renderDOM(treeBuilder, root, _state = {}) {
+	// In order to be able to do the dom diffing, we need to maintain
+	// references to the currentTree (for comparision) and the rootNode
+	let currentTree = treeBuilder(_state)
+	const rootNode = createElement(currentTree)
+
+	root.appendChild(rootNode)
+
+	function renderApp(domTree) {
+		const updatedDom = diff(currentTree, domTree)
+		patch(rootNode, updatedDom)
+		currentTree = domTree
+	}
+
+	return compose(renderApp, treeBuilder)
+}
+
+/**
+ * Takes the JSX and parses it (when babel compiles the JSX, all it
+ * actually does is call this function!)
+ * @ignore
+ */
+export default function dom(type, props, ...children) {
+	if (typeof type === "function") {
+		// Pass the state into the function to get the elem tree
+		return type(props, children);
+	}
+	// Element doesn't have state (or it's already hydrated)
+	return h(type, props, children)
+}
+--#
+
+--% utils-local
+import { IOContainer } from 'utils/containers'
+
+// setItem :: (Str, *) -> IOContainer
+export const setItem = (key, val) => {
+	return IOContainer.of(() => {
+		localStorage.setItem(key, JSON.stringify(val))
+	})
+}
+
+
+// getItem :: Str -> IOContainer
+export const getItem = (itemKey) => IOContainer
+	.of(() => localStorage.getItem(itemKey)) 
+--#
+
+--% utils-slide
+import R from 'ramda'
+
+export const {
+	groupBy, groupWith, sortBy, eqProps, o, map, prop, over, set, lensPath, lensProp, omit, when, pathSatisfies, is
+} = R
+
+// groupByProp :: Str -> [Obj] -> [[Obj]]
+export const groupByProp = (key) => compose(
+	groupWith(eqProps(key)),
+	sortBy(prop(key))
+)
+
+// setupSlides :: Obj -> [[Object]]
+export const setupSlides = compose(
+	set(lensPath([0, 0, 'active']), true),
+	prop('slides'),
+	over(lensProp('slides'), groupByProp('id'))
+)
+
+// existsObjAt :: [Int] -> Bool
+export const existsObjAt = pos2dPath => pathSatisfies(is(Object), pos2dPath)
+
+// wipeActiveStatus :: [[{k: v}]] -> [[{k: v}]]
+export const wipeActiveStatus = map(map(omit(['active'])))
+
+// setActiveAt :: [Int] -> [[{k: v}]] -> [[{k: v}]]
+export const setActiveAt = pos2dPath => set(lensPath([...pos2dPath, 'active']), true)
+
+// activeSlide :: [[{k: v}]] -> [[{k: v}]]
+export const activeSlide = (pos2dPath) => o(
+	when(
+		existsObjAt(pos2dPath),
+		setActiveAt(pos2dPath)
+	),
+	wipeActiveStatus
+)
+--#

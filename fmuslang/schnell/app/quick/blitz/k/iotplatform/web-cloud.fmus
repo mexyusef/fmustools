@@ -1,0 +1,117 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@gerak cepat bikin versi simple/basic saja dulu asal jalan dan muncul...*
+			.,d(/load=__FILE__=web-cloud/1/fmus*)
+--#
+
+--% web-cloud/1/fmus
+.,d
+	README.md,f(e=__FILE__=web-cloud/readme)
+    build,d(/load=__CURDIR__/wp-for-web.fmus=index/fmus*)
+    .,d(/load=__CURDIR__/web-iot.fmus=index/fmus*)
+	?pick
+		.,d(/load=__FILE__=pnpm/manual-install*)
+		.,d(/load=__FILE__=yarn/manual-install*)
+        package.json,f(e=__FILE__=package.json/original)
+    $* explorer F:\__qti_qci_quat\iot-platform\northside\web\iot
+--#
+
+--% web-cloud/readme
+here we go samson...
+--#
+
+--% pnpm/manual-install
+.,d
+	$* pnpm add @ant-design/icons@^4.2.2 @apollo/client@^3.2.0 @material-ui/core@^4.11.0 @material-ui/icons@^4.9.1 antd@^4.6.3 apollo-cache-inmemory@^1.6.6 apollo-client@^2.6.10 apollo-link-context@^1.0.20 apollo-link-http@^1.5.17 apollo-link-ws@^1.0.20 axios@^0.20.0 bizcharts@^4.0.14 font-awesome@^4.7.0 graphql@^15.3.0 highcharts@^8.2.0 highcharts-react-official@^3.0.0 jointjs@^3.2.0 js-file-download@^0.4.12 leaflet@^1.7.1 leaflet-geosearch@^3.0.6 leaflet-search@^2.9.8 leaflet.locatecontrol@^0.72.0 localforage@^1.9.0 pbf@^3.2.1 pubsub-js@^1.9.0 react@^16.13.1 react-apollo@^3.1.5 react-dom@^16.13.1 react-full-screen@^0.3.1 react-grid-layout@^1.1.1 react-highcharts@^16.1.0 react-router@^5.2.0 react-router-dom@^5.2.0 socket.io-client@^2.3.0 styled-components@^5.2.0 subscriptions-transport-ws@^0.9.18 three@^0.120.1
+
+	$* pnpm add -D @babel/core@^7.11.6 @babel/plugin-proposal-class-properties@^7.10.4 @babel/plugin-proposal-decorators@^7.10.5 @babel/plugin-syntax-dynamic-import@^7.8.3 @babel/preset-env@^7.11.5 @babel/preset-flow@^7.10.4 @babel/preset-react@^7.10.4 babel-loader@^8.1.0 babel-plugin-import@^1.13.0 babel-plugin-module-resolver@^4.0.0 clean-webpack-plugin@^3.0.0 copy-webpack-plugin@^6.1.0 css-loader@^4.3.0 file-loader@^6.1.0 html-loader@^1.3.0 html-webpack-plugin@^4.4.1 less-loader@^7.0.1 react-hot-loader@^4.12.21 style-loader@^1.2.1 url-loader@^4.1.0 webpack@^4.44.1 webpack-cli@^3.3.12 webpack-dev-server@^3.11.0
+--#
+
+--% yarn/manual-install
+.,d
+	$* yarn add @ant-design/icons@^4.2.2 @apollo/client@^3.2.0 @material-ui/core@^4.11.0 @material-ui/icons@^4.9.1 antd@^4.6.3 apollo-cache-inmemory@^1.6.6 apollo-client@^2.6.10 apollo-link-context@^1.0.20 apollo-link-http@^1.5.17 apollo-link-ws@^1.0.20 axios@^0.20.0 bizcharts@^4.0.14 font-awesome@^4.7.0 graphql@^15.3.0 highcharts@^8.2.0 highcharts-react-official@^3.0.0 jointjs@^3.2.0 js-file-download@^0.4.12 leaflet@^1.7.1 leaflet-geosearch@^3.0.6 leaflet-search@^2.9.8 leaflet.locatecontrol@^0.72.0 localforage@^1.9.0 pbf@^3.2.1 pubsub-js@^1.9.0 react@^16.13.1 react-apollo@^3.1.5 react-dom@^16.13.1 react-full-screen@^0.3.1 react-grid-layout@^1.1.1 react-highcharts@^16.1.0 react-router@^5.2.0 react-router-dom@^5.2.0 socket.io-client@^2.3.0 styled-components@^5.2.0 subscriptions-transport-ws@^0.9.18 three@^0.120.1
+
+	$* yarn add --dev @babel/core@^7.11.6 @babel/plugin-proposal-class-properties@^7.10.4 @babel/plugin-proposal-decorators@^7.10.5 @babel/plugin-syntax-dynamic-import@^7.8.3 @babel/preset-env@^7.11.5 @babel/preset-flow@^7.10.4 @babel/preset-react@^7.10.4 babel-loader@^8.1.0 babel-plugin-import@^1.13.0 babel-plugin-module-resolver@^4.0.0 clean-webpack-plugin@^3.0.0 copy-webpack-plugin@^6.1.0 css-loader@^4.3.0 file-loader@^6.1.0 html-loader@^1.3.0 html-webpack-plugin@^4.4.1 less-loader@^7.0.1 react-hot-loader@^4.12.21 style-loader@^1.2.1 url-loader@^4.1.0 webpack@^4.44.1 webpack-cli@^3.3.12 webpack-dev-server@^3.11.0
+--#
+
+--% package.json/original
+{
+  "name": "northside",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "build": "webpack --config ./web/build/prod.js",
+    "build:prod": "webpack --config ./web/build/prod.js",
+    "start": "webpack-dev-server --config ./web/build/iot.js --host 0.0.0.0 --open",
+    "iot": "webpack-dev-server --config ./web/build/iot.js --open",
+    "be": "python backend/djangobe/manage.py runserver"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "@apollo/client": "^3.2.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "antd": "^4.6.3",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-context": "^1.0.20",
+    "apollo-link-http": "^1.5.17",
+    "apollo-link-ws": "^1.0.20",
+    "axios": "^0.20.0",
+    "bizcharts": "^4.0.14",
+    "font-awesome": "^4.7.0",
+    "graphql": "^15.3.0",
+    "highcharts": "^8.2.0",
+    "highcharts-react-official": "^3.0.0",
+    "jointjs": "^3.2.0",
+    "js-file-download": "^0.4.12",
+    "leaflet": "^1.7.1",
+    "leaflet-geosearch": "^3.0.6",
+    "leaflet-search": "^2.9.8",
+    "leaflet.locatecontrol": "^0.72.0",
+    "localforage": "^1.9.0",
+    "pbf": "^3.2.1",
+    "pubsub-js": "^1.9.0",
+    "react": "^16.13.1",
+    "react-apollo": "^3.1.5",
+    "react-dom": "^16.13.1",
+    "react-full-screen": "^0.3.1",
+    "react-grid-layout": "^1.1.1",
+    "react-highcharts": "^16.1.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "socket.io-client": "^2.3.0",
+    "styled-components": "^5.2.0",
+    "subscriptions-transport-ws": "^0.9.18",
+    "three": "^0.120.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-flow": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-import": "^1.13.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.1.0",
+    "css-loader": "^4.3.0",
+    "file-loader": "^6.1.0",
+    "html-loader": "^1.3.0",
+    "html-webpack-plugin": "^4.4.1",
+    "less-loader": "^7.0.1",
+    "react-hot-loader": "^4.12.21",
+    "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
+--#

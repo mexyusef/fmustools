@@ -1,0 +1,6 @@
+--% index/fmus
+__PWD,d
+	@ /b> do/oprek *
+	?pick
+		@oprek*
+--#

@@ -1,0 +1,7 @@
+c:/tmp/delete/vue-play,d
+    %__PROJECT=__INPUT__
+    $* vue create __PROJECT
+    __PROJECT,d
+        %__TABLENAME__=Product[@model]
+        $* vue add tailwind
+        $* vue ui

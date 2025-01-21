@@ -1,0 +1,86 @@
+--% index/fmus
+__PWD,d
+    %TEMPLATE_BASEDIR=__INPUT__
+    TEMPLATE_BASEDIR,d(/mk)
+        app.py,f(e=__FILE__=/app)
+        static,d(/mk)
+            uploads,d(/mk)
+        templates,d(/mk)
+            index.html,f(e=__FILE__=/templates/index)
+        $* flask run
+--#
+
+--% /app
+from flask import Flask, render_template, jsonify, request
+from werkzeug.utils import secure_filename
+import os, urllib.request
+
+app = Flask(__name__)
+app.secret_key = 'whatever...'
+
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16*1024*1024
+ALLOWED_EXTENSIONS = set(['txt','pdf','jpeg','jpg','gif','png'])
+
+def is_allowed(filename):
+    return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/')
+def main():
+    return render_template('index.html')
+
+@app.route('/upload', methods=['POST', 'GET'])
+def upload():
+    if request.method == 'POST':
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        if file and is_allowed(file.filename):
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            print(f'{filepath} saved')
+        else:
+            print('only txt, pdf, png, jp(e)g, gif')
+        msg = 'Success upload'
+    return jsonify(msg)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+--#
+
+--% /templates/index
+<html>
+    <head>
+        <link rel='stylesheet'
+            href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'>
+            </script>
+        <!-- harus pake versi 5, versi 6 belum jalan -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/min/dropzone.min.js" integrity="sha512-0dP3byusnGZjuR0DyxXM3gOsedQYHaOJGJBurP20HvRryYqn/VMbejpANORATjh+yKNsVbIpxm06mbbbImVBFw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/min/dropzone.min.css" integrity="sha512-WvVX1YO12zmsvTpUQV8s7ZU98DnkaAokcciMZJfnNWyNzm7//QRV61t4aEr0WdIa4pe854QHLTV302vH92FSMw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    </head>
+    <body>
+        <div class="container">
+        <h2>Drop dead</h2>
+        <div class='dropzone'>
+        <div class='dz-message needsclick'>
+        <h1>drop here to upload</h1>
+        </div>
+        </div>
+        </div>
+
+        <script>
+        $(document).ready(function() {
+            $('.dropzone').dropzone({
+                url: '/upload',
+                width: 300,
+                height: 300,
+                progressBarWidth: '100%',
+                maxFileSize: '20MB',
+            })
+        });
+        </script>
+    </body>
+</html>
+--#

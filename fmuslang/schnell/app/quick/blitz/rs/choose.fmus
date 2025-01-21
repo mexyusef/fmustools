@@ -1,0 +1,23 @@
+--% index/fmus
+__PWD,d
+    @content akan terbuat di dalam current dir, sila buat dir kosong dulu jk belum*
+    ?pick
+        @microservices...
+        .,d(/load=__CURDIR/rs2-hyper.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs3-logconfigure.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs4-serial.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs5-async-futures.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs6-reactive-grpc-jsonrpc.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs7-database.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs8-orm.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs9-rest.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs10-threadpool.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs11-router.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs12-actix.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs13-scalable.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs14-testdebug.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs15-server2container.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs16-ci.fmus=index/fmus*)
+        .,d(/load=__CURDIR/rs17-lambda-serverless.fmus=index/fmus*)
+        pacman,d(/load=__CURDIR/rust-pacman.fmus=index/fmus*)
+--#

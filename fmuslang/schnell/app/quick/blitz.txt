@@ -1,0 +1,18 @@
+blitz dimulai dg:
+u -e"/b>py/dj0"
+kita gak perlu specify csvcode spt di dahsyat
+
+b>blog/pages
+b>blog/pages=judul-baru
+u -e"/b>blog/pages=stream-foreach"
+u -e"/b>blog/pages"
+u -e"/b>blog/pages/judul-blogpost-baru"
+
+pandas play
+u -e"/b>py/df/dict2df"
+
+tampilkan fmus di py/df:
+u -e/))py/df
+
+u -e"/b>py/dj/choose"
+u -e"/b>js/node/choose"

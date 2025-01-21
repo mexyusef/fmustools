@@ -1,0 +1,145 @@
+make a Java Micronaut endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+make the graphql version
+
+Open sidebar
+Java Micronaut Todo Controller
+
+
+User
+make a Java Micronaut endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+ChatGPT
+Sure! Here's an example of a Java Micronaut REST controller class for handling CRUD operations on the todo table:
+
+java
+Copy code
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.PathVariable;
+import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Delete;
+import io.micronaut.http.annotation.Put;
+import io.micronaut.validation.Validated;
+import io.micronaut.http.HttpStatus;
+
+import javax.validation.Valid;
+import java.util.List;
+
+@Controller("/todos")
+@Validated
+public class TodoController {
+    
+    private final TodoRepository todoRepository;
+    
+    public TodoController(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
+    
+    @Get("/")
+    public List<Todo> getAllTodos() {
+        return todoRepository.findAll();
+    }
+    
+    @Get("/{id}")
+    public Todo getTodoById(@PathVariable("id") int id) {
+        return todoRepository.findById(id);
+    }
+    
+    @Post("/")
+    public Todo createTodo(@Valid @Body Todo todo) {
+        return todoRepository.save(todo);
+    }
+    
+    @Put("/{id}")
+    public Todo updateTodo(@PathVariable("id") int id, @Valid @Body Todo todo) {
+        todo.setId(id);
+        return todoRepository.update(todo);
+    }
+    
+    @Delete("/{id}")
+    public HttpStatus deleteTodo(@PathVariable("id") int id) {
+        todoRepository.deleteById(id);
+        return HttpStatus.NO_CONTENT;
+    }
+}
+In this example, the controller class is annotated with @Controller to indicate that it's a Micronaut controller. The REST endpoints are defined using annotations such as @Get, @Post, @Put, and @Delete.
+
+The TodoController class depends on a TodoRepository object, which is responsible for interacting with the underlying database. You'll need to create the TodoRepository class separately to handle the database operations.
+
+Make sure to adjust the package and import statements according to your project structure and dependencies.
+
+
+
+
+
+User
+make the graphql version
+
+ChatGPT
+Certainly! Here's an example of a Java Micronaut GraphQL controller class for handling CRUD operations on the todo table:
+
+java
+Copy code
+import graphql.GraphQL;
+import graphql.schema.DataFetcher;
+import graphql.schema.DataFetchingEnvironment;
+import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.annotation.Value;
+import io.micronaut.http.HttpHeaders;
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.server.util.HttpHeadersUtil;
+import io.micronaut.web.router.Router;
+import io.micronaut.web.router.UriRoute;
+import graphql.ExecutionInput;
+import graphql.ExecutionResult;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.PathVariable;
+import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Delete;
+import io.micronaut.http.annotation.Put;
+import io.reactivex.Flowable;
+
+import javax.inject.Singleton;
+import java.util.List;
+
+@Controller("/graphql")
+public class GraphQLController {
+
+    private final GraphQL graphQL;
+
+    public GraphQLController(GraphQL graphQL) {
+        this.graphQL = graphQL;
+    }
+
+    @Post("/")
+    public Flowable<ExecutionResult> executeGraphQL(@Body String query, HttpRequest<?> request) {
+        ExecutionInput executionInput = ExecutionInput.newExecutionInput()
+                .query(query)
+                .context(request)
+                .build();
+        return Flowable.just(graphQL.execute(executionInput));
+    }
+}
+To use this GraphQL controller, you need to have the necessary dependencies and configuration for Micronaut GraphQL and GraphQL Java in your project. You should also define your GraphQL schema and resolvers separately.
+
+Note that the executeGraphQL method handles the POST request to /graphql. It takes the GraphQL query as a String parameter and wraps it into an ExecutionInput object. The context field of the ExecutionInput object is set to the Micronaut HttpRequest, allowing you to access headers or any other request information within your resolvers.
+
+Make sure to adjust the package and import statements according to your project structure and dependencies. Additionally, you'll need to configure your GraphQL schema and resolvers to handle the CRUD operations on the todo table.

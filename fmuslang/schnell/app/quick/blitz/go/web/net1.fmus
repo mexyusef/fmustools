@@ -1,0 +1,165 @@
+--% index/fmus
+__PWD,d
+    %__TEMPLATE_GITHUB_MODULE_LENGKAP=__INPUT__
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+	%utama=__FILE__
+	go.mod,f(e=utama=C:/work/oprek/hapus/kuda/go.mod)
+    run.sh,f(n=go run kuda/main.go)
+    run.bat,f(n=go run kuda/main.go)
+    #$* chmod a+x run.sh
+	kuda,d(/mk)
+		main.go,f(e=utama=C:/work/oprek/hapus/kuda/kuda/main.go)
+	mirrors,d(/mk)
+		data.go,f(e=utama=C:/work/oprek/hapus/kuda/mirrors/data.go)
+    openapi.json,f(e=__FILE__=openapi.json)
+--#
+
+--% C:/work/oprek/hapus/kuda/go.mod
+module __TEMPLATE_GITHUB_MODULE_LENGKAP
+
+go 1.18
+
+--#
+
+--% C:/work/oprek/hapus/kuda/kuda/main.go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+	"net/http"
+	"time"
+
+	"__TEMPLATE_GITHUB_MODULE_LENGKAP/mirrors"
+)
+
+type response struct {
+	FastestURL string        `json:"fastest_url"`
+	Latency    time.Duration `json:"latency"`
+}
+
+func findFastest(urls []string) response {
+	urlChan := make(chan string)
+	latencyChan := make(chan time.Duration)
+
+	for _, url := range urls {
+		mirrorURL := url
+		go func() {
+			log.Println("Started probing: ", mirrorURL)
+			start := time.Now()
+			_, err := http.Get(mirrorURL + "/README")
+			latency := time.Now().Sub(start) / time.Millisecond
+			if err == nil {
+				urlChan <- mirrorURL
+				latencyChan <- latency
+			}
+			log.Printf("Got the best mirror: %s with latency: %s", mirrorURL, latency)
+		}()
+	}
+	return response{<-urlChan, <-latencyChan}
+}
+
+func main() {
+	// http://localhost:8000/cepat
+	http.HandleFunc("/cepat", func(w http.ResponseWriter, r *http.Request) {
+		response := findFastest(mirrors.MirrorList)
+		respJSON, _ := json.Marshal(response)
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(respJSON)
+	})
+	port := ":8000"
+	server := &http.Server{
+		Addr:           port,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+	fmt.Printf("Starting server on port %s\n", port)
+	log.Fatal(server.ListenAndServe())
+}
+
+--#
+
+--% C:/work/oprek/hapus/kuda/mirrors/data.go
+package mirrors
+
+// MirrorList is list of debian mirror sites
+var MirrorList = []string{
+	"http://ftp.am.debian.org/debian/", "http://ftp.au.debian.org/debian/",
+	"http://ftp.at.debian.org/debian/", "http://ftp.by.debian.org/debian/",
+	"http://ftp.be.debian.org/debian/", "http://ftp.br.debian.org/debian/",
+	"http://ftp.bg.debian.org/debian/", "http://ftp.ca.debian.org/debian/",
+	"http://ftp.cl.debian.org/debian/", "http://ftp2.cn.debian.org/debian/",
+	"http://ftp.cn.debian.org/debian/", "http://ftp.hr.debian.org/debian/",
+	"http://ftp.cz.debian.org/debian/", "http://ftp.dk.debian.org/debian/",
+	"http://ftp.sv.debian.org/debian/", "http://ftp.ee.debian.org/debian/",
+	"http://ftp.fr.debian.org/debian/", "http://ftp2.de.debian.org/debian/",
+	"http://ftp.de.debian.org/debian/", "http://ftp.gr.debian.org/debian/",
+	"http://ftp.hk.debian.org/debian/", "http://ftp.hu.debian.org/debian/",
+	"http://ftp.is.debian.org/debian/", "http://ftp.it.debian.org/debian/",
+	"http://ftp.jp.debian.org/debian/", "http://ftp.kr.debian.org/debian/",
+	"http://ftp.lt.debian.org/debian/", "http://ftp.mx.debian.org/debian/",
+	"http://ftp.md.debian.org/debian/", "http://ftp.nl.debian.org/debian/",
+	"http://ftp.nc.debian.org/debian/", "http://ftp.nz.debian.org/debian/",
+	"http://ftp.no.debian.org/debian/", "http://ftp.pl.debian.org/debian/",
+	"http://ftp.pt.debian.org/debian/", "http://ftp.ro.debian.org/debian/",
+	"http://ftp.ru.debian.org/debian/", "http://ftp.sg.debian.org/debian/",
+	"http://ftp.sk.debian.org/debian/", "http://ftp.si.debian.org/debian/",
+	"http://ftp.es.debian.org/debian/", "http://ftp.fi.debian.org/debian/",
+	"http://ftp.se.debian.org/debian/", "http://ftp.ch.debian.org/debian/",
+	"http://ftp.tw.debian.org/debian/", "http://ftp.tr.debian.org/debian/",
+	"http://ftp.uk.debian.org/debian/", "http://ftp.us.debian.org/debian/",
+}
+
+--#
+
+--% openapi.json
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mirror Finder Service",
+    "description": "API service for finding the fastest mirror from the list of given mirror sites",
+    "version": "0.1.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Development server[Staging/Production are different from this]"
+    }
+  ],
+  "paths": {
+    "/fastest-mirror": {
+      "get": {
+        "summary": "Returns a fastest mirror site.",
+        "description": "This call returns data of fastest reachable mirror site",
+        "responses": {
+          "200": {
+            "description": "A JSON object of details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fastest_mirror": {
+                      "type": "string"
+                    },
+                    "latency": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+--#
+

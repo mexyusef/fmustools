@@ -1,0 +1,4531 @@
+--% index/fmus
+.,d(/mk)
+	01-Hello,d(/mk)
+		01-Hello.iml,f(e=__FILE__=/pyant/01-Hello/01-Hello.iml)
+		Hello.g4,f(e=__FILE__=/pyant/01-Hello/Hello.g4)
+		input.txt,f(e=__FILE__=/pyant/01-Hello/input.txt)
+		test_hello.py,f(e=__FILE__=/pyant/01-Hello/test_hello.py)
+	03-Array,d(/mk)
+		03-Array.iml,f(e=__FILE__=/pyant/03-Array/03-Array.iml)
+		ArrayInit.g4,f(e=__FILE__=/pyant/03-Array/ArrayInit.g4)
+		input.txt,f(e=__FILE__=/pyant/03-Array/input.txt)
+		README.md,f(e=__FILE__=/pyant/03-Array/README.md)
+		rewriter.py,f(e=__FILE__=/pyant/03-Array/rewriter.py)
+		test_array.py,f(e=__FILE__=/pyant/03-Array/test_array.py)
+	04-Calc,d(/mk)
+		04-Calc.iml,f(e=__FILE__=/pyant/04-Calc/04-Calc.iml)
+		calc.py,f(e=__FILE__=/pyant/04-Calc/calc.py)
+		LabeledExpr.g4,f(e=__FILE__=/pyant/04-Calc/LabeledExpr.g4)
+		MyVisitor.py,f(e=__FILE__=/pyant/04-Calc/MyVisitor.py)
+		README.md,f(e=__FILE__=/pyant/04-Calc/README.md)
+		t.expr,f(e=__FILE__=/pyant/04-Calc/t.expr)
+	04-Expr,d(/mk)
+		04-Expr.iml,f(e=__FILE__=/pyant/04-Expr/04-Expr.iml)
+		Expr.g4,f(e=__FILE__=/pyant/04-Expr/Expr.g4)
+		MyListener.py,f(e=__FILE__=/pyant/04-Expr/MyListener.py)
+		README.md,f(e=__FILE__=/pyant/04-Expr/README.md)
+		t.expr,f(e=__FILE__=/pyant/04-Expr/t.expr)
+		test_Expr.py,f(e=__FILE__=/pyant/04-Expr/test_Expr.py)
+	04-ExtractInterface,d(/mk)
+		04-ExtractInterface.iml,f(e=__FILE__=/pyant/04-ExtractInterface/04-ExtractInterface.iml)
+		Demo.java,f(e=__FILE__=/pyant/04-ExtractInterface/Demo.java)
+		ExtractInterfaceListener.py,f(e=__FILE__=/pyant/04-ExtractInterface/ExtractInterfaceListener.py)
+		Java.g4,f(e=__FILE__=/pyant/04-ExtractInterface/Java.g4)
+		README.md,f(e=__FILE__=/pyant/04-ExtractInterface/README.md)
+		test_extract.py,f(e=__FILE__=/pyant/04-ExtractInterface/test_extract.py)
+	04-modechange,d(/mk)
+		04-modechange.iml,f(e=__FILE__=/pyant/04-modechange/04-modechange.iml)
+		README.md,f(e=__FILE__=/pyant/04-modechange/README.md)
+		t.xml,f(e=__FILE__=/pyant/04-modechange/t.xml)
+		test.py,f(e=__FILE__=/pyant/04-modechange/test.py)
+		XMLLexer.g4,f(e=__FILE__=/pyant/04-modechange/XMLLexer.g4)
+	04-Rows-visitor,d(/mk)
+		04-Rows-visitor.iml,f(e=__FILE__=/pyant/04-Rows-visitor/04-Rows-visitor.iml)
+		col.py,f(e=__FILE__=/pyant/04-Rows-visitor/col.py)
+		README.md,f(e=__FILE__=/pyant/04-Rows-visitor/README.md)
+		Rows.g4,f(e=__FILE__=/pyant/04-Rows-visitor/Rows.g4)
+		t.rows,f(e=__FILE__=/pyant/04-Rows-visitor/t.rows)
+	04-sempred,d(/mk)
+		04-sempred.iml,f(e=__FILE__=/pyant/04-sempred/04-sempred.iml)
+		Data.g4,f(e=__FILE__=/pyant/04-sempred/Data.g4)
+		Readme.md,f(e=__FILE__=/pyant/04-sempred/Readme.md)
+		t.data,f(e=__FILE__=/pyant/04-sempred/t.data)
+		test_data.py,f(e=__FILE__=/pyant/04-sempred/test_data.py)
+	07-LableRule,d(/mk)
+		07-LableRule.iml,f(e=__FILE__=/pyant/07-LableRule/07-LableRule.iml)
+		LExpr.g4,f(e=__FILE__=/pyant/07-LableRule/LExpr.g4)
+		README.md,f(e=__FILE__=/pyant/07-LableRule/README.md)
+		t.expr,f(e=__FILE__=/pyant/07-LableRule/t.expr)
+		test_EvalContext.py,f(e=__FILE__=/pyant/07-LableRule/test_EvalContext.py)
+		test_EvalListener.py,f(e=__FILE__=/pyant/07-LableRule/test_EvalListener.py)
+		test_EvalVistor.py,f(e=__FILE__=/pyant/07-LableRule/test_EvalVistor.py)
+	07-Property,d(/mk)
+		07-Property.iml,f(e=__FILE__=/pyant/07-Property/07-Property.iml)
+		PropertyFile.g4,f(e=__FILE__=/pyant/07-Property/PropertyFile.g4)
+		README.md,f(e=__FILE__=/pyant/07-Property/README.md)
+		t.properties,f(e=__FILE__=/pyant/07-Property/t.properties)
+		test_as_loader.py,f(e=__FILE__=/pyant/07-Property/test_as_loader.py)
+		test_as_print.py,f(e=__FILE__=/pyant/07-Property/test_as_print.py)
+		test_listener.py,f(e=__FILE__=/pyant/07-Property/test_listener.py)
+		test_visitor.py,f(e=__FILE__=/pyant/07-Property/test_visitor.py)
+	08-CallGraph,d(/mk)
+		08-CallGraph.iml,f(e=__FILE__=/pyant/08-CallGraph/08-CallGraph.iml)
+		CallGraph.py,f(e=__FILE__=/pyant/08-CallGraph/CallGraph.py)
+		CheckSymbols.py,f(e=__FILE__=/pyant/08-CallGraph/CheckSymbols.py)
+		Cymbol.g4,f(e=__FILE__=/pyant/08-CallGraph/Cymbol.g4)
+		output.dot,f(e=__FILE__=/pyant/08-CallGraph/output.dot)
+		Readme.md,f(e=__FILE__=/pyant/08-CallGraph/Readme.md)
+		SymbolScope.py,f(e=__FILE__=/pyant/08-CallGraph/SymbolScope.py)
+		t.cymbol,f(e=__FILE__=/pyant/08-CallGraph/t.cymbol)
+		vars.cymbol,f(e=__FILE__=/pyant/08-CallGraph/vars.cymbol)
+		vars2.cymbol,f(e=__FILE__=/pyant/08-CallGraph/vars2.cymbol)
+	08-CSV,d(/mk)
+		08-CSV.iml,f(e=__FILE__=/pyant/08-CSV/08-CSV.iml)
+		CSV.g4,f(e=__FILE__=/pyant/08-CSV/CSV.g4)
+		CSV_Loader.py,f(e=__FILE__=/pyant/08-CSV/CSV_Loader.py)
+		README.md,f(e=__FILE__=/pyant/08-CSV/README.md)
+		t.csv,f(e=__FILE__=/pyant/08-CSV/t.csv)
+	08-JSON,d(/mk)
+		08-JSON.iml,f(e=__FILE__=/pyant/08-JSON/08-JSON.iml)
+		JSON.g4,f(e=__FILE__=/pyant/08-JSON/JSON.g4)
+		json2xml.py,f(e=__FILE__=/pyant/08-JSON/json2xml.py)
+		README.md,f(e=__FILE__=/pyant/08-JSON/README.md)
+		t.json,f(e=__FILE__=/pyant/08-JSON/t.json)
+	09-simple,d(/mk)
+		in1.txt,f(e=__FILE__=/pyant/09-simple/in1.txt)
+		in2.txt,f(e=__FILE__=/pyant/09-simple/in2.txt)
+		in3.txt,f(e=__FILE__=/pyant/09-simple/in3.txt)
+		in4.txt,f(e=__FILE__=/pyant/09-simple/in4.txt)
+		in5.txt,f(e=__FILE__=/pyant/09-simple/in5.txt)
+		in6.txt,f(e=__FILE__=/pyant/09-simple/in6.txt)
+		in7.txt,f(e=__FILE__=/pyant/09-simple/in7.txt)
+		README.md,f(e=__FILE__=/pyant/09-simple/README.md)
+		Simple.g4,f(e=__FILE__=/pyant/09-simple/Simple.g4)
+		TestE_Listener.py,f(e=__FILE__=/pyant/09-simple/TestE_Listener.py)
+	10-calc,d(/mk)
+		10-calc.iml,f(e=__FILE__=/pyant/10-calc/10-calc.iml)
+		calc.py,f(e=__FILE__=/pyant/10-calc/calc.py)
+		Expr.g4,f(e=__FILE__=/pyant/10-calc/Expr.g4)
+		README.md,f(e=__FILE__=/pyant/10-calc/README.md)
+	10-CSV,d(/mk)
+		10-CSV.iml,f(e=__FILE__=/pyant/10-CSV/10-CSV.iml)
+		CSV.g4,f(e=__FILE__=/pyant/10-CSV/CSV.g4)
+		README.md,f(e=__FILE__=/pyant/10-CSV/README.md)
+		test_csv.py,f(e=__FILE__=/pyant/10-CSV/test_csv.py)
+		users.csv,f(e=__FILE__=/pyant/10-CSV/users.csv)
+	10-Keyword,d(/mk)
+		10-Keyword.iml,f(e=__FILE__=/pyant/10-Keyword/10-Keyword.iml)
+		input1.txt,f(e=__FILE__=/pyant/10-Keyword/input1.txt)
+		input2.txt,f(e=__FILE__=/pyant/10-Keyword/input2.txt)
+		input3.txt,f(e=__FILE__=/pyant/10-Keyword/input3.txt)
+		Keywords.g4,f(e=__FILE__=/pyant/10-Keyword/Keywords.g4)
+		test_Keyword.py,f(e=__FILE__=/pyant/10-Keyword/test_Keyword.py)
+	11-CppState,d(/mk)
+		11-CppState.iml,f(e=__FILE__=/pyant/11-CppState/11-CppState.iml)
+		CppStat.g4,f(e=__FILE__=/pyant/11-CppState/CppStat.g4)
+		input.cpp,f(e=__FILE__=/pyant/11-CppState/input.cpp)
+		input2.cpp,f(e=__FILE__=/pyant/11-CppState/input2.cpp)
+		PredCppStat.g4,f(e=__FILE__=/pyant/11-CppState/PredCppStat.g4)
+	11-predicate_lexer,d(/mk)
+		11-predicate_lexer.iml,f(e=__FILE__=/pyant/11-predicate_lexer/11-predicate_lexer.iml)
+		Enum2.g4,f(e=__FILE__=/pyant/11-predicate_lexer/Enum2.g4)
+		README.md,f(e=__FILE__=/pyant/11-predicate_lexer/README.md)
+		Temp.java,f(e=__FILE__=/pyant/11-predicate_lexer/Temp.java)
+		test_EnumLexer.py,f(e=__FILE__=/pyant/11-predicate_lexer/test_EnumLexer.py)
+	11-predicate_parser,d(/mk)
+		11-predicate_parser.iml,f(e=__FILE__=/pyant/11-predicate_parser/11-predicate_parser.iml)
+		Enum.g4,f(e=__FILE__=/pyant/11-predicate_parser/Enum.g4)
+		README.md,f(e=__FILE__=/pyant/11-predicate_parser/README.md)
+		Temp.java,f(e=__FILE__=/pyant/11-predicate_parser/Temp.java)
+	12-channel,d(/mk)
+		12-channel.iml,f(e=__FILE__=/pyant/12-channel/12-channel.iml)
+		Cymbol.g4,f(e=__FILE__=/pyant/12-channel/Cymbol.g4)
+		README.md,f(e=__FILE__=/pyant/12-channel/README.md)
+		shift_var_comments.py,f(e=__FILE__=/pyant/12-channel/shift_var_comments.py)
+		t.cym,f(e=__FILE__=/pyant/12-channel/t.cym)
+	12-id_as_keyword,d(/mk)
+		IDKeyword.g4,f(e=__FILE__=/pyant/12-id_as_keyword/IDKeyword.g4)
+		input.txt,f(e=__FILE__=/pyant/12-id_as_keyword/input.txt)
+		PredKeyword.g4,f(e=__FILE__=/pyant/12-id_as_keyword/PredKeyword.g4)
+		run.bat,f(e=__FILE__=/pyant/12-id_as_keyword/run.bat)
+	12-sea_of_text,d(/mk)
+		Mode.txt,f(e=__FILE__=/pyant/12-sea_of_text/Mode.txt)
+		ModeTagsLexer.g4,f(e=__FILE__=/pyant/12-sea_of_text/ModeTagsLexer.g4)
+		ModeTagsParser.g4,f(e=__FILE__=/pyant/12-sea_of_text/ModeTagsParser.g4)
+		Tags.g4,f(e=__FILE__=/pyant/12-sea_of_text/Tags.g4)
+--#
+
+--% /pyant/01-Hello/01-Hello.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/01-Hello/Hello.g4
+grammar Hello;            // Define a grammar called Hello
+r  : 'hello' ID ;         // match keyword hello followed by an identifier
+ID : [a-z]+ ;             // match lower-case identifiers
+WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines, \r (Windows)
+--#
+
+--% /pyant/01-Hello/input.txt
+hello world
+
+--#
+
+--% /pyant/01-Hello/test_hello.py
+import sys
+from antlr4 import *
+from HelloLexer import HelloLexer
+from HelloParser import HelloParser
+
+
+def main(argv):
+    input = FileStream(argv[1])
+    lexer = HelloLexer(input)
+    stream = CommonTokenStream(lexer)
+    parser = HelloParser(stream)
+    tree = parser.r()
+    print(tree.toStringTree(recog=parser))
+
+if __name__ == '__main__':
+    main(sys.argv)
+
+
+--#
+
+--% /pyant/03-Array/03-Array.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/03-Array/ArrayInit.g4
+/** Grammars always start with a grammar header. This grammar is called
+ *  ArrayInit and must match the filename: ArrayInit.g4
+ */
+grammar ArrayInit;
+
+/** A rule called init that matches comma-separated values between {...}. */
+init  : '{' value (',' value)* '}' ;  // must match at least one value
+
+/** A value can be either a nested array/struct or a simple integer (INT) */
+value : init
+      | INT
+      ;
+
+// parser rules start with lowercase letters, lexer rules with uppercase
+INT :   [0-9]+ ;             // Define token INT as one or more digits
+WS  :   [ \t\r\n]+ -> skip ; // Define whitespace rule, toss it out
+
+
+--#
+
+--% /pyant/03-Array/input.txt
+{99, 3, 451}
+
+--#
+
+--% /pyant/03-Array/README.md
+# Introduction
+This example shows how to use listener to do simple translation of input array.
+
+# How to run
+```
+% antlr4py3 ArrayInit.g4
+% pygrun ArrayInit init --tree input.txt
+[@0,0:0='{',<1>,1:0]
+[@1,1:2='99',<4>,1:1]
+[@2,3:3=',',<2>,1:3]
+[@3,5:5='3',<4>,1:5]
+[@4,6:6=',',<2>,1:6]
+[@5,8:10='451',<4>,1:8]
+[@6,11:11='}',<3>,1:11]
+[@7,12:11='<EOF>',<-1>,1:12]
+
+% pygrun ArrayInit init --tokens input.txt
+(init {
+   (value 99) ,
+   (value 3) ,
+   (value 451) })
+
+% python test_array.py input.txt
+(init { (value 99) , (value 3) , (value 451) })
+"\u0063\u0003\u01c3"
+
+```
+
+--#
+
+--% /pyant/03-Array/rewriter.py
+from ArrayInitListener import ArrayInitListener
+
+
+class RewriteListener(ArrayInitListener):
+    # Enter a parse tree produced by ArrayInitParser#init.
+    def enterInit(self, ctx):
+        print("\"", end='')
+
+    # Exit a parse tree produced by ArrayInitParser#init.
+    def exitInit(self, ctx):
+        print("\"", end='')
+
+    # Enter a parse tree produced by ArrayInitParser#value.
+    def enterValue(self, ctx):
+        pass
+
+    # Exit a parse tree produced by ArrayInitParser#value.
+    def exitValue(self, ctx):
+        data = ctx.INT().getText()
+        print('\\u%04x' % int(data), end='')
+
+--#
+
+--% /pyant/03-Array/test_array.py
+import sys
+from antlr4 import *
+from ArrayInitLexer import ArrayInitLexer
+from ArrayInitParser import ArrayInitParser
+from rewriter import RewriteListener
+
+def main(argv):
+    istream = FileStream(argv[1])
+    lexer = ArrayInitLexer(istream)
+    stream = CommonTokenStream(lexer)
+    parser = ArrayInitParser(stream)
+    tree = parser.init()
+    print(tree.toStringTree(recog=parser))
+
+    walker = ParseTreeWalker()
+    walker.walk(RewriteListener(), tree)
+    print()
+
+if __name__ == '__main__':
+    main(sys.argv)
+
+
+--#
+
+--% /pyant/04-Calc/04-Calc.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/04-Calc/calc.py
+__author__ = 'jszheng'
+
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+from LabeledExprLexer import LabeledExprLexer
+from LabeledExprParser import LabeledExprParser
+from MyVisitor import MyVisitor
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.readline())
+
+    lexer = LabeledExprLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = LabeledExprParser(token_stream)
+    tree = parser.prog()
+
+    #lisp_tree_str = tree.toStringTree(recog=parser)
+    #print(lisp_tree_str)
+
+    visitor = MyVisitor()
+    visitor.visit(tree)
+
+
+--#
+
+--% /pyant/04-Calc/LabeledExpr.g4
+grammar LabeledExpr; // rename to distinguish from Expr.g4
+
+prog:   stat+ ;
+
+stat:   expr NEWLINE                # printExpr
+    |   ID '=' expr NEWLINE         # assign
+    |   NEWLINE                     # blank
+    ;
+
+expr:   expr op=('*'|'/') expr      # MulDiv
+    |   expr op=('+'|'-') expr      # AddSub
+    |   INT                         # int
+    |   ID                          # id
+    |   '(' expr ')'                # parens
+    ;
+
+MUL :   '*' ; // assigns token name to '*' used above in grammar
+DIV :   '/' ;
+ADD :   '+' ;
+SUB :   '-' ;
+ID  :   [a-zA-Z]+ ;      // match identifiers
+INT :   [0-9]+ ;         // match integers
+NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
+WS  :   [ \t]+ -> skip ; // toss out whitespace
+
+
+--#
+
+--% /pyant/04-Calc/MyVisitor.py
+__author__ = 'jszheng'
+
+from LabeledExprVisitor import LabeledExprVisitor
+from LabeledExprParser import LabeledExprParser
+
+
+class MyVisitor(LabeledExprVisitor):
+    def __init__(self):
+        self.memory = {}
+
+    def visitAssign(self, ctx):
+        name = ctx.ID().getText()
+        value = self.visit(ctx.expr())
+        self.memory[name] = value
+        return value
+
+    def visitPrintExpr(self, ctx):
+        value = self.visit(ctx.expr())
+        print(value)
+        return 0
+
+    def visitInt(self, ctx):
+        return ctx.INT().getText()
+
+    def visitId(self, ctx):
+        name = ctx.ID().getText()
+        if name in self.memory:
+            return self.memory[name]
+        return 0
+
+    def visitMulDiv(self, ctx):
+        left = int(self.visit(ctx.expr(0)))
+        right = int(self.visit(ctx.expr(1)))
+        if ctx.op.type == LabeledExprParser.MUL:
+            return left * right
+        return left / right
+
+    def visitAddSub(self, ctx):
+        left = int(self.visit(ctx.expr(0)))
+        right = int(self.visit(ctx.expr(1)))
+        if ctx.op.type == LabeledExprParser.ADD:
+            return left + right
+        return left - right
+
+    def visitParens(self, ctx):
+        return self.visit(ctx.expr())
+
+
+--#
+
+--% /pyant/04-Calc/README.md
+# Calculator
+This example shows
+- Visitor Pattern
+- Use of Alternative Label
+
+# How to run
+```
+% antlr4py3 -visitor -no-listener LabeledExpr.g4
+% type t.expr
+193
+a = 5
+b = 6
+a+b*2
+(1+2)*3
+
+% python calc.py t.expr
+193
+17
+9
+```
+
+--#
+
+--% /pyant/04-Calc/t.expr
+193
+a = 5
+b = 6
+a+b*2
+(1+2)*3
+
+
+--#
+
+--% /pyant/04-Expr/04-Expr.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/04-Expr/Expr.g4
+grammar Expr;
+
+/** The start rule; begin parsing here. */
+prog:   stat+ ; 
+
+stat:   expr NEWLINE                
+    |   ID '=' expr NEWLINE        
+    |   NEWLINE                   
+    ;
+
+expr:   expr ('*'|'/') expr   
+    |   expr ('+'|'-') expr   
+    |   INT                    
+    |   ID                    
+    |   '(' expr ')'         
+    ;
+
+ID  :   [a-zA-Z]+ ;      // match identifiers <label id="code.tour.expr.3"/>
+INT :   [0-9]+ ;         // match integers
+NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
+WS  :   [ \t]+ -> skip ; // toss out whitespace
+
+
+--#
+
+--% /pyant/04-Expr/MyListener.py
+__author__ = 'jszheng'
+
+from ExprListener import ExprListener
+
+
+class MyListener(ExprListener):
+    # Enter a parse tree produced by ExprParser#prog.
+    def enterProg(self, ctx):
+        print('EnterProg')
+
+    # Exit a parse tree produced by ExprParser#prog.
+    def exitProg(self, ctx):
+        print('ExitProg')
+
+
+    # Enter a parse tree produced by ExprParser#stat.
+    def enterStat(self, ctx):
+        print('EnterStat')
+
+    # Exit a parse tree produced by ExprParser#stat.
+    def exitStat(self, ctx):
+        print('ExitStat')
+
+
+    # Enter a parse tree produced by ExprParser#expr.
+    def enterExpr(self, ctx):
+        print('EnterExpr')
+
+    # Exit a parse tree produced by ExprParser#expr.
+    def exitExpr(self, ctx):
+        print('ExitExpr')
+
+
+
+
+--#
+
+--% /pyant/04-Expr/README.md
+# How to run
+```
+% pygrun Expr prog --tree t.expr
+(prog
+   (stat
+      (expr 193) \n)
+   (stat a =
+      (expr 5) \n)
+   (stat b =
+      (expr 6) \n)
+   (stat
+      (expr
+         (expr a) +
+         (expr
+            (expr b) *
+            (expr 2))) \n)
+   (stat
+      (expr
+         (expr (
+            (expr
+               (expr 1) +
+               (expr 2)) )) *
+      (expr 3)) \n))
+      
+% python test_Expr.py t.expr
+(prog 
+  (stat (expr 193) \n) 
+  (stat a = (expr 5) \n) 
+  (stat b = (expr 6) \n) 
+  (stat (expr (expr a) + (expr (expr b) * (expr 2))) \n) 
+  (stat (expr (expr ( (expr (expr 1) + (expr 2)) )) * (expr 3)) \n)
+)
+```
+
+--#
+
+--% /pyant/04-Expr/t.expr
+193
+a = 5
+b = 6
+a+b*2
+(1+2)*3
+
+
+--#
+
+--% /pyant/04-Expr/test_Expr.py
+__author__ = 'jszheng'
+
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+from ExprLexer import ExprLexer
+from ExprParser import ExprParser
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.readline())
+
+    lexer = ExprLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = ExprParser(token_stream)
+    tree = parser.prog()
+
+    lisp_tree_str = tree.toStringTree(recog=parser)
+    print(lisp_tree_str)
+
+
+
+--#
+
+--% /pyant/04-ExtractInterface/04-ExtractInterface.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/04-ExtractInterface/Demo.java
+/***
+ * Excerpted from "The Definitive ANTLR 4 Reference",
+ * published by The Pragmatic Bookshelf.
+ * Copyrights apply to this code. It may not be used to create training material, 
+ * courses, books, articles, and the like. Contact us if you are in doubt.
+ * We make no guarantees that this code is fit for any purpose. 
+ * Visit http://www.pragmaticprogrammer.com/titles/tpantlr2 for more book information.
+***/
+import java.util.List;
+import java.util.Map;
+public class Demo {
+	int f(int x, String y) { }
+	int[ ] g(/*no args*/) { return null; }
+	List<Map<String, Integer>>[] h() { return null; }
+}
+
+
+--#
+
+--% /pyant/04-ExtractInterface/ExtractInterfaceListener.py
+__author__ = 'jszheng'
+
+from antlr4 import *
+from JavaListener import JavaListener
+from JavaParser import JavaParser
+
+
+class ExtractInterfaceListener(JavaListener):
+
+    # need parser to extract token stream
+    def __init__(self, parser: JavaParser):
+        self.parser = parser
+
+    # Enter a parse tree produced by JavaParser#classDeclaration.
+    def enterClassDeclaration(self, ctx):
+        print('interface I', ctx.Identifier(), ' {', sep='')
+
+    # Exit a parse tree produced by JavaParser#classDeclaration.
+    def exitClassDeclaration(self, ctx):
+        print('}')
+
+    # should the function becomes function of Rule Context?
+    def getAllText(self, ctx):  # include hidden channel
+        token_stream = ctx.parser.getTokenStream()
+        lexer = token_stream.tokenSource
+        input_stream = lexer.inputStream
+        start = ctx.start.start
+        stop = ctx.stop.stop
+        return input_stream.getText(start, stop)
+
+    def enterMethodDeclaration(self, ctx: JavaParser.MethodDeclarationContext):
+
+        dt = 'void'  # extract data type string, None means void
+        dt_ctx = ctx.datatype()
+        if dt_ctx is not None:
+            dt = self.getAllText(dt_ctx)
+        args = self.getAllText(ctx.formalParameters())
+        print("\t", dt, ' ', ctx.Identifier(), args, ';', sep='')
+
+--#
+
+--% /pyant/04-ExtractInterface/Java.g4
+/*
+ [The "BSD licence"]
+ Copyright (c) 2013 Terence Parr, Sam Harwell
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. The name of the author may not be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/** A Java 1.7 grammar for ANTLR v4 derived from ANTLR v3 Java grammar.
+ *  Uses ANTLR v4's left-recursive expression notation.
+ *  It parses ECJ, Netbeans, JDK etc...
+ *
+ *  Sam Harwell cleaned this up significantly and updated to 1.7!
+ *
+ *  You can test with
+ *
+ *  $ antlr4 Java.g4
+ *  $ javac *.java
+ *  $ grun Java compilationUnit *.java
+ */
+grammar Java;
+
+// starting point for parsing a java file
+compilationUnit
+    :   packageDeclaration? importDeclaration* typeDeclaration* EOF
+    ;
+
+packageDeclaration
+    :   annotation* 'package' qualifiedName ';'
+    ;
+
+importDeclaration
+    :   'import' 'static'? qualifiedName ('.' '*')? ';'
+    ;
+
+typeDeclaration
+    :   classOrInterfaceModifier* classDeclaration
+    |   classOrInterfaceModifier* enumDeclaration
+    |   classOrInterfaceModifier* interfaceDeclaration
+    |   classOrInterfaceModifier* annotationTypeDeclaration
+    |   ';'
+    ;
+
+modifier
+    :   classOrInterfaceModifier
+    |   (   'native'
+        |   'synchronized'
+        |   'transient'
+        |   'volatile'
+        )
+    ;
+
+classOrInterfaceModifier
+    :   annotation       // class or interface
+    |   (   'public'     // class or interface
+        |   'protected'  // class or interface
+        |   'private'    // class or interface
+        |   'static'     // class or interface
+        |   'abstract'   // class or interface
+        |   'final'      // class only -- does not apply to interfaces
+        |   'strictfp'   // class or interface
+        )
+    ;
+
+variableModifier
+    :   'final'
+    |   annotation
+    ;
+
+classDeclaration
+    :   'class' Identifier typeParameters?
+        ('extends' datatype)?
+        ('implements' typeList)?
+        classBody
+    ;
+
+typeParameters
+    :   '<' typeParameter (',' typeParameter)* '>'
+    ;
+
+typeParameter
+    :   Identifier ('extends' typeBound)?
+    ;
+
+typeBound
+    :   datatype ('&' datatype)*
+    ;
+
+enumDeclaration
+    :   ENUM Identifier ('implements' typeList)?
+        '{' enumConstants? ','? enumBodyDeclarations? '}'
+    ;
+
+enumConstants
+    :   enumConstant (',' enumConstant)*
+    ;
+
+enumConstant
+    :   annotation* Identifier arguments? classBody?
+    ;
+
+enumBodyDeclarations
+    :   ';' classBodyDeclaration*
+    ;
+
+interfaceDeclaration
+    :   'interface' Identifier typeParameters? ('extends' typeList)? interfaceBody
+    ;
+
+typeList
+    :   datatype (',' datatype)*
+    ;
+
+classBody
+    :   '{' classBodyDeclaration* '}'
+    ;
+
+interfaceBody
+    :   '{' interfaceBodyDeclaration* '}'
+    ;
+
+classBodyDeclaration
+    :   ';'
+    |   'static'? block
+    |   modifier* memberDeclaration
+    ;
+
+memberDeclaration
+    :   methodDeclaration
+    |   genericMethodDeclaration
+    |   fieldDeclaration
+    |   constructorDeclaration
+    |   genericConstructorDeclaration
+    |   interfaceDeclaration
+    |   annotationTypeDeclaration
+    |   classDeclaration
+    |   enumDeclaration
+    ;
+
+/* We use rule this even for void methods which cannot have [] after parameters.
+   This simplifies grammar and we can consider void to be a type, which
+   renders the [] matching as a context-sensitive issue or a semantic check
+   for invalid return type after parsing.
+ */
+methodDeclaration
+    :   (datatype|'void') Identifier formalParameters ('[' ']')*
+        ('throws' qualifiedNameList)?
+        (   methodBody
+        |   ';'
+        )
+    ;
+
+genericMethodDeclaration
+    :   typeParameters methodDeclaration
+    ;
+
+constructorDeclaration
+    :   Identifier formalParameters ('throws' qualifiedNameList)?
+        constructorBody
+    ;
+
+genericConstructorDeclaration
+    :   typeParameters constructorDeclaration
+    ;
+
+fieldDeclaration
+    :   datatype variableDeclarators ';'
+    ;
+
+interfaceBodyDeclaration
+    :   modifier* interfaceMemberDeclaration
+    |   ';'
+    ;
+
+interfaceMemberDeclaration
+    :   constDeclaration
+    |   interfaceMethodDeclaration
+    |   genericInterfaceMethodDeclaration
+    |   interfaceDeclaration
+    |   annotationTypeDeclaration
+    |   classDeclaration
+    |   enumDeclaration
+    ;
+
+constDeclaration
+    :   datatype constantDeclarator (',' constantDeclarator)* ';'
+    ;
+
+constantDeclarator
+    :   Identifier ('[' ']')* '=' variableInitializer
+    ;
+
+// see matching of [] comment in methodDeclaratorRest
+interfaceMethodDeclaration
+    :   (datatype|'void') Identifier formalParameters ('[' ']')*
+        ('throws' qualifiedNameList)?
+        ';'
+    ;
+
+genericInterfaceMethodDeclaration
+    :   typeParameters interfaceMethodDeclaration
+    ;
+
+variableDeclarators
+    :   variableDeclarator (',' variableDeclarator)*
+    ;
+
+variableDeclarator
+    :   variableDeclaratorId ('=' variableInitializer)?
+    ;
+
+variableDeclaratorId
+    :   Identifier ('[' ']')*
+    ;
+
+variableInitializer
+    :   arrayInitializer
+    |   expression
+    ;
+
+arrayInitializer
+    :   '{' (variableInitializer (',' variableInitializer)* (',')? )? '}'
+    ;
+
+enumConstantName
+    :   Identifier
+    ;
+
+datatype
+    :   classOrInterfaceType ('[' ']')*
+    |   primitiveType ('[' ']')*
+    ;
+
+classOrInterfaceType
+    :   Identifier typeArguments? ('.' Identifier typeArguments? )*
+    ;
+
+primitiveType
+    :   'boolean'
+    |   'char'
+    |   'byte'
+    |   'short'
+    |   'int'
+    |   'long'
+    |   'float'
+    |   'double'
+    ;
+
+typeArguments
+    :   '<' typeArgument (',' typeArgument)* '>'
+    ;
+
+typeArgument
+    :   datatype
+    |   '?' (('extends' | 'super') datatype)?
+    ;
+
+qualifiedNameList
+    :   qualifiedName (',' qualifiedName)*
+    ;
+
+formalParameters
+    :   '(' formalParameterList? ')'
+    ;
+
+formalParameterList
+    :   formalParameter (',' formalParameter)* (',' lastFormalParameter)?
+    |   lastFormalParameter
+    ;
+
+formalParameter
+    :   variableModifier* datatype variableDeclaratorId
+    ;
+
+lastFormalParameter
+    :   variableModifier* datatype '...' variableDeclaratorId
+    ;
+
+methodBody
+    :   block
+    ;
+
+constructorBody
+    :   block
+    ;
+
+qualifiedName
+    :   Identifier ('.' Identifier)*
+    ;
+
+literal
+    :   IntegerLiteral
+    |   FloatingPointLiteral
+    |   CharacterLiteral
+    |   StringLiteral
+    |   BooleanLiteral
+    |   'null'
+    ;
+
+// ANNOTATIONS
+
+annotation
+    :   '@' annotationName ( '(' ( elementValuePairs | elementValue )? ')' )?
+    ;
+
+annotationName : qualifiedName ;
+
+elementValuePairs
+    :   elementValuePair (',' elementValuePair)*
+    ;
+
+elementValuePair
+    :   Identifier '=' elementValue
+    ;
+
+elementValue
+    :   expression
+    |   annotation
+    |   elementValueArrayInitializer
+    ;
+
+elementValueArrayInitializer
+    :   '{' (elementValue (',' elementValue)*)? (',')? '}'
+    ;
+
+annotationTypeDeclaration
+    :   '@' 'interface' Identifier annotationTypeBody
+    ;
+
+annotationTypeBody
+    :   '{' (annotationTypeElementDeclaration)* '}'
+    ;
+
+annotationTypeElementDeclaration
+    :   modifier* annotationTypeElementRest
+    |   ';' // this is not allowed by the grammar, but apparently allowed by the actual compiler
+    ;
+
+annotationTypeElementRest
+    :   datatype annotationMethodOrConstantRest ';'
+    |   classDeclaration ';'?
+    |   interfaceDeclaration ';'?
+    |   enumDeclaration ';'?
+    |   annotationTypeDeclaration ';'?
+    ;
+
+annotationMethodOrConstantRest
+    :   annotationMethodRest
+    |   annotationConstantRest
+    ;
+
+annotationMethodRest
+    :   Identifier '(' ')' defaultValue?
+    ;
+
+annotationConstantRest
+    :   variableDeclarators
+    ;
+
+defaultValue
+    :   'default' elementValue
+    ;
+
+// STATEMENTS / BLOCKS
+
+block
+    :   '{' blockStatement* '}'
+    ;
+
+blockStatement
+    :   localVariableDeclarationStatement
+    |   statement
+    |   typeDeclaration
+    ;
+
+localVariableDeclarationStatement
+    :    localVariableDeclaration ';'
+    ;
+
+localVariableDeclaration
+    :   variableModifier* datatype variableDeclarators
+    ;
+
+statement
+    :   block
+    |   ASSERT expression (':' expression)? ';'
+    |   'if' parExpression statement ('else' statement)?
+    |   'for' '(' forControl ')' statement
+    |   'while' parExpression statement
+    |   'do' statement 'while' parExpression ';'
+    |   'try' block (catchClause+ finallyBlock? | finallyBlock)
+    |   'try' resourceSpecification block catchClause* finallyBlock?
+    |   'switch' parExpression '{' switchBlockStatementGroup* switchLabel* '}'
+    |   'synchronized' parExpression block
+    |   'return' expression? ';'
+    |   'throw' expression ';'
+    |   'break' Identifier? ';'
+    |   'continue' Identifier? ';'
+    |   ';'
+    |   statementExpression ';'
+    |   Identifier ':' statement
+    ;
+
+catchClause
+    :   'catch' '(' variableModifier* catchType Identifier ')' block
+    ;
+
+catchType
+    :   qualifiedName ('|' qualifiedName)*
+    ;
+
+finallyBlock
+    :   'finally' block
+    ;
+
+resourceSpecification
+    :   '(' resources ';'? ')'
+    ;
+
+resources
+    :   resource (';' resource)*
+    ;
+
+resource
+    :   variableModifier* classOrInterfaceType variableDeclaratorId '=' expression
+    ;
+
+/** Matches cases then statements, both of which are mandatory.
+ *  To handle empty cases at the end, we add switchLabel* to statement.
+ */
+switchBlockStatementGroup
+    :   switchLabel+ blockStatement+
+    ;
+
+switchLabel
+    :   'case' constantExpression ':'
+    |   'case' enumConstantName ':'
+    |   'default' ':'
+    ;
+
+forControl
+    :   enhancedForControl
+    |   forInit? ';' expression? ';' forUpdate?
+    ;
+
+forInit
+    :   localVariableDeclaration
+    |   expressionList
+    ;
+
+enhancedForControl
+    :   variableModifier* datatype variableDeclaratorId ':' expression
+    ;
+
+forUpdate
+    :   expressionList
+    ;
+
+// EXPRESSIONS
+
+parExpression
+    :   '(' expression ')'
+    ;
+
+expressionList
+    :   expression (',' expression)*
+    ;
+
+statementExpression
+    :   expression
+    ;
+
+constantExpression
+    :   expression
+    ;
+
+expression
+    :   primary
+    |   expression '.' Identifier
+    |   expression '.' 'this'
+    |   expression '.' 'new' nonWildcardTypeArguments? innerCreator
+    |   expression '.' 'super' superSuffix
+    |   expression '.' explicitGenericInvocation
+    |   expression '[' expression ']'
+    |   expression '(' expressionList? ')'
+    |   'new' creator
+    |   '(' datatype ')' expression
+    |   expression ('++' | '--')
+    |   ('+'|'-'|'++'|'--') expression
+    |   ('~'|'!') expression
+    |   expression ('*'|'/'|'%') expression
+    |   expression ('+'|'-') expression
+    |   expression ('<' '<' | '>' '>' '>' | '>' '>') expression
+    |   expression ('<=' | '>=' | '>' | '<') expression
+    |   expression 'instanceof' datatype
+    |   expression ('==' | '!=') expression
+    |   expression '&' expression
+    |   expression '^' expression
+    |   expression '|' expression
+    |   expression '&&' expression
+    |   expression '||' expression
+    |   expression '?' expression ':' expression
+    |   <assoc=right> expression
+        (   '='
+        |   '+='
+        |   '-='
+        |   '*='
+        |   '/='
+        |   '&='
+        |   '|='
+        |   '^='
+        |   '>>='
+        |   '>>>='
+        |   '<<='
+        |   '%='
+        )
+        expression
+    ;
+
+primary
+    :   '(' expression ')'
+    |   'this'
+    |   'super'
+    |   literal
+    |   Identifier
+    |   datatype '.' 'class'
+    |   'void' '.' 'class'
+    |   nonWildcardTypeArguments (explicitGenericInvocationSuffix | 'this' arguments)
+    ;
+
+creator
+    :   nonWildcardTypeArguments createdName classCreatorRest
+    |   createdName (arrayCreatorRest | classCreatorRest)
+    ;
+
+createdName
+    :   Identifier typeArgumentsOrDiamond? ('.' Identifier typeArgumentsOrDiamond?)*
+    |   primitiveType
+    ;
+
+innerCreator
+    :   Identifier nonWildcardTypeArgumentsOrDiamond? classCreatorRest
+    ;
+
+arrayCreatorRest
+    :   '['
+        (   ']' ('[' ']')* arrayInitializer
+        |   expression ']' ('[' expression ']')* ('[' ']')*
+        )
+    ;
+
+classCreatorRest
+    :   arguments classBody?
+    ;
+
+explicitGenericInvocation
+    :   nonWildcardTypeArguments explicitGenericInvocationSuffix
+    ;
+
+nonWildcardTypeArguments
+    :   '<' typeList '>'
+    ;
+
+typeArgumentsOrDiamond
+    :   '<' '>'
+    |   typeArguments
+    ;
+
+nonWildcardTypeArgumentsOrDiamond
+    :   '<' '>'
+    |   nonWildcardTypeArguments
+    ;
+
+superSuffix
+    :   arguments
+    |   '.' Identifier arguments?
+    ;
+
+explicitGenericInvocationSuffix
+    :   'super' superSuffix
+    |   Identifier arguments
+    ;
+
+arguments
+    :   '(' expressionList? ')'
+    ;
+
+// LEXER
+
+// §3.9 Keywords
+
+ABSTRACT      : 'abstract';
+ASSERT        : 'assert';
+BOOLEAN       : 'boolean';
+BREAK         : 'break';
+BYTE          : 'byte';
+CASE          : 'case';
+CATCH         : 'catch';
+CHAR          : 'char';
+CLASS         : 'class';
+CONST         : 'const';
+CONTINUE      : 'continue';
+DEFAULT       : 'default';
+DO            : 'do';
+DOUBLE        : 'double';
+ELSE          : 'else';
+ENUM          : 'enum';
+EXTENDS       : 'extends';
+FINAL         : 'final';
+FINALLY       : 'finally';
+FLOAT         : 'float';
+FOR           : 'for';
+IF            : 'if';
+GOTO          : 'goto';
+IMPLEMENTS    : 'implements';
+IMPORT        : 'import';
+INSTANCEOF    : 'instanceof';
+INT           : 'int';
+INTERFACE     : 'interface';
+LONG          : 'long';
+NATIVE        : 'native';
+NEW           : 'new';
+PACKAGE       : 'package';
+PRIVATE       : 'private';
+PROTECTED     : 'protected';
+PUBLIC        : 'public';
+RETURN        : 'return';
+SHORT         : 'short';
+STATIC        : 'static';
+STRICTFP      : 'strictfp';
+SUPER         : 'super';
+SWITCH        : 'switch';
+SYNCHRONIZED  : 'synchronized';
+THIS          : 'this';
+THROW         : 'throw';
+THROWS        : 'throws';
+TRANSIENT     : 'transient';
+TRY           : 'try';
+VOID          : 'void';
+VOLATILE      : 'volatile';
+WHILE         : 'while';
+
+// §3.10.1 Integer Literals
+
+IntegerLiteral
+    :   DecimalIntegerLiteral
+    |   HexIntegerLiteral
+    |   OctalIntegerLiteral
+    |   BinaryIntegerLiteral
+    ;
+
+fragment
+DecimalIntegerLiteral
+    :   DecimalNumeral IntegerTypeSuffix?
+    ;
+
+fragment
+HexIntegerLiteral
+    :   HexNumeral IntegerTypeSuffix?
+    ;
+
+fragment
+OctalIntegerLiteral
+    :   OctalNumeral IntegerTypeSuffix?
+    ;
+
+fragment
+BinaryIntegerLiteral
+    :   BinaryNumeral IntegerTypeSuffix?
+    ;
+
+fragment
+IntegerTypeSuffix
+    :   [lL]
+    ;
+
+fragment
+DecimalNumeral
+    :   '0'
+    |   NonZeroDigit (Digits? | Underscores Digits)
+    ;
+
+fragment
+Digits
+    :   Digit (DigitOrUnderscore* Digit)?
+    ;
+
+fragment
+Digit
+    :   '0'
+    |   NonZeroDigit
+    ;
+
+fragment
+NonZeroDigit
+    :   [1-9]
+    ;
+
+fragment
+DigitOrUnderscore
+    :   Digit
+    |   '_'
+    ;
+
+fragment
+Underscores
+    :   '_'+
+    ;
+
+fragment
+HexNumeral
+    :   '0' [xX] HexDigits
+    ;
+
+fragment
+HexDigits
+    :   HexDigit (HexDigitOrUnderscore* HexDigit)?
+    ;
+
+fragment
+HexDigit
+    :   [0-9a-fA-F]
+    ;
+
+fragment
+HexDigitOrUnderscore
+    :   HexDigit
+    |   '_'
+    ;
+
+fragment
+OctalNumeral
+    :   '0' Underscores? OctalDigits
+    ;
+
+fragment
+OctalDigits
+    :   OctalDigit (OctalDigitOrUnderscore* OctalDigit)?
+    ;
+
+fragment
+OctalDigit
+    :   [0-7]
+    ;
+
+fragment
+OctalDigitOrUnderscore
+    :   OctalDigit
+    |   '_'
+    ;
+
+fragment
+BinaryNumeral
+    :   '0' [bB] BinaryDigits
+    ;
+
+fragment
+BinaryDigits
+    :   BinaryDigit (BinaryDigitOrUnderscore* BinaryDigit)?
+    ;
+
+fragment
+BinaryDigit
+    :   [01]
+    ;
+
+fragment
+BinaryDigitOrUnderscore
+    :   BinaryDigit
+    |   '_'
+    ;
+
+// §3.10.2 Floating-Point Literals
+
+FloatingPointLiteral
+    :   DecimalFloatingPointLiteral
+    |   HexadecimalFloatingPointLiteral
+    ;
+
+fragment
+DecimalFloatingPointLiteral
+    :   Digits '.' Digits? ExponentPart? FloatTypeSuffix?
+    |   '.' Digits ExponentPart? FloatTypeSuffix?
+    |   Digits ExponentPart FloatTypeSuffix?
+    |   Digits FloatTypeSuffix
+    ;
+
+fragment
+ExponentPart
+    :   ExponentIndicator SignedInteger
+    ;
+
+fragment
+ExponentIndicator
+    :   [eE]
+    ;
+
+fragment
+SignedInteger
+    :   Sign? Digits
+    ;
+
+fragment
+Sign
+    :   [+-]
+    ;
+
+fragment
+FloatTypeSuffix
+    :   [fFdD]
+    ;
+
+fragment
+HexadecimalFloatingPointLiteral
+    :   HexSignificand BinaryExponent FloatTypeSuffix?
+    ;
+
+fragment
+HexSignificand
+    :   HexNumeral '.'?
+    |   '0' [xX] HexDigits? '.' HexDigits
+    ;
+
+fragment
+BinaryExponent
+    :   BinaryExponentIndicator SignedInteger
+    ;
+
+fragment
+BinaryExponentIndicator
+    :   [pP]
+    ;
+
+// §3.10.3 Boolean Literals
+
+BooleanLiteral
+    :   'true'
+    |   'false'
+    ;
+
+// §3.10.4 Character Literals
+
+CharacterLiteral
+    :   '\'' SingleCharacter '\''
+    |   '\'' EscapeSequence '\''
+    ;
+
+fragment
+SingleCharacter
+    :   ~['\\]
+    ;
+
+// §3.10.5 String Literals
+
+StringLiteral
+    :   '"' StringCharacters? '"'
+    ;
+
+fragment
+StringCharacters
+    :   StringCharacter+
+    ;
+
+fragment
+StringCharacter
+    :   ~["\\]
+    |   EscapeSequence
+    ;
+
+// §3.10.6 Escape Sequences for Character and String Literals
+
+fragment
+EscapeSequence
+    :   '\\' [btnfr"'\\]
+    |   OctalEscape
+    |   UnicodeEscape
+    ;
+
+fragment
+OctalEscape
+    :   '\\' OctalDigit
+    |   '\\' OctalDigit OctalDigit
+    |   '\\' ZeroToThree OctalDigit OctalDigit
+    ;
+
+fragment
+UnicodeEscape
+    :   '\\' 'u' HexDigit HexDigit HexDigit HexDigit
+    ;
+
+fragment
+ZeroToThree
+    :   [0-3]
+    ;
+
+// §3.10.7 The Null Literal
+
+NullLiteral
+    :   'null'
+    ;
+
+// §3.11 Separators
+
+LPAREN          : '(';
+RPAREN          : ')';
+LBRACE          : '{';
+RBRACE          : '}';
+LBRACK          : '[';
+RBRACK          : ']';
+SEMI            : ';';
+COMMA           : ',';
+DOT             : '.';
+
+// §3.12 Operators
+
+ASSIGN          : '=';
+GT              : '>';
+LT              : '<';
+BANG            : '!';
+TILDE           : '~';
+QUESTION        : '?';
+COLON           : ':';
+EQUAL           : '==';
+LE              : '<=';
+GE              : '>=';
+NOTEQUAL        : '!=';
+AND             : '&&';
+OR              : '||';
+INC             : '++';
+DEC             : '--';
+ADD             : '+';
+SUB             : '-';
+MUL             : '*';
+DIV             : '/';
+BITAND          : '&';
+BITOR           : '|';
+CARET           : '^';
+MOD             : '%';
+
+ADD_ASSIGN      : '+=';
+SUB_ASSIGN      : '-=';
+MUL_ASSIGN      : '*=';
+DIV_ASSIGN      : '/=';
+AND_ASSIGN      : '&=';
+OR_ASSIGN       : '|=';
+XOR_ASSIGN      : '^=';
+MOD_ASSIGN      : '%=';
+LSHIFT_ASSIGN   : '<<=';
+RSHIFT_ASSIGN   : '>>=';
+URSHIFT_ASSIGN  : '>>>=';
+
+// §3.8 Identifiers (must appear after all keywords in the grammar)
+
+Identifier
+    :   JavaLetter JavaLetterOrDigit*
+    ;
+
+fragment
+JavaLetter
+    :   [a-zA-Z$_] // these are the "java letters" below 0xFF
+//    |   // covers all characters above 0xFF which are not a surrogate
+//        ~[\u0000-\u00FF\uD800-\uDBFF]
+//        {Character.isJavaIdentifierStart(_input.LA(-1))}?
+//    |   // covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
+//        [\uD800-\uDBFF] [\uDC00-\uDFFF]
+//        {Character.isJavaIdentifierStart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
+    ;
+
+fragment
+JavaLetterOrDigit
+    :   [a-zA-Z0-9$_] // these are the "java letters or digits" below 0xFF
+//    |   // covers all characters above 0xFF which are not a surrogate
+//        ~[\u0000-\u00FF\uD800-\uDBFF]
+//        {Character.isJavaIdentifierPart(_input.LA(-1))}?
+//    |   // covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
+//        [\uD800-\uDBFF] [\uDC00-\uDFFF]
+//        {Character.isJavaIdentifierPart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
+    ;
+
+//
+// Additional symbols not defined in the lexical specification
+//
+
+AT : '@';
+ELLIPSIS : '...';
+
+//
+// Whitespace and comments
+//
+
+WS  :  [ \t\r\n\u000C]+ -> skip
+    ;
+
+COMMENT
+    :   '/*' .*? '*/' -> skip
+    ;
+
+LINE_COMMENT
+    :   '//' ~[\r\n]* -> skip
+    ;
+
+
+--#
+
+--% /pyant/04-ExtractInterface/README.md
+# How to Run
+```
+% python test_extract.py Demo.java
+interface IDemo {
+        int f(int x, String y);
+        int[ ] g(/*no args*/);
+        List<Map<String, Integer>>[] h();
+}
+```
+
+# to make this test pass for python
+- use the latest JAVA g4 file from ANTLR4 grammar depot
+- comment out java action part for unicode
+```antlr4
+fragment
+JavaLetter
+    :   [a-zA-Z$_] // these are the "java letters" below 0xFF
+//    |   // covers all characters above 0xFF which are not a surrogate
+//        ~[\u0000-\u00FF\uD800-\uDBFF]
+//        {Character.isJavaIdentifierStart(_input.LA(-1))}?
+//    |   // covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
+//        [\uD800-\uDBFF] [\uDC00-\uDFFF]
+//        {Character.isJavaIdentifierStart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
+    ;
+
+fragment
+JavaLetterOrDigit
+    :   [a-zA-Z0-9$_] // these are the "java letters or digits" below 0xFF
+//    |   // covers all characters above 0xFF which are not a surrogate
+//        ~[\u0000-\u00FF\uD800-\uDBFF]
+//        {Character.isJavaIdentifierPart(_input.LA(-1))}?
+//    |   // covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
+//        [\uD800-\uDBFF] [\uDC00-\uDFFF]
+//        {Character.isJavaIdentifierPart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
+    ;
+- change type to datatype to avoid conflict with python keyword.
+```
+- add function to print the original text (including hidden channel)
+```python
+    def getAllText(self, ctx):  # include hidden channel
+        token_stream = ctx.parser.getTokenStream()
+        lexer = token_stream.tokenSource
+        input_stream = lexer.inputStream
+        start = ctx.start.start
+        stop = ctx.stop.stop
+        return input_stream.getText(start, stop)
+```
+
+--#
+
+--% /pyant/04-ExtractInterface/test_extract.py
+__author__ = 'jszheng'
+
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from JavaLexer import JavaLexer
+from JavaParser import JavaParser
+
+from ExtractInterfaceListener import ExtractInterfaceListener
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.readline())
+
+    lexer = JavaLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = JavaParser(token_stream)
+    tree = parser.compilationUnit()
+
+    listener = ExtractInterfaceListener(parser)
+    walker = ParseTreeWalker()
+    walker.walk(listener, tree)
+
+
+
+
+
+--#
+
+--% /pyant/04-modechange/04-modechange.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/04-modechange/README.md
+# How to run
+```
+% python test.py t.xml
+0 8 3 413 413 4 \n
+0 9 0 414 414 1 <
+0 9 1 415 419 10 tools
+0 9 6 420 420 5 >
+0 9 7 421 422 4 \n\t
+0 10 1 423 423 1 <
+0 10 2 424 427 10 tool
+0 10 7 429 432 10 name
+0 10 11 433 433 7 =
+0 10 12 434 440 8 "ANTLR"
+0 10 19 441 441 5 >
+0 10 20 442 459 4 A parser generator
+0 10 38 460 460 1 <
+0 10 39 461 465 9 /tool
+0 10 44 466 466 5 >
+0 10 45 467 467 4 \n
+0 11 0 468 468 1 <
+0 11 1 469 474 9 /tools
+0 11 7 475 475 5 >
+0 11 8 476 476 4 \n
+```
+
+# What's in this test
+- Lexer Only, call nextToken() method till end of file (Token.EOF)
+- Switch Mode
+
+
+--#
+
+--% /pyant/04-modechange/t.xml
+<!--
+ ! Excerpted from "The Definitive ANTLR 4 Reference",
+ ! published by The Pragmatic Bookshelf.
+ ! Copyrights apply to this code. It may not be used to create training material, 
+ ! courses, books, articles, and the like. Contact us if you are in doubt.
+ ! We make no guarantees that this code is fit for any purpose. 
+ ! Visit http://www.pragmaticprogrammer.com/titles/tpantlr2 for more book information.
+-->
+<tools>
+	<tool name="ANTLR">A parser generator</tool>
+</tools>
+
+
+--#
+
+--% /pyant/04-modechange/test.py
+__author__ = 'jszheng'
+
+import sys
+
+from antlr4 import *
+from antlr4.InputStream import InputStream
+from XMLLexer import XMLLexer
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = XMLLexer(input_stream)
+
+    t = lexer.nextToken()
+    while t.type != Token.EOF:
+        txt = t.text
+        if txt is not None:
+            txt = txt.replace("\n","\\n")
+            txt = txt.replace("\r","\\r")
+            txt = txt.replace("\t","\\t")
+        else:
+            txt = "<no text>"
+        print(t.channel, t.line, t.column, t.start, t.stop, t.type, txt)
+        t = lexer.nextToken()
+
+
+--#
+
+--% /pyant/04-modechange/XMLLexer.g4
+lexer grammar XMLLexer;
+
+// Default "mode": Everything OUTSIDE of a tag
+OPEN        :   '<'                 -> pushMode(INSIDE) ;
+COMMENT     :   '<!--' .*? '-->'    -> skip ;
+EntityRef   :   '&' [a-z]+ ';' ;
+TEXT        :   ~('<'|'&')+ ;           // match any 16 bit char minus < and &
+
+// ----------------- Everything INSIDE of a tag ---------------------
+mode INSIDE;
+
+CLOSE       :   '>'                 -> popMode ; // back to default mode
+SLASH_CLOSE :   '/>'                -> popMode ;
+EQUALS      :   '=' ;
+STRING      :   '"' .*? '"' ;
+SlashName   :   '/' Name ;
+Name        :   ALPHA (ALPHA|DIGIT)* ;
+S           :   [ \t\r\n]           -> skip ;
+
+fragment
+ALPHA       :   [a-zA-Z] ;
+
+fragment
+DIGIT       :   [0-9] ;
+
+
+--#
+
+--% /pyant/04-Rows-visitor/04-Rows-visitor.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/04-Rows-visitor/col.py
+__author__ = 'jszheng'
+
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from RowsLexer import RowsLexer
+from RowsParser import RowsParser
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        col_num = int(sys.argv[1])
+        input_stream = FileStream(sys.argv[2])
+    else:
+        print('Usage: python col.py #col file')
+        exit(1)
+
+    lexer = RowsLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = RowsParser(token_stream)
+    parser.column = col_num
+    parser.buildParseTrees = False
+    tree = parser.rows()
+
+--#
+
+--% /pyant/04-Rows-visitor/README.md
+# What's in this example
+- With embedded python actions
+- local variable and initialization
+- get column from command line and set in parser
+- Do not build tree
+
+# How to Run
+```
+% python col.py 1 t.rows
+parrt
+tombu
+bke
+
+% python col.py 2 t.rows
+Terence Parr
+Tom Burns
+Kevin Edgar
+
+% python col.py 3 t.rows
+101
+020
+008
+```
+
+--#
+
+--% /pyant/04-Rows-visitor/Rows.g4
+grammar Rows;
+
+@parser::members {
+@property
+def column(self):
+    return self._col
+
+@column.setter
+def column(self, value):
+    self._col = value
+
+}
+
+rows: (row NL)+ ;
+
+row
+locals [i = 0]
+    : (   STUFF
+{
+$i = $i + 1
+if $i == self.column:
+    print($STUFF.text)
+}
+      )+
+    ;
+
+TAB  :  '\t' -> skip ;   // match but don't pass to the parser
+NL   :  '\r'? '\n' ;     // match and pass to the parser
+STUFF:  ~[\t\r\n]+ ;     // match any chars except tab, newline
+
+
+--#
+
+--% /pyant/04-Rows-visitor/t.rows
+parrt	Terence Parr	101
+tombu	Tom Burns	020
+bke	Kevin Edgar	008
+
+
+--#
+
+--% /pyant/04-sempred/04-sempred.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/04-sempred/Data.g4
+grammar Data;
+
+top : group+ ;
+
+group: INT sequence[$INT.int] ;
+
+sequence[n]
+locals [i=0]
+     : ( {$i<$n}? INT {$i=$i+1;} )* // match n integers
+     ;
+     
+INT :   [0-9]+ ;             // match integers
+WS  :   [ \t\n\r]+ -> skip ; // toss out all whitespace
+
+
+--#
+
+--% /pyant/04-sempred/Readme.md
+# What's in This Example
+- pass parameter to rule
+- local variable
+- semantic predication: 1st data decide the number of data followed
+
+# How to Run
+```
+% type t.data
+2 9 10 3 1 2 3
+% python test_data.py t.data
+(top 
+  (group 2 (sequence 9 10)) 
+  (group 3 (sequence 1 2 3))
+)
+```
+
+--#
+
+--% /pyant/04-sempred/t.data
+2 9 10 3 1 2 3
+
+
+--#
+
+--% /pyant/04-sempred/test_data.py
+__author__ = 'jszheng'
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+from DataLexer import DataLexer
+from DataParser import DataParser
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = DataLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = DataParser(token_stream)
+    tree = parser.top()
+
+    lisp_tree_str = tree.toStringTree(recog=parser)
+    print(lisp_tree_str)
+
+--#
+
+--% /pyant/07-LableRule/07-LableRule.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/07-LableRule/LExpr.g4
+grammar LExpr;
+
+s : e ;
+
+e : e MULT e 		# Mult
+  | e ADD e 		# Add
+  | INT        		# Int
+  ;
+
+MULT: '*' ;
+ADD : '+' ;
+INT : [0-9]+ ;
+WS : [ \t\r\n]+ -> skip ;
+
+
+--#
+
+--% /pyant/07-LableRule/README.md
+# Label Rule Alternative
+
+# How to Run
+```
+antlr4py3 -visitor LExpr.g4
+python test_EvalVistor.py t.expr
+python test_EvalListener.py t.expr
+python test_EvalContext.py t.expr
+```
+
+--#
+
+--% /pyant/07-LableRule/t.expr
+1+2*3
+
+
+--#
+
+--% /pyant/07-LableRule/test_EvalContext.py
+__author__ = 'jszheng'
+"""
+To Store value with the context associated to the tree
+"""
+
+
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+
+from LExprLexer import LExprLexer
+from LExprParser import  LExprParser
+from LExprListener import LExprListener
+
+
+class ContextMap(LExprListener):
+    def __init__(self):
+        self.tree_property = {}
+
+    def getValue(self, node):
+        return self.tree_property[node]
+
+    def setValue(self, node, value):
+        self.tree_property[node] = value
+
+    def exitInt(self, ctx):
+        self.setValue(ctx, int(ctx.INT().getText()))
+
+    def exitAdd(self, ctx):
+        left = self.getValue(ctx.e(0))
+        right= self.getValue(ctx.e(1))
+        self.setValue(ctx, left+right)
+
+    def exitMult(self, ctx):
+        left = self.getValue(ctx.e(0))
+        right= self.getValue(ctx.e(1))
+        self.setValue(ctx, left*right)
+
+    def exitS(self, ctx):
+        self.setValue(ctx, self.getValue(ctx.e()))
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = LExprLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = LExprParser(token_stream)
+    tree = parser.s()
+
+    lisp_tree_str = tree.toStringTree(recog=parser)
+    print(lisp_tree_str)
+
+    # listener
+    print("Start Walking...")
+    listener = ContextMap()
+    walker = ParseTreeWalker()
+    walker.walk(listener, tree)
+    print('result_at_top =', listener.getValue(tree))
+
+
+--#
+
+--% /pyant/07-LableRule/test_EvalListener.py
+__author__ = 'jszheng'
+"""
+Using Listener, store data in stack. result at the top of the stack
+"""
+
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+
+from LExprLexer import LExprLexer
+from LExprParser import  LExprParser
+from LExprListener import LExprListener
+
+
+class EvalListener(LExprListener):
+    def __init__(self):
+        self.stack = []
+
+    def exitMult(self, ctx):
+        right = self.stack.pop()
+        left  = self.stack.pop()
+        self.stack.append(right * left)
+
+    def exitAdd(self, ctx):
+        right = self.stack.pop()
+        left  = self.stack.pop()
+        self.stack.append(right + left)
+
+    def exitInt(self, ctx):
+        self.stack.append(int(ctx.INT().getText()))
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = LExprLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = LExprParser(token_stream)
+    tree = parser.s()
+
+    lisp_tree_str = tree.toStringTree(recog=parser)
+    print(lisp_tree_str)
+
+    # listener
+    print("Start Walking...")
+    listener = EvalListener()
+    walker = ParseTreeWalker()
+    walker.walk(listener, tree)
+    print('result_stack=', listener.stack)
+
+
+--#
+
+--% /pyant/07-LableRule/test_EvalVistor.py
+__author__ = 'jszheng'
+"""
+Using Visitor. Customized visitor walking down the tree and do calculation at
+certain tree stage and eventually return result from the entry call.
+"""
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+
+from LExprLexer import LExprLexer
+from LExprParser import  LExprParser
+from LExprVisitor import LExprVisitor
+
+
+class EvalVisitor(LExprVisitor):
+    def visitMult(self, ctx):
+        return self.visit(ctx.e(0)) * self.visit(ctx.e(1))
+
+    def visitAdd(self, ctx):
+        return self.visit(ctx.e(0)) + self.visit(ctx.e(1))
+
+    def visitInt(self, ctx):
+        return int(ctx.INT().getText())
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = LExprLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = LExprParser(token_stream)
+    tree = parser.s()
+
+    lisp_tree_str = tree.toStringTree(recog=parser)
+    print(lisp_tree_str)
+
+    visitor = EvalVisitor()
+    result = visitor.visit(tree)
+    print("result=", result)
+
+
+
+--#
+
+--% /pyant/07-Property/07-Property.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/07-Property/PropertyFile.g4
+grammar PropertyFile;
+
+@members {
+def startFile(self):
+    pass
+def finishFile(self):
+    pass
+def defineProperty(self, name, value):
+    pass
+}
+
+top : {self.startFile()} prop+ {self.finishFile()};
+prop : ID '=' STRING '\n' {self.defineProperty($ID, $STRING)};
+ID   : [a-z]+ ;
+STRING : '"' .*? '"' ;
+
+
+--#
+
+--% /pyant/07-Property/README.md
+# Property Parsing
+- Using Listener/Visitor
+- Call back inserted in action
+
+# How to run
+```
+% antlr4py3 -visitor PropertyFile.g4
+
+% python test_listener.py t.properties
+user => "parrt"
+machine => "maniac"
+
+% python test_visitor.py t.properties
+machine => "maniac"
+user => "parrt"
+
+% python test_as_print.py t.properties
+user  =  "parrt"
+machine  =  "maniac"
+
+% python test_as_loader.py t.properties
+machine => "maniac"
+user => "parrt"
+```
+
+--#
+
+--% /pyant/07-Property/t.properties
+user="parrt"
+machine="maniac"
+
+
+--#
+
+--% /pyant/07-Property/test_as_loader.py
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from PropertyFileLexer import PropertyFileLexer
+from PropertyFileParser import PropertyFileParser
+
+
+class PropertyFileLoader(PropertyFileParser):
+    def __init__(self, input:TokenStream):
+        super().__init__(input)
+        self.props = {}
+
+    def defineProperty(self, name, value):
+        self.props[name.text] = value.text
+
+    def show(self):
+        for (key, value) in self.props.items():
+            print(key, '=>', value)
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = PropertyFileLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = PropertyFileLoader(token_stream)
+    parser.top()
+    parser.show()
+
+--#
+
+--% /pyant/07-Property/test_as_print.py
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from PropertyFileLexer import PropertyFileLexer
+from PropertyFileParser import PropertyFileParser
+
+
+class PropertyFilePrinter(PropertyFileParser):
+    def defineProperty(self, name, value):
+        print(name.text, ' = ', value.text)
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = PropertyFileLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = PropertyFilePrinter(token_stream)
+    parser.top()
+
+
+--#
+
+--% /pyant/07-Property/test_listener.py
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from PropertyFileLexer import PropertyFileLexer
+from PropertyFileParser import PropertyFileParser
+from PropertyFileListener import PropertyFileListener
+
+
+class PropertyFileLoader(PropertyFileListener):
+    def __init__(self):
+        super().__init__()
+        self.props = {}
+
+    def exitProp(self, ctx):
+        self.props[ctx.ID().getText()] = ctx.STRING().getText()
+
+    def show(self):
+        for (key, value) in self.props.items():
+            print(key, '=>', value)
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = PropertyFileLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = PropertyFileParser(token_stream)
+    tree = parser.top()
+
+    walker = ParseTreeWalker()
+    listener = PropertyFileLoader()
+    walker.walk(listener, tree)
+
+    listener.show()
+
+--#
+
+--% /pyant/07-Property/test_visitor.py
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from PropertyFileLexer import PropertyFileLexer
+from PropertyFileParser import PropertyFileParser
+from PropertyFileVisitor import PropertyFileVisitor
+
+
+class PropertyFileLoader(PropertyFileVisitor):
+    def __init__(self):
+        super().__init__()
+        self.props = {}
+
+    def visitProp(self, ctx):
+        self.props[ctx.ID().getText()] = ctx.STRING().getText()
+
+    def show(self):
+        for (key, value) in self.props.items():
+            print(key, '=>', value)
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = PropertyFileLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = PropertyFileParser(token_stream)
+    tree = parser.top()
+
+    visitor = PropertyFileLoader()
+    visitor.visit(tree)
+
+    visitor.show()
+
+--#
+
+--% /pyant/08-CallGraph/08-CallGraph.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/08-CallGraph/CallGraph.py
+__author__ = 'jszheng'
+
+import sys
+from collections import OrderedDict
+from string import Template
+
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from CymbolLexer import CymbolLexer
+from CymbolParser import CymbolParser
+from CymbolListener import CymbolListener
+
+
+class Graph:
+    def __init__(self):
+        self.nodes = OrderedDict()
+        self.edges = OrderedDict()
+
+    def add_edge(self, src, dst):
+        if src in self.edges:
+            self.edges[src].append(dst)
+        else:
+            self.edges[src] = [dst]
+
+    def add_node(self, function_name):
+        self.nodes[function_name] = True
+
+    def __str__(self):
+        return "edges : " + self.edges.__str__() + ", functions :　" + list(self.nodes.keys()).__str__()
+
+    def toDOT(self):
+        # funcs = ';'.join(self.nodes.keys())
+        funcs = ""
+        for f in self.nodes.keys():
+            funcs += f + ';'
+        edges = ""
+        for (key, value) in self.edges.items():
+            for dst in value:
+                edges += "  " + key + " -> " + dst + ";\n"
+
+        tpl_str = """
+digraph G {
+  ranksep=.25;
+  edge [arrowsize=.5]
+  node [shape=circle, fontname="ArialNarrow",
+        fontsize=12, fixedsize=true, height=.45];
+
+  $func_list
+$edge_list
+}
+"""
+        tpl = Template(tpl_str)
+        return tpl.substitute(func_list=funcs, edge_list=edges)
+
+
+class FunctionListener(CymbolListener):
+    def __init__(self):
+        self.graph = Graph()
+        self.current_function_name = None
+
+    def enterFunctionDecl(self, ctx: CymbolParser.FunctionDeclContext):
+        name = ctx.ID().getText()
+        self.current_function_name = name
+        self.graph.add_node(name)
+
+    def exitCall(self, ctx):
+        name = ctx.ID().getText()
+        self.graph.add_edge(self.current_function_name, name)
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = CymbolLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = CymbolParser(token_stream)
+    tree = parser.top()
+
+    # lisp_tree_str = tree.toStringTree(recog=parser)
+    # print(lisp_tree_str)
+
+    walker = ParseTreeWalker()
+    collector = FunctionListener()
+    walker.walk(collector, tree)
+    # print(collector.graph)
+    print(collector.graph.toDOT())
+
+
+
+--#
+
+--% /pyant/08-CallGraph/CheckSymbols.py
+__author__ = 'jszheng'
+
+import sys
+
+from antlr4 import *
+from antlr4.InputStream import InputStream
+from SymbolScope import *
+
+from CymbolLexer import CymbolLexer
+from CymbolParser import CymbolParser
+from CymbolListener import CymbolListener
+
+
+def get_type(tokenType):
+    if tokenType == CymbolParser.K_FLOAT:
+        return Symbol.TypeEnum.FLOAT
+    elif tokenType == CymbolParser.K_INT:
+        return Symbol.TypeEnum.INT
+    elif tokenType == CymbolParser.K_VOID:
+        return Symbol.TypeEnum.VOID
+    else:
+        return Symbol.TypeEnum.INVALID
+
+
+def error(token, msg):
+    print('[Error] line %d:%d %s' % (token.line, token.column, msg))
+
+
+class DefPhase(CymbolListener):
+    def __init__(self):
+        self.globals = None
+        self.currentScope = None
+        self.scopes = {}
+        pass
+
+    def enterTop(self, ctx):
+        self.globals = GlobalScope(None)
+        self.currentScope = self.globals
+
+    def exitTop(self, ctx):
+        print(self.globals)
+
+    def enterFunctionDecl(self, ctx: CymbolParser.FunctionDeclContext):
+        name = ctx.ID().getText()
+        stoken_type = ctx.primtype().start.type
+        stype = get_type(stoken_type)
+        #
+        function = FunctionSymbol(name, stype, self.currentScope)
+        self.currentScope.define(function)
+        self.scopes[ctx] = function
+        self.currentScope = function
+
+    def exitFunctionDecl(self, ctx):
+        print(self.currentScope)
+        self.currentScope = self.currentScope.getEnclosingScope()
+
+    def enterBlock(self, ctx):
+        self.currentScope = LocalScope(self.currentScope)
+        self.scopes[ctx] = self.currentScope
+
+    def exitBlock(self, ctx):
+        print(self.currentScope)
+        self.currentScope = self.currentScope.getEnclosingScope()
+
+    def exitFormalParameter(self, ctx: CymbolParser.FormalParameterContext):
+        stoken_type = ctx.primtype().start.type
+        stype =get_type(stoken_type)
+        var = VariableSymbol(ctx.ID().getText(), stype)
+        self.currentScope.define(var)
+
+    def exitVarDecl(self, ctx):
+        stoken_type = ctx.primtype().start.type
+        stype =get_type(stoken_type)
+        var = VariableSymbol(ctx.ID().getText(), stype)
+        self.currentScope.define(var)
+
+
+class RefPhase(CymbolListener):
+    def __init__(self, glbs, scopes):
+        self.globals = glbs
+        self.scopes = scopes
+        self.currentScope = None
+
+    def enterTop(self, ctx):
+        self.currentScope = self.globals
+
+    def enterFunctionDecl(self, ctx):
+        self.currentScope = self.scopes[ctx]
+
+    def exitFunctionDecl(self, ctx):
+        self.currentScope = self.currentScope.getEnclosingScope()
+
+    def enterBlock(self, ctx):
+        self.currentScope = self.scopes[ctx]
+
+    def exitBlock(self, ctx):
+        self.currentScope = self.currentScope.getEnclosingScope()
+
+    def exitVar(self, ctx: CymbolParser.VarContext):
+        name = ctx.ID().getText()
+        var = self.currentScope.resolve(name)
+        if var is None:
+            error(ctx.ID().getSymbol(), "no such variable: "+name)
+        if isinstance(var, FunctionSymbol):
+            error(ctx.ID().getSymbol(), name+" is not a variable")
+
+    def exitCall(self, ctx: CymbolParser.CallContext):
+        funcname = ctx.ID().getText()
+        meth = self.currentScope.resolve(funcname)
+        if meth is None:
+            error(ctx.ID().getSymbol(), "no such function: "+funcname)
+        if isinstance(meth, VariableSymbol):
+            error(ctx.ID().getSymbol(), funcname+" is not a function")
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = CymbolLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = CymbolParser(token_stream)
+    tree = parser.top()
+
+    # lisp_tree_str = tree.toStringTree(recog=parser)
+    # print(lisp_tree_str)
+
+    walker = ParseTreeWalker()
+
+    # definition phase, collect data
+    print('*** Scan Definitions ***')
+    def_phase = DefPhase()
+    walker.walk(def_phase, tree)
+
+    print()
+
+    # reference phase, check error
+    print('*** Check errors ***')
+    ref_phase = RefPhase(def_phase.globals, def_phase.scopes)
+    walker.walk(ref_phase, tree)
+
+--#
+
+--% /pyant/08-CallGraph/Cymbol.g4
+/** Simple statically-typed programming language with functions and variables
+ *  taken from "Language Implementation Patterns" book.
+ */
+grammar Cymbol;
+
+top:   (functionDecl | varDecl)+ ;
+
+varDecl
+    :   primtype ID ('=' expr)? ';'
+    ;
+primtype:   'float' | 'int' | 'void' ; // user-defined types
+
+functionDecl
+    :   primtype ID '(' formalParameters? ')' block // "void f(int x) {...}"
+    ;
+
+formalParameters
+    :   formalParameter (',' formalParameter)*
+    ;
+formalParameter
+    :   primtype ID
+    ;
+
+block:  '{' stat* '}' ;   // possibly empty statement block
+
+stat:   block
+    |   varDecl
+    |   'if' expr 'then' stat ('else' stat)?
+    |   'return' expr? ';' 
+    |   expr '=' expr ';' // assignment
+    |   expr ';'          // func call
+    ;
+
+expr:   ID '(' exprList? ')'    # Call
+    |   expr '[' expr ']'       # Index
+    |   '-' expr                # Negate
+    |   '!' expr                # Not
+    |   expr '*' expr           # Mult
+    |   expr ('+'|'-') expr     # AddSub
+    |   expr '==' expr          # Equal
+    |   ID                      # Var
+    |   INT                     # Int
+    |   '(' expr ')'            # Parens
+    ;
+
+exprList : expr (',' expr)* ;   // arg list
+
+K_FLOAT : 'float';
+K_INT   : 'int';
+K_VOID  : 'void';
+ID  :   LETTER (LETTER | [0-9])* ;
+
+fragment
+LETTER : [a-zA-Z] ;
+
+INT :   [0-9]+ ;
+
+WS  :   [ \t\n\r]+ -> skip ;
+
+SL_COMMENT
+    :   '//' .*? '\n' -> skip
+    ;
+
+
+--#
+
+--% /pyant/08-CallGraph/output.dot
+digraph G {
+  ranksep=.25;
+  edge [arrowsize=.5]
+  node [shape=circle, fontname="ArialNarrow",
+        fontsize=12, fixedsize=true, height=.45];
+
+  main;fact;a;b;c;d;e;
+  main -> fact;
+  main -> a;
+  fact -> print;
+  fact -> fact;
+  a -> b;
+  a -> c;
+  a -> d;
+  b -> c;
+  c -> b;
+
+}
+
+
+
+--#
+
+--% /pyant/08-CallGraph/Readme.md
+# Cymbol
+Two example here
+- Generate call graph
+- Check variable 
+
+# How to run
+```
+% antlr4py3 Cymbol.g4
+% python CallGraph.py t.cymbol
+
+digraph G {
+  ranksep=.25;
+  edge [arrowsize=.5]
+  node [shape=circle, fontname="ArialNarrow",
+        fontsize=12, fixedsize=true, height=.45];
+
+  main;fact;a;b;c;d;e;
+  main -> fact;
+  main -> a;
+  fact -> print;
+  fact -> fact;
+  a -> b;
+  a -> c;
+  a -> d;
+  b -> c;
+  c -> b;
+
+}
+
+% python CheckSymbols.py vars.cymbol
+*** Scan Definitions ***
+locals : []
+function <f:INT> : <y:FLOAT>;<x:INT>;
+locals : ['y', 'x']
+function <g:VOID> :
+globals : ['g', 'f']
+
+*** Check errors ***
+[Error] line 3:4 no such variable: i
+[Error] line 4:4 g is not a variable
+[Error] line 13:4 no such function: z
+[Error] line 14:4 y is not a function
+[Error] line 15:8 f is not a variable
+
+% python CheckSymbols.py vars2.cymbol
+*** Scan Definitions ***
+locals : ['y']
+locals : ['x']
+function <a:VOID> :
+locals : []
+function <b:VOID> : <z:INT>;
+globals : ['b', 'y', 'x', 'a']
+
+*** Check errors ***
+
+```
+
+--#
+
+--% /pyant/08-CallGraph/SymbolScope.py
+__author__ = 'jszheng'
+"""
+This is helper classes and interfaces for symbol scope
+recording and identification
+"""
+
+from enum import Enum
+
+
+class Scope:
+    def getScopeName(self):
+        pass
+
+    def getEnclosingScope(self):
+        pass
+
+    def define(self, sym):
+        pass
+
+    def resolve(self, name):
+        pass
+
+
+class Symbol:
+    class TypeEnum(Enum):
+        INVALID = 1
+        VOID = 2
+        INT = 3
+        FLOAT = 4
+
+    def __init__(self, name='', stype=TypeEnum.INVALID):
+        self.name = name
+        self.type = stype
+        self.scope = None
+
+    def __str__(self):
+        if self.type != Symbol.TypeEnum.INVALID:
+            return '<'+self.name+':'+self.type.name+'>'
+        else:
+            return self.name
+
+
+class BaseScope(Scope):
+    def __init__(self, scope: Scope):
+        self.enclosingScope = scope
+        self.symbols = {}
+
+    def resolve(self, name):
+        s = self.symbols.get(name)
+        if s is not None:
+            return s
+        if self.enclosingScope is not None:
+            return self.enclosingScope.resolve(name)
+        return None
+
+    def define(self, sym: Symbol):
+        self.symbols[sym.name] = sym
+
+    def getEnclosingScope(self):
+        return self.enclosingScope
+
+    def __str__(self):
+        buf = self.getScopeName() + ' : ' + list(self.symbols.keys()).__str__()
+        return buf
+
+
+class GlobalScope(BaseScope):
+    def __init__(self, scope):
+        super().__init__(scope)
+
+    def getScopeName(self):
+        return 'globals'
+
+
+class LocalScope(BaseScope):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+    def getScopeName(self):
+        return 'locals'
+
+
+class FunctionSymbol(Symbol, Scope):
+    def __init__(self, name='', stype=Symbol.TypeEnum.INVALID, scope=None):
+        super().__init__(name, stype)
+        self.enclosingScope = scope
+        self.arguments = {}
+
+    def resolve(self, name):
+        s = self.arguments.get(name)
+        if s is not None:
+            return s
+        if self.enclosingScope is not None:
+            return self.enclosingScope.resolve(name)
+        return None
+
+    def define(self, sym: Symbol):
+        self.arguments[sym.name] = sym
+        sym.scope = self
+
+    def getEnclosingScope(self):
+        return self.enclosingScope
+
+    def getScopeName(self):
+        return self.name
+
+    def __str__(self):
+        buf = "function "
+        buf += super().__str__()
+        buf += " : "
+        for par in self.arguments.values():
+            buf += par.__str__() + ';'
+        return buf
+
+
+class VariableSymbol(Symbol):
+    def __init__(self, name, stype):
+        super().__init__(name, stype)
+
+--#
+
+--% /pyant/08-CallGraph/t.cymbol
+int main() { fact(); a(); }
+
+float fact(int n) {
+  print(n);
+  
+  if ( n==0 ) then return 1;
+  return n * fact(n-1);
+}
+
+void a() { int x = b(); if false then {c(); d();} }
+void b() { c(); }
+void c() { b(); }
+void d() { }
+void e() { }
+
+
+
+--#
+
+--% /pyant/08-CallGraph/vars.cymbol
+int f(int x, float y) {
+    g();   // forward reference is ok
+    i = 3; // no declaration for i (error)
+    g = 4; // g is not variable (error)
+    return x + y; // x, y are defined, so no problem
+}
+
+void g() {
+    int x = 0;
+    float y;
+    y = 9; // y is defined
+    f();   // backward reference is ok
+    z();   // no such function (error)
+    y();   // y is not function (error)
+    x = f; // f is not a variable (error)
+}
+
+
+--#
+
+--% /pyant/08-CallGraph/vars2.cymbol
+int x; //(1) 
+int y;
+void a() //(2) 
+{ //(3) 
+    int x;
+    x = 1;  // x resolves to current scope, not x in global scope
+    y = 2;  // y is not found in current scope, but resolves in global
+    { int y = x; } //(4) 
+}
+void b(int z) //(5) 
+{ } //(6) 
+
+
+--#
+
+--% /pyant/08-CSV/08-CSV.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/08-CSV/CSV.g4
+grammar CSV;
+
+top : hdr row+ ;
+hdr : row ;
+
+row : field (',' field)* '\r'? '\n' ;
+
+field
+    :   TEXT	# text
+    |   STRING	# string
+    |   	    # empty
+    ;
+
+TEXT : ~[,\n\r"]+ ;
+STRING : '"' ('""'|~'"')* '"' ;
+
+
+--#
+
+--% /pyant/08-CSV/CSV_Loader.py
+__author__ = 'jszheng'
+
+
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from CSVLexer import CSVLexer
+from CSVParser import CSVParser
+from CSVListener import CSVListener
+
+
+class CsvLoader(CSVListener):
+    def __init__(self):
+        self.rows = []
+        self.header = []
+        self.current = []
+
+    def exitString(self, ctx):
+        self.current.append(ctx.STRING().getText())
+
+    def exitText(self, ctx):
+        self.current.append(ctx.TEXT().getText())
+
+    def exitEmpty(self, ctx):
+        self.current.append('')
+
+    def exitHdr(self, ctx):
+        self.header = self.current
+
+    def enterRow(self, ctx):
+        self.current = []
+
+    def exitRow(self, ctx):
+        # getParent() method does not exist, use 'parentCtx' field here.
+        if ctx.parentCtx.getRuleIndex() == CSVParser.RULE_hdr:
+            return
+        m = dict(zip(self.header, self.current))
+        self.rows.append(m)
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = CSVLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = CSVParser(token_stream)
+    tree = parser.top()
+
+    lisp_tree_str = tree.toStringTree(recog=parser)
+    print(lisp_tree_str)
+
+    # listener
+    print("Start Walking...")
+    listener = CsvLoader()
+    walker = ParseTreeWalker()
+    walker.walk(listener, tree)
+    print('result =', listener.rows)
+
+
+--#
+
+--% /pyant/08-CSV/README.md
+# Parse CSV file
+
+```
+% type t.csv
+Details,Month,Amount
+Mid Bonus,June,"$2,000"
+,January,"""zippo"""
+Total Bonuses,"","$5,000"
+
+% python CSV_Loader.py t.csv
+(top 
+  (hdr 
+    (row 
+      (field Details) , 
+      (field Month) , 
+      (field Amount) \r \n)) 
+  (row (field Mid Bonus) , (field June) , (field "$2,000") \r \n) 
+  (row field , (field January) , (field """zippo""") \r \n) 
+  (row (field Total Bonuses) , (field "") , (field "$5,000") \r \n))
+
+Start Walking...
+result = [
+{'Month': 'June','Details': 'Mid Bonus', 'Amount': '"$2,000"'}, 
+{'Month': 'January', 'Details': '', 'Amount': '"""zippo"""'}, 
+{'Month': '""', 'Details': 'Total Bonuses', 'Amount': '"$5,000"'}
+]
+```
+
+
+
+--#
+
+--% /pyant/08-CSV/t.csv
+Details,Month,Amount
+Mid Bonus,June,"$2,000"
+,January,"""zippo"""
+Total Bonuses,"","$5,000"
+
+
+--#
+
+--% /pyant/08-JSON/08-JSON.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/08-JSON/JSON.g4
+// Derived from http://json.org
+grammar JSON;
+
+json:   obj
+    |   array
+    ;
+
+obj
+    :   '{' pair (',' pair)* '}'    # AnObject
+    |   '{' '}'                     # EmptyObject
+    ;
+	
+array
+    :   '[' value (',' value)* ']'  # ArrayOfValues
+    |   '[' ']'                     # EmptyArray
+    ;
+
+pair:   STRING ':' value ;
+
+value
+    :   STRING		# String
+    |   NUMBER		# Atom
+    |   obj     	# ObjectValue
+    |   array  		# ArrayValue
+    |   'true'		# Atom
+    |   'false'		# Atom
+    |   'null'		# Atom
+    ;
+
+LCURLY : '{' ;
+LBRACK : '[' ;
+STRING :  '"' (ESC | ~["\\])* '"' ;
+
+fragment ESC :   '\\' (["\\/bfnrt] | UNICODE) ;
+fragment UNICODE : 'u' HEX HEX HEX HEX ;
+fragment HEX : [0-9a-fA-F] ;
+
+NUMBER
+    :   '-'? INT '.' INT EXP?   // 1.35, 1.35E-9, 0.3, -4.5
+    |   '-'? INT EXP            // 1e10 -3e4
+    |   '-'? INT                // -3, 45
+    ;
+fragment INT :   '0' | '1'..'9' '0'..'9'* ; // no leading zeros
+fragment EXP :   [Ee] [+\-]? INT ; // \- since - means "range" inside [...]
+
+WS  :   [ \t\n\r]+ -> skip ;
+
+
+--#
+
+--% /pyant/08-JSON/json2xml.py
+__author__ = 'jszheng'
+
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from JSONLexer import JSONLexer
+from JSONParser import JSONParser
+from JSONListener import JSONListener
+
+
+class XmlEmitter(JSONListener):
+    def __init__(self):
+        self.xml = {}
+
+    def getXML(self, ctx):
+        return self.xml[ctx]
+
+    def setXML(self, ctx, value):
+        self.xml[ctx] = value
+
+    def exitAtom(self, ctx):
+        self.setXML(ctx, ctx.getText())
+
+    def exitString(self, ctx):
+        self.setXML(ctx, ctx.getText().strip('"'))
+
+    def exitObjectValue(self, ctx: JSONParser.ObjectValueContext):
+        self.setXML(ctx, self.getXML(ctx.obj()))
+
+    def exitPair(self, ctx: JSONParser.PairContext):
+        tag = ctx.STRING().getText().strip('"')
+        val = self.getXML(ctx.value())
+        x = '<%s>%s</%s>\n' % (tag, val, tag)
+        self.setXML(ctx, x)
+
+    def exitAnObject(self, ctx: JSONParser.AnObjectContext):
+        buf = "\n"
+        for pctx in ctx.pair():
+            buf += self.getXML(pctx)
+        self.setXML(ctx, buf)
+
+    def exitArrayOfValues(self, ctx: JSONParser.ArrayOfValuesContext):
+        buf = "\n"
+        for vctx in ctx.value():
+            buf += "<element>"
+            buf += self.getXML(vctx)
+            buf += "</element>\n"
+        self.setXML(ctx, buf)
+
+    def exitArrayValue(self, ctx: JSONParser.ArrayValueContext):
+        self.setXML(ctx, self.getXML(ctx.array()))
+
+    def exitEmptyArray(self, ctx: JSONParser.EmptyArrayContext):
+        self.setXML(ctx, "")
+
+    def exitJson(self, ctx: JSONParser.JsonContext):
+        self.setXML(ctx, self.getXML(ctx.getChild(0)))
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = JSONLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = JSONParser(token_stream)
+    tree = parser.json()
+
+    lisp_tree_str = tree.toStringTree(recog=parser)
+    print(lisp_tree_str)
+
+    # listener
+    print("Start Walking...")
+    listener = XmlEmitter()
+    walker = ParseTreeWalker()
+    walker.walk(listener, tree)
+    print(listener.getXML(tree))
+
+
+
+--#
+
+--% /pyant/08-JSON/README.md
+# What's New
+- Label multiple alternative with the same name and process with same function.
+
+# How to Run
+```
+% type t.json
+{
+    "description" : "An imaginary server config file",
+    "logs" : {"level":"verbose", "dir":"/var/log"},
+    "host" : "antlr.org",
+    "admin": ["parrt", "tombu"],
+    "aliases": []
+}
+
+% python json2xml.py t.json
+
+<description>An imaginary server config file</description>
+<logs>
+<level>verbose</level>
+<dir>/var/log</dir>
+</logs>
+<host>antlr.org</host>
+<admin>
+<element>parrt</element>
+<element>tombu</element>
+</admin>
+<aliases></aliases>
+
+```
+
+--#
+
+--% /pyant/08-JSON/t.json
+{
+    "description" : "An imaginary server config file",
+    "logs" : {"level":"verbose", "dir":"/var/log"},
+    "host" : "antlr.org",
+    "admin": ["parrt", "tombu"],
+    "aliases": []
+}
+
+
+--#
+
+--% /pyant/09-simple/in1.txt
+class T { int i; }
+
+
+
+--#
+
+--% /pyant/09-simple/in2.txt
+class T {
+  int f(x) { a = 3 4 5; }
+}
+
+--#
+
+--% /pyant/09-simple/in3.txt
+class T; { int i; }
+
+
+
+--#
+
+--% /pyant/09-simple/in4.txt
+class T {
+  int f(x) { a = 3; }
+
+--#
+
+--% /pyant/09-simple/in5.txt
+class T { int ; }
+
+--#
+
+--% /pyant/09-simple/in6.txt
+class # { int i; }
+
+--#
+
+--% /pyant/09-simple/in7.txt
+class T T {
+  int ;
+}
+
+--#
+
+--% /pyant/09-simple/README.md
+# The build-in Error report
+
+```
+% antlr4py3 Simple.g4
+% pygrun Simple prog in1.txt
+var i
+class T
+
+% pygrun Simple prog in2.txt
+line 2:19 mismatched input '4' expecting ';'
+method: f
+class T
+
+% pygrun Simple prog in3.txt
+line 1:7 extraneous input ';' expecting '{'
+var i
+class T
+
+% pygrun Simple prog in4.txt
+found assign: a=3;
+method: f
+line 2:21 missing '}' at '<EOF>'
+class T
+
+% pygrun Simple prog in5.txt
+line 1:14 no viable alternative at input 'int;'
+class T
+
+% pygrun Simple prog in6.txt
+line 1:6 token recognition error at: '#'
+line 1:8 missing ID at '{'
+var i
+class <missing ID>
+```
+
+# Verbose Listener
+
+```
+% python TestE_Listener.py in7.txt
+rule stack:  ['prog', 'classDef']
+line 1 : 8 at [@2,8:8='T',<10>,1:8] : extraneous input 'T' expecting '{'
+rule stack:  ['prog', 'classDef', 'member']
+line 2 : 6 at [@5,19:19=';',<5>,2:6] : no viable alternative at input 'int;'
+class T 
+```
+
+--#
+
+--% /pyant/09-simple/Simple.g4
+grammar Simple;
+
+prog:   classDef+ ; // match one or more class definitions
+
+classDef
+    :   'class' ID '{' member+ '}' // a class has one or more members
+        {print("class "+$ID.text);}
+    ;
+
+member
+    :   'int' ID ';'                       // field definition
+        {print("var "+$ID.text);}
+    |   'int' f=ID '(' ID ')' '{' stat '}' // method definition
+        {print("method: "+$f.text);}
+    ;
+
+stat:   expr ';'
+        {print("found expr: " + $text);}
+    |   ID '=' expr ';'
+        {print("found assign: " + $text);}
+    ;
+
+expr:   INT 
+    |   ID '(' INT ')'
+    ;
+
+INT :   [0-9]+ ;
+ID  :   [a-zA-Z]+ ;
+WS  :   [ \t\r\n]+ -> skip ;
+
+
+
+--#
+
+--% /pyant/09-simple/TestE_Listener.py
+import sys
+from antlr4 import *
+from antlr4.error.ErrorListener import *
+from pprint import pprint
+
+from SimpleLexer import SimpleLexer
+from SimpleParser import SimpleParser
+
+
+
+class VerboseListener(ErrorListener) :
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        stack = recognizer.getRuleInvocationStack()
+        stack.reverse()
+        print("rule stack: ", str(stack))
+        print("line", line, ":", column, "at", offendingSymbol, ":", msg)
+
+
+def main(argv):
+    istream = FileStream(argv[1])
+    lexer = SimpleLexer(istream)
+    stream = CommonTokenStream(lexer)
+    parser = SimpleParser(stream)
+    parser.removeErrorListeners()
+    parser.addErrorListener(VerboseListener())
+    parser.prog()
+
+
+if __name__ == '__main__':
+    main(sys.argv)
+
+
+--#
+
+--% /pyant/10-calc/10-calc.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/10-calc/calc.py
+__author__ = 'jszheng'
+
+import sys
+from antlr4 import *
+from antlr4.InputStream import InputStream
+
+from ExprLexer import ExprLexer
+from ExprParser import ExprParser
+
+if __name__ == '__main__':
+    parser = ExprParser(None)
+    parser.buildParseTrees = False
+
+    line = sys.stdin.readline()
+    lineno = 1
+
+    while line != '':
+        line = line.strip()
+        #print(lineno, line)
+
+        istream = InputStream(line + "\n")
+        lexer = ExprLexer(istream)
+        lexer.line = lineno
+        lexer.column = 0
+        token_stream = CommonTokenStream(lexer)
+        parser.setInputStream(token_stream)
+        parser.stat()
+
+        line = sys.stdin.readline()
+        lineno += 1
+
+
+--#
+
+--% /pyant/10-calc/Expr.g4
+/** Grammar from tour chapter augmented with actions */
+grammar Expr;
+
+@header {
+}
+
+@parser::members {
+@property
+def memory(self):
+    if not hasattr(self, '_map'):
+        setattr(self, '_map', {})
+    return self._map
+    
+@memory.setter
+def memory_setter(self, value):
+    if not hasattr(self, '_map'):
+        setattr(self, '_map', {})
+    self._map = value
+    
+def eval(self, left, op, right):
+    if   ExprParser.MUL == op.type:
+        return left * right
+    elif ExprParser.DIV == op.type:
+        return left / right
+    elif ExprParser.ADD == op.type:
+        return left + right
+    elif ExprParser.SUB == op.type:
+        return left - right
+    else:
+        return 0
+}
+
+stat:   e NEWLINE           {print($e.v);}
+    |   ID '=' e NEWLINE    {self.memory[$ID.text] = $e.v}
+    |   NEWLINE                   
+    ;
+
+e returns [int v]
+    : a=e op=('*'|'/') b=e  {$v = self.eval($a.v, $op, $b.v)}
+    | a=e op=('+'|'-') b=e  {$v = self.eval($a.v, $op, $b.v)}
+    | INT                   {$v = $INT.int}    
+    | ID
+      {
+id = $ID.text
+$v = self.memory.get(id, 0)
+      }
+    | '(' e ')'             {$v = $e.v}       
+    ; 
+
+MUL : '*' ;
+DIV : '/' ;
+ADD : '+' ;
+SUB : '-' ;
+
+ID  :   [a-zA-Z]+ ;      // match identifiers
+INT :   [0-9]+ ;         // match integers
+NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
+WS  :   [ \t]+ -> skip ; // toss out whitespace
+
+
+--#
+
+--% /pyant/10-calc/README.md
+# What's in this example
+- Interactive
+- Create new input stream every line.
+- Do not build AST tree
+
+# How to run
+```
+% python calc.py
+1+2*3
+7
+var=10
+var*100
+1000
+^Z
+```
+
+--#
+
+--% /pyant/10-CSV/10-CSV.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/10-CSV/CSV.g4
+grammar CSV;
+
+@header {
+from pprint import pprint
+
+}
+
+/** Derived from rule "start : hdr row+ ;" */
+start
+locals [i=0]
+     : hdr ( rows+=row[$hdr.text.split(',')] {$i+=1} )+
+       {
+print(str($i)+" rows");
+for r in $rows:
+    print("row token interval: "+str(r.getSourceInterval()))
+       }
+     ;
+
+hdr : row[None] {print("header: '"+$text.strip()+"'")} ;
+
+row[columns] returns [values]
+locals [col=0]
+@init {
+$values = {}
+}
+@after {
+if ($values != None) or (len($values) > 0):
+    pprint($values)
+}
+    :   field
+        {
+if ($columns!=None) :
+    $values[$columns[$col].strip()] = $field.text.strip()
+    $col += 1
+        }
+        (   ',' field
+            {
+if ($columns!=None) :
+    $values[$columns[$col].strip()] = $field.text.strip()
+    $col += 1
+            }
+        )* '\r'? '\n'
+    ;
+
+field
+    :   TEXT
+    |   STRING
+    |
+    ;
+
+TEXT : ~[,\n\r"]+ ;
+STRING : '"' ('""'|~'"')* '"' ; // quote-quote is an escaped quote
+
+
+--#
+
+--% /pyant/10-CSV/README.md
+Rule with parameter and return.
+
+```
+% antlr4py3 CSV.g4
+
+% python test_csv.py users.csv
+{}
+header: 'User,  Name,    Dept'
+{'Dept': '101', 'Name': 'Terence', 'User': 'parrt'}
+{'Dept': '020', 'Name': 'Tom', 'User': 'tombu'}
+{'Dept': '008', 'Name': 'Kevin', 'User': 'bke'}
+3 rows
+row token interval: (6, 11)
+row token interval: (12, 17)
+row token interval: (18, 23)
+```
+
+--#
+
+--% /pyant/10-CSV/test_csv.py
+
+import sys
+from antlr4 import *
+from antlr4 import InputStream
+
+from CSVLexer import CSVLexer
+from CSVParser import CSVParser
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = CSVLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = CSVParser(token_stream)
+    parser.buildParseTrees = False
+    parser.start()
+
+--#
+
+--% /pyant/10-CSV/users.csv
+User,  Name,    Dept
+parrt, Terence, 101
+tombu, Tom,     020
+bke, Kevin,     008
+
+
+--#
+
+--% /pyant/10-Keyword/10-Keyword.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/10-Keyword/input1.txt
+if = 34;
+
+--#
+
+--% /pyant/10-Keyword/input2.txt
+if 1 then i=4;
+
+
+--#
+
+--% /pyant/10-Keyword/input3.txt
+x = 34;
+
+
+--#
+
+--% /pyant/10-Keyword/Keywords.g4
+grammar Keywords;
+// @lexer::header {
+// }
+
+// explicitly define keyword token types to avoid implicit def warnings
+tokens { BEGIN, END, IF, THEN, WHILE }
+
+// @lexer::members {
+// }
+
+stat:   BEGIN stat* END 
+    |   IF expr THEN stat
+    |   WHILE expr stat
+    |   ID '=' expr ';'
+	;
+
+expr:   INT | CHAR ;
+
+ID  :   [a-zA-Z]+
+        {
+if self.text in self.keywords:
+    self.type = self.keywords.get(self.text)
+        }
+    ;
+
+/** Convert 3-char 'x' input sequence to string x */
+CHAR:   '\'' . '\'' {self.text = self.text[1]} ;
+
+INT :   [0-9]+ ;
+
+WS  :   [ \t\n\r]+ -> skip ;
+
+
+--#
+
+--% /pyant/10-Keyword/test_Keyword.py
+__author__ = 'jszheng'
+
+import sys
+from antlr4 import *
+from antlr4 import InputStream
+from KeywordsLexer import KeywordsLexer
+from KeywordsParser import KeywordsParser
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = KeywordsLexer(input_stream)
+    # there is no way to insert code in the __init__ function
+    # from ANTLR file. just hack here, or could just create new class
+    setattr(lexer, 'keywords', {
+        'begin': KeywordsParser.BEGIN,
+        'if':    KeywordsParser.IF,
+        'then':  KeywordsParser.THEN,
+        'while': KeywordsParser.WHILE
+    })
+
+    # tk = lexer.nextToken()
+    # while tk.type != Token.EOF:
+    #     print(tk)
+    #     tk = lexer.nextToken()
+
+    token_stream = CommonTokenStream(lexer)
+    parser = KeywordsParser(token_stream)
+    parser.stat()
+
+
+--#
+
+--% /pyant/11-CppState/11-CppState.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/11-CppState/CppStat.g4
+grammar CppStat;
+
+stat:   decl ';'  {print("decl "+$decl.text)}
+    |   expr ';'  {print("expr "+$expr.text)}
+    ;
+
+decl:   ID ID           // E.g., "Point p"
+    |   ID '(' ID ')'   // E.g., "Point (p)", same as ID ID
+    ;
+    
+expr:   INT             // integer literal
+    |   ID              // identifier
+    |   ID '(' expr ')' // function call
+    ;
+
+ID  :   [a-zA-Z]+ ;
+INT :   [0-9]+ ;
+WS  :   [ \t\n\r]+ -> skip ;
+
+
+--#
+
+--% /pyant/11-CppState/input.cpp
+f(i);
+T(i);
+
+
+--#
+
+--% /pyant/11-CppState/input2.cpp
+T(i);
+
+
+--#
+
+--% /pyant/11-CppState/PredCppStat.g4
+grammar PredCppStat;
+
+@parser::header {
+}
+
+@parser::members {
+@property
+def types_table(self):
+    try:
+        return self._types_table
+    except AttributeError:
+        self._types_table = ['T']
+        return self._types_table
+
+def istype(self):
+    if self.getCurrentToken().text in self.types_table:
+        return True
+    else:
+        return False
+}
+
+stat:   decl ';'  {print("decl "+$decl.text);}
+    |   expr ';'  {print("expr "+$expr.text);}
+    ;
+
+decl:   ID ID                         // E.g., "Point p"
+    |   {self.istype()}? ID '(' ID ')'     // E.g., "Point (p)", same as ID ID
+    ;
+
+expr:   INT                           // integer literal
+    |   ID                            // identifier
+    |   {not self.istype()}? ID '(' expr ')'  // function call
+    ;
+
+ID  :   [a-zA-Z]+ ;
+INT :   [0-9]+ ;
+WS  :   [ \t\n\r]+ -> skip ;
+
+
+--#
+
+--% /pyant/11-predicate_lexer/11-predicate_lexer.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/11-predicate_lexer/Enum2.g4
+grammar Enum2;
+@lexer::members {_java5 = False}
+
+prog:   (   stat 
+        |   enumDecl
+        )+
+    ;
+
+stat:   ID '=' expr ';' {print($ID.text+"="+$expr.text)} ;
+
+expr:   ID
+    |   INT
+    ;
+
+// No predicate needed here because 'enum' token undefined if !java5
+enumDecl
+    :   'enum' name=ID '{' ID (',' ID)* '}'
+        {print("enum "+$name.text)}
+    ;
+
+ENUM:   'enum' {self._java5}? ; // must be before ID
+ID  :   [a-zA-Z]+ ;
+
+
+INT :   [0-9]+ ;
+WS  :   [ \t\r\n]+ -> skip ;
+
+
+--#
+
+--% /pyant/11-predicate_lexer/README.md
+Predicate in Lexer
+
+```
+When you set Enum2Lexer._java5 = True
+% python test_EnumLexer.py Temp.java
+enum Temp
+
+When you set Enum2Lexer._java5 = False
+% python test_EnumLexer.py Temp.java
+line 1:5 missing '=' at 'Temp'
+line 1:15 mismatched input ',' expecting '='
+line 1:22 mismatched input '}' expecting '='
+```
+
+--#
+
+--% /pyant/11-predicate_lexer/Temp.java
+enum Temp { HOT, COLD }
+
+
+--#
+
+--% /pyant/11-predicate_lexer/test_EnumLexer.py
+__author__ = 'jszheng'
+
+import sys
+from antlr4 import *
+from Enum2Lexer import Enum2Lexer
+from Enum2Parser import Enum2Parser
+
+if __name__ == '__main__':
+    Enum2Lexer._java5 = True
+
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = Enum2Lexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = Enum2Parser(token_stream)
+    parser.buildParseTrees = False
+    parser.prog()
+
+--#
+
+--% /pyant/11-predicate_parser/11-predicate_parser.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/11-predicate_parser/Enum.g4
+grammar Enum;
+@parser::init {}
+@parser::members {_java5 = False}
+
+prog:   (   stat 
+        |   enumDecl
+        )+
+    ;
+
+stat:   identifier '=' expr ';' {print($identifier.text+"="+$expr.text)} ;
+
+expr
+    :   identifier
+    |   INT
+    ;
+
+enumDecl
+    :   {self._java5}? 'enum' name=identifier '{' identifier (',' identifier)* '}'
+        {print("enum "+$name.text)}
+    ;
+
+identifier  :   ID
+    |   {not self._java5}? 'enum'
+    ;
+    
+ID  :   [a-zA-Z]+ ;
+INT :   [0-9]+ ;
+WS  :   [ \t\r\n]+ -> skip ;
+
+
+--#
+
+--% /pyant/11-predicate_parser/README.md
+Predicate in Parser
+
+```
+% antlr4py3 Enum.g4
+
+Set EnumParser._java5 = True
+% python test_EnumParser.py Temp.java
+enum Temp
+
+Set EnumParser._java5 = False
+% python test_EnumParser.py Temp.java
+line 1:0 no viable alternative at input 'enum'
+```
+
+
+--#
+
+--% /pyant/11-predicate_parser/Temp.java
+enum Temp { HOT, COLD }
+
+
+--#
+
+--% /pyant/12-channel/12-channel.iml
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="jdk" jdkName="Python 3.4.3 (D:\Apps\Python\Python34\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
+--#
+
+--% /pyant/12-channel/Cymbol.g4
+/** Simple statically-typed programming language with functions and variables
+ *  taken from "Language Implementation Patterns" book.
+ */
+grammar Cymbol;
+
+@lexer::members {
+WHITESPACE = 1
+COMMENTS = 2
+}
+
+startrule:   (functionDecl | varDecl)+ ;
+
+varDecl
+    :   datatype ID ('=' expr)? ';'
+    ;
+datatype:   'float' | 'int' | 'void' ; // user-defined types
+
+functionDecl
+    :   datatype ID '(' formalParameters? ')' block // "void f(int x) {...}"
+    ;
+
+formalParameters
+    :   formalParameter (',' formalParameter)*
+    ;
+formalParameter
+    :   datatype ID
+    ;
+
+block:  '{' stat* '}' ;   // possibly empty statement block
+
+stat:   block
+    |   varDecl
+    |   'if' expr 'then' stat ('else' stat)?
+    |   'return' expr? ';' 
+    |   expr '=' expr ';' // assignment
+    |   expr ';'          // func call
+    ;
+
+expr:   ID '(' exprList? ')'    // func call like f(), f(x), f(1,2)
+    |   expr '[' expr ']'       // array index like a[i], a[i][j]
+    |   '-' expr                // unary minus
+    |   '!' expr                // boolean not
+    |   expr '*' expr
+    |   expr ('+'|'-') expr
+    |   expr '==' expr          // equality comparison (lowest priority op)
+    |   ID                      // variable reference
+    |   INT
+    |   '(' expr ')'
+    ;
+
+exprList : expr (',' expr)* ;   // arg list
+
+ID  :   LETTER (LETTER | [0-9])* ;
+fragment
+LETTER : [a-zA-Z] ;
+
+INT :   [0-9]+ ;
+
+WS  :   [ \t\n\r]+ -> channel(1) ;  // channel(1)
+
+SL_COMMENT
+    :   '//' .*? '\n' -> channel(2)   // channel(2)
+    ;
+
+
+--#
+
+--% /pyant/12-channel/README.md
+# Shift Comment to top
+There is no TokenStreamRewriter in the python runtime. It does not have to. if you dive into the source code, the CommonTokenStream is derived from BufferedTokenStream which has a list of CommonToken. It is re-writable. 
+
+in the listener
+```python
+class CommentShifter(CymbolListener):
+    def __init__(self, tokens:CommonTokenStream):
+        super().__init__()
+        self.tokens = tokens  # record the token stream from parser
+
+    def exitVarDecl(self, ctx:CymbolParser.VarDeclContext):
+        startIndex = ctx.start.tokenIndex
+        stopIndex = ctx.stop.tokenIndex
+        cmtChannel = self.tokens.getHiddenTokensToRight(stopIndex, CymbolLexer.COMMENTS)
+        if cmtChannel != None:
+            tok = cmtChannel[0]
+            if tok != None:  # find out a comment followed, it is one token
+                # self.tokens is CommonTokenStream
+                # self.tokens.tokens is the list of CommonToken
+                token_array = self.tokens.tokens
+                token_array.insert(startIndex, tok.clone())
+                tok.text = "\n"
+```
+
+# How to run
+```
+% python shift_var_comments.py t.cym
+(startrule 
+  (varDecl (datatype int) n = (expr 0) ;) 
+  (varDecl (datatype int) i = (expr 9) ;)
+)
+// define a counter
+int n = 0;
+int i = 9;
+```
+
+--#
+
+--% /pyant/12-channel/shift_var_comments.py
+__author__ = 'jszheng'
+
+import sys
+from antlr4 import *
+from antlr4 import InputStream
+
+from CymbolLexer import CymbolLexer
+from CymbolParser import CymbolParser
+from CymbolListener import CymbolListener
+
+
+class CommentShifter(CymbolListener):
+    def __init__(self, tokens:CommonTokenStream):
+        super().__init__()
+        self.tokens = tokens
+
+    def exitVarDecl(self, ctx:CymbolParser.VarDeclContext):
+        startIndex = ctx.start.tokenIndex
+        stopIndex = ctx.stop.tokenIndex
+        cmtChannel = self.tokens.getHiddenTokensToRight(stopIndex, CymbolLexer.COMMENTS)
+        if cmtChannel != None:
+            tok = cmtChannel[0]
+            if tok != None:
+                token_array = self.tokens.tokens
+                token_array.insert(startIndex, tok.clone())
+                tok.text = "\n"
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_stream = FileStream(sys.argv[1])
+    else:
+        input_stream = InputStream(sys.stdin.read())
+
+    lexer = CymbolLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = CymbolParser(token_stream)
+    tree = parser.startrule()
+
+    lisp_tree_str = tree.toStringTree(recog=parser)
+    print(lisp_tree_str)
+
+    walker = ParseTreeWalker()
+    collector = CommentShifter(token_stream)
+    walker.walk(collector, tree)
+    print(token_stream.getText())
+
+
+--#
+
+--% /pyant/12-channel/t.cym
+int n = 0; // define a counter
+int i = 9;
+
+
+--#
+
+--% /pyant/12-id_as_keyword/IDKeyword.g4
+grammar IDKeyword;
+
+prog: stat+ ;
+
+stat: 'if' expr 'then' stat
+    | 'call' id_rule ';'
+    | ';'
+    ;
+
+expr: id_rule ;
+
+id_rule  :   'if' | 'call' | 'then' | ID ;
+
+ID : [a-z]+ ;
+WS : [ \r\n]+ -> skip ;
+
+
+--#
+
+--% /pyant/12-id_as_keyword/input.txt
+if if then call call;
+
+--#
+
+--% /pyant/12-id_as_keyword/PredKeyword.g4
+grammar PredKeyword;
+
+prog: stat+ ;
+
+stat: keyIF expr 'then' stat
+    | keyCALL ID ';'
+    | ';'
+    ;
+
+expr: ID
+    ;
+
+keyIF :   {self._input.LT(1).text == "if"}? ID ;
+
+keyCALL : {self._input.LT(1).text == "call"}? ID ;
+
+ID : 'a'..'z'+ ;
+WS : (' '|'\n')+ -> skip;
+
+
+--#
+
+--% /pyant/12-id_as_keyword/run.bat
+pygrun IDKeyword   prog input.txt --tree 
+pygrun PredKeyword prog input.txt --trace --diagnostics
+
+--#
+
+--% /pyant/12-sea_of_text/Mode.txt
+Hello  <name>John</name>
+
+
+--#
+
+--% /pyant/12-sea_of_text/ModeTagsLexer.g4
+lexer grammar ModeTagsLexer;
+
+// Default mode rules (the SEA)
+OPEN  : '<'     -> mode(ISLAND) ;       // switch to ISLAND mode
+TEXT  : ~'<'+ ;                         // clump all text together
+
+mode ISLAND;
+CLOSE : '>'     -> mode(DEFAULT_MODE) ; // back to SEA mode 
+SLASH : '/' ;
+ID    : [a-zA-Z]+ ;                     // match/send ID in tag to parser
+
+
+--#
+
+--% /pyant/12-sea_of_text/ModeTagsParser.g4
+parser grammar ModeTagsParser;
+
+options { tokenVocab=ModeTagsLexer; } // use tokens from ModeTagsLexer.g4
+
+entry: (tag | TEXT)* ;
+
+tag : '<' ID '>'
+    | '<' '/' ID '>'
+    ;
+
+
+--#
+
+--% /pyant/12-sea_of_text/Tags.g4
+grammar Tags;
+entry : (TAG|ENTITY|TEXT|CDATA)* ;
+
+COMMENT : '<!--' .*? '-->' -> skip ;
+CDATA : '<![CDATA[' .*? ']]>' ;
+TAG : '<' .*? '>' ; // must come after other tag-like structures
+ENTITY : '&' .*? ';' ;
+TEXT : ~[<&]+ ;     // any sequence of chars except < and & chars
+--#

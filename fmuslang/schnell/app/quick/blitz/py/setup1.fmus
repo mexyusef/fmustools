@@ -1,0 +1,51 @@
+--% index/fmus
+__PWD,d
+	%__TEMPLATE_PACKAGENAME=myapp
+	%__TEMPLATE_VERSION=0.0.1
+	%__TEMPLATE_DESCRIPTION=deskripsi di sini
+	%__TEMPLATE_ALAMAT_GITHUB=https://github.com/mexyusef/palsu
+	%__TEMPLATE_AUTHOR_NAME=mexyusef
+	%__TEMPLATE_AUTHOR_EMAIL=mexusef@gmail.com
+	%__TEMPLATE_LICENSE=MIT
+	?pick
+		setup.py,f(e=__FILE__=template/1)
+		setup.py,f(e=__FILE__=template/2)
+--#
+
+--% template/1
+from setuptools import setup, Command
+import os, sys
+
+setup(name='__TEMPLATE_PACKAGENAME',
+      version='__TEMPLATE_VERSION',
+      description='__TEMPLATE_DESCRIPTION',
+      url='__TEMPLATE_ALAMAT_GITHUB',
+      author='__TEMPLATE_AUTHOR_NAME',
+      author_email='__TEMPLATE_AUTHOR_EMAIL',
+      license='__TEMPLATE_LICENSE',
+      packages=['__TEMPLATE_PACKAGENAME'],
+      install_requires=[
+          'pandas',
+          'numpy',
+          'sklearn'
+
+      ],
+      zip_safe=False)
+--#
+
+--% template/2
+from setuptools import setup, find_packages
+import os, sys
+
+setup(name='__TEMPLATE_PACKAGENAME',
+      version='__TEMPLATE_VERSION',
+      description='__TEMPLATE_DESCRIPTION',
+      url='__TEMPLATE_ALAMAT_GITHUB',
+      author='__TEMPLATE_AUTHOR_NAME',
+      author_email='__TEMPLATE_AUTHOR_EMAIL',
+      license='__TEMPLATE_LICENSE',
+      packages=find_packages(),
+      install_requires=[
+      ],
+      zip_safe=False)
+--#

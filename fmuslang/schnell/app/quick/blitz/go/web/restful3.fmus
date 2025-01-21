@@ -1,0 +1,190 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+	$* go mod init github.com/mexyusef/palsu
+	dbutils,d(/mk)
+		init-tables.go,f(e=__FILE__=inittables)
+		models.go,f(e=__FILE__=models)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    info.txt,f(e=__FILE__=info.txt)
+    $* more info.txt
+    $* go run main.go
+--#
+
+--% inittables
+package dbutils
+
+import "log"
+import "database/sql"
+
+func Initialize(dbDriver *sql.DB) {
+	statement, driverError := dbDriver.Prepare(train)
+	if driverError != nil {
+		log.Println(driverError)
+	}
+	// Create train table
+	_, statementError := statement.Exec()
+	if statementError != nil {
+		log.Println("Table already exists!")
+	}
+	statement, _ = dbDriver.Prepare(station)
+	statement.Exec()
+	statement, _ = dbDriver.Prepare(schedule)
+	statement.Exec()
+	log.Println("All tables created/initialized successfully!")
+}
+--#
+
+--% models
+package dbutils
+
+const train = `
+	CREATE TABLE IF NOT EXISTS train (
+           ID INTEGER PRIMARY KEY AUTOINCREMENT,
+           DRIVER_NAME VARCHAR(64) NULL,
+           OPERATING_STATUS BOOLEAN
+        )
+`
+
+const station = `
+	CREATE TABLE IF NOT EXISTS station (
+          ID INTEGER PRIMARY KEY AUTOINCREMENT,
+          NAME VARCHAR(64) NULL,
+          OPENING_TIME TIME NULL,
+          CLOSING_TIME TIME NULL
+        )
+`
+const schedule = `
+	CREATE TABLE IF NOT EXISTS schedule (
+	  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+          TRAIN_ID INT,
+          STATION_ID INT,
+          ARRIVAL_TIME TIME,
+          FOREIGN KEY (TRAIN_ID) REFERENCES train(ID),
+          FOREIGN KEY (STATION_ID) REFERENCES station(ID)
+        )
+`
+--#
+
+--% main.go
+package main
+
+import (
+	"database/sql"
+	//"encoding/json"
+	"log"
+	"net/http"
+	//"time"
+
+	"github.com/mexyusef/palsu/dbutils"
+	"github.com/emicklei/go-restful"
+	_ "github.com/mattn/go-sqlite3"
+)
+
+// DB Driver visible to whole program
+var DB *sql.DB
+
+// StationResource holds information about locations
+type StationResource struct {
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	OpeningTime string `json:"opening_time"`
+	ClosingTime string `json:"closing_time"`
+}
+
+// GetStation returns the station detail
+func GetStation(c *gin.Context) {
+	var station StationResource
+	id := c.Param("station_id")
+	err := DB.QueryRow("select ID, NAME, CAST(OPENING_TIME as CHAR), CAST(CLOSING_TIME as CHAR) from station where id=?", id).Scan(&station.ID, &station.Name, &station.OpeningTime, &station.ClosingTime)
+	if err != nil {
+		log.Println(err)
+		c.JSON(500, gin.H{
+			"error": err.Error(),
+		})
+	} else {
+		c.JSON(200, gin.H{
+			"result": station,
+		})
+	}
+}
+
+// CreateStation handles the POST
+func CreateStation(c *gin.Context) {
+	var station StationResource
+	// Parse the body into our resrource
+	if err := c.BindJSON(&station); err == nil {
+		// Format Time to Go time format
+		statement, _ := DB.Prepare("insert into station (NAME, OPENING_TIME, CLOSING_TIME) values (?, ?, ?)")
+		result, _ := statement.Exec(station.Name, station.OpeningTime, station.ClosingTime)
+		if err == nil {
+			newID, _ := result.LastInsertId()
+			station.ID = int(newID)
+			c.JSON(http.StatusOK, gin.H{
+				"result": station,
+			})
+		} else {
+			c.String(http.StatusInternalServerError, err.Error())
+		}
+	} else {
+		c.String(http.StatusInternalServerError, err.Error())
+	}
+}
+
+// RemoveStation handles the removing of resource
+func RemoveStation(c *gin.Context) {
+	id := c.Param("station-id")
+	statement, _ := DB.Prepare("delete from station where id=?")
+	_, err := statement.Exec(id)
+	if err != nil {
+		log.Println(err)
+		c.JSON(500, gin.H{
+			"error": err.Error(),
+		})
+	} else {
+		c.String(http.StatusOK, "")
+	}
+}
+
+func main() {
+	var err error
+	DB, err = sql.Open("sqlite3", "./railapi.db")
+	if err != nil {
+		log.Println("Driver creation failed!")
+	}
+	dbutils.Initialize(DB)
+	r := gin.Default()
+	// Add routes to REST verbs
+	r.GET("/v1/stations/:station_id", GetStation)
+	r.POST("/v1/stations", CreateStation)
+	r.DELETE("/v1/stations/:station_id", RemoveStation)
+
+	r.Run(":8000") // Default listen and serve on 0.0.0.0:8080
+}
+--#
+
+--% info.txt
+get, delete
+http://localhost:8000/v1/stations/:id
+http://localhost:8000/v1/stations
+
+type StationResource struct {
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	OpeningTime string `json:"opening_time"`
+	ClosingTime string `json:"closing_time"`
+}
+curl -X POST -H "Content-Type: application/json" -d "{\"DriverName\": \"usef\", \"OperatingStatus\": true}" localhost:8000/v1/trains
+
+delete
+http://localhost:8000/v1/trains/1
+
+# github.com/mattn/go-sqlite3
+cgo: C compiler "gcc" not found: exec: "gcc": executable file not found in %PATH%
+--#

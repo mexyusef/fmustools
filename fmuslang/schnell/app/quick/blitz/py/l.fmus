@@ -1,0 +1,40 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% flask
+__PWD,d
+    ?pick
+        /D>fl|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% fastapi
+__PWD,d
+    ?pick
+        /D>fa|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% django
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+		main.py,f(code[go]=fM)
+			$* code .
+        __PRC__TEMP__PRC__/play,d(/mk)
+            main.py,f(code[go]=fM)
+            $* code .
+
+        $* jupyter-notebook --port __INPUT||9000
+
+        .,d(/load=__FILE__=flask*)
+        .,d(/load=__FILE__=fastapi*)
+        .,d(/load=__FILE__=django*)
+
+        $* code ULIBPY_BASEDIR\app\quick\blitz\py\l.fmus
+--#

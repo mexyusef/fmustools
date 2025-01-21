@@ -1,0 +1,25 @@
+--% index/fmus
+.,d
+  @kita lihat nama container phppgadmin adlh:*
+
+  %PHPPGADMIN_CONTAINER=/sh/docker ps|grep phppgadmin|awk '{print $14}'
+
+  $docker cp PHPPGADMIN_CONTAINER:/opt/bitnami/phppgadmin/conf/config.inc.php .
+
+  @ini lihat config.inc.php sudah ada di sini:*
+  $*ls -al config.inc.php
+
+  config.inc.php,f(f=config.inc.php,@ra=pengganti-2="$conf['servers'][0]['host']")
+
+  $docker cp config.inc.php PHPPGADMIN_CONTAINER:/opt/bitnami/phppgadmin/conf/
+
+  @coba lihat bhw ini sudah ip eth0 sudah benar di sini*
+  $*docker exec -it PHPPGADMIN_CONTAINER more /opt/bitnami/phppgadmin/conf/config.inc.php
+
+  @skrg waktunya utk restart docker phppgadmin*
+  $docker restart PHPPGADMIN_CONTAINER
+--#
+
+--% pengganti-2
+	$conf['servers'][0]['host'] = '__IF_ETH0';
+--#

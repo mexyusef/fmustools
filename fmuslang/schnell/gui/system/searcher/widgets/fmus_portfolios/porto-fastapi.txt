@@ -1,0 +1,33 @@
+C:\portfolio\_fastapi\E-commerce-FastAPI
+
+# C:\portfolio\_fastapi\ecomfastapireact
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-ecomfastapireact.txt
+
+c:\portfolio,d
+    rework,d
+        fastapi-ecommerce,d
+            /ketik)dir
+
+# C:\portfolio\_fastapi\FastAPI--E-Commerce-API-
+app = FastAPI()
+register_tortoise(
+    app,
+    db_url="sqlite://database.sqlite3",
+    modules= {"models":["models"]},
+    generate_schemas=True,
+    add_exception_handlers=True,
+)
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-ecommerce-api-models.txt
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-ecommerce-api-auth.txt
+
+# C:\portfolio\_fastapi\FastApi-E-commerce-Applications-Endpoints-
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-ecommerce-kenya-mpesa.txt
+
+# C:\portfolio\_fastapi\fastapi-react-ecommerce
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-react-ecommerce.txt
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-react-ecommerce-backend-fastapi.txt
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-react-ecommerce-frontend-react.txt
+
+# C:\portfolio\_fastapi\fastapi-shop-app
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-shop-app.txt

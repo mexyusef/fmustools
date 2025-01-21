@@ -1,0 +1,30 @@
+--% index/fmus
+__PWD,d
+    %TEMPLATE_BASEDIR=__INPUT__
+    TEMPLATE_BASEDIR,d(/mk)
+        main.py,f(e=__FILE__=template1)
+        @Please open: http://localhost:__NILAI_SERVER_PORT__*
+        $* wsl /home/usef/.local/bin/uvicorn --port __NILAI_SERVER_PORT__ main:app --reload
+--#
+
+--% template1
+# 8386921 2932
+# https://youtu.be/6hTRw_HK3Ts?t=224
+# pip install python-multipart
+# hypercorn main:app --reload
+
+from fastapi import FastAPI, Depends
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+
+app = FastAPI()
+oauth2_schema = OAuth2PasswordBearer(tokenUrl='token')
+
+@app.post('/token')
+async def token(form_data: OAuth2PasswordRequestForm=Depends()):
+    return {'access_token': form_data.username + 'token'}
+
+# TypeError: 'dict' object is not callable
+@app.route('/')
+async def index(token: str=Depends(oauth2_schema)):
+    return {'the_token':token}
+--#

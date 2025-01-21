@@ -1,0 +1,50 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@demo kerjaan favorit*
+			@lalang*
+			@fmus*
+			@spor - sucor*
+			@sop*
+			@meet doctor*
+			@iot platform*
+			@lingkungan*
+			@sitarang*
+			@ecoss*
+		**showfile=__CURDIR__/data/2022.txt
+		**showfile=__CURDIR__/data/2021.txt
+		**showfile=__CURDIR__/data/2020.txt
+		**showfile=__CURDIR__/data/2019.txt
+		**showfile=__CURDIR__/data/2018.txt
+		**showfile=__CURDIR__/data/2017.txt
+		**showfile=__CURDIR__/data/2016.txt
+		**showfile=__CURDIR__/data/2015.txt
+		**showfile=__CURDIR__/data/2014.txt
+		**showfile=__CURDIR__/data/2013.txt
+		**showfile=__CURDIR__/data/2012.txt
+		**showfile=__CURDIR__/data/2011.txt
+		**showfile=__CURDIR__/data/2010.txt
+		**showfile=__CURDIR__/data/2009.txt
+		**showfile=__CURDIR__/data/2008.txt
+		**showfile=__CURDIR__/data/2007.txt
+		**showfile=__CURDIR__/data/2006.txt
+		**showfile=__CURDIR__/data/2005.txt
+		**showfile=__CURDIR__/data/2004.txt
+		**showfile=__CURDIR__/data/2003.txt
+		**showfile=__CURDIR__/data/2002.txt
+		**showfile=__CURDIR__/data/2001.txt
+		**showfile=__CURDIR__/data/2000.txt
+		**showfile=__CURDIR__/data/1999.txt
+		.,d(/load=__FILE__=edit-files*)
+--#
+
+--% edit-files
+.,d
+	?pick
+		$* code __CURDIR__/data/2022.txt
+		$* subl __CURDIR__/data/2022.txt
+		$* code __CURDIR__/data/2021.txt
+		$* subl __CURDIR__/data/2021.txt
+		$* code __CURDIR__/data/2020.txt
+		$* subl __CURDIR__/data/2020.txt
+--#

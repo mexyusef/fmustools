@@ -1,0 +1,6 @@
+--% index/fmus
+__PWD,d
+    %__TEMPLATE_BASEDIR=__INPUT__
+    %__TEMPLATE_PORT=3001
+    __TEMPLATE_BASEDIR,d(/mk)
+--#

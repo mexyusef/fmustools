@@ -1,0 +1,13 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan VLSI terutama verilog dan vhdl*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+ada apa aja:
+- bikin processor
+- bikin operating system
+- formal verification
+--#

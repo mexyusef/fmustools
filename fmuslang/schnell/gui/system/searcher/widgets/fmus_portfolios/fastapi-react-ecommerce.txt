@@ -1,0 +1,14 @@
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-react-ecommerce-backend-fastapi.txt
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-react-ecommerce-frontend-react.txt
+
+run docker
+C:\portfolio\_fastapi\fastapi-react-ecommerce\backend\src
+C:\portfolio\_fastapi\fastapi-react-ecommerce\frontend
+
+C:\portfolio\_fastapi\fastapi-react-ecommerce\backend\src,d
+    **>dc.mg
+    /ketik)dir
+
+/exec)git remote --verbose|C:\portfolio\_fastapi\fastapi-react-ecommerce\backend\src\auth\
+origin	https://github.com/jsonfm/fastapi-react-ecommerce (fetch)
+origin	https://github.com/jsonfm/fastapi-react-ecommerce (push)

@@ -1,0 +1,75 @@
+--% index/fmus
+__PWD,d
+	?pick
+		$* pip install firebase-admin
+		.,d(/load=__FILE__=simple-pubsub-notification*)
+--#
+
+--% 0/create_instance
+# https://medium.com/@smbhuin/push-notification-firebase-python-8a65c47d3020
+import firebase_admin
+from firebase_admin import credentials, messaging
+firebase_cred = credentials.Certificate('firebase.json')
+firebase_app = firebase_admin.initialize_app(firebase_cred)
+topic = 'news'
+
+// next/0
+--#
+
+--% 1/subscribe_topic
+def sub(tokens):
+	# tokens = list of regist token
+	response = messaging.subscribe_to_topic(tokens, topic)
+	if response.failure_count > 0:
+		reason = list(map(lambda e: e.reason, response.errors))
+		print(f'gagal krn {reason}')
+
+// next/1
+--#
+
+--% 2/unsubscribe_topic
+def unsub(tokens):
+	response = messaging.unsubscribe_from_topic(tokens, topic)
+	if response.failure_count > 0:
+		reason = list(map(lambda e: e.reason, response.errors))
+		print(f'gagal krn {reason}')
+
+// next/2
+--#
+
+--% 3/send_push_notif_topic
+def send_push_notif(title, body):
+	message = messaging.Message(
+		notification=messaging.Notification(
+			title=title,
+			body=body
+		),
+		topic=topic
+	)
+	messaging.send(message)
+
+// next/3
+--#
+
+--% 4/send_multiple_tokens
+def send_multiple(title, body, tokens):
+	message = messaging.MulticastMessage(
+		notification=messaging.Notification(
+			title=title,
+			body=body
+		),
+		tokens=tokens
+	)
+	messaging.send_multicast(message)
+
+// next/3
+--#
+
+--% simple-pubsub
+.,d
+	main.py,f(e=__FILE__=0/create_instance)
+	main.py,f(f=main.py,@ia=1/subscribe_topic="// next/0")
+	main.py,f(f=main.py,@ia=2/unsubscribe_topic="// next/1")
+	main.py,f(f=main.py,@ia=3/send_push_notif_topic="// next/2")
+	main.py,f(f=main.py,@ia=4/send_multiple_tokens="// next/3")
+--#

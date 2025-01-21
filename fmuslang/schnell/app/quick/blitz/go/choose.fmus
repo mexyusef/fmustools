@@ -1,0 +1,147 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @baca info hackathon*
+            .,d(/load=__FILE__=hackathon/fmus*)
+        $* go mod init https://github.com/mexyusef/__INPUT__
+        $* go mod init __INPUT__
+        @installation of many things*
+            ?pick
+                $* grep -r "github.com" .
+                $* go get github.com/brianvoe/gofakeit/v6
+                $* go get -u github.com/dgrijalva/jwt-go
+                $* go get -u github.com/emicklei/go-restful
+                $* go get -u github.com/gin-gonic/gin
+                $* go get -u github.com/go-redis/redis
+                $* go get -u github.com/golang/protobuf
+                $* go get -u github.com/google/uuid
+                $* go get -u github.com/gorilla/mux
+                $* go get -u github.com/gorilla/rpc
+                $* go get -u github.com/gorilla/sessions
+                $* go get -u github.com/graphql-go/graphql
+                $* go get -u github.com/graphql-go/handler
+                $* go get -u github.com/jinzhu/gorm
+                $* go get -u github.com/johnfercher/maroto
+                $* go get github.com/johnfercher/maroto/internal
+                $* go get -u github.com/julienschmidt/httprouter
+                $* go get -u github.com/justinas/alice
+                $* go get -u github.com/levigross/grequests
+                $* go get -u github.com/lib/pq
+                $* go get -u github.com/machinebox/graphql
+                $* go get -u github.com/mattn/go-sqlite3
+                $* go get -u github.com/micro/go-micro
+                $* go get -u github.com/revel/revel
+                $* go get -u github.com/spf13/cobra
+                $* go get -u github.com/streadway/amqp
+                $* go get -u github.com/urfave/cli
+--#
+
+--% instalasi untuk hands on restful
+/b>go/choose
+
+grep -r "github.com" web
+--#
+
+--% hackathon/fmus
+.,d
+	info.txt,f(e=__FILE=hackathon/info)
+	$* more info.txt
+	
+--#
+
+--% hackathon/info
+https://gohack.devpost.com/?utm_source=devpost&utm_medium=alert&utm_campaign=20220401_allinterest
+
+Now Google is teaming up with CERN in a challenge to gophers around the world: use Go to build and improve software in two tracks.
+
+App Track: Whether you want to use Go to build apps for scientific pursuits like CERN, build apps for multiple industries, or create something out of the box, the App Track possibilities are endless. See requirements.
+	https://gohack.devpost.com/#challenge-requirements
+
+	App Track: Build (or update) open-source web applications using Go (Golang)
+
+	    Provide a URL to your open-source code repository for judging and testing OR a link to your functioning demo.
+
+	    Include a video (about 3 minutes) that demonstrates your submission. Videos must be uploaded to YouTube, Vimeo, or Facebook Video and made public.
+
+	    Text description of your project including how Go was utilized.
+
+	    Completed submission form on Devpost before the deadline!
+
+
+CERN Collaboration Track: CERN fosters collaboration through many open-source projects and for this challenge, we’re featuring three for your contributions:
+Reva Project
+	https://gohack.devpost.com/details/cerntrack#h_7413309046481645659684425
+Go-HEP Project 
+	https://gohack.devpost.com/details/cerntrack#h_7479879767141645659714443
+Golbd Project
+	https://gohack.devpost.com/details/cerntrack#h_8646478707841645659720080
+
+	https://gohack.devpost.com/details/cerntrack
+
+	CERN Collaboration Track: Use Go to help CERN improve the featured public repositories with open-source code contributions
+	https://gohack.devpost.com/details/cerntrack#h_1479195435451645659650207
+
+	    Submit your Pull Request on GitHub.
+
+	    Include a video (about 3 minutes) that demonstrates your submission. Videos must be uploaded to YouTube, Vimeo, or Facebook Video and made public.
+
+	    Text description of your project including how Go was utilized.
+
+	    Submit a URL to your Pull Request on your completed submission form on Devpost before the deadline!
+
+Build with the brand new Generics feature in either track to compete for the Best Use of Generics $2,000 USD bonus prize!
+https://go.dev/doc/tutorial/generics
+
+
+    App Track: Quality of the Idea (1-10 points)
+    (Includes creativity and originality of the idea).
+    App Track: Implementation of the Idea (1-10 points)
+    (Includes how well the idea was executed by the developer and how well Google Golang was leveraged).
+    App Track: Potential Value (1-10 points)
+    (Includes the extent to which the solution is widely useful and impactful).
+    CERN Collaboration Track: Judging Criteria
+    (Contributions will be scored using an alternate points-based system. See the rules or the CERN tab for specifics).
+
+Questions? Email the hackathon manager
+
+Invite others to compete
+
+This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
+https://gohack.devpost.com/details/cerntrack#h_9835073910841645659773359
+
+What to Submit:
+
+    Submit your Pull Request to the featured Github repository.
+
+    Provide a URL to your Pull Request on your Devpost submission form. 
+
+    Include a video (about 3 minutes) that demonstrates your submission. Videos must be uploaded to YouTube, Vimeo, or Facebook Video and made public.
+
+    Text description of your project and how Go was utilized.
+Reva
+
+Reva is a gRPC server written in Go to provide interoperability between different storage and applications. It is at the heart of the CERNBox service at CERN, providing a storage solution to about 40,000 user accounts to store scientific data. The Reva server is also the foundation stone of ScienceMesh, a pan-European science federation that aims to unblock scientific progress through technology.
+
+    https://reva.link/ (website)
+
+    https://github.com/cs3org/reva (repo)
+
+    https://gitter.im/cs3org/reva (contact info)
+Go-HEP
+
+Go-HEP is a mono-repo holding Go packages that provide a set of libraries and applications allowing High Energy Physicists (HEP) to write efficient analysis code in the Go programming language. Go-HEP provides read/write access to ROOT files, the binary format used to store the PB of data from the LHC, via the "groot" package.
+
+    https://go-hep.org (website)
+
+    https://github.com/go-hep/hep (repo)
+
+    https://lists.sr.ht/~sbinet/go-hep (mailing list)
+Golbd
+
+The CERN LBD server is a DNS load balancer written in Go to efficiently manage the thousands of computer nodes in the CERN Computer Center. It periodically gets a load metric from the alias member nodes using SNMP (pull model) and HTTPS (push model) protocols to update the A (IPV4) and AAAA (IPV6) records for a DNS delegated zone that corresponds to the alias using Dynamic DNS (see RFC2136).
+
+    https://github.com/cernops/golbd (repo)
+
+    https://github.com/cernops/golbd/issues (contact info)
+
+--#

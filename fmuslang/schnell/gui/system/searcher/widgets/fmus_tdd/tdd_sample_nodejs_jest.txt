@@ -1,0 +1,81 @@
+# NodeJS TDD Examples
+TDD in NodeJS: show me some examples
+
+ChatGPT
+Certainly! Here are a few examples of Test-Driven Development (TDD) in Node.js using popular testing frameworks like Mocha and Jest.
+
+Example 1: Using Mocha and Chai
+
+javascript
+Copy code
+// math.js
+module.exports = {
+  add: (a, b) => a + b,
+  subtract: (a, b) => a - b
+};
+
+// math.test.js
+const math = require('./math');
+const expect = require('chai').expect;
+
+describe('Math', () => {
+  it('should add two numbers', () => {
+    const result = math.add(2, 3);
+    expect(result).to.equal(5);
+  });
+
+  it('should subtract two numbers', () => {
+    const result = math.subtract(5, 3);
+    expect(result).to.equal(2);
+  });
+});
+
+Example 2: Using Jest
+
+javascript
+Copy code
+// math.js
+module.exports = {
+  add: (a, b) => a + b,
+  subtract: (a, b) => a - b
+};
+
+// math.test.js
+const math = require('./math');
+
+describe('Math', () => {
+  it('should add two numbers', () => {
+    const result = math.add(2, 3);
+    expect(result).toBe(5);
+  });
+
+  it('should subtract two numbers', () => {
+    const result = math.subtract(5, 3);
+    expect(result).toBe(2);
+  });
+});
+In both examples, we have a math.js module that exports two simple mathematical functions (add and subtract). In the corresponding test files (math.test.js), we import the math module and write test cases using assertions provided by the testing framework.
+
+To run the tests, you'll need to install the testing framework and its dependencies. 
+
+For Mocha and Chai, you can use the following commands:
+
+$ npm install mocha chai --save-dev
+$ npx mocha
+
+For Jest, you can use:
+
+$ npm install jest --save-dev
+$ npx jest
+
+These commands will execute the test files and report the results. Remember to adjust the file names and module imports according to your project structure.
+
+
+
+
+
+Send a message.
+
+
+Free Research Preview. ChatGPT may produce inaccurate information about people, places, or facts. ChatGPT May 12 Version
+ChatGPT

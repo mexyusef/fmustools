@@ -1,0 +1,204 @@
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\react-cepat\,d
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\react-cepat\grid-twitter.txt
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\react-cepat\react-grid-layout.mk=default
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\react-cepat\react-grid-layout.mk=
+
+info utk radix-ui
+pnpm add @radix-ui/react-select @radix-ui/react-icons
+pnpm add classnames
+
+# quick references
+    # button
+    onClick
+        import {useState} from 'react'
+        const [open, setOpen]=useState(false)
+        <button onClick={()=>setOpen(true)}open</button>
+    # layout
+    # render
+    # class methods
+    # class states
+    # props
+    # useStates
+        import {useState} from 'react'
+        const [open, setOpen]=useState(false)
+
+files:
+
+babel.config.js
+commitlint.config.js
+index.tsx
+jest.config.js
+netlify.toml
+package.json
+prettier.config.js
+react-app-env.d.ts
+renovate.json
+reportWebVitals.ts
+tailwind.config.js
+tsconfig.json
+tsconfig.node.json
+tsconfig.paths.json
+turbo.json
+vercel.json
+vite.config.ts
+Procfile
+
+atau:
+config,d    
+    babel.config.js
+    craco.config.js
+    jest.config.js
+    jest.setup.js
+    postcss.config.js
+    prettier.config.js
+    react-app-env.d.ts
+    tsconfig.json
+    tsconfig.node.json
+    vite.config.ts
+    webpack.config.js
+    webpack,d
+        webpack.dev.js
+        webpack.prod.js
+        webpack.config.js
+        webpack.common.js
+
+    Procfile
+    Dockerfile
+    docker-compose.yml
+
+package.json
+
+jd yg utama dlm src/app:
+entah enaknya core di dalam app atau di luar?
+********************************************************************************************
+package.json
+Dockerfile
+docker-compose.yml
+
+config,d
+
+public,d
+    favicon.ico
+    robots.txt
+    index.html
+    manifest.json
+    logo192.png
+    logo512.png
+
+src,d
+    index.ts
+    assets,d
+        fonts,d
+        icons,d
+        images,d
+        locales,d
+        styles,d
+        themes,d
+    app,d
+        components,d
+        libs,d
+            hooks,d
+            types,d
+            logger,d
+        pages,d
+        routes,d
+        store,d
+    core,d
+        auth,d
+        config,d
+        database,d
+            firebase.ts
+            mongo.ts
+            postgres.ts
+    tests,d
+********************************************************************************************
+
+src,d
+    index.ts
+    app,d
+        index.tsx
+        core,d
+            auth,d
+            config,d
+            database,d
+
+        # atau ini mending assets???
+        assets,d
+            fonts,d
+            icons,d
+            images,d
+            locales,d
+            styles,d
+            theme,d
+                palettes.ts
+                typography.ts
+        components,d
+            Header,d
+            NavBar,d
+            SideBar,d
+            LoginDialog,d
+                index.tsx
+            UserMenu,d
+                index.tsx
+        pages,d
+            layouts,d
+                AppLayout.tsx
+                BaseLayout.tsx
+                RootError.tsx
+            404,d
+            dashboard,d
+            settings,d
+            user-profile,d
+        routes,d
+            index.tsx
+            auth,d
+                login,d
+                register,d
+                forgot,d
+            dashboard,d
+            settings,d
+
+        store,d
+        # utils,d
+        # daripada utils lebih baik libs
+        libs,d
+            hooks,d
+            types,d
+                global.d.ts
+public,d
+    favicon.ico
+    robots.txt
+    index.html
+    manifest.json
+    logo192.png
+    logo512.png
+
+# ini adlh draft utk boilerplate kita
+
+C:\work\kenza\capcay\boilerplate-react.mk
+
+C:\work\kenza\capcay\react-folder.txt
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\react.txt
+
+c:/hapus/oprek-dan-hapus/selasa18
+
+c:/hapus/oprek-dan-hapus,d
+    %NAMAFOLDER=selasa18
+    NAMAFOLDER,d
+        react-boilerplate,d(/load=C:\work\kenza\capcay\boilerplate-react.mk=struktur/project/fmus*)
+        /ketik)dir
+
+c:/hapus/oprek-dan-hapus,d
+    %NAMAFOLDER=selasa18
+    NAMAFOLDER,d
+        react-boilerplate,d(/load=C:/work/kenza/capcay/boilerplate-react.mk=struktur/project/fmus*)
+        /ketik)dir
+
+c:/hapus/oprek-dan-hapus,d
+    %NAMAFOLDER=selasa18
+    NAMAFOLDER,d
+        react-boilerplate,d
+            .,d(/load=C:\work\kenza\capcay\boilerplate-react.mk=struktur/project/fmus*)
+            /ketik)dir

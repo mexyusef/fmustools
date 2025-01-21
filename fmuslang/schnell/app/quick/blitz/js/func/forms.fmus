@@ -1,0 +1,178 @@
+--% index/fmus
+__PWD,
+    ?pick
+        binding-argument-values.js,f(e=__FILE__=binding-argument-values.js)
+        rectangle.js,f(e=__FILE__=rectangle.js)
+        .,d(/load=__FILE__=form-boilerplate/us*)
+        .,d(/load=__FILE__=form-bind/us*)
+        .,d(/load=__FILE__=form-arrow/us*)
+--#
+
+--% form-boilerplate/us
+.,d
+    form.js,f(e=__FILE__=form-boilerplate/form.js)
+    index.html,f(e=__FILE__=form-boilerplate/index.html)
+--#
+
+--% form-boilerplate/form.js
+const form = {
+    name: 'Zsolt',
+    email: 'info@zsoltnagy.eu',
+    resetCallback: function( e ) {
+        // write code here
+    },
+    saveCallback: function( e ) {
+        // write code here
+    },
+    toString() {
+        return `${ this.name } <${ this.email }>`;
+    },
+    log() {
+        console.log( this.toString() );
+    }
+};
+--#
+
+--% form-boilerplate/index.html
+<!doctype html>
+<html>
+    <body>
+        <label>Name:</label>
+        <input type="text" class="js-name" value="" />
+        <label>E-mail:</label>
+        <input type="text" class="js-email" value="" />
+        <button class="js-reset">Reset</button>
+        <button class="js-save">Save</button>     
+        <script type="text/javascript" 
+            src="form.js"></script> 
+    </body>
+</html>
+--#
+
+--% form-bind/us
+.,d
+    form.js,f(e=__FILE__=form-bind/form.js)
+    index.html,f(e=__FILE__=form-bind/index.html)
+--#
+
+--% form-bind/form.js
+const form = {
+    name: 'Zsolt',
+    email: 'info@zsoltnagy.eu',
+    resetCallback: function( e ) {
+        document.querySelector( '.js-name' ).value = this.name;
+        document.querySelector( '.js-email' ).value = this.email;
+    },
+    saveCallback: function( e ) {
+        this.name = document.querySelector( '.js-name' ).value;
+        this.email = document.querySelector( '.js-email' ).value;
+    },
+    toString() {
+        return `${ this.name } <${ this.email }>`;
+    },
+    log() {
+        console.log( this.toString() );
+    }
+};
+
+document.querySelector( '.js-reset' )
+    .addEventListener( 'click', form.resetCallback.bind( form ) );
+
+document.querySelector( '.js-save' )
+    .addEventListener( 'click', form.saveCallback.bind( form ) );
+
+setInterval( form.log.bind( form ), 1000 );
+--#
+
+--% form-bind/index.html
+<!doctype html>
+<html>
+    <body>
+        <label>Name:</label>
+        <input type="text" class="js-name" value="" />
+        <label>E-mail:</label>
+        <input type="text" class="js-email" value="" />
+        <button class="js-reset">Reset</button>
+        <button class="js-save">Save</button>     
+        <script type="text/javascript" 
+                src="form.js"></script> 
+    </body>
+</html>
+--#
+
+--% form-arrow/us
+.,d
+    form.js,f(e=__FILE__=form-arrow/form.js)
+    index.html,f(e=__FILE__=form-arrow/index.html)
+--#
+
+--% form-arrow/form.js
+const form = {
+    name: 'Zsolt',
+    email: 'info@zsoltnagy.eu',
+    resetCallback: function( e ) {
+        document.querySelector( '.js-name' ).value = this.name;
+        document.querySelector( '.js-email' ).value = this.email;
+    },
+    saveCallback: function( e ) {
+        this.name = document.querySelector( '.js-name' ).value;
+        this.email = document.querySelector( '.js-email' ).value;
+    },
+    toString() {
+        return `${ this.name } <${ this.email }>`;
+    },
+    log() {
+        console.log( this.toString() );
+    }
+};
+
+document.querySelector( '.js-reset' )
+    .addEventListener( 'click', () => form.resetCallback() );
+
+document.querySelector( '.js-save' )
+    .addEventListener( 'click', () => form.saveCallback() );
+
+setInterval( () => form.log(), 1000 );
+--#
+
+--% form-arrow/index.html
+<!doctype html>
+<html>
+    <body>
+        <label>Name:</label>
+        <input type="text" class="js-name" value="" />
+        <label>E-mail:</label>
+        <input type="text" class="js-email" value="" />
+        <button class="js-reset">Reset</button>
+        <button class="js-save">Save</button>     
+        <script type="text/javascript" 
+                src="form.js"></script> 
+    </body>
+</html>
+--#
+
+--% rectangle.js
+const rectangleArea = function() {
+    return this.width * this.height;
+};
+
+console.log( rectangleArea() );
+
+const rectangle = {
+    width: 5,
+    height: 4
+};
+
+console.log( rectangleArea.bind( rectangle )() );
+--#
+
+--% binding-argument-values.js
+const add = ( a, b ) => {
+    console.log( a, b );
+    return a + b;
+};
+
+const addToFive = add.bind( null, 5 );
+
+console.log( addToFive( 2 ) );
+--#

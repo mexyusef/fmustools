@@ -1,0 +1,13 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+    .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+        @RCP alias SWT*
+        @swing...*
+--#
+

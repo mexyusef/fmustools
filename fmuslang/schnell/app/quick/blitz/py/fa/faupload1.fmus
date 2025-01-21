@@ -1,0 +1,84 @@
+--% index/fmus 
+__PWD,d
+	README.md,f(e=__FILE=README.md)
+	templates,d(/mk)
+		home.html,f(e=__FILE__=home.html)
+	main.py,f(e=__FILE__=main.py)
+	?pick
+		@https://www.youtube.com/watch?v=Ofesfy686jY, FastAPI Handle Form Data & Upload Files*
+	@run app*
+		?pick
+			$* uvicorn main:app
+--#
+
+--% README.md
+...
+--#
+
+--% main.py
+from fastapi import FastAPI, Body, File, Form, Request, UploadFile
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
+from typing import List
+
+app = FastAPI()
+usernames = list()
+templates = Jinja2Templates(directory = 'templates')
+
+class NameValues(BaseModel):
+	name: str = None
+	country: str
+	age: int
+	base_salary: float
+
+@app.get('/home/{username}', response_class=HTMLResponse)
+def home(request: Request, username: str):
+	return templates.TemplateResponse('home.html',
+		{'request': request, 'username': username})
+
+@app.post('/data')
+def data(namevalue: NameValues, spouse: str = Body(...)):
+	print(namevalue)
+	return {
+		'name': namevalue.name,
+		'status': spouse
+	}
+
+@app.post('/submit')
+async def handle_form(assignment: str=Form(...), assignment_file: UploadFile=File(...)):
+	#print(assignment)
+	#print(assignment_file.filename)
+	content_assignment = await assignment_file.read()
+	#print(content_assignment)
+
+@app.post('/submit-multi')
+async def handle_form(assignment: str=Form(...), assignment_file: List[UploadFile]=File(...)):
+	#print(assignment)
+	#print(assignment_file.filename)
+	content_assignment = await assignment_file.read()
+	#print(content_assignment)
+--#
+
+--% home.html
+<html>
+<head>
+</head>
+<body>
+
+<h1>{{ username }}</h1>
+<form action='/submit' method='post' enctype='multipart/form-data'>
+	<input type='text' name='assignment'>
+	<input type='file' name='assignment_file'>
+	<input type='submit' name='assignment'>
+</form>
+
+<form action='/submit-multi' method='post' enctype='multipart/form-data'>
+	<input type='text' name='assignment'>
+	<input type='file' name='assignment_file' multiple>
+	<input type='submit' name='assignment'>
+</form>
+
+</body>
+</html>
+--#

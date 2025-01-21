@@ -1,0 +1,31 @@
+.,d
+    src,d
+        views,d
+            UserProfile,d
+                UserProfile.vue,f(t=)
+                UserProfileStyles.scss,f(t=)
+            Dashboard,d
+                Dashboard.vue,f(t=)
+                DashboardStyles.scss,f(t=)
+        components,d
+            atoms,d
+            molecules,d
+            organisms,d
+        store,d
+            UserProfile,d
+                index.js,f(t=)
+                mutations.js,f(t=)
+                actions.js,f(t=)
+                getters.js,f(t=)
+        plugins,d
+            axios.js,f(t=)
+            vue-scrollto.js,f(t=)
+        router,d
+            index.js,f(t=)
+        assets,d
+            images,d
+            fonts,d
+        utils,d
+            date-utils.js,f(t=)
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\vue.txt

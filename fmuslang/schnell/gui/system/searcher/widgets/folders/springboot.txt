@@ -1,0 +1,46 @@
+.,d
+    src,d
+        main,d
+            java,d
+                com.example.app,d
+                    config,d
+                        AppConfig.java,f(t=)
+                        WebConfig.java,f(t=)
+                    controller,d
+                        UserController.java,f(t=)
+                        #...
+                    dao,d
+                        UserRepository.java,f(t=)
+                        #...
+                    dto,d
+                        UserDTO.java,f(t=)
+                        #...
+                    entity,d
+                        User.java,f(t=)
+                        #...
+                    exception,d
+                        CustomExceptionHandler.java,f(t=)
+                        #...
+                    service
+                        UserService.java,f(t=)
+                        #...
+                    util,d
+                        CustomMapper.java,f(t=)
+                        #...
+                    AppNameApplication.java,f(t=)
+                resources,d
+                    application.properties,f(t=)
+                    static,d
+                    templates,d
+            test,d
+                java,d
+                    com.example.app,d
+                        controller,d
+                            UserControllerTest.java,f(t=)
+                        dao,d
+                        service,d
+                        #...
+                resources,d
+        target,d
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\springboot.txt

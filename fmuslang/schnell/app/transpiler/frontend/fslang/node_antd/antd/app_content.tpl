@@ -1,0 +1,13 @@
+__TAB(4)__TABLENAME_CASE__,d(/mk)
+__TAB(5)%__TEMPLATE_MODELNAME=__TABLENAME_UPPER__
+__TAB(5)%__TEMPLATE_Modelname=__TABLENAME_CASE__
+__TAB(5)%__TEMPLATE_modelname=__TABLENAME_LOWER__
+__TAB(5)%__TEMPLATE_MODELNAMES=__TABLENAME_PLURAL__
+__TAB(5)%__TEMPLATE_modelnames=__TABLENAME_PLURAL_LOWER__
+__TAB(5)CreateForm.js,f(e=utama=/np/react-antd/components/modules/__TABLENAME_CASE__/CreateForm.js)
+__TAB(5)FormProvider.js,f(e=utama=/np/react-antd/components/modules/__TABLENAME_CASE__/FormProvider.js)
+__TAB(5)FormWrapper.js,f(e=utama=/np/react-antd/components/modules/__TABLENAME_CASE__/FormWrapper.js)
+__TAB(5)List.js,f(e=utama=/np/react-antd/components/modules/__TABLENAME_CASE__/List.js)
+__TAB(5)Modal.js,f(e=utama=/np/react-antd/components/modules/__TABLENAME_CASE__/Modal.js)
+__TAB(5)UpdateForm.js,f(e=utama=/np/react-antd/components/modules/__TABLENAME_CASE__/UpdateForm.js)
+__TAB(5)__TABLENAME_CASE__.js,f(e=utama=/np/react-antd/components/modules/__TABLENAME_CASE__/__TABLENAME_CASE__.js)

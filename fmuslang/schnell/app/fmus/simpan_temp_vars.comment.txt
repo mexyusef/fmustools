@@ -1,0 +1,144 @@
+line 154-156
+        # self_debug(f'\n[simpan_temp_vars]=input => requesting input: [{item}]...\ndan parent: [{item.parent}].\n')
+        # indah0(f'Masukkan nilai untuk [{kunci_variable}]:', warna='yellow', bold=True, underline=True)
+        # masukan = input(' ')
+line 176
+          # indah4(f'''[simpan_temp_vars] __INPUT||
+          # lanjut peroleh masukan = {masukan}
+          # ''', warna='blue')
+line 212-219
+          # self_debug(f'\n[simpan_temp_vars]=input => getting output:[{item}]...\n')
+          # self_debug(f"\tstats: root = [{root_tree}]\n")
+          # UPDATE:
+          # kita ubah anak2...sementara direct children dulu
+          # kita: __var_bernilai_input=input
+          # terutama bentuk %var_anak=__var_bernilai_input
+          # processor sudah ganti __var_bernilai_input menjadi 'input'
+          # jadi hrs kita replace dg nilai baru di parent di sini
+
+line 221-227
+          # ubah juga siblings...jangan hanyak anak2.
+          # ternyata anak2+siblings saja kurang
+          # masih hrs juga semua anak2 dari siblings! => banyangkan __TEMPLATE_DJANGOPROJ,d, lalu di dalamnya ada banyak sysop
+          # %__modelname=input
+          # __modelname,d(/mk) <- ini sibling/sodara, hrs ubah jangan yg terdahulu (user)
+          # tapi jadi baru: building, task
+          # juga siblings after hrs diubah
+line 235-247
+
+            # cek terutama utk sodara yg create_dir berbasis name
+            # operations => oper = create_dir in item AnyNode(
+            # name='user',
+            # operations=['create_dir'],
+            # replacer={'__COUNTER__': 2},
+            # type='dir',
+            # while_requirements=AnyNode(...),
+            # workdir='/tmp/sample/apps/user').
+            # old_name='__modelname', <- original_varname
+            # original='__modelname,d(/mk)',
+            # if hasattr(sodara, 'old_name') \
+            #   and sodara.old_name == original_varname \
+            #   and original_varname in sodara.original:
+line 275
+              # ubah name dan workdir dari sodara...
+              # dg dari save temp var
+              for sepupu in get_all_tree_children(sodara):
+                '''
+                1 __TEMPLATE_DJANGOPROJECT,d
+                2  $* python manage.py startapp __INPUT__
+                di sini misal workdir baris 2 itu c/hapus/__INPUT__
+
+                4 june 2022, setiap children dari following-sibling hrs direplace workdirnya
+                needs more work todo
+
+                ada permasalahan
+                [simpan_temp_vars] cek anak dari following sibling START
+                anak dari following sibling [AnyNode(counter=-1, level=2, name='info', original='%__TEMPLATE_SCRAPYPROJECT=__INPUT__', type='simpan_temp_vars', variables={'__TEMPLATE_SCRAPYPROJECT': '__INPUT__'}, workdir='C:\\work\\hapus\\kerja\\hapus\\__INPUT__')]
+                variables={'__TEMPLATE_SCRAPYPROJECT': '__INPUT__'} <- ini harusnya tidak diganti ke "coba" krn beda
+                ok modify item.workdir, tapi hati2 modify .variables, krn beda __TEMPLATE=__INPUT__ dikasih nilai sama
+
+                [simpan_temp_vars] cek anak dari following sibling END
+                anak dari following sibling [AnyNode(counter=-1, level=2, name='info', original='%__TEMPLATE_SCRAPYPROJECT=__INPUT__', type='simpan_temp_vars', variables={'__TEMPLATE_SCRAPYPROJECT': 'coba'}, workdir='C:\\work\\hapus\\kerja\\hapus\\coba')]
+                '''
+
+                indah4(f"""[simpan_temp_vars] proses item => sodara => sepupu: START
+                item = {item}
+                sodara = {sodara}
+                sepupu = {sepupu}
+                """, warna='green', layar='blue')
+
+
+line 300
+
+                # sementara hanya proses(replace input dg masukan) utk node % yg punya .variables
+                if hasattr(sepupu, 'variables') and len(sepupu.variables) > 0:
+                  for k,v in sepupu.variables.items():
+                    if v==input_keyword:
+                      # harusnya cek dulu apakah k ada di sebelumnya, jangan k (__TEMPLATE_*) baru dikasih "masukan" yg sama
+                      if k in item.variables:
+                        nilai_untuk_anak_following_sibling = item.variables[k]
+                        sepupu.variables[k] = nilai_untuk_anak_following_sibling
+                        # sepupu.workdir = sepupu.workdir.replace(input_keyword, masukan)
+
+                # bisa jadi ternyata __INPUT__/__INPUT__ 
+                # yg pertama ambil dari __TEMPLATE parent 1
+                # kedua dari __TEMPLATE parent 2
+                """
+                %__TEMPLATE_DJANGOPROJECT=__INPUT__
+                $* django-admin startproject __TEMPLATE_DJANGOPROJECT
+                __TEMPLATE_DJANGOPROJECT,d
+                    $* python manage.py startapp __INPUT__
+                    run.bat,f(n=python manage.py runserver)
+                    %__TEMPLATE_SCRAPYPROJECT=__INPUT__
+                    $* scrapy startproject __TEMPLATE_SCRAPYPROJECT
+                    __TEMPLATE_SCRAPYPROJECT,d
+                        $* scrapy genspider rotten rottentomatoes.com <- ini workdir di __INPUT__/__INPUT__
+                          __INPUT__/__INPUT__ = __TEMPLATE_DJANGOPROJECT/__TEMPLATE_SCRAPYPROJECT
+                jadi per proses, replace 1 __INPUT__ saja dulu
+
+                ini masih kurang juga
+                __TEMPLATE_DJANGOPROJECT,d            <- coba
+                  __TEMPLATE_SCRAPYPROJECT,d(/mk)     <- spiderman
+                    __TEMPLATE_SCRAPYPROJECT,d        <- spiderman
+                      /file>U/ITEM_PIPELINES/#/3|settings.py
+                        item
+                          original='/file>U/ITEM_PIPELINES/#/3|settings.py'
+                          workdir='C:\\work\\hapus\\kerja\\hapus\\coba\\spiderman\\__INPUT__'
+                        parent
+                          type='dir'
+                          original='__TEMPLATE_SCRAPYPROJECT,d(/mk)'
+                          workdir='C:\\work\\hapus\\kerja\\hapus\\cobi\\spiderman\\spiderman'
+                        di sini terlihat item.workdir berbeda dengan item.parent.workdir yg bertype=dir
+                        root
+                          original='__PWD,d'
+                          workdir='C:\\work\\hapus\\kerja\\hapus'
+                          variables={'__TEMPLATE_DJANGOPROJECT': 'coba', '__TEMPLATE_SCRAPYPROJECT': 'spiderman'}
+
+                """
+                sepupu.workdir = sepupu.workdir.replace(input_keyword, masukan, 1)
+
+                indah4(f"""[simpan_temp_vars] proses item => sodara => sepupu: END
+                item = {item}
+                sodara = {sodara}
+                sepupu = {sepupu}
+                """, warna='green', layar='blue')
+
+line 351-366
+
+        # elif oper == 'modelify':
+        #   # item.variables[kunci_variable] = item.variables[kunci_variable] + 's'
+        #   base = kunci_variable.removesuffix('__')
+        #   newdict_for_modelify[base + '_LOWER__'] = item.variables[kunci_variable].lower()
+        #   newdict_for_modelify[base + '_UPPER__'] = item.variables[kunci_variable].upper()
+        #   newdict_for_modelify[base + '_PLURAL__'] = item.variables[kunci_variable] + 's'
+        #   newdict_for_modelify[base + '_PLURAL_LOWER__'] = item.variables[kunci_variable].lower() + 's'
+        #   newdict_for_modelify[base + '_PLURAL_UPPER__'] = item.variables[kunci_variable].upper() + 's'
+        #   newdict_for_modelify[base + '_PLURAL_CAP__'] = item.variables[kunci_variable].capitalize() + 's'
+        #   newdict_for_modelify[base + '_CASE__'] = item.variables[kunci_variable].capitalize()
+        #   newdict_for_modelify[base + '_CAP_PLURAL__'] = item.variables[kunci_variable].capitalize() + 's'
+
+  # if newdict_for_modelify:
+  #   item.variables.update(newdict_for_modelify)
+  #   Common.temporary_dict.update(newdict_for_modelify)
+
+

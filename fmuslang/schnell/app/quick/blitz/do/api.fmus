@@ -1,0 +1,6 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @create interactive broker api project*
+        @create tradingview project*       
+--#

@@ -1,0 +1,17 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+		main.ts,f(code[go]=fM)
+			$* code .
+        __PRC__TEMP__PRC__/play,d(/mk)
+            main.ts,f(code[go]=fM)
+            $* code .
+
+        $* code ULIBPY_BASEDIR\app\quick\blitz\ts\l.fmus
+--#

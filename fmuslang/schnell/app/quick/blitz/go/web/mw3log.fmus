@@ -1,0 +1,48 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    info.txt,f(e=__FILE__=info.txt)
+    $* more info.txt
+    $* go run main.go
+--#
+
+--% main.go
+package main
+
+import (
+	"log"
+	"net/http"
+	"os"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+)
+
+func handle(w http.ResponseWriter, r *http.Request) {
+	log.Println("Processing request!")
+	w.Write([]byte("OK"))
+	log.Println("Finished processing request")
+}
+
+func main() {
+	r := mux.NewRouter()
+	r.HandleFunc("/", handle)
+	loggedRouter := handlers.LoggingHandler(os.Stdout, r)
+	http.ListenAndServe(":8000", loggedRouter)
+}
+
+--#
+
+--% info.txt
+localhost:8000/
+	2022/04/06 03:54:19 Processing request!
+	2022/04/06 03:54:19 Finished processing request
+	127.0.0.1 - - [06/Apr/2022:03:54:19 +0700] "GET / HTTP/1.1" 200 2
+--#

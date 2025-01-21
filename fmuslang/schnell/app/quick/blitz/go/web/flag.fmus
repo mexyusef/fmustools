@@ -1,0 +1,68 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main1.go,f(e=__FILE__=main1.go)
+    main2.go,f(e=__FILE__=main2.go)
+    main3.go,f(e=__FILE__=main3.go)
+--#
+
+--% main1.go
+package main
+
+import (
+	"flag"
+	"log"
+	)
+
+var name = flag.String("name", "stranger", "your wonderful name")
+
+func main(){
+	flag.Parse()
+	log.Printf("Hello %s, Welcome to the command line world", *name)
+}
+--#
+
+--% main2.go
+package main
+
+import (
+	"flag"
+	"log"
+	)
+
+var name = flag.String("name", "stranger", "your wonderful name")
+var age = flag.Int("age", 0, "your graceful age")
+
+func main(){
+	flag.Parse()
+	log.Printf("Hello %s (%d years), Welcome to the command line world", *name, *age)
+}
+// multi param
+--#
+
+--% main3.go
+package main
+
+import (
+	"flag"
+	"log"
+	)
+
+var name string
+var age int
+
+func init() {
+	flag.StringVar(&name, "name", "stranger", "your wonderful name")
+	flag.IntVar(&age, "age", 0, "your graceful age")
+}
+
+func main(){
+	flag.Parse()
+	log.Printf("Hello %s (%d years), Welcome to the command line world", name, age)
+}
+// init flag
+--#

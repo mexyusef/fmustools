@@ -1,0 +1,412 @@
+vscode:
+  #<d[cn=search](<d[cn=searchInputs](<i[disabled,t=text]<d[cn=searchIcon](<SearchIcon))<d[cn=dataResult](<a(<p)))
+  hasilkan:
+    <div className=search>
+      <div className=searchInputs>
+        <input disabled type=text>
+        </input>
+        <div className=searchIcon>
+          <SearchIcon>
+          </SearchIcon>
+        </div>
+      </div>
+      <div className=dataResult>
+        <a>
+          <p>
+          </p>
+        </a>
+      </div>
+    </div>
+  #<d(<a[cn=Whatever'])			'Whatever'
+  #<d(<a[cn=Whatever'd])		"Whatever"
+  #<d(<a[cn=Whatever'c])		{Whatever}
+  #<d(<a[cn=Whatever'k])		[Whatever]
+  #<d(<a[cn=Whatever'p])		(Whatever)
+  #+e{'p':'Provider','cr':'ConnectedRouter','s':'Switch','r':'Route'}
+  #+e{},#+a{},#+c{},#+v{} 					utk lihat semua yg ada
+  #-e['unused']
+  #+a{'s':'store','h':'history','p':'path','c':'component'}
+  #-a['removeme']
+  #<a<b<c*short<d[oc=hajar''c'k]	' 'c 'k = [{'hajar'}]
+  #<a<b<c*short<d[oc=short'''c]		
+    txf value: ', 'd utk ", 'c, 'k, 'p
+  *%redux|{c,r,u,d}_products,add_{book,author,publisher}
+bantuan/bantu people
+  generate()
+    elif code.count(category_delimiter) == 1:
+    *!ts|[usef:rahasia@localhost:5432/hapuslah]{@Book=#5}isbn,s,pk;title,s;publisher,s
+  dahsyat()
+    elif code .startswith('dahsyat:'):
+    *!dahsyat:/tmp/hapus/whatever|[usef:rahasia@localhost:5432/hapuslah]{@Book=#5}isbn,s,pk;title,s;publisher,s
+  new_generate()
+    elif code.count(category_delimiter) == 2:
+    *!antd/bs|kode|dummy -> new_generate
+quick grammar/language
+  app.quick.__init__
+    process_language()
+      jika bukan
+        /
+        /%
+        /@
+        />
+        /tar>
+        /D>
+        handle app.quick.bahasa
+    handle()
+      statement_config
+        elif jenis .startswith ('fslang_'):
+          folder = jenis.replace('_','/')
+          parent = 'app/transpiler/frontend'
+          absdir = joiner(env_get('ULIBPY_BASEDIR'), parent)
+          workabsdir = joiner(absdir, folder)
+          kembali.update({
+            'work'        : folder,                               # fslang/path/to/target
+            'modulename'  : jenis,                                # fslang_path_to_target
+            'generator'   : joiner(workabsdir, '__init__.py'),    # lokasi Coordinator
+            'fmusfile'    : joiner(workabsdir, 'index-input.mk'),
+            'workabs'     : workabsdir,
+          })
+
+          # nanti:
+          import_module(fslang_path_to_target, lokasi Coordinator)
+
+      quick_statement dari app.quick.quick_statement
+  app.quick.quick_statement
+    stlh program_config diisi oleh app.quick.statement_config
+
+    def import_module(MODULE_NAME, MODULE_PATH):
+      # https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path
+      # MODULE_PATH = "/path/to/your/module/__init__.py"
+      # MODULE_NAME = "mymodule"
+      spec = importlib.util.spec_from_file_location(MODULE_NAME, MODULE_PATH)
+      module = importlib.util.module_from_spec(spec)
+      sys.modules[spec.name] = module 
+      spec.loader.exec_module(module)
+      return module
+    from app.utils import import_module
+    generator_module = import_module(program_config['modulename'], program_config['generator'])
+    generator = generator_module.Coordinator(RootNode)
+    generator.generate()
+fm grammar
+  filename.png,f(img=art1) 
+  filename.png,f(img=ava1)
+languages dan specialcmd:
+  **VF*
+    VFS
+    VFG
+    VFGi
+    VFGf
+    VFGd
+    VFGo
+    VFGb
+    VFC
+    VFCG
+    VFCG2
+    VFCGS
+    VFCGN
+    VFCGD
+  **term
+  **term1
+  **favico=filename.png
+    u -e ".,d\n\tfilename.png,f(img=ava1)\n\t**favico=filename.png"
+  **favgen=filename1.png
+    u -e ".,d\n\tfilename1.png,f(img=ava1)\n\t**favgen=filename1.png"
+  **favmake=filename2.png
+    u -e ".,d\n\tfilename2.png,f(img=ava1)\n\t**favmake=filename2.png"
+  **notif=judul=pesan
+    u -e "**notif=judul=pesan"
+  **notif2=judul=pesan
+  **sccap=filepath
+  **screc=filepath
+    "**screc=rekam.mp4"
+  **screc=filepath=long
+    "**screc=rekam.mp4=10"
+  **screc=filepath=long=br
+    -e "**screc=rekam.mp4=10=3" (br=3 berarti 3fps)
+
+  **picsum
+  **picsum=tulisan
+  **picsum=atas||bawah
+  **unsplash
+  **unsplash=tulisan
+  **unsplash=atas||bawah
+  **lalang, **lalang* (edit)
+    from lalang.main import myrepl
+  **decl, **decl* (edit)
+    from app.transpiler.frontend.main import myrepl
+  **css, **css*
+    from app.transpiler.css.main import myrepl
+  **be, **be*
+    from app.transpiler.backend.main import myrepl
+  **flu, **flu*
+    from langs.flutter.main import myrepl
+  **@
+    from app.transpiler.csv.process import process_language
+    u -e'/%$*csv/process.py'
+      csv_item: 
+        "mg"  -> mongoose
+        | "sqlz"      -> sequelize
+        | "pg"        -> sql_postgres
+        | "ms"        -> sql_mssql
+        | "my"        -> sql_mysql
+        | "sqlt"      -> sql_sqlite
+        | "torm"      -> nest_typeorm
+        | "mg2"       -> nest_mongoose
+        | "pris"      -> prisma
+        | "hbr"       -> hibernate
+        | "bts"       -> mybatis
+        | "go"        -> struct_go
+        | "rs"        -> struct_rs
+        | "kt"        -> struct_kt
+        | "ts"        -> struct_ts
+        | "dj"        -> django_orm
+        | "nsm"       -> help_nest_mongo
+        | "nsp"       -> help_nest_postgres
+        | "json1"     -> json1
+        | "json2"     -> json2
+        | "csv"       -> csv
+    u -e'**@pris/{@Book=#5}isbn,s,pk,n,df=Tulisanku;title,s;publisher,s'
+==
+u -e/
+u -e//
+u -e/i/
+u -e/ls/
+
+provider_to_location = {
+  # 'dj': {
+  #   'coord_obj': dj_coordinator,
+  #   'coord_container': joiner(absdir, 'fslang/django/__init__.py'),
+  #   'module_name': 'fslang_django',
+  # },
+
+  # utils
+  'ecommdj' : U1_coordinator,
+  'Uprobe'  : U2_coordinator,
+  'Uprome'  : U3_coordinator,
+  'Uprond'  : U4_coordinator,
+  'Uprort'  : U5_coordinator,
+  'Uprost'  : U6_coordinator,
+  'Uroutes' : U7_coordinator,
+  'Uvertx'  : vertxsb_coordinator,
+  
+  # misc
+  'MA'      : android_sunflower_coordinator,
+  'Mdjcorona' : djcorona_coordinator,
+  'Mndcorona' : nodecorona_coordinator,
+  'Mcppcli' : cppcli_coordinator,
+
+  'crajs'   : crajs_coordinator,
+  'crats'   : crats_coordinator,
+  'cnxjs'   : cnxjs_coordinator,
+  'cnxts'   : cnxts_coordinator,
+
+	# app.quick.dahsyat
+	'adminator'	: adminator_coordinator,
+	'qass' 		: quickassist_coordinator,
+	'nextblog'	: nextblog_coordinator,
+	'nxblog'	: nxblog_coordinator,
+	'sblite'	: springboot_sqlite_coordinator,
+
+  'Melec'   : electron_coordinator,
+  'Mgocli'  : gocli_coordinator,
+  'Mhtml'   : htmlcss_coordinator,
+  'Mindon'  : indon_coordinator,
+
+  'Mjfx1'   : jfxso_coordinator,
+  'Mjfx2'   : jfxso2_coordinator,
+  'Msfx'    : sfxso_coordinator,
+
+  'Mlangtpl'  : tplang_coordinator,
+  'Mqrepl'  : tprepl_coordinator,
+
+  'Mmgseed' : MM_coordinator,
+  'Mtray'   : MP_coordinator,
+  'Mqt1'    : MQ1_coordinator,
+  'Mqt2'    : MQ2_coordinator,  
+  'Mrn'     : MR1_coordinator,
+  'Mrustcli'  : MR2_coordinator,
+  'Mwarp'   : MR3_coordinator,
+  'Mpy'     : simplepy_coordinator,
+  'Mut'     : simpleunittest_coordinator,
+  'Mtsel'   : tselflutter1_coordinator,
+
+  # original fslang
+  'dj'      : dj_coordinator, // u -e"/D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}...
+  'dw'      : dropwizard_coordinator, // u -e"/D>dw|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}...
+  'fa'      : fastapi_coordinator, // u -e"/D>fa|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}...
+  'fl'      : flask_coordinator, // u -e"/D>fl|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}...
+  'noda'    : noda_coordinator, // u -e"/D>noda|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}...
+  'nest'    : nest_coordinator, // u -e"/D>nest|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}...
+  'sb'      : sb_coordinator, // u -e"/D>sb|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}...
+  'mn'      : micronaut_coordinator, // u -e"/D>mn|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}...
+  'qk'      : quarkus_coordinator, // u -e"/D>qk|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}...
+
+  # fullstack
+  'assist'  : assist_coordinator,
+  'gin1'    : gg_coordinator,
+  'gin2'    : gingonic_simple_coordinator,
+  'echo'    : echo_coordinator,
+  'mux'     : mux_coordinator,
+  'nxarg'   : nxargon_coordinator,
+  'nxmkit'  : nxmkit_coordinator,
+  'nxmui'   : nxmui_coordinator,
+  'nxnotus' : nxnotus_coordinator,
+  'nxtw'    : nxtw_coordinator,
+  'nxts1'   : nxts1_coordinator,
+  'nxts2'   : nxts2_coordinator,
+
+  'nn'      : nodenext_coordinator,
+  'nts1'    : nodetsmg_coordinator,
+  'rair'    : rair_coordinator,
+  'rargon'  : rargon_coordinator,
+  'riot'    : riot_coordinator,
+  'rlight'  : rlight_coordinator,
+  'rmkit'   : rmkit_coordinator,
+  'rmui'    : rmui_coordinator,
+  'rnotus'  : rnotus_coordinator,
+  'rnow'    : rnow_coordinator,
+  'rpaper'  : rpaper_coordinator,
+  'rts1'    : rts1_coordinator,
+  'rvolt'   : rvolt_coordinator,
+  'rxt'     : rxt_coordinator,
+  'tok'     : tokyo_coordinator,
+  'vue'     : vue_coordinator,
+}
+
+[usef:rahasia@localhost:27017/tempdb]
+[usef:rahasia@localhost:5432/tempdb]
+
+u -e"/D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}title,s,len=150;description,t,len=1000;done,b,df=False"
+u -e"/D>vue|[usef:rahasia@localhost:5432/tempdb#8000##9000]{@Todo}title,s,len=150;description,t,len=1000;done,b,df=False"
+
+u -e"/D>dj|[/tempdb]{@Todo}title,s;description,t;done,b"
+u -e"/D>crajs|[/tempdb]{@Todo}title,s;description,t;done,b"
+u -e"/D>cnxjs|[/tempdb]{@Todo}title,s;description,t;done,b"
+u -e"/D>nextblog|[/tempdb]{@Todo}title,s;description,t;done,b"
+
+u -e"/D>adminator|[/tempdb]{@Todo}title,s;description,t;done,b"
+u -e"/b>adminator/base"
+
+u -e"/tar>monoproject*|node_modules,__pycache__"
+  (tgz version - preferable)
+u -e"/tar>monoproject|node_modules,__pycache__"
+  (tar version)
+
+scp -P 8022 database.sqlite3 u0_a194@192.168.0.102:/data/data/com.termux/files/usef/work/uploads
+
+scp -P 8022 u0_a194@192.168.0.102:/data/data/com.termux/files/usef/work/uploads/database.sqlite3 .
+
+u -e**term
+u -e**term1
+
+# blitz
+u -e"b>py/fa1.fmus"
+  fastapi simple
+
+  u -e"/%specialcmd.py"
+  u -e"/%$specialcmd.py"
+  u -e"/%$*specialcmd.py"
+  u -e"**@pris/{@Book=#5}isbn,s,pk,n,df=Tulisanku;title,s;publisher,s"
+  u -e"/@pris/{@Book=#5}isbn,s,pk,n,df=Tulisanku;title,s;publisher,s"
+  u -e"/>json|json2|csv|sql,namafile|csvcode"
+  u -e"/>dc,pg|mg|my|ma|ms|ms2|redis|neo|pw|cass|elk"
+  u -e"/>credentials.json"
+
+/file>
+  j
+    /file>j/17|filepath
+    /file>j/17/5|filepath
+  J
+    /file>J/ALTER TABLE ONLY|s_users-schema.sql
+    /file>J/ALTER TABLE ONLY/2|s_users-schema.sql
+  c
+    /file>c/10/-- |file.txt
+  i
+    /file>i/3/isi insert ke file|settings.py
+  I
+    /file>I/3/filepath=barisentry|settings.py
+  I>
+    /file>I>/3/filepath=barisentry/t|main.go
+    /file>I>/3/filepath=barisentry/t/2|main.go
+    /file>I>/3/filepath=barisentry/s/3/4|main.go
+  ia
+    u -e"/file>ia/baris cari/isi tulisan|settings.py"
+  IA
+    u -e"/file>IA/baris cari/filepath=barisentry|settings.py"
+  ib
+    u -e"/file>ib/baris cari/isi tulisan|settings.py"
+  IB
+    u -e"/file>IB/baris cari/filepath=barisentry|settings.py"
+  a
+    /file>a/10/isi append ke file|file.txt
+  C
+    /file>C/cari pattern/-- |file.txt
+  C2
+    /file>C2/cari pattern/-- |file.txt
+  rx
+    /file>rx/regexfile.txt|targetfile.txt
+  repl
+    /file>repl/string yg mau dihapus/string pengganti|file.txt
+    /file>repl/snap_dev./|s_users-schema.sql
+  repline
+    /file>repline/0/ini baris pengganti|file.txt # bisa utk file kosong
+    /file>repline/3/ini baris pengganti|file.txt
+    /file>repline/-1/ini baris pengganti|file.txt # utk baris terakhir
+  -
+    /file>-/34|target.txt
+    /file>-/34/4|target.txt
+  --
+    /file>--/table_name|target.txt
+    /file>--/table_name/2|target.txt
+  >
+    /file>>lineexpr/t|filepath
+    /file>>lineexpr/t/1|filepath
+    /file>>lineexpr/s|filepath
+    /file>>lineexpr/s/3|filepath
+    /file>>lineexpr/s/3/4|filepath
+  <
+  ts
+    file>ts|filepath
+    file>ts/4|filepath
+  st
+    file>st|filepath
+    file>st/4|filepath
+
+u -e/netlify/1
+u -e/wp54/1
+
+buat:
+u -e"/b>blog/pages=judul-blog"
+lihat:
+u -e"/D>nxblog"
+
+language galore:
+u -e"/f. nda/C^[usef:rahasia@localhost:27017/tempdb]{@Product=#5}username,s^"
+u -e"/c. [i/0/@@@|main.go] go/{@User}username,s;email,s"
+u -e"/l. [i/0/@@@|pkg.go] go/Pmynewpackage"
+u -e"/d. [i/0/@@@|main.html] <a<b(<c/disabled/<d<e/nilai=kuda/sampurasun(<f<g))"
+
+skrg favorit kita adlh, run>* utk exec fmus
+fm//run>*fmusfile
+fm//run>*fmusfile* utk edit
+fm//run>**contentfile
+fm//run>**contentfile* utk edit
+dg @c utk coords, @d utk codes, @s utk schnell, dst.
+coba:
+fm//run>*@d/heroku.fmus*
+fm//run>*@d/netlify.fmus*
+fm//run>*@d/vercel.fmus*
+
+vscode template
+``    default
+`#    template_use_entry
+`r    template_reverse_entry
+`##   template_use_entry + '\n' + template_default_entry
+```   template_index_mk
+`l    template_link
+`@
+`angka
+`something
+``something
+```something
+tambah template unless dan template pick

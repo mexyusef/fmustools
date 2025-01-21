@@ -1,0 +1,14 @@
+https://www.upwork.com/freelance-jobs/apply/Python-Django-Plotly-MySQL-Web-Application-with-High-Quality_~01fd377afb4a45c0b4/
+	Python, Django, Plotly, MySQL Web Application with High Quality UX/UI
+	
+	The BankInsights web application will query and display approximately 220 different data elements from a database of information on 5,000+ U.S. banks using data grids and bar charts.
+
+	For additional information see the attached project description including sample wireframes.  
+
+	Additional wireframe details and database schema available separately upon request to qualified bidders.  Please request and review this detailed information before developing your bid.
+
+		ini menarik bukan? oprek data mengenai bank
+
+https://github.com/tuckert23/ANN-Final-Project
+	https://medium.com/@tuckert23/ai-crypto-art-generating-nft-style-images-with-neural-networks-68b0930ec1bd
+		generate nft art dari gambar

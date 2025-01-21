@@ -1,0 +1,34 @@
+--% git clone melty specific sha
+.,d
+    $* git init
+    $* git remote add origin C:\\ai\\melty
+    $* git fetch origin 8e6d92a5c344ea95fd4f34f8beeb249bed8f3963
+    $* git checkout FETCH_HEAD
+--#
+
+mkdir C:\ai\melty-clone-1
+cd C:\ai\melty-clone-1
+git init
+git remote add origin C:\ai\melty
+git fetch origin 8e6d92a5c344ea95fd4f34f8beeb249bed8f3963
+git checkout FETCH_HEAD
+
+--% clone-melty
+.,d
+    %SHA=8e6d92a5c344ea95fd4f34f8beeb249bed8f3963
+    $* git init
+    $* git remote add origin C:\\ai\\melty
+    $* git fetch origin SHA
+    $* git checkout FETCH_HEAD
+--#
+
+
+g "/fmus)C:\work\ciledug\ciledug\fmusperintah\configs\git.fmus=clone-pear"
+
+--% clone-pear
+.,d
+    %SHA=0d5ffa129a7029b6756537b65809d69c17ecb7c1
+    $* git init
+    $* git remote add origin C:\ai\pearai-app
+    $* git fetch origin SHA && git checkout FETCH_HEAD
+--#

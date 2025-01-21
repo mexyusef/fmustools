@@ -1,0 +1,49 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        $* pip install fastapi 
+        $* pip install uvicorn
+        $* pip install gunicorn
+        $* pip install asgiref asyncpg click colorama databases fastapi greenlet h11 psycopg2 pydantic sqlalchemy starlette typing-extensions uvicorn
+        $* pip install jinja2
+        $* pip install fastapi "unicorn[standard]" redis-om
+        $* pip install -r requirements.txt
+
+        @load boilerplate from main fastapp - mysql and postgresql*
+            .,d(/load=__CURDIR__/fa.fmus=index/fmus*)
+        @load boilerplate from simple fastapi - dg diakhiri perintah wsl*
+            .,d(/load=__CURDIR__/fa1.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/tpl.fmus=index/fmus*)
+
+        @buat requirements.txt di sini*
+            requirements.txt,f(e=__FILE__=requirements.txt)
+
+        @dockerize fastapi project*
+            @https://www.youtube.com/watch?v=XzE-PzALyDc*
+
+        $* python -m webbrowser -t https://fastapi.tiangolo.com/advanced/async-sql-databases/
+        $* python -m webbrowser -t https://fastapi.tiangolo.com/advanced/nosql-databases/
+
+        $* wsl /home/usef/.local/bin/uvicorn main:app --reload
+        $* uvicorn main:app --reload
+--#
+
+--% requirements.txt
+aiomysql==0.0.22
+anyio==3.5.0
+asgiref==3.5.0
+click==8.1.2
+colorama==0.4.4
+fastapi==0.75.0
+greenlet==1.1.2
+h11==0.13.0
+idna==3.3
+pydantic==1.9.0
+PyJWT==2.3.0
+PyMySQL==0.9.3
+sniffio==1.2.0
+SQLAlchemy==1.4.34
+starlette==0.17.1
+typing_extensions==4.1.1
+uvicorn==0.17.6
+--#

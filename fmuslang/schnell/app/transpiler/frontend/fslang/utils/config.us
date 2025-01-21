@@ -1,0 +1,8 @@
+--% index/fmus
+.,d
+  config.js,f(f=config.js,@ra=pengganti-1="host: '172")
+--#
+
+--% pengganti-1
+    host: '__IF_ETH0',
+--#

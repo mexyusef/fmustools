@@ -1,0 +1,333 @@
+--% index/fmus
+__PWD,d
+	CMakeLists.txt,f(e=__FILE__=cmakelists)
+	?pick
+		utama.cpp,f(e=__FILE__=template1)
+		utama.cpp,f(e=__FILE__=template2)
+		utama.cpp,f(e=__FILE__=template3)
+		utama.cpp,f(e=__FILE__=template4)
+
+
+	inc.hpp,f(e=__FILE__=inc.hpp)
+	build,d(/mk)
+		$* cmake ..
+		$* make
+		#$* ls -al
+		$* __PWD/build/hasil01
+--#
+
+--% README.md
+include_directories(common)
+masukkan inc.hpp ke common
+utk bisa #include<inc.hpp>
+
+1:
+2:
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:8:20: error: expected concept name with
+      optional arguments
+    { a <=> b } -> std::convertible_to<std::partial_ordering>;
+                   ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:11:31: error: use of undeclared identifier
+      'ThreeWayComparable'
+template<typename T> requires ThreeWayComparable<T>
+                              ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:24:24: error: use of undeclared identifier
+      'MyStruct'
+    std::cout << (comp(MyStruct{}, MyStruct{}) == 0) << std::endl;
+                       ^
+3 errors generated.
+make[2]: *** [CMakeFiles/hasil01.dir/build.make:76: CMakeFiles/hasil01.dir/utama.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:126: CMakeFiles/hasil01.dir/all] Error 2
+make: *** [Makefile:91: all] Error 2
+
+
+3:
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:15:34: error: no type named
+      'incrementable_traits' in namespace 'std'
+    requires(It i, typename std::incrementable_traits<It>::difference_type n)
+                   ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:15:54: error: expected ')'
+    requires(It i, typename std::incrementable_traits<It>::difference_type n)
+                                                     ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:15:13: note: to match this '('
+    requires(It i, typename std::incrementable_traits<It>::difference_type n)
+            ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:17:40: error: use of undeclared identifier 'n'
+    { i - i } -> std::same_as<decltype(n)>;
+                                       ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:17:23: error: too few template arguments for
+      concept 'same_as'
+    { i - i } -> std::same_as<decltype(n)>;
+                      ^
+/data/data/com.termux/files/usr/include/c++/v1/concepts:158:9: note: template is declared here
+concept same_as = __same_as_impl<_Tp, _Up> && __same_as_impl<_Up, _Tp>;
+        ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:18:11: error: use of undeclared identifier 'n'
+    { i + n } -> std::same_as<It>;
+          ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:19:11: error: use of undeclared identifier 'n'
+    { i - n } -> std::same_as<It>;
+          ^
+6 errors generated.
+make[2]: *** [CMakeFiles/hasil01.dir/build.make:76: CMakeFiles/hasil01.dir/utama.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:126: CMakeFiles/hasil01.dir/all] Error 2
+make: *** [Makefile:91: all] Error 2
+
+
+4:
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:9:5: error: cannot default 'operator<=>'
+      because type 'std::strong_ordering' was not found; include <compare>
+    auto operator<=>(const MyStruct&) const = default;
+    ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:13:29: error: 'F' does not refer to a value
+    requires std::invocable<F, typename T::value_type, typename T::value_type>
+                            ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:12:31: note: declared here
+template<typename T, typename F>
+                              ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:13:19: error: no member named 'invocable' in
+      namespace 'std'
+    requires std::invocable<F, typename T::value_type, typename T::value_type>
+             ~~~~~^
+3 errors generated.
+make[2]: *** [CMakeFiles/hasil01.dir/build.make:76: CMakeFiles/hasil01.dir/utama.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:126: CMakeFiles/hasil01.dir/all] Error 2
+make: *** [Makefile:91: all] Error 2
+--#
+
+--% template1
+#include <list>
+#include <algorithm>
+#include <iostream>
+
+int main()
+{
+    std::list<int> l = {3,-1,10};
+    std::cout << "before sort: " << l << "\n";
+    std::sort(l.begin(), l.end());
+    std::cout << "after sort: " << l << "\n";
+}
+--#
+
+--% template2
+#include <iostream>
+#include <concepts>
+#include <compare>
+
+template<typename T>
+concept ThreeWayComparable = requires(T a, T b)
+{
+    { a <=> b } -> std::convertible_to<std::partial_ordering>;
+};
+
+template<typename T> requires ThreeWayComparable<T>
+auto comp(const T& a, const T& b)
+{
+    return a <=> b;
+}
+
+struct MyStruct
+{
+    auto operator<=>(const MyStruct&) const = default;
+};
+
+int main()
+{
+    std::cout << (comp(MyStruct{}, MyStruct{}) == 0) << std::endl;
+}
+
+--#
+
+--% template3
+#include <concepts>
+#include <algorithm>
+#include <vector>
+#include <list>
+
+struct MyStruct
+{
+    int value;
+    MyStruct(int v) : value(v) {}
+    //auto operator<=>(const MyStruct&) const = default;
+};
+
+template<typename It>
+concept RandomAccessIterator = 
+    requires(It i, typename std::incrementable_traits<It>::difference_type n)
+{
+    { i - i } -> std::same_as<decltype(n)>;
+    { i + n } -> std::same_as<It>;
+    { i - n } -> std::same_as<It>;
+};
+
+template<typename It>
+concept LessThanComparable = requires(It a, It b)
+{
+    typename It::value_type;
+    { *a < *b } -> std::same_as<bool>;
+};
+
+template<typename T>
+    requires RandomAccessIterator<T> && LessThanComparable<T>
+void mysort(T begin, T end)
+{
+    std::sort(begin, end);
+}
+
+int main()
+{
+    std::vector<MyStruct> vec{1, 3, 5 , 2, 2};
+    
+    //mysort(vec.begin(), vec.end());
+}
+
+--#
+
+--% template4
+#include <concepts>
+#include <algorithm>
+#include <vector>
+
+struct MyStruct
+{
+    int value;
+    MyStruct(int v) : value{v} {}
+    auto operator<=>(const MyStruct&) const = default;
+};
+
+template<typename T, typename F>
+    requires std::invocable<F, typename T::value_type, typename T::value_type>
+void mysort(T begin, T end, F f)
+{
+    std::sort(begin, end, f);
+}
+
+template<typename T>
+    requires std::totally_ordered<typename T::value_type>
+void mysort2(T begin, T end)
+{
+    std::sort(begin, end);
+}
+
+int main()
+{
+    std::vector<MyStruct> vi{1, 3, 3, 2, 6};
+    mysort(vi.begin(), vi.end(),
+        [](MyStruct lhs , MyStruct rhs) -> bool
+        {
+            return lhs < rhs;
+        }
+    );
+    mysort2(vi.begin(), vi.end());
+}
+--#
+
+--% inc.hpp
+#pragma once
+
+#include <fmt/format.h>
+#include <fmt/ostream.h>
+#include <range/v3/all.hpp>
+#include <cstdio>
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <algorithm>
+#include <cxxabi.h>
+#include <typeinfo>
+#include <math.h>
+#include <utility>
+
+using namespace fmt;
+using std::cout;
+using std::endl;
+using namespace std::string_literals;
+
+template<typename T>
+struct ShowType;
+
+inline std::string demangle(const std::string& name)
+{
+    int status;
+    auto ptr = abi::__cxa_demangle(name.c_str(), nullptr, nullptr, &status);
+    std::string str(ptr);
+    free(ptr);
+    return str;
+}
+
+template<typename T>
+inline std::string typeName()
+{
+    return demangle(typeid(T).name());
+}
+
+template<typename T>
+inline std::string typeName(T&& obj)
+{
+    return demangle(typeid(obj).name());
+}
+--#
+
+--% cmakelists
+cmake_minimum_required (VERSION 3.11.0)
+project (latihan)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+
+#cmake_minimum_required(VERSION 3.6)
+#project(latihan)
+#set(CMAKE_CXX_STANDARD 17)
+
+
+include(FetchContent)
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
+    GIT_TAG 0889856d6160775462e9e0722d121aab0e75e873
+)
+FetchContent_GetProperties(fmt)
+if(NOT fmt_POPULATED)
+    FetchContent_Populate(fmt)
+endif()
+set(FMT_PATH ${fmt_SOURCE_DIR})
+
+
+
+FetchContent_Declare(
+    ranges
+    GIT_REPOSITORY "https://github.com/ericniebler/range-v3.git"
+    GIT_TAG 50ef05324f880569436c424d0c33ba4de36fb6d9
+)
+FetchContent_GetProperties(ranges)
+if(NOT ranges_POPULATED)
+    FetchContent_Populate(ranges)
+endif()
+set(RANGES_PATH ${ranges_SOURCE_DIR})
+
+
+
+FetchContent_Declare(
+    cppcoro
+    GIT_REPOSITORY "https://github.com/lewissbaker/cppcoro.git"
+    GIT_TAG 00b34af58e8e74e0ca1739967ce410792e024964
+)
+FetchContent_GetProperties(cppcoro)
+if(NOT cppcoro_POPULATED)
+    FetchContent_Populate(cppcoro)
+endif()
+set(CPPCORO_PATH ${cppcoro_SOURCE_DIR})
+
+
+
+add_subdirectory(${FMT_PATH} ${CMAKE_CURRENT_BINARY_DIR}/fmt EXCLUDE_FROM_ALL)
+include_directories(${FMT_PATH}/include)
+include_directories(${RANGES_PATH}/include)
+include_directories(${CPPCORO_PATH}/include)
+
+
+#add_compile_options(-std=c++20 -fconcepts)
+add_compile_options(-fconcepts)
+add_executable(hasil01 utama.cpp)
+--#

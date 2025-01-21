@@ -1,0 +1,197 @@
+width: MediaQuery.of(context).size.width * 0.75,
+###
+height: MediaQuery.of(context).size.height * 0.75,
+###
+double.infinity
+###
+Alignment.topCenter
+###
+MediaQuery.of(context).size
+###
+SystemChrome.setPreferredOrientations(
+  DeviceOrientation.portraitUp
+)
+###
+Image.asset(
+  "assests/images/gambar.png",
+  width: 100,
+  height: 100,
+),
+###
+color: Colors.blueGrey
+color: Colors.cyan
+color: Colors.indigo
+color: Colors.teal
+###
+padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+###
+padding: EdgeInsets.symmetric(horizontal: 8.0),
+###
+Theme.of(context).accentColor
+###
+Theme.of(context).primaryColor
+###
+ThemeData(
+  brightness: Brightness.dark,
+  bottomNavigationBarTheme: 
+    const BottomNavigationBarThemeData(
+      selectedItemColor: Colors.white,
+    )
+)
+###
+SingleChildScrollView(
+  child: Padding(
+    padding: EdgeInsets.only(left: 30, right: 30),
+    child:
+  ),
+),
+###
+Container(
+  padding: EdgeInsets.symmetric(horizontal: 8.0),
+  height: 70.0,
+  color: Colors.white,
+  child: Row(
+    children: <Widget>[
+    ],
+  ),
+),
+###
+BorderRadius.only(
+  topLeft: Radius.circular(15.0),
+  bottomLeft: Radius.circular(15.0),
+),
+###
+EdgeInsets.only(
+  top: 8.0,
+  bottom: 8.0,
+  left: 80.0,
+),
+###
+crossAxisAlignment: CrossAxisAlignment.start
+###
+AppBar(
+  title: Text(
+    "hello",
+    style: TextStyle(
+      fontSize: 28.0,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+  elevation: 0.0,
+  actions: <Widget>[
+    IconButton(
+      icon: Icon(Icons.more_horiz),
+      iconSize: 30.0,
+      color: Colors.white,
+      onPressed: () {},
+    ),
+  ],
+),
+###
+TextStyle(
+  color: Colors.blueGrey,
+  fontSize: 16.0,
+  fontWeight: FontWeight.w600,
+),
+###
+RichText(
+	text: TextSpan(
+		style: DefaultTextStyle.of(context).style,
+		children: [
+			TextSpan(text: 'satu'),
+			TextSpan(text: 'dua', style: myBoldStyle),
+			TextSpan(text: 'tiga'),
+		]
+	)
+),
+###
+SizedBox(height: 8.0),
+###
+SizedBox(width: 8.0),
+###
+BoxDecoration(
+  gradient:
+)
+###
+LinearGradient(
+  begin:
+  end:
+  colors: []
+  stops: []
+)
+###
+AnimatedContainer(
+	duration: Duration(milliseconds: 300),
+	transform: Matrix4.translationValues(geser,0,0)
+		..rotateX(0.5)..rotateY(0.7),
+	height: tinggi,
+	width: lebar,
+	color: Colors.blue,
+),
+###
+AnimatedPositioned(
+	child:
+	curve:
+	duration: Duration(milliseconds: 300),
+	left:
+	top:
+),
+###
+Text(
+  "hello",
+  style: TextStyle(
+    color: Colors.blueGrey,
+    fontSize: 16.0,
+    fontWeight: FontWeight.w600,
+  ),
+)
+###
+Expanded(
+  child: TextField(
+    textCapitalization: TextCapitalization.sentences,
+    onChanged: (value) {},
+    decoration: InputDecoration.collapsed(
+      hintText: 'placeholder',
+    ),
+  ),
+)
+###
+TextEditingController _controller = TextEditingController();
+###
+TextField(
+  controller: _controller,
+  obscureText: true,
+  decoration: InputDecoration(hintText: "Masukkan"),
+),
+###
+ClipRRect(
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(30.0),
+    topRight: Radius.circular(30.0),
+  ),
+  child: ,
+)
+###
+ListView.builder(
+  reverse: true,
+  padding: EdgeInsets.only(top: 15.0),
+  itemCount: messages.length,
+  itemBuilder: (BuildContext context, int index) {
+    final Message message = messages[index];
+    final bool isMe = message.sender.id == currentUser.id;
+    return _buildMessage(message, isMe);
+  },
+)
+###
+IconButton(
+  icon: Icon(Icons.photo),
+  iconSize: 25.0,
+  color: Theme.of(context).primaryColor,
+  onPressed: () {},
+)
+###
+Icon(Icons.favorite)
+###
+Icon(Icons.favorite_border)
+###
+Icon(Icons.more_horiz)

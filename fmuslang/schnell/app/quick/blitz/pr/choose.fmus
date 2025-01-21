@@ -1,0 +1,449 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@windows, pyantlr: initial dari empty folder tapi sudah install dependencies*
+			$* wget https://www.antlr.org/download/antlr-4.9.3-complete.jar -O antlr.jar			
+			ant4.bat,f(n=java org.antlr.v4.Tool %*)
+			grun.bat,f(n=java org.antlr.v4.runtime.misc.TestRig %*)
+			a3.bat,f(e=__FILE__=a3.bat)
+			listen.bat,f(e=__FILE__=a3.bat)
+			av3.bat,f(e=__FILE__=av3.bat)
+			visit.bat,f(e=__FILE__=av3.bat)
+			avl3.bat,f(e=__FILE__=avl3.bat)
+			visitlisten.bat,f(e=__FILE__=avl3.bat)
+			pygrun.bat,f(n=python bin/pygrun %*)
+			info.txt,f(e=__FILE__=info.txt)
+			classpath.bat,f(n=set CLASSPATH=%CLASSPATH%;.;c:\work\bin\antlr-4.9.3-complete.jar)
+			classpath472.bat,f(n=set CLASSPATH=%CLASSPATH%;.;c:\work\bin\antlr-4.7.2-complete.jar)
+			ag.bat,f(e=__FILE__=ag.bat)
+			bin,d(/mk)
+				$* git init
+				$* git remote add origin https://github.com/antlr/antlr4
+				$* git sparse-checkout init
+				$* git sparse-checkout set "runtime/Python3/bin"
+				$* git sparse-checkout list
+				$* git pull origin master
+				$* copy runtime\Python3\bin\pygrun .
+			@set CLASSPATH=.;antlr.jar
+		$* python -m webbrowser -t https://tomassetti.me/antlr-mega-tutorial/
+		@windows, goantlr: initial dari empty folder tapi sudah install dependencies*
+			$* wget https://www.antlr.org/download/antlr-4.9.3-complete.jar -O antlr.jar			
+			ag.bat,f(e=__FILE__=ag.bat)
+			bin,d(/mk)
+				$* git init
+				$* git remote add origin https://github.com/antlr/antlr4
+				$* git sparse-checkout init
+				$* git sparse-checkout set "runtime/Go/antlr"
+				$* git sparse-checkout list
+				$* git pull origin master
+			@set CLASSPATH=.;antlr.jar
+		@persiapan: pip install, wget antlr, create batch files, sparse checkout antlr runtime*
+			?pick
+				$* pip install antlr4-python3-runtime pyside2 shiboken2
+				$* wget https://www.antlr.org/download/antlr-4.9.3-complete.jar -O antlr.jar
+				$* wget https://www.antlr.org/download/antlr-4.7.2-complete.jar -O antlr.jar
+				@ set CLASSPATH=.;antlr.jar <-- jangan lupa (utk windows cmd)... *
+					$* set CLASSPATH=.;antlr.jar
+		@create various batch files*
+			ant4.bat,f(n=java org.antlr.v4.Tool %*)
+			grun.bat,f(n=java org.antlr.v4.runtime.misc.TestRig %*)
+			a3.bat,f(e=__FILE__=a3.bat)
+			av3.bat,f(e=__FILE__=av3.bat)
+			avl3.bat,f(e=__FILE__=avl3.bat)
+			pygrun.bat,f(n=python bin/pygrun %*)
+			info.txt,f(e=__FILE__=info.txt)
+		@download py runtime dari https://github.com/antlr/antlr4*
+			?pick
+				@recommended approach dg git sparse-checkout*
+					bin,d(/mk)
+						$* git init
+						$* git remote add origin https://github.com/antlr/antlr4
+						$* git sparse-checkout init
+						$* git sparse-checkout set "runtime/Python3/bin"
+						$* git sparse-checkout list
+						$* git pull origin master
+						?pick
+							$* copy runtime\Python3\bin\pygrun .
+							$* cp runtime/Python3/bin/pygrun .
+				@(dont use) - gaya lama dari https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository*
+					bin,d(/mk)
+						$* git init
+						#$* git remote add -f origin https://github.com/antlr/antlr4
+							@The git remote add command does not imply a fetch, but git remote add -f, as used here, does! That's what the -f means.*
+							@Using this and --depth=1 I cloned Chromium Devtools in 338 MB instead of 4.9 GB of full Blink source + history. Excellent*
+						$* git remote add origin https://github.com/antlr/antlr4
+						$* git config core.sparseCheckout true
+						$* echo "runtime/Python3/bin" >> .git/info/sparse-checkout
+						$* git pull origin master
+						?pick
+							$* copy runtime\Python3\bin\pygrun .
+							$* cp runtime/Python3/bin/pygrun .
+
+		@pyantlr examples*
+			?pick
+				@contoh hello, world*
+				@contoh array*
+					.,d
+						03-Array.iml,f(e=__CURDIR/pyant.fmus=/pyant/03-Array/03-Array.iml)
+						ArrayInit.g4,f(e=__CURDIR/pyant.fmus=/pyant/03-Array/ArrayInit.g4)
+						input.txt,f(e=__CURDIR/pyant.fmus=/pyant/03-Array/input.txt)
+						README.md,f(e=__CURDIR/pyant.fmus=/pyant/03-Array/README.md)
+						rewriter.py,f(e=__CURDIR/pyant.fmus=/pyant/03-Array/rewriter.py)
+						test_array.py,f(e=__CURDIR/pyant.fmus=/pyant/03-Array/test_array.py)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 ArrayInit.g4
+						$* pygrun ArrayInit init --tree input.txt
+						$* pygrun ArrayInit init --tokens input.txt
+						$* python test_array.py input.txt
+				@contoh expression*
+					.,d(/mk)
+						04-Expr.iml,f(e=__CURDIR/pyant.fmus=/pyant/04-Expr/04-Expr.iml)
+						Expr.g4,f(e=__CURDIR/pyant.fmus=/pyant/04-Expr/Expr.g4)
+						MyListener.py,f(e=__CURDIR/pyant.fmus=/pyant/04-Expr/MyListener.py)
+						README.md,f(e=__CURDIR/pyant.fmus=/pyant/04-Expr/README.md)
+						t.expr,f(e=__CURDIR/pyant.fmus=/pyant/04-Expr/t.expr)
+						test_Expr.py,f(e=__CURDIR/pyant.fmus=/pyant/04-Expr/test_Expr.py)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Expr.g4
+						$* pygrun Expr prog --tree t.expr
+						$* python test_Expr.py t.expr
+				@contoh extract java interface (brutal!!!)*
+					.,d(/mk)
+						04-ExtractInterface.iml,f(e=__CURDIR/pyant.fmus=/pyant/04-ExtractInterface/04-ExtractInterface.iml)
+						Demo.java,f(e=__CURDIR/pyant.fmus=/pyant/04-ExtractInterface/Demo.java)
+						ExtractInterfaceListener.py,f(e=__CURDIR/pyant.fmus=/pyant/04-ExtractInterface/ExtractInterfaceListener.py)
+						Java.g4,f(e=__CURDIR/pyant.fmus=/pyant/04-ExtractInterface/Java.g4)
+						README.md,f(e=__CURDIR/pyant.fmus=/pyant/04-ExtractInterface/README.md)
+						test_extract.py,f(e=__CURDIR/pyant.fmus=/pyant/04-ExtractInterface/test_extract.py)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Java.g4
+						$* python test_extract.py Demo.java
+				@mode change, xml lexer*
+					.,d(/mk)
+						04-modechange.iml,f(e=__CURDIR/pyant.fmus=/pyant/04-modechange/04-modechange.iml)
+						README.md,f(e=__CURDIR/pyant.fmus=/pyant/04-modechange/README.md)
+						t.xml,f(e=__CURDIR/pyant.fmus=/pyant/04-modechange/t.xml)
+						test.py,f(e=__CURDIR/pyant.fmus=/pyant/04-modechange/test.py)
+						XMLLexer.g4,f(e=__CURDIR/pyant.fmus=/pyant/04-modechange/XMLLexer.g4)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 XMLLexer.g4
+						$* python test.py t.xml
+				@rows visitor*
+					.,d(/mk)
+						04-Rows-visitor.iml,f(e=__CURDIR/pyant.fmus=/pyant/04-Rows-visitor/04-Rows-visitor.iml)
+						col.py,f(e=__CURDIR/pyant.fmus=/pyant/04-Rows-visitor/col.py)
+						README.md,f(e=__CURDIR/pyant.fmus=/pyant/04-Rows-visitor/README.md)
+						Rows.g4,f(e=__CURDIR/pyant.fmus=/pyant/04-Rows-visitor/Rows.g4)
+						t.rows,f(e=__CURDIR/pyant.fmus=/pyant/04-Rows-visitor/t.rows)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Rows.g4
+						$* python col.py 1 t.rows
+						$* python col.py 2 t.rows
+						$* python col.py 3 t.rows
+				@semantic predication*
+					.,d(/mk)
+						04-sempred.iml,f(e=__CURDIR/pyant.fmus=/pyant/04-sempred/04-sempred.iml)
+						Data.g4,f(e=__CURDIR/pyant.fmus=/pyant/04-sempred/Data.g4)
+						Readme.md,f(e=__CURDIR/pyant.fmus=/pyant/04-sempred/Readme.md)
+						t.data,f(e=__CURDIR/pyant.fmus=/pyant/04-sempred/t.data)
+						test_data.py,f(e=__CURDIR/pyant.fmus=/pyant/04-sempred/test_data.py)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Data.g4
+						$* type t.data
+						$* python test_data.py t.data
+				@label rule*
+					.,d(/mk)
+						07-LableRule.iml,f(e=__CURDIR/pyant.fmus=/pyant/07-LableRule/07-LableRule.iml)
+						LExpr.g4,f(e=__CURDIR/pyant.fmus=/pyant/07-LableRule/LExpr.g4)
+						README.md,f(e=__CURDIR/pyant.fmus=/pyant/07-LableRule/README.md)
+						t.expr,f(e=__CURDIR/pyant.fmus=/pyant/07-LableRule/t.expr)
+						test_EvalContext.py,f(e=__CURDIR/pyant.fmus=/pyant/07-LableRule/test_EvalContext.py)
+						test_EvalListener.py,f(e=__CURDIR/pyant.fmus=/pyant/07-LableRule/test_EvalListener.py)
+						test_EvalVistor.py,f(e=__CURDIR/pyant.fmus=/pyant/07-LableRule/test_EvalVistor.py)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* avl3 LExpr.g4
+						$* python test_EvalVistor.py t.expr
+						$* python test_EvalListener.py t.expr
+						$* python test_EvalContext.py t.expr
+				@property*
+					07-Property.iml,f(e=__CURDIR/pyant.fmus=/pyant/07-Property/07-Property.iml)
+					PropertyFile.g4,f(e=__CURDIR/pyant.fmus=/pyant/07-Property/PropertyFile.g4)
+					README.md,f(e=__CURDIR/pyant.fmus=/pyant/07-Property/README.md)
+					t.properties,f(e=__CURDIR/pyant.fmus=/pyant/07-Property/t.properties)
+					test_as_loader.py,f(e=__CURDIR/pyant.fmus=/pyant/07-Property/test_as_loader.py)
+					test_as_print.py,f(e=__CURDIR/pyant.fmus=/pyant/07-Property/test_as_print.py)
+					test_listener.py,f(e=__CURDIR/pyant.fmus=/pyant/07-Property/test_listener.py)
+					test_visitor.py,f(e=__CURDIR/pyant.fmus=/pyant/07-Property/test_visitor.py)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* avl3 PropertyFile.g4
+						$* python test_listener.py t.properties
+						$* python test_visitor.py t.properties
+						$* python test_as_print.py t.properties
+						$* python test_as_loader.py t.properties
+				@call graph*
+					08-CallGraph.iml,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/08-CallGraph.iml)
+					CallGraph.py,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/CallGraph.py)
+					CheckSymbols.py,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/CheckSymbols.py)
+					Cymbol.g4,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/Cymbol.g4)
+					output.dot,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/output.dot)
+					Readme.md,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/Readme.md)
+					SymbolScope.py,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/SymbolScope.py)
+					t.cymbol,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/t.cymbol)
+					vars.cymbol,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/vars.cymbol)
+					vars2.cymbol,f(e=__CURDIR/pyant.fmus=/pyant/08-CallGraph/vars2.cymbol)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Cymbol.g4
+						$* python CallGraph.py t.cymbol
+						$* python CheckSymbols.py vars.cymbol
+						$* python CheckSymbols.py vars2.cymbol
+				@csv*
+					08-CSV.iml,f(e=__CURDIR/pyant.fmus=/pyant/08-CSV/08-CSV.iml)
+					CSV.g4,f(e=__CURDIR/pyant.fmus=/pyant/08-CSV/CSV.g4)
+					CSV_Loader.py,f(e=__CURDIR/pyant.fmus=/pyant/08-CSV/CSV_Loader.py)
+					README.md,f(e=__CURDIR/pyant.fmus=/pyant/08-CSV/README.md)
+					t.csv,f(e=__CURDIR/pyant.fmus=/pyant/08-CSV/t.csv)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 CSV.g4
+						$* type t.csv
+						$* python CSV_Loader.py t.csv
+				@json*
+					08-JSON.iml,f(e=__CURDIR/pyant.fmus=/pyant/08-JSON/08-JSON.iml)
+					JSON.g4,f(e=__CURDIR/pyant.fmus=/pyant/08-JSON/JSON.g4)
+					json2xml.py,f(e=__CURDIR/pyant.fmus=/pyant/08-JSON/json2xml.py)
+					README.md,f(e=__CURDIR/pyant.fmus=/pyant/08-JSON/README.md)
+					t.json,f(e=__CURDIR/pyant.fmus=/pyant/08-JSON/t.json)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 JSON.g4
+						$* type t.json
+						$* python json2xml.py t.json
+				@simple*
+					in1.txt,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/in1.txt)
+					in2.txt,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/in2.txt)
+					in3.txt,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/in3.txt)
+					in4.txt,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/in4.txt)
+					in5.txt,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/in5.txt)
+					in6.txt,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/in6.txt)
+					in7.txt,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/in7.txt)
+					README.md,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/README.md)
+					Simple.g4,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/Simple.g4)
+					TestE_Listener.py,f(e=__CURDIR/pyant.fmus=/pyant/09-simple/TestE_Listener.py)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Simple.g4
+						$* pygrun Simple prog in1.txt
+						$* pygrun Simple prog in2.txt
+						$* pygrun Simple prog in3.txt
+						$* pygrun Simple prog in4.txt
+						$* pygrun Simple prog in5.txt
+						$* pygrun Simple prog in6.txt
+						@verbose listener*
+						$* python TestE_Listener.py in7.txt
+				@calc*
+					10-calc.iml,f(e=__CURDIR/pyant.fmus=/pyant/10-calc/10-calc.iml)
+					calc.py,f(e=__CURDIR/pyant.fmus=/pyant/10-calc/calc.py)
+					Expr.g4,f(e=__CURDIR/pyant.fmus=/pyant/10-calc/Expr.g4)
+					README.md,f(e=__CURDIR/pyant.fmus=/pyant/10-calc/README.md)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Expr.g4
+						$* python calc.py
+				@csv lagi*
+					10-CSV.iml,f(e=__CURDIR/pyant.fmus=/pyant/10-CSV/10-CSV.iml)
+					CSV.g4,f(e=__CURDIR/pyant.fmus=/pyant/10-CSV/CSV.g4)
+					README.md,f(e=__CURDIR/pyant.fmus=/pyant/10-CSV/README.md)
+					test_csv.py,f(e=__CURDIR/pyant.fmus=/pyant/10-CSV/test_csv.py)
+					users.csv,f(e=__CURDIR/pyant.fmus=/pyant/10-CSV/users.csv)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 CSV.g4
+						$* python test_csv.py users.csv
+				@keyword*
+					10-Keyword.iml,f(e=__CURDIR/pyant.fmus=/pyant/10-Keyword/10-Keyword.iml)
+					input1.txt,f(e=__CURDIR/pyant.fmus=/pyant/10-Keyword/input1.txt)
+					input2.txt,f(e=__CURDIR/pyant.fmus=/pyant/10-Keyword/input2.txt)
+					input3.txt,f(e=__CURDIR/pyant.fmus=/pyant/10-Keyword/input3.txt)
+					Keywords.g4,f(e=__CURDIR/pyant.fmus=/pyant/10-Keyword/Keywords.g4)
+					test_Keyword.py,f(e=__CURDIR/pyant.fmus=/pyant/10-Keyword/test_Keyword.py)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Keywords.g4
+						$* python test_Keyword.py input1.txt
+						$* python test_Keyword.py input2.txt
+						$* python test_Keyword.py input3.txt
+				@cpp state*
+					11-CppState.iml,f(e=__CURDIR/pyant.fmus=/pyant/11-CppState/11-CppState.iml)
+					CppStat.g4,f(e=__CURDIR/pyant.fmus=/pyant/11-CppState/CppStat.g4)
+					input.cpp,f(e=__CURDIR/pyant.fmus=/pyant/11-CppState/input.cpp)
+					input2.cpp,f(e=__CURDIR/pyant.fmus=/pyant/11-CppState/input2.cpp)
+					PredCppStat.g4,f(e=__CURDIR/pyant.fmus=/pyant/11-CppState/PredCppStat.g4)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 CppStat.g4
+						$* a3 PredCppStat
+				@predicate lexer*
+					11-predicate_lexer.iml,f(e=__CURDIR/pyant.fmus=/pyant/11-predicate_lexer/11-predicate_lexer.iml)
+					Enum2.g4,f(e=__CURDIR/pyant.fmus=/pyant/11-predicate_lexer/Enum2.g4)
+					README.md,f(e=__CURDIR/pyant.fmus=/pyant/11-predicate_lexer/README.md)
+					Temp.java,f(e=__CURDIR/pyant.fmus=/pyant/11-predicate_lexer/Temp.java)
+					test_EnumLexer.py,f(e=__CURDIR/pyant.fmus=/pyant/11-predicate_lexer/test_EnumLexer.py)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Enum2.g4
+						$* python test_EnumLexer.py Temp.java
+				@predicate parser*
+					11-predicate_parser.iml,f(e=__CURDIR/pyant.fmus=/pyant/11-predicate_parser/11-predicate_parser.iml)
+					Enum.g4,f(e=__CURDIR/pyant.fmus=/pyant/11-predicate_parser/Enum.g4)
+					README.md,f(e=__CURDIR/pyant.fmus=/pyant/11-predicate_parser/README.md)
+					Temp.java,f(e=__CURDIR/pyant.fmus=/pyant/11-predicate_parser/Temp.java)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Enum.g4
+				@channel*
+					12-channel.iml,f(e=__CURDIR/pyant.fmus=/pyant/12-channel/12-channel.iml)
+					Cymbol.g4,f(e=__CURDIR/pyant.fmus=/pyant/12-channel/Cymbol.g4)
+					README.md,f(e=__CURDIR/pyant.fmus=/pyant/12-channel/README.md)
+					shift_var_comments.py,f(e=__CURDIR/pyant.fmus=/pyant/12-channel/shift_var_comments.py)
+					t.cym,f(e=__CURDIR/pyant.fmus=/pyant/12-channel/t.cym)
+					info.txt,f(e=__CURDIR/pyant.fmus=channelinfo)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 Cymbol.g4
+						$* python shift_var_comments.py t.cym
+				@id as keyword*
+					IDKeyword.g4,f(e=__CURDIR/pyant.fmus=/pyant/12-id_as_keyword/IDKeyword.g4)
+					input.txt,f(e=__CURDIR/pyant.fmus=/pyant/12-id_as_keyword/input.txt)
+					PredKeyword.g4,f(e=__CURDIR/pyant.fmus=/pyant/12-id_as_keyword/PredKeyword.g4)
+					run.bat,f(e=__CURDIR/pyant.fmus=/pyant/12-id_as_keyword/run.bat)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 IDKeyword.g4
+						$* a3 PredKeyword.g4
+						$* run
+				@sea of text*
+					Mode.txt,f(e=__CURDIR/pyant.fmus=/pyant/12-sea_of_text/Mode.txt)
+					ModeTagsLexer.g4,f(e=__CURDIR/pyant.fmus=/pyant/12-sea_of_text/ModeTagsLexer.g4)
+					ModeTagsParser.g4,f(e=__CURDIR/pyant.fmus=/pyant/12-sea_of_text/ModeTagsParser.g4)
+					Tags.g4,f(e=__CURDIR/pyant.fmus=/pyant/12-sea_of_text/Tags.g4)
+					@siap2 utk jalankan dan eksekusi...(pastikan sudah download antlr dan runtime dan create batch files)
+						$* a3 ModeTagsLexer.g4
+						$* a3 ModeTagsParser.g4
+						$* a3 Tags.g4
+
+--#
+
+--% channelinfo
+# Shift Comment to top
+There is no TokenStreamRewriter in the python runtime. It does not have to. if you dive into the source code, the CommonTokenStream is derived from BufferedTokenStream which has a list of CommonToken. It is re-writable. 
+
+in the listener
+```python
+class CommentShifter(CymbolListener):
+    def __init__(self, tokens:CommonTokenStream):
+        super().__init__()
+        self.tokens = tokens  # record the token stream from parser
+
+    def exitVarDecl(self, ctx:CymbolParser.VarDeclContext):
+        startIndex = ctx.start.tokenIndex
+        stopIndex = ctx.stop.tokenIndex
+        cmtChannel = self.tokens.getHiddenTokensToRight(stopIndex, CymbolLexer.COMMENTS)
+        if cmtChannel != None:
+            tok = cmtChannel[0]
+            if tok != None:  # find out a comment followed, it is one token
+                # self.tokens is CommonTokenStream
+                # self.tokens.tokens is the list of CommonToken
+                token_array = self.tokens.tokens
+                token_array.insert(startIndex, tok.clone())
+                tok.text = "\n"
+```
+
+# How to run
+```
+% python shift_var_comments.py t.cym
+(startrule 
+  (varDecl (datatype int) n = (expr 0) ;) 
+  (varDecl (datatype int) i = (expr 9) ;)
+)
+// define a counter
+int n = 0;
+int i = 9;
+```
+--#
+
+--% ag.bat
+java -jar antlr.jar org.antlr.v4.Tool -Dlanguage=Go -o parser %*
+--#
+
+--% a3.bat
+java org.antlr.v4.Tool -Dlanguage=Python3 %*
+--#
+
+--% av3.bat
+java org.antlr.v4.Tool -Dlanguage=Python3 -no-listener -visitor %*
+--#
+
+--% avl3.bat
+java org.antlr.v4.Tool -Dlanguage=Python3 -visitor %*
+--#
+
+--% info.txt
+git clone https://github.com/jszheng/py3antlr4book.git
+https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/
+https://tomassetti.me/antlr-mega-tutorial/
+
+# goto https://www.antlr.org/download.html
+# download the latest ver
+wget https://www.antlr.org/download/antlr-4.7.2-complete.jar
+ln -s antlr-4.7.2-complete.jar antlr.jar
+
+== utk oprek alias etc
+sudo apt install environment-modules
+module load ./antlr4module
+== antlr4module
+	#%Module1.0
+
+	conflict antlr4
+	set installdir [pwd]
+
+	prepend-path CLASSPATH $installdir/antlr.jar
+
+	set-alias antrl4     "java org.antlr.v4.Tool"
+	set-alias grun       "java org.antlr.v4.runtime.misc.TestRig"
+	set-alias antlr4py3  "java org.antlr.v4.Tool -Dlanguage=Python3"
+	set-alias antlr4py2  "java org.antlr.v4.Tool -Dlanguage=Python2"
+	set-alias antlr4vpy3 "java org.antlr.v4.Tool -Dlanguage=Python3 -no-listener -visitor"
+	set-alias antlr4vpy2 "java org.antlr.v4.Tool -Dlanguage=Python2 -no-listener -visitor"
+	set-alias pygrun     "python3 $installdir/bin/pygrun"
+==
+
+% antlr4py3 Hello.g4
+% pygrun Hello r --tokens input.txt
+[@0,0:4='hello',<1>,1:0]
+[@1,6:10='world',<2>,1:6]
+[@2,11:10='<EOF>',<-1>,1:11]
+
+% pygrun Hello r --tree input.txt
+(r hello world)
+
+% python test_hello.py input.txt
+(r hello world)
+
+== lakukan ini (5 langkah)
+1)
+wget https://www.antlr.org/download/antlr-4.9.3-complete.jar -O antlr.jar
+set CLASSPATH=.;antlr.jar
+
+buat batch files dimana
+a3 utk python listener
+av3 utk python visitor
+avl3 utk python visitor tanpa -no-listener (pura2 visitor+listener)
+
+2) a3 Hello.g4
+c:\work\tmp\pyantlr\01-Hello>a3 Hello.g4
+	c:\work\tmp\pyantlr\01-Hello>java org.antlr.v4.Tool -Dlanguage=Python3 Hello.g4
+
+3) pygrun Hello r --tokens input.txt
+c:\work\tmp\pyantlr\01-Hello>pygrun Hello r --tokens input.txt
+[@0,0:4='hello',<1>,1:0]
+[@1,6:10='world',<2>,1:6]
+[@2,13:12='<EOF>',<-1>,2:0]
+
+4) pygrun Hello r --tree input.txt
+c:\work\tmp\pyantlr\01-Hello>pygrun Hello r --tree input.txt
+	c:\work\tmp\pyantlr\01-Hello>python bin/pygrun Hello r --tree input.txt
+(r hello boyz)
+
+5) python test_hello.py input.txt
+c:\work\tmp\pyantlr\01-Hello>python test_hello.py input.txt
+(r hello boyz)
+--#

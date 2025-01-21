@@ -1,0 +1,3 @@
+--% getting started
+tujuan: belajar setiap kerjaan open source dan coba ekstrak dan absorb knowledge...
+--#

@@ -1,0 +1,20 @@
+--% git status
+git status
+--#
+
+--% git branch -a
+git branch -a
+--#
+
+--% git pull
+git pull
+--#
+
+--% git stash
+git stash
+--#
+
+--% git log --oneline --graph --color --all --format="%C(auto)%h %C(blue)%ad%Creset %C(green)%an%Creset %C(white)<%ae>%Creset %C(magenta)%s"
+git log --oneline --graph --color --all --format="%C(auto)%h %C(blue)%ad%Creset %C(green)%an%Creset %C(white)<%ae>%Creset %C(magenta)%s"
+--#
+

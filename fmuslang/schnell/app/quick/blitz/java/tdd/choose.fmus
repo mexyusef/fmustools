@@ -1,0 +1,14 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @junit5 gradle default*
+            .,d(/load=__CURDIR__/jg1.fmus=index/fmus)
+        @junit5 gradle groovy*
+            .,d(/load=__CURDIR__/jgg.fmus=index/fmus)
+        @junit5 gradle kotlin*
+            .,d(/load=__CURDIR__/jgk.fmus=index/fmus)
+        @junit5 maven default*
+            .,d(/load=__CURDIR__/m1.fmus=index/fmus)
+        @bermain dg mockito*
+        @bermain dg testng*
+--#

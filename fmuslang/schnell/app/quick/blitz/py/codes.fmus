@@ -1,0 +1,14 @@
+--% order/us
+fl |
+[usef:rahasia@localhost:5432/tempdb]
+{@Order=#10} 
+id,n;
+title,s;
+amount,i;
+description,s;
+orderdate,dt
+
+{@OrderPayment=#10}
+orderid,n;
+status,b
+--#

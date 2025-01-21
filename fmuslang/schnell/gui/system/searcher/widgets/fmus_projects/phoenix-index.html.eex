@@ -1,0 +1,12 @@
+<h2>Todos</h2>
+
+<ul>
+  <%= for todo <- @todos do %>
+    <li>
+      <%= todo.title %>
+      <%= if todo.completed do %>
+        <span class="completed">(Completed)</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

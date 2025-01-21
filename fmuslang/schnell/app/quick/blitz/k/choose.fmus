@@ -1,0 +1,60 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@spor - backend*
+			.,d(/load=__CURDIR__/sporb/choose.fmus=index/fmus)
+		@spor - frontend*
+			.,d(/load=__CURDIR__/sporf/choose.fmus=index/fmus)
+		@sucor - backoffice*
+			.,d(/load=__CURDIR__/sucor/choose.fmus=index/fmus)
+		@sop*
+			.,d(/load=__CURDIR__/sop/choose.fmus=index/fmus)
+		@meetdoctor*
+			.,d(/load=__CURDIR__/meetdoctor/choose.fmus=index/fmus)
+		@iot platform*
+			.,d(/load=__CURDIR__/iotplatform/choose.fmus=index/fmus*)
+		@sitarang*
+			.,d(/load=__CURDIR__/sitarang/choose.fmus=index/fmus)
+		@lingkungan*
+			.,d(/load=__CURDIR__/lingkungan/choose.fmus=index/fmus)
+		@kerjaan qti*
+			.,d(/load=__CURDIR__/qti/choose.fmus=index/fmus)
+		@kerjaan itb*
+			.,d(/load=__CURDIR__/itb/choose.fmus=index/fmus)
+		@kerjaan intelmas*
+			.,d(/load=__CURDIR__/intelmas/choose.fmus=index/fmus)
+		@kerjaan cmi*
+			.,d(/load=__CURDIR__/cmi/choose.fmus=index/fmus)
+		@kerjaan fuziq/maybank*
+			.,d(/load=__CURDIR__/fuziq/choose.fmus=index/fmus)
+		@kerjaan maltech - jp dan id*
+			.,d(/load=__CURDIR__/maltech/choose.fmus=index/fmus)
+		@kerjaan mantenboshi*
+			.,d(/load=__CURDIR__/mantenboshi/choose.fmus=index/fmus)
+		@kerjaan kyoei sangyo*
+			.,d(/load=__CURDIR__/kyoei/choose.fmus=index/fmus)
+		@kerjaan telco*
+			.,d(/load=__CURDIR__/trg/choose.fmus=index/fmus)
+		@kerjaan vlsi 1999-2000*
+			.,d(/load=__CURDIR__/vlsi/choose.fmus=index/fmus)
+		@belajar bahasa*
+			@dengan b>k/choose kita bisa belajar bahasa nih*
+			?pick
+				@spanish*
+				@german*
+				@russian*
+				@dutch*
+				@italian*
+		@lalang dan fmus/famous*
+			.,d(/load=__FILE__=lalang/fmus - what have i been done*)
+--#
+
+--% lalang/fmus - what have i been done
+.,d
+	?pick
+		@informasi seputar lalang*
+		@informasi seputar fmus*
+			?pick
+				@mengenai replace et, replace string, dst*
+--#
+

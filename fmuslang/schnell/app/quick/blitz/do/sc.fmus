@@ -1,0 +1,17 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @scrape dg python*
+            .,d(/load=__CURDIR__/../py/sc/choose.fmus=index/fmus*)
+        @scrape dg js*
+            .,d(/load=__CURDIR__/../js/sc/choose.fmus=index/fmus*)
+        @scrape dg go*
+            .,d(/load=__CURDIR__/../go/sc/choose.fmus=index/fmus*)
+        @scrape dg java*
+            .,d(/load=__CURDIR__/../java/sc/choose.fmus=index/fmus*)
+
+        @scrape dg rust*        
+        @scrape dg scala*
+        @scrape dg clojure*
+        @scrape dg kotlin*
+--#

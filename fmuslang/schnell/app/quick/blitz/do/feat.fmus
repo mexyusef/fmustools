@@ -1,0 +1,179 @@
+--% index/fmus
+__PWD,d
+	~unless[q]
+		.,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+	?pick
+		/C.
+		/D.
+		/F.
+		/L.
+
+		/c. go/{@User}name,s;email,s;password,s
+		/c. java/{@User}name,s;email,s;password,s
+		/c. pris/{@User}name,s;email,s;password,s
+		/c. ts/{@User}name,s;email,s;password,s
+
+		/d. <a<b(<c/disabled/<d<e/nilai=kuda/sampurasun(<f<g))        
+		/d. <a<b|tulisanku(<c)<d
+		/d. <a<b/disabled|tulisanku(<c)<d
+		/d. <a<b/disabled, cantik=true|tulisanku(<c)<d
+		/d. <html(<head(<title|Hello, boyz)<body(<header<main<div(<h1|Thank you <h2|oh nevermind)<footer))
+		/d. __INPUT__
+
+		/file>touch|main.go
+		/file>>__INPUT__/t|main.go
+		/file>>__INPUT__/s|main.go
+		/file>i/__INPUT__/__NL|main.go
+
+		/l. go/Pmain
+		/l. go/I`fmt`
+		/l. go/I`__INPUT__`
+		/l. go/for(i=1;i<=10;++i) {?+i}
+		
+		@ setTimeout...
+		/T)5|cmd /k start
+
+		@ ..
+		@ grep text
+		/s>package main|__PWD
+		@ find file
+		/s>~~main.go|__PWD
+		@ find dir
+		/s>~src/|__PWD
+		@ find dir+file, dir only (suffix /), file only (prefix ~)
+		/s>~    main|__PWD
+		/s>~    ~sc.fmus   |@saqb
+			@ cari file (saja) sc.fmus di @saqb
+		@ find file/dir
+		/s>#main|__PWD
+
+		@ ... fakers
+		/(dt
+		/(f
+		/(i
+		/(p
+		/(s
+		/(s/city
+		/(s/first_name_female
+		/(s/fn
+		/(s/last_name_male
+		/(s/ln
+		/(s/paragraph
+		/(s/phone
+		/(s/text
+		/(s/word
+		/(S
+		/(T
+		/(ts
+		/([]
+		/([]/5,s
+		/([]/10,s,country
+		/([]/10,s,fn
+		/([]/10,s,ln
+		/([]/10,s,name
+		/([]/10,si
+		/([]/10,F
+		/([]/5,i
+		/([]/5,i,10-50
+		/([]/20,i,100-1000	
+		/({}
+		/({}/10
+		/({}/15,i
+		/({}/20,s
+		/({}/25,si
+
+		/(__INPUT__
+		/([]__INPUT__
+		/({}__INPUT__
+
+		//__INPUT__
+			#search repl
+
+		@ ... runner
+		/run>@satff\flask
+		/run>@satff\django
+		/run>@satff\fastapi
+		/run>@satff\nest
+		/run>@satff\node_antd		
+		/run>@satff\node_apollo
+		/run>@satff\springboot
+		/run>@satffm\crajs
+		/run>@satffm\crats
+		/run>@satffm\cnxjs
+		/run>@satffm\cnxts
+
+
+		/run>>__INPUT__
+		/run>@satff/__INPUT__
+		/run>@satfff/__INPUT__
+		/run>@satffm/__INPUT__
+		/run>@satffu/__INPUT__
+		/run>@@satffz/__INPUT__
+		/run>@@satffz/quick/__INPUT__
+		/run>@@satffz/quick/campur/__INPUT__
+		/run>@@satffz/quick/campur/tdd/__INPUT__
+
+		@ ... cek atau oprek
+		$* bash
+	
+		@ ... melihat, run>> dirs, run># files, run>^ tree, run>* exec
+
+		/run>>@s
+			@ s=schnell, sa=schnell/app, sat=schnell/app/transpiler, satf=.../frontend
+			@ saq=quick, saqb, saqd=dahsyat, saqbdo = blitz/do
+		/run>>@saq
+		/run>>@saqb
+		/run>>@saqdo
+		/run>>@saqd
+		/run>>@satff
+		/run>>@satfff
+		/run>>@satffm
+		/run>>@satffu
+		/run>>@@satffz/quick
+		/run>>@@satffz/quick/campur
+		/run>>@@satffz/quick/campur/tdd
+		
+		/run>*@saqbdo/l|index/fmus
+
+		/hope>ssh -p 8022 u0_a194@192.168.0.102 ls -al|.*password:|usef
+		/hope>scp2|.*password:|usef
+
+
+		$* u -e"/%$*__INPUT__"
+		$* u -e"/%$*quick_command\__init__"
+		$* u -e"/%$*quick\__init__"
+		$* code ULIBPY_BASEDIR\app\quick\blitz\do\feat.fmus
+--#
+
+--% looping and branching ditanya wkt processing, jadi hanya berguna sbg top level
+.,d
+	@test looping and branching*
+		~while[__LS=*]
+			@sang file sekarang adalah __CURFILE__*
+		~while[__STR=satu dua tiga empat lima]
+			@sang string sekarang adalah __CURSTR__*
+		~while[__COMMA=satu, dua, tiga, empat, lima]
+			@sang koma sekarang adalah __CURCOMMA__*
+
+		~if
+			@if: setara if i: akan tanya*
+		~if[1]
+			@if 1: akan exec*
+		~if[0]
+			@if 0: akan skip*
+		~if[i]
+			@if i: akan tanya*
+		~if[0 1 i]
+			@if 0 1 i: yg menang adlh 0=skip yg duluan*
+		~if[1 0 i]
+			@if 1 0 i: yg menang adlh 1=exec yg duluan*
+		~if[i 1 0]
+			@if i 1 0: yg menang adlh i=tanya yg duluan*
+		~else[0]
+			@else 0: akan skip*
+
+--#

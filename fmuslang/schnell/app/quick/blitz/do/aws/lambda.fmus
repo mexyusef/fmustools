@@ -1,0 +1,119 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        **showtext=__FILE__=readme
+--#
+
+--% readme
+https://www.youtube.com/watch?v=4ilbHQ5D5kQ
+AWS Lambda Serverless API CRUD
+https://www.youtube.com/watch?v=4ilbHQ5D5kQ
+
+install+init sam app
+deploy sam app
+ddb = dynamodb table dan nosql workbench
+lambda functions (LF) crud...
+
+diagram
+
+    api gateway         lambda          iam         ddb
+
+    /product            
+        get             getProduct      permission  tables
+        post            addProduct      permission  tables
+        put             updateProduct   permission  tables
+        delete          deleteProduct   permission  tables
+setup sam cli
+https://youtu.be/4ilbHQ5D5kQ?t=405
+create aws account
+create aws keys
+install git
+aws cli
+install sam cli
+
+https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html
+
+C:\Users\usef\work\hapus>sam init --name mysam
+
+    SAM CLI now collects telemetry to better understand customer needs.
+
+    You can OPT OUT and disable telemetry collection by setting the
+    environment variable SAM_CLI_TELEMETRY=0 in your shell.
+    Thanks for your help!
+
+    Learn More: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-telemetry.html
+
+
+You can preselect a particular runtime or package type when using the `sam init` experience.
+Call `sam init --help` to learn more.
+
+Which template source would you like to use?
+    1 - AWS Quick Start Templates
+    2 - Custom Template Location
+Choice: 1
+
+Choose an AWS Quick Start application template
+    1 - Hello World Example
+    2 - Multi-step workflow
+    3 - Serverless API
+    4 - Scheduled task
+    5 - Standalone function
+    6 - Data processing
+    7 - Infrastructure event management
+    8 - Machine Learning
+Template: 1
+
+Use the most popular runtime and package type? (Python and zip) [y/N]: y
+
+Cloning from https://github.com/aws/aws-sam-cli-app-templates (process may take a moment)
+
+    -----------------------
+    Generating application:
+    -----------------------
+    Name: mysam
+    Runtime: python3.9
+    Architectures: x86_64
+    Dependency Manager: pip
+    Application Template: hello-world
+    Output Directory: .
+
+    Next steps can be found in the README file at ./mysam/README.md
+
+    Commands you can use next
+    =========================
+    [*] Create pipeline: cd mysam && sam pipeline init --bootstrap
+    [*] Test Function in the Cloud: sam sync --stack-name {stack-name} --watch
+<<mysam>>
+│   .gitignore
+│   README.md
+│   template.yaml
+│   __init__.py
+│
+├───events
+│       event.json
+│
+├───hello_world
+│       app.py
+│       requirements.txt
+│       __init__.py
+│
+└───tests
+    │   requirements.txt
+    │   __init__.py
+    │
+    ├───integration
+    │       test_api_gateway.py
+    │       __init__.py
+    │
+    └───unit
+            test_handler.py
+            __init__.py
+###
+sam deploy --guided
+bolehkan sam cli iam role creation? y
+disable rollback? y
+simpan args ke config? y
+sam config file = samconfig.toml? 
+sam config env = default?
+
+--#

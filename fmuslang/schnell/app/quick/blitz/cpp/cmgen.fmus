@@ -1,0 +1,333 @@
+--% index/fmus
+__PWD,d
+	CMakeLists.txt,f(e=__FILE__=cmakelists)
+	?pick
+		utama.cpp,f(e=__FILE__=template1)
+		utama.cpp,f(e=__FILE__=template2)
+		utama.cpp,f(e=__FILE__=template3)
+	utama2.cpp,f(e=__FILE__=template4)
+	generator.hpp,f(e=__FILE__=generator.hpp)
+	build,d(/mk)
+		$* cmake ..
+		$* make
+		#$* ls -al
+		$* __PWD/build/hasil01
+--#
+
+--% README.md
+include_directories(common)
+masukkan inc.hpp ke common
+utk bisa #include<inc.hpp>
+1:
+
+2:
+
+3:
+
+4:
+--#
+
+--% template1
+#include "generator.hpp"
+#include <iostream>
+
+template<typename T>
+generator<T> fibonacci()
+{
+    T j = 0;
+    T i = 1;
+
+    co_yield j;
+
+    for(;;)
+    {
+        co_yield i;
+        T tmp = i;
+        i += j;
+        j = tmp;
+    }
+}
+
+int main()
+{
+    auto gen = fibonacci<unsigned long long>();
+    for(int i = 0; i < 20 && gen.next(); ++i)
+    {
+        std::cout << gen.getValue() << '\n';
+    }
+}
+--#
+--% template2
+#include <cppcoro/generator.hpp>
+#include <iostream>
+
+cppcoro::generator<const std::uint64_t> fibonacci()
+{
+  std::uint64_t a = 0, b = 1;
+  while (true)
+  {
+    co_yield b;
+    auto tmp = a;
+    a = b;
+    b += tmp;
+  }
+}
+
+int main()
+{
+  for (auto i : fibonacci())
+  {
+    if (i > 1'000'000) break;
+    std::cout << i << std::endl;
+  }
+}
+--#
+--% template3
+std::exception_ptr exception = nullptr;
+
+if (not a.await_ready())
+{
+    suspend_coroutine();
+
+    //if await_suspend returns void
+    try {
+        a.await_suspend(coroutine_handle);
+        return_to_the_caller();
+    } catch (...) {
+        exception = std::current_exception();
+        goto resume_point;
+    }
+    //endif
+
+    //if await_suspend returns bool
+    bool await_suspend_result;
+    try
+    {
+        await_suspend_result = a.await_suspend(coroutine_handle);
+    }
+    catch (...)
+    {
+        exception = std::current_exception();
+        goto resume_point;
+    }
+    if (not await_suspend_result)
+        goto resume_point;
+    return_to_the_caller();
+    //endif
+
+    //if await_suspend returns another coroutine_handle
+    decltype(a.await_suspend(std::declval<coro_handle_t>())) another_coro_handle;
+    try
+    {
+        another_coro_handle = a.await_suspend(coroutine_handle);
+    }
+    catch (...)
+    {
+        exception = std::current_exception();
+        goto resume_point;
+    }
+    another_coro_handle.resume();
+    return_to_the_caller();
+    //endif
+}
+resume_point:
+if(exception)
+  std::rethrow_exception(exception);
+"return" a.await_resume();
+--#
+--% template4
+#include <iostream>
+
+#include <cppcoro/single_consumer_event.hpp>
+#include <cppcoro/task.hpp>
+#include <cppcoro/sync_wait.hpp>
+#include <cppcoro/when_all_ready.hpp>
+
+int main()
+{
+    cppcoro::single_consumer_event event;
+
+    auto consumer = [&]() -> cppcoro::task<>
+    {
+        std::cout << "consumer start\n";
+        co_await event;
+        std::cout << "consumer end\n";
+    };
+
+    auto producer = [&]() -> cppcoro::task<>
+    {
+        std::cout << "producer event set\n";
+        event.set();
+        std::cout << "producer returning\n";
+        co_return;
+    };
+
+    cppcoro::sync_wait(cppcoro::when_all_ready(consumer(), producer()));
+}
+--#
+
+--% generator.hpp
+#pragma once
+
+#include <experimental/coroutine>
+#include <memory>
+
+template<typename T>
+class generator
+{
+public:
+    struct promise_type;
+    using handle_type = std::experimental::coroutine_handle<promise_type>;
+private:
+    handle_type coro;
+public:
+    explicit generator(handle_type h) : coro(h) {}
+    generator(const generator &) = delete;
+    generator(generator &&oth) noexcept : coro(oth.coro)
+    {
+        oth.coro = nullptr;
+    }
+    generator &operator=(const generator &) = delete;
+    generator &operator=(generator &&other) noexcept
+    {
+        coro = other.coro;
+        other.coro = nullptr;
+        return *this;
+    }
+    ~generator()
+    {
+        if (coro)
+        {
+            coro.destroy();
+        }
+    }
+
+    bool next()
+    {
+        coro.resume();
+        return not coro.done();
+    }
+
+    T getValue()
+    {
+        return coro.promise().current_value;
+    }
+
+    struct promise_type
+    {
+    private:
+        T current_value{};
+        friend class generator;
+
+    public:
+        promise_type() = default;
+        ~promise_type() = default;
+        promise_type(const promise_type&) = delete;
+        promise_type(promise_type&&) = delete;
+        promise_type &operator=(const promise_type&) = delete;
+        promise_type &operator=(promise_type&&) = delete;
+
+        auto initial_suspend()
+        {
+            return std::experimental::suspend_always{};
+        }
+
+        auto final_suspend()
+        {
+            return std::experimental::suspend_always{};
+        }
+
+        auto get_return_object()
+        {
+            return generator{handle_type::from_promise(*this)};
+        }
+
+        auto return_void()
+        {
+            return std::experimental::suspend_never{};
+        }
+
+        auto yield_value(T some_value)
+        {
+            current_value = some_value;
+            return std::experimental::suspend_always{};
+        }
+
+        void unhandled_exception()
+        {
+            std::exit(1);
+        }
+    };
+};
+--#
+
+--% cmakelists
+cmake_minimum_required (VERSION 3.11.0)
+project (latihan)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+
+#cmake_minimum_required(VERSION 3.6)
+#project(latihan)
+#set(CMAKE_CXX_STANDARD 17)
+
+
+include(FetchContent)
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
+    GIT_TAG 0889856d6160775462e9e0722d121aab0e75e873
+)
+FetchContent_GetProperties(fmt)
+if(NOT fmt_POPULATED)
+    FetchContent_Populate(fmt)
+endif()
+set(FMT_PATH ${fmt_SOURCE_DIR})
+
+
+
+FetchContent_Declare(
+    ranges
+    GIT_REPOSITORY "https://github.com/ericniebler/range-v3.git"
+    GIT_TAG 50ef05324f880569436c424d0c33ba4de36fb6d9
+)
+FetchContent_GetProperties(ranges)
+if(NOT ranges_POPULATED)
+    FetchContent_Populate(ranges)
+endif()
+set(RANGES_PATH ${ranges_SOURCE_DIR})
+
+
+
+FetchContent_Declare(
+    cppcoro
+    GIT_REPOSITORY "https://github.com/lewissbaker/cppcoro.git"
+    GIT_TAG 00b34af58e8e74e0ca1739967ce410792e024964
+)
+FetchContent_GetProperties(cppcoro)
+if(NOT cppcoro_POPULATED)
+    FetchContent_Populate(cppcoro)
+endif()
+set(CPPCORO_PATH ${cppcoro_SOURCE_DIR})
+
+
+
+add_subdirectory(${FMT_PATH} ${CMAKE_CURRENT_BINARY_DIR}/fmt EXCLUDE_FROM_ALL)
+include_directories(${FMT_PATH}/include)
+include_directories(${RANGES_PATH}/include)
+include_directories(${CPPCORO_PATH}/include)
+
+
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi")
+
+add_executable(hasil01 utama.cpp)
+
+add_executable(hasil02
+    utama2.cpp
+    ${cppcoro_SOURCE_DIR}/lib/lightweight_manual_reset_event.cpp
+)
+--#

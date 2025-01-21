@@ -1,0 +1,13 @@
+--% index/fmus
+__PWD,d
+	?pick
+	    @belajar*
+	    	?pick
+	    		@Flutter CRUD Operations Task Management App With Backend | Tutorial | Restful Api*
+	    			$* python -m webbrowser -t https://www.youtube.com/watch?v=ITnwVIpZa3s
+	    			@https://www.youtube.com/watch?v=-Sol_RMG_fo*
+	    				@Flutter Task Management App With GoLang | Tutorial Using GoLang Restful Api | Best Match of Google*
+	    			@https://www.dbestech.com/tutorials/golang-restful-api*
+	    			@https://www.dbestech.com/tutorials/flutter-task-management-app-with-restful-api*
+	    			@https://github.com/dastagir-ahmed/flutter-golang-app*
+--#

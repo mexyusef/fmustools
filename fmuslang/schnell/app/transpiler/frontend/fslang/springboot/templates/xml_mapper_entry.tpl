@@ -1,0 +1,1 @@
+__TAB(5)__TABLENAME_CASEMapper.xml,f(e=utama=/springbooter/src/main/resources/mapper/__TABLENAME_CASEMapper.xml)

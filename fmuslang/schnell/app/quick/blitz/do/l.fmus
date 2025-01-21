@@ -1,0 +1,40 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+        //
+        /ls/
+
+        @ useful batches...
+        $* set PATH=C:\work\usr\local\wbin;%PATH%
+
+        $* notepad
+        $* "C:/Program Files/Notepad++/notepad++.exe"
+        $* python -m webbrowser -t https://google.com/
+        $* start /B python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://google.com')"
+        $* (cd C:\Users\usef\work\sidoarjo\schnell & python -m creator.repl)
+
+        $* curl -H"Accept: application/json" https://icanhazdadjoke.com
+
+        $* python -c"import pyautogui as auto; auto.hotkey('winleft', '__INPUT__')"
+        $* python -c"import pyautogui as auto; auto.hotkey('ctrl', '__INPUT__')"
+        $* python -c"import pyautogui as auto; auto.hotkey('ctrl', 'shift', '__INPUT__')"
+
+        $* u -e"/%$*__INPUT__"
+
+        .,d(/load=__CURDIR__/../go/l.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/../java/l.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/../js/l.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/../py/l.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/../r/l.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/../ts/l.fmus=index/fmus*)        
+
+        .,d(/load=__CURDIR__/feat.fmus=index/fmus*)
+
+        $* code ULIBPY_BASEDIR\app\quick\blitz\do\l.fmus
+--#

@@ -1,0 +1,8 @@
+--% index/fmus
+__PWD,d
+    ?pick
+    	@satu*
+    	@dua*
+    	@tiga*
+    	.,d(/load=__CURDIR__/sparse.fmus=index/fmus*)
+--#

@@ -1,0 +1,30 @@
+--% index/fmus
+__PWD,d
+    %__TEMPLATE_BASEDIR=__INPUT__
+    %__TEMPLATE_PORT=3001
+    __TEMPLATE_BASEDIR,d(/mk)
+        index.js,f(e=__FILE__=template1)
+        $* yarn init
+        $* yarn add express
+        package.json,f(f=package.json,@ia=tambah_type_module="license__DQ: __DQMIT")
+        @Please open: http://localhost:__TEMPLATE_PORT*
+        $* yarn dev
+--#
+
+--% tambah_type_module
+  "type": "module",
+--#
+
+--% template1
+// u -e/b>js/node/nj0
+// https://youtu.be/SEnAS_ooHeA?t=846
+import express from "express";
+const app = express();
+app.get("/", (req,res)=>{
+    res.json({message:"hello"});
+});
+const PORT=__TEMPLATE_PORT;
+app.listen(PORT, () => {
+    console.log(`Server is running at ${PORT}`);
+});
+--#

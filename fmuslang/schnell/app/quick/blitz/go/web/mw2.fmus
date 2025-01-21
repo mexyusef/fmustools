@@ -1,0 +1,52 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    info.txt,f(e=__FILE__=info.txt)
+    $* more info.txt
+    $* go run main.go
+--#
+
+--% main.go
+package main
+
+import (
+	"fmt"
+	"net/http"
+)
+
+func middleware(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("Executing middleware before request phase!")
+		// Pass control back to the handler
+		handler.ServeHTTP(w, r)
+		fmt.Println("Executing middleware after response phase!")
+	})
+}
+
+func handle(w http.ResponseWriter, r *http.Request) {
+	// Business logic goes here
+	fmt.Println("Executing mainHandler...")
+	w.Write([]byte("OK"))
+}
+
+func main() {
+	// HandlerFunc returns a HTTP Handler
+	originalHandler := http.HandlerFunc(handle)
+	http.Handle("/", middleware(originalHandler))
+	http.ListenAndServe(":8000", nil)
+}
+--#
+
+--% info.txt
+localhost:8000/
+	Executing middleware before request phase!
+	Executing mainHandler...
+	Executing middleware after response phase!
+--#

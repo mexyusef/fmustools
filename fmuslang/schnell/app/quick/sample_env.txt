@@ -1,0 +1,2 @@
+# sample_env
+JWT_SECRET=l;aksjd;lfqwopeiuanl;dnalkj

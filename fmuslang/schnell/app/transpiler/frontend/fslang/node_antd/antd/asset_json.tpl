@@ -1,0 +1,1 @@
+__TAB(3)__TABLENAME_LOWER__.json,f(e=utama=/np/react-antd/assets/__TABLENAME_LOWER__.json)

@@ -1,0 +1,1038 @@
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wey_backend.settings')
+#################################################C:\portfolio\_django\wey\wey_backend\scripts\generate_friend_suggestions.py
+# -*- coding: utf-8 -*-
+
+import django
+import os
+import sys
+
+from datetime import timedelta
+from collections import Counter
+from django.utils import timezone
+
+
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wey_backend.settings")
+django.setup()
+
+
+from account.models import User
+
+
+users = User.objects.all()
+
+for user in users:
+    # Clear the suggestion list
+    user.people_you_may_know.clear()
+
+    print('Find friends for:', user)
+
+    for friend in user.friends.all():
+        print('Is friend with:', friend)
+
+        for friendsfriend in friend.friends.all():
+            if friendsfriend not in user.friends.all() and friendsfriend != user:
+                user.people_you_may_know.add(friendsfriend)
+    
+    print()
+#################################################C:\portfolio\_django\wey\wey_backend\scripts\generate_trends.py
+# -*- coding: utf-8 -*-
+
+import django
+import os
+import sys
+
+from datetime import timedelta
+from collections import Counter
+from django.utils import timezone
+
+
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wey_backend.settings")
+django.setup()
+
+
+from post.models import Post, Trend
+
+def extract_hashtags(text, trends):
+    for word in text.split():
+        if word[0] == '#':
+            trends.append(word[1:])
+    
+    return trends
+
+for trend in Trend.objects.all():
+    trend.delete()
+
+trends = []
+this_hour = timezone.now().replace(minute=0, second=0, microsecond=0)
+twenty_four_hours = this_hour - timedelta(hours=24)
+
+for post in Post.objects.filter(created_at__gte=twenty_four_hours):
+    extract_hashtags(post.body, trends)
+
+for trend in Counter(trends).most_common(10):
+    Trend.objects.create(hashtag=trend[0], occurences=trend[1])
+################################################# settings
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+AUTH_USER_MODEL = 'account.User'
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=180),
+    'ROTATE_REFRESH_TOKENS': False,
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+]
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'account',
+    'chat',
+    'notification',
+    'post',
+    'search',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
+]
+ROOT_URLCONF = 'wey_backend.urls'
+
+#################################################
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
+
+from account.views import activateemail
+
+
+urlpatterns = [
+    path('api/', include('account.urls')),
+    path('api/posts/', include('post.urls')),
+    path('api/search/', include('search.urls')),
+    path('api/chat/', include('chat.urls')),
+    path('api/notifications/', include('notification.urls')),
+    path('activateemail/', activateemail, name='activateemail'),
+    path('admin/', admin.site.urls),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+#################################################
+wey,d
+    wey_backend,d
+        account,d
+        chat,d
+        media,d
+        notification,d
+        post,d
+        scripts,d
+        search,d
+        wey_backend,d
+################################################# account/api.py
+from django.contrib.auth.forms import PasswordChangeForm
+from django.core.mail import send_mail
+from django.http import JsonResponse
+
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+
+from notification.utils import create_notification
+
+from .forms import SignupForm, ProfileForm
+from .models import User, FriendshipRequest
+from .serializers import UserSerializer, FriendshipRequestSerializer
+
+
+@api_view(['GET'])
+def me(request):
+    return JsonResponse({
+        'id': request.user.id,
+        'name': request.user.name,
+        'email': request.user.email,
+        'avatar': request.user.get_avatar()
+    })
+
+
+@api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
+def signup(request):
+    data = request.data
+    message = 'success'
+
+    form = SignupForm({
+        'email': data.get('email'),
+        'name': data.get('name'),
+        'password1': data.get('password1'),
+        'password2': data.get('password2'),
+    })
+
+    if form.is_valid():
+        user = form.save()
+        user.is_active = False
+        user.save()
+
+        url = f'http://127.0.0.1:8000/activateemail/?email={user.email}&id={user.id}'
+
+        send_mail(
+            "Please verify your email",
+            f"The url for activating your account is: {url}",
+            "noreply@wey.com",
+            [user.email],
+            fail_silently=False,
+        )
+    else:
+        message = form.errors.as_json()
+    
+    print(message)
+
+    return JsonResponse({'message': message}, safe=False)
+
+
+@api_view(['GET'])
+def friends(request, pk):
+    user = User.objects.get(pk=pk)
+    requests = []
+
+    if user == request.user:
+        requests = FriendshipRequest.objects.filter(created_for=request.user, status=FriendshipRequest.SENT)
+        requests = FriendshipRequestSerializer(requests, many=True)
+        requests = requests.data
+
+    friends = user.friends.all()
+
+    return JsonResponse({
+        'user': UserSerializer(user).data,
+        'friends': UserSerializer(friends, many=True).data,
+        'requests': requests
+    }, safe=False)
+
+
+@api_view(['GET'])
+def my_friendship_suggestions(request):
+    serializer = UserSerializer(request.user.people_you_may_know.all(), many=True)
+
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['POST'])
+def editprofile(request):
+    user = request.user
+    email = request.data.get('email')
+
+    if User.objects.exclude(id=user.id).filter(email=email).exists():
+        return JsonResponse({'message': 'email already exists'})
+    else:
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+
+        if form.is_valid():
+            form.save()
+        
+        serializer = UserSerializer(user)
+
+        return JsonResponse({'message': 'information updated', 'user': serializer.data})
+    
+
+@api_view(['POST'])
+def editpassword(request):
+    user = request.user
+    
+    form = PasswordChangeForm(data=request.POST, user=user)
+
+    if form.is_valid():
+        form.save()
+
+        return JsonResponse({'message': 'success'})
+    else:
+        return JsonResponse({'message': form.errors.as_json()}, safe=False)
+
+@api_view(['POST'])
+def send_friendship_request(request, pk):
+    user = User.objects.get(pk=pk)
+
+    check1 = FriendshipRequest.objects.filter(created_for=request.user).filter(created_by=user)
+    check2 = FriendshipRequest.objects.filter(created_for=user).filter(created_by=request.user)
+
+    if not check1 or not check2:
+        friendrequest = FriendshipRequest.objects.create(created_for=user, created_by=request.user)
+
+        notification = create_notification(request, 'new_friendrequest', friendrequest_id=friendrequest.id)
+
+        return JsonResponse({'message': 'friendship request created'})
+    else:
+        return JsonResponse({'message': 'request already sent'})
+
+
+@api_view(['POST'])
+def handle_request(request, pk, status):
+    user = User.objects.get(pk=pk)
+    friendship_request = FriendshipRequest.objects.filter(created_for=request.user).get(created_by=user)
+    friendship_request.status = status
+    friendship_request.save()
+
+    user.friends.add(request.user)
+    user.friends_count = user.friends_count + 1
+    user.save()
+
+    request_user = request.user
+    request_user.friends_count = request_user.friends_count + 1
+    request_user.save()
+
+    notification = create_notification(request, 'accepted_friendrequest', friendrequest_id=friendship_request.id)
+
+    return JsonResponse({'message': 'friendship request updated'})
+#################################################C:\portfolio\_django\wey\wey_backend\account\forms.py
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+
+from .models import User
+
+
+class SignupForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('email', 'name', 'password1', 'password2')
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('email', 'name', 'avatar',)
+#################################################C:\portfolio\_django\wey\wey_backend\account\models.py
+import uuid
+
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from django.db import models
+from django.utils import timezone
+
+
+
+class CustomUserManager(UserManager):
+    def _create_user(self, name, email, password, **extra_fields):
+        if not email:
+            raise ValueError("You have not provided a valid e-mail address")
+        
+        email = self.normalize_email(email)
+        user = self.model(email=email, name=name, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+
+        return user
+    
+    def create_user(self, name=None, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(name, email, password, **extra_fields)
+    
+    def create_superuser(self, name=None, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self._create_user(name, email, password, **extra_fields)
+
+
+class User(AbstractBaseUser, PermissionsMixin):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(unique=True)
+    name = models.CharField(max_length=255, blank=True, default='')
+    avatar = models.ImageField(upload_to='avatars', blank=True, null=True)
+    friends = models.ManyToManyField('self')
+    friends_count = models.IntegerField(default=0)
+
+    people_you_may_know = models.ManyToManyField('self')
+
+    posts_count = models.IntegerField(default=0)
+
+    is_active = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+
+    date_joined = models.DateTimeField(default=timezone.now)
+    last_login = models.DateTimeField(blank=True, null=True)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    def get_avatar(self):
+        if self.avatar:
+            return 'http://127.0.0.1:8000' + self.avatar.url
+        else:
+            return 'https://picsum.photos/200/200'
+
+
+class FriendshipRequest(models.Model):
+    SENT = 'sent'
+    ACCEPTED = 'accepted'
+    REJECTED = 'rejected'
+
+    STATUS_CHOICES = (
+        (SENT, 'Sent'),
+        (ACCEPTED, 'Accepted'),
+        (REJECTED, 'Rejected'),
+    )
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_for = models.ForeignKey(User, related_name='received_friendshiprequests', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, related_name='created_friendshiprequests', on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=SENT)
+#################################################C:\portfolio\_django\wey\wey_backend\account\serializers.py
+from rest_framework import serializers
+
+from .models import User, FriendshipRequest
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'name', 'email', 'friends_count', 'posts_count', 'get_avatar',)
+
+
+class FriendshipRequestSerializer(serializers.ModelSerializer):
+    created_by = UserSerializer(read_only=True)
+    
+    class Meta:
+        model = FriendshipRequest
+        fields = ('id', 'created_by',)
+#################################################C:\portfolio\_django\wey\wey_backend\account\urls.py
+from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+from . import api
+
+urlpatterns = [
+    path('me/', api.me, name='me'),
+    path('signup/', api.signup, name='signup'),
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('editprofile/', api.editprofile, name='editprofile'),
+    path('editpassword/', api.editpassword, name='editpassword'),
+    path('friends/suggested/', api.my_friendship_suggestions, name='my_friendship_suggestions'),
+    path('friends/<uuid:pk>/', api.friends, name='friends'),
+    path('friends/<uuid:pk>/request/', api.send_friendship_request, name='send_friendship_request'),
+    path('friends/<uuid:pk>/<str:status>/', api.handle_request, name='handle_request'),
+]
+#################################################C:\portfolio\_django\wey\wey_backend\account\views.py
+from django.http import HttpResponse
+from django.shortcuts import render
+
+from .models import User
+
+
+def activateemail(request):
+    email = request.GET.get('email', '')
+    id = request.GET.get('id', '')
+
+    if email and id:
+        user = User.objects.get(id=id, email=email)
+        user.is_active = True
+        user.save()
+    
+        return HttpResponse('The user is now activated. You can go ahead and log in!')
+    else:
+        return HttpResponse('The parameters is not valid!')
+#################################################C:\portfolio\_django\wey\wey_backend\chat\api.py
+from django.http import JsonResponse
+
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+
+from account.models import User
+
+from .models import Conversation, ConversationMessage
+from .serializers import ConversationSerializer, ConversationDetailSerializer, ConversationMessageSerializer
+
+
+@api_view(['GET'])
+def conversation_list(request):
+    conversations = Conversation.objects.filter(users__in=list([request.user]))
+    serializer = ConversationSerializer(conversations, many=True)
+
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def conversation_detail(request, pk):
+    conversation = Conversation.objects.filter(users__in=list([request.user])).get(pk=pk)
+    serializer = ConversationDetailSerializer(conversation)
+
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def conversation_get_or_create(request, user_pk):
+    user = User.objects.get(pk=user_pk)
+
+    conversations = Conversation.objects.filter(users__in=list([request.user])).filter(users__in=list([user]))
+
+    if conversations.exists():
+        conversation = conversations.first()
+    else:
+        conversation = Conversation.objects.create()
+        conversation.users.add(user, request.user)
+        conversation.save()
+
+    serializer = ConversationDetailSerializer(conversation)
+    
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['POST'])
+def conversation_send_message(request, pk):
+    conversation = Conversation.objects.filter(users__in=list([request.user])).get(pk=pk)
+
+    for user in conversation.users.all():
+        if user != request.user:
+            sent_to = user
+
+    conversation_message = ConversationMessage.objects.create(
+        conversation=conversation,
+        body=request.data.get('body'),
+        created_by=request.user,
+        sent_to=sent_to
+    )
+
+    serializer = ConversationMessageSerializer(conversation_message)
+
+    return JsonResponse(serializer.data, safe=False)
+#################################################C:\portfolio\_django\wey\wey_backend\chat\models.py
+import uuid
+
+from django.db import models
+from django.utils.timesince import timesince
+
+from account.models import User
+
+
+class Conversation(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    users = models.ManyToManyField(User, related_name='conversations')
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    
+    def modified_at_formatted(self):
+       return timesince(self.created_at)
+
+
+class ConversationMessage(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    conversation = models.ForeignKey(Conversation, related_name='messages', on_delete=models.CASCADE)
+    body = models.TextField()
+    sent_to = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
+    
+    def created_at_formatted(self):
+       return timesince(self.created_at)
+#################################################C:\portfolio\_django\wey\wey_backend\chat\serializers.py
+from rest_framework import serializers
+
+from account.serializers import UserSerializer
+
+from .models import Conversation, ConversationMessage
+
+
+class ConversationSerializer(serializers.ModelSerializer):
+    users = UserSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Conversation
+        fields = ('id', 'users', 'modified_at_formatted',)
+
+
+class ConversationMessageSerializer(serializers.ModelSerializer):
+    sent_to = UserSerializer(read_only=True)
+    created_by = UserSerializer(read_only=True)
+
+    class Meta:
+        model = ConversationMessage
+        fields = ('id', 'sent_to', 'created_by', 'created_at_formatted', 'body',)
+
+
+class ConversationDetailSerializer(serializers.ModelSerializer):
+    messages = ConversationMessageSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Conversation
+        fields = ('id', 'users', 'modified_at_formatted', 'messages',)
+
+
+#################################################C:\portfolio\_django\wey\wey_backend\chat\urls.py
+from django.urls import path
+
+from . import api
+
+
+urlpatterns = [
+    path('', api.conversation_list, name='conversation_list'),
+    path('<uuid:pk>/', api.conversation_detail, name='conversation_detail'),
+    path('<uuid:pk>/send/', api.conversation_send_message, name='conversation_send_message'),
+    path('<uuid:user_pk>/get-or-create/', api.conversation_get_or_create, name='conversation_get_or_create'),
+]
+#################################################C:\portfolio\_django\wey\wey_backend\notification\api.py
+from django.http import JsonResponse
+
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+
+from .models import Notification
+from .serializers import NotificationSerializer
+
+
+@api_view(['GET'])
+def notifications(request):
+    received_notifications = request.user.received_notifications.filter(is_read=False)
+    serializer = NotificationSerializer(received_notifications, many=True)
+
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['POST'])
+def read_notification(request, pk):
+    notification = Notification.objects.filter(created_for=request.user).get(pk=pk)
+    notification.is_read = True
+    notification.save()
+
+    return JsonResponse({'message': 'notification read'})
+#################################################C:\portfolio\_django\wey\wey_backend\notification\models.py
+import uuid
+
+from django.db import models
+
+from account.models import User
+from post.models import Post
+
+
+class Notification(models.Model):
+    NEWFRIENDREQUEST = 'new_friendrequest'
+    ACCEPTEDFRIENDREQUEST = 'accepted_friendrequest'
+    REJECTEDFRIENDREQUEST = 'rejected_friendrequest'
+    POST_LIKE = 'post_like'
+    POST_COMMENT = 'post_comment'
+
+    CHOICES_TYPE_OF_NOTIFICATION = (
+        (NEWFRIENDREQUEST, 'New friendrequest'),
+        (ACCEPTEDFRIENDREQUEST, 'Accepted friendrequest'),
+        (REJECTEDFRIENDREQUEST, 'Rejected friendrequest'),
+        (POST_LIKE, 'Post like'),
+        (POST_COMMENT, 'Post comment')
+    )
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    body = models.TextField()
+    is_read = models.BooleanField(default=False)
+    type_of_notification = models.CharField(max_length=50, choices=CHOICES_TYPE_OF_NOTIFICATION)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
+    created_by = models.ForeignKey(User, related_name='created_notifications', on_delete=models.CASCADE)
+    created_for = models.ForeignKey(User, related_name='received_notifications', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+#################################################C:\portfolio\_django\wey\wey_backend\notification\serializers.py
+from rest_framework import serializers
+
+from account.serializers import UserSerializer
+
+from .models import Notification
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ('id', 'body', 'type_of_notification', 'post_id', 'created_for_id')
+#################################################C:\portfolio\_django\wey\wey_backend\notification\urls.py
+from django.urls import path
+
+from . import api
+
+
+urlpatterns = [
+    path('', api.notifications, name='notifications'),
+    path('read/<uuid:pk>/', api.read_notification, name='read_notification'),
+]
+#################################################C:\portfolio\_django\wey\wey_backend\notification\utils.py
+from .models import Notification
+
+from post.models import Post
+from account.models import FriendshipRequest
+
+# create_notification(request, 'post_like', 'lskjf-j12l3-jlas-jdfa', 'lskjf-j12l3-jlas-jdfa')
+
+
+def create_notification(request, type_of_notification, post_id=None, friendrequest_id=None):
+    created_for = None
+
+    if type_of_notification == 'post_like':
+        body = f'{request.user.name} liked one of your posts!'
+        post = Post.objects.get(pk=post_id)
+        created_for = post.created_by
+    elif type_of_notification == 'post_comment':
+        body = f'{request.user.name} commented on one of your posts!'
+        post = Post.objects.get(pk=post_id)
+        created_for = post.created_by
+    elif type_of_notification == 'new_friendrequest':
+        friendrequest = FriendshipRequest.objects.get(pk=friendrequest_id)
+        created_for = friendrequest.created_for
+        body = f'{request.user.name} sent you a friend request!'
+    elif type_of_notification == 'accepted_friendrequest':
+        friendrequest = FriendshipRequest.objects.get(pk=friendrequest_id)
+        created_for = friendrequest.created_for
+        body = f'{request.user.name} accepted your friend request!'
+    elif type_of_notification == 'rejected_friendrequest':
+        friendrequest = FriendshipRequest.objects.get(pk=friendrequest_id)
+        created_for = friendrequest.created_for
+        body = f'{request.user.name} rejected your friend request!'
+
+    notification = Notification.objects.create(
+        body=body,
+        type_of_notification=type_of_notification,
+        created_by=request.user,
+        post_id=post_id,
+        created_for=created_for
+    )
+
+    return notification
+#################################################C:\portfolio\_django\wey\wey_backend\post\admin.py
+from django.contrib import admin
+
+from .models import Post, PostAttachment
+
+
+admin.site.register(Post)
+admin.site.register(PostAttachment)
+#################################################C:\portfolio\_django\wey\wey_backend\post\api.py
+from django.http import JsonResponse
+
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+
+from account.models import User, FriendshipRequest
+from account.serializers import UserSerializer
+from notification.utils import create_notification
+
+from .forms import PostForm, AttachmentForm
+from .models import Post, Like, Comment, Trend
+from .serializers import PostSerializer, PostDetailSerializer, CommentSerializer, TrendSerializer
+
+
+@api_view(['GET'])
+def post_list(request):
+    user_ids = [request.user.id]
+
+    for user in request.user.friends.all():
+        user_ids.append(user.id)
+
+    posts = Post.objects.filter(created_by_id__in=list(user_ids))
+
+    trend = request.GET.get('trend', '')
+
+    if trend:
+        posts = posts.filter(body__icontains='#' + trend)
+
+    serializer = PostSerializer(posts, many=True)
+
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def post_detail(request, pk):
+    post = Post.objects.get(pk=pk)
+
+    return JsonResponse({
+        'post': PostDetailSerializer(post).data
+    })
+
+
+@api_view(['GET'])
+def post_list_profile(request, id):
+    user = User.objects.get(pk=id)
+    posts = Post.objects.filter(created_by_id=id)
+
+    posts_serializer = PostSerializer(posts, many=True)
+    user_serializer = UserSerializer(user)
+
+    can_send_friendship_request = True
+
+    if request.user in user.friends.all():
+        can_send_friendship_request = False
+    
+    check1 = FriendshipRequest.objects.filter(created_for=request.user).filter(created_by=user)
+    check2 = FriendshipRequest.objects.filter(created_for=user).filter(created_by=request.user)
+
+    if check1 or check2:
+        can_send_friendship_request = False
+
+    return JsonResponse({
+        'posts': posts_serializer.data,
+        'user': user_serializer.data,
+        'can_send_friendship_request': can_send_friendship_request
+    }, safe=False)
+
+
+@api_view(['POST'])
+def post_create(request):
+    form = PostForm(request.POST)
+    attachment = None
+    attachment_form = AttachmentForm(request.POST, request.FILES)
+
+    if attachment_form.is_valid():
+        attachment = attachment_form.save(commit=False)
+        attachment.created_by = request.user
+        attachment.save()
+
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.created_by = request.user
+        post.save()
+
+        if attachment:
+            post.attachments.add(attachment)
+
+        user = request.user
+        user.posts_count = user.posts_count + 1
+        user.save()
+
+        serializer = PostSerializer(post)
+
+        return JsonResponse(serializer.data, safe=False)
+    else:
+        return JsonResponse({'error': 'add somehting here later!...'})
+    
+
+@api_view(['POST'])
+def post_like(request, pk):
+    post = Post.objects.get(pk=pk)
+
+    if not post.likes.filter(created_by=request.user):
+        like = Like.objects.create(created_by=request.user)
+
+        post = Post.objects.get(pk=pk)
+        post.likes_count = post.likes_count + 1
+        post.likes.add(like)
+        post.save()
+
+        notification = create_notification(request, 'post_like', post_id=post.id)
+
+        return JsonResponse({'message': 'like created'})
+    else:
+        return JsonResponse({'message': 'post already liked'})
+
+
+@api_view(['POST'])
+def post_create_comment(request, pk):
+    comment = Comment.objects.create(body=request.data.get('body'), created_by=request.user)
+
+    post = Post.objects.get(pk=pk)
+    post.comments.add(comment)
+    post.comments_count = post.comments_count + 1
+    post.save()
+
+    notification = create_notification(request, 'post_comment', post_id=post.id)
+
+    serializer = CommentSerializer(comment)
+
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def get_trends(request):
+    serializer = TrendSerializer(Trend.objects.all(), many=True)
+
+    return JsonResponse(serializer.data, safe=False)
+#################################################C:\portfolio\_django\wey\wey_backend\post\forms.py
+from django.forms import ModelForm
+
+from .models import Post, PostAttachment
+
+
+class PostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ('body',)
+
+
+class AttachmentForm(ModelForm):
+    class Meta:
+        model = PostAttachment
+        fields = ('image',)
+#################################################C:\portfolio\_django\wey\wey_backend\post\models.py
+import uuid
+
+from django.db import models
+from django.utils.timesince import timesince
+
+from account.models import User
+
+
+class Like(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_by = models.ForeignKey(User, related_name='likes', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Comment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    body = models.TextField(blank=True, null=True)
+    created_by = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('created_at',)
+    
+    def created_at_formatted(self):
+       return timesince(self.created_at)
+
+
+class PostAttachment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    image = models.ImageField(upload_to='post_attachments')
+    created_by = models.ForeignKey(User, related_name='post_attachments', on_delete=models.CASCADE)
+
+    def get_image(self):
+        if self.image:
+            return 'http://127.0.0.1:8000' + self.image.url
+        else:
+            return ''
+
+
+class Post(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    body = models.TextField(blank=True, null=True)
+
+    attachments = models.ManyToManyField(PostAttachment, blank=True)
+
+    likes = models.ManyToManyField(Like, blank=True)
+    likes_count = models.IntegerField(default=0)
+
+    comments = models.ManyToManyField(Comment, blank=True)
+    comments_count = models.IntegerField(default=0)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('-created_at',)
+    
+    def created_at_formatted(self):
+       return timesince(self.created_at)
+    
+
+class Trend(models.Model):
+    hashtag = models.CharField(max_length=255)
+    occurences = models.IntegerField()
+#################################################C:\portfolio\_django\wey\wey_backend\post\serializers.py
+from rest_framework import serializers
+
+from account.serializers import UserSerializer
+
+from .models import Post, PostAttachment, Comment, Trend
+
+
+class PostAttachmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostAttachment
+        fields = ('id', 'get_image',)
+
+
+class PostSerializer(serializers.ModelSerializer):
+    created_by = UserSerializer(read_only=True)
+    attachments = PostAttachmentSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Post
+        fields = ('id', 'body', 'likes_count', 'comments_count', 'created_by', 'created_at_formatted', 'attachments')
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    created_by = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ('id', 'body', 'created_by', 'created_at_formatted',)
+
+
+class PostDetailSerializer(serializers.ModelSerializer):
+    created_by = UserSerializer(read_only=True)
+    comments = CommentSerializer(read_only=True, many=True)
+    attachments = PostAttachmentSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Post
+        fields = ('id', 'body', 'likes_count', 'comments_count', 'created_by', 'created_at_formatted', 'comments', 'attachments',)
+
+
+class TrendSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trend
+        fields = ('id', 'hashtag', 'occurences',)
+#################################################C:\portfolio\_django\wey\wey_backend\post\urls.py
+from django.urls import path
+
+from . import api
+
+
+urlpatterns = [
+    path('', api.post_list, name='post_list'),
+    path('<uuid:pk>/', api.post_detail, name='post_detail'),
+    path('<uuid:pk>/like/', api.post_like, name='post_like'),
+    path('<uuid:pk>/comment/', api.post_create_comment, name='post_create_comment'),
+    path('profile/<uuid:id>/', api.post_list_profile, name='post_list_profile'),
+    path('create/', api.post_create, name='post_create'),
+    path('trends/', api.get_trends, name='get_trends'),
+]
+#################################################C:\portfolio\_django\wey\wey_backend\search\api.py
+from django.http import JsonResponse
+
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+
+from account.models import User
+from account.serializers import UserSerializer
+from post.models import Post
+from post.serializers import PostSerializer
+
+
+@api_view(['POST'])
+def search(request):
+    data = request.data
+    query = data['query']
+
+    users = User.objects.filter(name__icontains=query)
+    users_serializer = UserSerializer(users, many=True)
+
+    posts = Post.objects.filter(body__icontains=query)
+    posts_serializer = PostSerializer(posts, many=True)
+
+    return JsonResponse({
+        'users': users_serializer.data,
+        'posts': posts_serializer.data
+    }, safe=False)
+#################################################C:\portfolio\_django\wey\wey_backend\search\urls.py
+from django.urls import path
+
+from . import api
+
+
+urlpatterns = [
+    path('', api.search, name='search'),
+]
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################

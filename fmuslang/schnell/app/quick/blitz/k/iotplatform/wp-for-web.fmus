@@ -1,0 +1,2154 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	webpack-antd.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-antd.js)
+	webpack-baru.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-baru.js)
+	webpack-bs-01.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-bs-01.js)
+	webpack-bs-ts.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-bs-ts.js)
+	webpack-bs.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-bs.js)
+	webpack-mts2.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-mts2.js)
+	webpack-mui-ts.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-mui-ts.js)
+	webpack-node-pg.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-node-pg.js)
+	webpack-reduxer1.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-reduxer1.js)
+	webpack-reduxer2.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-reduxer2.js)
+	webpack-reduxer4.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-reduxer4.js)
+	webpack-reduxer5.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-reduxer5.js)
+	webpack-reduxjs.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-reduxjs.js)
+	webpack-whatever.js,f(e=utama=F:/jualan/tmp/webpack-galore/webpack-whatever.js)
+	wpnoddy1.js,f(e=utama=F:/jualan/tmp/webpack-galore/wpnoddy1.js)
+	wpnoddy2.js,f(e=utama=F:/jualan/tmp/webpack-galore/wpnoddy2.js)
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-antd.js
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+// const Dotenv = require('dotenv-webpack');
+
+const sourcedir = 'react-antd'
+
+module.exports = {
+	entry: {
+		main: [
+			// 'babel-polyfill',
+			// 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', 
+			// './src/index.js',
+			`./${sourcedir}/index.js`
+		]
+	},
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+
+	mode: 'development',
+	// https://stackoverflow.com/questions/51946848/webpack-nodejs-module-not-found-error-cant-resolve-fs
+	target: 'web',
+	// target: 'node',
+
+	// configuration.devtool should match pattern "^(inline-|hidden-|eval-)?(nosources-)?(cheap-(module-)?)?source-map$"
+	// devtool: '#source-map',
+
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9001,
+		historyApiFallback: true,
+	},
+
+	module: {
+		rules: [
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+				options: {
+					emitWarning: true,
+					failOnError: false,
+					failOnWarning: false
+				}
+			},
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel-loader",
+			},
+			{
+				// Loads the javacript into html template provided.
+				// Entry point is set below in HtmlWebPackPlugin in Plugins 
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader",
+						//options: { minimize: true }
+					}
+				]
+			},
+			{ 
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+
+			{
+				test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+				use: 'file-loader',
+			},
+
+			{
+			 test: /\.(png|svg|jpg|gif)$/,
+			 use: ['file-loader']
+			}
+
+		]
+	},
+
+	resolve: {
+		modules: [sourcedir, 'node_modules'],
+		extensions: ['.js'],
+		alias: {
+			'@': path.resolve(process.cwd(), sourcedir, 'components'),
+			'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+			'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+			'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+			'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+			'utils': path.resolve(process.cwd(), sourcedir, 'utils'),
+			'#': path.resolve(process.cwd(), sourcedir),
+		},
+	},
+
+	plugins: [
+		new HtmlWebPackPlugin({
+			template: path.resolve(process.cwd(), sourcedir, 'index.html'),
+			filename: "./index.html",
+			favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+			// excludeChunks: [ 'server' ]
+		}),
+		// new Dotenv(),
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NoEmitOnErrorsPlugin()
+	],
+}
+
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-baru.js
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
+
+// const extractSass = new ExtractTextPlugin({
+//   filename: '[name].[hash].css',
+//   disable: process.env.NODE_ENV === 'development',
+// });
+
+
+const sourcedir = './webpack-4-react-bootstrap-starter-template'
+
+module.exports = {
+  // mode: 'production',
+  entry: { app: `./${sourcedir}/src/index.js` },
+  output: {
+    filename: '[name].[hash].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              // name: "./images/[name].[hash].[ext]",
+              name: '[path][name]-[hash:8].[ext]',
+            },
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65,
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: [0.65, 0.90],
+                speed: 4,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              // the webp option will enable WEBP
+              webp: {
+                quality: 75,
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+            options: { minimize: true },
+          },
+        ],
+      },
+      // {
+      //   test: /\.scss$/,
+      //   use: extractSass.extract({
+      //     use: [
+      //       {
+      //         loader: 'css-loader',
+      //       },
+      //       {
+      //         loader: 'sass-loader',
+      //       },
+      //     ],
+      //     // use style-loader in development
+      //     fallback: 'style-loader',
+      //   }),
+      // },
+      // {
+      //   test: /\.scss$/,
+      //   use: ExtractTextPlugin.extract({
+      //     fallback: "style-loader",
+      //     use: [
+      //       {loader: "sass-loader"},
+      //       {loader: "css-loader"}
+      //     ]
+      //   })
+      // },
+      // {
+      //   test: /\.css$/,
+      //   use: extractSass.extract({
+      //     fallback: 'style-loader',
+      //     use: 'css-loader',
+      //   }),
+      // },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+      { 
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+    ],
+  },
+  devServer: {
+    contentBase: './dist',
+    hot: true,
+  },
+  plugins: [
+    // extractSass,
+    // new ExtractTextPlugin('[name].[hash].css'),
+    new HtmlWebPackPlugin({
+      template: `./${sourcedir}/src/index.html`,
+      filename: './index.html',
+    }),
+    new CleanWebpackPlugin(),
+    // new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      },
+    },
+  },
+};
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-bs-01.js
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+
+
+const sourcedir = 'react-bs-01'
+
+console.log(`
+**********************************************
+*** WEBPACK
+process.cwd:    ${process.cwd()}
+sourcedir:      ${path.resolve(sourcedir)}
+`);
+
+const rule_ts_js = {
+  test: /\.(ts|js)x?$/,
+  exclude: /node_modules/,
+  use: [
+    {
+      loader: 'babel-loader',
+      options: { cacheDirectory: true }
+    },
+    {
+      loader: 'ts-loader',
+      options: { transpileOnly: true, experimentalWatchApi: true }
+    }
+  ]
+};
+
+const rule_js = {
+  test: /\.js$/,
+  exclude: /node_modules/,
+  loader: "babel-loader",
+};
+
+const rule_js_eslint = {
+  enforce: "pre",
+  test: /\.js$/,
+  exclude: /node_modules/,
+  loader: "eslint-loader",
+  options: {
+    emitWarning: true,
+    failOnError: false,
+    failOnWarning: false
+  }
+};
+
+const rule_html = {
+  // Loads the javacript into html template provided.
+  // Entry point is set below in HtmlWebPackPlugin in Plugins 
+  test: /\.html$/,
+  use: [
+    {
+      loader: "html-loader",
+      // options: { minimize: true }
+    }
+  ]
+};
+
+const rule_css = { 
+  test: /\.css$/,
+  use: [ 'style-loader', 'css-loader' ]
+};
+
+const rule_sass = {
+  test: /\.s[ac]ss$/i,
+  use: [		
+    "style-loader",	// Creates `style` nodes from JS strings
+    "css-loader", // Translates CSS into CommonJS		
+    "sass-loader", // Compiles Sass to CSS
+  ],
+};
+
+const rule_ico = {
+  test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+  use: 'file-loader',
+};
+
+const rule_png = {
+  test: /\.(png|svg|jpg|gif)$/,
+  use: ['file-loader']
+};
+
+module.exports = {
+  devServer: {
+    contentBase: path.resolve(process.cwd(), 'dist'),
+    hot: true,
+    port: 9501,
+    historyApiFallback: true,
+  },
+  entry: {
+    main: [`./${sourcedir}/src/index`,],
+  },
+  mode: 'development',
+  module: {
+    rules: [
+      rule_js,
+      rule_html,
+      rule_css,
+      rule_sass,
+      rule_ico,
+      rule_png,
+    ],
+  },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/',
+    filename: '[name].js'
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebPackPlugin({
+      template: path.resolve(sourcedir, 'src', 'index.html'),
+      filename: "./index.html",
+      // favicon: path.resolve(sourcedir, 'assets', 'favicon.ico'),
+      // excludeChunks: [ 'server' ]
+    }),
+
+  ],
+  resolve: {
+    alias: {
+      'nomo': path.resolve(process.cwd(), 'node_modules'),
+      '#': path.resolve(sourcedir),
+      '$': path.resolve(sourcedir, 'src'),
+      '@': path.resolve(sourcedir, 'src', 'components'),
+      'assets': path.resolve(sourcedir, 'assets'),
+      'utils': path.resolve(sourcedir, 'utils'),
+      
+      // 'common': path.resolve(sourcedir, 'src', 'common'),
+      // 'routes': path.resolve(sourcedir, 'src', 'routes'),
+
+      'modules': path.resolve(sourcedir, 'src', 'components', 'modules'),
+      'context': path.resolve(sourcedir, 'src', 'components', 'context'),
+      'common': path.resolve(sourcedir, 'src', 'components', 'common'),
+      'routes': path.resolve(sourcedir, 'src', 'components', 'routes'),
+    },
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    modules: [sourcedir, 'node_modules'],				
+  },
+  target: 'web',
+}
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-bs-ts.js
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
+// const Dotenv = require('dotenv-webpack');
+
+const sourcedir = 'react-bs'
+
+module.exports = {
+	entry: {
+		main: [
+			// 'babel-polyfill',
+			// 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', 
+			// './src/index.js',
+			`./${sourcedir}/index.js`
+		]
+	},
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+
+	mode: 'development',
+	// https://stackoverflow.com/questions/51946848/webpack-nodejs-module-not-found-error-cant-resolve-fs
+	target: 'web',
+	// target: 'node',
+
+	// configuration.devtool should match pattern "^(inline-|hidden-|eval-)?(nosources-)?(cheap-(module-)?)?source-map$"
+	// devtool: '#source-map',
+
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9002,
+		historyApiFallback: true,
+	},
+
+	module: {
+		rules: [
+			
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+				options: {
+					emitWarning: true,
+					failOnError: false,
+					failOnWarning: false
+				}
+			},
+
+			{
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              experimentalWatchApi: true
+            }
+          }
+        ]
+      },
+
+			{
+				// Loads the javacript into html template provided.
+				// Entry point is set below in HtmlWebPackPlugin in Plugins 
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader",
+						//options: { minimize: true }
+					}
+				]
+			},
+
+			{ 
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+
+			{
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+
+			{
+				test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+				use: 'file-loader',
+			},
+
+			{
+			 test: /\.(png|svg|jpg|gif)$/,
+			 use: ['file-loader']
+			}
+
+		]
+	},
+
+	resolve: {
+		modules: [sourcedir, 'node_modules'],
+		// extensions: ['.js'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+		alias: {
+			'@': path.resolve(process.cwd(), sourcedir, 'components'),
+			'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+			'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+			'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+			'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+			'routes': path.resolve(process.cwd(), sourcedir, 'components', 'Route'),
+			'utils': path.resolve(process.cwd(), sourcedir, 'utils'),
+			'#': path.resolve(process.cwd(), sourcedir),
+			// node_modules setara sourcedir
+			'nomo': path.resolve(process.cwd(), 'node_modules'),
+		},
+	},
+
+	plugins: [
+		new HtmlWebPackPlugin({
+			template: path.resolve(process.cwd(), sourcedir, 'index.html'),
+			filename: "./index.html",
+			favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+			// excludeChunks: [ 'server' ]
+		}),
+		// new Dotenv(),
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
+		new CopyWebPackPlugin({
+			patterns: [
+				{ from: `./${sourcedir}/assets`, to: '/' }
+			],
+		}),
+	],
+}
+
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-bs.js
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
+// const Dotenv = require('dotenv-webpack');
+
+const sourcedir = 'react-bs'
+
+module.exports = {
+	entry: {
+		main: [
+			// 'babel-polyfill',
+			// 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', 
+			// './src/index.js',
+			`./${sourcedir}/index.js`
+		]
+	},
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+
+	mode: 'development',
+	// https://stackoverflow.com/questions/51946848/webpack-nodejs-module-not-found-error-cant-resolve-fs
+	target: 'web',
+	// target: 'node',
+
+	// configuration.devtool should match pattern "^(inline-|hidden-|eval-)?(nosources-)?(cheap-(module-)?)?source-map$"
+	// devtool: '#source-map',
+
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9002,
+		historyApiFallback: true,
+	},
+
+	module: {
+		rules: [
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+				options: {
+					emitWarning: true,
+					failOnError: false,
+					failOnWarning: false
+				}
+			},
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel-loader",
+			},
+			{
+				// Loads the javacript into html template provided.
+				// Entry point is set below in HtmlWebPackPlugin in Plugins 
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader",
+						//options: { minimize: true }
+					}
+				]
+			},
+			{ 
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+
+			{
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+
+			{
+				test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+				use: 'file-loader',
+			},
+
+			{
+			 test: /\.(png|svg|jpg|gif)$/,
+			 use: ['file-loader']
+			}
+
+		]
+	},
+
+	resolve: {
+		modules: [sourcedir, 'node_modules'],
+		extensions: ['.js'],
+		alias: {
+			'@': path.resolve(process.cwd(), sourcedir, 'components'),
+			'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+			'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+			'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+			'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+			'routes': path.resolve(process.cwd(), sourcedir, 'components', 'Route'),
+			'utils': path.resolve(process.cwd(), sourcedir, 'utils'),
+			'#': path.resolve(process.cwd(), sourcedir),
+			// node_modules setara sourcedir
+			'nomo': path.resolve(process.cwd(), 'node_modules'),
+		},
+	},
+
+	plugins: [
+		new HtmlWebPackPlugin({
+			template: path.resolve(process.cwd(), sourcedir, 'index.html'),
+			filename: "./index.html",
+			favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+			// excludeChunks: [ 'server' ]
+		}),
+		// new Dotenv(),
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
+		new CopyWebPackPlugin({
+			patterns: [
+				{ from: `./${sourcedir}/assets`, to: '/' }
+			],
+		}),
+	],
+}
+
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-mts2.js
+// const path = require('path');
+const { resolve } = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const commonConfig = {
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+  },
+  context: resolve(__dirname, "react-mts-02/src"),
+  module: {
+    rules: [
+      {
+        test: [/\.jsx?$/, /\.tsx?$/],
+        use: ["babel-loader"],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(scss|sass)$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          "file-loader?hash=sha512&digest=hex&name=img/[contenthash].[ext]",
+          "image-webpack-loader?bypassOnDebug&optipng.optimizationLevel=7&gifsicle.interlaced=false",
+        ],
+      },
+    ],
+  },
+  plugins: [new HtmlWebpackPlugin({
+    template: "index.html.ejs",
+    // filename: "index.html",
+    // template: path.resolve(process.cwd(), 'react-mts-02/src', 'index.html'),
+    // filename: "index.html",
+  })
+  ],
+  externals: {
+    react: "React",
+    "react-dom": "ReactDOM",
+  },
+  performance: {
+    hints: false,
+  },
+};
+
+// development config
+const { merge } = require("webpack-merge");
+const webpack = require("webpack");
+// const commonConfig = require("./common");
+
+module.exports = merge(commonConfig, {
+  mode: "development",
+  entry: [
+    "react-hot-loader/patch", // activate HMR for React
+    "webpack-dev-server/client?http://localhost:9500", // bundle the client for webpack-dev-server and connect to the provided endpoint
+    "webpack/hot/only-dev-server", // bundle the client for hot reloading, only- means to only hot reload for successful updates
+    "./index.tsx", // the entry point of our app
+  ],
+  devServer: {
+    port: 9500,
+    hot: true, // enable HMR on the server
+    historyApiFallback: true, // fixes error 404-ish errors when using react router :see this SO question: https://stackoverflow.com/questions/43209666/react-router-v4-cannot-get-url 
+  },
+  devtool: "cheap-module-source-map",
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(), // enable HMR globally
+  ],
+});
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-mui-ts.js
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
+// const Dotenv = require('dotenv-webpack');
+
+const sourcedir = 'react-mui-ts'
+
+console.log(`
+
+**********************************************
+
+*** WEBPACK
+
+process.cwd:    ${process.cwd()}
+sourcedir:      ${path.resolve(process.cwd(), sourcedir)}
+src:            ${path.resolve(process.cwd(), sourcedir, 'src')}
+components:     ${path.resolve(process.cwd(), sourcedir, 'src', 'components')}
+
+`);
+
+module.exports = {
+	entry: {
+		main: [
+			`./${sourcedir}/src/index`,
+		]
+	},
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+
+	mode: 'development',
+	// https://stackoverflow.com/questions/51946848/webpack-nodejs-module-not-found-error-cant-resolve-fs
+	target: 'web',
+	// target: 'node',
+
+	// configuration.devtool should match pattern "^(inline-|hidden-|eval-)?(nosources-)?(cheap-(module-)?)?source-map$"
+	// devtool: '#source-map',
+
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9005,
+		historyApiFallback: true,
+	},
+
+	module: {
+		rules: [
+      {
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              experimentalWatchApi: true
+            }
+          }
+        ]
+      },
+
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+				options: {
+					emitWarning: true,
+					failOnError: false,
+					failOnWarning: false
+				}
+			},
+			// {
+			// 	test: /\.js$/,
+			// 	exclude: /node_modules/,
+			// 	loader: "babel-loader",
+			// },
+			{
+				// Loads the javacript into html template provided.
+				// Entry point is set below in HtmlWebPackPlugin in Plugins 
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader",
+						//options: { minimize: true }
+					}
+				]
+			},
+			{ 
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+
+			{
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+
+			{
+				test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+				use: 'file-loader',
+			},
+
+			{
+			 test: /\.(png|svg|jpg|gif)$/,
+			 use: ['file-loader']
+			}
+
+		]
+	},
+
+	resolve: {
+		modules: [sourcedir, 'node_modules'],    
+		// extensions: ['.js'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+		alias: {
+			'@': path.resolve(process.cwd(), sourcedir, 'src', 'components'),
+			// 'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+			// 'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+			// 'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+			// 'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+			// 'routes': path.resolve(process.cwd(), sourcedir, 'components', 'Route'),
+			// 'utils': path.resolve(process.cwd(), sourcedir, 'utils'),
+			'#': path.resolve(process.cwd(), sourcedir),
+
+      'components': path.resolve(process.cwd(), sourcedir, 'src', 'components'),
+      'api': path.resolve(process.cwd(), sourcedir, 'src', 'api'),
+      'routing': path.resolve(process.cwd(), sourcedir, 'src', 'routing'),
+			'utils': path.resolve(process.cwd(), sourcedir, 'src', 'utils'),
+      'types': path.resolve(process.cwd(), sourcedir, 'src', 'types'),
+      'store': path.resolve(process.cwd(), sourcedir, 'src', 'store'),
+
+			// node_modules setara sourcedir
+			'nomo': path.resolve(process.cwd(), 'node_modules'),
+		},
+	},
+
+	plugins: [
+		new HtmlWebPackPlugin({
+			template: path.resolve(process.cwd(), sourcedir, 'src', 'index.html'),
+			filename: "./index.html",
+			favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+			// excludeChunks: [ 'server' ]
+		}),
+		// new Dotenv(),
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
+		// new CopyWebPackPlugin({
+		// 	patterns: [
+		// 		{ from: `./${sourcedir}/assets`, to: '/' }
+		// 	],
+		// }),
+	],
+}
+
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-node-pg.js
+
+const path = require('path');
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
+
+
+const sourcedir = 'node-postgres/src'
+const SERVER_PATH = `./${sourcedir}/server/server-dev.js`;
+
+const config_func = (argv = {mode: 'development'}) => {
+
+	return ({
+		entry: {
+			server: SERVER_PATH,
+		},
+		output: {
+			path: path.join(__dirname, 'dist'),
+			publicPath: '/',
+			filename: '[name].js'
+		},
+		mode: argv.mode,
+
+		target: 'node',
+
+		node: {
+			// Need this when working with express, otherwise the build fails
+			__dirname: false,   // if you don't put this is, __dirname
+			__filename: false,  // and __filename return blank or /
+		},
+		externals: [nodeExternals()], // Need this to avoid error when working with Express
+
+		resolve: {
+			modules: [sourcedir, 'node_modules'],
+			extensions: ['.js'],
+			alias: {
+				S: path.resolve(process.cwd(), sourcedir),
+				C: path.resolve(process.cwd(), sourcedir, 'core'),
+				A: path.resolve(process.cwd(), sourcedir, 'apps'),
+				AU: path.resolve(process.cwd(), sourcedir, 'apps/user'),
+				D: path.resolve(process.cwd(), sourcedir, 'core/db'),
+				M: path.resolve(process.cwd(), sourcedir, 'core/middlewares'),
+				R: path.resolve(process.cwd(), sourcedir, 'core/routes'),
+				U: path.resolve(process.cwd(), sourcedir, 'core/utils'),
+			},
+		},
+
+		module: {
+			rules: [
+				// {
+				//   enforce: "pre",
+				//   test: /\.js$/,
+				//   exclude: /node_modules/,
+				//   loader: "eslint-loader",
+				//   options: {
+				//     emitWarning: true,
+				//     failOnError: false,
+				//     failOnWarning: false
+				//   }
+				// },
+				{
+					// Transpiles ES6-8 into ES5
+					test: /\.js$/,
+					exclude: /node_modules/,
+					use: {
+						loader: "babel-loader"
+					}
+				},
+				{
+					// Loads the javacript into html template provided.
+					// Entry point is set below in HtmlWebPackPlugin in Plugins 
+					test: /\.html$/,
+					use: [
+						{
+							loader: "html-loader",
+							//options: { minimize: true }
+						}
+					]
+				},
+				{ 
+					test: /\.css$/,
+					use: [ 'style-loader', 'css-loader' ]
+				},
+				{
+				 test: /\.(png|svg|jpg|gif)$/,
+				 use: ['file-loader']
+				}
+			]
+		},
+
+		plugins: [
+			new webpack.HotModuleReplacementPlugin(),
+			new webpack.NoEmitOnErrorsPlugin()
+		],
+
+	})
+}
+
+module.exports = config_func;
+// export default config_func;
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-reduxer1.js
+// "mui": "webpack serve --mode development --config webpack-mui-js",
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
+
+const sourcedir = 'reduxer1/src'
+
+module.exports = {
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9800,
+		historyApiFallback: true,
+	},
+
+	entry: {
+		main: [
+			`./${sourcedir}/index.js`,
+		]
+	},
+
+	mode: 'development',
+
+	module: {
+		rules: [
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+				options: {
+					emitWarning: true,
+					failOnError: false,
+					failOnWarning: false
+				}
+			},
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel-loader",
+			},
+			{
+				// Loads the javacript into html template provided.
+				// Entry point is set below in HtmlWebPackPlugin in Plugins 
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader",
+						//options: { minimize: true }
+					}
+				]
+			},
+			{ 
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+			{
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+			{
+				test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+				use: 'file-loader',
+			},
+			{
+			 test: /\.(png|svg|jpg|gif)$/,
+			 use: ['file-loader']
+			}
+		]
+	},
+
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+
+	plugins: [
+		new HtmlWebPackPlugin({
+			template: path.resolve(process.cwd(), sourcedir, 'index.html'),
+			filename: "./index.html",
+			favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+			// excludeChunks: [ 'server' ]
+		}),
+		new webpack.HotModuleReplacementPlugin(),
+		// new webpack.NoEmitOnErrorsPlugin(),
+		new CopyWebPackPlugin({
+			patterns: [
+				{ from: `./${sourcedir}/assets`, to: '/' }
+			],
+		}),
+	],
+
+	resolve: {
+		modules: [sourcedir, 'node_modules'],
+		extensions: ['.js'],
+		alias: {
+			'@': path.resolve(process.cwd(), sourcedir, 'components'),
+			'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+			'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+			'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+			'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+			'routes': path.resolve(process.cwd(), sourcedir, 'components', 'Route'),
+			'utils': path.resolve(process.cwd(), sourcedir, 'utils'),
+			'#': path.resolve(process.cwd(), sourcedir),
+			// node_modules setara sourcedir
+			'nomo': path.resolve(process.cwd(), 'node_modules'),
+		},
+	},
+
+	target: 'web',
+}
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-reduxer2.js
+// "mui": "webpack serve --mode development --config webpack-mui-js",
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
+
+const sourcedir = 'reduxer2/template/src'
+
+module.exports = {
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9800,
+		historyApiFallback: true,
+	},
+
+	entry: {
+		main: [
+			`./${sourcedir}/index.tsx`,
+		]
+	},
+
+	mode: 'development',
+
+	module: {
+		rules: [
+      {
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              experimentalWatchApi: true
+            }
+          }
+        ]
+      },
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+				options: {
+					emitWarning: true,
+					failOnError: false,
+					failOnWarning: false
+				}
+			},
+			// {
+			// 	test: /\.js$/,
+			// 	exclude: /node_modules/,
+			// 	loader: "babel-loader",
+			// },
+			{
+				// Loads the javacript into html template provided.
+				// Entry point is set below in HtmlWebPackPlugin in Plugins 
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader",
+						//options: { minimize: true }
+					}
+				]
+			},
+			{ 
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+			{
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+			{
+				test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+				use: 'file-loader',
+			},
+			{
+			 test: /\.(png|svg|jpg|gif)$/,
+			 use: ['file-loader']
+			}
+		]
+	},
+
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+
+	plugins: [
+		new HtmlWebPackPlugin({
+			template: path.resolve(process.cwd(), sourcedir, 'index.html'),
+			filename: "./index.html",
+			favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+			// excludeChunks: [ 'server' ]
+		}),
+		new webpack.HotModuleReplacementPlugin(),
+		// new webpack.NoEmitOnErrorsPlugin(),
+		new CopyWebPackPlugin({
+			patterns: [
+				{ from: `./${sourcedir}/assets`, to: '/' }
+			],
+		}),
+	],
+
+	resolve: {
+		modules: [sourcedir, 'node_modules'],
+		extensions: ['.js'],
+		alias: {
+			'@': path.resolve(process.cwd(), sourcedir, 'components'),
+			'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+			'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+			'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+			'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+			'routes': path.resolve(process.cwd(), sourcedir, 'components', 'Route'),
+			'utils': path.resolve(process.cwd(), sourcedir, 'utils'),
+			'#': path.resolve(process.cwd(), sourcedir),
+			// node_modules setara sourcedir
+			'nomo': path.resolve(process.cwd(), 'node_modules'),
+		},
+	},
+
+	target: 'web',
+}
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-reduxer4.js
+// "mui": "webpack serve --mode development --config webpack-mui-js",
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
+
+const sourcedir = 'reduxer4/template/src'
+
+module.exports = {
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9800,
+		historyApiFallback: true,
+	},
+
+	entry: {
+		main: [
+			`./${sourcedir}/index.js`,
+		]
+	},
+
+	mode: 'development',
+
+	module: {
+		rules: [
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+				options: {
+					emitWarning: true,
+					failOnError: false,
+					failOnWarning: false
+				}
+			},
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel-loader",
+			},
+			{
+				// Loads the javacript into html template provided.
+				// Entry point is set below in HtmlWebPackPlugin in Plugins 
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader",
+						//options: { minimize: true }
+					}
+				]
+			},
+			{ 
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+			{
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+			{
+				test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+				use: 'file-loader',
+			},
+			{
+			 test: /\.(png|svg|jpg|gif)$/,
+			 use: ['file-loader']
+			}
+		]
+	},
+
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+
+	plugins: [
+		new HtmlWebPackPlugin({
+			template: path.resolve(process.cwd(), sourcedir, 'index.html'),
+			filename: "./index.html",
+			favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+			// excludeChunks: [ 'server' ]
+		}),
+		new webpack.HotModuleReplacementPlugin(),
+		// new webpack.NoEmitOnErrorsPlugin(),
+		new CopyWebPackPlugin({
+			patterns: [
+				{ from: `./${sourcedir}/assets`, to: '/' }
+			],
+		}),
+	],
+
+	resolve: {
+		modules: [sourcedir, 'node_modules'],
+		extensions: ['.js'],
+		alias: {
+			'@': path.resolve(process.cwd(), sourcedir, 'components'),
+			'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+			'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+			'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+			'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+			'routes': path.resolve(process.cwd(), sourcedir, 'components', 'Route'),
+			'utils': path.resolve(process.cwd(), sourcedir, 'utils'),
+			'#': path.resolve(process.cwd(), sourcedir),
+			// node_modules setara sourcedir
+			'nomo': path.resolve(process.cwd(), 'node_modules'),
+		},
+	},
+
+	target: 'web',
+}
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-reduxer5.js
+// "mui": "webpack serve --mode development --config webpack-mui-js",
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
+
+const sourcedir = 'reduxer5/src'
+
+module.exports = {
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9800,
+		historyApiFallback: true,
+	},
+
+	entry: {
+		main: [
+			`./${sourcedir}/index.tsx`,
+		]
+	},
+
+	mode: 'development',
+
+	module: {
+		rules: [
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+				options: {
+					emitWarning: true,
+					failOnError: false,
+					failOnWarning: false
+				}
+			},
+      {
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              experimentalWatchApi: true
+            }
+          }
+        ]
+      },
+			{
+				// Loads the javacript into html template provided.
+				// Entry point is set below in HtmlWebPackPlugin in Plugins 
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader",
+						//options: { minimize: true }
+					}
+				]
+			},
+			{ 
+				test: /\.css$/,
+				use: [ 'style-loader', 'css-loader' ]
+			},
+			{
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+			{
+				test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+				use: 'file-loader',
+			},
+			{
+			 test: /\.(png|svg|jpg|gif)$/,
+			 use: ['file-loader']
+			}
+		]
+	},
+
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+
+	plugins: [
+		new HtmlWebPackPlugin({
+			template: path.resolve(process.cwd(), sourcedir, 'index.html'),
+			filename: "./index.html",
+			favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+			// excludeChunks: [ 'server' ]
+		}),
+		new webpack.HotModuleReplacementPlugin(),
+		// new webpack.NoEmitOnErrorsPlugin(),
+		new CopyWebPackPlugin({
+			patterns: [
+				{ from: `./${sourcedir}/assets`, to: '/' }
+			],
+		}),
+	],
+
+	resolve: {
+		modules: [sourcedir, 'node_modules'],
+		extensions: ['.js'],
+		alias: {
+			'@': path.resolve(process.cwd(), sourcedir, 'components'),
+			'app': path.resolve(process.cwd(), sourcedir, 'app'),
+			'styles': path.resolve(process.cwd(), sourcedir, 'styles'),
+			'store': path.resolve(process.cwd(), sourcedir, 'store'),
+			'types': path.resolve(process.cwd(), sourcedir, 'types'),
+			'locales': path.resolve(process.cwd(), sourcedir, 'locales'),
+			'utils': path.resolve(process.cwd(), sourcedir, 'utils'),
+			'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+			'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+			'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+			'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+			'routes': path.resolve(process.cwd(), sourcedir, 'components', 'Route'),
+			'#': path.resolve(process.cwd(), sourcedir),
+			// node_modules setara sourcedir
+			'nomo': path.resolve(process.cwd(), 'node_modules'),
+		},
+	},
+
+	target: 'web',
+}
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-reduxjs.js
+// "mui": "webpack serve --mode development --config webpack-mui-js",
+const path = require('path');
+const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const sourcedir = 'reduxjs/src'
+
+// const htmlPlugin = new HtmlWebpackPlugin({
+//   template: `./${sourcedir}/index.html`,
+//   fileName: './index.html',
+// });
+
+module.exports = {
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9800,
+		historyApiFallback: true,
+	},
+
+	devtool: 'inline-source-map',
+
+	entry: {
+		main: [
+			`./${sourcedir}/index.js`,
+		]
+	},
+
+	mode: 'development',
+
+	module: {
+		rules: [
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader",
+				options: {
+					emitWarning: true,
+					failOnError: false,
+					failOnWarning: false
+				}
+			},
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel-loader",
+			},
+			{
+				// Loads the javacript into html template provided.
+				// Entry point is set below in HtmlWebPackPlugin in Plugins 
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader",
+						//options: { minimize: true }
+					}
+				]
+			},
+			{
+        test: /\.css$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.(sass|scss)$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 2,
+              modules: {
+                mode: 'local',
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  flexbox: 'no-2009',
+                }),
+                require('postcss-modules-values'),
+              ],
+            },
+          },
+          'sass-loader',
+        ],
+      },
+			{
+				test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+				use: 'file-loader',
+			},
+			{
+			 test: /\.(png|svg|jpg|gif)$/,
+			 use: ['file-loader']
+			}
+		]
+	},
+
+	optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+  },
+
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+
+	plugins: [
+		new HtmlWebPackPlugin({
+			template: path.resolve(process.cwd(), sourcedir, 'index.html'),
+			filename: "./index.html",
+			favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+			// excludeChunks: [ 'server' ]
+		}),
+		new MiniCssExtractPlugin({
+      filename: './css/[name].css',
+      chunkFilename: './css/[name].css',
+    }),
+		new webpack.HotModuleReplacementPlugin(),
+		// new webpack.NoEmitOnErrorsPlugin(),
+		new CopyWebPackPlugin({
+			patterns: [
+				{ from: `./${sourcedir}/assets`, to: '/' }
+			],
+		}),
+	],
+
+	resolve: {
+		modules: [sourcedir, 'node_modules'],
+		extensions: ['.js'],
+		alias: {
+			react: path.resolve('./node_modules/react'),
+
+			// node_modules setara sourcedir
+			'nomo': path.resolve(process.cwd(), 'node_modules'),
+
+			'#': path.resolve(process.cwd(), sourcedir),
+			'@': path.resolve(process.cwd(), sourcedir, 'components'),
+
+			'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+			// 'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+			// 'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+			// 'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+			// 'routes': path.resolve(process.cwd(), sourcedir, 'components', 'Route'),
+
+			'actions': path.resolve(process.cwd(), sourcedir, 'actions'),
+			'pages': path.resolve(process.cwd(), sourcedir, 'pages'),
+			'reducers': path.resolve(process.cwd(), sourcedir, 'reducers'),
+			'selectors': path.resolve(process.cwd(), sourcedir, 'selectors'),
+			'styles': path.resolve(process.cwd(), sourcedir, 'styles'),
+			'templates': path.resolve(process.cwd(), sourcedir, 'templates'),
+			
+		},
+	},
+
+	target: 'web',
+}
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/webpack-whatever.js
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+
+
+const sourcedir = 'react-mts-01'
+
+console.log(`
+**********************************************
+*** WEBPACK
+process.cwd:    ${process.cwd()}
+sourcedir:      ${path.resolve(process.cwd(), sourcedir)}
+`);
+
+const rule_ts_js = {
+	test: /\.(ts|js)x?$/,
+	exclude: /node_modules/,
+	use: [
+		{
+			loader: 'babel-loader',
+			options: { cacheDirectory: true }
+		},
+		{
+			loader: 'ts-loader',
+			options: { transpileOnly: true, experimentalWatchApi: true }
+		}
+	]
+};
+
+const rule_js_eslint = {
+	enforce: "pre",
+	test: /\.js$/,
+	exclude: /node_modules/,
+	loader: "eslint-loader",
+	options: {
+		emitWarning: true,
+		failOnError: false,
+		failOnWarning: false
+	}
+};
+
+const rule_html = {
+	// Loads the javacript into html template provided.
+	// Entry point is set below in HtmlWebPackPlugin in Plugins 
+	test: /\.html$/,
+	use: [
+		{
+			loader: "html-loader",
+			// options: { minimize: true }
+		}
+	]
+};
+
+const rule_css = { 
+	test: /\.css$/,
+	use: [ 'style-loader', 'css-loader' ]
+};
+
+const rule_sass = {
+	test: /\.s[ac]ss$/i,
+	use: [		
+		"style-loader",	// Creates `style` nodes from JS strings
+		"css-loader", // Translates CSS into CommonJS		
+		"sass-loader", // Compiles Sass to CSS
+	],
+};
+
+const rule_ico = {
+	test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+	use: 'file-loader',
+};
+
+const rule_png = {
+	test: /\.(png|svg|jpg|gif)$/,
+	use: ['file-loader']
+};
+
+module.exports = {
+	devServer: {
+		contentBase: path.resolve(process.cwd(), 'dist'),
+		hot: true,
+		port: 9500,
+		historyApiFallback: true,
+	},
+	entry: {
+		main: [`./${sourcedir}/src/index.tsx`,],
+	},
+	mode: 'development',
+	module: {
+		rules: [
+			rule_ts_js,
+			rule_html,
+			rule_css,
+			rule_sass,
+			rule_ico,
+			rule_png,
+		],
+	},
+	output: {
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
+		filename: '[name].js'
+	},
+	plugins: [
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
+
+	],
+	resolve: {
+		alias: {
+			'nomo': path.resolve(process.cwd(), 'node_modules'),
+			'#': path.resolve(process.cwd(), sourcedir),
+			'$': path.resolve(process.cwd(), sourcedir),
+			'@': path.resolve(process.cwd(), sourcedir, 'src', 'components'),
+			'common': path.resolve(process.cwd(), sourcedir, 'src', 'common'),
+			'routes': path.resolve(process.cwd(), sourcedir, 'src', 'routes'),
+		},
+		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+		modules: [sourcedir, 'node_modules'],				
+	},
+	target: 'web',
+}
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/wpnoddy1.js
+
+const path = require('path');
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
+const Dotenv = require('dotenv-webpack');
+
+const sourcedir = 'output/nodereact01/node-postgres/src'
+const SERVER_PATH = `./${sourcedir}/server/server-dev.js`;
+
+const config_func = (argv = {mode: 'development'}) => {
+  
+  return ({
+
+    devServer: {
+      contentBase: path.resolve(process.cwd(), 'dist'),
+      hot: true,
+      port: 9800,
+      historyApiFallback: true,
+    },
+
+    entry: {
+      server: SERVER_PATH,
+    },
+
+    output: {
+      path: path.join(__dirname, 'dist'),
+      publicPath: '/',
+      filename: '[name].js'
+    },
+
+    mode: argv.mode,
+
+    target: 'node',
+
+    node: {
+      // Need this when working with express, otherwise the build fails
+      __dirname: false,   // if you don't put this is, __dirname
+      __filename: false,  // and __filename return blank or /
+    },
+
+    externals: [nodeExternals()], // Need this to avoid error when working with Express
+
+    resolve: {
+      modules: [sourcedir, 'node_modules'],
+      extensions: ['.js'],
+      alias: {
+        S: path.resolve(process.cwd(), sourcedir),
+        C: path.resolve(process.cwd(), sourcedir, 'core'),
+        A: path.resolve(process.cwd(), sourcedir, 'apps'),
+        AU: path.resolve(process.cwd(), sourcedir, 'apps/user'),
+        D: path.resolve(process.cwd(), sourcedir, 'core/db'),
+        M: path.resolve(process.cwd(), sourcedir, 'core/middlewares'),
+        R: path.resolve(process.cwd(), sourcedir, 'core/routes'),
+        U: path.resolve(process.cwd(), sourcedir, 'core/utils'),
+      },
+    },
+
+    module: {
+      rules: [
+        // {
+        //   enforce: "pre",
+        //   test: /\.js$/,
+        //   exclude: /node_modules/,
+        //   loader: "eslint-loader",
+        //   options: {
+        //     emitWarning: true,
+        //     failOnError: false,
+        //     failOnWarning: false
+        //   }
+        // },
+        {
+          // Transpiles ES6-8 into ES5
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader"
+          }
+        },
+        {
+          // Loads the javacript into html template provided.
+          // Entry point is set below in HtmlWebPackPlugin in Plugins 
+          test: /\.html$/,
+          use: [
+            {
+              loader: "html-loader",
+              //options: { minimize: true }
+            }
+          ]
+        },
+        { 
+          test: /\.css$/,
+          use: [ 'style-loader', 'css-loader' ]
+        },
+        {
+         test: /\.(png|svg|jpg|gif)$/,
+         use: ['file-loader']
+        }
+      ]
+    },
+
+    plugins: [
+      new Dotenv(),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoEmitOnErrorsPlugin()
+    ],
+
+  })
+}
+
+// export default config_func;
+module.exports = config_func;
+
+--#
+
+--% F:/jualan/tmp/webpack-galore/wpnoddy2.js
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+// const Dotenv = require('dotenv-webpack');
+
+const sourcedir = 'output/nodereact01/react-antd'
+
+module.exports = {
+  entry: {
+    main: [
+      // 'babel-polyfill',
+      // 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', 
+      // './src/index.js',
+      `./${sourcedir}/index.js`
+    ]
+  },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/',
+    filename: '[name].js'
+  },
+
+  mode: 'development',
+  // https://stackoverflow.com/questions/51946848/webpack-nodejs-module-not-found-error-cant-resolve-fs
+  target: 'web',
+  // target: 'node',
+
+  // configuration.devtool should match pattern "^(inline-|hidden-|eval-)?(nosources-)?(cheap-(module-)?)?source-map$"
+  // devtool: '#source-map',
+
+  devServer: {
+    contentBase: path.resolve(process.cwd(), 'dist'),
+    hot: true,
+    port: 9001,
+    historyApiFallback: true,
+  },
+
+  module: {
+    rules: [
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          emitWarning: true,
+          failOnError: false,
+          failOnWarning: false
+        }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+      },
+      {
+        // Loads the javacript into html template provided.
+        // Entry point is set below in HtmlWebPackPlugin in Plugins 
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+            //options: { minimize: true }
+          }
+        ]
+      },
+      { 
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+
+      {
+        test: /\.(ico|eot|svg|otf|ttf|woff|woff2)$/,
+        use: 'file-loader',
+      },
+
+      {
+       test: /\.(png|svg|jpg|gif)$/,
+       use: ['file-loader']
+      }
+
+    ]
+  },
+
+  resolve: {
+    modules: [sourcedir, 'node_modules'],
+    extensions: ['.js'],
+    alias: {
+      '@': path.resolve(process.cwd(), sourcedir, 'components'),
+      'assets': path.resolve(process.cwd(), sourcedir, 'assets'),
+      'modules': path.resolve(process.cwd(), sourcedir, 'components', 'modules'),
+      'context': path.resolve(process.cwd(), sourcedir, 'components', 'context'),
+      'common': path.resolve(process.cwd(), sourcedir, 'components', 'common'),
+      'utils': path.resolve(process.cwd(), sourcedir, 'utils'),
+      '#': path.resolve(process.cwd(), sourcedir),
+    },
+  },
+
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: path.resolve(process.cwd(), sourcedir, 'index.html'),
+      filename: "./index.html",
+      favicon: path.resolve(process.cwd(), sourcedir, 'assets', 'favicon.ico'),
+      // excludeChunks: [ 'server' ]
+    }),
+    // new Dotenv(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
+}
+
+--#

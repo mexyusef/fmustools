@@ -1,0 +1,8 @@
+c:/tmp/delete/angular-play,d
+    %__PROJECT=__INPUT__
+    $* ng new __PROJECT
+    __PROJECT,d
+        %__TABLENAME__=Product[@model]
+        $* ng generate component __TABLENAME__-create
+        $* ng generate component __TABLENAME__-list
+        $* ng generate component __TABLENAME__-detail

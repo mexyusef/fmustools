@@ -1,0 +1,288 @@
+--% index/fmus
+__PWD,d
+    $* rm -rf build
+	CMakeLists.txt,f(e=__FILE__=cmakelists)
+	?pick
+		utama.cpp,f(e=__FILE__=template1)
+		utama.cpp,f(e=__FILE__=template2)
+		utama.cpp,f(e=__FILE__=template3)
+		utama.cpp,f(e=__FILE__=template4)
+
+
+	inc.hpp,f(e=__FILE__=inc.hpp)
+	build,d(/mk)
+		$* cmake ..
+		$* make
+		#$* ls -al
+		$* __PWD/build/hasil01
+--#
+
+--% README.md
+include_directories(common)
+masukkan inc.hpp ke common
+utk bisa #include<inc.hpp>
+
+1:
+[ 50%] Building CXX object CMakeFiles/hasil01.dir/utama.cpp.o
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:7:5: error: cannot default 'operator<=>'
+      because type 'std::strong_ordering' was not found; include <compare>
+    auto operator <=>(const MyInt&) const = default;
+    ^
+1 error generated.
+make[2]: *** [CMakeFiles/hasil01.dir/build.make:76: CMakeFiles/hasil01.dir/utama.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:126: CMakeFiles/hasil01.dir/all] Error 2
+make: *** [Makefile:91: all] Error 2
+
+2:
+lhs lower: 0
+lhs equal: 0
+lhs higher: 0
+std::__ndk1::partial_ordering
+
+3:
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:21:9: warning: expression result unused
+      [-Wunused-value]
+    iw1 <= iw2;
+    ~~~~^~~~~~
+1 warning generated.
+[100%] Linking CXX executable hasil01
+[100%] Built target hasil01
+
+operator<=> called with: 2, 3
+
+4:
+called <=> with: 3, 3
+called == with: 3, 3
+three way equality: 1
+two way equality: 1
+
+--#
+
+--% template1
+#include <iostream>
+
+struct MyInt
+{
+    int v;
+    constexpr MyInt(int v) : v{v} {}
+    auto operator <=>(const MyInt&) const = default;
+};
+
+int main()
+{
+    MyInt iw1{1};
+    MyInt iw2{2};
+
+    std::cout << (iw1 < iw2 == true  ) << " "
+              << (iw1 > iw2 == false ) << " "
+              << (iw1 >= iw2 == false) << " "
+              << (iw1 <= iw2 == true ) << " "
+              << (iw1 == iw2 == false) << " "
+              << (iw1 != iw2 == true ) << " "
+              << (iw1 > 0 == true)     << std::endl;
+
+    std::cout << (0 < iw1 == true)     << " "
+              << (0 > iw1 == false)    << std::endl;
+    static_assert(MyInt(1) > 0);
+}
+--#
+--% template2
+#include "inc.hpp"
+#include <compare>
+
+template<typename T>
+struct MyValue
+{
+    T v;
+    constexpr MyValue(T v) : v{v} {}
+    auto operator <=>(const MyValue&) const = default;
+};
+
+int main()
+{
+    MyValue iw1{1.0f};
+    MyValue iw2{NAN};
+
+    cout << "lhs lower: " <<(iw1 <=> iw2 < 0) << endl;
+    cout << "lhs equal: " <<(iw1 <=> iw2 == 0) << endl;
+    cout << "lhs higher: " <<(iw1 <=> iw2 > 0) << endl;
+
+    cout << typeName(iw2 <=> iw2) << endl;
+}
+--#
+--% template3
+#include "inc.hpp"
+#include <compare>
+
+struct MyValue
+{
+    int v;
+    constexpr MyValue(int v) : v{v} {}
+    //auto operator <=>(const MyValue& rhs) const = default;
+    auto operator <=>(const MyValue& rhs) const
+    {
+        cout << "operator<=> called with: " << v << ", " << rhs.v << endl;
+        return v <=> rhs.v;
+    }
+};
+
+int main()
+{
+    MyValue iw1{2};
+    MyValue iw2{3};
+
+    iw1 <= iw2;
+}
+--#
+--% template4
+#include "inc.hpp"
+#include <compare>
+
+struct InternalT
+{
+    int v;
+    constexpr InternalT(int v) : v{v} {}
+    auto operator <=>(const InternalT& rhs) const
+    {
+        cout << "called <=> with: " << v << ", " << rhs.v << endl;
+        return v <=> rhs.v;
+    }
+    auto operator==(const InternalT& rhs) const
+    {
+        cout << "called == with: " << v << ", " << rhs.v << endl;
+        return v == rhs.v;
+    }
+};
+
+struct MyValue
+{
+    InternalT v;
+    constexpr MyValue(int v) : v{v} {}
+    auto operator <=>(const MyValue&) const = default;
+};
+
+int main()
+{
+    MyValue iw1{3};
+    MyValue iw2{3};
+
+    bool twc = (iw1 <=> iw2 == 0);
+    bool eqc = (iw1 == iw2);
+
+    cout << "three way equality: " << twc << endl;
+    cout << "two way equality: " << eqc << endl;
+}
+--#
+
+--% inc.hpp
+#pragma once
+
+#include <fmt/format.h>
+#include <fmt/ostream.h>
+#include <range/v3/all.hpp>
+#include <cstdio>
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <algorithm>
+#include <cxxabi.h>
+#include <typeinfo>
+#include <math.h>
+#include <utility>
+
+using namespace fmt;
+using std::cout;
+using std::endl;
+using namespace std::string_literals;
+
+template<typename T>
+struct ShowType;
+
+inline std::string demangle(const std::string& name)
+{
+    int status;
+    auto ptr = abi::__cxa_demangle(name.c_str(), nullptr, nullptr, &status);
+    std::string str(ptr);
+    free(ptr);
+    return str;
+}
+
+template<typename T>
+inline std::string typeName()
+{
+    return demangle(typeid(T).name());
+}
+
+template<typename T>
+inline std::string typeName(T&& obj)
+{
+    return demangle(typeid(obj).name());
+}
+--#
+
+--% cmakelists
+cmake_minimum_required (VERSION 3.11.0)
+project (latihan)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+
+#cmake_minimum_required(VERSION 3.6)
+#project(latihan)
+#set(CMAKE_CXX_STANDARD 17)
+
+
+include(FetchContent)
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
+    GIT_TAG 0889856d6160775462e9e0722d121aab0e75e873
+)
+FetchContent_GetProperties(fmt)
+if(NOT fmt_POPULATED)
+    FetchContent_Populate(fmt)
+endif()
+set(FMT_PATH ${fmt_SOURCE_DIR})
+
+
+
+FetchContent_Declare(
+    ranges
+    GIT_REPOSITORY "https://github.com/ericniebler/range-v3.git"
+    GIT_TAG 50ef05324f880569436c424d0c33ba4de36fb6d9
+)
+FetchContent_GetProperties(ranges)
+if(NOT ranges_POPULATED)
+    FetchContent_Populate(ranges)
+endif()
+set(RANGES_PATH ${ranges_SOURCE_DIR})
+
+
+
+FetchContent_Declare(
+    cppcoro
+    GIT_REPOSITORY "https://github.com/lewissbaker/cppcoro.git"
+    GIT_TAG 00b34af58e8e74e0ca1739967ce410792e024964
+)
+FetchContent_GetProperties(cppcoro)
+if(NOT cppcoro_POPULATED)
+    FetchContent_Populate(cppcoro)
+endif()
+set(CPPCORO_PATH ${cppcoro_SOURCE_DIR})
+
+
+
+add_subdirectory(${FMT_PATH} ${CMAKE_CURRENT_BINARY_DIR}/fmt EXCLUDE_FROM_ALL)
+include_directories(${FMT_PATH}/include)
+include_directories(${RANGES_PATH}/include)
+include_directories(${CPPCORO_PATH}/include)
+
+
+
+add_custom_target(hasil)
+add_executable(hasil01 utama.cpp)
+target_compile_definitions(hasil01 PRIVATE EXAMPLE01 BOOST_LOG_DYN_LINK)
+add_dependencies(hasil hasil01)
+target_link_libraries(hasil01 PRIVATE fmt::fmt-header-only)
+--#

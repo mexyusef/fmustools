@@ -1,0 +1,388 @@
+### ⚡️ Backend
+- FastAPI
+- Motor Driver
+- MongoDB
+
+### 🎨 Frontend
+- React.js
+- Tailwind
+- React Query v4
+- Redux / Redux Toolkit
+
+version: '3.1'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD}
+      ME_CONFIG_MONGODB_SERVER: mongo
+volumes:
+  mongodb_data_container:
+
+MONGO_USERNAME=
+MONGO_PASSWORD=
+
+
+from routers.users import router as users_routers
+from routers.products import router as products_routers
+from routers import api_router
+from auth.router import router as auth_router
+
+from fastapi import FastAPI
+
+from config import config
+*************************
+config/__init__.py
+=========================
+import os
+from dotenv import load_dotenv
+load_dotenv()
+config = os.environ
+DB_USERNAME = config.get("MONGO_USERNAME", "")
+DB_PASSWORD = config.get("MONGO_PASSWORD", "")
+DB_HOST = config.get("MONGO_DB_HOST", "mongo")
+DB_PORT = config.get("MONGO_DB_PORT", 27017)
+DB_NAME = config.get("MONGO_DB_NAME", "")
+MONGO_URI = f"mongodb://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}?authSource=admin&retryWrites=true&w=majority"
+config["DB_NAME"] = DB_NAME
+config["MONGO_URI"] = MONGO_URI
+*************************
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+
+origins = config.get("CORS", "").split(",")
+print("cors: ", origins)
+
+def apply_cors_middleware(app: FastAPI):
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+    return app
+
+def create_app() -> FastAPI:
+    app = FastAPI()
+
+    # Middlewares
+    app = apply_cors_middleware(app)
+    
+    # Configuring routers
+    app.include_router(api_router)
+    app.include_router(auth_router)
+    return app
+
+app = create_app()
+
+if __name__ == "__main__":
+    app.run()
+************************* models/schema
+from typing import Union
+from pydantic import BaseModel, EmailStr, Field
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    email: Union[str, None] = EmailStr
+
+
+class UserLoginSchema(BaseModel):
+    email: EmailStr = Field(...)
+    password: str = Field(...)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "email": "email@example.com",
+                "password": "somepassword"
+            }
+        }
+
+class UserSignupSchema(BaseModel):
+    email: EmailStr = Field(...)
+    password: str = Field(...)
+    password_confirmation: str = Field(...)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "email": "email@example.com",
+                "password": "somepassword",
+                "password_confirmation": "somepassword"
+            }
+        }
+************************* user/product models
+from typing import Optional, Union
+from pydantic import BaseModel, Field
+from datetime import datetime
+from bson import ObjectId
+from typing import Optional
+
+
+class PyObjectId(ObjectId):
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, v):
+        if not ObjectId.is_valid(v):
+            raise ValueError("Invalid objectid")
+        return ObjectId(v)
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        field_schema.update(type="string")
+
+
+class CommonModel(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = { ObjectId: lambda v: str(v) }
+        media_type = "application/json"
+
+
+class Product(CommonModel):
+    name: str
+    description: str
+    price: Optional[float] = 0.00
+
+
+class UpdateProduct(CommonModel):
+    name: Optional[str]
+    description: Optional[str]
+    price: Optional[float] = 0.00
+
+class User(CommonModel):
+    username: str
+    email: Union[str, None] = None
+    full_name: Union[str, None] = None
+    disabled: Union[bool, None] = None
+
+
+class UserInDB(User):
+    hashed_password: str
+
+************************* db
+import motor.motor_asyncio
+from config import config
+
+client = motor.motor_asyncio.AsyncIOMotorClient(config.get("MONGO_URI"))
+db = client[config["DB_NAME"]]
+************************* auth
+from typing import Union
+from datetime import datetime, timedelta
+from jose import JWTError, jwt
+from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends, HTTPException, status
+
+
+from passlib.context import CryptContext
+from config import config
+
+# to get a string like this run:
+# openssl rand -hex 32
+SECRET_KEY = config.get("SECRET_KEY", "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = config.get("ACCESS_TOKEN_EXPIRE_MINUTES", 30)
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def hash_password(password: str):
+    return pwd_context.hash(password)
+
+
+def create_access_token(user: str , expires_delta: Union[timedelta, None] = None):
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=15)
+    payload = {
+        "user": user,
+        "exp": expire
+    }
+    encoded_jwt = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        token_data = TokenData(username=username)
+    except JWTError:
+        raise credentials_exception
+    # user = get_user(fake_users_db, username=token_data.username)
+    user = {}
+    if user is None:
+        raise credentials_exception
+    return user
+
+
+def authenticate_user(fake_db, username: str, password: str):
+    user = {}
+    if not user:
+        return False
+    if not verify_password(password, user.hashed_password):
+        return False
+    return user
+
+
+def check_user(user: UserSignupSchema):
+    ...
+*************************app.include_router(auth_router)
+from fastapi import APIRouter, Body
+from fastapi.encoders import jsonable_encoder
+from datetime import datetime
+
+router = APIRouter(prefix="/auth", tags=["Auth"])
+
+@router.post("/login", tags=["Auth"])
+async def login(user: UserLoginSchema = Body(...)):
+    registered = await db["users"].find_one({"email": user.email })
+
+    if registered is None:
+        return {"error": "users does not exists."}
+
+    user = user.dict()
+    if verify_password(user.get("password"), registered.get("password")):
+        token = create_access_token(user["email"])
+        return {"access_token": token}
+    else:
+        return {"error", "password is incorrect."}
+
+
+
+@router.post("/signup", tags=["Auth"])
+async def signup(user: UserSignupSchema = Body(...)):
+    already_exists = await db["users"].find_one({"email": user.email })
+
+    if already_exists:
+        return { "error": "User already exists" }
+
+    if user.password != user.password_confirmation:
+        return { "error": "Passwords are different" }
+    
+    hashed = hash_password(user.password)
+    new_user = {
+        "email": user.email,
+        "password": hashed,
+        "created_at": datetime.utcnow(),
+        "updated_at": datetime.utcnow()
+    }
+    created = await db["users"].insert_one(new_user)
+    return jsonable_encoder(created)
+
+*************************app.include_router(api_router)
+from fastapi import APIRouter
+from typing import List
+from fastapi import APIRouter, Body, HTTPException, status
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import Response
+from datetime import datetime
+from bson import ObjectId
+
+************************* product router
+router = APIRouter(
+    prefix="/products", 
+    tags=["Products"]
+)
+
+
+@router.get("/", response_model=List[Product])
+async def get_products():
+    products = await db["products"].find().to_list(100)
+    return products
+
+
+@router.get("/{id}", response_model=Product)
+async def get_product(id: str):
+    if (product := await db["products"].find_one({"_id": ObjectId(id)})) is not None:
+        return product
+    raise HTTPException(status_code=404, detail=f"Product {id} not found")
+
+
+@router.post('/', response_model=Product, response_description="Update a Product")
+async def create_product(product: Product = Body(...)):
+    product = jsonable_encoder(product)
+    result = await db["products"].insert_one(product)
+    created = await db["products"].find_one({"_id": result.inserted_id})
+    return created
+
+
+@router.put('/{id}')
+async def update_product(id: str, product: Product = Body(...)):
+    product = {k: v for k, v in product.dict().items() if v is not None}
+    if len(product) > 1:
+        update_result = await db["products"].update_one({"_id": ObjectId(id)}, {"$set": product})
+        if update_result.modified.count() > 0:
+            if (updated_product := await db["products"].find_one({"_id": ObjectId(id)})) is not None:
+                return updated_product
+
+    if (existing_product := await db["students"].find_one({"_id": id})) is not None:
+        return existing_product
+
+    raise HTTPException(status_code=404, detail=f"Product {id} not found")
+
+
+@router.delete('{id}')
+async def delete_product(id: str):
+    delete_result = await db["products"].delete({"_id", ObjectId(id)})
+    if delete_result.delete_count == 1:
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
+    raise HTTPException(status_code=404, detail=f"Product {id} not found")
+
+************************* user router
+from fastapi import APIRouter
+
+router = APIRouter(prefix="/products")
+*************************
+api_router = APIRouter(prefix="/api/v1")
+api_router.include_router(product_router)
+api_router.include_router(user_router)
+

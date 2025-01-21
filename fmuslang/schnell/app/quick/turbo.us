@@ -1,0 +1,13 @@
+--% index/fmus
+__PWD/monoproject,d(/mk)
+  
+  pnpm-workspace.yaml,f(e=__FILE__=pnpm-workspace.yaml)
+  $*pnpm init -y
+  $*pnpm i -Dw turbo
+--#
+
+--% pnpm-workspace.yaml
+packages:
+  - app
+  - ui
+--#

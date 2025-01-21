@@ -1,0 +1,32 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    static,d(/mk)
+        hello.txt,f(n=Hello boyz)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    $* go run main.go
+--#
+
+--% main.go
+package main
+
+import (
+	"log"
+	"net/http"
+	"github.com/julienschmidt/httprouter"
+)
+
+func main() {
+	router := httprouter.New()
+	// Mapping to methods is possible with HttpRouter
+    //http://localhost:8000/static/
+	router.ServeFiles("/static/*filepath", http.Dir("./static"))
+	log.Fatal(http.ListenAndServe(":8000", router))
+}
+--#

@@ -1,0 +1,5 @@
+C:\portfolio\baserow
+
+C:\portfolio\baserow,d
+    /ketik)cp .env.dev.example .env
+    /ketik)wsl|auto:alert=tunggu|./dev.sh --build

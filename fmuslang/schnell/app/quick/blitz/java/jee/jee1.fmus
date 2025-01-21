@@ -1,0 +1,1088 @@
+--% index/fmus
+__PWD,d
+	.,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+__INPUT__,d(/mk)
+	%utama=__FILE__
+	.gitignore,f(e=utama=C:/work/tmp/random-numbers/.gitignore)
+	Dockerfile,f(e=utama=C:/work/tmp/random-numbers/Dockerfile)
+	pom.xml,f(e=utama=C:/work/tmp/random-numbers/pom.xml)
+	README.md,f(e=utama=C:/work/tmp/random-numbers/README.md)
+	src,d(/mk)
+		main,d(/mk)
+			java,d(/mk)
+				mz,d(/mk)
+					co,d(/mk)
+						vm,d(/mk)
+							randomnumber,d(/mk)
+								JAXRSConfig.java,f(e=utama=C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/JAXRSConfig.java)
+								annotations,d(/mk)
+									DelayMe.java,f(e=utama=C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/annotations/DelayMe.java)
+								entity,d(/mk)
+									EstatisticEntity.java,f(e=utama=C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/entity/EstatisticEntity.java)
+									PendingEntity.java,f(e=utama=C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/entity/PendingEntity.java)
+									RandomNumberEntity.java,f(e=utama=C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/entity/RandomNumberEntity.java)
+								resource,d(/mk)
+									RandomNumberResource.java,f(e=utama=C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/resource/RandomNumberResource.java)
+								service,d(/mk)
+									RandomService.java,f(e=utama=C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/service/RandomService.java)
+									RandomServiceImpl.java,f(e=utama=C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/service/RandomServiceImpl.java)
+								util,d(/mk)
+									RandomNumberFactory.java,f(e=utama=C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/util/RandomNumberFactory.java)
+			webapp,d(/mk)
+				WEB-INF,d(/mk)
+					beans.xml,f(e=utama=C:/work/tmp/random-numbers/src/main/webapp/WEB-INF/beans.xml)
+		test,d(/mk)
+			java,d(/mk)
+				mz,d(/mk)
+					co,d(/mk)
+						vm,d(/mk)
+							randomnumber,d(/mk)
+								service,d(/mk)
+									RandomServiceTest.java,f(e=utama=C:/work/tmp/random-numbers/src/test/java/mz/co/vm/randomnumber/service/RandomServiceTest.java)
+								util,d(/mk)
+									RandomNumberFactoryTest.java,f(e=utama=C:/work/tmp/random-numbers/src/test/java/mz/co/vm/randomnumber/util/RandomNumberFactoryTest.java)
+--#
+
+--% C:/work/tmp/random-numbers/.gitignore
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+
+
+
+--#
+
+--% C:/work/tmp/random-numbers/Dockerfile
+FROM jboss/wildfly
+COPY ./target/random-numbers.war /opt/jboss/wildfly/standalone/deployments/
+
+
+--#
+
+--% C:/work/tmp/random-numbers/pom.xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>mz.co.vm</groupId>
+	<artifactId>random-numbers</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>random-numbers</name>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<junit-version>4.12</junit-version>
+		<jersey.version>2.29.1</jersey.version>
+		<servlet-version>4.0.0</servlet-version>
+		<cargo-maven2-plugin.version>1.7.13</cargo-maven2-plugin.version>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+
+
+
+	</properties>
+
+
+	<dependencies>
+		<!-- All java EE specifications API's -->
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>8.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-ejb-client-bom</artifactId>
+			<version>19.1.0.Final</version>
+			<type>pom</type>
+		</dependency>
+
+
+	</dependencies>
+
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+
+			<plugin>
+				<groupId>io.openliberty.tools</groupId>
+				<artifactId>liberty-maven-plugin</artifactId>
+				<version>3.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<ejbVersion>3.2</ejbVersion>
+				</configuration>
+			</plugin>
+<!-- 
+<plugin>
+<groupId>org.wildfly.plugins</groupId>
+<artifactId>wildfly-maven-plugin</artifactId>
+<version>2.1.0.Beta1</version>
+<configuration>
+<add-user>
+<users>
+<user><username>vodauser</username><password>vodacom1</password></user>
+</users>
+</add-user>
+<java-opts>
+<java-opt>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005</java-opt>
+</java-opts>
+</configuration>
+</plugin>
+ -->
+		</plugins>
+	</build>
+
+</project>
+--#
+
+--% C:/work/tmp/random-numbers/README.md
+# info
+https://github.com/cfaife/random-numbers
+Jakarta Enterprise Beans (EJB; formerly Enterprise JavaBeans) is one of several Java APIs for modular construction of enterprise software. 
+EJB is a server-side software component that encapsulates business logic of an application. 
+An EJB web container provides a runtime environment for web related software components, including computer security, Java servlet lifecycle management, transaction processing, and other web services. 
+The EJB specification is a subset of the Java EE specification
+
+The following shows a basic example of what an EJB looks like in code:
+```
+@Stateless 
+public class CustomerService { 
+
+  private EntityManager entityManager; 
+   
+  public void addCustomer(Customer customer) { 
+    entityManager.persist(customer); 
+  } 
+}
+```
+The above defines a service class for persisting a Customer object (via O/R mapping). The EJB takes care of managing the persistence context and the addCustomer() method is transactional and thread-safe by default. As demonstrated, the EJB focuses only on business logic and persistence and knows nothing about any particular presentation.
+
+Such an EJB can be used by a class in e.g. the web layer as follows:
+```
+@Named	
+@RequestScoped
+public class CustomerBacking {
+   @EJB 
+   private CustomerService customerService;
+
+   public String addCustomer(Customer customer) {
+      customerService.addCustomer(customer);
+      context.addMessage(...); // abbreviated for brevity
+      return "customer_overview";
+   }
+}
+```
+The above defines a JavaServer Faces (JSF) backing bean in which the EJB is injected by means of the @EJB annotation. Its addCustomer method is typically bound to some UI component, such as a button. Contrary to the EJB, the backing bean does not contain any business logic or persistence code, but delegates such concerns to the EJB. The backing bean does know about a particular presentation, of which the EJB had no knowledge.
+
+Types of Enterprise Beans
+An EJB container holds two major types of beans:
+
+Session Beans[4] that can be either "Stateful", "Stateless" or "Singleton" and can be accessed via either a Local (same JVM) or Remote (different JVM) interface or directly without an interface,[5] in which case local semantics apply. All session beans support asynchronous execution[6] for all views (local/remote/no-interface).
+Message Driven Beans (MDBs, also known as Message Beans). MDBs also support asynchronous execution, but via a messaging paradigm.
+
+# Vodacom Random Number's Generator API
+
+The system was developed using `Java Concurrency API` and `Jakarta EE 8` with `JAX-RS`, `EJB` and `CDI` technologies.
+  
+# Preparing the application server 
+
+Download wildfly-19  application server at: `https://wildfly.org/downloads/`unzip  and install  in your preferred folder, for example `/opt/`,  then run the script at `<wildfly-home-folder>/bin/add-user.sh` in order to create a user.
+
+wildfly-26.1.0.Beta1
+
+* The user should be: (application user, groupname kosongkan)
+		
+		username: vodauser
+		password: vodacom1
+
+# Building the code and deploying manually
+Using `maven` type in the terminal below commands:
+	
+		mvn clean install
+	
+* 1. After build and compile the code, deploy the package war file to `wildfly` deployment's folder running the following command:  	
+		
+		cp random-numbers/target/random-numbers.war <wildfly-folder>/standalone/deployments/
+
+cp target/random-numbers.war <wildfly-folder>/standalone/deployments/
+
+* 2. Startup  the server using the below command:		
+		
+		<wildfly-folder>/bin/standalone.sh
+		
+# Deploying via `Docker`
+
+Here it is being used image from jboss/wildfly, where it is wrapped.
+		
+# Exploring some available resources:
+	
+Requests a new Random number, when it completes the `http response header` has a key `x-request-duration` with the value  of the  process duration: 
+
+		POST http://localhost:8080/random-numbers/api/v1/random
+C:\work\tmp\random-numbers>curl -XPOST -H"Content-type: application/json" http://192.168.0.102:8080/random-numbers/api/v1/random
+
+{"generated":true,"number":4086,"requestID":"39d4a90f-81cb-4ad1-a689-7dfe5483bedd","timeCreated":"05:51:17.655957839","timeSecs":30}
+
+List of Generated Random Numbers:
+
+		GET http://localhost:8080/random-numbers/api/v1/history
+curl http://192.168.0.102:8080/random-numbers/api/v1/history
+Cancels a Random Number Request that is pending:
+
+		http://localhost:8080/random-numbers/api/v1/cancel/<requestId>
+
+Get system usage statistics:
+
+		GET http://localhost:8080/random-numbers/api/v1/stats
+C:\work\tmp\random-numbers>
+curl http://192.168.0.102:8080/random-numbers/api/v1/history
+[{"generated":true,"number":4086,"requestID":"39d4a90f-81cb-4ad1-a689-7dfe5483bedd","timeCreated":"05:51:17.655957839","timeSecs":30}]
+
+Returns the list of Random Number Requests that are pending to be processed by the system:
+		
+		http://localhost:8080/random-numbers/api/v1/pending
+C:\work\tmp\random-numbers>
+curl http://192.168.0.102:8080/random-numbers/api/v1/pending
+[]
+
+Changes the size of the Thread-pool used to process the Random Number Requests.Maximum supported value should be 10.Minimum value should be 1.	
+		
+		http://localhost:8080/random-numbers/api/v1/threads/<size-of-thread-pool>
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/JAXRSConfig.java
+package mz.co.vm.randomnumber;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+/**
+ * 
+ * @author Clerio Alfredo Faife
+ *
+ */
+@ApplicationPath("api")
+public class JAXRSConfig  extends Application{
+
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/annotations/DelayMe.java
+package mz.co.vm.randomnumber.annotations;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+
+/**
+ * This annotation  causes any method that is annotated with it to be delayed by 20 seconds by default. 
+ * The annotation receives an optional parameter to define the delay time, eg.: @DelayMe(time=3000).
+ * 
+ * 
+ * 
+ * @author Clerio Alfredo Faife
+ *
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Qualifier
+@Target(ElementType.METHOD)
+public @interface DelayMe {
+	
+	int time() default 20;
+
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/entity/EstatisticEntity.java
+package mz.co.vm.randomnumber.entity;
+
+import java.io.Serializable;
+
+/**
+ * 
+ * @author Clerio Alfredo Faife
+ *
+ */
+public final class EstatisticEntity implements Serializable {
+	
+ 
+	private static final long serialVersionUID = 1L;
+
+	public EstatisticEntity(Long maximumWaitingTime, Long minimumWaitingTime, Integer totalPendingRequests) {
+		 
+		this.maximumWaitingTime = maximumWaitingTime;
+		this.minimumWaitingTime = minimumWaitingTime;
+		this.totalPendingRequests = totalPendingRequests;
+	}
+
+	private Long maximumWaitingTime;
+	
+	private Long minimumWaitingTime;
+	
+	private Integer totalPendingRequests;
+
+	public Long getMaximumWaitingTime() {
+		return this.maximumWaitingTime;
+	}
+
+	public Long getMinimumWaitingTime() {
+		return this.minimumWaitingTime;
+	}
+
+	public Integer getTotalPendingRequests() {
+		return this.totalPendingRequests;
+	}
+	
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/entity/PendingEntity.java
+package mz.co.vm.randomnumber.entity;
+
+import java.io.Serializable;
+import java.time.LocalTime;
+import java.util.UUID;
+
+/**
+ * 
+ * @author Clerio Alfredo Faife
+ *
+ */
+
+public final class PendingEntity implements Serializable{
+	
+	
+	private static final long serialVersionUID = 1L;
+
+	public PendingEntity(UUID requestId, LocalTime timeCreated, Long waitingTime) {
+		super();
+		this.requestId = requestId;
+		this.timeCreated = timeCreated;
+		this.waitingTime = waitingTime;
+	}
+
+	private UUID requestId;
+	
+	private LocalTime timeCreated;
+	
+	private Long waitingTime;
+
+	public UUID getRequestId() {
+		return requestId;
+	}
+
+	public LocalTime getTimeCreated() {
+		return timeCreated;
+	}
+
+	public Long getWaitingTime() {
+		return waitingTime;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/entity/RandomNumberEntity.java
+package mz.co.vm.randomnumber.entity;
+
+import java.io.Serializable;
+import java.time.LocalTime;
+import java.util.UUID;
+
+/**
+ * 
+ * @author Clerio Alfredo Faife
+ *
+ */
+public class RandomNumberEntity  implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
+	private UUID requestID;
+	
+	private Integer  number;
+	
+	private Long timeSecs;
+	
+	private boolean generated;
+	
+	private LocalTime timeCreated;
+
+	public UUID getRequestID() {
+		return requestID;
+	}
+
+	public void setRequestID(UUID requestID) {
+		this.requestID = requestID;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public Long getTimeSecs() {
+		return timeSecs;
+	}
+
+	public void setTimeSecs(Long timeSecs) {
+		this.timeSecs = timeSecs;
+	}
+
+	public boolean isGenerated() {
+		return generated;
+	}
+
+	public void setGenerated(boolean generated) {
+		this.generated = generated;
+	}
+
+	public LocalTime getTimeCreated() {
+		return timeCreated;
+	}
+
+	public void setTimeCreated(LocalTime timeCreated) {
+		this.timeCreated = timeCreated;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj!=null) {
+			if(obj instanceof RandomNumberEntity) {
+				RandomNumberEntity rne = (RandomNumberEntity) obj;
+				if(rne.requestID.equals(this.requestID)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	@Override
+		public int hashCode() {
+			 
+			return timeCreated.toSecondOfDay();
+		}
+	
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/resource/RandomNumberResource.java
+package mz.co.vm.randomnumber.resource;
+
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+
+import java.util.concurrent.TimeoutException;
+
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import mz.co.vm.randomnumber.entity.EstatisticEntity;
+import mz.co.vm.randomnumber.entity.PendingEntity;
+import mz.co.vm.randomnumber.entity.RandomNumberEntity;
+import mz.co.vm.randomnumber.service.RandomService;
+
+/**
+ * 
+ * @author Clerio Afredo Faife
+ *
+ */
+@Stateless
+@Path("v1")
+public class RandomNumberResource {
+
+	@EJB
+	private RandomService randomService;
+
+
+	@POST
+	@Path("/random")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response requestNewRandomNumber(@HeaderParam("X-Max-Wait") Long xMaxWait) throws InterruptedException, ExecutionException, TimeoutException {
+
+		RandomNumberEntity rne = this.randomService.generateNewRandomNumber(xMaxWait);
+		Response.ResponseBuilder rp = Response.ok(rne);
+		Response response = rp.header("x-request-duration", rne.getTimeSecs()).build();
+
+		return response;
+	}
+
+	@GET
+	@Path("/history")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Set<RandomNumberEntity> getRandomNumbers() {
+		return this.randomService.getHistory();
+	}
+
+	@PUT
+	@Path("/cancel/{requestId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response cancelRandomRequest(@PathParam(value = "requestId") String requestId) {
+		
+		UUID uuid  = UUID.fromString(requestId);
+		boolean canceled = this.randomService.cancelRandomRequest(uuid);
+		
+		Response.ResponseBuilder rp = 
+				Response
+					.ok(canceled?"request "+uuid+ " is canceled ":"request "+uuid+ " is not canceled, may not exists");
+		Response response = rp.build();
+		
+		return response;
+	}
+
+	@GET
+	@Path("/stats")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStats() {
+		
+		EstatisticEntity stat = this.randomService.getStats();
+		
+		if(stat==null) {
+			return Response.noContent().build();
+		}
+		
+		return Response.ok(stat).build();
+	}
+
+	@GET
+	@Path("/pending")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Set<PendingEntity> getPendingRequests() {
+		return this.randomService.getPendingRequest();
+	}
+
+	@PUT
+	@Path("/threads/{size}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response changeThreadPoolSize(@PathParam("size") Integer size) {
+		randomService.changePoolThreadSize(size);
+		Response.ResponseBuilder rp = Response.ok("Tread Pool size changed to "+size);
+		
+		Response response = rp.build();
+
+		return response;
+	}
+
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/service/RandomService.java
+package mz.co.vm.randomnumber.service;
+
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeoutException;
+
+import javax.ejb.Remote;
+
+import mz.co.vm.randomnumber.entity.EstatisticEntity;
+import mz.co.vm.randomnumber.entity.PendingEntity;
+import mz.co.vm.randomnumber.entity.RandomNumberEntity;
+/**
+ * 
+ * @author Clerio Alfredo Faife
+ *
+ */
+@Remote
+public interface RandomService {
+	
+	RandomNumberEntity generateNewRandomNumber(Long xMaxWait) throws InterruptedException, ExecutionException, TimeoutException;
+	
+	Set<RandomNumberEntity> getHistory();
+	
+	boolean cancelRandomRequest(UUID uuid);
+	
+	EstatisticEntity getStats();
+	
+	Set<PendingEntity> getPendingRequest();
+	
+	void changePoolThreadSize(int size);
+	
+	ExecutorService getExecutorService();
+	
+
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/service/RandomServiceImpl.java
+package mz.co.vm.randomnumber.service;
+
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+ 
+ 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import java.util.concurrent.TimeoutException;
+ 
+import java.util.stream.Stream;
+
+import javax.ejb.Stateless;
+
+import mz.co.vm.randomnumber.entity.EstatisticEntity;
+import mz.co.vm.randomnumber.entity.PendingEntity;
+import mz.co.vm.randomnumber.entity.RandomNumberEntity;
+ 
+import mz.co.vm.randomnumber.util.RandomNumberFactory;
+
+/**
+ * Implements all the logic for the  <{@link RandomService}>
+ * 
+ * @author Clerio Alfredo Faife
+ *
+ */
+@Stateless(name="randomService")
+public class RandomServiceImpl implements RandomService {
+	
+	 
+	private Set<RandomNumberEntity> tasks = new HashSet<>(); 
+	
+	private ExecutorService executor =  Executors.newScheduledThreadPool(1);
+
+	 
+	
+	@Override
+	public RandomNumberEntity generateNewRandomNumber(Long xMaxWait) throws InterruptedException, ExecutionException, TimeoutException {
+		
+		Callable<RandomNumberEntity> callable =  this.createThread(xMaxWait);
+		
+		Future<RandomNumberEntity> future =   executor.submit(callable);
+		 
+		LocalTime endTime = LocalTime.now();
+		
+		long duration = endTime.toSecondOfDay() - future.get().getTimeCreated().toSecondOfDay();
+
+		if(xMaxWait!=null ) {
+				if( !(future.isDone()) 
+						&& duration>=xMaxWait 
+						&& xMaxWait>31) {
+					
+					RandomNumberEntity randomNumber = future.get();
+					
+					randomNumber.setGenerated(false);
+					randomNumber.setNumber(null);
+					
+					tasks.add(randomNumber);
+					return randomNumber;
+			}
+		}
+		
+		RandomNumberEntity rne = future.get();
+		rne.setGenerated(true);
+		tasks.add(rne);
+		return rne;
+		
+	}
+	
+	@Override
+	public Set<RandomNumberEntity> getHistory() {
+		return this.tasks;
+	}
+	
+	@Override
+	public boolean cancelRandomRequest(UUID uuid) {
+		 if(uuid ==null) {
+			 throw new IllegalArgumentException("uuid parameter can not be  nuul");
+		 }
+		 boolean found=false;
+		 for(RandomNumberEntity rne: tasks) {
+			 if(uuid.equals(rne.getRequestID())) {
+				 found = true;
+				 break;
+			 }
+		 }
+		 if(found) {
+			 this.executor.shutdownNow();
+			 return  true;
+		 }
+		 return found;
+		 
+	}
+
+
+	@Override
+	public EstatisticEntity getStats() {
+ 		if(tasks.size()==1) {
+ 			for(RandomNumberEntity rne: tasks) {
+ 				return new EstatisticEntity(rne.getTimeSecs(), rne.getTimeSecs(), 1);	
+ 			}
+ 			
+ 			
+ 		}
+		Stream<RandomNumberEntity> minStream= tasks.stream();
+		Optional<Long> min = minStream
+					.map(x -> x.getTimeSecs())
+					.min((x,y)->x.intValue()-y.intValue());
+		
+		Stream<RandomNumberEntity> maxStream = tasks.stream();
+		Optional<Long> max = maxStream
+					.map(x -> x.getTimeSecs())
+					.min((x,y)->x.intValue()-y.intValue());
+
+		Stream<RandomNumberEntity> totalStream = tasks.stream();
+		Long totalPending  = totalStream
+					.filter(x ->!x.isGenerated()).count();
+				
+		
+		return new EstatisticEntity(max.get(), min.get(), totalPending.intValue());
+		
+	}
+
+
+	@Override
+	public Set<PendingEntity> getPendingRequest() {
+		
+		Set<PendingEntity> pendings = new  HashSet<>();
+		LocalTime  time = LocalTime.now();
+		tasks.stream().filter(x->!x.isGenerated()).forEach(x->{
+			PendingEntity pending = new PendingEntity(
+					x.getRequestID(), 
+					x.getTimeCreated(), 
+					ChronoUnit.SECONDS.between(time, x.getTimeCreated())
+					);
+			pendings.add(pending);
+		});
+		
+		 
+		return pendings;
+	}
+
+	@Override
+	public void changePoolThreadSize(int size) {
+		if(size<1 || size>10) {
+			throw new IllegalArgumentException("Maximum supported value should be 10 and minimum value should be 1 the the thread Pool size");
+		}
+		executor =  Executors.newScheduledThreadPool(size);
+	}
+
+	private Callable<RandomNumberEntity> createThread(Long xMaxWait){
+		
+		Callable<RandomNumberEntity> callable = () ->{
+			RandomNumberEntity randomNumberEntity = new RandomNumberEntity();
+			
+			int  start = LocalTime.now().toSecondOfDay();
+			randomNumberEntity.setTimeCreated(LocalTime.now());
+			randomNumberEntity.setRequestID(UUID.randomUUID());
+			tasks.add(randomNumberEntity);
+			 
+			if(xMaxWait == null) {
+					Thread.sleep(30000);
+			}else {
+					Thread.sleep(xMaxWait);
+			}
+			 
+			
+			randomNumberEntity.setNumber(RandomNumberFactory.get());
+			int  end = LocalTime.now().toSecondOfDay();
+			randomNumberEntity.setTimeSecs(Long.valueOf(end-start));
+			return randomNumberEntity;
+		};
+		return callable;
+	}
+	
+	public  ExecutorService getExecutorService() {
+		return this.executor;
+	}
+	
+
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/java/mz/co/vm/randomnumber/util/RandomNumberFactory.java
+package mz.co.vm.randomnumber.util;
+
+import java.util.Random;
+/**
+ * Factory for random numbers
+ * @author cfaife
+ *
+ */
+public class RandomNumberFactory {
+	/**
+	 * Every  the method is called, it generates a random  number higher than 3
+	 * @return a random number
+	 */
+	public  static Integer get() {
+		Random random  = new Random();
+		Integer number  =random.nextInt(20000) + 3;
+		return  number;
+	}
+
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/main/webapp/WEB-INF/beans.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd"
+    bean-discovery-mode="all">
+    
+</beans>
+
+--#
+
+--% C:/work/tmp/random-numbers/src/test/java/mz/co/vm/randomnumber/service/RandomServiceTest.java
+package mz.co.vm.randomnumber.service;
+
+import static org.junit.Assert.*;
+
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+
+import java.util.concurrent.TimeoutException;
+
+
+import javax.naming.NamingException;
+
+import org.junit.Before;
+
+import org.junit.Test;
+ 
+
+import mz.co.vm.randomnumber.entity.EstatisticEntity;
+import mz.co.vm.randomnumber.entity.RandomNumberEntity;
+
+/**
+ * This class  only tests the  logic   of {@link RandomService}  
+ * 
+ * @author Clerio Alfredo Faife
+ *
+ */
+public class RandomServiceTest {
+	
+	private RandomService randomService;
+
+	@Before
+	public void setup() throws NamingException {
+		randomService  = new RandomServiceImpl();
+	}
+
+	@Test
+	public void testGenerateNewNumberWithNullXMaxWait_shouldTake30Sec() throws InterruptedException, ExecutionException, TimeoutException {
+
+		RandomNumberEntity randomNumber = randomService.generateNewRandomNumber(null);
+		assertNotNull(randomService);
+
+		assertNotNull(randomNumber.getNumber());
+
+	}
+	
+	@Test
+	public void testGenerateNewNumberWithNullXMaxWait_shouldPass() throws InterruptedException, ExecutionException, TimeoutException {
+
+		RandomNumberEntity randomNumber = randomService.generateNewRandomNumber(1000L);
+		assertNotNull(randomService);
+
+		assertNotNull(randomNumber.getNumber());
+
+	}
+	@Test
+	public void generateNewRandomNumber() throws InterruptedException, ExecutionException, TimeoutException{
+		this.randomService.generateNewRandomNumber(1600L);
+	}
+	@Test
+	public void	testGetHistory_shouldPass() throws InterruptedException, ExecutionException, TimeoutException {
+		
+		randomService.generateNewRandomNumber(2000L);
+		randomService.generateNewRandomNumber(2000L);
+		randomService.generateNewRandomNumber(2000L);
+		
+		Set<RandomNumberEntity> randomNumbers = randomService.getHistory();
+		
+		assertFalse(randomNumbers.isEmpty());
+		assertEquals(3, randomNumbers.size());
+	}
+	 
+	@Test
+	public void testGetStats_shouldPass() throws InterruptedException, ExecutionException, TimeoutException {
+		this.randomService.generateNewRandomNumber(1200L);
+		this.randomService.generateNewRandomNumber(1200L);
+
+
+		EstatisticEntity estatisticEntity =  this.randomService.getStats();
+		assertNotNull(estatisticEntity);
+		assertNotNull(estatisticEntity.getMaximumWaitingTime());
+
+		assertNotNull(estatisticEntity.getMinimumWaitingTime());
+
+		assertNotNull(estatisticEntity.getTotalPendingRequests());
+
+	}
+	
+}
+
+--#
+
+--% C:/work/tmp/random-numbers/src/test/java/mz/co/vm/randomnumber/util/RandomNumberFactoryTest.java
+package mz.co.vm.randomnumber.util;
+
+import static org.junit.Assert.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Test;
+
+public class RandomNumberFactoryTest {
+	
+	@Test
+	public  void testRandom_shouldBeHigherThen3() {
+ 		
+		int generated = RandomNumberFactory.get();
+
+		assertTrue(generated>3);
+		
+	}
+	
+	@Test
+	public  void testMultipleRandomNumebers_shouldAllNumbersBeHigherThen3() {
+ 		
+		Set<Integer> numbers = new HashSet<>();
+		
+ 		for (int i=0;i<50;i++) {
+			int generated = RandomNumberFactory.get();
+			numbers.add(generated);
+ 		}
+		
+		numbers.forEach(num->{assertTrue(num>3);});
+		
+	}
+	
+}
+--#
+

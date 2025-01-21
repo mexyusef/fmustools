@@ -1,0 +1,25 @@
+.,d
+    app,d
+        static,d
+            css,d
+                style.css,f(t=)
+            js,d
+                script.js,f(t=)
+        templates,d
+            base.html,f(t=)
+            index.html,f(t=)
+        main,d
+            __init__.py,f(t=)
+            routes.py,f(t=)
+            models.py,f(t=)
+            forms.py,f(t=)
+        auth,d
+            __init__.py,f(t=)
+            routes.py,f(t=)
+            models.py,f(t=)
+            forms.py,f(t=)
+        config.py,f(t=)
+        __init__.py,f(t=)
+        database.db,f(t=)
+        requirements.txt,f(t=)
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\flask.txt

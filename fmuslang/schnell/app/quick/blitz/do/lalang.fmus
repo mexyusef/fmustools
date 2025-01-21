@@ -1,0 +1,1606 @@
+--% readme
+program: program_configuration? item_line+
+
+//program_configuration: "/" program_configuration_items "/"
+program_configuration: program_configuration_items "/"
+program_configuration_items: program_configuration_item ("," program_configuration_item)*
+program_configuration_item: language_context
+  | library_context
+  | framework_context
+  | tools_context
+
+language_context: "py" -> py
+  | "clj"     -> clj
+  | "cpp"     -> cpp
+  | "cs"      -> cs
+  | "dart"    -> dart
+  | "elixir"  -> elixir
+  | "erlang"  -> erlang
+  | "go"      -> go
+  | "hs"      -> hs
+  | "java"    -> java  
+  | "js"      -> js
+  | "kt"      -> kt
+  | "php"     -> php
+  | "pl"      -> pl
+  | "rb"      -> rb
+  | "rs"      -> rs
+  | "scala"   -> scala
+  | "swift"   -> swift
+  | "ts"      -> ts
+  | "v"       -> v
+
+library_context: "L:" library_items
+library_items: library_item ("," library_item)*
+library_item: HURUF_DIGIT
+
+framework_context: "F:" framework_items
+framework_items: framework_item ("," framework_item)*
+framework_item: HURUF_DIGIT
+
+tools_context: "T:" tools_items
+tools_items: tools_item ("," tools_item)*
+tools_item: HURUF_DIGIT
+
+item_line: item_starter? item item_separator?
+item_separator: ";"
+  | item_separator_newline+
+  |
+field_method_separator: "|"
+statement_separator: ";"
+param_separator: ","
+
+item_starter: item_tab+
+item_tab: "\\t"
+item_separator_newline: "\\n"
+
+item: package_item
+  | import_item
+  | export_item    
+  | block_item
+  | statement_item
+  | expression_item
+  | declarative_item
+
+
+package_item: keyword_package package_things
+package_things: package_thing ("." package_thing)*
+package_thing: HURUF_DIGIT_ONLY
+
+
+
+import_item: keyword_import import_config? import_container? import_things
+  | keyword_import import_config? searchable
+
+import_config: "/" importconfiglist "]=/"
+importconfiglist: importconfig ("," importconfig)*
+importconfig: "d" -> import_default // import { ... as default }
+  | "m" -> import_module            // const ... = require(..)
+
+// import sys
+// from tree_sitter import Language, Parser
+
+// Itempat|(item)
+// Itempat|item,item,/item,/item
+import_container: HURUF_DIGIT_DOT "|"
+
+import_things: import_thing ("," import_thing)*
+  | "(" import_things ")" -> import_things_enclose_all
+import_thing: HURUF_EXPORT -> import_thing_default
+  | "/" import_thing -> import_thing_enclose
+
+
+
+export_item: keyword_export export_config? export_content
+
+// export src/calc.dart, src/music.dart
+// export "src/calc.dart"; newline export "src/music.dart"
+
+export_config: exportconfiglist "/"
+exportconfiglist: export_config_item+
+export_config_item: "d" -> export_default
+  | "m" -> export_module    // module.exports = .., correspondingly utk import const .. = require(..)
+  | "o" -> export_objectify // export {bla1, bla2, bla3};
+export_content: "(" exportcontentlist ")"
+exportcontentlist: exportcontent ("," exportcontent)*
+exportcontent: HURUF_EXPORT
+
+
+block_item: scope_item
+  | class_item
+  | function_item
+  | exception_item
+  | interface_item
+
+
+// ||//{}
+
+scope_item: keyword_scope scope_config? condition_body
+//scope_item: keyword_scope scope_config? scope_content
+//scope_content: "{" condition_body "}"
+
+scope_config: "/" scopeconfiglist "/"
+scopeconfiglist: scopeconfig ("," scopeconfig)*
+scopeconfig: "sc" -> dummy_scope_config
+
+//scope_content: "{" scopecontentlist "}"
+//scopecontentlist: scopecontent ("," scopecontent)*
+//scopecontent: "s"
+//  |
+
+
+class_item: "@" class_config? class_name class_content
+
+// public
+// implements interface x
+// extends class x
+// export
+// decorated: @InputType()
+class_config: "/" classconfiglist "/"
+classconfiglist: classconfig ("," classconfig)*
+
+// @/i:observable,:parent_class,@override/myclass
+// bisa mult interface: @/i:satu,i:dua/myclass
+// bisa juga bikin utk bantuan ini dan itu: graphql? grpc? mvc model? db table?
+classconfig: "+" -> public
+  | "-" -> private    // perlu utk class?
+  | "#" -> protected  // perlu utk class?
+  | "i" -> interface  // interface declare
+  | "i+" -> interface_add // buat class decl+interface decl
+  | "t" -> type_alias // kita buat juga type_alias versi single statement
+  | "t+" -> type_alias  // class+type
+  | "@" nama_identifier   -> decorator
+  | ":" nama_identifier   -> extends
+  | "i:" nama_identifier  -> implements // interface (beda i dan i: = beda func decl dan call)
+  | "^" -> abstract // juga perlu final dan strictfp
+  | "%" -> static
+  | "F" -> final
+  | "SF" -> strictfp
+  | "D" -> default
+  | "A" -> async
+  | ">" -> explicit_default_constructor // percepat ngetik
+
+// masukkan initializer list di sini...
+
+// class name hrs bisa terima type parameters...
+class_name: nama_identifier_with_typeparams
+
+class_content: "{" classcontentlist* "}"
+classcontentlist: classcontent ("|" classcontent)*
+// field content
+// method content
+// field dan method terbedakan dg adanya funcargs-funcbody utk method
+classcontent: field_content
+  | constructor_content
+  | method_content
+  |
+
+
+// sementara belum ada inisialisasi field
+// mungkin perlu? tinggal tambah declaration_value? di ts bisa: https://www.typescriptlang.org/docs/handbook/2/classes.html
+// tambah declaration_value? agar bisa inisialisasi field spt di ts
+
+// dart: int? _private; yg nullable blm kehandle
+// nama_jenis_identifier_nullable: nama_identifier "?" tipe_identifier
+// baru dipake di funcparam utk funcdecl
+
+field_content: field_config? field_name tipe_identifier? declaration_value?
+
+field_config: "/" fieldconfiglist "/"
+fieldconfiglist: fieldconfig ("," fieldconfig)*
+// static
+// final
+// decorated: @Field()
+fieldconfig: "+" -> public
+  | "-" -> private
+  | "#" -> protected
+  | "ro" -> read_only       // readonly name: string = "world"; hanya assign dlm ctor
+  | "%" -> static
+  | "F" -> final
+  | "L" -> late
+
+field_name: HURUF_DIGIT
+
+field_name_type: nama_identifier tipe_identifier? -> non_nullable_field
+  | nama_jenis_identifier_nullable -> nullable_field
+
+
+
+method_content: method_config? function_name tipe_identifier? function_param function_content
+
+method_config: "/" methodconfiglist "/"
+methodconfiglist: methodconfig ("," methodconfig)*
+// decorated: @Override
+// static
+// public
+methodconfig: "g" -> getter   // this method is a getter
+  | "s" -> setter             // this method is a setter
+  | "+" -> public
+  | "-" -> private
+  | "#" -> protected
+  | "%" -> static     // ingat python ada class vs static yg berbeda dikit konsepnya
+  | "A" -> async
+  | "o" -> override   // cepat @Override etc
+
+
+
+
+// > utk bedakan dg method
+constructor_content: ">" constructor_config? function_param function_content
+
+constructor_config: "[" constructorconfiglist "]"
+constructorconfiglist: constructorconfig ("," constructorconfig)*
+// termasuk ada destructor
+constructorconfig: "c"
+
+
+
+
+function_item: keyword_function function_config? function_name tipe_identifier? function_param function_content
+
+function_config: functionconfiglist "/"
+
+//functionconfiglist: functionconfig ("," functionconfig)*
+//:ai/foo(){}
+functionconfiglist: functionconfig+
+
+// language config -> /js, /py, /kt, /rs, /scala
+// decorator
+// async
+// iife
+// anonymous, lambda, closure, inner, arrow
+// contoh di rust: const myconst = async (funcparams): Promise<sometype> => {}
+// export + default
+functionconfig: "+" -> public
+  | "-" -> private
+  | "#" -> protected
+  | "%" -> static
+  | "a" -> async
+  | "x" -> export
+  | "w" -> arrow
+  | "i" -> iife
+  | "no" -> anonymous
+
+function_name: nama_identifier_with_typeparams
+
+function_type: ":" HURUF_DIGIT
+
+function_param: "(" paramlist* ")"
+paramlist: param ("," param)*
+// nama_jenis_identifier_optional = nama_identifier | nama_jenis_identifier
+param: named_values
+  | nama_identifier
+  | nama_jenis_identifier
+  | nama_jenis_identifier_nullable
+
+// digunakan di expression-item:
+// new_operator nama_identifier function_call_param -> instantiation_expression
+function_call_param: "(" callparamlist* ")"
+callparamlist: callparam ("," callparam)*
+callparam: named_values
+  | nama_identifier
+  | literal  
+
+// ini jadi setara dg function_call_param
+argument_list: argument ("," argument)*
+argument: expression_item
+  | named_values
+  | anonymous_function
+
+function_content: "{" functioncontentlist* "}"
+functioncontentlist: functioncontent (statement_separator functioncontent)*
+functioncontent: statement_item
+
+
+
+// anon func digunakan di argumentlist dari func decl/def
+// tidak bisa (){}
+// (satu,dua)24
+// (satu,dua,42){} -> hasilkan 2 model: arrowfunc dan normalfunc
+// statement_item dlm condition_body dipisah oleh separator
+// utk arrow func, jk hanya ada satu statement maka gak perlu {} di output
+anonymous_function: non_arrow_func? function_config? function_param anonymous_function_body
+
+// utk bilang jangan gunakan arrow func -> :
+non_arrow_func: keyword_function
+
+anonymous_function_body: "{" statement_item (statement_separator statement_item)* "}" -> anon_statements
+  | expression_item -> anon_expression
+
+
+
+
+exception_item: exception_keyword exception_config? try_content except_content finally_content?
+
+exception_config: "/" exceptionconfiglist "/"
+exceptionconfiglist: exceptionconfig ("," exceptionconfig)*
+// mungkin bisa kasih nama utk exception?
+exceptionconfig: "x"
+
+try_content: condition_body
+
+//trycontentlist: trycontent ("," trycontent)*
+//trycontent: "t"
+//  | statement_item
+//  |
+
+except_content: exceptcontentlist
+exceptcontentlist: exceptcontent (exceptcontent)*
+exceptcontent: on_block_version? "(" exception_header ")" condition_body
+exception_header: HURUF_DIGIT
+on_block_version: "*" -> on_block
+  | "$" -> on_catch_block // on IntegerDivisionByZeroException catch(e)
+
+//except_content: "(" exceptcontentlist ")"
+//exceptcontentlist: exceptcontent ("," exceptcontent)*
+//exceptcontent: "x"
+//  | statement_item
+//  |
+
+finally_content: "()" condition_body
+
+//finally_content: "(" finallycontentlist ")"
+//finallycontentlist: finallycontent ("," finallycontent)*
+//finallycontent: "f"
+//  | statement_item
+//  |
+
+
+interface_item: interface_keyword class_config? class_name class_content
+
+
+
+// yg mengambil operation ini bisa dari 'instance'
+// tgl:d, tgl<penanda><operation>
+// jadi penanda ini menentukan adanya pemanggilan dataops
+// pengennya spt ini:
+// parse waktu dari string: mystr~s/strp()
+// read file monyong.txt dan simpan content di mymonkey: myfd~F/read/mymonkey
+// grpc: construct message xxx dan service xxx, lalu listen for conn
+// tcp ... http ... dst.
+// selain itu ada: option/config, misal rest request dg axios/fetch/...
+
+// sebaiknya: operasi kita masukkan ke file text saja
+// biar bisa berubah2 dan menghindari kompleksitas grammar
+
+penanda: "?"
+
+// identifier?A/operation.../config1,config2...(param)
+// mymodel?O/create(id=1,name='usef')
+// mymodel?O/create/opt1=x, opt2=y, opt3=z/(id=1,name='usef')
+// config hrs berisi: nama var/identifier utk digunakan, nama operasi yg dipilih
+
+// sementara: tanpa config dan call param ()
+//dataops_statement: data_operation operation_config? function_call_param?
+dataops_statement: data_operation
+
+operation_config: "/" operation_config_items "/"
+operation_config_items: operation_config_item ("," operation_config_item)*
+operation_config_item: "c"
+
+
+
+// ?+ utk stdout dan stderr dan logging...
+
+stdout_operation: penanda "+" io_operation_choice operation_config?
+// entah siapa butuh: function_call_param?
+
+io_operation_choice: "h" -> hello
+  | expression_item       -> console_log      // ?+
+  | "e>" expression_item   -> console_err     // ?+|
+  | "s>" expression_item   -> sprintf         // ?+s| fmt.Sprint(..)
+  | "i|" expression_item   -> logging_info    // ?+i|
+  | "d|" expression_item   -> logging_debug   // ?+d|
+  | "w|" expression_item   -> logging_warning // ?+w|
+  | "e|" expression_item   -> logging_error   // ?+e|
+
+
+
+faker_ops: penanda "K" faker_num "/" faker_cmd faker_args? as_output?
+faker_num: BILBUL
+faker_cmd: HURUF_DIGIT // nama fungsi
+faker_args: "(" fake_arg ("," fake_arg)* ")"
+fake_arg: HURUF_FUNCTIONCALL_ARGS
+// default as_string utk 1 num, as_list utk multiple num
+as_output: "/A" -> as_list
+  | "/D" -> as_dict
+  | "/S" -> as_set
+  | "/L" -> as_tuple
+  | "/P" -> as_pair
+  | "/s" -> as_string
+  | "/i" -> as_int
+
+//HURUF_DIGIT: 						("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|".")*
+// ' hrs bisa mendahului spt 'int', 'str', utk literal string
+// juga [] utk literal list
+HURUF_FUNCTIONCALL_ARGS:   ("_"|LETTER|DIGIT|"'"|"["|"]") 	("_"|LETTER|DIGIT|" "|"."|"-"|"+"|"/"|"@"|"'"|"["|"]")*
+
+
+
+fmus_ops: fmus_keyword fmus_config? fmus_cmd
+
+fmus_config: "/" fmus_configlist "/"
+fmus_configlist: fmus_configitem ("," fmus_configitem)*
+fmus_configitem: "x"
+
+fmus_cmd: fmus_new
+  | fmus_execute
+  | fmus_run_file
+
+fmus_new: "N" fmus_new_args?
+fmus_new_args: "#" HURUF_FOLDER -> fmus_new_basedir
+  | "##" HURUF_FOLDER -> fmus_new_filename // under /tmp
+  | "###" HURUF_FOLDER -> fmus_new_filepath
+
+fmus_execute: "X#" HURUF_FMUSCODE
+fmus_run_file: "R#" HURUF_DIGIT_SPASI
+
+HURUF_FOLDER:		("_"|LETTER|DIGIT|"/"|".") 	("_"|LETTER|DIGIT|"."|"-"|"/"|","|" "|"@"|"+")*
+HURUF_FMUSCODE: ("_"|LETTER|DIGIT|"*"|"/"|"."|"$"|"\""|"("|")"|"*"|"&") (LETTER|DIGIT|"$"|"_"|"*"|"."|","|"/"|"-"|"+"|"="|"&"|"@"|"%"|"("|")"|"["|"]"|"{"|"}"|" "|":"|";"|"\\"|"\""|"!"|"<"|">"|"?"|"|"|"'"|"#"|"~"|"^")*
+
+
+data_operation: array_operation     // ?A
+  | dict_operation                  // ?D
+  | pair_operation                  // ?P
+  | set_operation                   // ?S
+  | tuple_operation                 // ?L
+  | string_operation                // ?s
+  | bool_operation                  // ?b
+  | char_operation                  // ?b
+  | datetime_operation              // ?d
+  | float_operation                 // ?f
+  | int_operation                   // ?i
+  | void_operation                  // ?v
+
+  | dataframe_operation             // ?#  
+  | directory_operation             // ?I
+  | file_operation                  // ?F
+  | gui_operation                   // ?u
+  | network_operation               // ?N
+  | orm_operation                   // ?O
+  | react_operation                 // ?@
+  | stdin_operation                 // ?-
+  | stream_operation                // ?st
+  | test_operation                  // ?t
+// gui operation, react operation, ...
+
+
+
+array_operation:        penanda "A" array_operation_choice
+// lst?A
+array_operation_choice: "/" BILBUL -> item_at       // mylist?A/5 = get item at index
+  | "/" BILBUL "=" expression_item -> item_at_set   // mylist[n] = value
+  | "0/" -> item_first
+  | "9/" -> item_last
+  | "44" nama_identifier? -> array_traversal_for_traditional // myarr?A44
+  | "4@" nama_identifier? -> array_traversal_for_each
+  | "4#" nama_identifier? -> array_traversal_for_key
+  | "4$" nama_identifier? -> array_traversal_for_value
+  | "n" array_new_operation? -> new_array
+  | "+=" expression_item  ("," expression_item)* -> concat_extend_update   // mylist?A+=   another list  (extend/update)
+  | "+" expression_item   -> insert_at_tail         // mylist?A+    item          (insert_at_tail)
+  | "+<" expression_item  -> insert_at_head
+  | "+" expression_item "@" BILBUL -> insert_at_index
+  | "|"                   -> length                 // mylist?A|
+  | "#" expression_item   -> count
+  | "i/" nama_identifier_or_literal -> index_of // mylist?Ai/5 = get index of item (item bisa id, atau literal spt 42 dan "hello")
+  | "P" BILBUL?           -> pop_item       // remove at tail
+  | "S" BILBUL?           -> shift_item     // remove at head
+  | "X" BILBUL ("/" BILBUL)? -> slice_array
+  | "-@" BILBUL           -> remove_at_index
+  | "-<"                  -> remove_at_head
+  | "->"                  -> remove_at_tail
+  | "-" expression_item                 -> remove_by_value
+  | "+S-" BILBUL "/" BILBUL "/" expression_item ("," expression_item)* -> splice_add_remove
+  | "-S-" BILBUL "/" BILBUL -> splice_remove
+  | "<<"                  -> min
+  | ">>"                  -> max
+  | "=="                  -> average
+  | "++"                  -> sum
+  | "~" expression_item   -> contains
+  | "~~" expression_item  -> has_key // js dan dart, array bs punya key/index
+  | "0"                   -> clear
+  | "0?"                  -> is_empty         // mylist?A0?
+  | "2s" -> to_string                         // ', '.join(mylist) = default by himpitkan
+  | "2D" -> to_dict     // dart punya asMap(), mungkin java/kt jg
+  | "sp" ("/" HURUF_SYSTEM "/")? -> split     // maksudnya join...
+  | "!"                   -> reverse
+  | "$"                   -> sort
+  | "$!"                  -> reverse_sort
+  | "M#" anonymous_function   -> array_map // mylist?AM#...
+  | "F#" anonymous_function   -> array_filter
+  | "R#" anonymous_function   -> array_reduce
+  | "A?"                      -> is_array
+  | "U"                       -> uniqify
+
+// TODO: any(predicate), all(predicate)
+
+array_new_operation: "@" BILBUL -> allocate // ?An@10, int[] intArray = new int[10];
+  | "@@" BILBUL -> allocate_with_cap // ?An@10/1000
+  | "@" -> just_create
+  | "$" expression_item -> initialize // ?An$...ei...
+  | "$" BILBUL tipe_identifier -> initialize_with_faker // ?An$5:s, ?An$5:i
+  | "F" mapper_function_for_arraylike -> create_with_arrayfrom // ?AnF(){}, ?AnF:(){}
+  | "@F" BILBUL "/" BILBUL -> allocate_with_arrayfrom // ?An@F5/0
+
+mapper_function_for_arraylike: anonymous_function
+
+
+// all crud utk array
+// map, filter, reduce, fold, foldMap, ...
+
+
+dataframe_operation:    penanda "#" dataframe_operation_config? dataframe_operation_cmd
+// sementara bebas krn gak tau batas2 operasinya
+dataframe_operation_cmd: HURUF_DIGIT
+
+dataframe_operation_config: "/" dataframe_operation_config_items "/"
+dataframe_operation_config_items: dataframe_operation_config_item ("," dataframe_operation_config_item)*
+dataframe_operation_config_item: "c"
+
+
+
+// https://www.w3schools.com/python/python_ref_dictionary.asp
+// https://www.collectionsjs.com/dict
+dict_operation:         penanda "D" dict_operation_choice
+dict_operation_choice: "/" expression_item ("/" expression_item)? -> get_item     // with default  
+  | "+=" expression_item            -> concat_extend_update       // mydict?D++   another list  (extend/update)
+  | "+" expression_item "=" expression_item -> assign   // mydict?D+1=nilai
+  | "|"                             -> length
+  | "~(" expression_item ")"      -> has_item     // has value
+  | "-(" expression_item ")"      -> remove_item  // remove by value
+  | "~" expression_item           -> has_key
+  | "-" expression_item           -> remove_key
+  | "-@" BILBUL             -> remove_at_index
+  | "->"                    -> remove_at_tail
+  | "0"                   -> clear
+  | "0?"                  -> is_empty   // mydict?D0?
+  | "@"                   -> entries  // gaya for-each, mydict?D@
+  | "#"                   -> keys     // gaya for-in, mydict?D#
+  | "$"                   -> values   // gaya for-of, mydict?D$
+  | "n" dict_new_operation? -> new_dict
+
+// kvs := map[string]string{"a": "apple", "b": "banana"}
+dict_new_operation: "@" -> just_create
+  | "@" BILBUL tipe_data_nilai? tipe_data_kunci?-> allocate
+  | "$" named_values -> initialize
+  | "$" BILBUL tipe_identifier -> initialize_with_faker
+
+tipe_data_nilai: tipe_identifier
+tipe_data_kunci: tipe_identifier
+
+
+directory_operation:    penanda "I" directory_operation_choice
+directory_operation_choice: "h" -> hello
+
+
+file_operation:         penanda "F" file_operation_config? file_operation_choice
+
+file_operation_config: fileoperationconfiglist "/"
+fileoperationconfiglist: fileconfigitem+
+fileconfigitem: "a" -> file_async_version
+  | "A" -> file_sync_version
+
+// with open(filepath, 'r') as identifier:
+
+file_operation_choice: "n" filemodes? filepath -> create_file
+  | "j>" expression_item -> json_out  // ?Fj>output = dumps/stringify/env, ?Fj<input = loads/parse/system
+  | "j<" expression_item -> json_in
+  | "1?" -> does_exist                // fs.existsSync(path)
+  | "1!" -> does_not_exist            // !fs.existsSync(path)
+  | "0?" -> is_empty
+  | "d?" -> is_directory
+  | "f?" -> is_regular_file // exist dan file
+  | ">>" filepath -> write_string_to_file
+  | ">>A" filepath -> write_list_to_file
+  | "<<" filepath -> read_file_as_string
+  | "<<A" filepath -> read_file_as_list
+  | "<" -> fd_read_line
+  | ">" -> fd_write_line
+  | "o<" -> file_open_to_read         // fd = fs.openSync(path, "r")
+  | "o>" -> file_open_to_write        // fd = fs.openSync(path, "w")
+  | "00" -> fd_flush_file
+  | ">0" -> fd_truncate_file
+  | "." -> fd_close_file              // fd?F. = fs.closeSync(fd)
+  | "@" -> fd_tell
+  | "#" -> fd_fileno
+  | "$" -> fd_seek
+  | "-f" -> remove_file
+  | "-f?" -> remove_file_if_exists
+  | "-d" -> remove_directory
+  | "-d?" -> remove_directory_if_exists
+  | "+d" -> create_directory          // fs.mkdirSync(logDir)
+  | "+d?" -> create_directory_if_doesnotexist
+
+filemodes: filemode+
+filemode: read_write_append
+read_write_append: "w" -> write_mode // fd?Fnw'filename.txt'
+  | "r" -> read_mode
+  | "a" -> append_mode
+  | "b" -> binary_mode
+  | "d" -> directory_mode
+
+filepath: literal_template_string
+//| "*" -> get_content                // filecontent?F* = as_string
+//| "*A" -> get_content_as_list       // filecontent?F*A
+
+
+network_operation:      penanda "N" network_operation_choice
+network_operation_choice: "h" -> hello
+
+
+orm_operation:          penanda "O" orm_operation_config orm_operation_choice
+
+// ?O/h=...,p=...,u=...,passwd=...,d=...,s=.../
+orm_operation_config: "/" orm_operation_config_items "/"
+orm_operation_config_items: orm_operation_config_item ("," orm_operation_config_item)*
+orm_operation_config_item: "h=" HURUF_DIGIT -> orm_host_config
+  | "p=" HURUF_DIGIT -> orm_port_config
+  | "d=" HURUF_DIGIT -> orm_dbname_config
+  | "s=" HURUF_DIGIT -> orm_schema_config
+  | "u=" HURUF_DIGIT -> orm_username_config
+  | "pw=" HURUF_DIGIT -> orm_password_config
+
+// operasi spt Model.objects.all(), .get(id=...), .create(a=1,b=2)
+orm_operation_choice: "s" -> orm_select        // ?Os
+  | "f1" -> orm_find_one
+  | "f1u" -> orm_find_one_and_update
+  | "fn" -> orm_find_many
+  | "fa" -> orm_find_all
+  | "i" -> orm_insert        // ?Oi
+  | "u" -> orm_update        // ?Ou
+  | "d" -> orm_delete        // ?Od
+  | "cd" -> orm_create_database
+  | "ct" -> orm_create_table
+  | "at" -> orm_alter_table
+  | "ac" -> orm_alter_column
+  | "cu" -> orm_create_user
+  | "cr" -> orm_create_role
+  | "ci" -> orm_create_index
+  | "cv" -> orm_create_view
+  | "cp" -> orm_create_procedure
+  | "cg" -> orm_create_trigger
+
+
+
+redis_operation: penanda "r" redis_operation_config? redis_cmd (redis_key ("=" redis_value)?)?
+
+redis_operation_config: "/" redis_operation_config_items "/"
+redis_operation_config_items: redis_operation_config_item ("," redis_operation_config_item)*
+redis_operation_config_item: "h=" HURUF_DIGIT -> redis_host_config
+  | "p=" HURUF_DIGIT -> redis_port_config
+  | "d=" HURUF_DIGIT -> redis_dbname_config
+  | "s=" HURUF_DIGIT -> redis_schema_config
+  | "u=" HURUF_DIGIT -> redis_username_config
+  | "pw=" HURUF_DIGIT -> redis_password_config
+
+redis_cmd: "c" -> redis_connect       // ?r/d=7/c
+  | "r" -> redis_reset                // ?rr          = reset connection to default
+  | "?" -> redis_exists         // ?r?key       does redis key exist?
+  | "=" -> redis_keys           // ?r=*  
+  | "s=" -> redis_string_get    // ?rs=key
+  | "s+" -> redis_string_add    // ?rs+key=value
+  | "s-" -> redis_string_del    // ?rs-key
+  | "A+" -> redis_list_add      // ?rA+
+  | "A-" -> redis_list_del      // ?rA-
+  | "A=" -> redis_list_get      // ?rA=
+  | "D+" -> redis_hash_add      // ?rD+
+  | "D-" -> redis_hash_del      // ?rD-
+  | "D=" -> redis_hash_get      // ?rD=
+  | "S+" -> redis_set_add       // ?rS+
+  | "S-" -> redis_set_del       // ?rS-
+  | "S=" -> redis_set_get       // ?rS=
+
+redis_args: redis_arg ("," redis_arg)*
+redis_arg: redis_key
+  | redis_value
+
+redis_key: HURUF_EXPORT
+// sementara gini dulu...tapi nanti butuh value utk dict etc
+redis_value: HURUF_EXPORT 
+
+
+
+set_operation:        penanda "S" set_operation_choice
+// lst?A
+set_operation_choice: "/" -> item_pop
+  | "//"                  -> item_pop_but_stay
+  | "+=" expression_item  -> concat_extend_update
+  | "+" expression_item   -> insert_at_tail
+  | "|"                   -> length
+  | "~" expression_item   -> contains
+  | "0"                   -> clear
+  | "#" expression_item   -> count
+  | "0?"                  -> is_empty
+  | "-" expression_item   -> remove_item
+  | "--" expression_item  -> remove_item_silent
+  | "2s"                  -> to_string
+
+  | "U" expression_item                  -> union
+  | "X" expression_item                  -> intersection
+  | "<>" expression_item                 -> difference
+  | "<<>>" expression_item               -> symmetric_difference
+  | "-?" expression_item                 -> is_disjoint
+  | "_?" expression_item                 -> is_subset
+  | "^?" expression_item                 -> is_superset
+
+
+
+stdin_operation:        penanda "-" stdin_operation_choice
+stdin_operation_choice: expression_item -> input // data?-<masukkan data>
+
+stream_operation:         penanda "R" stream_operation_choice
+stream_operation_choice: "h" -> hello
+
+test_operation:         penanda "t" test_operation_choice
+// utk tdd
+test_operation_choice: "h" -> hello
+
+
+pair_operation:         penanda "P" pair_operation_choice
+pair_operation_choice: "h" -> hello
+
+
+
+tuple_operation:        penanda "L" tuple_operation_choice
+tuple_operation_choice: "h" -> hello
+
+
+
+
+string_operation:       penanda "s" string_operation_choice
+// kita mau bikin adding newline/tab/dll segampang mungkin
+string_operation_choice: "+" expression_item -> concat       // mystr?s+ ...
+  | "/" BILBUL          -> char_at      // mystr?s/5
+  | ">" HURUF_DIGIT     -> ends_with
+  | "<" HURUF_DIGIT     -> starts_with
+  | "~" HURUF_DIGIT     -> contains
+  | "#" HURUF_DIGIT     -> count
+  | "|"                 -> length
+  | "s/" HURUF_DIGIT    -> search_index    // mystr?ss/cari
+  | "ls/" HURUF_DIGIT   -> last_search_index
+  | "i/" HURUF_DIGIT    -> index_of     // mystr?si/5
+  | "li/" HURUF_DIGIT   -> last_index_of
+  | "9?"                -> is_digit
+  | "0?"                -> is_empty
+  | "spc?"              -> is_space
+  | "2c"                -> to_chars
+  | "2i"                -> to_int
+  | "2f"                -> to_float
+  | "2b"                -> to_byte
+  | "4b"                -> from_byte
+  | "2l"                -> to_literal
+  | "4l"                -> from_literal
+  | "2A" -> to_array     // 'hello'.split() = default by space
+  | "2L" -> to_lines
+  | "sp" "/" HURUF_NON_SLASH "/" BILBUL?  -> split
+  | "r" "/" expression_item "/" expression_item "/"? -> replace // mystr?sr/cari/ganti/
+  | "0..." BILBUL         -> zfill
+  | "...0" BILBUL         -> fillz
+  | "00"                 -> trim         // mystr?s0
+  | "0."                 -> ltrim
+  | ".0"                 -> rtrim
+  | "0." HURUF_SYSTEM                -> remove_prefix
+  | ".0" HURUF_SYSTEM                -> remove_suffix
+  | "u"                 -> upper        // mystr?su
+  | "l"                 -> lower        // mystr?sl
+  | "c"                 -> capitalize   // mystr?sc
+  | "ub" BILBUL (":" BILBUL)? -> substring_with_endpos // .substring
+  | "ub" BILBUL "/" BILBUL    -> substring_with_length // .substr
+  | "li" BILBUL (":" BILBUL)? -> slice_with_endpos
+  | "__" BILBUL ("/" HURUF_SYSTEM)? -> center
+  | "<<" BILBUL ("/" HURUF_SYSTEM)? -> ljust
+  | "fm:" named_values -> format // ?sfm:name=usef,gf=wieke
+  | "tr:" HURUF_DIGIT "=" HURUF_DIGIT -> translate // 
+  | "ma:" HURUF_DIGIT ("/" regex_match_configs)? -> regex_match
+
+HURUF_NON_SLASH: 					(" "|LETTER|DIGIT|"*"|"."|"\\") 	(LETTER|DIGIT|"_"|"*"|"."|"-"|"+"|" "|":"|"\"|""")*
+
+regex_match_configs: regex_match_configs+
+regex_match_config: "g" -> regex_match_global
+  | "i" -> regex_match_case_insensitive
+
+// perlu juga method: char_in_string -> if c in s
+// https://youtu.be/LK7tDnzUZZM?t=271 s.find(c) != string::npos
+
+
+// primitive non-string
+// b2i, b2s
+bool_operation:         penanda "b" bool_operation_choice
+bool_operation_choice: "h" -> hello
+
+// c2s
+char_operation:         penanda "c" char_operation_choice
+char_operation_choice: "h" -> hello
+
+
+datetime_operation:     penanda "d" datetime_operation_config? datetime_operation_choice
+
+datetime_operation_config: "/" datetime_configs "/"
+datetime_configs: datetime_config ("," datetime_config)*
+datetime_config: "l" -> locale
+  | "u" -> utc
+
+set_datetime: set_date (pisah_tanggal_waktu set_time)?
+set_date: HURUF_DIGIT pisah_tanggal HURUF_DIGIT pisah_tanggal HURUF_DIGIT
+set_time: HURUF_DIGIT pisah_waktu HURUF_DIGIT pisah_waktu HURUF_DIGIT
+
+pisah_tanggal_waktu: ","
+pisah_tanggal: "-"
+pisah_waktu: ":"
+
+datetime_operation_choice: "n" set_datetime? -> now_datetime
+  | "n1" set_date? -> now_date // time menjadi 00:00:00
+  | "n2" set_time? -> now_time // date menjadi today
+  | "dow" -> day_of_week
+  | "doy" -> day_of_year
+  | "woy" -> week_of_year
+  | "y" -> yyyy_year
+  | "y1" -> yy_year
+  | "m" -> mm_month
+  | "m1" -> m_month
+  | "d" -> dd_day
+  | "d1" -> d_day
+  | "h" -> hh_hour_24
+  | "h1" -> hh_hour_12
+  | "h2" -> h_hour_24
+  | "h3" -> h_hour_12
+  | "t" -> tt_minute
+  | "t1" -> t_minute
+  | "s" -> ss_second
+  | "s1" -> s_second
+  | "es" -> epoch_second
+  | "em" -> epoch_millisecond
+  | "eu" -> epoch_microsecond
+  | "2i" -> to_iso
+  | "2s" own_datetime_format? -> to_string // format
+  | "4s" set_date -> from_string // parse, ?d4s2021-08-24
+  | "+y/" BILBUL -> add_year
+  | "+m/" BILBUL -> add_month
+  | "+d/" BILBUL -> add_day
+  | "+h/" BILBUL -> add_hour
+  | "+t/" BILBUL -> add_minute
+  | "+s/" BILBUL -> add_second
+  | "+z/" BILBUL -> add_millisecond
+  | "=y/" BILBUL ("/" BILBUL ("/" BILBUL)?)? -> set_year
+  | "=m/" BILBUL -> set_month
+  | "=d/" BILBUL -> set_day
+  | "=h/" BILBUL -> set_hour
+  | "=t/" BILBUL -> set_minute
+  | "=s/" BILBUL -> set_second
+  | "=z/" BILBUL -> set_millisecond
+
+// | "f=" own_datetime_format
+// biar sebebas kita, bisa iso format etc.
+own_datetime_format: HURUF_DIGIT
+// hrs namai manual: J, Jan, January dan M, Mon, Monday -> m1, m2, m3, d1, d2, d3
+
+
+
+float_operation:        penanda "f" float_operation_choice
+float_operation_choice: "h" -> hello
+  | "4s" expression_item -> from_string
+  | "2s" -> to_string
+
+
+
+// contoh i2s, i2f
+int_operation:          penanda "i" int_operation_choice
+int_operation_choice: "h" -> hello
+  | "4s" expression_item -> from_string // i32::from_str(val)
+  | "2s" -> to_string
+
+
+void_operation:         penanda "v" void_operation_choice
+// tmsk utk object dan any, null, undefined
+void_operation_choice: "h" -> hello
+
+
+gui_operation: penanda "u" gui_operation_config? gui_operation_cmd
+gui_operation_cmd: HURUF_DIGIT
+
+gui_operation_config: "/" gui_operation_config_items "/"
+gui_operation_config_items: gui_operation_config_item ("," gui_operation_config_item)*
+gui_operation_config_item: "c"
+
+
+
+react_operation: penanda "@" react_operation_config? react_operation_cmd
+react_operation_cmd: hook_operation
+  | component_operation
+
+// https://reactjs.org/docs/hooks-reference.html
+hook_operation: "us" tipe_identifier? state_initializer? -> use_state
+  | "ue" anonymous_function expression_item -> use_effect // useEffect(af, [ei])
+  | "uc" nama_identifier "=" nama_identifier -> use_context
+  | "ur" expression_item "=" expression_item -> use_reducer // const [state,dispatch]=uR(reducer,initState)
+  | "uk" anonymous_function expression_item -> use_callback
+  | "um" -> use_memo
+  | "uR" -> use_ref
+  | "uih" -> use_imperative_handle
+  | "ule" -> use_layout_effect
+  | "udv" -> use_debug_value
+  | "gssp" -> get_server_side_props
+
+state_initializer: "=" expression_item
+
+component_operation: "fc" -> functional_component
+  | "cc" -> class_component
+
+react_operation_config: "/" react_operation_config_items "/"
+react_operation_config_items: react_operation_config_item ("," react_operation_config_item)*
+react_operation_config_item: "c"
+
+
+
+// statement_item dahului block_item
+// agar for()body jadi for_statement bukan fungsi for
+
+statement_item: if_statement
+  | for_statement
+  | switch_statement
+  | while_statement
+  | single_statement
+  | expression_item
+  | enum_declaration
+
+
+// if (if) {var myvar = 24}
+if_statement: if_keyword condition_then_if (condition_then_elif)* condition_then_else?
+
+condition_then_if: condition_if condition_body
+condition_then_elif: condition_elif condition_body
+condition_then_else: condition_else condition_body
+
+condition_if: "(" expression_item ")"
+condition_elif: "'(" expression_item ")"
+condition_else: "()"
+
+
+
+for_statement: for_keyword for_config? condition_for condition_body
+
+for_keyword: "/4"
+  | "for"
+
+// harus bisa handle: for, for each, for in, for of
+// for i=0; i<expession; i++
+// for-each item,key of array
+// for-in key of array
+// for-of item of array
+
+condition_for: for_variation
+for_variation: "(" for_traditional ")"  // for(i=0;i<dict.length;i++)
+  |  "(" for_while? ")" -> for_ever // for(i<10), for()
+  | "@" for_each "@"  // for@item/items/index@ = for key,value
+  | "#" for_in "#"    // for#key/items# = for key/index
+  | "$" for_of "$"    // for$item/items$ = for value
+
+// apa gak mendingan: for(name,start,end,step) => for(index,0,42,2)
+for_traditional: for_start ";" for_end (";" for_step)?
+for_while: expression_item
+for_each: item_name "/" array_name ("/" key_name)?
+for_in: key_name "/" array_name
+for_of: item_name "/" array_name
+
+//for_start: key_name "=" expression_item
+for_start: nama_jenis_identifier_optional "=" expression_item
+for_end: expression_item
+for_step: expression_item
+
+key_name: nama_jenis_identifier_optional
+item_name: nama_jenis_identifier_optional
+array_name: nama_identifier
+  | expression_item
+
+for_config: "[" for_config_items "]"
+for_config_items: for_config_item ("," for_config_item)*
+// gunakan for-traditional, create local var, use nonlocal var, for-in, for-of
+for_config_item: "c"
+
+
+
+switch_statement: switch_keyword switch_config? condition_switch case_body+
+switch_keyword: "/s"
+  | "switch"
+  | "sw"
+  | "s"
+
+condition_switch: "(" expression_item ")"
+
+case_body: (condition_case|condition_defaultcase) condition_body
+
+condition_case: "(" expression_item ")"
+condition_defaultcase: "()"
+
+switch_config: "/" switch_config_items "/"
+switch_config_items: switch_config_item ("," switch_config_item)*
+// gunakan switch(literal) dll
+switch_config_item: "c"
+
+
+
+while_statement: while_keyword while_config? condition_while condition_body
+while_keyword: "/w"
+  | "while"
+  | "wh"
+  | "w"
+
+condition_while: "(" expression_item ")"
+
+while_config: "/" while_config_items
+while_config_items: while_config_item ("," while_config_item)*
+// gunakan do-while, etc
+while_config_item: "f" -> forever_loop
+
+
+
+////////////////////////////////////////////////////////////////
+// assignment
+// initialization sama dg assignment?
+// variable statement (dihandle $)
+// typealias decl, enum decl
+// throw (throw stmt), return (return stmt), yield (yield stmt), flow (continue+break stmt)
+// with stmt, labelled stmt, debugger stmt
+// empty stmt -> typescript hanya semicolon (terminator)
+// abstract decl, namespace decl, interface decl, decorator list, generatorfunc decl
+// expressionSequence adlh if(..), for(..; ..; ..), while(..), switch(..)
+// tmsk di sini: function item (func+arrowfunc decl), exception item (try stmt), import item, export item, class item (class decl)
+// tmsk: iteration stmt yg dihandle for+while
+// tmsk: if stmt dan switch stmt yg sudah dihandle
+
+single_statement: var_declaration
+  | const_declaration
+  | assignment_statement
+  | flow_statement
+  | return_statement
+  | throw_statement
+  | yield_statement
+  | defer_statement
+  | dataops_statement_with_identifier
+  | stdout_operation
+  | faker_ops
+  | fmus_ops
+  | redis_operation
+  | typealias_declaration
+  | destructuring_statement
+  | "~" declarative_program
+
+// dari go: defer statement
+
+dataops_statement_with_identifier: nama_identifier dataops_statement
+
+
+assignment_statement: nama_identifier assignment_config? "=" expression_item
+assignment_config: ":" -> assignment_initialize // di v lang a = 42 vs a := 42
+
+
+
+typealias_declaration: typealias_keyword nama_identifier type_parameters? "=" tipe_data_semua
+
+
+flow_statement: flow_continue
+  | flow_break
+flow_continue: "continue"
+  | "cont"
+  | "co"
+flow_break: "break"
+  | "br"
+
+return_statement: ">" expression_item
+throw_statement: ">>" throw_name? expression_item
+yield_statement: ">>>" expression_item
+defer_statement: ">>>>" expression_item
+
+throw_name: HURUF_DIGIT "/"
+
+
+destructuring_statement: destructuring_markstart destructuring_config? destructuring_content destructuring_markend
+destructuring_markstart: "=/"
+destructuring_markend: "/"
+destructuring_config: destructuringconfiglist "/"
+destructuringconfiglist: destructuringconfig+
+destructuringconfig: "o" -> object // default
+  | "l" -> list
+  | "t" -> tuple
+
+destructuring_content: destructuring_lhs "/" destructuring_rhs
+destructuring_lhs: destructuring_lhs_item ("," destructuring_lhs_item)*
+
+destructuring_lhs_item: HURUF_DIGIT_DESTRUCTURING
+destructuring_rhs: HURUF_DIGIT_DESTRUCTURING
+
+
+
+// var myvar = 32, var myvar = E myfunc()
+var_declaration: "$" declaration_config? declaration_name tipe_identifier? declaration_value?
+
+
+const_declaration: "%" declaration_config? declaration_name tipe_identifier? declaration_value?
+
+
+
+// mutable dan immutable sudah dihandle oleh $ dan %
+// $ pasti mutable let mut myvar = value;
+declaration_config: "/" declarationconfiglist "/"
+
+//declaration_config: declarationconfiglist
+declarationconfiglist: declare_config ("," declare_config)*
+
+// instance field, static field
+// $stack=[]
+declare_config: "+" -> public
+  | "-" -> private
+  | "#" -> protected
+  | "%" -> static
+  | "L" -> late
+  | "F" -> final
+
+declaration_name: HURUF_DIGIT
+
+declaration_value: "=" expression_item
+
+
+
+declarative_program: HURUF_KODE_FRONTEND
+
+
+HURUF_CDATA: ("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|"."|" "|";"|":"|"+"|"-"|","|"!")*
+HURUF_NILAI: ("_"|LETTER|DIGIT|"\""|"{") 	("_"|LETTER|DIGIT|"."|"\""|"'"|"`"|"{"|"}"|"="|"<"|">"|"!"|"("|")"|" ")*
+HURUF_NILAI_BERSLASH: ("_"|LETTER|DIGIT|"\""|"{") 	("_"|LETTER|DIGIT|"."|"\""|"'"|"`"|"{"|"}"|"="|"<"|">"|"!"|"("|")"|" "|"/")*
+HURUF_NILAI_BERSPASI: ("_"|LETTER|DIGIT|"\""|"{") 	("_"|LETTER|DIGIT|"."|"`"|"{"|"}"|"("|")"|"="|">"|" ")*
+HURUF_NON_OPEN: ("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|"."|","|" "|"+"|"="|"-"|"_"|"@"|"#"|"$"|"%"|"^"|"&"|"*")*
+HURUF_KODE_FRONTEND: ("_"|LETTER|DIGIT|"\""|"{"|"<") 	("_"|LETTER|DIGIT|"."|"\""|"'"|"`"|"{"|"}"|"="|"<"|">"|"!"|"("|")"|" "|"/")*
+
+
+
+
+
+expression_item: function_call  // myfunc(34), myfunc(param1=42)
+  | anonymous_function          // (req,res){}
+  | literal
+  | member_dot_expression
+  | member_index_expression
+  | casting_expression
+  | expression_with_operator
+  | nama_identifier
+  | new_operator nama_identifier function_call_param -> instantiation_expression
+  | range_expression  
+
+casting_expression: expression_item (keyword_casting expression_item)+
+
+expression_with_operator: "!" expression_item -> not_expression
+  | "++" expression_item -> pre_inc_expression
+  | "--" expression_item -> pre_dec_expression
+  | expression_item "++" -> post_inc_expression
+  | expression_item "--" -> post_dec_expression
+  | expression_item "+=" literal -> plus_equal_expression
+  | expression_item "-=" literal -> minus_equal_expression
+  | expression_item "?" expression_item ":" expression_item -> ternary_expression
+  | expression_item "&&" expression_item -> and_expression
+  | expression_item "||" expression_item -> or_expression
+  | expression_item arithmetic_operator expression_item -> arithmetic_expression
+  | expression_item relational_operator expression_item -> relational_expression
+
+// member index = obj[index]
+// member dot = obj.member
+
+// [ei]([ei])* atau ([ei])+
+//member_index_expression: expression_item "[" expression_item "]" ("[" expression_item "]")*
+member_index_expression: expression_item ("[" expression_item "]")+
+
+// nama.nama(.nama)* atau nama (.nama)+
+//member_dot_expression: nama_tanpa_dot "." nama_tanpa_dot ("." nama_tanpa_dot)*
+member_dot_expression: nama_tanpa_dot ("." nama_tanpa_dot)+
+
+
+
+
+function_call: function_name function_call_config? "(" argument_list* ")"
+
+function_call_config: "/" funccallconfiglist
+
+funccallconfiglist: funccall_config+
+funccall_config: "a" -> await
+
+
+
+
+// myobj = *MyClass{}
+new_operator: "*"
+
+arithmetic_operator: "+" -> operator_plus
+  | "-" -> operator_minus
+  | "*" -> operator_mult
+  | "/" -> operator_float_division
+  | "//" -> operator_int_floor_division
+  | "%" -> operator_remainder
+
+relational_operator: "<" -> operator_less
+  | "<=" -> operator_less_equal
+  | ">" -> operator_greater
+  | ">=" -> operator_greater_equal
+  | "==" -> operator_equal
+  | "!=" -> operator_not_equal
+
+
+
+
+literal: literal_number
+  | literal_string
+  | template_string // <my name is /name/ so take care yo>
+  | literal_bool
+  | literal_char
+  | literal_list
+  | literal_dict // termasuk literal obj di sini
+  | literal_tuple // termasuk pair
+  | literal_pair
+  | literal_set
+
+literal_template_string: literal_string
+  | template_string
+
+literal_number: BILBUL_BERTANDA
+literal_string: "\"" HURUF_TEMPLATESTRING "\"" // "hello"
+  | "'" HURUF_TEMPLATESTRING "'" // 'hello'
+template_string: "<" HURUF_TEMPLATESTRING ">"
+literal_bool: "T" -> boolean_true
+  | "F" -> boolean_false
+literal_char: "'" LETTER "'" // 'a'
+
+literal_list: "[" list_items* "]"
+list_items: list_item ("," list_item)*
+list_item: expression_item
+
+// krn () dan {} rebutan dg func param dan body
+literal_dict: "{#" dict_items* "}"
+dict_items: dict_item ("," dict_item)*
+dict_item: dict_item_name ":" expression_item
+dict_item_name: HURUF_DIGIT
+
+literal_tuple: "(#" tuple_items* ")"
+tuple_items: tuple_item ("," tuple_item)*
+tuple_item: expression_item
+
+literal_pair: "(@" tuple_item "," tuple_item ")"
+
+// <> skrg dipake oleh template_string
+literal_set: "<#" set_items* ">"
+set_items: set_item ("," set_item)*
+set_item: expression_item
+
+
+
+range_expression: range_keyword range_expr_config? range_start "," range_stop ("," range_step)?
+
+range_start: BILBUL
+range_stop: BILBUL
+range_step: BILBUL
+
+range_expr_config: "/" range_expr_items
+range_expr_items: range_expr_item ("," range_expr_item)*
+// gunakan do-while, etc
+range_expr_item: "/" -> range_config_close // inclusive range end, ..//start,stop,step
+  | "to" -> range_config_to
+  | "from" -> range_config_from
+
+
+
+
+enum_declaration: enum_keyword enum_config? nama_identifier "{" enum_body "}"
+enum_config: "#" -> enum_numeric // default
+  | "$" -> enum_string
+
+enum_body: enum_member_list ","?
+enum_member_list: enum_member ("," enum_member)*
+enum_member: nama_identifier ("=" expression_item)?
+
+
+
+
+statement_list: statement_item (statement_separator statement_item)*
+
+
+condition_body: "{" statement_list* "}"
+
+
+
+
+keyword_function: ":"
+keyword_import: "I"
+keyword_package: "P"
+keyword_export: "X:"
+keyword_casting: ">>"
+//keyword_scope: "(s)"
+keyword_scope: "||"
+//
+range_keyword: ".."
+
+typealias_keyword: "&&"
+interface_keyword: "@@"
+if_keyword: "if"
+//searchable_kw: "~"
+searchable_kw: "`" // `kata utk dicari`
+fmus_keyword: "!!"
+enum_keyword: "&"
+exception_keyword: "x:"
+csv_keyword: "csv:"
+
+
+declarative_item: "D"
+
+named_values: named_value ("," named_value)*
+named_value: nama_identifier tipe_identifier? "=" nilai_identifier
+nilai_identifier: expression_item
+
+// ini bisa expression: pemanggilan fungsi (berarti bisa ada dot dong)
+nama_tanpa_dot: HURUF_DIGIT_ONLY
+nama_identifier: HURUF_DIGIT
+nama_identifier_or_literal: literal
+  | nama_identifier
+
+// utk bedakan dg nama_identifier, tipe dibikin wajib di sini
+// lihat juga: nama_identifier_with_typeparams
+nama_jenis_identifier: nama_identifier tipe_identifier
+nama_jenis_identifier_optional: nama_identifier tipe_identifier?
+
+// kita hrs punya bentuk: (satu:i, dua?:f)
+nama_jenis_identifier_nullable: nama_identifier "?" tipe_identifier
+
+// string, int, float, bool, char, any/object, void
+// tipe_data_collection mendahului tipe_data_buatan spy gak kemakan
+tipe_identifier: ":" tipe_data_config? tipe_data_builtin 
+  | ":" tipe_data_config? tipe_data_collection
+  | ":" tipe_data_config? tipe_data_buatan
+  | ":" tipe_data_fungsi
+  | ":" type_intersection
+  | ":" type_union
+
+// sementara hanya built in?
+type_intersection: tipe_data_builtin ("&" tipe_data_builtin)+
+type_union: tipe_data_builtin ("|" tipe_data_builtin)+
+
+tipe_data_config: "[" tipe_data_config_items "]"
+tipe_data_config_items: tipe_data_config_item ("," tipe_data_config_item)*
+// dibungkus dg Promise, Option, Result, dll
+// gunakan versi boxing: Integer, String, dll
+// extend another type?
+// juga utk gunakan subtype, i -> long, f -> double, s -> max length if applicable
+tipe_data_config_item: "tdci"
+
+tipe_data_builtin: "s" -> string
+  | "i" -> integer    // i32
+  | "f" -> float
+  | "a" -> any        // kita bikin default: undefined
+  | "b" -> boolean
+  | "c" -> char
+  | "dd" -> double
+  | "dt" -> datetime
+  | "h" -> short      // i16
+  | "l" -> long       // i64
+  | "y" -> byte       // ~ i8
+  | "v" -> void       // any dan object masuk sini, kita bikin default: null
+tipe_data_buatan: nama_identifier
+
+tipe_data_semua: tipe_data_builtin
+  | tipe_data_collection
+  | tipe_data_fungsi
+  | tipe_data_buatan
+  | object_type
+
+// name: ^&*[nama_identifier:type/type]
+// [nama:s/s], ^[nama:s/s], &[nama:s/s], *[nama:s/s]
+//tipe_data_fungsi: tipe_data_fungsi_config? "[" nama_identifier ":" tipe_data_semua "/" tipe_data_semua "]"
+// apa perlu condition_body? utk statement list?
+// const last = (arr:Array<number) => ...condition body... = return arr[arr.length-1]
+// %last=[]...condition body...
+tipe_data_fungsi: tipe_data_fungsi_config? type_parameters? "[" paramlist* "/" tipe_data_kembali? "]" condition_body?
+tipe_data_kembali: tipe_data_semua
+tipe_data_fungsi_config: "^" -> function_type_expression // default
+  | "&" -> call_signature
+  | "*" -> construct_signature
+
+// (nama_identifier: real_type) => real_type
+// function_type_expression: 
+
+// hrs bs specify array of what...
+// default = array of any/object
+// A, D, DF, I, F, N, O, P, S, L
+tipe_data_collection: "A" item_type?  -> array      // As
+  | "D" (key_type "," value_type)?    -> dict       // Di,s
+  | "DF" row_type "," column_type     -> dataframe  // DFs,s
+  | "I"                               -> directory  // I
+  | "F" file_type?                    -> file       // Fj
+  | "N" network_type?                 -> network    // Ngrpc
+  | "O" orm_type?                     -> orm        // Osqal
+  | "P" (key_type "," value_type)?    -> pair       // Pi,s
+  | "S" item_type?                    -> set        // Ss
+  | "L" (item_type ("," item_type)*)? -> tuple      // Li,s,f
+  | "O" some_type "," none_type          -> optional
+  | "R" ok_type "," err_type             -> result
+  | "P" value_type                    -> promise
+
+// T, U, V suka digunakan utk generic, jadi tuple = L
+
+// sementara baru tipe data primitif...
+item_type: tipe_data_builtin
+  | "/" tipe_data_buatan
+key_type: tipe_data_builtin
+value_type: tipe_data_builtin
+  | "/" tipe_data_buatan
+row_type: tipe_data_builtin
+column_type: tipe_data_builtin
+some_type: tipe_data_builtin
+none_type: tipe_data_builtin
+ok_type: tipe_data_builtin
+err_type: tipe_data_builtin
+
+file_type: "t"    -> file_text
+  | "c"           -> file_csv
+  | "doc"         -> file_doc
+  | "h"           -> file_html
+  | "j"           -> file_json
+  | "rss"         -> file_rss
+  | "xls"         -> file_xls
+  | "xml"         -> file_xml
+  | "y"           -> file_yaml
+
+network_type: "R" -> network_rest
+  | "d"           -> network_database
+  | "gql"         -> network_graphql
+  | "grpc"        -> network_grpc
+  | "h"           -> network_http
+  | "k"           -> network_kafka  
+  | "m"           -> network_mqtt
+  | "rmq"         -> network_rabbitmq
+  | "s"           -> network_spark
+  | "t"           -> network_tcp
+  | "u"           -> network_udp
+  | "w"           -> network_websocket
+
+orm_type: "dj"    -> orm_django
+  | "p"           -> orm_prisma
+  | "sqal"        -> orm_sqlalchemy
+  | "torm"        -> orm_typeorm
+
+type_parameters: "<" type_parameter_list ">"
+type_parameter_list: type_parameter ("," type_parameter)*
+type_parameter: nama_identifier constraint?
+  | type_parameters
+
+// tipe data collection sementara diskip di sini
+constraint: ":" tipe_data_buatan // <satu:dua> => <satu extends dua>
+  | ":" tipe_data_builtin
+  | ":" tipe_data_fungsi
+  | ":" object_type
+
+object_type: "{" object_contents* "}"
+object_contents: object_content (statement_separator object_content)*
+object_content: nama_identifier tipe_identifier
+
+// aslinya "extends" union/intersection/primary-type | functype | ctortype | typegeneric | stringliteral
+// class myclass<T:[name:s/s]>
+// class myclass<T:{length:number}>
+nama_identifier_with_typeparams: nama_identifier type_parameters?
+
+
+// I`satu dua tiga -empat -lima enam`
+searchable: searchable_kw search_term searchable_kw
+search_term: HURUF_SEARCHABLE
+HURUF_SEARCHABLE: ("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|"."|"-"|"+"|"@"|" ")*
+
+
+
+
+HURUF_DIGIT_ONLY:       ("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT)*
+HURUF_DIGIT: 						("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|".")*
+HURUF_EXPORT: 					("_"|LETTER|DIGIT|"*") 	("_"|LETTER|DIGIT|"."|"/"|"*")*
+HURUF_DIGIT_DOT:				("_"|LETTER|DIGIT|".") 	("_"|LETTER|DIGIT|"."|"@"|"/")*
+HURUF_DIGIT_SPASI: 			("_"|LETTER|DIGIT|"*") 	("_"|LETTER|DIGIT|"."|"@"|" "|"*")*
+HURUF_DIGIT_MINUSPLUS: 	("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|"."|"-"|"+"|"@")*
+HURUF_TEMPLATESTRING:   ("_"|LETTER|DIGIT|"/") 	("_"|LETTER|DIGIT|" "|"."|","|"-"|"+"|"/"|"@")*
+HURUF_SPACE: 						("_"|LETTER) 		("_"|LETTER|DIGIT|" ")*
+HURUF_COMMA: 						("_"|LETTER) 		("_"|LETTER|DIGIT|",")*
+HURUF_SYSTEM: 					("_"|LETTER|DIGIT|"*"|"/"|"."|"\"") 	(LETTER|DIGIT|"_"|"*"|"."|"/"|"-"|"+"|" "|":"|"\"|""")*
+HURUF_PASSWORD: 				("_"|LETTER) ("_"|LETTER|DIGIT|" "|"&"|"%%"|"."|","|"-"|"_"|"+"|"@"|"#"|"*")*
+HURUF_HOST: 						("_"|LETTER|DIGIT) ("_"|LETTER|DIGIT|"."|"@")*
+
+HURUF_DIGIT_DESTRUCTURING: ("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|".")*
+
+
+number_literal: DEC_NUMBER | HEX_NUMBER | BIN_NUMBER | OCT_NUMBER | FLOAT_NUMBER | IMAG_NUMBER
+//string_literal: STRING | LONG_STRING
+// Import terminals from standard library (grammars/python.lark)
+//%import python (NAME, COMMENT, STRING, LONG_STRING)
+%import python (DEC_NUMBER, HEX_NUMBER, OCT_NUMBER, BIN_NUMBER, FLOAT_NUMBER, IMAG_NUMBER)
+
+
+%import common.CNAME                -> HURUF
+%import common.ESCAPED_STRING       -> KALIMAT
+%import common.WORD
+%import common.DIGIT
+%import common.HEXDIGIT
+%import common.LETTER
+%import common.INT                  -> BILBUL
+%import common.SIGNED_INT           -> BILBUL_BERTANDA
+%import common.SIGNED_NUMBER        -> BIL_BERTANDA
+%import common.FLOAT                -> PECAHAN
+%import common.NEWLINE
+%import common.WS
+%ignore WS
+--#
+
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+        @ ... package_item
+        @package_item: "P" package_thing ("." package_thing)*
+        @ ... import_item
+        @ "I" import_config? import_container? import_things
+        @ "I" import_config? searchable
+        @searchable
+        @searchable: "`" search_term "`"
+        @ ... export_item
+        @ export_item: "X:" export_config? export_content
+        
+        @ ... block_item
+        @scope_item
+        @scope_item: "||" scope_config? condition_body
+        @class_item
+        @class_item: "@" class_config? class_name class_content
+          @class_config: "/" classconfig ("," classconfig)* "/"
+        @function_item
+        @function_item: ":" function_config? function_name tipe_identifier? function_param function_content
+        @exception_item
+        @exception_item: "x:" exception_config? try_content except_content finally_content?
+        @interface_item
+        @interface_item: "@@" class_config? class_name class_content
+        
+        @ ... statement_item
+          @if_statement
+          @for_statement
+          @switch_statement
+          @while_statement
+          @single_statement
+              @var_declaration
+              @const_declaration
+              @assignment_statement
+                  @assignment_statement: nama_identifier assignment_config? "=" expression_item
+                  @jangan lupa, lhs bisa juga indexing array...
+              @flow_statement
+              @return_statement
+              @throw_statement
+              @yield_statement
+              @defer_statement
+              @dataops_statement_with_identifier
+              @stdout_operation
+              @faker_ops
+              @fmus_ops
+              @redis_operation
+              @typealias_declaration
+              @destructuring_statement
+              @"~" declarative_program
+          @expression_item
+          @enum_declaration
+        @ ... expression_item
+          @ function_call             // myfunc(34), myfunc(param1=42)
+          @ anonymous_function        // (req,res){}
+          @ literal
+            @template string dg ?+<my name is /thename/, thank you!>
+          @ member_dot_expression
+          @ member_index_expression
+          @ casting_expression
+          @ expression_with_operator
+          @ nama_identifier
+          @ new_operator nama_identifier function_call_param -> instantiation_expression
+          @ range_expression  
+        @ ... declarative_item
+        @ "D"
+
+--#

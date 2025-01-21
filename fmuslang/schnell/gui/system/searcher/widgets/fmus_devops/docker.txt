@@ -1,0 +1,37 @@
+all about docker yo!
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.pg
+
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.pw
+DATABASE_URL=postgresql+psycopg2://postgres:password@db:5432/tempdb
+
+export MONGO_URI=mongodb://usef:rahasia@localhost:27017/tempdb?authSource=admin&retryWrites=true&w=majority
+
+**>dc,mg
+
+C:\Users\usef\work\sidoarjo\schnell\app\special\credentials.json
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.cass
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.kafka
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.ma
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.mg
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.mqtt
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.ms
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.ms2
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.my
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.my2
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.neo
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.pg
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.pg2
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.pw
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.redis
+C:\Users\usef\work\sidoarjo\schnell\app\special\dc.rmq
+C:\Users\usef\work\sidoarjo\schnell\app\special\elk.fmus
+C:\Users\usef\work\sidoarjo\schnell\app\special\turbo.pipeline
+C:\Users\usef\work\sidoarjo\schnell\app\special\turbo.us
+C:\Users\usef\work\sidoarjo\schnell\app\special\env
+C:\Users\usef\work\sidoarjo\schnell\app\special\pgadmin
+
+cari ip dari container superagi-backend:
+usef@ibam-saribam:/mnt/c/tmp$ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -qf "name=superagi-backend")
+192.168.240.5
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -qf "name=superagi-backend")
+192.168.240.5:8001

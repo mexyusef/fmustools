@@ -1,0 +1,6 @@
+--% clone repo to curdir
+.,d
+    __REPONAME__,f(D=__REPOPATH__)
+    __REPONAME__,d
+        /ketik)dir
+--#

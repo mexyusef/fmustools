@@ -1,0 +1,2721 @@
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\babel.config.js
+module.exports = {
+  presets: [
+    '@vue/cli-plugin-babel/preset'
+  ]
+}
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\package.json
+{
+  "name": "ganarcrm_vue",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bulma": "^0.9.2",
+    "bulma-toast": "^2.3.0",
+    "core-js": "^3.6.5",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2"
+  }
+}
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\.browserslistrc
+> 1%
+last 2 versions
+not dead
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import axios from 'axios'
+
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
+
+createApp(App).use(store).use(router, axios).mount('#app')
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\App.vue
+<template>
+    <div>
+        <Navbar />
+
+        <div class="is-loading-bar has-text-centered" v-bind:class="{'is-loading': $store.state.isLoading }">
+            <div class="lds-dual-ring"></div>
+        </div>
+
+        <section class="section">
+            <router-view/>
+        </section>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import Navbar from '@/components/layout/Navbar'
+
+    export default {
+        name: 'App',
+        components: {
+            Navbar
+        },
+        beforeCreate() {
+            this.$store.commit('initializeStore')
+
+            if (this.$store.state.token) {
+                axios.defaults.headers.common['Authorization'] = "Token " + this.$store.state.token
+            } else {
+                axios.defaults.headers.common['Authorization'] = ""
+            }
+
+            if (!this.$store.state.team.id) {
+                this.$router.push('/dashboard/add-team')
+            }
+        },
+    }
+</script>
+
+<style lang="scss">
+@import '../node_modules/bulma';
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #ccc;
+    border-color: #ccc transparent #ccc transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.is-loading-bar {
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    
+    &.is-loading {
+        height: 80px;
+    }
+}
+</style>
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\router\index.js
+import { createRouter, createWebHistory } from 'vue-router'
+import store from '../store'
+
+import Home from '../views/Home.vue'
+
+import SignUp from '../views/SignUp.vue'
+import LogIn from '../views/LogIn.vue'
+import Dashboard from '../views/dashboard/Dashboard.vue'
+import MyAccount from '../views/dashboard/MyAccount.vue'
+import Leads from '../views/dashboard/Leads.vue'
+import Lead from '../views/dashboard/Lead.vue'
+import AddLead from '../views/dashboard/AddLead.vue'
+import EditLead from '../views/dashboard/EditLead.vue'
+import AddTeam from '../views/dashboard/AddTeam.vue'
+import Team from '../views/dashboard/Team.vue'
+import AddMember from '../views/dashboard/AddMember.vue'
+import Clients from '../views/dashboard/Clients.vue'
+import AddClient from '../views/dashboard/AddClient.vue'
+import Client from '../views/dashboard/Client.vue'
+import EditClient from '../views/dashboard/EditClient.vue'
+import AddNote from '../views/dashboard/AddNote.vue'
+import EditNote from '../views/dashboard/EditNote.vue'
+import EditMember from '../views/dashboard/EditMember.vue'
+import Plans from '../views/dashboard/Plans.vue'
+import PlansThankyou from '../views/dashboard/PlansThankyou.vue'
+
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/sign-up',
+    name: 'SignUp',
+    component: SignUp
+  },
+  {
+    path: '/log-in',
+    name: 'LogIn',
+    component: LogIn
+  },
+  {
+    path: '/about',
+    name: 'About',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/my-account',
+    name: 'MyAccount',
+    component: MyAccount,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/team',
+    name: 'Team',
+    component: Team,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/team/plans',
+    name: 'Plans',
+    component: Plans,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/team/plans/thankyou',
+    name: 'PlansThankyou',
+    component: PlansThankyou,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/edit-member/:id',
+    name: 'EditMember',
+    component: EditMember,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/team/add-member',
+    name: 'AddMember',
+    component: AddMember,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/add-team',
+    name: 'AddTeam',
+    component: AddTeam,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/leads',
+    name: 'Leads',
+    component: Leads,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/leads/add',
+    name: 'AddLead',
+    component: AddLead,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/leads/:id',
+    name: 'Lead',
+    component: Lead,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/leads/:id/edit',
+    name: 'EditLead',
+    component: EditLead,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/clients',
+    name: 'Clients',
+    component: Clients,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/clients/add',
+    name: 'AddClient',
+    component: AddClient,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/clients/:id',
+    name: 'Client',
+    component: Client,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/clients/:id/edit',
+    name: 'EditClient',
+    component: EditClient,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/clients/:id/add-note',
+    name: 'AddNote',
+    component: AddNote,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/dashboard/clients/:id/edit-note/:note_id',
+    name: 'EditNote',
+    component: EditNote,
+    meta: {
+      requireLogin: true
+    }
+  },
+]
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
+    next('/log-in')
+  } else {
+    next()
+  }
+})
+
+export default router
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\store\index.js
+import { createStore } from 'vuex'
+
+export default createStore({
+  state: {
+    isLoading: false,
+    isAuthenticated: false,
+    token: '',
+    user: {
+      id: 0,
+      username: ''
+    },
+    team: {
+      id: 0,
+      name: '',
+      plan: '',
+      max_leads: 0,
+      max_clients: 0
+    }
+  },
+  mutations: {
+    initializeStore(state) {
+      if (localStorage.getItem('token')) {
+        state.token = localStorage.getItem('token')
+        state.isAuthenticated = true
+        state.user.username = localStorage.getItem('username')
+        state.user.id = localStorage.getItem('userid')
+        state.team.name = localStorage.getItem('team_name')
+        state.team.id = localStorage.getItem('team_id')
+        state.team.plan = localStorage.getItem('team_plan')
+        state.team.max_leads = localStorage.getItem('team_max_leads')
+        state.team.max_clients = localStorage.getItem('team_max_clients')
+      } else {
+        state.token = ''
+        state.isAuthenticated = false
+        state.user.id = 0
+        state.user.username = ''
+        state.team.id = 0
+        state.team.name = ''
+        state.team.plan = ''
+        state.team.max_leads = 0
+        state.team.max_clients = 0
+      }
+    },
+    setIsLoading(state, status) {
+      state.isLoading = status
+    },
+    setToken(state, token) {
+      state.token = token
+      state.isAuthenticated = true
+    },
+    removeToken(state) {
+      state.token = ''
+      state.isAuthenticated = false
+    },
+    setUser(state, user) {
+      state.user = user
+    },
+    setTeam(state, team) {
+      state.team = team
+
+      localStorage.setItem('team_id', team.id)
+      localStorage.setItem('team_name', team.name)
+      localStorage.setItem('team_plan', team.plan)
+      localStorage.setItem('team_max_leads', team.max_leads)
+      localStorage.setItem('team_max_clients', team.max_clients)
+    }
+  },
+  actions: {
+  },
+  modules: {
+  }
+})
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\components\HelloWorld.vue
+<template>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <p>
+      For a guide and recipes on how to configure / customize this project,<br>
+      check out the
+      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+    </p>
+    <h3>Installed CLI Plugins</h3>
+    <ul>
+      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
+      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
+      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank" rel="noopener">vuex</a></li>
+    </ul>
+    <h3>Essential Links</h3>
+    <ul>
+      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
+      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
+      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
+      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
+    </ul>
+    <h3>Ecosystem</h3>
+    <ul>
+      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
+      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
+      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
+      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
+      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    msg: String
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\components\layout\Navbar.vue
+<template>
+    <nav class="navbar is-dark">
+        <div class="navbar-brand">
+            <router-link to="/" class="navbar-item">
+                <strong>Ganar CRM</strong>
+            </router-link>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <template v-if="$store.state.isAuthenticated">
+                    <router-link to="/dashboard/leads" class="navbar-item">Leads</router-link>
+                    <router-link to="/dashboard/clients" class="navbar-item">Clients</router-link>
+                    <router-link to="/dashboard/team" class="navbar-item">Team</router-link>
+                </template>
+    
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <template v-if="!$store.state.isAuthenticated">
+                            <router-link to="/sign-up" class="button is-success"><strong>Sign up</strong></router-link>
+                            <router-link to="/log-in" class="button is-light">Log in</router-link>
+                        </template>
+
+                        <template v-else>
+                            <router-link to="/dashboard/my-account" class="button is-info">My account</router-link>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</template>
+
+<script>
+    export default {
+        name: 'Navbar'
+    }
+</script>
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\About.vue
+<template>
+  <div class="about">
+    <h1>This is an about page</h1>
+  </div>
+</template>
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\Home.vue
+<template>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png">
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue'
+
+export default {
+  name: 'Home',
+  components: {
+    HelloWorld
+  }
+}
+</script>
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\LogIn.vue
+<template>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-4 is-offset-4">
+                <h1 class="title">Log in</h1>
+            
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Email</label>
+                        <div class="control">
+                            <input type="email" name="email" class="input" v-model="username">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Password</label>
+                        <div class="control">
+                            <input type="password" name="password" class="input" v-model="password">
+                        </div>
+                    </div>
+
+                    <div class="notification is-danger" v-if="errors.length">
+                        <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    export default {
+        name: 'LogIn',
+        data() {
+            return {
+                username: '',
+                password: '',
+                errors: []
+            }
+        },
+        methods: {
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                axios.defaults.headers.common['Authorization'] = ''
+                localStorage.removeItem('token')
+
+                const formData = {
+                    username: this.username,
+                    password: this.password
+                }
+
+                await axios
+                    .post('/api/v1/token/login/', formData)
+                    .then(response => {
+                        const token = response.data.auth_token
+
+                        this.$store.commit('setToken', token)
+
+                        axios.defaults.headers.common['Authorization'] = 'Token ' + token
+
+                        localStorage.setItem('token', token)
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            for (const property in error.response.data) {
+                                this.errors.push(`${property}: ${error.response.data[property]}`)
+                            }
+                        } else if (error.message) {
+                            this.errors.push('Something went wrong. Please try again!')
+                        }
+                    })
+
+                await axios
+                    .get('/api/v1/users/me')
+                    .then(response => {
+                        this.$store.commit('setUser', {'id': response.data.id, 'username': response.data.username})
+
+                        localStorage.setItem('username', response.data.username)
+                        localStorage.setItem('userid', response.data.id)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                await axios
+                    .get('/api/v1/teams/get_my_team/')
+                    .then(response => {
+                        console.log(response.data)
+
+                        this.$store.commit('setTeam', {
+                            'id': response.data.id, 
+                            'name': response.data.name,
+                            'plan': response.data.plan.name,
+                            'max_leads': response.data.plan.max_leads,
+                            'max_clients': response.data.plan.max_clients
+                        })
+
+                        this.$router.push('/dashboard/my-account')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+                
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\SignUp.vue
+<template>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-4 is-offset-4">
+                <h1 class="title">Sign up</h1>
+            
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Email</label>
+                        <div class="control">
+                            <input type="email" name="email" class="input" v-model="username">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Password</label>
+                        <div class="control">
+                            <input type="password" name="password1" class="input" v-model="password1">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Repeat password</label>
+                        <div class="control">
+                            <input type="password" name="password2" class="input" v-model="password2">
+                        </div>
+                    </div>
+
+                    <div class="notification is-danger" v-if="errors.length">
+                        <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import {toast} from 'bulma-toast'
+
+    export default {
+        name: 'SignUp',
+        data() {
+            return {
+                username: '',
+                password1: '',
+                password2: '',
+                errors: []
+            }
+        },
+        methods: {
+            async submitForm() {
+                this.errors = []
+
+                if (this.username === '') {
+                    this.errors.push('The username is missing')
+                }
+
+                if (this.password1 === '') {
+                    this.errors.push('The password is too short')
+                }
+
+                if (this.password1 !== this.password2) {
+                    this.errors.push('The password are not matching')
+                }
+
+                if (!this.errors.length) {
+                    this.$store.commit('setIsLoading', true)
+
+                    const formData = {
+                        username: this.username,
+                        password: this.password1
+                    }
+
+                    await axios
+                        .post('/api/v1/users/', formData)
+                        .then(response => {
+                            toast({
+                                message: 'Account was created, please log in',
+                                type: 'is-success',
+                                dismissible: true,
+                                pauseOnHover: true,
+                                duration: 2000,
+                                position: 'bottom-right',
+                            })
+
+                            this.$router.push('/log-in')
+                        })
+                        .catch(error => {
+                            if (error.response) {
+                                for (const property in error.response.data) {
+                                    this.errors.push(`${property}: ${error.response.data[property]}`)
+                                }
+                            } else if (error.message) {
+                                this.errors.push('Something went wrong. Please try again!')
+                            }
+                        })
+                    
+                    this.$store.commit('setIsLoading', false)
+                }
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\AddClient.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Add client</h1>
+            </div>
+
+            <div class="column is-12">
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Name</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="name">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Contact person</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="contact_person">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Email</label>
+                        <div class="control">
+                            <input type="email" class="input" v-model="email">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Phone</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="phone">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Website</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="website">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import { toast } from 'bulma-toast'
+
+    export default {
+        name: 'AddClient',
+        data() {
+            return {
+                name: '',
+                contact_person: '',
+                email: '',
+                phone: '',
+                estimated_value: 0,
+                website: ''
+            }
+        },
+        methods: {
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                const client = {
+                    name: this.name,
+                    contact_person: this.contact_person,
+                    email: this.email,
+                    phone: this.phone,
+                    website: this.website
+                }
+
+                await axios
+                    .post('/api/v1/clients/', client)
+                    .then(response => {
+                        toast({
+                            message: 'The client was added',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+
+                        this.$router.push('/dashboard/clients')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\AddLead.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Add lead</h1>
+            </div>
+
+            <div class="column is-12">
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Company</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="company">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Contact person</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="contact_person">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Email</label>
+                        <div class="control">
+                            <input type="email" class="input" v-model="email">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Phone</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="phone">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Website</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="website">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Confidence</label>
+                        <div class="control">
+                            <input type="number" class="input" v-model="confidence">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Estimated value</label>
+                        <div class="control">
+                            <input type="number" class="input" v-model="estimated_value">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Status</label>
+                        <div class="control">
+                            <div class="select">
+                                <select v-model="status">
+                                    <option value="new">New</option>
+                                    <option value="contacted">Contacted</option>
+                                    <option value="inprogress">In progress</option>
+                                    <option value="lost">Lost</option>
+                                    <option value="won">Won</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Priority</label>
+                        <div class="control">
+                            <div class="select">
+                                <select v-model="priority">
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import { toast } from 'bulma-toast'
+
+    export default {
+        name: 'AddLead',
+        data() {
+            return {
+                company: '',
+                contact_person: '',
+                email: '',
+                phone: '',
+                estimated_value: 0,
+                confidence: 0,
+                website: '',
+                status: 'new',
+                priority: 'medium'
+            }
+        },
+        methods: {
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                const lead = {
+                    company: this.company,
+                    contact_person: this.contact_person,
+                    email: this.email,
+                    phone: this.phone,
+                    website: this.website,
+                    estimated_value: this.estimated_value,
+                    confidence: this.confidence,
+                    status: this.status,
+                    priority: this.priority
+                }
+
+                await axios
+                    .post('/api/v1/leads/', lead)
+                    .then(response => {
+                        toast({
+                            message: 'The lead was added',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+
+                        this.$router.push('/dashboard/leads')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\AddMember.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Add member</h1>
+            </div>
+
+            <div class="column is-12">
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Email</label>
+                        <div class="control">
+                            <input type="email" name="email" class="input" v-model="username">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Password</label>
+                        <div class="control">
+                            <input type="password" name="password1" class="input" v-model="password1">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Repeat password</label>
+                        <div class="control">
+                            <input type="password" name="password2" class="input" v-model="password2">
+                        </div>
+                    </div>
+
+                    <div class="notification is-danger" v-if="errors.length">
+                        <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+import {toast} from 'bulma-toast'
+
+export default {
+    name: 'AddMember',
+    data() {
+        return {
+            username: '',
+            password1: '',
+            password2: '',
+            errors: []
+        }
+    },
+    methods: {
+        async submitForm() {
+            this.errors = []
+
+            if (this.username === '') {
+                this.errors.push('The username is missing')
+            }
+
+            if (this.password1 === '') {
+                this.errors.push('The password is too short')
+            }
+
+            if (this.password1 !== this.password2) {
+                this.errors.push('The password are not matching')
+            }
+
+            if (!this.errors.length) {
+                this.$store.commit('setIsLoading', true)
+
+                const formData = {
+                    username: this.username,
+                    password: this.password1
+                }
+
+                await axios
+                    .post('/api/v1/users/', formData)
+                    .then(response => {
+                        toast({
+                            message: 'The member was added',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+
+                        const emailData = {'email': this.username}
+
+                        axios
+                            .post('/api/v1/teams/add_member/', emailData)
+                            .then(response => {
+                                this.$router.push({'name': 'Team'})
+                            })
+                            .catch(error => {
+                                if (error.response) {
+                                    for (const property in error.response.data) {
+                                        this.errors.push(`${property}: ${error.response.data[property]}`)
+                                    }
+                                } else if (error.message) {
+                                    this.errors.push('Something went wrong. Please try again!')
+                                }
+                            })
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            for (const property in error.response.data) {
+                                this.errors.push(`${property}: ${error.response.data[property]}`)
+                            }
+                        } else if (error.message) {
+                            this.errors.push('Something went wrong. Please try again!')
+                        }
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\AddNote.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Add note</h1>
+            </div>
+
+            <div class="column is-12">
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Name</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="name">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Body</label>
+                        <div class="control">
+                            <textarea class="textarea" v-model="body"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import { toast } from 'bulma-toast'
+
+    export default {
+        name: 'AddNote',
+        data() {
+            return {
+                name: '',
+                body: ''
+            }
+        },
+        methods: {
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                const note = {
+                    name: this.name,
+                    body: this.body,
+                    client_id: this.$route.params.id
+                }
+
+                await axios
+                    .post('/api/v1/notes/', note)
+                    .then(response => {
+                        toast({
+                            message: 'The note was added',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+
+                        this.$router.push({ name: 'Client', params: { id: this.$route.params.id }})
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\AddTeam.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Add team</h1>
+            </div>
+
+            <div class="column is-12">
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Team name</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="name">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import { toast } from 'bulma-toast'
+
+    export default {
+        name: 'AddTeam',
+        data() {
+            return {
+                name: ''
+            }
+        },
+        methods: {
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                const team = {
+                    name: this.name
+                }
+
+                await axios
+                    .post('/api/v1/teams/', team)
+                    .then(response => {
+                        toast({
+                            message: 'The team was added',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+
+                        this.$store.commit('setTeam', {'id': response.data.id, 'name': this.name})
+
+                        this.$router.push('/dashboard')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\Client.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">{{ client.name }}</h1>
+
+                <div class="buttons">
+                    <router-link :to="{ name: 'EditClient', params: { id: client.id }}" class="button is-light">Edit</router-link>
+                    <button class="button is-danger" @click="deleteClient">Delete</button>
+                </div>
+            </div>
+
+            <div class="column is-6">
+                <div class="box">
+                    <h2 class="subtitle">Details</h2>
+
+                    <p><strong>Created at: </strong>{{ client.created_at }}</p>
+                    <p><strong>Modified at: </strong>{{ client.modified_at }}</p>
+                </div>
+            </div>
+
+            <div class="column is-6">
+                <div class="box">
+                    <h2 class="subtitle">Contact information</h2>
+
+                    <p><strong>Contact person: </strong>{{ client.contact_person }}</p>
+                    <p><strong>Email: </strong>{{ client.email }}</p>
+                    <p><strong>Phone: </strong>{{ client.phone }}</p>
+                    <p><strong>Website: </strong>{{ client.website }}</p>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="column is-12">
+                <h2 class="subtitle">Notes</h2>
+
+                <router-link :to="{ name: 'AddNote', params: { id: client.id }}" class="button is-success mb-6">Add note</router-link>
+            
+                <div
+                    class="box"
+                    v-for="note in notes"
+                    v-bind:key="note.id"
+                >
+                    <h3 class="is-size-4">{{ note.name }}</h3>
+
+                    <p>
+                        {{ note.body }}
+                    </p>
+
+                    <router-link :to="{ name: 'EditNote', params: { id: client.id, note_id: note.id }}" class="button is-success mt-6">Edit note</router-link>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    export default {
+        name: 'Client',
+        data() {
+            return {
+                client: {},
+                notes: []
+            }
+        },
+        mounted() {
+            this.getClient()
+        },
+        methods: {
+            async deleteClient() {
+                this.$store.commit('setIsLoading', true)
+
+                const clientID = this.$route.params.id
+
+                await axios
+                    .post(`/api/v1/clients/delete_client/${clientID}/`)
+                    .then(response => {
+                        console.log(response.data)
+
+                        this.$router.push('/dashboard/clients')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            },
+            async getClient() {
+                this.$store.commit('setIsLoading', true)
+
+                const clientID = this.$route.params.id
+
+                await axios
+                    .get(`/api/v1/clients/${clientID}/`)
+                    .then(response => {
+                        this.client = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                await axios
+                    .get(`/api/v1/notes/?client_id=${clientID}`)
+                    .then(response => {
+                        this.notes = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\Clients.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Clients</h1>
+
+                <router-link 
+                    to="/dashboard/clients/add"
+                    v-if="$store.state.team.max_clients > num_clients"
+                >Add client</router-link>
+
+                <div
+                    class="notification is-danger"
+                    v-else
+                >
+                    You have reached the top of your limitations. Please upgrade!
+                </div>
+
+                <hr>
+
+                <form @submit.prevent="getClients">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input type="text" class="input" v-model="query">
+                        </div>
+                        <div class="control">
+                            <button class="button is-success">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="column is-12">
+                <template v-if="clients.length">
+                    <table class="table is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Contact person</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr
+                                v-for="client in clients"
+                                v-bind:key="client.id"
+                            >
+                                    <td>{{ client.name }}</td>
+                                    <td>{{ client.contact_person }}</td>
+                                    <td>
+                                        <router-link :to="{ name: 'Client', params: { id: client.id }}">Details</router-link>
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="buttons">
+                        <button class="button is-light" @click="goToPreviousPage()" v-if="showPreviousButton">Previous</button>
+                        <button class="button is-light" @click="goToNextPage()" v-if="showNextButton">Next</button>
+                    </div>
+                </template>
+
+                <template v-else>
+                    <p>You don't have any clients yet...</p>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    export default {
+        name: 'Clents',
+        data() {
+            return {
+                clients: [],
+                showNextButton: false,
+                showPreviousButton: false,
+                currentPage: 1,
+                query: '',
+                num_clients: 0
+            }
+        },
+        mounted() {
+            this.getClients()
+        },
+        methods: {
+            goToNextPage() {
+                this.currentPage += 1
+                this.getClients()
+            },
+            goToPreviousPage() {
+                this.currentPage -= 1
+                this.getClients()
+            },
+            async getClients() {
+                this.$store.commit('setIsLoading', true)
+
+                this.showNextButton = false
+                this.showPreviousButton = false
+
+                await axios
+                    .get(`/api/v1/clients/`)
+                    .then(response => {
+                        this.num_clients = response.data.count
+                    })
+
+                await axios
+                    .get(`/api/v1/clients/?page=${this.currentPage}&search=${this.query}`)
+                    .then(response => {
+                        this.clients = response.data.results
+
+                        if (response.data.next) {
+                            this.showNextButton = true
+                        }
+
+                        if (response.data.previous) {
+                            this.showPreviousButton = true
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\Dashboard.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Dashboard</h1>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'Dashboard'
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\EditClient.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Edit {{ client.name }}</h1>
+            </div>
+
+            <div class="column is-12">
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Name</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="client.name">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Contact person</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="client.contact_person">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Email</label>
+                        <div class="control">
+                            <input type="email" class="input" v-model="client.email">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Phone</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="client.phone">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Website</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="client.website">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import { toast } from 'bulma-toast'
+
+    export default {
+        name: 'EditClient',
+        data() {
+            return {
+                client: {}
+            }
+        },
+        mounted() {
+            this.getClient()
+        },
+        methods: {
+            async getClient() {
+                this.$store.commit('setIsLoading', true)
+
+                const clientID = this.$route.params.id
+
+                axios
+                    .get(`/api/v1/clients/${clientID}/`)
+                    .then(response => {
+                        this.client = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            },
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                const clientID = this.$route.params.id
+
+                axios
+                    .patch(`/api/v1/clients/${clientID}/`, this.client)
+                    .then(response => {
+                        toast({
+                            message: 'The lead was updated',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+
+                        this.$router.push(`/dashboard/clients/${clientID}`)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\EditLead.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Edit {{ lead.company }}</h1>
+            </div>
+
+            <div class="column is-12">
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Company</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="lead.company">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Contact person</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="lead.contact_person">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Email</label>
+                        <div class="control">
+                            <input type="email" class="input" v-model="lead.email">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Phone</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="lead.phone">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Website</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="lead.website">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Confidence</label>
+                        <div class="control">
+                            <input type="number" class="input" v-model="lead.confidence">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Estimated value</label>
+                        <div class="control">
+                            <input type="number" class="input" v-model="lead.estimated_value">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Status</label>
+                        <div class="control">
+                            <div class="select">
+                                <select v-model="lead.status">
+                                    <option value="new">New</option>
+                                    <option value="contacted">Contacted</option>
+                                    <option value="inprogress">In progress</option>
+                                    <option value="lost">Lost</option>
+                                    <option value="won">Won</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Priority</label>
+                        <div class="control">
+                            <div class="select">
+                                <select v-model="lead.priority">
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Assigned to</label>
+                        <div class="control">
+                            <div class="select">
+                                <select v-model="lead.assigned_to">
+                                    <option value="" selected>Select member</option>
+                                    <option
+                                        v-for="member in team.members"
+                                        v-bind:key="member.id"
+                                        v-bind:value="member.id"
+                                    >
+                                        {{ member.username }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import { toast } from 'bulma-toast'
+
+    export default {
+        name: 'EditLead',
+        data() {
+            return {
+                lead: {},
+                team: {
+                    members: []
+                }
+            }
+        },
+        mounted() {
+            this.getLead()
+            this.getTeam()
+        },
+        methods: {
+            async getLead() {
+                this.$store.commit('setIsLoading', true)
+
+                const leadID = this.$route.params.id
+
+                axios
+                    .get(`/api/v1/leads/${leadID}/`)
+                    .then(response => {
+                        this.lead = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            },
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                const leadID = this.$route.params.id
+
+                axios
+                    .patch(`/api/v1/leads/${leadID}/`, this.lead)
+                    .then(response => {
+                        toast({
+                            message: 'The lead was updated',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+
+                        this.$router.push(`/dashboard/leads/${leadID}`)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            },
+            async getTeam() {
+                this.$store.commit('setIsLoading', true)
+
+                await axios
+                    .get('/api/v1/teams/get_my_team/')
+                    .then(response => {
+                        this.team = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+                
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\EditMember.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Edit member</h1>
+            </div>
+
+            <div class="column is-12">
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>First name</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="user.first_name">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Last name</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="user.last_name">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import { toast } from 'bulma-toast'
+
+    export default {
+        name: 'EditMember',
+        data() {
+            return {
+                user: {}
+            }
+        },
+        mounted() {
+            this.getUser()
+        },
+        methods: {
+            async getUser() {
+                this.$store.commit('setIsLoading', true)
+
+                const userID = this.$route.params.id
+
+                await axios
+                    .get(`/api/v1/teams/member/${userID}/`)
+                    .then(response => {
+                        this.user = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            },
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                const userID = this.$route.params.id
+
+                await axios
+                    .put(`/api/v1/teams/member/${userID}/`, this.user)
+                    .then(response => {
+                        toast({
+                            message: 'The user was updated',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+
+                        this.$router.push({ name: 'MyAccount' })
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\EditNote.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Edit note</h1>
+            </div>
+
+            <div class="column is-12">
+                <form @submit.prevent="submitForm">
+                    <div class="field">
+                        <label>Name</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="note.name">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Body</label>
+                        <div class="control">
+                            <textarea class="textarea" v-model="note.body"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    import { toast } from 'bulma-toast'
+
+    export default {
+        name: 'EditNote',
+        data() {
+            return {
+                note: {}
+            }
+        },
+        mounted() {
+            this.getNote()
+        },
+        methods: {
+            async getNote() {
+                this.$store.commit('setIsLoading', true)
+
+                const noteID = this.$route.params.note_id
+                const clientID = this.$route.params.id
+
+                await axios
+                    .get(`/api/v1/notes/${noteID}/?client_id=${clientID}`)
+                    .then(response => {
+                        this.note = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            },
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                const clientID = this.$route.params.id
+
+                await axios
+                    .patch(`/api/v1/notes/${this.note.id}/?client_id=${clientID}`, this.note)
+                    .then(response => {
+                        toast({
+                            message: 'The note was updated',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+
+                        this.$router.push({ name: 'Client', params: { id: this.$route.params.id }})
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\Lead.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">{{ lead.company }}</h1>
+
+                <div class="buttons">
+                    <router-link :to="{ name: 'EditLead', params: { id: lead.id }}" class="button is-light">Edit</router-link>
+                    <button @click="convertToClient" class="button is-info">Convert to client</button>
+                    <button @click="deleteLead" class="button is-danger">Delete</button>
+                </div>
+            </div>
+
+            <div class="column is-6">
+                <div class="box">
+                    <h2 class="subtitle">Details</h2>
+
+                    <template v-if="lead.assigned_to">
+                        <p><strong>Assigned to: </strong>{{ lead.assigned_to.first_name }} {{ lead.assigned_to.last_name }}</p>
+                    </template>
+                    <p><strong>Status: </strong>{{ lead.status }}</p>
+                    <p><strong>Priority: </strong>{{ lead.priority }}</p>
+                    <p><strong>Confidence: </strong>{{ lead.confidence }}</p>
+                    <p><strong>Estimated value: </strong>{{ lead.estimated_value }}</p>
+                    <p><strong>Created at: </strong>{{ lead.created_at }}</p>
+                    <p><strong>Modified at: </strong>{{ lead.modified_at }}</p>
+                </div>
+            </div>
+
+            <div class="column is-6">
+                <div class="box">
+                    <h2 class="subtitle">Contact information</h2>
+
+                    <p><strong>Contact person: </strong>{{ lead.contact_person }}</p>
+                    <p><strong>Email: </strong>{{ lead.email }}</p>
+                    <p><strong>Phone: </strong>{{ lead.phone }}</p>
+                    <p><strong>Website: </strong>{{ lead.website }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    export default {
+        name: 'Lead',
+        data() {
+            return {
+                lead: {}
+            }
+        },
+        mounted() {
+            this.getLead()
+        },
+        methods: {
+            async deleteLead() {
+                this.$store.commit('setIsLoading', true)
+
+                const leadID = this.$route.params.id
+
+                await axios
+                    .post(`/api/v1/leads/delete_lead/${leadID}/`)
+                    .then(response => {
+                        console.log(response.data)
+
+                        this.$router.push('/dashboard/leads')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            },
+            async getLead() {
+                this.$store.commit('setIsLoading', true)
+
+                const leadID = this.$route.params.id
+
+                await axios
+                    .get(`/api/v1/leads/${leadID}/`)
+                    .then(response => {
+                        this.lead = response.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            },
+            async convertToClient() {
+                this.$store.commit('setIsLoading', true)
+
+                const leadID = this.$route.params.id
+                const data = {
+                    lead_id: leadID
+                }
+
+                await axios
+                    .post(`/api/v1/convert_lead_to_client/`, data)
+                    .then(response => {
+                        console.log('converted to client')
+
+                        this.$router.push('/dashboard/clients')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\Leads.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Leads</h1>
+
+                <router-link 
+                    to="/dashboard/leads/add"
+                    v-if="$store.state.team.max_leads > num_leads"
+                >Add lead</router-link>
+
+                <div
+                    class="notification is-danger"
+                    v-else
+                >
+                    You have reached the top of your limitations. Please upgrade!
+                </div>
+
+                <hr>
+
+                <form @submit.prevent="getLeads">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input type="text" class="input" v-model="query">
+                        </div>
+                        <div class="control">
+                            <button class="button is-success">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="column is-12">
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Contact person</th>
+                            <th>Assigned to</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr
+                            v-for="lead in leads"
+                            v-bind:key="lead.id">
+                                <td>{{ lead.company }}</td>
+                                <td>{{ lead.contact_person }}</td>
+                                <td>
+                                    <template v-if="lead.assigned_to">{{ lead.assigned_to.first_name }} {{ lead.assigned_to.last_name }}</template>
+                                </td>
+                                <td>{{ lead.status }}</td>
+                                <td>
+                                    <router-link :to="{ name: 'Lead', params: { id: lead.id }}">Details</router-link>
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="buttons">
+                    <button class="button is-light" @click="goToPreviousPage()" v-if="showPreviousButton">Previous</button>
+                    <button class="button is-light" @click="goToNextPage()" v-if="showNextButton">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    export default {
+        name: 'Leads',
+        data() {
+            return {
+                leads: [],
+                showNextButton: false,
+                showPreviousButton: false,
+                currentPage: 1,
+                query: '',
+                num_leads: 0
+            }
+        },
+        mounted() {
+            this.getLeads()
+        },
+        methods: {
+            goToNextPage() {
+                this.currentPage += 1
+                this.getLeads()
+            },
+            goToPreviousPage() {
+                this.currentPage -= 1
+                this.getLeads()
+            },
+            async getLeads() {
+                this.$store.commit('setIsLoading', true)
+
+                this.showNextButton = false
+                this.showPreviousButton = false
+
+                await axios
+                    .get(`/api/v1/leads/`)
+                    .then(response => {
+                        console.log(response.data)
+                        this.num_leads = response.data.count
+                    })
+
+                await axios
+                    .get(`/api/v1/leads/?page=${this.currentPage}&search=${this.query}`)
+                    .then(response => {
+                        this.leads = response.data.results
+
+                        if (response.data.next) {
+                            this.showNextButton = true
+                        }
+
+                        if (response.data.previous) {
+                            this.showPreviousButton = true
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\MyAccount.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">My account</h1>
+            </div>
+
+            <div class="column is-12">
+                <div class="buttons">
+                    <router-link :to="{ name: 'EditMember', params: { id: $store.state.user.id }}" class="button is-light">Edit</router-link>
+
+                    <button @click="logout()" class="button is-danger">Log out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+
+    export default {
+        name: 'MyAccount',
+        methods: {
+            async logout() {
+                await axios
+                    .post('/api/v1/token/logout/')
+                    .then(response => {
+                        console.log('Logged out')
+                    })
+                    .catch(error => {
+                        console.log(JSON.stringify(error))
+                    })
+                
+                axios.defaults.headers.common['Authorization'] = ''
+                localStorage.removeItem('token')
+                localStorage.removeItem('username')
+                localStorage.removeItem('userid')
+                localStorage.removeItem('team_name')
+                localStorage.removeItem('team_id')
+                this.$store.commit('removeToken')
+
+                this.$router.push('/')
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\Plans.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Plans</h1>
+            </div>
+
+            <div class="column is-4">
+                <div class="box">
+                    <h2 class="subtitle">Free</h2>
+                    <h4 class="is-size-3">$0</h4>
+
+                    <p>Max 5 clients</p>
+                    <p>Max 5 leads</p>
+
+                    <button @click="subscribe('free')" class="button is-primary">Subscribe</button>
+                </div>
+            </div>
+
+            <div class="column is-4">
+                <div class="box">
+                    <h2 class="subtitle">Small team</h2>
+                    <h4 class="is-size-3">$10</h4>
+
+                    <p>Max 15 clients</p>
+                    <p>Max 15 leads</p>
+
+                    <button @click="subscribe('smallteam')" class="button is-primary">Subscribe</button>
+                </div>
+            </div>
+
+            <div class="column is-4">
+                <div class="box">
+                    <h2 class="subtitle">Big team</h2>
+                    <h4 class="is-size-3">$25</h4>
+
+                    <p>Max 50 clients</p>
+                    <p>Max 50 leads</p>
+
+                    <button @click="subscribe('bigteam')" class="button is-primary">Subscribe</button>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="column is-12">
+                <button @click="cancelPlan()" class="button is-danger">Cancel plan</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+import { toast } from 'bulma-toast'
+
+export default {
+    name: 'Plans',
+    data() {
+        return {
+            pub_key: '',
+            stripe: null
+        }
+    },
+    async mounted() {
+        await this.getPubKey()
+        
+        this.stripe = Stripe(this.pub_key)
+    },
+    methods: {
+        async getPubKey() {
+            this.$store.commit('setIsLoading', true)
+
+            await axios
+                .get(`/api/v1/stripe/get_stripe_pub_key/`)
+                .then(response => {
+                    this.pub_key = response.data.pub_key
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+            this.$store.commit('setIsLoading', false)
+        },
+        async cancelPlan() {
+            this.$store.commit('setIsLoading', true)
+
+            axios
+                .post('/api/v1/teams/cancel_plan/')
+                .then(response => {
+                    this.$store.commit('setTeam', {
+                        'id': response.data.id, 
+                        'name': response.data.name,
+                        'plan': response.data.plan.name,
+                        'max_leads': response.data.plan.max_leads,
+                        'max_clients': response.data.plan.max_clients
+                    })
+
+                    toast({
+                        message: 'The plan was cancelled!',
+                        type: 'is-success',
+                        dismissible: true,
+                        pauseOnHover: true,
+                        duration: 2000,
+                        position: 'bottom-right',
+                    })
+
+                    this.$router.push('/dashboard/team')
+                })
+
+            this.$store.commit('setIsLoading', false)
+        },
+        async subscribe(plan) {
+            this.$store.commit('setIsLoading', true)
+
+            const data = {
+                plan: plan
+            }
+
+            axios
+                .post('/api/v1/stripe/create_checkout_session/', data)
+                .then(response => {
+                    console.log(response)
+
+                    return this.stripe.redirectToCheckout({sessionId: response.data.sessionId})
+                })
+                .catch(error => {
+                    console.log('Error:', error)
+                })
+
+            /*await axios
+                .post(`/api/v1/teams/upgrade_plan/`, data)
+                .then(response => {
+                    console.log('Upgraded plan')
+
+                    console.log(response.data)
+
+                    this.$store.commit('setTeam', {
+                        'id': response.data.id, 
+                        'name': response.data.name,
+                        'plan': response.data.plan.name,
+                        'max_leads': response.data.plan.max_leads,
+                        'max_clients': response.data.plan.max_clients
+                    })
+
+                    toast({
+                        message: 'The plan was changed!',
+                        type: 'is-success',
+                        dismissible: true,
+                        pauseOnHover: true,
+                        duration: 2000,
+                        position: 'bottom-right',
+                    })
+
+                    this.$router.push('/dashboard/team')
+                })
+                .catch(error => {
+                    console.log(error)
+                })*/
+
+            this.$store.commit('setIsLoading', false)
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\PlansThankyou.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Thank you</h1>
+            </div>
+
+            <div class="column is-4">
+                <p>Thank you for subscribing to a plan!</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+import { toast } from 'bulma-toast'
+
+export default {
+    name: 'PlansThankyou',
+    data() {
+        return {
+        }
+    },
+    mounted() {
+        axios
+            .post('/api/v1/stripe/check_session/', {
+                'session_id': this.$route.query.session_id
+            })
+            .then(response => {
+                console.log(response)
+
+                toast({
+                    message: 'The plan was changed!',
+                    type: 'is-success',
+                    dismissible: true,
+                    pauseOnHover: true,
+                    duration: 2000,
+                    position: 'bottom-right',
+                })
+
+                this.$store.commit('setTeam', {
+                    'id': response.data.id, 
+                    'name': response.data.name,
+                    'plan': response.data.plan.name,
+                    'max_leads': response.data.plan.max_leads,
+                    'max_clients': response.data.plan.max_clients
+                })
+            })
+            .catch(error => {
+                toast({
+                    message: 'Something went wrong...',
+                    type: 'is-error',
+                    dismissible: true,
+                    pauseOnHover: true,
+                    duration: 2000,
+                    position: 'bottom-right',
+                })
+
+                console.log('Error', error)
+            })
+    },
+}
+</script>
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_vue\src\views\dashboard\Team.vue
+<template>
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">{{ team.name }}</h1>
+
+                <hr>
+
+                <p><strong>Plan: </strong>{{ $store.state.team.plan }}</p>
+                <p><strong>Max clients: </strong>{{ $store.state.team.max_clients }}</p>
+                <p><strong>Max leads: </strong>{{ $store.state.team.max_leads }}</p>
+                <p v-if="$store.state.team.plan !== 'Free'"><strong>Plan end date: </strong>{{ team.plan_end_date }}</p>
+
+                <p>
+                    <router-link :to="{'name': 'Plans'}">Change plan</router-link>
+                </p>
+
+                <hr>
+
+                <template v-if="team.created_by.id === parseInt($store.state.user.id)">
+                    <router-link :to="{'name': 'AddMember'}" class="button is-primary">Add member</router-link>
+                </template>
+            </div>
+
+            <div class="column is-12">
+                <h2 class="subtitle">Members</h2>
+
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Full name</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr
+                            v-for="member in team.members"
+                            v-bind:key="member.id"
+                        >
+                            <td>{{ member.username }}</td>
+                            <td>{{ member.first_name }} {{ member.last_name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+    name: 'Team',
+    data() {
+        return {
+            team: {
+                members: [],
+                created_by: {}
+            }
+        }
+    },
+    mounted() {
+        this.getTeam()
+    },
+    methods: {
+        async getTeam() {
+            this.$store.commit('setIsLoading', true)
+
+            await axios
+                .get('/api/v1/teams/get_my_team/')
+                .then(response => {
+                    this.team = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            
+            this.$store.commit('setIsLoading', false)
+        }
+    }
+}
+</script>
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################

@@ -1,0 +1,30 @@
+--% index/fmus
+__PWD,d
+	?pick
+		$* npm i -D tailwindcss postcss autoprefixer
+		$* yarn add --dev tailwindcss postcss autoprefixer
+		$* pnpm add --dev tailwindcss postcss autoprefixer
+		styles,d(/mk)
+			globals.css,f(t=)
+		/file>I/0/__FILE__=tailwind-directives|styles/globals.css
+		tailwind.config.js,f(e=__FILE__=tailwind-config)
+--#
+
+--% tailwind-directives
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+--#
+
+--% tailwind-config
+module.exports = {
+	content: [
+		"./pages/**/*.{js,ts,jsx,tsx}",
+		"./components/**/*.{js,ts,jsx,tsx}",
+	],
+	theme: {
+		extend: {},
+	},
+	plugins: [],
+}
+--#

@@ -1,0 +1,42 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    info.txt,f(e=__FILE__=info.txt)
+    $* more info.txt
+    $* go run main.go
+--#
+
+--% main.go
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"net/http"
+)
+
+func main() {
+	newMux := http.NewServeMux()
+
+	newMux.HandleFunc("/float", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, rand.Float64())
+	})
+
+	newMux.HandleFunc("/int", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, rand.Intn(100))
+	})
+	http.ListenAndServe(":8000", newMux)
+}
+--#
+
+--% info.txt
+localhost:8000/int
+localhost:8000/float
+--#

@@ -1,0 +1,96 @@
+# TDD in Spring: Examples
+TDD in Spring/SpringMVC: show me some examples
+
+ChatGPT
+Certainly! I'll provide you with a couple of examples demonstrating Test-Driven Development (TDD) in Spring and Spring MVC. TDD follows a cycle of writing tests first, then implementing the code to make those tests pass, and finally refactoring the code as needed.
+
+Example 1: Testing a Spring MVC Controller
+
+Let's say we have a simple Spring MVC controller that handles user registration. Here's an example of a test class for that controller:
+
+java
+Copy code
+@RunWith(MockitoJUnitRunner.class)
+public class RegistrationControllerTest {
+
+    @InjectMocks
+    private RegistrationController registrationController;
+
+    @Mock
+    private UserService userService;
+
+    private MockMvc mockMvc;
+
+    @Before
+    public void setup() {
+        mockMvc = MockMvcBuilders.standaloneSetup(registrationController).build();
+    }
+
+    @Test
+    public void testRegistrationForm() throws Exception {
+        mockMvc.perform(get("/register"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("registrationForm"))
+                .andExpect(model().attributeExists("user"));
+    }
+
+    @Test
+    public void testSubmitRegistrationForm() throws Exception {
+        mockMvc.perform(post("/register")
+                .param("username", "john")
+                .param("password", "secret"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("registrationSuccess"));
+        
+        verify(userService).registerUser("john", "secret");
+    }
+}
+In the above example, we're using the MockMvc class from Spring Test to simulate HTTP requests and verify the responses. We're testing two scenarios: accessing the registration form (testRegistrationForm) and submitting the registration form (testSubmitRegistrationForm). We're also using Mockito to mock the UserService dependency and verify that the registerUser method is called with the correct parameters.
+
+Example 2: Testing a Spring Service
+
+Let's assume we have a service class responsible for user authentication. Here's an example of a test class for that service:
+
+java
+Copy code
+@RunWith(MockitoJUnitRunner.class)
+public class AuthenticationServiceTest {
+
+    @InjectMocks
+    private AuthenticationService authenticationService;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Test
+    public void testAuthenticateUser_Successful() {
+        // Arrange
+        String username = "john";
+        String password = "secret";
+        User user = new User(username, password);
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+
+        // Act
+        boolean result = authenticationService.authenticateUser(username, password);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    public void testAuthenticateUser_Failure() {
+        // Arrange
+        String username = "john";
+        String password = "wrong";
+        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+
+        // Act
+        boolean result = authenticationService.authenticateUser(username, password);
+
+        // Assert
+        assertFalse(result);
+    }
+}
+In this example, we're testing the authenticateUser method of the AuthenticationService class. We use Mockito to mock the UserRepository dependency and define the expected behavior for the findByUsername method. We then test two scenarios: successful authentication and authentication failure.
+
+These examples demonstrate how to apply TDD principles when testing Spring and Spring MVC components. By writing the tests first, you can ensure that your code is reliable, maintainable, and has good test coverage.

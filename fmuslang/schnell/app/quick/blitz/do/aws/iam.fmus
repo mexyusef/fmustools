@@ -1,0 +1,181 @@
+--% index/fmus
+__PWD,d
+	README.md,f(e=__FILE__=README.md)
+	iam-user-with-programmatic-access-key.py,f(e=__FILE__=iam-user-with-programmatic-access-key.py)
+	automate-snapshots-for-ebs-volumes-using-resource-object.py,f(e=__FILE__=automate-snapshots-for-ebs-volumes-using-resource-object.py)
+	boto3-client-object.py,f(e=__FILE__=boto3-client-object.py)
+	boto3-resource-object.py,f(e=__FILE__=boto3-resource-object.py)
+	sts-get-aws-account-id.py,f(e=__FILE__=sts-get-aws-account-id.py)
+--#
+
+--% README.md
+Location of all python boto3 scripts for this course
+You will get all python boto3 scripts for this course from my Github link.
+https://github.com/AutomationWithScripting/UdemyBoto3Scripts
+
+1)
+Get All Groups Info
+Write a Python boto3 script to get info about all groups present in your aws account ?
+
+2) create an iam uesr with programmatic access key and aws management console login access
+
+3) create multiple iam users using python boto3
+
+Take list of iam users in a csv file like
+
+S_NO, IAM_User_Name,Programatic_Access,Console_Access,PolicyARN
+
+1,XYZ, Yes,No,arn:aws:iam::aws:policy/AdministratorAccess
+
+2.pqr,Yes,Yes,arn:aws:iam::aws:policy/AdministratorAccess
+
+3.abc,No,Yes,arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess
+
+4) iam users inventory script
+
+Write a Python boto3 script to export IAM User Details into a csv file.
+
+CSV file content is like IAM User Name, User Id, User ARN, User Creation Date, Attached Policies and Groups associated for IAM Users
+
+--#
+
+--% iam-user-with-programmatic-access-key.py
+import boto3
+from random import choice
+import sys
+
+
+def get_iam_client_object():
+    session=boto3.session.Session(profile_name="dev_root")                                                                
+    iam_client=session.client(service_name="iam",region_name="us-east-1")
+    return iam_client
+
+def main():
+   iam_client=get_iam_client_object()
+   Iam_user_name="dowithpython@gmail.com"
+
+   PolicyArn="arn:aws:iam::aws:policy/AdministratorAccess"
+   try:
+      iam_client.create_user(UserName=Iam_user_name)
+   except Exception as e:
+      if e.response['Error']['Code']=="EntityAlreadyExists":
+          print "Already Iam User with {} is exist".format(Iam_user_name)
+          sys.exit(0)
+      else:
+         print "Please verify the following error and retry"
+         print e
+         sys.exit(0)
+   response = iam_client.create_access_key(UserName=Iam_user_name)
+   print "IAM User Name={}".format(Iam_user_name)
+   print "AccessKeyId={}\nSecretAccessKey={}".format(response['AccessKey']['AccessKeyId'],response['AccessKey']['SecretAcc
+essKey'])
+
+   iam_client.attach_user_policy(UserName=Iam_user_name,PolicyArn=PolicyArn)
+   return None
+
+if __name__=="__main__":
+    main()
+
+--#
+
+--% automate-snapshots-for-ebs-volumes-using-resource-object.py
+# aws automation with boto3 and lambda functions
+import boto3
+from pprint import pprint
+
+session=boto3.session.Session(profile_name="dev_root")
+ec2_re=session.resource(service_name="ec2",region_name="us-east-1")
+vol_ids=[]
+#colleting volume Ids
+for each_vol in ec2_re.volumes.filter(Filters=[]):
+     #print each_vol.id
+     vol_ids.append(each_vol.id)
+
+print 'All volume ids are: ',vol_ids
+
+#Creating snapshots for volumes one by one
+snap_ids=[]
+for each_vo_id in vol_ids:
+   response= ec2_re.create_snapshot(
+    Description='Snap with Lambda',
+    VolumeId=each_vo_id,
+    TagSpecifications=[
+           {
+            'ResourceType': 'snapshot',
+             'Tags': [
+                {
+                    'Key': 'Delete-on',
+                    'Value':'90'
+                 }
+                      ]
+          }
+       ]
+     )
+   snap_ids.append(response.id)
+
+print snap_ids
+#Creating waiter using client
+ec2_cli=session.client(service_name="ec2",region_name="us-east-1")
+waiter = ec2_cli.get_waiter('snapshot_completed')
+waiter.wait(SnapshotIds=snap_ids)
+--#
+
+--% boto3-client-object.py
+import boto3
+aws_mag_con=boto3.session.Session(profile_name="root")
+#iam,ec2 and s3
+iam_con_cli=aws_mag_con.client(service_name="iam",region_name="us-east-1")
+ec2_con_cli=aws_mag_con.client(service_name="ec2",region_name="us-east-1")
+s3_con_cli=aws_mag_con.client(service_name="s3",region_name="us-east-1")
+'''
+#List all iam users using client object
+response=iam_con_cli.list_users()
+for each_item in response['Users']:
+    print(each_item['UserName'])
+'''
+
+'''
+#List all ec2 instaces ids
+response=ec2_con_cli.describe_instances()
+for each_item in response['Reservations']:
+	for each_instance in each_item['Instances']:
+		print(each_instance['InstanceId'])
+'''
+#List all s3 buckets
+response=s3_con_cli.list_buckets()
+for each_item in response['Buckets']:
+	print(each_item['Name'])
+	#print(each_item.get('Name'))
+--#
+
+--% boto3-resource-object.py
+import boto3
+
+aws_mag_con=boto3.session.Session(profile_name="root")
+iam_con_re=aws_mag_con.resource(service_name="iam",region_name="us-east-1")
+ec2_con_re=aws_mag_con.resource(service_name="ec2",region_name="us-east-1")
+s3_con_re=aws_mag_con.resource(service_name="s3",region_name="us-east-1")
+
+'''
+#List all iam users 
+for each_item in iam_con_re.users.all():
+	print(each_item.user_name)
+'''
+
+for each_item in s3_con_re.buckets.limit(10):
+	print(each_item.name)
+--#
+
+--% sts-get-aws-account-id.py
+import boto3
+
+aws_mag_con_root=boto3.session.Session(profile_name="root")
+sts_con_cli=aws_mag_con_root.client(service_name="sts",region_name="us-east-1")
+response=sts_con_cli.get_caller_identity()
+print(response.get('Account'))
+
+aws_mag_con_ec2_dev=boto3.session.Session(profile_name="ec2_developer")
+sts_con_cli=aws_mag_con_ec2_dev.client(service_name="sts",region_name="us-east-1")
+response=sts_con_cli.get_caller_identity()
+print(response['Account'])
+--#

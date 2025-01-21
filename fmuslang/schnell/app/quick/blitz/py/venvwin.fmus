@@ -1,0 +1,9 @@
+--% index/fmus
+__PWD,d
+    %__TEMPLATE_NAMA_VENV_FOLDER=__INPUT__
+    $* virtualenv __TEMPLATE_NAMA_VENV_FOLDER
+    @ jalankan ini (krn gak bisa dari script): __TEMPLATE_NAMA_VENV_FOLDER\Scripts\activate*
+    @ panggil exit stlh deactivate, krn kita gunakan inner/double cmd/shell*
+    $* cmd /k __TEMPLATE_NAMA_VENV_FOLDER\Scripts\activate
+    @selesai venv play*
+--#

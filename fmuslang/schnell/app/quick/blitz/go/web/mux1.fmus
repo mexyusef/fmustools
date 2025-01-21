@@ -1,0 +1,55 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    info.txt,f(e=__FILE__=info.txt)
+    $* more info.txt
+    $* go run main.go
+--#
+
+--% main.go
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"time"
+
+	"github.com/gorilla/mux"
+)
+
+func ArticleHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Category is: %v\n", vars["category"])
+	fmt.Fprintf(w, "ID is: %v\n", vars["id"])
+}
+
+func main() {
+	r := mux.NewRouter()
+	r.HandleFunc("/articles/{category}/{id:[0-9]+}", ArticleHandler)
+	srv := &http.Server{
+		Handler:      r,
+		Addr:         "127.0.0.1:8000",
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
+	}
+	log.Fatal(srv.ListenAndServe())
+}
+--#
+
+--% info.txt
+localhost:8000/articles/politics/1
+    Category is: politics
+    ID is: 1
+localhost:8000/articles/techs/42
+    Category is: techs
+    ID is: 42
+--#

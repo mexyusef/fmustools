@@ -1,0 +1,556 @@
+http://localhost:5173/#/login
+http://localhost:8000/
+**************
+vite.config.js
+**************
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import * as path from 'path';
+
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+  },
+});
+
+**************
+tailwind.config.js
+**************
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+**************
+postcss.config.cjs
+**************
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+**************
+package.json
+**************
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "@splidejs/react-splide": "^0.7.12",
+    "@tanstack/react-query": "^4.20.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.6.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@vitejs/plugin-react": "^3.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4",
+    "vite": "^4.0.0"
+  }
+}
+**************
+index.html
+**************
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+**************
+main.jsx
+**************
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import '@splidejs/react-splide/css/skyblue';
+import './styles/index.css'
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+
+**************
+App.jsx
+**************
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+//
+import { Home } from "@/pages/Home";
+import { ProductDetail } from '@/pages/Product';
+import { Login } from "@/pages/Login";
+
+//
+import { Layout } from "@/components/Layout";
+
+
+const queryClient = new QueryClient();
+
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <HashRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />}/>
+            <Route path="/product/:id" element={ <ProductDetail /> } />
+            <Route path="/login" element={<Login />}/>
+          </Routes>
+        </Layout>
+      </HashRouter>
+    </QueryClientProvider>
+  )
+}
+
+export default App
+**************
+Home
+**************
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { useQuery } from "@tanstack/react-query";
+import { productsService } from "@/services/products.service";
+import { ProductCard } from '@/components/Products/ProductCard';
+--------------------------------- ProductCard
+import { Link } from "react-router-dom";
+
+export const ProductCard = ({_id, name, description}) => {
+    return(
+        <Link to={`/product/${_id}`}>
+        <article className="w-80 h-72 shadow-xl rounded-xl">
+            <div className="w-full h-[60%] overflow-hidden rounded-t-xl">
+                <img
+                    src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80"
+                    className="w-full h-full object-cover"
+                />
+            </div>
+            <div className="px-4 py-2">
+                <p className="font-bold capitalize">{name}</p>
+                <p>
+                    {description}
+                </p>
+            </div>
+        </article>
+        </Link>
+    )
+}
+---------------------------------
+
+export const Home = () => {
+    const { loading, data: products } = useQuery({
+        queryKey: ["products-home"],
+        queryFn: productsService.getProducts,
+    });
+
+    return (
+        <>
+        <section className="container">
+            <div className="flex flex-wrap gap-5 justify-center py-12">
+            {products?.map(product =>(
+                <ProductCard {...product} key={product.id}/>
+            ))}
+            </div>
+        </section>
+        </>
+    )
+}
+**************
+ProductDetail
+**************
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { productsService } from "@/services/products.service";
+--------------------------------- productsService 
+export const API_URL = import.meta.env.VITE_API_URL || "";
+
+import { API_URL } from "@/api";
+
+export class ProductsService {
+    async getProducts(){
+        return await fetch(`${API_URL}/api/v1/products`).then(res => res.json());
+    }
+    async getProduct(id){
+        return await fetch(`${API_URL}/api/v1/products/${id}`).then(res => res.json());
+    }
+}
+
+export const productsService = new ProductsService();
+--------------------------------- 
+
+export const ProductDetail = () => {
+    const { id } = useParams();
+
+    const { loading, data: product } = useQuery({
+        queryKey: ["products-detail"],
+        queryFn: async () => await productsService.getProduct(id),
+    });
+
+
+    if(loading){
+        return <p>Loading</p>
+    }
+    if(!product){
+        return <p>Fail</p>
+    }
+
+    const { name, description } = product;
+    return(
+        <section>
+           <div className="container md:py-12">
+            <div className="flex flex-col md:flex-row">
+                <div className="w-full md:w-1/2">
+                    <img
+                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80"
+                        className="w-full h-full object-cover"
+                    />  
+                </div>
+                <div className="w-full md:w-1/2 py-6 md:px-6">
+                    <p className="text-xl font-bold capitalize">{name}</p>
+                    <p>
+                        {description}
+                    </p>
+                    
+                </div>
+            </div>
+           </div>
+        </section>
+    )
+}
+**************
+Login
+**************
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { authService } from "@/services/auth.service";
+--------------------------------- authService 
+import { API_URL } from "@/api";
+export const API_URL = import.meta.env.VITE_API_URL || "";
+
+
+const TOKEN_KEY = import.meta.env.VITE_TOKEN_KEY || "user_";
+
+
+export class AuthService {
+    async login(data = {}) {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: "POST",
+            body: data,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => res.json());
+
+        if(response.access_token){
+            localStorage.setItem(TOKEN_KEY, response.access_token);
+        }
+    }
+
+    logout(){
+        localStorage.removeItem(TOKEN_KEY);
+    }
+
+    saveUser(user = undefined) {
+        if (!user) return; 
+        localStorage.setItem(TOKEN_KEY, JSON.stringify(user))
+    }
+
+    getUser(){
+        try {
+            return JSON.parse(localStorage.getItem(TOKEN_KEY));
+        }catch(err){
+            return {};
+        }
+    }
+
+}
+
+
+export const authService = new AuthService();
+---------------------------------
+import { API_URL } from "@/api";
+
+
+export function Login() {
+    const [state, setState] = useState({ email: "", password: ""});
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await authService.login({email: state.email, password: state.password});
+        }catch(err) {
+            console.error(err);
+        }
+    }  
+
+    return (
+        <section className="min-h-screen">
+            <div className="flex flex-col md:flex-row">
+                <div className="hidden md:h-screen w-full md:w-1/2 md:flex items-center justify-center">
+                    <img
+                        src="https://i.pinimg.com/originals/1b/60/22/1b602231a05c7a50fec7ebe8979035ae.png"
+                        loading="lazy"
+                    />
+                </div>
+                <div className="w-full md:w-1/2 flex justify-center items-center">
+                <form 
+                    onSubmit={handleSubmit}
+                    className="shadow-xl rounded-xl w-full max-w-[400px] px-8 py-8 inline-flex flex-col items-center"
+                >
+                    <Link 
+                        to="/"
+                        className="mb-16 text-2xl text-center uppercase block text-gray-500"
+                    >
+                        Login
+                    </Link>
+                    <div className="flex flex-col py-2 mb-4 w-full">
+                        <label
+                            className="font-bold"
+                        >
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            className="input py-2 outline-none border-b-2"
+                            placeholder="Email@example.com"
+                            onChange={(e) => setState({...state, email: e.target.value})}
+                        />
+                    </div>
+                    <div className="flex flex-col py-2 mb-6 w-full">
+                        <label
+                            className="font-bold"
+                        >
+                            Password
+                        </label>
+                        <input
+                            className="input py-2 outline-none border-b-2"
+                            type="password"
+                            placeholder="*****"
+                            onChange={(e) => setState({...state, password: e.target.value})}
+                        />
+                    </div>
+
+                    <button
+                        className="btn bg-yellow-500 text-white rounded-lg w-32"
+                    >
+                        Entrar
+                    </button>
+
+                    <Link className="block text-center w-full mt-6">
+                        Don't you have an account?
+                    </Link>
+                </form>
+                </div>
+            </div>
+        </section>
+    )
+}
+**************
+after login
+**************
+await authService.login({email: state.email, password: state.password});
+    async login(data = {}) {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: "POST",
+            body: data,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => res.json());
+
+        if(response.access_token){
+            localStorage.setItem(TOKEN_KEY, response.access_token);
+        }
+    }
+mengakses /auth/login
+tapi abis itu hanya set localStorage.
+**************
+seed data
+**************
+# Seed Database with User Data
+
+i have below fastapi+motor code, and i want to seed my database with my user data, how to do it?
+```from pydantic import BaseModel, Field
+from datetime import datetime
+from bson import ObjectId
+from typing import Optional, Union
+
+class PyObjectId(ObjectId):
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, v):
+        if not ObjectId.is_valid(v):
+            raise ValueError("Invalid objectid")
+        return ObjectId(v)
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        field_schema.update(type="string")
+
+class CommonModel(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = { ObjectId: lambda v: str(v) }
+        media_type = "application/json"
+
+class User(CommonModel):
+    username: str
+    email: Union[str, None] = None
+    full_name: Union[str, None] = None
+    disabled: Union[bool, None] = None
+
+class UserInDB(User):
+    hashed_password: str
+
+client = motor.motor_asyncio.AsyncIOMotorClient(config.get("MONGO_URI"))
+db = client[config["DB_NAME"]]
+
+class UserLoginSchema(BaseModel):
+    email: EmailStr = Field(...)
+    password: str = Field(...)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "email": "email@example.com",
+                "password": "somepassword"
+            }
+        }
+
+class UserSignupSchema(BaseModel):
+    email: EmailStr = Field(...)
+    password: str = Field(...)
+    password_confirmation: str = Field(...)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "email": "email@example.com",
+                "password": "somepassword",
+                "password_confirmation": "somepassword"
+            }
+        }
+
+@router.post("/signup", tags=["Auth"])
+async def signup(user: UserSignupSchema = Body(...)):
+    already_exists = await db["users"].find_one({"email": user.email })
+
+    if already_exists:
+        return { "error": "User already exists" }
+
+    if user.password != user.password_confirmation:
+        return { "error": "Passwords are different" }
+    
+    hashed = hash_password(user.password)
+    new_user = {
+        "email": user.email,
+        "password": hashed,
+        "created_at": datetime.utcnow(),
+        "updated_at": datetime.utcnow()
+    }
+    created = await db["users"].insert_one(new_user)
+    return jsonable_encoder(created)
+
+```
+
+To seed your database with user data in FastAPI with Motor, you can create a separate function or endpoint that handles the seeding process. 
+Here's an example of how you can modify your code to include a seeding endpoint:
+
+from fastapi import APIRouter, Body
+from pydantic import EmailStr
+from motor.motor_asyncio import AsyncIOMotorClient
+from datetime import datetime
+from bson import ObjectId
+from typing import Optional, Union
+
+router = APIRouter()
+
+# Your existing code...
+
+# Define a function to seed the database
+async def seed_database():
+    client = AsyncIOMotorClient(config.get("MONGO_URI"))
+    db = client[config["DB_NAME"]]
+    
+    # Define your user data here
+    user_data = [
+        {
+            "username": "user1",
+            "email": "user1@example.com",
+            "full_name": "User One",
+            "disabled": False,
+            "hashed_password": "password1",
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        },
+        {
+            "username": "user2",
+            "email": "user2@example.com",
+            "full_name": "User Two",
+            "disabled": False,
+            "hashed_password": "password2",
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        },
+        # Add more user data as needed
+    ]
+    
+    # Insert the user data into the database
+    await db["users"].insert_many(user_data)
+
+@router.post("/seed", tags=["Database"])
+async def seed_database_endpoint():
+    await seed_database()
+    return {"message": "Database seeded successfully"}
+
+In this example, the seed_database function connects to the database using the AsyncIOMotorClient, defines the user data you want to seed, and then inserts the user data into the users collection.
+
+The seed_database_endpoint endpoint is added to the router, and when you make a POST request to /seed, it calls the seed_database function to seed the database with the user data.
+
+Make sure to import the necessary dependencies and update the import statements accordingly. 
+Additionally, adjust the user data in the seed_database function according to your needs.
+
+Remember to secure this endpoint and restrict access to it, as you don't want anyone to be able to seed your database without proper authorization.

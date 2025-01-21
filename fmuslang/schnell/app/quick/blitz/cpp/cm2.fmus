@@ -1,0 +1,343 @@
+--% index/fmus
+__PWD,d
+	CMakeLists.txt,f(e=__FILE__=cmakelists)
+	?pick
+		utama.cpp,f(e=__FILE__=template1)
+		utama.cpp,f(e=__FILE__=template2)
+		utama.cpp,f(e=__FILE__=template3)
+		utama.cpp,f(e=__FILE__=template4)
+		utama.cpp,f(e=__FILE__=template5)
+		utama.cpp,f(e=__FILE__=template6)
+		utama.cpp,f(e=__FILE__=template7)
+
+	inc.hpp,f(e=__FILE__=inc.hpp)
+	build,d(/mk)
+		$* cmake ..
+		$* make
+		#$* ls -al
+		$* __PWD/build/hasil01
+--#
+
+--% README.md
+1:
+0x00000064
+0x00000064
+0x00000064
+
+2:
+Person: John (1)
+Person: John (1)
+Person: John (1)
+
+3:
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:18:31: warning: format specifies type 'double'
+      but the argument has type 'int' [-Wformat]
+    printf("garbage 1: %f\n", num);
+                       ~~     ^~~
+                       %d
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:19:31: warning: format specifies type 'char *'
+      but the argument has type 'Person2' [-Wformat]
+    printf("garbage 2: %s\n", p);
+                       ~~     ^
+/data/data/com.termux/files/usef/work/cpp2/utama.cpp:20:25: warning: more '%' conversions than data
+      arguments [-Wformat-insufficient-args]
+    printf("garbage 3: %s\n");
+                       ~^
+3 warnings generated.
+---
+garbage 1: 0.000000
+garbage 2: (null)
+garbage 3: (null)
+!!! Exception: missing '}' in format string
+4:
+result 0: 0x412 (6)
+result 1: 0x412 (6)
+result 2: 0x412 (6)
+
+5:
+The number is 20 and 6
+Die Zahl ist 6 und 20
+
+6:
+c++98: 4, 8
+
+c++20: 4, 8
+
+7:
+c++98: 0, 1, 4, 9, 16, 25, 36, 49, 64, 81
+
+c++20: 0, 1, 4, 9, 16, 25, 36, 49, 64, 81
+--#
+
+--% template1
+#include "inc.hpp"
+using namespace std;
+int main()
+{
+    // 100 -> 0x00000064
+    int n = 100;
+    int pad = 10;
+
+    printf("%#0*x\n", pad, n);
+    cout << "0x" << setfill('0') << setw(pad-2) << hex << n << endl;
+    cout << format("{:0=#{}x}\n", n, pad);
+}
+--#
+
+--% template2
+#include "inc.hpp"
+
+using std::string;
+using std::cout;
+using std::endl;
+
+struct Person
+{
+    int id;
+    string name;
+};
+
+std::ostream &operator<<(std::ostream &os, const Person &p)
+{
+    os << "Person: " << p.name << " (" << p.id << ")";
+    return os;
+}
+
+int main()
+{
+    Person p = {1, "John"};
+
+    printf("Person: %s (%d)\n", p.name.c_str(), p.id);
+    cout << p << std::endl;
+    cout << format("{}", p) << std::endl;
+}
+--#
+
+--% template3
+#include "inc.hpp"
+
+using std::string;
+using std::cout;
+using std::endl;
+
+struct Person2
+{
+    int id;
+    int ant;
+};
+
+int main()
+{
+    int num = 100;
+    string s = "aa";
+    Person2 p;
+    printf("garbage 1: %f\n", num);
+    printf("garbage 2: %s\n", p);
+    printf("garbage 3: %s\n");
+    //printf("garbage 4: %s\n", s);
+
+    try
+    {
+        cout << format("{:f", num) << endl;
+    }
+    catch (const format_error& ex)
+    {
+        cout << format("!!! Exception: {}\n", ex.what());
+    }
+}
+--#
+
+--% template4
+#include "inc.hpp"
+
+using std::cout;
+using std::endl;
+
+int main()
+{
+    int num = 1042;
+    std::vector<char> buf;
+
+    format_to(std::back_inserter(buf), "{:#x}", num);
+    std::back_inserter(buf) = '\0';
+
+    cout << format("result 0: {} ({})\n", buf.data(), buf.size());
+
+
+    auto size = formatted_size("{:#x}", num) + 1;
+    std::vector<char> buf2(size);
+    auto result2 = format_to(buf2.data(), "{:#x}", num);
+    *result2 = '\0';
+    cout << format("result 1: {} ({})\n", buf2.data(), size);
+
+    char cbuf[10];
+    auto result3 = format_to_n(cbuf, sizeof(cbuf), "{:#x}", num);
+    *result3.out = '\0';
+    cout << format("result 2: {} ({})\n", cbuf, result3.size+1);
+}
+--#
+
+--% template5
+#include "inc.hpp"
+
+using std::cout;
+using std::endl;
+
+int main()
+{
+    cout << format("The number is {} and {}", 20, 6) << endl;
+    cout << format("Die Zahl ist {1} und {0}", 20, 6) << endl;
+}
+--#
+
+--% template6
+#include "inc.hpp"
+
+int main()
+{
+    std::vector<int> numbers = { 1, 2, 3 ,4, 5 };
+
+    std::vector<int> evenNumbers;
+    std::copy_if(numbers.begin(), numbers.end(),
+       std::back_inserter(evenNumbers), [](int n){ return n % 2 == 0; });
+
+    std::vector<int> results;
+    std::transform(evenNumbers.begin(), evenNumbers.end(),
+       std::back_inserter(results), [](int n){ return n * 2; });
+
+    std::cout << format("\nc++98: {}\n", fmt::join(results, ", "));
+
+    auto result2 = numbers
+        | ranges::views::filter([](int n){ return n % 2 == 0; })
+        | ranges::views::transform([](int n){ return n * 2; })
+        | ranges::to_vector;
+
+    std::cout << format("\nc++20: {}\n", fmt::join(result2, ", "));
+}
+--#
+
+--% template7
+#include "inc.hpp"
+
+int main()
+{
+    int n = 10;
+    auto square_fn = [](int x){ return x * x;};
+
+    std::vector<int> input(static_cast<size_t>(n));
+    std::iota(input.begin(), input.end(), 0);
+    std::vector<int> results;
+    std::transform(input.begin(),input.end(),
+        std::back_inserter(results), square_fn);
+
+    std::cout << format("\nc++98: {}\n", fmt::join(results, ", "));
+
+    //auto result2 = ranges::views::iota(0, n)
+        //| ranges::views::transform(square_fn);
+
+    auto result2 =
+        ranges::views::transform(ranges::views::iota(0, n), square_fn);
+    std::cout << format("\nc++20: {}\n", fmt::join(result2, ", "));
+}
+--#
+
+
+--% inc.hpp
+#pragma once
+
+#include <fmt/format.h>
+#include <fmt/ostream.h>
+#include <range/v3/all.hpp>
+#include <cstdio>
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <algorithm>
+#include <cxxabi.h>
+#include <typeinfo>
+#include <math.h>
+#include <utility>
+
+using namespace fmt;
+using std::cout;
+using std::endl;
+using namespace std::string_literals;
+
+template<typename T>
+struct ShowType;
+
+inline std::string demangle(const std::string& name)
+{
+    int status;
+    auto ptr = abi::__cxa_demangle(name.c_str(), nullptr, nullptr, &status);
+    std::string str(ptr);
+    free(ptr);
+    return str;
+}
+
+template<typename T>
+inline std::string typeName()
+{
+    return demangle(typeid(T).name());
+}
+
+template<typename T>
+inline std::string typeName(T&& obj)
+{
+    return demangle(typeid(obj).name());
+}
+--#
+
+--% cmakelists
+cmake_minimum_required (VERSION 3.11.0)
+project (latihan)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+
+#cmake_minimum_required(VERSION 3.6)
+#project(latihan)
+#set(CMAKE_CXX_STANDARD 17)
+
+
+include(FetchContent)
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
+    GIT_TAG 0889856d6160775462e9e0722d121aab0e75e873
+)
+FetchContent_GetProperties(fmt)
+if(NOT fmt_POPULATED)
+    FetchContent_Populate(fmt)
+endif()
+set(FMT_PATH ${fmt_SOURCE_DIR})
+
+
+
+FetchContent_Declare(
+    ranges
+    GIT_REPOSITORY "https://github.com/ericniebler/range-v3.git"
+    GIT_TAG 50ef05324f880569436c424d0c33ba4de36fb6d9
+)
+FetchContent_GetProperties(ranges)
+if(NOT ranges_POPULATED)
+    FetchContent_Populate(ranges)
+endif()
+set(RANGES_PATH ${ranges_SOURCE_DIR})
+
+
+
+
+add_subdirectory(${FMT_PATH} ${CMAKE_CURRENT_BINARY_DIR}/fmt EXCLUDE_FROM_ALL)
+include_directories(${FMT_PATH}/include)
+include_directories(${RANGES_PATH}/include)
+
+
+
+add_custom_target(hasil)
+add_executable(hasil01 utama.cpp)
+target_compile_definitions(hasil01 PRIVATE EXAMPLE01 BOOST_LOG_DYN_LINK)
+add_dependencies(hasil hasil01)
+target_link_libraries(hasil01 PRIVATE fmt::fmt-header-only)
+--#

@@ -1,0 +1,74 @@
+--% index/fmus
+__PWD,d
+    %TEMPLATE_BASEDIR=__INPUT__
+    TEMPLATE_BASEDIR,d(/mk)
+        main.py,f(e=__FILE__=main.py)
+        templates,d(/mk)
+            index.html,f(e=__FILE__=index.html)
+            item.html,f(e=__FILE__=item.html)
+        static,d(/mk)
+            styles.css,f(e=__FILE__=static/styles.css)
+        $* uvicorn main:app --reload
+--#
+
+--% main.py
+# https://fastapi.tiangolo.com/advanced/templates/
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
+app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/", response_class=HTMLResponse)
+async def read_item(request: Request):
+    #context = {"request": request, "id": id}
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/{id}", response_class=HTMLResponse)
+async def read_item(request: Request, id: str):
+    context = {"request": request, "id": id}
+    return templates.TemplateResponse("item.html", context)
+--#
+
+--% static/styles.css
+h1 {
+    color: green;
+}
+--#
+
+--% index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+    <title>MySimplePage</title>
+</head>
+<body>
+    <h1>Hello, world!</h1>
+    <p>
+    <a href='/5'>item no 5</a>
+    <a href='/15'>item no 15</a>
+    </p>
+</body>
+</html>
+--#
+
+--% item.html
+<html>
+<head>
+    <title>Item Details</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <h1>Item ID: {{ id }}</h1>
+</body>
+</html>
+--#

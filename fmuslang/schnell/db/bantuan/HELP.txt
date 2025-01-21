@@ -1,0 +1,439 @@
+CREATE TABLE apply_leave1 (                                                                               
+*!help
+*~localhost:9000/items p json {user=name}
+*~localhost:9001/rest/books p raw <{allBooks{isn;title}}>*##wwr0|location0,perus0,job0|2-100|text*##wwr0|location0>anywhere,perus0,job0|2-50|text
+:
+:py
+*~localhost:9000/items p json {user=name}
+*~localhost:9001/rest/books p raw <{allBooks{isn;title}}>
+*##wwr0|location0,perus0,job0|2-100|text*##wwr0|location0>anywhere,perus0,job0|2-50|text:
+:py
+:py~~~print('hello, world')
+*##wwr0|location0,perus0,job0|2-100|text*##wwr0|location0>anywhere,perus0,job0|2-50|text
+:
+:py
+*##wwr0|location0>anywhere,perus0,job0|2-50|text:
+:py
+:py~~~print('hello, world')
+*##wwr0|location0,perus0,job0|2-100|text*##wwr0|location0>anywhere,perus0,job0|2-50|text
+:
+:py
+:py~~~print('hello, world')
+/<search service>
+<repl service>
+
+=== UCSV GRAMMAR
+[usef:rahasia@gisel.ddns.net:9022/hapuslah]
+[/hapuslah]
+
+category_map = {
+  'django'      : bantu_django,
+  'fake'        : bantu_faker,
+  'fastapi'     : bantu_fastapi,
+  'flask'       : bantu_flask,  
+  'grpc'        : bantu_grpc,
+  'nest2'       : bantu_nest_old,
+  'nest'        : bantu_nest,
+  'nodeapo'     : bantu_nodeapollo,
+  'nodereact'   : bantu_nodereact, 
+  'sql'         : bantu_sql,
+  'sbgql'       : bantu_sbgql,
+  'sboot'       : bantu_springboot,
+  'ts'          : bantu_ts,
+}
+
+authors,fk/Author/d=setnull
+isSubscribed,b,n
+coba enum:
+TaskStatus=Created,InProgress,Done
+default: TaskStatus.Created
+status: TaskStatus;
+-> dimana taro nama enum TaskStatus?
+	| "(" stringenumvalues stringenumdefault? ")"	// (satu,dua,tiga|satu)
+	| "[" enumvalues enumdefault "]"
+
+*!fake|[/MyDummyGRPC]
+{@Book=#5}
+isbn,s,pk;
+title,s;
+publisher,s;
+authors,[s];
+publishedDate,s
+
+{@User}
+userId,s;
+email,s;
+age,i:ri(18,65);
+isSubscribed,b,n
+
+*!sbgql|[/MyDummyDatabase]
+{@Book=#5}
+isbn,s,pk;
+title,s;
+publisher,s;
+authors,[s];
+publishedDate,s
+
+*!grpc|[/MyDummyGRPCService]
+{@HumidityRequest}
+bysensor_building_id,s;
+bysensor_sensor_id,s;
+type,s;
+timestamp,s;
+value,f
+{@HumidityResponse}
+ack,s
+
+ini bantuan utk bahasa ucsv
+yg perlu sekali: daftar types
+
+keseluruhan: database
+| table
+
+table: configuration? statement (insn_separator statement)*
+
+configuration: "{{" config_spec ("," config_spec)* "}}"
+
+{@Review=#10}
+config_spec: config_name_spec "=" config_number_spec -> config_name_number
+config_name_spec: "@" schema_table
+config_number_spec:	"#" number_of_data
+
+statement: column_name "," column_type_spec ("," column_constraint_spec)?
+	| primary_key_column
+	| foreign_key_column
+	| index_column
+	| sistem (has_one | belongs_to | has_many | belongs_to_many) lingkungan // utk relation
+	| master (one2one | one2many | many2one | many2many) slave
+
+column_type_spec: column_type
+column_type: "s" 	(":" string_subclass_type)? -> string
+	| "t" 					-> text
+	| "v" "(" BILBUL ")" (":" string_subclass_type)? -> varchar
+	| "i" 					(":" number_subclass_type)? -> integer
+	| "bi" 					-> bigint
+	| "f" 					-> float
+	| "D" 					-> double
+	| "dec" 				-> decimal
+price,dec,digits=7,places=2,n,b;
+shippingPrice,dec,digits=7,places=2,n,b;
+taxPrice,dec,digits=7,places=2,n,b;
+totalPrice,dec,digits=7,places=2,n,b;
+	| "u" 					-> uuid
+	| "u1" 					-> uuidv1
+	| "u4" 					-> uuidv4
+	| "b" 					-> boolean
+	| "dt" 					(":" date_subclass_type)? -> date			// models.DateField
+	| "ts" 					-> timestamp													// models.DateTimeField
+	| "n" 					-> number
+	| "enum" 				-> enum
+	| "ser" 				-> serial
+	| "slug" 				-> slug
+	| "img" 				-> image // mungkin juga blob?
+image,img,n,b;
+	| "auto"				-> auto
+_id,auto,pk,E
+	| "blob"				-> blob
+	| "fk" "/" rel_to "/" action_list ("/" related_name)? ("/" verbose_name)? -> django_foreign_key
+order,fk/Order/d=setnull,n;
+product,fk/Product/d=setnull,n;
+user,fk/User/d=setnull,n;
+	| "11" "/" rel_to "/" action_list ("/" related_name)? ("/" verbose_name)?	-> django_one_to_one
+	| "1m" "/" rel_to "/" action_list ("/" related_name)? ("/" verbose_name)?	-> django_one_to_many
+	| "mm" "/" rel_to	("/" related_name)?	-> django_many_to_many
+	| "[" column_type "]" -> array_of
+
+column_constraint_spec: column_constraint ("," column_constraint)*
+column_constraint: "N" 			-> not_null					// null=False
+	| "n"											-> yes_null
+	| "u" 										-> unique
+	| "U" 										-> no_unique				// unique=False
+	| "b" 										-> yes_blank
+	| "B" 										-> no_blank					// blank=False
+	| "e" 										-> editable
+	| "E" 										-> no_editable			// editable=False
+	| "ai"										-> auto_increment
+	| "an"										-> auto_now
+	| "ana"										-> auto_now_add	
+	| "dbi"										-> db_index					// khusus django utk slug, char dll
+	| "pk" pk_column_list?		-> primary_key
+	| "len=" BILBUL						-> max_length
+	| "digits=" BILBUL				-> max_digits
+	| "places=" BILBUL				-> decimal_places
+
+	| "F" ":" schema_table_column_name constraint_name? action_list_node?	-> node_foreign_key_constraint
+	| "fk" ":" schema_table_name action_list? 														-> django_foreign_key_constraint
+
+	| "df" "=" nilai_default 											// df=1 atau df=now
+	| "r" ":" HURUF 					-> references
+	| "rk" ":" HURUF 					-> references_key
+	| "(" stringenumvalues stringenumdefault? ")"	// (satu,dua,tiga|satu)
+	| "[" enumvalues enumdefault "]"
+
+pk_column_list: ":" column_list
+column_list: column_name ("," column_name)*
+column_name: HURUF_DIGIT
+username,s,pk:col1,col2,col3
+
+=== FMUS GRAMMAR
+file_operation_type: "f" "=" HURUF_FOLDER 					-> load_from_file
+	| "F" "=" HURUF_FOLDER 														-> load_from_file_absolute
+	| "i" "="																					-> input_from_user_with_prompt
+	| "c" "=" 																				-> paste_from_clipboard_with_pause
+	| "t"	"="																					-> touch_file
+	| "n"	"="	ISI_FILE_TERMASUK_KOMA									-> content_file
+	| "e" "=" singkat_folder "=" HURUF_FOLDER_LAMA 		-> ambil_entry_dari_file_template
+	| "b64" "=" singkat_folder "=" HURUF_FOLDER_LAMA 	-> ambil_terdekod_dari_file_template
+	| "h" "=" ALAMAT 																	-> url_file
+
+*!ts|[/MyDummyDatabase]
+{@Book=#5}
+isbn,s,pk;
+title,s,(TaskStatus>Created,InProgress,Done>Created);
+title,s,(Created,InProgress,Done>Created);
+publisher,s,df=empty;
+authors,[s];
+publishedDate,s,n
+
+title,s,(TaskStatus>Created,InProgress,Done>Created);
+AnyNode(default='$$$Created$$$', enumname='TaskStatus', hasConstraint=True, label='title', subtype='stringenumvalues', type='string', values=['$$$Created$$$', '$$$InProgress$$$', '$$$Done$$$'])
+
+title,s,(Created,InProgress,Done>Created);
+nyNode(default='$$$Created$$$', hasConstraint=True, label='title', subtype='stringenumvalues', type='string', values=['$$$Created$$$', '$$$InProgress$$$', '$$$Done$$$'])
+*##wwr0|location0>anywhere,perus0,job0|2-50|text:
+:py
+:py~~~print('hello, world')
+/<search service>
+<repl service>
+
+=== UCSV GRAMMAR
+[usef:rahasia@gisel.ddns.net:9022/hapuslah]
+[/hapuslah]
+
+category_map = {
+  'django'      : bantu_django,
+  'fake'        : bantu_faker,
+  'fastapi'     : bantu_fastapi,
+  'flask'       : bantu_flask,  
+  'grpc'        : bantu_grpc,
+  'nest2'       : bantu_nest_old,
+  'nest'        : bantu_nest,
+  'nodeapo'     : bantu_nodeapollo,
+  'nodereact'   : bantu_nodereact, 
+  'sql'         : bantu_sql,
+  'sbgql'       : bantu_sbgql,
+  'sboot'       : bantu_springboot,
+  'ts'          : bantu_ts,
+}
+
+authors,fk/Author/d=setnull
+isSubscribed,b,n
+coba enum:
+TaskStatus=Created,InProgress,Done
+default: TaskStatus.Created
+status: TaskStatus;
+-> dimana taro nama enum TaskStatus?
+	| "(" stringenumvalues stringenumdefault? ")"	// (satu,dua,tiga|satu)
+	| "[" enumvalues enumdefault "]"
+
+*!fake|[/MyDummyGRPC]
+{@Book=#5}
+isbn,s,pk;
+title,s;
+publisher,s;
+authors,[s];
+publishedDate,s
+
+{@User}
+userId,s;
+email,s;
+age,i:ri(18,65);
+isSubscribed,b,n
+
+*!sbgql|[/MyDummyDatabase]
+{@Book=#5}
+isbn,s,pk;
+title,s;
+publisher,s;
+authors,[s];
+publishedDate,s
+
+*!grpc|[/MyDummyGRPCService]
+{@HumidityRequest}
+bysensor_building_id,s;
+bysensor_sensor_id,s;
+type,s;
+timestamp,s;
+value,f
+{@HumidityResponse}
+ack,s
+
+ini bantuan utk bahasa ucsv
+yg perlu sekali: daftar types
+
+keseluruhan: database
+| table
+
+table: configuration? statement (insn_separator statement)*
+
+configuration: "{{" config_spec ("," config_spec)* "}}"
+
+{@Review=#10}
+config_spec: config_name_spec "=" config_number_spec -> config_name_number
+config_name_spec: "@" schema_table
+config_number_spec:	"#" number_of_data
+
+statement: column_name "," column_type_spec ("," column_constraint_spec)?
+	| primary_key_column
+	| foreign_key_column
+	| index_column
+	| sistem (has_one | belongs_to | has_many | belongs_to_many) lingkungan // utk relation
+	| master (one2one | one2many | many2one | many2many) slave
+
+column_type_spec: column_type
+column_type: "s" 	(":" string_subclass_type)? -> string
+	| "t" 					-> text
+	| "v" "(" BILBUL ")" (":" string_subclass_type)? -> varchar
+	| "i" 					(":" number_subclass_type)? -> integer
+	| "bi" 					-> bigint
+	| "f" 					-> float
+	| "D" 					-> double
+	| "dec" 				-> decimal
+price,dec,digits=7,places=2,n,b;
+shippingPrice,dec,digits=7,places=2,n,b;
+taxPrice,dec,digits=7,places=2,n,b;
+totalPrice,dec,digits=7,places=2,n,b;
+	| "u" 					-> uuid
+	| "u1" 					-> uuidv1
+	| "u4" 					-> uuidv4
+	| "b" 					-> boolean
+	| "dt" 					(":" date_subclass_type)? -> date			// models.DateField
+	| "ts" 					-> timestamp													// models.DateTimeField
+	| "n" 					-> number
+	| "enum" 				-> enum
+	| "ser" 				-> serial
+	| "slug" 				-> slug
+	| "img" 				-> image // mungkin juga blob?
+image,img,n,b;
+	| "auto"				-> auto
+_id,auto,pk,E
+	| "blob"				-> blob
+	| "fk" "/" rel_to "/" action_list ("/" related_name)? ("/" verbose_name)? -> django_foreign_key
+order,fk/Order/d=setnull,n;
+product,fk/Product/d=setnull,n;
+user,fk/User/d=setnull,n;
+	| "11" "/" rel_to "/" action_list ("/" related_name)? ("/" verbose_name)?	-> django_one_to_one
+	| "1m" "/" rel_to "/" action_list ("/" related_name)? ("/" verbose_name)?	-> django_one_to_many
+	| "mm" "/" rel_to	("/" related_name)?	-> django_many_to_many
+	| "[" column_type "]" -> array_of
+
+column_constraint_spec: column_constraint ("," column_constraint)*
+column_constraint: "N" 			-> not_null					// null=False
+	| "n"											-> yes_null
+	| "u" 										-> unique
+	| "U" 										-> no_unique				// unique=False
+	| "b" 										-> yes_blank
+	| "B" 										-> no_blank					// blank=False
+	| "e" 										-> editable
+	| "E" 										-> no_editable			// editable=False
+	| "ai"										-> auto_increment
+	| "an"										-> auto_now
+	| "ana"										-> auto_now_add	
+	| "dbi"										-> db_index					// khusus django utk slug, char dll
+	| "pk" pk_column_list?		-> primary_key
+	| "len=" BILBUL						-> max_length
+	| "digits=" BILBUL				-> max_digits
+	| "places=" BILBUL				-> decimal_places
+
+	| "F" ":" schema_table_column_name constraint_name? action_list_node?	-> node_foreign_key_constraint
+	| "fk" ":" schema_table_name action_list? 														-> django_foreign_key_constraint
+
+	| "df" "=" nilai_default 											// df=1 atau df=now
+	| "r" ":" HURUF 					-> references
+	| "rk" ":" HURUF 					-> references_key
+	| "(" stringenumvalues stringenumdefault? ")"	// (satu,dua,tiga|satu)
+	| "[" enumvalues enumdefault "]"
+
+pk_column_list: ":" column_list
+column_list: column_name ("," column_name)*
+column_name: HURUF_DIGIT
+username,s,pk:col1,col2,col3
+
+=== FMUS GRAMMAR
+file_operation_type: "f" "=" HURUF_FOLDER 					-> load_from_file
+	| "F" "=" HURUF_FOLDER 														-> load_from_file_absolute
+	| "i" "="																					-> input_from_user_with_prompt
+	| "c" "=" 																				-> paste_from_clipboard_with_pause
+	| "t"	"="																					-> touch_file
+	| "n"	"="	ISI_FILE_TERMASUK_KOMA									-> content_file
+	| "e" "=" singkat_folder "=" HURUF_FOLDER_LAMA 		-> ambil_entry_dari_file_template
+	| "b64" "=" singkat_folder "=" HURUF_FOLDER_LAMA 	-> ambil_terdekod_dari_file_template
+	| "h" "=" ALAMAT 																	-> url_file
+
+*!ts|[/MyDummyDatabase]
+{@Book=#5}
+isbn,s,pk;
+title,s,(TaskStatus>Created,InProgress,Done>Created);
+title,s,(Created,InProgress,Done>Created);
+publisher,s,df=empty;
+authors,[s];
+publishedDate,s,n
+
+title,s,(TaskStatus>Created,InProgress,Done>Created);
+AnyNode(default='$$$Created$$$', enumname='TaskStatus', hasConstraint=True, label='title', subtype='stringenumvalues', type='string', values=['$$$Created$$$', '$$$InProgress$$$', '$$$Done$$$'])
+
+title,s,(Created,InProgress,Done>Created);
+nyNode(default='$$$Created$$$', hasConstraint=True, label='title', subtype='stringenumvalues', type='string', values=['$$$Created$$$', '$$$InProgress$$$', '$$$Done$$$'])
+*!help
+*~localhost:9000/items p json {user=name}
+*~localhost:9001/rest/books p raw <{allBooks{isn;title}}>*##wwr0|location0,perus0,job0|2-100|text
+*~localhost:9000/items p json {user=name}
+*~localhost:9001/rest/books p raw <{allBooks{isn;title}}>
+*##wwr0|location0,perus0,job0|2-100|text*##wwr0|location0>anywhere,perus0,job0|2-50|text
+
+
+
+
+
+
+
+
+*##wwr0|location0,perus0,job0|2-100|text
+*##wwr0|location0>anywhere,perus0,job0|2-50|text
+int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+name 're' is not defined
+  leaveid     serial            PRIMARY KEY NOT NULL ,                                                                    
+  empid       varchar(10)       NOT NULL ,                                                                             
+  leavedays   double precision  NOT NULL DEFAULT 0 ,                                                          
+  mdays       double precision  NOT NULL DEFAULT 0 ,                                                              
+  leavetype   varchar(20)       NOT NULL DEFAULT '' ,                                                              
+  daytype     text              NOT NULL DEFAULT '',                                                                        
+  leavefrom   timestamp with time zone    NOT NULL,                                                             
+  leaveto     timestamp with time zone    NOT NULL,                                                               
+  applieddate timestamp with time zone    NOT NULL,                                                           
+  leavestatus varchar(15)       NOT NULL DEFAULT ''  ,                                                           
+  resultdate  timestamp with time zone,                                                                     
+  certificatestatus   bool      NOT NULL DEFAULT FALSE                                                            
+  certificate         json      NULL
+)`
+
+drop table if exists city;
+drop table if exists hotel;
+
+create table city (id int primary key auto_increment, name varchar, state varchar, country varchar);
+create table hotel (city int, name varchar, address varchar, zip varchar);
+
+insert into city (name, state, country) values ('San Francisco', 'CA', 'US');
+insert into hotel(city, name, address, zip) values (1, 'Conrad Treasury Place', 'William & George Streets', '4001')
+
+
+*!sql|[/MyDummyDatabase]
+{@Book=#5}
+isbn,s,pk;
+title,s,len=15;
+publisher,s,df=kuda lumping;
+authors,s,len=200,n;
+publishedDate,s

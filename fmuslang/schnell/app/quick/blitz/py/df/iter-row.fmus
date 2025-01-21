@@ -1,0 +1,38 @@
+--% index/fmus
+__PWD,d
+    main.py,f(e=__FILE__=template1)
+    iter2.py,f(e=__FILE__=template1)
+    $* python main.py
+    $* python iter2.py
+--#
+
+--% template1
+import pandas as pd
+  
+# dictionary of lists
+dict = {'name':["aparna", "pankaj", "sudhir", "Geeku"],
+        'degree': ["MBA", "BCA", "M.Tech", "MBA"],
+        'score':[90, 40, 80, 98]}
+ 
+# creating a dataframe from a dictionary 
+df = pd.DataFrame(dict)
+ 
+print(df)
+--#
+
+--% template2
+import pandas as pd
+  
+# dictionary of lists
+dict = {'name':["aparna", "pankaj", "sudhir", "Geeku"],
+        'degree': ["MBA", "BCA", "M.Tech", "MBA"],
+        'score':[90, 40, 80, 98]}
+ 
+# creating a dataframe from a dictionary 
+df = pd.DataFrame(dict)
+ 
+# iterating over rows using iterrows() function 
+for i, j in df.iterrows():
+    print(i, j)
+    print()
+--#

@@ -1,0 +1,26 @@
+--% index/fmus
+__PWD,d
+--#
+
+--% policies/s3/us
+.,d
+	%__TEMPLATE_BUCKET_NAME=__INPUT__
+	s3-bucket.json,f(e=__FILE__=policies/s3/s3-bucket.json)
+--#
+
+--% policies/s3/s3-bucket.json
+{
+  "Version": "2012-10-17",
+  "Id": "Policy1550820078961",
+  "Statement": [
+    {
+      "Sid": "Stmt1550820069848",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::__TEMPLATE_BUCKET_NAME/*"
+    }
+  ]
+}
+--#
+

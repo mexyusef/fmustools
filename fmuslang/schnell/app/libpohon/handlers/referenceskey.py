@@ -1,0 +1,11 @@
+
+
+def referenceskey(column, provider):
+  kembali = ''
+
+  if provider == 'default':
+    kembali += ''
+  elif provider == 'django':
+    kembali += ''
+
+  return kembali

@@ -1,0 +1,960 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	sessions,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/sessions/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/sessions/test.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/sessions/src/main.rs)
+	user-location,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-location/Cargo.toml)
+		create-table.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-location/create-table.sh)
+		table.json,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-location/table.json)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-location/src/main.rs)
+	user-logs,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-logs/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-logs/test.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-logs/src/main.rs)
+	users,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users/test.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users/src/main.rs)
+	users-mysql,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-mysql/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-mysql/test.sh)
+		users.csv,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-mysql/users.csv)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-mysql/src/main.rs)
+	users-pool,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-pool/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-pool/test.sh)
+		users.csv,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-pool/users.csv)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-pool/src/main.rs)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/sessions/Cargo.toml
+[package]
+name = "sessions"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+clap = "2.32"
+failure = "0.1"
+r2d2 = "0.8"
+r2d2_redis = "0.8"
+redis = "0.9"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/sessions/test.sh
+docker run -it --rm --name test-redis -p 6379:6379 redis
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/sessions/src/main.rs
+use clap::{
+    crate_authors, crate_description, crate_name, crate_version, App, AppSettings, Arg, SubCommand,
+};
+use redis::{Commands, Connection, RedisError};
+use r2d2_redis::RedisConnectionManager;
+use std::collections::HashMap;
+
+const SESSIONS: &str = "sessions";
+const CMD_ADD: &str = "add";
+const CMD_REMOVE: &str = "remove";
+const CMD_LIST: &str = "list";
+
+fn add_session(conn: &Connection, token: &str, uid: &str) -> Result<(), RedisError> {
+    conn.hset(SESSIONS, token, uid)
+}
+
+fn remove_session(conn: &Connection, token: &str) -> Result<(), RedisError> {
+    conn.hdel(SESSIONS, token)
+}
+
+fn list_sessions(conn: &Connection) -> Result<HashMap<String, String>, RedisError> {
+    conn.hgetall(SESSIONS)
+}
+
+fn main() -> Result<(), failure::Error> {
+
+    let matches = App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .setting(AppSettings::SubcommandRequired)
+        .arg(
+            Arg::with_name("database")
+            .short("d")
+            .long("db")
+            .value_name("ADDR")
+            .help("Sets an address of db connection")
+            .takes_value(true),
+            )
+        .subcommand(SubCommand::with_name(CMD_ADD).about("add a session")
+                    .arg(Arg::with_name("TOKEN")
+                         .help("Sets the token of a user")
+                         .required(true)
+                         .index(1))
+                    .arg(Arg::with_name("UID")
+                         .help("Sets the uid of a user")
+                         .required(true)
+                         .index(2)))
+        .subcommand(SubCommand::with_name(CMD_REMOVE).about("remove a session")
+                    .arg(Arg::with_name("TOKEN")
+                         .help("Sets the token of a user")
+                         .required(true)
+                         .index(1)))
+        .subcommand(SubCommand::with_name(CMD_LIST).about("print list of sessions"))
+        .get_matches();
+
+    let addr = matches.value_of("database")
+        .unwrap_or("redis://127.0.0.1/");
+    let manager = RedisConnectionManager::new(addr)?;
+    let pool = r2d2::Pool::new(manager)?;
+    let conn = pool.get()?;
+
+    match matches.subcommand() {
+        (CMD_ADD, Some(matches)) => {
+            let token = matches.value_of("TOKEN").unwrap();
+            let uid = matches.value_of("UID").unwrap();
+            add_session(&conn, token, uid)?;
+        }
+        (CMD_REMOVE, Some(matches)) => {
+            let token = matches.value_of("TOKEN").unwrap();
+            remove_session(&conn, token)?;
+        }
+        (CMD_LIST, _) => {
+            println!("LIST");
+            let sessions = list_sessions(&conn)?;
+            for (token, uid) in sessions {
+                println!("Token: {:20}   Uid: {:20}", token, uid);
+            }
+        }
+        _ => {
+            matches.usage(); // but unreachable
+        }
+    }
+
+    Ok(())
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-location/Cargo.toml
+[package]
+name = "user-location"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+chrono = "0.4"
+clap = "2.32"
+failure = "0.1"
+rusoto_core = "0.36.0"
+rusoto_dynamodb = "0.36.0"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-location/create-table.sh
+aws dynamodb create-table --cli-input-json file://table.json --endpoint-url http://localhost:8000 --region custom
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-location/table.json
+{
+    "TableName" : "Locations",
+    "KeySchema": [
+        {
+            "AttributeName": "Uid",
+            "KeyType": "HASH"
+        },
+        {
+            "AttributeName": "TimeStamp",
+            "KeyType": "RANGE"
+        }
+    ],
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "Uid",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "TimeStamp",
+            "AttributeType": "S"
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 1
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-location/src/main.rs
+use chrono::Utc;
+use clap::{App, AppSettings, Arg, SubCommand,
+    crate_authors, crate_description, crate_name, crate_version};
+use failure::{Error, format_err};
+use rusoto_core::Region;
+use rusoto_dynamodb::{AttributeValue, DynamoDb, DynamoDbClient,
+    QueryInput, UpdateItemInput};
+use std::collections::HashMap;
+
+fn add_location(conn: &DynamoDbClient, location: Location) -> Result<(), Error> {
+    let mut key: HashMap<String, AttributeValue> = HashMap::new();
+    key.insert("Uid".into(), s_attr(location.user_id));
+    key.insert("TimeStamp".into(), s_attr(location.timestamp));
+    let expression = format!("SET Longitude = :x, Latitude = :y");
+    let mut values = HashMap::new();
+    values.insert(":x".into(), s_attr(location.longitude));
+    values.insert(":y".into(), s_attr(location.latitude));
+    let update = UpdateItemInput {
+        table_name: "Locations".into(),
+        key,
+        update_expression: Some(expression),
+        expression_attribute_values: Some(values),
+        ..Default::default()
+    };
+    conn.update_item(update)
+        .sync()
+        .map(drop)
+        .map_err(Error::from)
+}
+
+fn list_locations(conn: &DynamoDbClient, user_id: String) -> Result<Vec<Location>, Error> {
+    let expression = format!("Uid = :uid");
+    let mut values = HashMap::new();
+    values.insert(":uid".into(), s_attr(user_id));
+    let query = QueryInput {
+        table_name: "Locations".into(),
+        key_condition_expression: Some(expression),
+        expression_attribute_values: Some(values),
+        ..Default::default()
+    };
+    let items = conn.query(query).sync()?
+        .items
+        .ok_or_else(|| format_err!("No Items"))?;
+    let mut locations = Vec::new();
+    for item in items {
+        let location = Location::from_map(item)?;
+        locations.push(location);
+    }
+    Ok(locations)
+}
+
+#[derive(Debug)]
+struct Location {
+    user_id: String,
+    timestamp: String,
+    latitude: String,
+    longitude: String,
+}
+
+impl Location {
+    fn from_map(map: HashMap<String, AttributeValue>) -> Result<Location, Error> {
+        let user_id = map
+            .get("Uid")
+            .ok_or_else(|| format_err!("No Uid in record"))
+            .and_then(attr_to_string)?;
+        let timestamp = map
+            .get("TimeStamp")
+            .ok_or_else(|| format_err!("No TimeStamp in record"))
+            .and_then(attr_to_string)?;
+        let latitude = map
+            .get("Latitude")
+            .ok_or_else(|| format_err!("No Latitude in record"))
+            .and_then(attr_to_string)?;
+        let longitude = map
+            .get("Longitude")
+            .ok_or_else(|| format_err!("No Longitude in record"))
+            .and_then(attr_to_string)?;
+        let location = Location { user_id, timestamp, longitude, latitude };
+        Ok(location)
+    }
+}
+
+const CMD_ADD: &str = "add";
+const CMD_LIST: &str = "list";
+
+fn main() -> Result<(), Error> {
+    let matches = App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .setting(AppSettings::SubcommandRequired)
+        .arg(
+            Arg::with_name("region")
+            .long("region")
+            .value_name("REGION")
+            .help("Sets a region")
+            .takes_value(true),
+            )
+        .arg(
+            Arg::with_name("endpoint")
+            .long("endpoint-url")
+            .value_name("URL")
+            .help("Sets an endpoint url")
+            .takes_value(true),
+            )
+        .subcommand(SubCommand::with_name(CMD_ADD).about("add geo record to the table")
+                    .arg(Arg::with_name("USER_ID")
+                         .help("Sets the id of a user")
+                         .required(true)
+                         .index(1))
+                    .arg(Arg::with_name("LATITUDE")
+                         .help("Sets a latitude of location")
+                         .required(true)
+                         .index(2))
+                    .arg(Arg::with_name("LONGITUDE")
+                         .help("Sets a longitude of location")
+                         .required(true)
+                         .index(3)))
+        .subcommand(SubCommand::with_name(CMD_LIST).about("print all records for the user")
+                    .arg(Arg::with_name("USER_ID")
+                         .help("User if to filter records")
+                         .required(true)
+                         .index(1)))
+        .get_matches();
+
+    let region = matches.value_of("endpoint").map(|endpoint| {
+        Region::Custom {
+            name: "custom".into(),
+            endpoint: endpoint.into(),
+        }
+    }).ok_or_else(|| format_err!("Region not set"))
+    .or_else(|_| {
+        matches.value_of("region")
+            .unwrap_or("us-east-1")
+            .parse()
+    })?;
+    let client = DynamoDbClient::new(region);
+    match matches.subcommand() {
+        (CMD_ADD, Some(matches)) => {
+            let user_id = matches.value_of("USER_ID").unwrap().to_owned();
+            let timestamp = Utc::now().to_string();
+            let latitude = matches.value_of("LATITUDE").unwrap().to_owned();
+            let longitude = matches.value_of("LONGITUDE").unwrap().to_owned();
+            let location = Location { user_id, timestamp, latitude, longitude };
+            add_location(&client, location)?;
+        }
+        (CMD_LIST, Some(matches)) => {
+            let user_id = matches.value_of("USER_ID").unwrap().to_owned();
+            let locations = list_locations(&client, user_id)?;
+            for location in locations {
+                println!("{:?}", location);
+            }
+        }
+        _ => {
+            matches.usage(); // but unreachable
+        }
+    }
+    Ok(())
+}
+
+fn s_attr(s: String) -> AttributeValue {
+    AttributeValue {
+        s: Some(s),
+        ..Default::default()
+    }
+}
+
+fn attr_to_string(attr: &AttributeValue) -> Result<String, Error> {
+    if let Some(value) = &attr.s {
+        Ok(value.to_owned())
+    } else {
+        Err(format_err!("no string value"))
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-logs/Cargo.toml
+[package]
+name = "user-logs"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+bson = "0.13"
+chrono = { version = "0.4", features = ["serde"] }
+clap = "2.32"
+failure = "0.1"
+mongodb = "0.3"
+r2d2 = "0.8"
+r2d2-mongodb = "0.1"
+serde = "1.0"
+serde_derive = "1.0"
+url = "1.7"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-logs/test.sh
+docker run -it --rm --name test-mongo -p 27017:27017 mongo
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/user-logs/src/main.rs
+use bson::{bson, doc};
+use chrono::offset::Utc;
+use clap::{
+    crate_authors, crate_description, crate_name, crate_version, App, AppSettings, Arg, SubCommand,
+};
+use mongodb::Error;
+use mongodb::db::{Database, ThreadedDatabase};
+use r2d2::Pool;
+use r2d2_mongodb::{ConnectionOptionsBuilder, MongodbConnectionManager};
+use serde_derive::Deserialize;
+use url::Url;
+
+fn add_activity(conn: &Database, activity: Activity) -> Result<(), Error> {
+    let doc = doc! {
+        "user_id": activity.user_id,
+        "activity": activity.activity,
+        "datetime": activity.datetime,
+    };
+    let coll = conn.collection("activities");
+    coll.insert_one(doc, None).map(drop)
+}
+
+fn list_activities(conn: &Database) -> Result<Vec<Activity>, Error> {
+    conn.collection("activities").find(None, None)?
+        .try_fold(Vec::new(), |mut vec, doc| {
+            let doc = doc?;
+            let activity: Activity = bson::from_bson(bson::Bson::Document(doc))?;
+            vec.push(activity);
+            Ok(vec)
+        })
+}
+
+#[derive(Deserialize, Debug)]
+struct Activity {
+    user_id: String,
+    activity: String,
+    datetime: String,
+}
+
+const CMD_ADD: &str = "add";
+const CMD_LIST: &str = "list";
+
+fn main() -> Result<(), failure::Error> {
+
+    let matches = App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .setting(AppSettings::SubcommandRequired)
+        .arg(
+            Arg::with_name("database")
+            .short("d")
+            .long("db")
+            .value_name("ADDR")
+            .help("Sets an address of db connection")
+            .takes_value(true),
+            )
+        .subcommand(SubCommand::with_name(CMD_ADD).about("add user to the table")
+                    .arg(Arg::with_name("USER_ID")
+                         .help("Sets the id of a user")
+                         .required(true)
+                         .index(1))
+                    .arg(Arg::with_name("ACTIVITY")
+                         .help("Sets the activity of a user")
+                         .required(true)
+                         .index(2)))
+        .subcommand(SubCommand::with_name(CMD_LIST).about("print activities list of users"))
+        .get_matches();
+
+    let addr = matches.value_of("database")
+        .unwrap_or("mongodb://localhost:27017/admin");
+    let url = Url::parse(addr)?;
+
+    let opts = ConnectionOptionsBuilder::new()
+        .with_host(url.host_str().unwrap_or("localhost"))
+        .with_port(url.port().unwrap_or(27017))
+        .with_db(&url.path()[1..])
+        .build();
+
+    let manager = MongodbConnectionManager::new(opts);
+
+    let pool = Pool::builder()
+        .max_size(4)
+        .build(manager)?;
+
+    let conn = pool.get()?;
+
+    match matches.subcommand() {
+        (CMD_ADD, Some(matches)) => {
+            let user_id = matches.value_of("USER_ID").unwrap().to_owned();
+            let activity = matches.value_of("ACTIVITY").unwrap().to_owned();
+            let activity = Activity {
+                user_id,
+                activity,
+                // we can use DataTime type here,
+                // but it has issues with deserialization
+                datetime: Utc::now().to_string(),
+            };
+            add_activity(&conn, activity)?;
+        }
+        (CMD_LIST, _) => {
+            let list = list_activities(&conn)?;
+            for item in list {
+                println!("User: {:20}    Activity: {:20}    DateTime: {:20}",
+                         item.user_id, item.activity, item.datetime);
+            }
+        }
+        _ => {
+            matches.usage(); // but unreachable
+        }
+    }
+
+    Ok(())
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users/Cargo.toml
+[package]
+name = "users"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+clap = "2.32"
+postgres = "0.15"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users/test.sh
+docker run -it --rm --name test-pg -p 5432:5432 postgres
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users/src/main.rs
+use clap::{
+    crate_authors, crate_description, crate_name, crate_version, App, AppSettings, Arg, SubCommand,
+};
+use postgres::{Connection, Error, TlsMode};
+
+fn create_table(conn: &Connection) -> Result<(), Error> {
+    conn.execute("CREATE TABLE users (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR NOT NULL,
+                    email VARCHAR NOT NULL
+                  )", &[])
+        .map(drop)
+}
+
+fn create_user(conn: &Connection, name: &str, email: &str) -> Result<(), Error> {
+    conn.execute("INSERT INTO users (name, email) VALUES ($1, $2)",
+                 &[&name, &email])
+        .map(drop)
+}
+
+fn list_users(conn: &Connection) -> Result<Vec<(String, String)>, Error> {
+    let res = conn.query("SELECT name, email FROM users", &[])?.into_iter()
+        .map(|row| (row.get(0), row.get(1)))
+        .collect();
+    Ok(res)
+}
+
+const CMD_CREATE: &str = "create";
+const CMD_ADD: &str = "add";
+const CMD_LIST: &str = "list";
+
+fn main() -> Result<(), Error> {
+
+    let matches = App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .setting(AppSettings::SubcommandRequired)
+        .arg(
+            Arg::with_name("database")
+            .short("d")
+            .long("db")
+            .value_name("ADDR")
+            .help("Sets an address of db connection")
+            .takes_value(true),
+            )
+        .subcommand(SubCommand::with_name(CMD_CREATE).about("create users table"))
+        .subcommand(SubCommand::with_name(CMD_ADD).about("add user to the table")
+                    .arg(Arg::with_name("NAME")
+                         .help("Sets the name of a user")
+                         .required(true)
+                         .index(1))
+                    .arg(Arg::with_name("EMAIL")
+                         .help("Sets the email of a user")
+                         .required(true)
+                         .index(2)))
+        .subcommand(SubCommand::with_name(CMD_LIST).about("print list of users"))
+        .get_matches();
+
+    let addr = matches.value_of("database")
+        .unwrap_or("postgres://postgres@localhost:5432");
+    let conn = Connection::connect(addr, TlsMode::None)?;
+
+    match matches.subcommand() {
+        (CMD_CREATE, _) => {
+            create_table(&conn)?;
+        }
+        (CMD_ADD, Some(matches)) => {
+            let name = matches.value_of("NAME").unwrap();
+            let email = matches.value_of("EMAIL").unwrap();
+            create_user(&conn, name, email)?;
+        }
+        (CMD_LIST, _) => {
+            let list = list_users(&conn)?;
+            for (name, email) in list {
+                println!("Name: {:20}    Email: {:20}", name, email);
+            }
+        }
+        _ => {
+            matches.usage(); // but unreachable
+        }
+    }
+
+    Ok(())
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-mysql/Cargo.toml
+[package]
+name = "users-mysql"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+clap = "2.32"
+csv = "1.0"
+failure = "0.1"
+mysql = "14.1"
+r2d2 = "0.8"
+r2d2_mysql = "9.0"
+rayon = "1.0"
+serde = "1.0"
+serde_derive = "1.0"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-mysql/test.sh
+docker run -it --rm --name test-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=test -p 3306:3306 mysql
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-mysql/users.csv
+name,email
+user01,user01@example.com
+user02,user02@example.com
+user03,user03@example.com
+user04,user04@example.com
+user05,user05@example.com
+user06,user06@example.com
+user07,user07@example.com
+user08,user08@example.com
+user09,user09@example.com
+user10,user10@example.com
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-mysql/src/main.rs
+use clap::{
+    crate_authors, crate_description, crate_name, crate_version, App, AppSettings, Arg, SubCommand,
+};
+use mysql::{Conn, Error, Opts, OptsBuilder};
+use r2d2_mysql::MysqlConnectionManager;
+use rayon::prelude::*;
+use serde_derive::Deserialize;
+use std::io;
+
+fn create_table(conn: &mut Conn) -> Result<(), Error> {
+    conn.query("CREATE TABLE users (
+                    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(50) NOT NULL,
+                    email VARCHAR(50) NOT NULL
+                  )")
+        .map(drop)
+}
+
+fn create_user(conn: &mut Conn, user: &User) -> Result<(), Error> {
+    conn.prep_exec("INSERT INTO users (name, email) VALUES (?, ?)",
+                 (&user.name, &user.email))
+        .map(drop)
+}
+
+fn list_users(conn: &mut Conn) -> Result<Vec<User>, Error> {
+    conn.query("SELECT name, email FROM users")?
+        .into_iter()
+        .try_fold(Vec::new(), |mut vec, row| {
+            let row = row?;
+            let user = User {
+                name: row.get_opt(0).unwrap()?,
+                email: row.get_opt(1).unwrap()?,
+            };
+            vec.push(user);
+            Ok(vec)
+        })
+}
+
+#[derive(Deserialize, Debug)]
+struct User {
+    name: String,
+    email: String,
+}
+
+const CMD_CRATE: &str = "create";
+const CMD_ADD: &str = "add";
+const CMD_LIST: &str = "list";
+const CMD_IMPORT: &str = "import";
+
+fn main() -> Result<(), failure::Error> {
+
+    let matches = App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .setting(AppSettings::SubcommandRequired)
+        .arg(
+            Arg::with_name("database")
+            .short("d")
+            .long("db")
+            .value_name("ADDR")
+            .help("Sets an address of db connection")
+            .takes_value(true),
+            )
+        .subcommand(SubCommand::with_name(CMD_CRATE).about("create users table"))
+        .subcommand(SubCommand::with_name(CMD_ADD).about("add user to the table")
+                    .arg(Arg::with_name("NAME")
+                         .help("Sets the name of a user")
+                         .required(true)
+                         .index(1))
+                    .arg(Arg::with_name("EMAIL")
+                         .help("Sets the email of a user")
+                         .required(true)
+                         .index(2)))
+        .subcommand(SubCommand::with_name(CMD_LIST).about("print list of users"))
+        .subcommand(SubCommand::with_name(CMD_IMPORT).about("import users from csv"))
+        .get_matches();
+
+    let addr = matches.value_of("database")
+        .unwrap_or("mysql://root:password@localhost:3306/test");
+    let opts = Opts::from_url(addr)?;
+    let builder = OptsBuilder::from_opts(opts);
+    let manager = MysqlConnectionManager::new(builder);
+    let pool = r2d2::Pool::new(manager)?;
+    let mut conn = pool.get()?;
+
+    match matches.subcommand() {
+        (CMD_CRATE, _) => {
+            create_table(&mut conn)?;
+        }
+        (CMD_ADD, Some(matches)) => {
+            let name = matches.value_of("NAME").unwrap().to_owned();
+            let email = matches.value_of("EMAIL").unwrap().to_owned();
+            let user = User { name, email };
+            create_user(&mut conn, &user)?;
+        }
+        (CMD_LIST, _) => {
+            let list = list_users(&mut conn)?;
+            for user in list {
+                println!("Name: {:20}    Email: {:20}", user.name, user.email);
+            }
+        }
+        (CMD_IMPORT, _) => {
+            let mut rdr = csv::Reader::from_reader(io::stdin());
+            let mut users = Vec::new();
+            for user in rdr.deserialize() {
+                users.push(user?);
+            }
+            users.par_iter()
+                .map(|user| -> Result<(), failure::Error> {
+                    let mut conn = pool.get()?;
+                    create_user(&mut conn, &user)?;
+                    Ok(())
+                })
+                .for_each(drop);
+        }
+        _ => {
+            matches.usage(); // but unreachable
+        }
+    }
+
+    Ok(())
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-pool/Cargo.toml
+[package]
+name = "users-pool"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+clap = "2.32"
+csv = "1.0"
+failure = "0.1"
+postgres = "0.15"
+r2d2 = "0.8"
+r2d2_postgres = "0.14"
+rayon = "1.0"
+serde = "1.0"
+serde_derive = "1.0"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-pool/test.sh
+docker run -it --rm --name test-pg -p 5432:5432 postgres
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-pool/users.csv
+name,email
+user01,user01@example.com
+user02,user02@example.com
+user03,user03@example.com
+user04,user04@example.com
+user05,user05@example.com
+user06,user06@example.com
+user07,user07@example.com
+user08,user08@example.com
+user09,user09@example.com
+user10,user10@example.com
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter07/users-pool/src/main.rs
+use clap::{
+    crate_authors, crate_description, crate_name, crate_version, App, AppSettings, Arg, SubCommand,
+};
+use postgres::{Connection, Error};
+use r2d2_postgres::{TlsMode, PostgresConnectionManager};
+use rayon::prelude::*;
+use serde_derive::Deserialize;
+use std::io;
+
+fn create_table(conn: &Connection) -> Result<(), Error> {
+    conn.execute("CREATE TABLE users (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR NOT NULL,
+                    email VARCHAR NOT NULL
+                  )", &[])
+        .map(drop)
+}
+
+fn create_user(conn: &Connection, user: &User) -> Result<(), Error> {
+    conn.execute("INSERT INTO users (name, email) VALUES ($1, $2)",
+                 &[&user.name, &user.email])
+        .map(drop)
+}
+
+fn list_users(conn: &Connection) -> Result<Vec<User>, Error> {
+    let res = conn.query("SELECT name, email FROM users", &[])?.into_iter()
+        .map(|row| {
+            User {
+                name: row.get(0),
+                email: row.get(1),
+            }
+        })
+        .collect();
+    Ok(res)
+}
+
+#[derive(Deserialize, Debug)]
+struct User {
+    name: String,
+    email: String,
+}
+
+const CMD_CREATE: &str = "create";
+const CMD_ADD: &str = "add";
+const CMD_LIST: &str = "list";
+const CMD_IMPORT: &str = "import";
+
+fn main() -> Result<(), failure::Error> {
+
+    let matches = App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .setting(AppSettings::SubcommandRequired)
+        .arg(
+            Arg::with_name("database")
+            .short("d")
+            .long("db")
+            .value_name("ADDR")
+            .help("Sets an address of db connection")
+            .takes_value(true),
+            )
+        .subcommand(SubCommand::with_name(CMD_CREATE).about("create users table"))
+        .subcommand(SubCommand::with_name(CMD_ADD).about("add user to the table")
+                    .arg(Arg::with_name("NAME")
+                         .help("Sets the name of a user")
+                         .required(true)
+                         .index(1))
+                    .arg(Arg::with_name("EMAIL")
+                         .help("Sets the email of a user")
+                         .required(true)
+                         .index(2)))
+        .subcommand(SubCommand::with_name(CMD_LIST).about("print list of users"))
+        .subcommand(SubCommand::with_name(CMD_IMPORT).about("import users from csv"))
+        .get_matches();
+
+    let addr = matches.value_of("database")
+        .unwrap_or("postgres://postgres@localhost:5432");
+    let manager = PostgresConnectionManager::new(addr, TlsMode::None)?;
+    let pool = r2d2::Pool::new(manager)?;
+    let conn = pool.get()?;
+
+    match matches.subcommand() {
+        (CMD_CREATE, _) => {
+            create_table(&conn)?;
+        }
+        (CMD_ADD, Some(matches)) => {
+            let name = matches.value_of("NAME").unwrap().to_owned();
+            let email = matches.value_of("EMAIL").unwrap().to_owned();
+            let user = User { name, email };
+            create_user(&conn, &user)?;
+        }
+        (CMD_LIST, _) => {
+            let list = list_users(&conn)?;
+            for user in list {
+                println!("Name: {:20}    Email: {:20}", user.name, user.email);
+            }
+        }
+        (CMD_IMPORT, _) => {
+            let mut rdr = csv::Reader::from_reader(io::stdin());
+            let mut users = Vec::new();
+            for user in rdr.deserialize() {
+                users.push(user?);
+            }
+            users.par_iter()
+                .map(|user| -> Result<(), failure::Error> {
+                    let conn = pool.get()?;
+                    create_user(&conn, &user)?;
+                    Ok(())
+                })
+                .for_each(drop);
+        }
+        _ => {
+            matches.usage(); // but unreachable
+        }
+    }
+
+    Ok(())
+}
+
+--#
+

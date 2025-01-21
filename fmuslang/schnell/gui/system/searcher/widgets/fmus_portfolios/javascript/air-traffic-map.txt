@@ -1,0 +1,18 @@
+C:\portfolio\air-traffic-map
+C:\portfolio\air-traffic-map,d
+    /ketik)python -mhttp.server
+http://localhost:8000
+
+origin	https://github.com/DenBrun/air-traffic-map (fetch)
+origin	https://github.com/DenBrun/air-traffic-map (push)
+
+****************************************************************************************************
+*** index.html
+
+****************************************************************************************************
+*** script.js
+
+****************************************************************************************************
+*** country-codes.json
+
+C:\portfolio\air-traffic-map\icons\icon.png

@@ -1,0 +1,13 @@
+--% index/fmus
+__PWD,d
+	?pick
+		$* pnpx create-next-app myblog
+		$* pnpx create-next-app myblog --typescript
+
+		$* npx create-next-app@latest myblog --ts
+		$* yarn dev
+
+		$* yarn add next-auth
+
+		/file>i/-1/import Head from 'next/head';|__INPUT__.js
+--#

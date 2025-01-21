@@ -1,0 +1,7 @@
+--% button
+import Button from '@mui-material/Button';
+
+<Button variant='contained'>Hello</Button>
+<Button variant='outlined' color='secondary'>Hello</Button>
+<Button variant='text'>Hello</Button>
+--#

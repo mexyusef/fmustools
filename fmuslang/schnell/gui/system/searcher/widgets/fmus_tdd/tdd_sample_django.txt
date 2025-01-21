@@ -1,0 +1,50 @@
+# Django TDD Examples
+TDD in django: show me some examples
+
+Sure! Here are a few examples of using Test-Driven Development (TDD) in Django:
+
+Example 1: Testing a Model
+
+Let's say we have a Django app called "blog" with a model called "Post" that represents a blog post. We want to test the behavior of the save() method of the Post model.
+
+python
+Copy code
+from django.test import TestCase
+from blog.models import Post
+
+class PostModelTestCase(TestCase):
+    def test_save_method(self):
+        post = Post(title='Test Post', content='This is a test post.')
+        post.save()
+        saved_post = Post.objects.get(title='Test Post')
+        self.assertEqual(post, saved_post)
+In this example, we create a test case PostModelTestCase that inherits from Django's TestCase. We define a test method test_save_method, where we create a Post object, save it to the database, retrieve it again using the get() method, and finally assert that the original post object is equal to the saved post object.
+
+Example 2: Testing a View
+
+Let's consider a Django app with a view that displays a list of blog posts.
+
+python
+Copy code
+from django.test import TestCase, Client
+from django.urls import reverse
+from blog.models import Post
+
+class PostListViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse('post-list')
+        self.post1 = Post.objects.create(title='Post 1', content='This is post 1.')
+        self.post2 = Post.objects.create(title='Post 2', content='This is post 2.')
+
+    def test_get_post_list(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.post1.title)
+        self.assertContains(response, self.post2.title)
+In this example, we create a test case PostListViewTestCase. In the setUp() method, we create a test client, set the URL for the view we want to test using the reverse() function, and create two Post objects for testing.
+
+The test_get_post_list() method sends a GET request to the view's URL using the test client and asserts that the response has a status code of 200 (indicating a successful request) and that the response contains the titles of both posts.
+
+These are just a couple of examples to give you an idea of how TDD can be applied in Django. There are many more aspects you can test, such as forms, templates, authentication, and more. TDD helps ensure that your code is working as expected and provides a safety net when making changes or adding new features.
+

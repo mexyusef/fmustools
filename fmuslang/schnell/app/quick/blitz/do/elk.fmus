@@ -1,0 +1,7 @@
+--% index/fmus
+__PWD,d
+	@ /b> do/oprek *
+	?pick
+		@generate docker-compose.yml di subfolder "elk"*
+			.,d(/load=__CURDIR__/../../../special/elk.fmus=index/fmus)
+--#

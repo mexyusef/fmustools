@@ -1,0 +1,13 @@
+**.,d
+  sql_mssql.py,f(t=)
+  sql_mysql.py,f(t=)
+  sql_sqlite.py,f(t=)
+  typeorm.py,f(t=)
+  prisma.py,f(t=)
+  hibernate.py,f(t=)
+  mybatis.py,f(t=)
+  django_orm.py,f(t=)
+  struct_go.py,f(t=)
+  struct_rs.py,f(t=)
+  struct_kt.py,f(t=)
+  struct_ts.py,f(t=)

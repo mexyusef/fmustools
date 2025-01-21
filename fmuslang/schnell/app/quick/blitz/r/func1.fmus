@@ -1,0 +1,27 @@
+--% index/fmus
+__PWD,d
+    %__TEMPLATE_FILENAME=__INPUT__
+    ?pick
+    	@berbasis <div>
+    		__TEMPLATE_FILENAME.js,f(e=__FILE=template1)
+    	@berbasis <>
+    		__TEMPLATE_FILENAME.js,f(e=__FILE=template2)
+--#
+
+--% template1
+function __TEMPLATE_FILENAME() {
+    return (<div>
+    </div>);
+}
+
+export default __TEMPLATE_FILENAME;
+--#
+
+--% template2
+function __TEMPLATE_FILENAME() {
+    return (<>
+    </>);
+}
+
+export default __TEMPLATE_FILENAME;
+--#

@@ -1,0 +1,548 @@
+--% index/fmus
+__PWD,d
+    README.md,f(e=__FILE__=README.md)
+    ?pick
+        $* go get github.com/PuerkitoBio/goquery
+            @ go: go.mod file not found in current directory or any parent directory. 'go get' is no longer supported outside a module.*
+        $* go install github.com/PuerkitoBio/goquery@latest
+            @katrok gak ngefek...*
+        @contoh ambil title dari webpage*
+            .,d(/load=__FILE__=get_title/fmus*)
+        @contoh main dengan local html*
+            .,d(/load=__FILE__=local_html/fmus*)
+        @contoh main dengan string html*
+            .,d(/load=__FILE__=string_html/fmus*)
+        @contoh filter string html*
+            .,d(/load=__FILE__=filter_string_html/fmus*)
+        @union words*
+            .,d(/load=__FILE__=union_words/fmus*)
+        @get links*
+            .,d(/load=__FILE__=get_links/fmus*)
+        @stackoverflow*
+            .,d(/load=__FILE__=stackoverflow/fmus*)
+        @get earthquakes*
+            .,d(/load=__FILE__=get_earthquakes/fmus*)
+--#
+
+--% README.md
+https://zetcode.com/golang/goquery/
+--#
+
+--% get_title/fmus
+.,d
+    $* go mod init hapus
+    %__TEMPLATE_ALAMAT=https://www.dailymail.co.uk/ushome/
+    main.go,f(e=__FILE__=get_title/code)
+    $* go run main.go
+--#
+
+--% get_title/code
+package main
+
+import (
+    "fmt"
+    "github.com/PuerkitoBio/goquery"
+    "log"
+    "net/http"
+)
+
+func main() {
+
+    webPage := "__TEMPLATE_ALAMAT"
+    resp, err := http.Get(webPage)
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    defer resp.Body.Close()
+
+    if resp.StatusCode != 200 {
+        log.Fatalf("failed to fetch data: %d %s", resp.StatusCode, resp.Status)
+    }
+
+    doc, err := goquery.NewDocumentFromReader(resp.Body)
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    title := doc.Find("title").Text()
+    fmt.Println(title)
+}
+--#
+
+--% local_html/fmus
+.,d
+    $* go mod init hapus
+    index.html,f(e=__FILE__=local.html/code)
+    main.go,f(e=__FILE__=local.code)
+    $* go run main.go
+--#
+
+--% local.code
+package main
+
+import (
+    "fmt"
+    "io/ioutil"
+    "log"
+    "regexp"
+    "strings"
+
+    "github.com/PuerkitoBio/goquery"
+)
+
+
+func main() {
+
+    data, err := ioutil.ReadFile("index.html")
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    doc, err := goquery.NewDocumentFromReader(strings.NewReader(string(data)))
+
+    if err != nil {
+        log.Fatal(err)
+    }
+    // cari semua h1 dan p, ambil text mereka...
+    text := doc.Find("h1,p").Text()
+    re := regexp.MustCompile("\\s{2,}")
+    fmt.Println(re.ReplaceAllString(text, "\n"))
+}
+--#
+
+--% local.html/code
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<main>
+    <h1>My website</h1>
+
+    <p>
+        I am a Go programmer.
+    </p>
+
+    <p>
+        My hobbies are:
+    </p>
+
+    <ul>
+        <li>Swimming</li>
+        <li>Tai Chi</li>
+        <li>Running</li>
+        <li>Web development</li>
+        <li>Reading</li>
+        <li>Music</li>
+    </ul>
+</main>
+</body>
+
+</html>
+--#
+
+
+--% string_html/fmus
+.,d
+    $* go mod init hapus
+    #index.html,f(e=__FILE__=local.html/code)
+    main.go,f(e=__FILE__=string.code)
+    $* go run main.go
+--#
+
+--% string.code
+package main
+
+import (
+    "fmt"
+    "log"
+    "strings"
+
+    "github.com/PuerkitoBio/goquery"
+)
+
+func main() {
+
+    data := `
+<html lang="en">
+<body>
+<p>List of words</p>
+<ul>
+    <li>dark</li>
+    <li>smart</li>
+    <li>war</li>
+    <li>cloud</li>
+    <li>park</li>
+    <li>cup</li>
+    <li>worm</li>
+    <li>water</li>
+    <li>rock</li>
+    <li>warm</li>
+</ul>
+<footer>footer for words</footer>
+</body>
+</html>
+`
+
+    doc, err := goquery.NewDocumentFromReader(strings.NewReader(data))
+
+    if err != nil {
+    log.Fatal(err)
+    }
+
+    //We get the words from the HTML list. 
+    //With Find, we get all the li elements. 
+    //The Map method is used to build a string that contains the word and its index in the list. 
+    words := doc.Find("li").Map(func(i int, sel *goquery.Selection) string {
+        return fmt.Sprintf("%d: %s", i+1, sel.Text())
+    })
+
+    fmt.Println(words)
+}
+--#
+
+--% filter_string_html/fmus
+.,d
+    $* go mod init hapus
+    #index.html,f(e=__FILE__=local.html/code)
+    main.go,f(e=__FILE__=filter_string.code)
+    $* go run main.go
+--#
+
+--% filter_string.code
+package main
+
+import (
+    "fmt"
+    "log"
+    "strings"
+
+    "github.com/PuerkitoBio/goquery"
+)
+
+func main() {
+
+    data := `
+<html lang="en">
+<body>
+<p>List of words</p>
+<ul>
+    <li>dark</li>
+    <li>smart</li>
+    <li>war</li>
+    <li>cloud</li>
+    <li>park</li>
+    <li>cup</li>
+    <li>worm</li>
+    <li>water</li>
+    <li>rock</li>
+    <li>warm</li>
+</ul>
+<footer>footer for words</footer>
+</body>
+</html>
+`
+
+    doc, err := goquery.NewDocumentFromReader(strings.NewReader(data))
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    f := func(i int, sel *goquery.Selection) bool {
+        return strings.HasPrefix(sel.Text(), "w")
+    }
+
+    var words []string
+
+    doc.Find("li").FilterFunction(f).Each(func(_ int, sel *goquery.Selection) {
+        words = append(words, sel.Text())
+    })
+
+    fmt.Println(words)
+}
+--#
+
+--% union_words/fmus
+.,d
+    $* go mod init hapus
+    main.go,f(e=__FILE__=union_words/code)
+    $* go run main.go
+--#
+
+--% union_words/code
+package main
+
+import (
+    "fmt"
+    "log"
+    "strings"
+
+    "github.com/PuerkitoBio/goquery"
+)
+
+func main() {
+
+    data := `
+<html lang="en">
+<body>
+<p>List of words</p>
+<ul>
+    <li>dark</li>
+    <li>smart</li>
+    <li>war</li>
+    <li>cloud</li>
+    <li>park</li>
+    <li>cup</li>
+    <li>worm</li>
+    <li>water</li>
+    <li>rock</li>
+    <li>warm</li>
+</ul>
+<footer>footer for words</footer>
+</body>
+</html>
+`
+    doc, err := goquery.NewDocumentFromReader(strings.NewReader(data))
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    var words []string
+
+    sel1 := doc.Find("li:first-child, li:last-child")
+    sel2 := doc.Find("li:nth-child(3), li:nth-child(7)")
+
+    sel1.Union(sel2).Each(func(_ int, sel *goquery.Selection) {
+        words = append(words, sel.Text())
+    })
+
+    fmt.Println(words)
+}
+--#
+
+--% get_links/fmus
+.,d
+    $* go mod init hapus
+    main.go,f(e=__FILE__=get_links/code)
+    $* go run main.go
+--#
+
+--% get_links/code
+package main
+
+import (
+    "fmt"
+    "log"
+    "net/http"
+    "strings"
+
+    "github.com/PuerkitoBio/goquery"
+)
+
+func getLinks() {
+
+    webPage := "https://golang.org"
+
+    resp, err := http.Get(webPage)
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    defer resp.Body.Close()
+
+    if resp.StatusCode != 200 {
+        log.Fatalf("status code error: %d %s", resp.StatusCode, resp.Status)
+    }
+
+    doc, err := goquery.NewDocumentFromReader(resp.Body)
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    f := func(i int, s *goquery.Selection) bool {
+
+        link, _ := s.Attr("href")
+        return strings.HasPrefix(link, "https")
+    }
+
+    doc.Find("body a").FilterFunction(f).Each(func(_ int, tag *goquery.Selection) {
+
+        link, _ := tag.Attr("href")
+        linkText := tag.Text()
+        fmt.Printf("%s %s\n", linkText, link)
+    })
+}
+
+func main() {
+    getLinks()
+}
+--#
+
+--% stackoverflow/fmus
+.,d
+    $* go mod init hapus
+    main.go,f(e=__FILE__=stackoverflow/code)
+    $* go run main.go
+--#
+
+--% stackoverflow/code
+package main
+
+import (
+    "fmt"
+    "log"
+    "net/http"
+
+    "github.com/PuerkitoBio/goquery"
+)
+
+func main() {
+
+    webPage := "https://stackoverflow.com/questions/tagged/raku"
+
+    resp, err := http.Get(webPage)
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    defer resp.Body.Close()
+
+    if resp.StatusCode != 200 {
+        log.Fatalf("failed to fetch data: %d %s", resp.StatusCode, resp.Status)
+    }
+
+    doc, err := goquery.NewDocumentFromReader(resp.Body)
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    doc.Find(".question-summary .summary").Each(func(i int, s *goquery.Selection) {
+
+        title := s.Find("h3").Text()
+        fmt.Println(i+1, title)
+    })
+}
+--#
+
+--% get_earthquakes/fmus
+.,d
+    $* go mod init hapus
+    main.go,f(e=__FILE__=get_earthquakes/code)
+    $* go run main.go
+--#
+
+--% get_earthquakes/code
+package main
+
+import (
+    "fmt"
+    "github.com/PuerkitoBio/goquery"
+    "github.com/olekukonko/tablewriter"
+    "log"
+    "net/http"
+    "os"
+    "strings"
+)
+
+type Earthquake struct {
+    Date      string
+    Latitude  string
+    Longitude string
+    Magnitude string
+    Depth     string
+    Location  string
+    IrisId    string
+}
+
+var quakes []Earthquake
+
+func fetchQuakes() {
+
+    webPage := "http://ds.iris.edu/seismon/eventlist/index.phtml"
+
+    resp, err := http.Get(webPage)
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    defer resp.Body.Close()
+
+    if resp.StatusCode != 200 {
+        log.Fatalf("failed to fetch data: %d %s", resp.StatusCode, resp.Status)
+    }
+
+    doc, err := goquery.NewDocumentFromReader(resp.Body)
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    doc.Find("tbody tr").Each(func(j int, tr *goquery.Selection) {
+
+        if j >= 10 {
+            return
+        }
+
+        e := Earthquake{}
+
+        tr.Find("td").Each(func(ix int, td *goquery.Selection) {
+            switch ix {
+            case 0:
+                e.Date = td.Text()
+            case 1:
+                e.Latitude = td.Text()
+            case 2:
+                e.Longitude = td.Text()
+            case 3:
+                e.Magnitude = td.Text()
+            case 4:
+                e.Depth = td.Text()
+            case 5:
+                e.Location = strings.TrimSpace(td.Text())
+            case 6:
+                e.IrisId = td.Text()
+            }
+        })
+
+        quakes = append(quakes, e)
+
+    })
+
+    table := tablewriter.NewWriter(os.Stdout)
+    table.SetHeader([]string{"Date", "Location", "Magnitude", "Longitude",
+        "Latitude", "Depth", "IrisId"})
+    table.SetCaption(true, "Last ten earthquakes")
+
+    for _, quake := range quakes {
+
+        s := []string{
+            quake.Date,
+            quake.Location,
+            quake.Magnitude,
+            quake.Longitude,
+            quake.Latitude,
+            quake.Depth,
+            quake.IrisId,
+        }
+
+        table.Append(s)
+    }
+
+    table.Render()
+}
+
+func main() {
+
+    fetchQuakes()
+}
+--#

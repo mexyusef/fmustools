@@ -1,0 +1,122 @@
+Open sidebar
+TDD in Go-Gonic: Examples
+
+
+User
+TDD in Go Gonic: show me some examples
+
+ChatGPT
+Certainly! Here are some examples of Test-Driven Development (TDD) in Go using the Go-Gonic framework.
+
+Basic Route Testing:
+go
+Copy code
+package main_test
+
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
+	"github.com/gin-gonic/gin"
+	"github.com/stretchr/testify/assert"
+)
+
+func TestPingRoute(t *testing.T) {
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.String(http.StatusOK, "pong")
+	})
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/ping", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, "pong", w.Body.String())
+}
+Mocking Dependencies:
+go
+Copy code
+package main_test
+
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
+	"github.com/gin-gonic/gin"
+	"github.com/stretchr/testify/assert"
+)
+
+// Mock database implementation
+type MockDB struct{}
+
+func (db *MockDB) GetItem(id string) string {
+	return "test item"
+}
+
+func TestGetItemRoute(t *testing.T) {
+	r := gin.Default()
+	db := &MockDB{}
+	r.GET("/item/:id", func(c *gin.Context) {
+		id := c.Param("id")
+		item := db.GetItem(id)
+		c.String(http.StatusOK, item)
+	})
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/item/123", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, "test item", w.Body.String())
+}
+Testing JSON APIs:
+go
+Copy code
+package main_test
+
+import (
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
+	"github.com/gin-gonic/gin"
+	"github.com/stretchr/testify/assert"
+)
+
+type Item struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+func TestCreateItemRoute(t *testing.T) {
+	r := gin.Default()
+	r.POST("/item", func(c *gin.Context) {
+		var item Item
+		err := c.BindJSON(&item)
+		if err != nil {
+			c.String(http.StatusBadRequest, "Bad Request")
+			return
+		}
+		c.JSON(http.StatusOK, item)
+	})
+
+	payload := []byte(`{"id":"123","name":"test item"}`)
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/item", bytes.NewBuffer(payload))
+	req.Header.Set("Content-Type", "application/json")
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+
+	var response Item
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(t, err)
+	assert.Equal(t, "123", response.ID)
+	assert.Equal(t, "test item", response.Name)
+}
+
+These examples demonstrate some common scenarios for writing tests with Go-Gonic. You can adapt them to suit your specific needs and expand upon them as necessary. Remember, TDD emphasizes writing tests before writing the actual code, so you may want to start with failing tests and then implement the corresponding functionality.

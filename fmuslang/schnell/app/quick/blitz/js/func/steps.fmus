@@ -1,0 +1,1689 @@
+--% index/fmus
+__PWD,d
+    baca.txt,f(e=__FILE__=step0)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step1)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step1b)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step1c)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step2a)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step2b)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step3)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step4)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step5)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step6)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step7)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step8)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=step9)
+        $ more baca.txt
+
+    baca.txt,f(e=__FILE__=lodash)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=mutations)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=pure)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=ramda)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=recursion)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=reducemapfilter)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=sharedstate)
+        $ more baca.txt
+
+    baca.txt,f(e=__FILE__=arity)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=cloning)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=composition)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=curryconcepts)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=curry)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=declarative)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=dissectcurrying)
+        $ more baca.txt
+    baca.txt,f(e=__FILE__=oop)
+        $ more baca.txt
+--#
+
+--% step0
+function add(a,b){
+    return a+b;
+}
+c = add(1,2);
+console.log(c);  //prints 3
+
+function sayHello(what) {
+    return "Hello " + what;
+}
+console.log(sayHello("world"));
+
+////////////////
+var a;      //declares a variable but its undefined
+var b = 0;
+console.log(b);    //0
+console.log(a);    //undefined
+console.log(a+b); //NaN
+const area_code = '515';
+var aNumber = 555;
+var aFloat = 555.0;
+
+var underterminedValue = "elephant";
+if (isNaN(parseInt(underterminedValue,2)))
+{
+    console.log("handle not a number case");
+}
+else {
+    console.log("handle number case");
+}
+////////////////
+var s = new String("dummy"); //Creates a String object
+console.log(s); //"dummy"
+console.log(typeof s); //"object"
+var nonObject = "1" + "2"; //Create a String primitive
+console.log(typeof nonObject); //"string"
+var objString = new String("1" + "2"); //Creates a String object
+console.log(typeof objString); //"object"
+//Helper functions
+console.log("Hello".length); //5
+console.log("Hello".charAt(0)); //"H"
+console.log("Hello".charAt(1)); //"e"
+console.log("Hello".indexOf("e")); //1
+console.log("Hello".lastIndexOf("l")); //3
+console.log("Hello".startsWith("H")); //true
+console.log("Hello".endsWith("o")); //true
+console.log("Hello".includes("X")); //false
+var splitStringByWords = "Hello World".split(" ");
+console.log(splitStringByWords); //["Hello", "World"]
+var splitStringByChars = "Hello World".split("");
+console.log(splitStringByChars); //["H", "e", "l", "l", "o", " ","W", "o", "r", "l", "d"]
+console.log("lowercasestring".toUpperCase()); //"LOWERCASESTRING"
+console.log("UPPPERCASESTRING".toLowerCase());//"upppercasestring"
+console.log("There are no spaces in the end     ".trim());//"There are no spaces in the end"
+////////////////
+var oBooleanTrue = new Boolean(true);
+var oBooleanFalse = new Boolean(false);
+console.log(oBooleanTrue); //true
+console.log(typeof oBooleanTrue); //object
+if(oBooleanFalse){
+ console.log("I am seriously truthy, don't believe me");
+}
+//"I am seriously truthy, don't believe me"
+if(oBooleanTrue){
+ console.log("I am also truthy, see ?");
+}
+//"I am also truthy, see ?"
+//Use valueOf() to extract real value within the Boolean object
+if(oBooleanFalse.valueOf()){
+ console.log("With valueOf, I am false");
+}else{
+ console.log("Without valueOf, I am still truthy");
+}
+//"Without valueOf, I am still truthy"
+////////////////
+var aStringObject = new String("string");
+console.log(typeof aStringObject);        //"object"
+console.log(aStringObject instanceof String);    //true
+var aString = "This is a string";
+console.log(aString instanceof String);     //false
+////////////////
+var today = new Date();
+console.log(today.getDate()); //27
+console.log(today.getMonth()); //4
+console.log(today.getFullYear()); //2015
+console.log(today.getHours()); //23
+console.log(today.getMinutes()); //13
+console.log(today.getSeconds()); //10
+//number of milliseconds since January 1, 1970, 00:00:00 UTC
+console.log(today.getTime()); //1432748611392
+console.log(today.getTimezoneOffset()); //-330 Minutes
+//Calculating elapsed time
+var start = Date.now();
+// loop for a long time
+for (var i=0;i<100000;i++);
+var end = Date.now();
+var elapsed = end - start; // elapsed time in milliseconds
+console.log(elapsed); //71
+////////////////
+var a=25;
+a=+a;            //No impact on a's value
+console.log(a);  //25
+var b="70";
+console.log(typeof b); //string
+b=+b;           //converts string to number
+console.log(b); //70
+console.log(typeof b); //number
+
+var c="foo";
+c=+c;            //Converts foo to number
+console.log(c);  //NaN
+console.log(typeof c);  //number
+var zero="";
+zero=+zero; //empty strings are converted to 0
+console.log(zero);
+console.log(typeof zero);	
+
+var a= 1;
+var b= a++;
+console.log(a); //2
+console.log(b); //1
+
+var a= 1;
+var b= ++a;
+console.log(a);  //2
+console.log(b);  //2
+
+var a, b, c;
+a = b = c = 0;
+////////////////
+console.log(true && true); // true AND true returns true 
+console.log(true && false);// true AND false returns false 
+console.log(false && true);// false AND true returns false 
+console.log("Foo" && "Bar");// Foo(true) AND Bar(true) returns Bar
+console.log(false && "Foo");// false && Foo(true) returns false
+console.log("Foo" && false);// Foo(true) && false returns false
+console.log(false && (1 == 2));// false && false(1==2) returns false
+
+console.log(true || true); // true AND true returns true 
+console.log(true || false);// true AND false returns true 
+console.log(false || true);// false AND true returns true 
+console.log("Foo" || "Bar");// Foo(true) AND Bar(true) returns Foo 
+console.log(false || "Foo");// false && Foo(true) returns Foo 
+console.log("Foo" || false);// Foo(true) && false returns Foo 
+console.log(false || (1 == 2));// false && false(1==2) returns false
+
+console.log (0 && "Foo");  //First operand is falsy -return it
+console.log ("Foo" && "Bar"); //First operand is truthy, return the second operand
+
+console.log (0 || "Foo");  //First operand is falsy -return second operand
+console.log ("Foo" || "Bar"); //First operand is truthy,return it
+console.log (0 || false); //First operand is falsy, return second operand
+
+function greeting(name){
+   name = name || "John";
+   console.log("Hello " + name);
+}
+greeting("Johnson"); // alerts "Hi Johnson";
+greeting(); //alerts "Hello John"
+
+//If the operand is an object, false is returned.
+var s = new String("string");
+console.log(!s);              //false
+//If the operand is the number 0, true is returned.
+var t = 0;
+console.log(!t);              //true
+//If the operand is any number other than 0, false is returned.
+var x = 11;
+console.log(!x);              //false
+//If operand is null or NaN, true is returned
+var y =null;
+var z = NaN;
+console.log(!y);              //true
+console.log(!z);              //true
+//If operand is undefined, you get true
+var foo;
+console.log(!foo);            //true
+////////////////
+function sayDay(day){
+ switch(day){
+   case 1: console.log("Sunday");
+     break;
+   case 2: console.log("Monday");
+     break;
+   default:
+     console.log("We live in a binary world. Go to Pluto");
+  } 
+}
+sayDay(1); //Sunday
+sayDay(3); //We live in a binary world. Go to Pluto
+
+
+function debug(level,msg){
+ switch(level){
+   case "INFO": //intentional fall-through
+   case "WARN" :
+   case "DEBUG": console.log(level+ ": " + msg);
+     break;
+   case "ERROR": console.error(msg);
+  } 
+}
+debug("INFO","Info Message");
+debug("DEBUG","Debug Message");
+debug("ERROR","Fatal Exception");
+////////////////
+var i=0;
+while(i<10){
+	i=i+1;
+	console.log(i);
+}
+
+//infinite loop
+while(true){
+	//keep doing this
+}
+
+var choice;
+do {
+choice=getChoiceFromUserInput();
+} while(!isInputValid(choice));
+
+var x=0;
+//Omit initialitzation
+for (;x<5;x++){
+	console.log("Hello");
+}
+//Omit exit condition
+for (var j=0;;j++){
+	//exit condition
+	if(j>=5){
+		break;
+	}else{
+		console.log("Hello");
+	}
+}
+//Omit increment
+for (var k=0; k<5;){
+	console.log("Hello");
+	k++; 
+}
+
+var arr = [10, 20, 30];
+// Assign all array values to 100
+for (i = 0; i < arr.length; arr[i++] = 100);
+console.log(arr);
+////////////////
+var n = 0;
+var o = new String("0");
+var s = "0";
+var b = false;
+console.log(n === n); // true - same values for numbers
+console.log(o === o); // true - non numbers are compared for their
+values
+console.log(s === s); // true - ditto
+console.log(n === o); // false - no implicit type conversion, types
+are different
+console.log(n === s); // false - types are different
+console.log(o === s); // false - types are different
+console.log(null === undefined); // false
+console.log(o === null); // false
+console.log(o === undefined); // false
+////////////////
+var t=1;
+var u=""+t; //implicit coercion
+console.log(typeof t);  //"number"
+console.log(typeof u);  //"string"
+var v=String(t);  //Explicit coercion
+console.log(typeof v);  //"string"
+var x=null
+console.log(""+x); //"null"
+--#
+
+--% step1
+var users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+//Mutable Functions
+var recordData = function(arr, prop) {
+    users.forEach(function(val, i, a) {
+        if (val.name.toLowerCase() === arr[0].toLowerCase()) {
+            a[i][prop] = arr[1];
+        }
+    });
+};
+
+//Pure Functions
+var getScore = function(arr, name) {
+    let score;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === name.toLowerCase()) {
+            score = arr[i].score;
+            break;
+        }
+    };
+    return [name, score];
+};
+
+var getTries = function(arr, name) {
+    let tries;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === name.toLowerCase()) {
+            tries = arr[i].tries;
+            break;
+        }
+    };
+    return [name, tries];
+};
+
+var updateScore = function(arr, amt) {
+    let newAmt = arr[1] + amt;
+    return [arr[0], newAmt];
+};
+
+var updateTries = function(arr) {
+    let newTries = arr[1] + 1;
+    return [arr[0], newTries];
+};
+
+let newScore = updateScore(getScore(users, "Henry"), 30);
+recordData(newScore, "score");
+recordData(updateTries(getTries(users, "Henry")),"tries");
+--#
+
+--% step1b
+
+var users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+//Modifies Data
+var storeUser = function(arr, user) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === user.name.toLowerCase()) {
+            arr[i] = user;
+            break;
+        }
+    }
+};
+
+//Pure Functions
+var getUser = function(arr, name) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === name.toLowerCase()) {
+            return arr[i];
+        }
+    }
+    return null;
+};
+
+var updateScore = function(user, newAmt) {
+    if (user) {
+        user.score += newAmt;
+        return user;
+    }
+};
+
+var updateTries = function(user) {
+    if (user) {
+        user.tries++;
+        return user;
+    }
+};
+
+let usr = getUser(users, "Henry");
+let usr1 = updateScore(usr, 30);
+let usr2 = updateTries(usr1);
+//storeUser(usr2);
+--#
+
+--% step1c
+
+var users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+var newScore = function(arr, name, amt) {
+    arr.forEach(function(val) {
+        if (val.name.toLowerCase() === name.toLowerCase()) {
+            val.score = val.score + amt;
+        }
+    });
+    return arr;
+};
+
+var newTries = function(arr, name) {
+    arr.forEach(function(val) {
+        if (val.name.toLowerCase() === name.toLowerCase()) {
+            val.tries++;
+        }
+    });
+    return arr;
+};
+
+
+var newArray1 = newScore(users, "Henry", 30);
+var newArray2 = newTries(users, "Henry");
+--#
+
+--% step2a
+
+const users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+//Modifies Data
+var storeUser = function(arr, user) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === user.name.toLowerCase()) {
+            arr[i] = user;
+            break;
+        }
+    }
+};
+
+//Pure Functions
+const cloneObj = function(obj) {
+    return JSON.parse(JSON.stringify(obj));
+};
+
+var getUser = function(arr, name) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === name.toLowerCase()) {
+            return arr[i];
+        }
+    }
+    return null;
+};
+
+var updateScore = function(user, newAmt) {
+    if (user) {
+        user.score += newAmt;
+        return user;
+    }
+};
+
+var updateTries = function(user) {
+    if (user) {
+        user.tries++;
+        return user;
+    }
+};
+
+const usr = getUser(users, "Henry");
+const usr1 = updateScore(cloneObj(usr), 30);
+const usr2 = updateTries(cloneObj(usr1));
+storeUser(users, usr2);
+--#
+
+--% step2b
+
+const users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+const cloneObj = function(obj) {
+    return JSON.parse(JSON.stringify(obj));
+};
+
+var newScore = function(arr, name, amt) {
+    arr.forEach(function(val) {
+        if (val.name.toLowerCase() === name.toLowerCase()) {
+            val.score = val.score + amt;
+        }
+    });
+    return arr;
+};
+
+var newTries = function(arr, name) {
+    arr.forEach(function(val) {
+        if (val.name.toLowerCase() === name.toLowerCase()) {
+            val.tries++;
+        }
+    });
+    return arr;
+};
+
+
+const newArray1 = newScore(cloneObj(users), "Henry", 30);
+const newArray2 = newTries(cloneObj(newArray1), "Henry");
+--#
+
+--% step3
+
+const scores = [50, 6, 100, 0, 10, 75, 8, 60, 90, 80, 0, 30, 110];
+
+//Any scores that are below 10 needs to be multiplied by 10 and the new value included.
+const boostSingleScores = scores.map(function(val) {
+    return (val < 10) ? val * 10 : val;
+});
+
+//Remove any scores that are over 100.
+const rmvOverScores = boostSingleScores.filter(function(val) {
+    return val <= 100;
+});
+
+//Remove any scores that are 0 or below.
+const rmvZeroScores = rmvOverScores.filter(function(val) {
+    return val > 0;
+});
+
+//Sum the scores.
+const scoresSum = rmvZeroScores.reduce(function(sum, val) {
+    return sum + val;
+}, 0);
+
+//Provide a count for the number of scores still remaining.
+const scoresCnt = rmvZeroScores.reduce(function(cnt, val) {
+    return cnt + 1;
+}, 0);
+--#
+
+--% step4
+
+const users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+//Modifies Data
+var storeUser = function(arr, user) {
+    return arr.map(function(val) {
+        if (val.name.toLowerCase() === user.name.toLowerCase()) {
+            return user;
+        } else {
+            return val;
+        }
+    });
+
+    /*for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === user.name.toLowerCase()) {
+            arr[i] = user;
+            break;
+        }
+    }*/
+};
+
+//Pure Functions
+const cloneObj = function(obj) {
+    return JSON.parse(JSON.stringify(obj));
+};
+
+var getUser = function(arr, name) {
+    return arr.reduce(function(obj, val) {
+        if (val.name.toLowerCase() === name.toLowerCase()) {
+            return val;
+        } else {
+            return obj;
+        }
+    }, null); 
+
+
+    /*for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === name.toLowerCase()) {
+            return arr[i];
+        }
+    }
+    return null;*/
+};
+
+var updateScore = function(user, newAmt) {
+    if (user) {
+        user.score += newAmt;
+        return user;
+    }
+};
+
+var updateTries = function(user) {
+    if (user) {
+        user.tries++;
+        return user;
+    }
+};
+
+const usr = getUser(users, "Henry");
+const usr1 = updateScore(cloneObj(usr), 30);
+const usr2 = updateTries(cloneObj(usr1));
+const newArray = storeUser(users, usr2);
+--#
+
+--% step5
+
+const scores = [50, 6, 100, 0, 10, 75, 8, 60, 90, 80, 0, 30, 110];
+
+//Any scores that are below 10 needs to be multiplied by 10 and the new value included.
+const boostSingleScores = scores.map(val => (val < 10) ? val * 10 : val);
+
+//Remove any scores that are over 100.
+const rmvOverScores = boostSingleScores.filter(val => val <= 100);
+
+//Remove any scores that are 0 or below.
+const rmvZeroScores = rmvOverScores.filter(val => val > 0);
+
+//Sum the scores.
+const scoresSum = rmvZeroScores.reduce((sum, val) => sum + val, 0);
+
+//Provide a count for the number of scores still remaining.
+const scoresCnt = rmvZeroScores.reduce((cnt, val) => cnt + 1, 0);
+--#
+
+--% step6
+
+const scores = [50, 6, 100, 0, 10, 75, 8, 60, 90, 80, 0, 30, 110];
+
+const singleScoresByTen = function(arry) {
+    return arry.map(val => (val < 10) ? val * 10 : val);
+};
+
+const rmvOverScores = function(arry) {
+    return arry.filter(val => val <= 100);
+};
+
+const rmvZeroScores = function(arry) {
+    return arry.filter(val => val > 0);
+};
+
+const sumScores = function(arry) {
+    return arry.reduce((sum, val) => sum + val, 0);
+};
+
+const countScores = function(arry) {
+    return arry.reduce((cnt, val) => cnt + 1, 0);
+};
+
+//Convert each statement to a function that can accept and act on any array.
+
+//Compose a function that will remove both zero or lower scores and scores over 100. Test it using the scores array.
+const rmvBothHighLow = pipe(
+    rmvOverScores,
+    rmvZeroScores);
+
+const noHighLowArray = rmvBothHighLow(scores);
+
+//Compose a function that will do all the modifications to an array. Test it using the scores array.
+
+const prepareScores = pipe(
+    rmvBothHighLow,
+    singleScoresByTen);
+
+const preparedArray = prepareScores(scores);
+
+//Create a function that will accept an array and return the average. Use the function that sums scores and the function that counts scores or the length property.
+const computeAverage = function(arry) {
+    return sumScores(arry) / arry.length;
+};
+
+//Compose a function that will prepare an array and return an average. 
+
+const prepareAndComputeAve = pipe (
+    prepareScores,
+    computeAverage);
+
+const ave = prepareAndComputeAve(scores);
+
+////////////////////////
+
+const pipe = function(...fns) {
+    return function(x) {
+        return fns.reduce(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+
+const compose = function(...fns) {
+    return function(x) {
+        return fns.reduceRight(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+--#
+
+--% step7
+
+const users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+//Modifies Data
+var storeUser = function(arr, user) {
+    return arr.map(function(val) {
+        if (val.name.toLowerCase() === user.name.toLowerCase()) {
+            return user;
+        } else {
+            return val;
+        }
+    });
+
+    /*for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === user.name.toLowerCase()) {
+            arr[i] = user;
+            break;
+        }
+    }*/
+};
+
+//Pure Functions
+const cloneObj = function(obj) {
+    return JSON.parse(JSON.stringify(obj));
+};
+
+var getUser = function(arr, name) {
+    return arr.reduce(function(obj, val) {
+        if (val.name.toLowerCase() === name.toLowerCase()) {
+            return val;
+        } else {
+            return obj;
+        }
+    }, null);
+
+
+    /*for (let i = 0; i < arr.length; i++) {
+        if (arr[i].name.toLowerCase() === name.toLowerCase()) {
+            return arr[i];
+        }
+    }
+    return null;*/
+};
+
+var updateScore = function(user, newAmt) {
+    if (user) {
+        user.score += newAmt;
+        return user;
+    }
+};
+
+var updateTries = function(user) {
+    if (user) {
+        user.tries++;
+        return user;
+    }
+};
+
+/*const usr = getUser(users, "Henry");
+const usr1 = updateScore(cloneObj(usr), 30);
+const usr2 = updateTries(cloneObj(usr1));
+const newArray = storeUser(users, usr2);*/
+
+//Using currying and composition create a specialized function that always acts on the users array but allows you to enter a user name. Have it  return a clone of that user.
+
+const getUsersUser = pipe(
+    curry(getUser)(users),
+    cloneObj);
+
+const getHenry = function() {
+    return getUsersUser("Henry");
+};
+
+//Using your curried function, compose a new specialized function that will be used to update Henry. (Only invoked if you want to update Henry). It should accepts a new score and then return a new array that contains the updated score and tries. To compose this function you may need to create other functions.
+
+const updateHenry = pipe(
+    curry(updateScore)(getHenry()),
+    cloneObj,
+    updateTries,
+    curry(storeUser)(users));
+
+////////////////////////
+function curry(fn,arity = fn.length) {
+    return (function nextCurried(prevArgs){
+        return function curried(nextArg){
+            var args = [ ...prevArgs, nextArg ];
+            if (args.length >= arity) {
+                return fn( ...args );
+            }
+            else {
+                return nextCurried( args );
+            }
+        };
+    })( [] );
+}
+
+const pipe = function(...fns) {
+    return function(x) {
+        return fns.reduce(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+
+const compose = function(...fns) {
+    return function(x) {
+        return fns.reduceRight(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+--#
+
+--% step8
+
+const scores = [50, 6, 100, 0, 10, 75, 8, 60, 90, 80, 0, 30, 110];
+
+//const boostSingleScores = scores.map(val => (val < 10) ? val * 10 : val);
+
+const multSingleScoresBy10 = _.map(val => (val < 10) ? val * 10 : val);
+
+//const rmvOverScores = boostSingleScores.filter(val => val <= 100);
+
+const rmvScoresOver100 = _.filter(val => val <= 100);
+
+//const rmvZeroScores = rmvOverScores.filter(val => val > 0);
+
+const rmvZeroScores = _.filter(val => val > 0);
+
+//Convert each statement to a function that can accept and act on any array.
+
+//Compose a function that will remove both zero or lower scores and scores over 100. Test it using the scores array.
+
+const rmvBothZeroAndOver100 = _.pipe(
+    rmvScoresOver100,
+    rmvZeroScores);
+
+//Compose a function that will do all the modifications to an array. Test it using the scores array.
+
+const processScores = _.pipe(
+    multSingleScoresBy10,
+    rmvBothZeroAndOver100);
+
+//Create a function that will accept an array and return the average.
+
+const computeAverage = _.curry(_.mean);
+
+//Compose a function that will do all the modifications on an array and return an average.  
+
+const processAndComputeAve = _.pipe(
+    processScores,
+    computeAverage);
+--#
+
+--% step9
+
+const users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+const storeUser = (arr, user) => R.map(val => R.eqBy(R.toLower, val.name, user.name) ? user : val, arr);
+
+const getUser = function(arr, name) {
+    return R.reduce((obj, val) => R.eqBy(R.toLower, val.name, name) ? R.clone(val) : obj, null, arr);
+};
+
+const updateScore = (user, newAmt) => R.assoc("score", user.score += newAmt, user);
+
+const updateTries = user => R.assoc("tries", user.tries + 1, user);
+
+const getUsersUser = R.curry(getUser)(users);
+
+const getHenry = () => getUsersUser("Henry");
+
+const updateHenry = R.pipe(
+    R.curry(updateScore)(getHenry()),
+    updateTries,
+    R.curry(storeUser)(users));
+
+/*
+Refactor the code to use the Ramda library. There are multiple places that could be modify to use Ramda.
+*/
+--#
+
+--% lodash
+let sum = _.add(5,2);
+//let sum2 = fp.add(5);
+let sum3 = _.add(5);
+
+console.log(sum);
+
+//console.log(sum2(2));
+
+console.log(sum3(2));
+
+const addOne = _.map((num) => num + 1);
+const multByThree = _.map((num) => num * 3);
+const removeNumsOver100 = _.filter((num) => num <= 100);
+const logAndReturn = function(data) {
+    console.log(data);
+    return data;
+};
+const sumAllNumbers = _.reduce((sum, num) => sum + num)(0);
+
+const processNumbers = _.pipe(//flow and compose is flowRight
+    addOne,
+    multByThree,
+    removeNumsOver100,
+    logAndReturn,
+    sumAllNumbers,
+    console.log);
+
+processNumbers([5, 8, 20, 40]);
+--#
+
+--% mutations
+"use strict";
+const arr = [3,4,2,5,1,6];
+Object.freeze(arr);
+
+const sortArray = function(arr1) {
+    return arr1.sort();
+};
+
+const newNums = sortArray(arr);
+
+console.log(newNums);
+console.log(arr);
+--#
+
+--% pure
+
+/*let cnt = 0;
+
+let increment = function() {
+    cnt++;
+    return cnt;
+};*/
+
+let increment = function(num) {
+    return num + 1;
+};
+
+let average = function(scores) {
+    var total = 0;
+    for (let i = 0; i < scores.length; i++) {
+        total += scores[i];
+    }
+    return total/scores.length;
+};
+
+average([90, 30, 40, 50, 60]);
+
+/*var MAINAPP = (function(nsp) {
+    var currentUser = 0,
+        users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+    var updateScore = function(newAmt) {
+        users[currentUser].score += newAmt;
+    };
+
+    var returnUsers = function() {
+        return users;
+    };
+
+    var updateTries = function() {
+        users[currentUser].tries++;
+    };
+
+    var updateUser = function(newUser) {
+        currentUser = newUser;
+    };
+
+    nsp.updateUser = updateUser;
+    nsp.updateTries = updateTries;
+    nsp.updateScore = updateScore;
+    nsp.returnUsers = returnUsers;
+    return nsp;
+})(MAINAPP || {});
+
+setTimeout(function() {MAINAPP.updateUser(2);}, 300);
+setTimeout(function() {MAINAPP.updateScore(20);}, 100);
+setTimeout(function() {MAINAPP.updateTries();}, 200);*/
+--#
+
+--% ramda
+
+const addOne = R.map((num) => num + 1);
+const multByThree = R.map((num) => num * 3);
+const removeNumsOver100 = R.filter((num) => num <= 100);
+const logAndReturn = function(data) {
+    console.log(data);
+    return data;
+};
+const sumAllNumbers = R.reduce((sum, num) => sum + num)(0);
+
+const processNumbers = R.pipe(
+    addOne,
+    multByThree,
+    removeNumsOver100,
+    logAndReturn,
+    sumAllNumbers,
+    console.log);
+--#
+
+--% recursion
+const factorial = num => (num === 1) ? 1 : num * factorial(num - 1);
+
+let final = factorial(5);
+console.log(final);
+--#
+
+--% reducemapfilter
+let arr = [1, 2, 3, 4, 5];
+
+let total = arr.reduce(function(accumulator, elem) {
+    return accumulator + elem;
+}, 0);
+
+let newArray = arr.map(function(val, index, array) {
+    console.log(val);
+    console.log(index);
+    console.log(array)
+    return val ** 2;
+});
+
+let filterArray = arr.filter(function(val) {
+    return val < 3;
+});
+--#
+
+--% sharedstate
+
+var MAINAPP = (function(nsp) {
+    var currentUser = 0,
+        users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+    var updateScore = function(newAmt) {
+        users[currentUser].score += newAmt;
+    };
+
+    var returnUsers = function() {
+        return users;
+    };
+
+    var updateTries = function() {
+        users[currentUser].tries++;
+    };
+
+    var updateUser = function(newUser) {
+        currentUser = newUser;
+    };
+
+    nsp.updateUser = updateUser;
+    nsp.updateTries = updateTries;
+    nsp.updateScore = updateScore;
+    nsp.returnUsers = returnUsers;
+    return nsp;
+})(MAINAPP || {});
+
+setTimeout(function() {MAINAPP.updateUser(2);}, 300);
+setTimeout(function() {MAINAPP.updateScore(20);}, 100);
+setTimeout(function() {MAINAPP.updateTries();}, 200);
+--#
+
+--% arity
+
+const users = [{name: "James",score: 30,tries: 1}, {name: "Mary", score: 110,tries: 4}, {name: "Henry",score: 80,tries: 3}];
+
+//Modifies Data
+var storeUser = function(arr, user) {
+    return arr.map(function(val) {
+        if (val.name.toLowerCase() === user.name.toLowerCase()) {
+            return user;
+        } else {
+            return val;
+        }
+    });
+};
+
+//Pure Functions
+const cloneObj = function(obj) {
+    return JSON.parse(JSON.stringify(obj));
+};
+
+var getUser = function(arr, name) {
+    return arr.reduce(function(obj, val) {
+        if (val.name.toLowerCase() === name.toLowerCase()) {
+            return val;
+        }
+    }, null);
+};
+
+var updateScore = function(newAmt, user) {
+    if (user) {
+        user.score += newAmt;
+        return user;
+    }
+};
+
+var updateTries = function(user) {
+    if (user) {
+        user.tries++;
+        return user;
+    }
+};
+
+const partGetUser = getUser.bind(null, users);
+const partUpdateScore30 = updateScore.bind(null, 30);
+
+/*const usr = getUser(users, "Henry");
+const usr1 = updateScore(cloneObj(usr), 30);
+const usr2 = updateTries(cloneObj(usr1));
+const newArray = storeUser(users, usr2);*/
+
+
+const updateUser = pipe(
+    partGetUser,
+    cloneObj,
+    partUpdateScore30,
+    updateTries);
+
+const newestUser = updateUser("Henry");
+
+//////////////////////
+
+const pipe = function(...fns) {
+    return function(x) {
+        return fns.reduce(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+
+const compose = function(...fns) {
+    return function(x) {
+        return fns.reduceRight(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+
+--#
+
+--% cloning
+"use strict";
+const arr = [3,4,2,5,1,6];
+Object.freeze(arr);
+
+const cloneObj = function(obj) {
+    return JSON.parse(JSON.stringify(obj));
+};
+
+const newNums = cloneObj(arr).sort();
+
+console.log(newNums);
+console.log(arr);
+
+/*let obj = {
+    fName: "Steven",
+    lName: "Hancock",
+    score: 85,
+    completion: true,
+    questions: {
+        q1: {success: true, value: 1},
+        q2: {success: false, value: 1}
+    }
+};
+
+let array = [{a: 1},{b: 2}];
+
+let obj2 = Object.assign({}, array);
+
+let obj3 = JSON.parse(JSON.stringify(array));*/
+--#
+
+--% composition
+str = 'Innovation distinguishes between a leader and a follower.';
+
+const trim = str => str.replace(/^\s*|\s*$/g, '');
+
+const noPunct = str => str.replace(/[?.,!]/g,'');
+
+const capitalize = str => str.toUpperCase();
+
+const breakout = str => str.split(" ");
+
+const noArticles = str => (str !== "A" && str !== "AN" && str !== "THE");
+
+const filterArticles = arr => arr.filter(noArticles);
+
+//console.log(filterArticles(breakout(capitalize(noPunct(trim(str))))));
+
+const pipe = function(...fns) {
+    return function(x) {
+        return fns.reduce(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+
+const prepareString = pipe(
+    trim,
+    noPunct,
+    capitalize,
+    breakout,
+    filterArticles);
+
+/*const prepareString = compose(
+    filterArticles, 
+    breakout, 
+    capitalize, 
+    noPunct, 
+    trim);*/
+
+console.log(prepareString(str));
+--#
+
+--% curryconcepts
+
+const curryGreeting = function(greeting) {
+    return function(name) {
+        console.log(greeting + " " + name);
+    };
+};
+
+const welcomeGreet = curryGreeting("Welcome");
+
+welcomeGreet("Steve");
+welcomeGreet("Mary");
+--#
+
+--% curry
+
+const ffun = function(a, b, c) {
+    return a + b + c;
+};
+
+const gfun = function(d, e) {
+    return d + e;
+};
+
+const hfun = function(f, g, h) {
+    return f + g + h;
+};
+
+/*const curriedF = curry(ffun);
+const curriedG = curry(gfun);
+const curriedH = curry(hfun);
+
+const newFun = pipe (
+    curriedF(1)(2),
+    curriedG(4),
+    curriedH(5)(6));*/
+
+const newFun = pipe (
+    curry(ffun)(1)(2),
+    curry(gfun)(4),
+    curry(hfun)(5)(6));
+
+
+
+
+const doubleNum = function(num) {
+    return num + num;
+};
+
+const totalIt = function(n1, n2, n3, n4) {
+    return n1 + n2 + n3 + n4;
+};
+
+const doArray = function(num1, num2) {
+    return [num1, num2];
+};
+
+const newFunction = pipe(
+    doubleNum,
+    curry(totalIt)(3)(2)(1),
+    curry(doArray)(50));
+
+//////////////////////////////////
+function curry(fn,arity = fn.length) {
+    return (function nextCurried(prevArgs){
+        return function curried(nextArg){
+            var args = [ ...prevArgs, nextArg ];
+            if (args.length >= arity) {
+                return fn( ...args );
+            }
+            else {
+                return nextCurried( args );
+            }
+        };
+    })( [] );
+}
+
+const pipe = function(...fns) {
+    return function(x) {
+        return fns.reduce(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+
+const compose = function(...fns) {
+    return function(x) {
+        return fns.reduceRight(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+--#
+
+--% declarative
+return fns.reduce(function(v, f) {
+    return f(v);
+}, x);
+
+let result;
+for (let i = 0; i < fns.length; i++) {
+    if (i === 0) {
+        result = fns[i](x);
+    }
+    result = fns[i](result);
+}
+return result;
+--#
+
+--% dissectcurrying
+
+
+const doubleNum = function(num) {
+    return num + num;
+};
+
+const totalIt = function(n1, n2, n3, n4) {
+    return n1 + n2 + n3 + n4;
+};
+
+const doArray = function(num1, num2) {
+    return [num1, num2];
+};
+
+const curriedTotalIt = curry(totalIt);
+const curriedDoArray = curry(doArray);
+
+/*const newFunction = pipe(
+    doubleNum,
+    curriedTotalIt(3)(2)(1),
+    curriedDoArray(50));*/
+
+/////////////////////////////////
+
+function curry(fn,arity = fn.length) {
+    return (function nextCurried(prevArgs){
+        return function curried(nextArg){
+console.log(prevArgs);
+console.log(nextArg);
+            var args = [ ...prevArgs, nextArg ];
+            if (args.length >= arity) {
+                return fn( ...args );
+            }
+            else {
+                return nextCurried( args );
+            }
+        };
+    })( [] );
+}
+
+const pipe = function(...fns) {
+    return function(x) {
+        return fns.reduce(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+
+const compose = function(...fns) {
+    return function(x) {
+        return fns.reduceRight(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+
+--#
+
+
+--% oop
+//OOP Approach
+function UserRecord(id) {
+    if (this instanceof UserRecord) {
+        this.userId = id;
+        this.questions = [];
+    } else {
+        return new UserRecord(id);
+    }
+}
+
+let userProto = {
+    addQuestion: function(qID, response, result, weight) {
+        this.questions.push({
+            qID: qID,
+            response: response,
+            result: result,
+            weight: weight
+            
+        });
+        this.updateScore();
+    },
+    get myScore() {
+        let score = 0;
+        for (let i = 0; i < this.questions.length; i++) {
+            let quest = this.questions[i];
+            if (quest.result) {
+                score += quest.weight;
+            }
+        }
+        return score;
+    },
+    get possScore() {
+        let possible = 0;
+        for (let i = 0; i < this.questions.length; i++) {
+            possible += this.questions[i].weight;
+        }
+        return possible;
+    },
+    updateScore: function() {
+        let userFld = document.getElementById('user');
+        let statusFld = document.getElementById('score');
+        userFld.innerHTML = this.userId;
+        statusFld.innerHTML = this.myScore + " out of " + this.possScore;
+    }
+};
+
+UserRecord.prototype = userProto;
+UserRecord.prototype.constructor = UserRecord;
+
+/*
+To test at console:
+
+let user1 = new UserRecord(1);
+user1.addQuestion("q1", "answer", true, 1);
+user1.addQuestion("q2", "wrong answer", false, 2);
+*/
+
+///////////////////////
+//Functional Approach
+let userFld = document.getElementById('user');
+let statusFld = document.getElementById('score');
+
+const createUser = function(id) {
+    return {
+        userId: id,
+        questions: []
+    };
+};
+
+const addQuestion = function(qID, response, result, weight, user) {
+    const questions = clone(user.questions);
+    const newQuestion = {
+        qID: qID,
+        response: response,
+        result: result,
+        weight: weight
+    };
+    return {
+        userId: user.userId,
+        questions: [...questions, newQuestion]
+    };
+}
+
+const calcScore = function(user) {
+    return user.questions.reduce((tot, quest) => tot + (quest.result ? quest.weight : 0), 0);
+}
+
+const calcPossible = function(user) {
+    return user.questions.reduce((tot, quest) => tot + quest.weight, 0);
+};
+
+const formatResults = (user) => calcScore(user) + " out of " + calcPossible(user);
+
+const getProp = (prop, obj) => obj[prop];
+
+
+/* IMPURE */
+const setDOMelem = (elem, data) => elem.innerHTML = data;
+    
+const displayResults = pipe(
+    formatResults,
+    curry(setDOMelem)(statusFld));
+
+const displayUser = pipe(
+    curry(getProp)('userId'),
+    curry(setDOMelem)(userFld));
+
+
+const updateScore = function(user, qID, response, result, weight) {
+    let usr = addQuestion(qID, response, result, weight, user);
+    /* side effects */
+    displayResults(usr);
+    displayUser(usr);
+    return usr;
+};
+
+/*
+To test at console:
+
+const usr1 = createUser(1);
+
+const usr2 = updateScore(usr1, "q1", "answer", true, 1);
+const usr3 = updateScore(usr2, "q2", "wrong answer", false, 2);
+*/
+//////////////////////
+function curry(fn,arity = fn.length) {
+    return (function nextCurried(prevArgs){
+        return function curried(nextArg){
+            var args = [ ...prevArgs, nextArg ];
+            if (args.length >= arity) {
+                return fn( ...args );
+            }
+            else {
+                return nextCurried( args );
+            }
+        };
+    })( [] );
+}
+
+const clone = (o) => JSON.parse(JSON.stringify(o));
+
+const pipe = function(...fns) {
+    return function(x) {
+        return fns.reduce(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+
+const compose = function(...fns) {
+    return function(x) {
+        return fns.reduceRight(function(v, f) {
+            return f(v);
+        }, x);
+    }
+};
+//////////////////////////
+<!DOCTYPE html>
+<html>
+<head>
+    <script>console.time("reporter");</script>
+    <title>Learn Modern JavaScript</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    
+</head>
+<body>
+    <article>
+        <h2 class="title">
+            Current Score for: <span id="user"></span>
+            <p id="score"></p>
+        </h2>
+        <div id="content">
+            
+        </div>
+    </article>
+    <footer>
+        <div id="logo"><img src="javascript_logo.png"></div>
+    </footer>
+    <!-- <script src="app.js"></script> -->
+    <script src="atjs.js"></script>
+    <script src="appFunctional.js"></script>
+</body>
+</html>
+///////////////////////////////////
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,100italic|Roboto+Mono:400,100italic,700);
+
+.title {
+    font-size: 3em;
+    color: #024656;
+    text-align: center;
+    font-family: 'Roboto';
+    padding-top: 2%;
+    padding-bottom: 1%;
+}
+
+#logo {
+    text-align: center;
+    padding-bottom: 1%;
+}
+
+#logo img {
+    width: 300px;
+    /*position: absolute;*/
+}
+
+/*article ul {
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+}
+
+article ul li {
+    padding: 5px;
+    margin-left: 300px;
+}*/
+
+/*#content {
+    position: absolute;
+    border: 2px solid gray;
+    padding: 5px;
+    width: 60%;
+    height: 60%;
+    margin-left: 20%;
+    overflow-y: scroll;
+}*/
+
+
+
+.bullets {
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+}
+
+.bullets ul li {
+    padding: 5px;
+    margin-left: 150px;
+    /*visibility: hidden;*/
+    margin-right: 50px;
+    /*list-style: none;*/
+}
+
+.bullets ol li {
+    padding: 15px;
+    /*margin-left: 200px;*/
+    text-align: center;
+   /* visibility: hidden;*/
+    list-style: none;
+}
+
+button {
+    width:100px; /*same as the height*/
+    height:100px; /*same as the width*/
+    background-color:#D93E2B;
+    border:1px solid #D93E2B; /*same colour as the background*/
+    color:#fff;
+    font-size:1em;
+    /*set the border-radius at half the size of the width and height*/
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    /*give the button a small drop shadow*/
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0, .75);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0, .75);
+    box-shadow: 2px 2px 15px rgba(0,0,0, .75);
+}
+
+button:hover {
+    background:#c20b0b;
+    border:1px solid #c20b0b;
+    /*reduce the size of the shadow to give a pushed effect*/
+    -webkit-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+    -moz-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+    box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+}
+
+em {
+    color: #D93E2B;
+}
+--#

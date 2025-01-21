@@ -1,0 +1,23 @@
+--% index/fmus
+__PWD,d
+    %TEMPLATE_BASEDIR=__INPUT__
+    TEMPLATE_BASEDIR,d(/mk)
+        main.py,f(e=__FILE__=template1)
+        @Please open: http://localhost:__NILAI_SERVER_PORT__/items/*
+        $* wsl /home/usef/.local/bin/uvicorn --port __NILAI_SERVER_PORT__ main:app --reload
+--#
+
+--% template1
+# https://fastapi.tiangolo.com/tutorial/security/first-steps/?h=oauth2passwordbearer#fastapis-oauth2passwordbearer
+
+from fastapi import Depends, FastAPI
+from fastapi.security import OAuth2PasswordBearer
+
+app = FastAPI()
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+@app.get("/items/")
+async def read_items(token: str = Depends(oauth2_scheme)):
+    return {"token": token}
+--#

@@ -1,0 +1,36 @@
+.,d
+    lib,d
+        models,d
+            user.dart,f(t=)
+        services,d
+            api.dart,f(t=)
+            auth.dart,f(t=)
+            local_storage.dart,f(t=)
+        utils,d
+            constants.dart,f(t=)
+            validators.dart,f(t=)
+            helpers.dart,f(t=)
+        views,d
+            auth,d
+                login_page.dart,f(t=)
+                register_page.dart,f(t=)
+            home,d
+                home_page.dart,f(t=)
+        widgets,d
+            custom_button.dart,f(t=)
+            custom_textfield.dart,f(t=)
+            snackbar.dart,f(t=)
+        main.dart,f(t=)
+        routes.dart,f(t=)
+        test,d
+            services,d
+                api_test.dart,f(t=)
+            utils,d
+                validators_test.dart,f(t=)
+            widget_tests,d
+                custom_button_test.dart,f(t=)
+            test_helper.dart,f(t=)
+        pubspec.yaml,f(t=)
+        .gitignore,f(t=)
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\flutter.txt

@@ -1,0 +1,210 @@
+--% index/fmus
+__PWD,d
+	?pick
+        $* celery --help
+        $* celery worker --help
+        $* pip install celery[redis]
+
+        $* pip install celery
+        $* celery -A tasks worker -l info
+        $* celery -A tasks worker -l info --detach
+        
+        $* pip install eventlet
+        $* celery -A tasks worker -l info -P eventlet
+
+        $* pip install gevent
+        $* celery -A tasks worker -l info -P gevent
+        $* celery -A tasks worker -l info --pool=solo
+        $* set FORKED_BY_MULTIPROCESSING=1
+
+        $* celery -A tasks worker --loglevel=INFO
+        $* celery -A tasks inspect -b redis://usef:rahasia@localhost/5 active
+
+        tasks.py,f(e=__FILE__=task add dg broker pyamqp)
+        tasks.py,f(e=__FILE__=task add dg broker amqp/rmq)
+        tasks.py,f(e=__FILE__=task add dg broker redis)
+
+        $* python -c"from tasks import add; add.delay(4,4)"
+        $* python -c"from tasks import add; add.apply_async((4,4),countdown=5)"
+        $* python -c"from tasks import add; result = add.delay(4,4); print(result.backend)"
+
+        .,d(/load=__FILE__=looping redis dari task/4 ke result/5*)
+
+        .,d(/load=__FILE__=celery/1/fm*)
+        .,d(/load=__FILE__=settings.py/add celery configuration placeholder to settings.py*)
+		@buat gerak cepat BGC: celery #1*
+        $* python -m webbrowser -t https://docs.celeryq.dev/en/stable/getting-started/first-steps-with-celery.html
+--#
+
+--% task add dg broker pyamqp
+from celery import Celery
+
+app = Celery('tasks', broker='pyamqp://guest@localhost//')
+
+@app.task
+def add(x, y):
+    return x + y
+--#
+
+--% task add dg broker amqp/rmq
+from celery import Celery
+
+app = Celery('tasks', broker='amqp://localhost')
+
+@app.task
+def add(x, y):
+    return x + y
+--#
+
+--% task add dg broker redis
+from celery import Celery
+# 'redis://' = 'redis://localhost/0'
+# kirim ke 4, terima dari 5
+app = Celery('tasks', backend='redis://localhost/5', broker='redis://localhost/4')
+
+@app.task
+def add(x, y):
+    return x + y
+--#
+
+--% task firefox dg broker redis
+from celery import Celery
+import webbrowser
+# 'redis://' = 'redis://localhost/0'
+# kirim ke 4, terima dari 5
+app = Celery('tasks', backend='redis://localhost/5', broker='redis://localhost/4')
+
+@app.task
+def buka(url):
+    webbrowser.open_new_tab(url)
+    return f'{url} open'
+--#
+
+--% task chrome dg broker redis
+from celery import Celery
+import webbrowser
+# 'redis://' = 'redis://localhost/0'
+# kirim ke 4, terima dari 5
+app = Celery('tasks', backend='redis://localhost/5', broker='redis://localhost/4')
+
+chrome_path = "C:/Program Files\Google/Chrome/Application/chrome.exe"
+webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path), 1)
+
+@app.task
+def buka(url):
+    webbrowser.get('chrome').open_new_tab(url)
+    return f'{url} open'
+--#
+
+--% looping redis dari task/4 ke result/5
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=picker/looping redis dari task/4 ke result/5*)
+--#
+
+--% picker/looping redis dari task/4 ke result/5
+__PWD,d
+    ?pick
+        $* celery -A tasks inspect -b redis://usef:rahasia@localhost/5 active
+        
+        $* celery -A tasks worker --loglevel=INFO --detach
+        $* celery -A tasks worker -l info -P gevent --detach
+        $* celery -A tasks worker -l info --pool=solo --detach
+
+
+        $* celery -A tasks worker --loglevel=INFO -P gevent        
+        $* celery -A tasks worker -l info -P gevent
+        $* celery -A tasks worker -l info --pool=solo
+        $* celery -A tasks worker -l info --pool=gevent
+        $* celery -A tasks worker -l info --pool=eventlet
+        $* start /B celery -A tasks worker -l info -P solo
+
+        
+        tasks.py,f(e=__FILE__=task add dg broker redis)
+        $* start /B celery -A tasks worker -l info -P gevent
+        $* celery -A tasks control shutdown
+        $* python -c"from tasks import buka; result = buka.apply_async(('http://localhost:__INPUT__',),countdown=5); print(result.backend); print(result.get())"
+        
+
+        $* python -c"from tasks import add; add.delay(4,4)"
+        $* python -c"from tasks import add; add.apply_async((4,4),countdown=5)"
+        $* python -c"from tasks import add; result = add.delay(4,4); print(result.backend)"
+        $* python -c"from tasks import add; result = add.delay(4,4); print(result.backend); print(result.get())"
+        $* python -c"from tasks import add; result = add.apply_async((8,8),countdown=5); print(result.backend); print(result.get())"
+
+        tasks.py,f(e=__FILE__=task firefox dg broker redis)
+        tasks.py,f(e=__FILE__=task chrome dg broker redis)
+
+        $* python -c"from tasks import buka; result = buka.apply_async(('http://localhost:3000',),countdown=5); print(result.backend); print(result.get())"
+            @apply_async hrs dituplekan args nya, klo gak dia di-list(url) kan hasilkan individual chars sbg args!*
+        $* python -c"from tasks import buka; result = buka.apply_async(('http://localhost:4000',),countdown=5); print(result.backend); print(result.get())"
+--#
+
+--% run celery task
+python manage.py shell
+from app1.tasks import add
+add.delay(4,4)
+add.apply_async((4,4),countdown=5)
+--#
+
+--% celery/1/fm
+__PWD,d
+    %__TEMPLATE__PROJECTNAME=__INPUT__
+    
+    __TEMPLATE__PROJECTNAME=__INPUT__,d
+        celery.py,f(e=__FILE__=celery/1/celery.py)
+
+    .,d(/load=__FILE__=celery/perapp/fm)
+--#
+
+--% celery/1/celery.py
+from __future__ import absolute_import, unicode_literals
+import os
+from celery import Celery
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', __name__+'.settings')
+app = Celery(__name__)
+app.config_from_object('django.conf:settings', namespace='CELERY')
+app.autodiscover_tasks()
+--#
+
+--% celery/perapp/fm
+.,d
+    %__TEMPLATE__APPNAME_UNTUK_CELERYTASK=__INPUT__
+    __TEMPLATE__APPNAME_UNTUK_CELERYTASK,d
+        tasks.py,f(e=__FILE__=celery/perapp/tasks.py)
+--#
+
+--% celery/perapp/tasks.py
+from __future__ import absolute_import, unicode_literals
+from celery import shared_task
+
+@shared_task
+def add(x,y):
+    return x+y
+--#
+
+--% celery/2/fm
+__PWD,d
+    %__TEMPLATE__PROJECTNAME=__INPUT__
+    
+    __TEMPLATE__PROJECTNAME=__INPUT__,d
+        __init__.py,f(e=__FILE__=celery/2/init.py)
+        celery.py,f(e=__FILE__=celery/1/celery.py)
+
+    .,d(/load=__FILE__=celery/perapp/fm)
+--#
+
+--% celery/2/init.py
+# https://youtu.be/b-6mEAr1m-A?t=228
+from __future__ import absolute_import, unicode_literals
+from .celery improt app as celery_app
+__all__ = ('celery_app',)
+--#
+
+--% settings.py/add celery configuration placeholder to settings.py
+__PWD,d
+    /file>i/-1/CELERY_BROKER_URL = 'redis:__SL__SLuser:pass@192'\n|settings.py
+    /file>i/-1/CELERY_ACCEPT_CONTENT = ['json']\n|settings.py
+    /file>i/-1/CELERY_TASK_SERIALIZER = 'json'\n|settings.py
+--#

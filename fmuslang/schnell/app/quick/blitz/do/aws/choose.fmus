@@ -1,0 +1,88 @@
+--% index/fmus
+__PWD,d
+    ?pick
+
+		$* pip install boto3 mock nose pyaml
+		$* pip install awscli --upgrade --user
+		$* pip install awscli boto3 botocore docutils jmespath s3transfer python-dateutil
+		$* aws --version
+		$* aws configure
+		$* aws s3api create-bucket --bucket mynewbucket231 --profile demo --create-bucket-configuration LocationConstraint=eu-west-1 --region eu-west-1
+		$* sam --version
+			@https://github.com/aws/aws-sam-cli/releases/latest/download/AWS_SAM_CLI_64_PY3.msi*
+			@https://github.com/aws/aws-sam-cli*
+			@C:\Program Files\Amazon\AWSSAMCLI\*
+		$* sam init --name myproject
+		$* sam build
+		$* sam deploy
+		$* sam deploy --guided
+		$* python -m webbrowser -t https://console.aws.amazon.com/
+		$* python -m webbrowser -t https://console.aws.amazon.com/
+
+		@aurora + rds*
+		@elasticcache/redis*
+		@ECS/fargate*
+		@EC2*
+		@EKS*
+		@ECR*
+		@SQS*
+		@lambda*
+		@S3*
+		@cloudfront*
+		@cloudwatch*
+		@dynamodb - DDB*
+			@https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.html*
+		@api gateway*
+		@code deploy*
+--#
+
+--% README.md
+https://s3.amazonaws.com/nosql-workbench/NoSQL%20Workbench-win-3.2.1.exe
+https://github.com/neocorp/dynamodb_crud
+https://github.com/neocorp/aws_rds_postgresql
+https://github.com/neocorp/python-boto3-vpc_and_ec2
+--#
+
+--% misc info
+client -- aws api gateway -- iam -- aws lambda function -- iam -- aws dynamodb
+client -- aws api gateway -- iam -- aws dynamodb
+
+transaction log tailing pattern TLTP
+record/row update -> event -> txn log processor
+
+ddb -- ddb streams -- aws lambda -- ddb writes -- ddb
+       keys only
+       new image
+       old image
+       new+old image
+
+saga pattern dg sns dan lambda...
+
+client -- aws api gateway -- iam -- aws lambda function -- iam -- aws rds
+client -- aws api gateway -- iam -- aws lambda function -- iam -- aws aurora
+
+sql vs nosql
+acid vs base
+atomicity consistency isolation durability
+basically available soft state eventual consistency
+
+setup VPC utk akses rds dan aurora
+VPC and subnet
+
+Step one – create VPC: wolf-vpc with CIDR 10.0.0.0/16
+Step two – create subnet in AZ A: pub-subnet-1a with CIDR 10.0.0.0/24
+Step three – create subnet in AZ B: pub-subnet-1b with CIDR 10.0.1.0/24
+Step four – add and attach an Internet Gateway to VPC: wolf-ig
+Step five – create Egress Only Internet Gateway
+
+Step six – add your IPV4 to Route Tables, for example, https://checkip.amazonaws.com if your external IP is 90.100.50.155 then enter 90.100.50.155/32
+Step seven – add subnet associations to route tables
+Step eight – VPC > Actions > DNS resolution > Yes and Hostnames > Yes
+Step nine – (optional) setup a VPC Security Group and DB Subnet Group or let AWS create them when you launch RDS or Aurora
+
+setup rds dan akses dg local network
+https://dev.mysql.com/downloads/workbench/
+
+akses rds dg cara:
+client -- aws api gateway -- iam -- aws lambda function -- iam -- aws rds
+--#

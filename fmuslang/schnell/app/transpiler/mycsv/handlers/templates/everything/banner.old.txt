@@ -1,0 +1,41 @@
+Pahami bahwa kita harus melamar kerja sebelum 2022 berakhir.
+Skrg tgl 27, sisa 28/29/30/31
+kita pengen melamar:
+python
+    bisa django
+    bisa flask
+    bisa fastapi
+
+    awslang kita upload ke github
+        https://www.glassdoor.com/job-listing/senior-member-technical-broadridge-JV_IC2709872_KO0,23_KE24,34.htm?jl=1008351545922&pos=109&ao=1136043&s=58&guid=00000185526e2701821f3d09eb9a1613&src=GD_JOB_AD&t=SR&vt=w&cs=1_5418e1e8&cb=1672125229024&jobListingId=1008351545922&jrtk=3-0-1gl96s9pa2cgu001-1gl96s9q0h7jl800-309f40989177735e-&ctt=1672125356193
+typescript
+javascript
+    bisa react
+    bisa node
+    bisa nest
+    bisa next
+    bisa react native
+C++
+    oprek broadphone
+    https://www.glassdoor.com/job-listing/senior-developer-c-lumina-JV_IC2709872_KO0,18_KE19,25.htm?jl=1008349979412&pos=106&ao=1136043&s=58&guid=00000185526e2701821f3d09eb9a1613&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_d6024989&cb=1672125229023&jobListingId=1008349979412&jrtk=3-0-1gl96s9pa2cgu001-1gl96s9q0h7jl800-54e731ab4038fc3b-&ctt=1672125322118
+java
+    oprek ecoss/nrt/npm utk lamar pyamentology
+        mungkin perlu tau: jmeter, jprofiler, jasper
+        https://www.glassdoor.com/job-listing/senior-java-developer-thema-consulting-sa-JV_KO0,21_KE22,41.htm?jl=1008366389114&pos=112&ao=1136043&s=58&guid=00000185526e2701821f3d09eb9a1613&src=GD_JOB_AD&t=SR&vt=w&cs=1_360a502b&cb=1672125229024&jobListingId=1008366389114&jrtk=3-0-1gl96s9pa2cgu001-1gl96s9q0h7jl800-5e04acf293f622dc-&ctt=1672125426335
+        https://www.glassdoor.com/job-listing/senior-software-engineer-remote-paymentology-JV_KO0,31_KE32,44.htm?jl=1008369101854&pos=103&ao=1136043&s=58&guid=00000185526e2701821f3d09eb9a1613&src=GD_JOB_AD&t=SR&vt=w&ea=1&cs=1_0746dc87&cb=1672125229023&jobListingId=1008369101854&jrtk=3-0-1gl96s9pa2cgu001-1gl96s9q0h7jl800-001871e5f9df9c39-&ctt=1672125317749
+        https://www.glassdoor.com/Job/indonesia-senior-software-developer-jobs-SRCH_IL.0,9_IN113_KO10,35.htm?fromAge=14
+    bisa springboot
+    bisa springmvc
+    bisa quarkus
+    bisa java fx
+go
+    bisa go mux
+    bisa go gonic
+    bisa go fyne
+
+sementara gimana nih android kotlin dan flutter dart?
+
+berarti yg lainnya lupakan dulu.
+lupakan: vue dan angular
+lupakan: rust, scala, c#, ruby, elixir
+==========================================================================

@@ -1,0 +1,68 @@
+# Flask TDD Examples
+TDD in flask: show me some examples
+
+ChatGPT
+Certainly! Here's an example of how you can apply Test-Driven Development (TDD) principles in a Flask application.
+
+Let's assume you have a Flask app with a simple endpoint that calculates the sum of two numbers. Here's the initial structure of the Flask application:
+
+python
+Copy code
+# app.py
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+@app.route('/sum', methods=['POST'])
+def calculate_sum():
+    data = request.get_json()
+    num1 = data.get('num1')
+    num2 = data.get('num2')
+    result = num1 + num2
+    return jsonify({'result': result})
+
+if __name__ == '__main__':
+    app.run()
+To follow TDD, you'll want to write tests first before implementing the actual functionality. Here's an example test file using the unittest module:
+
+python
+Copy code
+# test_app.py
+import unittest
+import json
+from app import app
+
+class TestApp(unittest.TestCase):
+    def setUp(self):
+        app.testing = True
+        self.client = app.test_client()
+
+    def test_sum_endpoint(self):
+        # Test case 1: Valid input
+        data = {'num1': 2, 'num2': 3}
+        response = self.client.post('/sum', json=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.get_data(as_text=True)), {'result': 5})
+
+        # Test case 2: Missing input
+        data = {'num1': 2}
+        response = self.client.post('/sum', json=data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(json.loads(response.get_data(as_text=True)), {'error': 'Missing input'})
+
+        # Test case 3: Invalid input
+        data = {'num1': 2, 'num2': 'three'}
+        response = self.client.post('/sum', json=data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(json.loads(response.get_data(as_text=True)), {'error': 'Invalid input'})
+
+if __name__ == '__main__':
+    unittest.main()
+In this example, we have three test cases:
+
+Valid input: Sends a POST request with valid input (both numbers provided) and expects a response with a 200 status code and the correct sum.
+Missing input: Sends a POST request with missing input (one of the numbers is not provided) and expects a response with a 400 status code and an error message indicating the missing input.
+Invalid input: Sends a POST request with invalid input (one of the numbers is not a valid integer) and expects a response with a 400 status code and an error message indicating the invalid input.
+You can run the tests using the following command: python -m unittest test_app.py.
+
+This is a basic example to demonstrate TDD in Flask. In a real-world scenario, you would typically write more comprehensive tests, including edge cases and testing different endpoints and functionalities.

@@ -1,0 +1,9 @@
+--% index/fmus
+__PWD,d
+    ?pick
+    	@firebase 1*
+    	@function 2*
+		$* python -m webbrowser -t https://console.firebase.google.com/?pli=1
+		$* python -m webbrowser -t https://console.cloud.google.com/
+		$* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://console.cloud.google.com/')"
+--#

@@ -1,0 +1,357 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	random-service,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service/Cargo.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service/src/main.rs)
+	random-service-with-args,d(/mk)
+		.env,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-args/.env)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-args/Cargo.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-args/src/main.rs)
+	random-service-with-config,d(/mk)
+		.env,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-config/.env)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-config/Cargo.toml)
+		microservice.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-config/microservice.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-config/src/main.rs)
+	random-service-with-env,d(/mk)
+		.env,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-env/.env)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-env/Cargo.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-env/src/main.rs)
+	random-service-with-logging,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-logging/Cargo.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-logging/src/main.rs)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service/Cargo.toml
+[package]
+name = "random-service"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+hyper = "0.12"
+rand = "0.5"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service/src/main.rs
+use hyper::{Body, Response, Server};
+use hyper::rt::Future;
+use hyper::service::service_fn_ok;
+
+fn main() {
+    let addr = ([127, 0, 0, 1], 8080).into();
+    let builder = Server::bind(&addr);
+    let server = builder.serve(|| {
+        service_fn_ok(|_| {
+            let random_byte = rand::random::<u8>();
+            Response::new(Body::from(random_byte.to_string()))
+        })
+    });
+    let server = server.map_err(drop);
+    hyper::rt::run(server);
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-args/.env
+RUST_LOG=debug
+RUST_BACKTRACE=1
+ADDRESS=0.0.0.0:1234
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-args/Cargo.toml
+[package]
+name = "random-service-with-args"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+log = "0.4"
+env_logger = "0.5"
+dotenv = "0.13"
+clap = "2.32"
+hyper = "0.12"
+rand = "0.5"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-args/src/main.rs
+use clap::{crate_authors, crate_description, crate_name, crate_version, Arg, App};
+use dotenv::dotenv;
+use hyper::{Body, Response, Server};
+use hyper::rt::Future;
+use hyper::service::service_fn_ok;
+use log::{debug, info, trace};
+use std::env;
+
+fn main() {
+    dotenv().ok();
+    env_logger::init();
+    let matches = App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .arg(Arg::with_name("config")
+             .short("c")
+             .long("config")
+             .value_name("FILE")
+             .help("Sets a custom config file")
+             .takes_value(true))
+        .arg(Arg::with_name("address")
+             .short("a")
+             .long("address")
+             .value_name("ADDRESS")
+             .help("Sets an address")
+             .takes_value(true))
+        .get_matches();
+    info!("Rand Microservice - v0.1.0");
+    trace!("Starting...");
+    let addr = matches.value_of("address")
+        .map(|s| s.to_owned())
+        .or(env::var("ADDRESS").ok())
+        .unwrap_or_else(|| "127.0.0.1:8080".into())
+        .parse()
+        .expect("can't parse ADDRESS variable");
+    debug!("Trying to bind server to address: {}", addr);
+    let builder = Server::bind(&addr);
+    trace!("Creating service handler...");
+    let server = builder.serve(|| {
+        service_fn_ok(|req| {
+            trace!("Incoming request is: {:?}", req);
+            let random_byte = rand::random::<u8>();
+            debug!("Generated value is: {}", random_byte);
+            Response::new(Body::from(random_byte.to_string()))
+        })
+    });
+    info!("Used address: {}", server.local_addr());
+    let server = server.map_err(drop);
+    debug!("Run!");
+    hyper::rt::run(server);
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-config/.env
+RUST_LOG=debug
+RUST_BACKTRACE=1
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-config/Cargo.toml
+[package]
+name = "random-service-with-config"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+log = "0.4"
+env_logger = "0.5"
+dotenv = "0.13"
+clap = "2.32"
+hyper = "0.12"
+rand = "0.5"
+serde = "1.0"
+serde_derive = "1.0"
+toml = "0.4"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-config/microservice.toml
+address = "0.0.0.0:9876"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-config/src/main.rs
+use clap::{crate_authors, crate_description, crate_name, crate_version, Arg, App};
+use dotenv::dotenv;
+use hyper::{Body, Response, Server};
+use hyper::rt::Future;
+use hyper::service::service_fn_ok;
+use log::{debug, info, trace, warn};
+use serde_derive::Deserialize;
+use std::env;
+use std::io::{self, Read};
+use std::fs::File;
+use std::net::SocketAddr;
+
+#[derive(Deserialize)]
+struct Config {
+    address: SocketAddr,
+}
+
+fn main() {
+    dotenv().ok();
+    env_logger::init();
+    let matches = App::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!())
+        .about(crate_description!())
+        .arg(Arg::with_name("config")
+             .short("c")
+             .long("config")
+             .value_name("FILE")
+             .help("Sets a custom config file")
+             .takes_value(true))
+        .arg(Arg::with_name("address")
+             .short("a")
+             .long("address")
+             .value_name("ADDRESS")
+             .help("Sets an address")
+             .takes_value(true))
+        .get_matches();
+    info!("Rand Microservice - v0.1.0");
+    trace!("Starting...");
+    let config = File::open("microservice.toml")
+        .and_then(|mut file| {
+            let mut buffer = String::new();
+            file.read_to_string(&mut buffer)?;
+            Ok(buffer)
+        })
+        .and_then(|buffer| {
+            toml::from_str::<Config>(&buffer)
+                .map_err(|err| io::Error::new(io::ErrorKind::Other, err))
+        })
+        .map_err(|err| {
+            warn!("Can't read config file: {}", err);
+        })
+        .ok();
+    let addr = matches.value_of("address")
+        .map(|s| s.to_owned())
+        .or(env::var("ADDRESS").ok())
+        .and_then(|addr| addr.parse().ok())
+        .or(config.map(|config| config.address))
+        .or_else(|| Some(([127, 0, 0, 1], 8080).into()))
+        .unwrap();
+    debug!("Trying to bind server to address: {}", addr);
+    let builder = Server::bind(&addr);
+    trace!("Creating service handler...");
+    let server = builder.serve(|| {
+        service_fn_ok(|req| {
+            trace!("Incoming request is: {:?}", req);
+            let random_byte = rand::random::<u8>();
+            debug!("Generated value is: {}", random_byte);
+            Response::new(Body::from(random_byte.to_string()))
+        })
+    });
+    info!("Used address: {}", server.local_addr());
+    let server = server.map_err(drop);
+    debug!("Run!");
+    hyper::rt::run(server);
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-env/.env
+RUST_LOG=debug
+RUST_BACKTRACE=1
+ADDRESS=0.0.0.0:1234
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-env/Cargo.toml
+[package]
+name = "random-service-with-env"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+log = "0.4"
+env_logger = "0.5"
+dotenv = "0.13"
+hyper = "0.12"
+rand = "0.5"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-env/src/main.rs
+use dotenv::dotenv;
+use hyper::{Body, Response, Server};
+use hyper::rt::Future;
+use hyper::service::service_fn_ok;
+use log::{debug, info, trace};
+use std::env;
+
+fn main() {
+    dotenv().ok();
+    env_logger::init();
+    info!("Rand Microservice - v0.1.0");
+    trace!("Starting...");
+    let addr = env::var("ADDRESS")
+        .unwrap_or_else(|_| "127.0.0.1:8080".into())
+        .parse()
+        .expect("can't parse ADDRESS variable");
+    debug!("Trying to bind server to address: {}", addr);
+    let builder = Server::bind(&addr);
+    trace!("Creating service handler...");
+    let server = builder.serve(|| {
+        service_fn_ok(|req| {
+            trace!("Incoming request is: {:?}", req);
+            let random_byte = rand::random::<u8>();
+            debug!("Generated value is: {}", random_byte);
+            Response::new(Body::from(random_byte.to_string()))
+        })
+    });
+    info!("Used address: {}", server.local_addr());
+    let server = server.map_err(drop);
+    debug!("Run!");
+    hyper::rt::run(server);
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-logging/Cargo.toml
+[package]
+name = "random-service-with-logging"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+log = "0.4"
+pretty_env_logger = "0.2"
+hyper = "0.12"
+rand = "0.5"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter03/random-service-with-logging/src/main.rs
+use hyper::{Body, Response, Server};
+use hyper::rt::Future;
+use hyper::service::service_fn_ok;
+use log::{debug, info, trace};
+
+fn main() {
+    pretty_env_logger::init();
+    info!("Rand Microservice - v0.1.0");
+    trace!("Starting...");
+    let addr = ([127, 0, 0, 1], 8080).into();
+    debug!("Trying to bind server to address: {}", addr);
+    let builder = Server::bind(&addr);
+    trace!("Creating service handler...");
+    let server = builder.serve(|| {
+        service_fn_ok(|req| {
+            trace!("Incoming request is: {:?}", req);
+            let random_byte = rand::random::<u8>();
+            debug!("Generated value is: {}", random_byte);
+            Response::new(Body::from(random_byte.to_string()))
+        })
+    });
+    info!("Used address: {}", server.local_addr());
+    let server = server.map_err(drop);
+    debug!("Run!");
+    hyper::rt::run(server);
+}
+
+--#
+

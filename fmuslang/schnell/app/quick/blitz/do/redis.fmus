@@ -1,0 +1,30 @@
+
+--% index/fmus
+__PWD,d
+    ?pick
+        .,d(/load=__FILE__=win32/instalasi dan jalankan redis secara langsung*)
+        $* docker run -d -p 6379:6379 redis
+--#
+
+--% redis/fmus
+.,d
+	?pick
+		@instalasi redis windows 32-bit*
+			@ https://github.com/cuiwenyuan/Redis-Windows-32bit*
+		
+        .,d(/load=__FILE__=win32/instalasi dan jalankan redis secara langsung*)
+
+        @instalasi redis windows 64-bit*
+
+		@generate docker-compose*
+			docker-compose.yml,f(f=__CURDIR__/../../../special/dc.redis)
+		@getting redis client: xxx*
+--#
+
+--% win32/instalasi dan jalankan redis secara langsung
+__PWD,d(/mk)
+    $* git clone https://github.com/cuiwenyuan/Redis-Windows-32bit
+    Redis-Windows-32bit,d
+        3.0.504,d
+            **term
+--#

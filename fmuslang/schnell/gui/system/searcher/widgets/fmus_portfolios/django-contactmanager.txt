@@ -1,0 +1,402 @@
+################################################# manager.py
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'contactmanager.settings')
+
+################################################# settings.py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'core',
+    'contact',
+]
+ROOT_URLCONF = 'contactmanager.urls'
+WSGI_APPLICATION = 'contactmanager.wsgi.application'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'frontpage'
+LOGIN_URL = 'login'
+
+################################################# urls.py
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.urls import path, include
+
+from core.views import frontpage, signup
+
+urlpatterns = [
+    path('', frontpage, name='frontpage'),
+    path('signup/', signup, name='signup'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('login/', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),
+    path('', include('contact.urls')),
+    path('admin/', admin.site.urls),
+]
+
+################################################# core
+################################################# apps=contact/views.py
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.db.models import Q
+from django.shortcuts import render, redirect
+
+from contact.models import Contact
+
+@login_required
+def frontpage(request):
+    contacts = Contact.objects.filter(created_by=request.user)
+
+    query = request.GET.get('query', '')
+
+    if query:
+        contacts = contacts.filter(
+            Q(first_name__icontains=query)
+            |
+            Q(last_name__icontains=query)
+            |
+            Q(email__icontains=query)
+            |
+            Q(phone__icontains=query)
+            |
+            Q(address__icontains=query)
+            |
+            Q(zipcode__icontains=query)
+            |
+            Q(city__icontains=query)
+        )
+
+    return render(request, 'core/frontpage.html', {
+        'contacts': contacts
+    })
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+
+            login(request, user)
+
+            return redirect('frontpage')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'core/signup.html', {
+        'form': form
+    })
+################################################# core/templates/*.html
+## base.html
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-200">
+        <nav class="py-6 px-4 bg-gray-900 flex justify-between items-center">
+            <h1 class="text-white text-2xl">Contact Manager</h1>
+
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'contact:add' %}" class="p-3 bg-emerald-400 text-white text-xl rounded-xl">+</a>
+                <a href="/logout/" class="p-3 bg-emerald-400 text-white text-xl rounded-xl">Log out</a>
+            {% else %}
+                <a href="/login/" class="p-3 bg-emerald-400 text-white text-xl rounded-xl">Log in</a>
+                <a href="/signup/" class="p-3 bg-emerald-400 text-white text-xl rounded-xl">Sign up</a>
+            {% endif %}
+        </nav>
+
+        <div class="px-6 py-4">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
+## frontpage.html
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="mb-4">
+        <form method="get" action=".">
+            <input type="text" name="query" placeholder="Search..." class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+        </form>
+    </div>
+
+    <div class="space-y-5">
+        {% for contact in contacts %}
+            <div class="px-4 py-6 text-center bg-gray-500 rounded-xl">
+                <h2 class="mb text-xl">{{ contact.first_name }} {{ contact.last_name }}</h2>
+                <h3 class="mb-5 text-sm text-gray-900">{{ contact.category.title }}</h3>
+
+                <p><strong>E-mail:</strong> {{ contact.email }}</p>
+                <p><strong>Phone:</strong> {{ contact.phone }}</p>
+
+                <p class="mt-6">
+                    {{ contact.address }}<br>
+                    {{ contact.zipcode }} {{ contact.city }}
+                </p>
+
+                <div class="mt-6">
+                    <a href="{% url 'contact:edit' contact.id %}" class="px-4 py-2 bg-emerald-800 text-white rounded-xl">Edit</a>
+                    <a href="{% url 'contact:delete' contact.id %}" class="px-4 py-2 bg-red-800 text-white rounded-xl">Delete</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="px-4 py-6 text-center bg-gray-500 rounded-xl">
+                <p>No results...</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+## login.html
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <h1 class="mb-3 text-2xl">Log in</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="mt-2 p-3 bg-emerald-400 text-white text-xl rounded-xl">Submit</button>
+    </form>
+{% endblock %}
+## signup.html
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <h1 class="mb-3 text-2xl">Sign up</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="mt-2 p-3 bg-emerald-400 text-white text-xl rounded-xl">Submit</button>
+    </form>
+{% endblock %}
+################################################# apps/contact/admin.py
+from django.contrib import admin
+
+from .models import Category
+
+admin.site.register(Category)
+################################################# models.py
+from django.contrib.auth.models import User
+from django.db import models
+
+class Category(models.Model):
+    title = models.CharField(max_length=255)
+
+class Contact(models.Model):
+    category = models.ForeignKey(Category, related_name='contacts', on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    zipcode = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    created_by = models.ForeignKey(User, related_name='contacts', on_delete=models.CASCADE)
+################################################# urls.py
+from django.urls import path
+
+from . import views
+
+app_name='contact'
+urlpatterns = [
+    path('add/', views.add, name='add'),
+    path('contacts/<int:pk>/', views.edit, name='edit'),
+    path('contacts/<int:pk>/delete/', views.delete, name='delete'),
+]
+################################################# views.py
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
+
+from .forms import ContactForm
+from .models import Category, Contact
+
+@login_required
+def add(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.created_by = request.user
+            contact.save()
+        
+            return redirect('frontpage')
+
+    categories = Category.objects.all()
+
+    return render(request, 'contact/add.html', {
+        'categories': categories
+    })
+
+@login_required
+def edit(request, pk):
+    contact = get_object_or_404(Contact, pk=pk, created_by=request.user)
+    categories = Category.objects.all()
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST, instance=contact)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('frontpage')
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact/edit.html', {
+        'contact': contact,
+        'categories': categories
+    })
+
+@login_required
+def delete(request, pk):
+    contact = get_object_or_404(Contact, pk=pk, created_by=request.user)
+    contact.delete()
+
+    return redirect('frontpage')
+################################################# forms.py
+from django.forms import ModelForm
+
+from .models import Contact
+
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = ('category', 'first_name', 'last_name', 'email', 'phone', 'address', 'zipcode', 'city')
+################################################# apps/contact/templates/*.html
+## add.html
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="p-6 bg-gray-400 rounded-xl">
+        <form method="post" action="." class="space-y-4">
+            {% csrf_token %}
+
+            <div>
+                <label>Category</label><br>
+                <select name="category" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+                    <option value="">Please select</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label>First name</label><br>
+                <input type="text" name="first_name" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Last name</label><br>
+                <input type="text" name="last_name" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Email</label><br>
+                <input type="text" name="email" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Phone</label><br>
+                <input type="text" name="phone" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Address</label><br>
+                <input type="text" name="address" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Zipcode</label><br>
+                <input type="text" name="zipcode" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>City</label><br>
+                <input type="text" name="city" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <button class="p-3 bg-emerald-400 text-white text-xl rounded-xl">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+## edit.html
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="p-6 bg-gray-400 rounded-xl">
+        <form method="post" action="." class="space-y-4">
+            {% csrf_token %}
+
+            <div>
+                <label>Category</label><br>
+                <select name="category" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+                    <option value="">Please select</option>
+                    {% for category in categories %}
+                        <option 
+                            value="{{ category.id }}"
+                            {% if category.id == contact.category_id %} selected{% endif %}
+                        >
+                            {{ category.title }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label>First name</label><br>
+                <input type="text" value="{{ contact.first_name }}" name="first_name" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Last name</label><br>
+                <input type="text" value="{{ contact.last_name }}" name="last_name" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Email</label><br>
+                <input type="text" value="{{ contact.email }}" name="email" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Phone</label><br>
+                <input type="text" value="{{ contact.phone }}" name="phone" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Address</label><br>
+                <input type="text" value="{{ contact.address }}" name="address" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>Zipcode</label><br>
+                <input type="text" value="{{ contact.zipcode }}" name="zipcode" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <label>City</label><br>
+                <input type="text" value="{{ contact.city }}" name="city" class="w-full py-4 px-6 rounded-xl bg-gray-700 text-white">
+            </div>
+
+            <div>
+                <button class="p-3 bg-emerald-400 text-white text-xl rounded-xl">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+#################################################
+
+

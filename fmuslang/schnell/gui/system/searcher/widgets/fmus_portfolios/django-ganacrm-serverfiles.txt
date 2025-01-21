@@ -1,0 +1,121 @@
+#################################################C:\portfolio\_django\ganarcrm\server_files\gunicorn_start
+#!/bin/sh
+
+NAME='ganarcrm_django'
+DJANGODIR=/webapps/ganarcrm/environment_3_8_2/djackets_django
+SOCKFILE=/webapps/ganarcrm/environment_3_8_2/run/gunicorn.sock
+USER=ganarcrm
+GROUP=webapps
+NUM_WORKERS=3
+DJANGO_SETTINGS_MODULE=ganarcrm_django.settingsprod
+DJANGO_WSGI_MODULE=ganarcrm_django.wsgi
+TIMEOUT=120
+
+cd $DJANGODIR
+source ../environment_3_8_2/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+RUNDIR=$(dirname $SOCKFILE)
+test -d $RUNDIR || mkdir -p $RUNDIR
+
+exec ../bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+--name $NAME \
+--workers $NUM_WORKERS \
+--timeout $TIMEOUT \
+--user=$USER --group=$GROUP \
+--bind=unix:$SOCKFILE \
+--log-level=debug \
+--log-file=-
+
+#################################################C:\portfolio\_django\ganarcrm\server_files\nginx_apiganarcrm.conf
+upstream ganarcrm_app_server {
+    server unix:/webapps/ganarcrm/environment_3_8_2/run/gunicorn.sock fail_timeout=0;
+}
+
+server {
+    listen 80;
+    server_name apiganarcrm.codewithstein.com;
+    return 301 https://apiganarcrm.codewithstein.com$request_uri;
+}
+
+
+server {
+    listen 443 ssl;
+    server_name apiganarcrm.codewithstein.com;
+
+    client_max_body_size 4G;
+
+    access_log /webapps/ganarcrm/environment_3_8_2/logs/nginx-django-access.log;
+    error_log /webapps/ganarcrm/environment_3_8_2/logs/nginx-django-error.log;
+
+    ssl_certificate /etc/letsencrypt/live/apiganarcrm.codewithstein.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/apiganarcrm.codewithstein.com/privkey.pem;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+
+    location /static/ {
+        alias /webapps/ganarcrm/ganarcrm_django/static/;
+    }
+
+    location /media/ {
+        alias /webapps/ganarcrm/ganarcrm_django/media/;
+    }
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        proxy_set_header Host $http_host;
+
+        proxy_redirect off;
+
+        if (!-f $request_filename) {
+            proxy_pass http://ganarcrm_app_server;
+        }
+    }
+}
+
+#################################################C:\portfolio\_django\ganarcrm\server_files\nginx_ganarcrm.conf
+server {
+    listen 80;
+    server_name ganarcrm.codewithstein.com;
+    return 301 https://ganarcrm.codewithstein.com$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name ganarcrm.codewithstein.com;
+
+    client_max_body_size 4G;
+
+    error_log  /webapps/environment_3_8_2/logs/nginx-vue-error.log;
+    access_log /webapps/environment_3_8_2/logs/nginx-vue-access.log;
+
+    ssl_certificate /etc/letsencrypt/live/ganarcrm.codewithstein.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ganarcrm.codewithstein.com/privkey.pem;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+
+    charset utf-8;
+    root /webapps/ganarcrm/ganarcrm_dist;
+    index index.html index.htm;
+
+    location / {
+        root /webapps/ganarcrm/ganarcrm_dist;
+        try_files $uri /index.html;
+    }
+}
+
+#################################################C:\portfolio\_django\ganarcrm\server_files\supervisor_ganarcrm.conf
+[program:ganarcrm_django]
+command = /webapps/ganarcrm/environment_3_8_2/bin/gunicorn_start
+user = ganarcrm
+stdout_logfile = /webapps/ganarcrm/environment_3_8_2/logs/supervisor.log
+redirect_stderr = true
+environment=LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8
+
+#################################################

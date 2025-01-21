@@ -1,0 +1,96 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+.eggs/
+dist/
+build/
+sdist/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Installed packages
+# (Typically managed by pip, but some may put stuff here)
+lib/
+lib64/
+parts/
+develop-eggs/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+nosetests.xml
+*.log
+
+# Translations
+*.mo
+*.pot
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+virtualenv/
+pyenv-virtualenv/
+*.virtualenv/
+
+# Editor and IDE specific files and directories
+*.sublime-project
+*.sublime-workspace
+.vscode/
+.idea/
+*.iml
+*.pydevproject
+*.ropeproject
+.spyderproject
+.tern-project
+.settings/
+*.session
+*.tmproj
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Log Files
+*.log
+
+# Temporary files
+*.tmp
+*~
+\#*
+
+# Config files
+.env
+*.ini
+*.config
+
+# Data files
+*.csv
+*.json
+*.tsv
+*.sqlite
+
+# Example configuration
+example_config.yaml
+config.yaml.example
+config.json.example
+
+# Add any other file types that you don't want to track
+# Examples:
+# data.txt
+# data.csv
+# images/
+
+# Ignore git-lfs files
+*.git-lfs/

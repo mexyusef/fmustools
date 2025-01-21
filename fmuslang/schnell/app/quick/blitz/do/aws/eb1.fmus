@@ -1,0 +1,59 @@
+--% index/fmus
+__PWD,d
+    .ebextensions,d(/mk)
+        @Masukkan folder berisi wsgi:application (misal "main"): *
+        %__TEMPLATE_WSGI_APP=__INPUT__
+        django.config,f(e=__FILE__=template1)
+--#
+
+--% template1
+option_settings:
+  aws:elasticbeanstalk:container:python:
+    WSGIPath: __TEMPLATE_WSGI_APP.wsgi:application
+--#
+
+--% template2
+option_settings:
+  aws:elasticbeanstalk:container:python:
+    WSGIPath: __TEMPLATE_WSGI_APP/wsgi.py
+--#
+
+--% steps
+eb init -p python-3.7 myproject
+eb init -p python-3.8 myproject
+eb init -p python-3.9 myproject
+
+(ebvirt) usef@DESKTOP-7HH37HJ:/mnt/c/Users/usef/work/_backend/dj$ eb init -p python-3.9 myproject
+Application myproject has been created.
+ERROR: NotFoundError - Elastic Beanstalk can't find a platform version that matches "python-3.9".
+(ebvirt) usef@DESKTOP-7HH37HJ:/mnt/c/Users/usef/work/_backend/dj$ eb init -p python-3.8 myproject
+
+eb init
+eb create myenviron
+eb status
+ALLOWED_HOSTS = ['eb-django-app-dev.elasticbeanstalk.com']
+eb deploy
+eb status --verbose
+eb terminate myenviron
+--#
+
+--% config.yml
+branch-defaults:
+  default:
+    environment: null
+    group_suffix: null
+global:
+  application_name: django-tutorial
+  branch: null
+  default_ec2_keyname: aws-eb
+  default_platform: Python 3.7
+  default_region: us-west-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: null
+  workspace_type: Application
+--#

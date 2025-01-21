@@ -1,0 +1,93 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+	%__TEMPLATE_NAMA_GO_MOD_INIT=github.com/mexyusef/palsu
+	$* go mod init __TEMPLATE_NAMA_GO_MOD_INIT
+	helper,d(/mk)
+		models.go,f(e=__FILE__=models.go)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    info.txt,f(e=__FILE__=info.txt)
+    $* more info.txt
+    $* go run main.go
+--#
+
+--% models.go
+package helper
+
+import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/lib/pq" // sql behavior modified
+)
+
+const (
+	host     = "127.0.0.1"
+	port     = 5432
+	user     = "gituser"
+	password = "passme"
+	dbname   = "mydb"
+)
+
+func InitDB() (*sql.DB, error) {
+	var connectionString = fmt.Sprintf("host=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
+
+	var err error
+	db, err := sql.Open("postgres", connectionString)
+
+	if err != nil {
+		return nil, err
+	}
+
+	stmt, err := db.Prepare("CREATE TABLE IF NOT EXISTS web_url(ID SERIAL PRIMARY KEY, URL TEXT NOT NULL);")
+
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = stmt.Exec()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return db, nil
+}
+--#
+
+--% main.go
+package main
+
+import (
+	"log"
+
+	"__TEMPLATE_NAMA_GO_MOD_INIT/helper"
+)
+
+func main() {
+	_, err := helper.InitDB()
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Println("Database tables are successfully initialized.")
+}
+
+--#
+
+--% info.txt
+localhost:8000/
+	Executing middleware before request phase!
+	Executing mainHandler...
+	Executing middleware after response phase!
+todo:
+bikin bbrp middleware...chaining gitu deh
+--#

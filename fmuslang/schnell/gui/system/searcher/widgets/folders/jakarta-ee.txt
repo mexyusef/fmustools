@@ -1,0 +1,32 @@
+.,d
+    src,d
+        main,d
+            java,d
+                comexample,d
+                    config,d
+                        DatabaseConfig.java,f(t=)
+                        SecurityConfig.java,f(t=)
+                    controller,d
+                        UserController.java,f(t=)
+                        ProductController.java,f(t=)
+                    model,d
+                        User.java,f(t=)
+                        Product.java,f(t=)
+                    repository,d
+                        UserRepository.java,f(t=)
+                        ProductRepository.java,f(t=)
+                    service,d
+                        UserService.java,f(t=)
+                        ProductService.java,f(t=)
+            resources,d
+                application.properties
+        test,d
+            java,d
+                comexample,d
+                    controller,d
+                        UserControllerTest.java,f(t=)
+                        ProductControllerTest.java,f(t=)
+                    service,d
+                        UserServiceTest.java,f(t=)
+                        ProductServiceTest.java,f(t=)
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\jakarta-ee.txt

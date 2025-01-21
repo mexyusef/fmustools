@@ -1,0 +1,92 @@
+# TDD Go CLI Cobra: Examples
+TDD in Go CLI Cobra: show me some examples
+
+ChatGPT
+Certainly! I can provide you with a basic example of how to use Test-Driven Development (TDD) with the Go CLI library Cobra. In this example, we'll create a simple CLI application that calculates the square of a given number. We'll follow the TDD approach by writing the tests first and then implementing the functionality.
+
+Here's an example directory structure for our project:
+
+go
+Copy code
+myapp/
+  ├── cmd/
+  │   └── myapp/
+  │       └── main.go
+  └── square/
+      ├── square.go
+      └── square_test.go
+First, let's create the square package and its corresponding test file.
+
+square/square.go:
+
+go
+Copy code
+package square
+
+// Square calculates the square of a given number.
+func Square(num int) int {
+    return num * num
+}
+square/square_test.go:
+
+go
+Copy code
+package square
+
+import "testing"
+
+func TestSquare(t *testing.T) {
+    result := Square(2)
+    expected := 4
+
+    if result != expected {
+        t.Errorf("Expected %d, but got %d", expected, result)
+    }
+}
+Now, let's create the myapp command using Cobra.
+
+cmd/myapp/main.go:
+
+go
+Copy code
+package main
+
+import (
+    "fmt"
+    "os"
+
+    "github.com/spf13/cobra"
+    "myapp/square"
+)
+
+var rootCmd = &cobra.Command{
+    Use:   "myapp",
+    Short: "A simple CLI application",
+    Run: func(cmd *cobra.Command, args []string) {
+        if len(args) == 0 {
+            cmd.Usage()
+            return
+        }
+
+        num := args[0]
+        squareNum := square.Square(num)
+        fmt.Printf("Square of %s is %d\n", num, squareNum)
+    },
+}
+
+func main() {
+    if err := rootCmd.Execute(); err != nil {
+        fmt.Println(err)
+        os.Exit(1)
+    }
+}
+Now we can run our tests and build the CLI application. Open your terminal, navigate to the root directory of your project, and run the following commands:
+
+$ go test ./...
+$ go build -o myapp ./cmd/myapp
+Finally, you can use your CLI application like this:
+
+$ ./myapp 5
+Square of 5 is 25
+
+That's a basic example of using TDD with Cobra in a Go CLI application. You can expand upon this by adding more commands, flags, and tests as needed for your application.

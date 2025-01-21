@@ -1,0 +1,70 @@
+
+--% hour 1, quarter 1
+npx create-next-app -e with-tailwindcss gdoc
+cd gdoc
+yarn install
+--#
+
+--% hour 1, quarter 2
+yarn add @material-tailwind/react -E
+--#
+
+--% hour 1, quarter 3
+hour 1, quarter 3
+--#
+
+--% hour 1, quarter 4
+hour 1, quarter 4
+--#
+
+
+--% hour 2, quarter 1
+hour 2, quarter 1
+--#
+
+--% hour 2, quarter 2
+hour 2, quarter 2
+--#
+
+--% hour 2, quarter 3
+hour 2, quarter 3
+--#
+
+--% hour 2, quarter 4
+hour 2, quarter 4
+--#
+
+
+--% hour 3, quarter 1
+hour 3, quarter 1
+--#
+
+--% hour 3, quarter 2
+hour 3, quarter 2
+--#
+
+--% hour 3, quarter 3
+hour 3, quarter 3
+--#
+
+--% hour 3, quarter 4
+hour 3, quarter 4
+--#
+
+
+--% hour 4, quarter 1
+hour 4, quarter 1
+--#
+
+--% hour 4, quarter 2
+hour 4, quarter 2
+--#
+
+--% hour 4, quarter 3
+hour 4, quarter 3
+--#
+
+--% hour 4, quarter 4
+hour 4, quarter 4
+--#
+

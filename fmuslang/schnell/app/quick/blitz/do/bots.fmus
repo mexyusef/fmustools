@@ -1,0 +1,78 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @create discord bots project*
+            @golang: https://www.youtube.com/watch?v=e2fFMAPzZs4*
+        @create slack bots project*
+        @create telegram bots project*
+        @create twitter bots project*
+
+        @create trading bots project*
+        	@apa/search:gh,goog broker order routing system*
+        @create captcha/recaptcha bots project*
+--#
+
+--% simple-py-discord/fmus
+.,d
+	?pick
+		$* pip install discord
+		**showtext=simple-py-discord/readme
+--#
+
+--% simple-py-discord/readme
+https://medium.com/codesphere-cloud/create-a-discord-bot-in-minutes-with-python-72feb2151e2e
+
+https://discord.com/developers/applications
+Create a new application 
+	| bot tab | create new bot
+		| juga hasilkan (auth) TOKEN
+	| oauth2 tab | (scopes) | check bot and visit the generated URL
+	select the server utk tempat bot
+	muncul dlm daftar offline users
+
+main.py
+=======
+from discord.ext import commands
+TOKEN='token kita'
+bot = commands.Bot(command_prefix='!')
+@bot.event
+async def on_ready():
+	print(f'{bot.user} successfully logged in')
+bot.run(TOKEN)
+
+respond to messages
+=======
+@bot.event
+async def on_message(msg):
+	if msg.author == bot.user:
+		return
+	if msg.content.lower() = 'hello':
+		await msg.channel.send(f'halo juga {msg.author}')
+	elif msg.content.lower() = 'bye':
+		await msg.channel.send(f'bye juga {msg.author}')
+	await bot.process_commands(msg)
+
+creating commands
+=======
+@bot.command()
+async def square(ctx, arg):
+	print(arg)
+	await ctx.send(int(arg) ** 2) # kuadrat
+
+@bot.command()
+async def scrabblepoints(ctx, arg):
+    # Key for point values of each letter
+    score = {"a": 1, "c": 3, "b": 3, "e": 1, "d": 2, "g": 2,
+         "f": 4, "i": 1, "h": 4, "k": 5, "j": 8, "m": 3,
+         "l": 1, "o": 1, "n": 1, "q": 10, "p": 3, "s": 1,
+         "r": 1, "u": 1, "t": 1, "w": 4, "v": 4, "y": 4,
+         "x": 8, "z": 10}
+	points = 0
+	for c in arg:
+		points += score[c]
+	await ctx.send(points)
+
+jalankan dari cloud
+https://link.codesphere.com/FR
+import project, run from VM
+--#

@@ -1,0 +1,258 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	benches,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/benches/Cargo.toml)
+		src,d(/mk)
+			lib.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/benches/src/lib.rs)
+	fast-service,d(/mk)
+		benchmark.yml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/benchmark.yml)
+		build.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/build.rs)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/Cargo.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/src/main.rs)
+		templates,d(/mk)
+			index.html,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/templates/index.html)
+	profiled,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/profiled/Cargo.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/profiled/src/main.rs)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/benches/Cargo.toml
+[package]
+name = "benches"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/benches/src/lib.rs
+#![feature(test)]
+
+extern crate test;
+
+use test::Bencher;
+
+#[bench]
+fn bench_clone(b: &mut Bencher) {
+    let data = "data".to_string();
+    b.iter(move || {
+        let _data = data.clone();
+    });
+}
+
+#[bench]
+fn bench_ref(b: &mut Bencher) {
+    let data = "data".to_string();
+    b.iter(move || {
+        let _data = &data;
+    });
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/benchmark.yml
+---
+
+threads: 4
+base: 'http://localhost:8080'
+iterations: 5
+rampup: 2
+
+plan:
+  - name: Index Page
+    request:
+      url: /
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/build.rs
+fn main() {
+    askama::rerun_if_templates_changed();
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/Cargo.toml
+[package]
+name = "fast-service"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+actix = "0.7"
+actix-web = "0.7"
+askama = "0.6"
+chrono = "0.4"
+env_logger = "0.5"
+futures = "0.1"
+
+[build-dependencies]
+askama = "0.6"
+
+[features]
+default = []
+cache = []
+rwlock = []
+borrow = []
+fast = ["cache", "rwlock", "borrow"]
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/src/main.rs
+use actix_web::{middleware, server, App, HttpRequest, HttpResponse};
+use askama::Template;
+use chrono::Utc;
+use std::sync::{Arc, Mutex, MutexGuard, RwLock, RwLockReadGuard};
+use std::time::Duration;
+use std::thread;
+
+#[cfg(feature="borrow")]
+#[derive(Template)]
+#[template(path = "index.html")]
+struct IndexTemplate<'a> {
+    time: &'a str,
+}
+
+#[cfg(not(feature="borrow"))]
+#[derive(Template)]
+#[template(path = "index.html")]
+struct IndexTemplate {
+    time: String,
+}
+
+#[derive(Clone)]
+struct State {
+    #[cfg(not(feature="rwlock"))]
+    last_minute: Arc<Mutex<String>>,
+    #[cfg(feature="rwlock")]
+    last_minute: Arc<RwLock<String>>,
+    cached: Arc<RwLock<Option<String>>>,
+}
+
+fn index(req: &HttpRequest<State>) -> HttpResponse {
+    if cfg!(feature="cache") {
+        let cached = req.state().cached.read().unwrap();
+        if let Some(ref body) = *cached {
+            return HttpResponse::Ok().body(body.to_owned());
+        }
+    }
+
+    #[cfg(not(feature="rwlock"))]
+    let last_minute = req.state().last_minute.lock().unwrap();
+    #[cfg(feature="rwlock")]
+    let last_minute = req.state().last_minute.read().unwrap();
+
+    #[cfg(not(feature="borrow"))]
+    let template = IndexTemplate { time: last_minute.to_owned() };
+    #[cfg(feature="borrow")]
+    let template = IndexTemplate { time: &last_minute };
+
+    let body = template.render().unwrap();
+    if cfg!(feature="cache") {
+        let mut cached = req.state().cached.write().unwrap();
+        *cached = Some(body.clone());
+    }
+    HttpResponse::Ok().body(body)
+}
+
+fn now() -> String {
+    Utc::now().to_string()
+}
+
+fn main() {
+    env_logger::init();
+    let sys = actix::System::new("fast-service");
+
+    let value = now();
+    #[cfg(not(feature="rwlock"))]
+    let last_minute = Arc::new(Mutex::new(value));
+    #[cfg(feature="rwlock")]
+    let last_minute = Arc::new(RwLock::new(value));
+
+    let last_minute_ref = last_minute.clone();
+    thread::spawn(move || {
+        loop {
+            {
+                #[cfg(not(feature="rwlock"))]
+                let mut last_minute = last_minute_ref.lock().unwrap();
+                #[cfg(feature="rwlock")]
+                let mut last_minute = last_minute_ref.write().unwrap();
+                *last_minute = now();
+            }
+            thread::sleep(Duration::from_secs(3));
+        }
+    });
+
+    let cached = Arc::new(RwLock::new(None));
+    let state = State {
+        last_minute,
+        cached,
+    };
+    server::new(move || {
+        App::with_state(state.clone())
+            .middleware(middleware::Logger::default())
+            .resource("/", |r| r.f(index))
+    })
+    .bind("127.0.0.1:8080")
+    .unwrap()
+    .start();
+
+    let _ = sys.run();
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/fast-service/templates/index.html
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Microservice</title>
+</head>
+    <body>
+        <p>Time is: {{ time }}</p>
+    </body>
+</html>
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/profiled/Cargo.toml
+[package]
+name = "profiled"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+flame = { version = "0.2.2", optional = true }
+
+[features]
+default = []
+flame_it = ["flame"]
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter14/profiled/src/main.rs
+use std::fs::File;
+
+pub fn main() {
+    {
+        let _req_span = flame::start_guard("incoming request");
+        {
+            let _db_span = flame::start_guard("database query");
+            let _resp_span = flame::start_guard("generating response");
+        }
+    }
+
+    flame::dump_html(&mut File::create("out.html").unwrap()).unwrap();
+    flame::dump_json(&mut File::create("out.json").unwrap()).unwrap();
+    flame::dump_stdout();
+}
+
+--#
+

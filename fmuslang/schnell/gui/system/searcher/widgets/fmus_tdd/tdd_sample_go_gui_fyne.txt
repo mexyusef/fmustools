@@ -1,0 +1,79 @@
+Open sidebar
+TDD with Fyne GUI
+
+
+User
+TDD in Go GUI Fyne: show me some examples
+
+ChatGPT
+Certainly! Test-driven development (TDD) is a software development approach where tests are written before the actual code. This helps ensure that the code meets the desired requirements and facilitates the creation of more robust and maintainable software.
+
+Fyne is a lightweight and easy-to-use GUI toolkit for Go. When it comes to TDD with Fyne, you can follow a similar approach of writing tests before implementing the graphical user interface. Here's an example to demonstrate TDD in Go with Fyne:
+
+go
+Copy code
+package main
+
+import (
+	"testing"
+
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/test"
+)
+
+// Create a simple application window.
+func createWindow() fyne.Window {
+	app := fyne.NewApp()
+	w := app.NewWindow("TDD Example")
+	w.Resize(fyne.Size{Width: 200, Height: 100})
+	return w
+}
+
+func TestWindowCreation(t *testing.T) {
+	w := createWindow()
+
+	if w == nil {
+		t.Error("Window creation failed")
+	}
+}
+
+func TestWindowTitle(t *testing.T) {
+	w := createWindow()
+	expectedTitle := "TDD Example"
+
+	if w.Title != expectedTitle {
+		t.Errorf("Expected window title to be %s, got %s", expectedTitle, w.Title)
+	}
+}
+
+func TestWindowResize(t *testing.T) {
+	w := createWindow()
+	expectedSize := fyne.Size{Width: 200, Height: 100}
+
+	if w.Size() != expectedSize {
+		t.Errorf("Expected window size to be %v, got %v", expectedSize, w.Size())
+	}
+}
+
+func TestButtonLabel(t *testing.T) {
+	w := createWindow()
+
+	btn := test.GetButton(w, "Click Me")
+	if btn == nil {
+		t.Fatal("Button not found")
+	}
+
+	expectedLabel := "Click Me"
+	if btn.Text != expectedLabel {
+		t.Errorf("Expected button label to be %s, got %s", expectedLabel, btn.Text)
+	}
+}
+In this example, we have created four test cases using the Go testing package. The first test case, TestWindowCreation, ensures that the application window is successfully created. The second test case, TestWindowTitle, verifies if the window title is set correctly. The third test case, TestWindowResize, checks if the window is resized to the expected size. The fourth test case, TestButtonLabel, tests if a button with the label "Click Me" exists on the window.
+
+These test cases assume that you have a basic knowledge of Fyne's concepts, such as windows and buttons. You can extend these examples to cover more complex scenarios and interactions within your application.
+
+Remember to install the necessary dependencies before running the tests. You can do this by running go get fyne.io/fyne/v2 in your terminal.
+
+Once you have written your tests, you can run them using the go test command in the directory containing your test file. For example, if your test file is named gui_test.go, you can run go test or go test -v to see more detailed output.
+
+By following the TDD approach, you can continue writing tests for various GUI components and functionality, and then implement the corresponding code to make the tests pass. This iterative process helps ensure that your GUI code is thoroughly tested and reliable.

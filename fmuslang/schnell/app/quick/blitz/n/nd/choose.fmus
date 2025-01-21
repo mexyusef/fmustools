@@ -1,0 +1,59 @@
+--% index/fmus
+__PWD,d
+    ?pick        
+        $* yarn create vite
+        $* pnpm create vite
+        $* npm create vite@latest
+        $* yarn add -D typescript ts-node @types/node eslint prettier
+        $* npx tsc --init
+        $* npx eslint --init
+        $* yarn add -D eslint-import-resolver-typescript tsconfig-paths
+
+        @sendgrid utk kirim email*
+        @postmark utk kirim email*
+        @https://temp-mail.org/en/ utk terima email*
+        @auth0 utk authentication*
+        @cloudinary utk simpan file*
+        @retool utk bikin dashboard*        
+        @istanbul utk code coverage*
+        @oprek pm2 utk balancer*
+
+        .,d(/load=__CURDIR__/sqlite1.fmus=index/fmus*)
+            @ini masih model standar awal: Contacts, belum ada komponen spor*
+
+        .,d(/load=__CURDIR__/sqlite2.fmus=index/fmus*)
+            @ini sudah tambah s_product dengan 1 data*
+
+        @node-express-ts project*
+
+        @node backend project setup with ts, eslint, tslint, prettier, jest*
+
+        @db support*
+            ?pick
+                $* yarn add mysql2
+                $* yarn add pg pg-hstore
+                @sqlite3*
+                    @https://github.com/TryGhost/node-sqlite3*
+                    @https://github.com/JoshuaWise/better-sqlite3*
+                @sqlite3 samples*
+                    @https://github.com/geshan/nodejs-sqlite*
+                    @https://geshan.com.np/blog/2021/10/nodejs-sqlite/*
+--#
+
+--% node+ts/setup/1
+.,d
+    # https://youtu.be/BKz7rnbQyK4?t=399
+    $* yarn add -D typescript ts-node @types/node eslint prettier
+
+    @hasilkan tsconfig.json*
+    $* npx tsc --init
+
+    @hasilkan eslintrc.js*
+    $* npx eslint --init
+
+    #$* yarn add -D @typescript-eslint/eslint-plugin eslint-plugin-import @typescript-eslint/parser eslint-plugin-prettier eslint-config-prettier    
+
+    .prettierrc,f(t=)
+    
+    $* yarn add -D eslint-import-resolver-typescript tsconfig-paths
+--#

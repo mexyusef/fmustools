@@ -1,0 +1,1 @@
+from .curly import process_language as process_curl

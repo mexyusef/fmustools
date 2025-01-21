@@ -1,0 +1,38 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=forever*)
+--#
+
+--% forever
+__PWD,d
+    ?pick
+        @Dockerfile *
+            ?pick
+                @FROM node:14-slim
+                @WORKDIR /usr/app
+                @COPY ./package*.json ./
+                @COPY ./yarn.lock ./
+                @RUN yarn
+                @COPY . .
+                @EXPOSE 4000
+                @CMD ["yarn", "start"]
+
+                @docker build -t group/tag .
+        @docker-compose.yml *
+            ?pick
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.my)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.my2)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.cass)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.kafka)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.ma)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.mg)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.mqtt)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.ms)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.ms2)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.neo)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.pg)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.redis)
+                docker-compose.yml,f(f=__CURDIR__/../../../special/dc.rmq)
+        @docker-cli *
+--#

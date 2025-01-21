@@ -1,0 +1,37 @@
+--% index/fmus
+__PWD,d
+	?pick
+		.,d(/load=__CURDIR__/fb-lamadev.fmus=index/fmus*)
+
+		@create class component*
+			.,d(/load=__CURDIR__/appclass1.fmus=index/fmus*)
+
+		@create functional component*
+			.,d(/load=__CURDIR__/func1.fmus=index/fmus*)
+
+		@soft-ui dashboard*
+			.,d(/load=__CURDIR__/sui.fmus=index/fmus*)
+
+		@useContext*
+		@useDispatch*
+		@useEffect*
+		@useMemo*
+		@useReducer*
+		@useSelector*
+		@useState*
+
+		@create context*
+		@create hook*
+
+		@webpack 4-5*
+		@eslint*
+		@tslint*
+		@prettier*
+		@babel*
+		@swc*
+		@gulp grunt parcel ...*
+
+		@import * as React from 'react';
+		@import ReactDOM from 'react-dom';
+		@ReactDOM.render(<App />, document.querySelector('#app')); *
+--#

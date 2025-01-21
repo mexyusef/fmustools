@@ -1,0 +1,753 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	grpc-ring,d(/mk)
+		build.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/build.rs)
+		build.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/build.sh)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/Cargo.toml)
+		ring.proto,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/ring.proto)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/test.sh)
+		src,d(/mk)
+			client.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/client.rs)
+			lib.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/lib.rs)
+			ring.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/ring.rs)
+			ring_grpc.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/ring_grpc.rs)
+			server.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/server.rs)
+	jsonrpc-ring,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/jsonrpc-ring/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/jsonrpc-ring/test.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/jsonrpc-ring/src/main.rs)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/build.rs
+extern crate protoc_rust_grpc;
+
+fn main() {
+    protoc_rust_grpc::run(protoc_rust_grpc::Args {
+        out_dir: "src",
+        includes: &[],
+        input: &["ring.proto"],
+        rust_protobuf: true,
+        ..Default::default()
+    }).expect("protoc-rust-grpc");
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/build.sh
+cargo watch -i 'src/ring*' -x "run --bin grpc-ring"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/Cargo.toml
+[package]
+name = "grpc-ring"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+env_logger = "0.6"
+failure = "0.1"
+grpc = { git = "https://github.com/stepancheg/grpc-rust" }
+log = "0.4"
+protobuf = "2.2"
+
+[build-dependencies]
+protoc-rust-grpc = { git = "https://github.com/stepancheg/grpc-rust" }
+
+[[bin]]
+name = "grpc-ring"
+path = "src/server.rs"
+test = false
+
+[[bin]]
+name = "grpc-ring-client"
+path = "src/client.rs"
+test = false
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/ring.proto
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "rust.microservices.ring";
+option java_outer_classname = "RingProto";
+option objc_class_prefix = "RING";
+
+package ringproto;
+
+message Empty { }
+
+service Ring {
+  rpc StartRollCall (Empty) returns (Empty);
+  rpc MarkItself (Empty) returns (Empty);
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/test.sh
+FIRST=127.0.0.1:4444
+SECOND=127.0.0.1:5555
+THIRD=127.0.0.1:6666
+
+start_service() {
+    RUST_LOG=grpc_ring=trace RUST_BACKTRACE=1 ADDRESS=$1 NEXT=$2 target/debug/grpc-ring > $3 2>&1 &
+}
+
+cargo build
+
+start_service $FIRST $SECOND first.log
+start_service $SECOND $THIRD second.log
+start_service $THIRD $FIRST third.log
+
+sleep 3
+
+NEXT=$FIRST target/debug/grpc-ring-client
+
+sleep 5
+
+pkill grpc-ring
+
+echo FIRST
+cat first.log
+echo SECOND
+cat second.log
+echo THIRD
+cat third.log
+
+rm first.log second.log third.log
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/client.rs
+use failure::Error;
+use grpc_ring::Remote;
+use std::env;
+
+fn main() -> Result<(), Error> {
+    let next = env::var("NEXT")?.parse()?;
+    let remote = Remote::new(next)?;
+    remote.start_roll_call()?;
+    Ok(())
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/lib.rs
+mod ring;
+mod ring_grpc;
+
+use crate::ring::Empty;
+use crate::ring_grpc::{Ring, RingClient};
+use grpc::{ClientConf, ClientStubExt, Error as GrpcError, RequestOptions};
+use std::net::SocketAddr;
+
+pub struct Remote {
+    client: RingClient,
+}
+
+impl Remote {
+    pub fn new(addr: SocketAddr) -> Result<Self, GrpcError> {
+        let host = addr.ip().to_string();
+        let port = addr.port();
+        let conf = ClientConf::default();
+        let client = RingClient::new_plain(&host, port, conf)?;
+        Ok(Self {
+            client
+        })
+    }
+
+    pub fn start_roll_call(&self) -> Result<Empty, GrpcError> {
+        self.client.start_roll_call(RequestOptions::new(), Empty::new())
+            .wait()
+            .map(|(_, value, _)| value)
+    }
+
+    pub fn mark_itself(&self) -> Result<Empty, GrpcError> {
+        self.client.mark_itself(RequestOptions::new(), Empty::new())
+            .wait()
+            .map(|(_, value, _)| value)
+    }
+}
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/ring.rs
+// This file is generated by rust-protobuf 2.2.2. Do not edit
+// @generated
+
+// https://github.com/Manishearth/rust-clippy/issues/702
+#![allow(unknown_lints)]
+#![allow(clippy)]
+
+#![cfg_attr(rustfmt, rustfmt_skip)]
+
+#![allow(box_pointers)]
+#![allow(dead_code)]
+#![allow(missing_docs)]
+#![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
+#![allow(non_upper_case_globals)]
+#![allow(trivial_casts)]
+#![allow(unsafe_code)]
+#![allow(unused_imports)]
+#![allow(unused_results)]
+
+use protobuf::Message as Message_imported_for_functions;
+use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
+
+#[derive(PartialEq,Clone,Default)]
+pub struct Empty {
+    // special fields
+    pub unknown_fields: ::protobuf::UnknownFields,
+    pub cached_size: ::protobuf::CachedSize,
+}
+
+impl Empty {
+    pub fn new() -> Empty {
+        ::std::default::Default::default()
+    }
+}
+
+impl ::protobuf::Message for Empty {
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &::std::any::Any {
+        self as &::std::any::Any
+    }
+    fn as_any_mut(&mut self) -> &mut ::std::any::Any {
+        self as &mut ::std::any::Any
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<::std::any::Any> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> Empty {
+        Empty::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const ::protobuf::reflect::MessageDescriptor,
+        };
+        unsafe {
+            descriptor.get(|| {
+                let fields = ::std::vec::Vec::new();
+                ::protobuf::reflect::MessageDescriptor::new::<Empty>(
+                    "Empty",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static Empty {
+        static mut instance: ::protobuf::lazy::Lazy<Empty> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const Empty,
+        };
+        unsafe {
+            instance.get(Empty::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for Empty {
+    fn clear(&mut self) {
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for Empty {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for Empty {
+    fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
+        ::protobuf::reflect::ProtobufValueRef::Message(self)
+    }
+}
+
+static file_descriptor_proto_data: &'static [u8] = b"\
+    \n\nring.proto\x12\tringproto\"\x07\n\x05Empty2m\n\x04Ring\x123\n\rStart\
+    RollCall\x12\x10.ringproto.Empty\x1a\x10.ringproto.Empty\x120\n\nMarkIts\
+    elf\x12\x10.ringproto.Empty\x1a\x10.ringproto.EmptyB-\n\x17rust.microser\
+    vices.ringB\tRingProtoP\x01\xa2\x02\x04RINGb\x06proto3\
+";
+
+static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {
+    lock: ::protobuf::lazy::ONCE_INIT,
+    ptr: 0 as *const ::protobuf::descriptor::FileDescriptorProto,
+};
+
+fn parse_descriptor_proto() -> ::protobuf::descriptor::FileDescriptorProto {
+    ::protobuf::parse_from_bytes(file_descriptor_proto_data).unwrap()
+}
+
+pub fn file_descriptor_proto() -> &'static ::protobuf::descriptor::FileDescriptorProto {
+    unsafe {
+        file_descriptor_proto_lazy.get(|| {
+            parse_descriptor_proto()
+        })
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/ring_grpc.rs
+// This file is generated. Do not edit
+// @generated
+
+// https://github.com/Manishearth/rust-clippy/issues/702
+#![allow(unknown_lints)]
+#![allow(clippy)]
+
+#![cfg_attr(rustfmt, rustfmt_skip)]
+
+#![allow(box_pointers)]
+#![allow(dead_code)]
+#![allow(missing_docs)]
+#![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
+#![allow(non_upper_case_globals)]
+#![allow(trivial_casts)]
+#![allow(unsafe_code)]
+#![allow(unused_imports)]
+#![allow(unused_results)]
+
+
+// interface
+
+pub trait Ring {
+    fn start_roll_call(&self, o: ::grpc::RequestOptions, p: super::ring::Empty) -> ::grpc::SingleResponse<super::ring::Empty>;
+
+    fn mark_itself(&self, o: ::grpc::RequestOptions, p: super::ring::Empty) -> ::grpc::SingleResponse<super::ring::Empty>;
+}
+
+// client
+
+pub struct RingClient {
+    grpc_client: ::std::sync::Arc<::grpc::Client>,
+    method_StartRollCall: ::std::sync::Arc<::grpc::rt::MethodDescriptor<super::ring::Empty, super::ring::Empty>>,
+    method_MarkItself: ::std::sync::Arc<::grpc::rt::MethodDescriptor<super::ring::Empty, super::ring::Empty>>,
+}
+
+impl ::grpc::ClientStub for RingClient {
+    fn with_client(grpc_client: ::std::sync::Arc<::grpc::Client>) -> Self {
+        RingClient {
+            grpc_client: grpc_client,
+            method_StartRollCall: ::std::sync::Arc::new(::grpc::rt::MethodDescriptor {
+                name: "/ringproto.Ring/StartRollCall".to_string(),
+                streaming: ::grpc::rt::GrpcStreaming::Unary,
+                req_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
+                resp_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
+            }),
+            method_MarkItself: ::std::sync::Arc::new(::grpc::rt::MethodDescriptor {
+                name: "/ringproto.Ring/MarkItself".to_string(),
+                streaming: ::grpc::rt::GrpcStreaming::Unary,
+                req_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
+                resp_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
+            }),
+        }
+    }
+}
+
+impl Ring for RingClient {
+    fn start_roll_call(&self, o: ::grpc::RequestOptions, p: super::ring::Empty) -> ::grpc::SingleResponse<super::ring::Empty> {
+        self.grpc_client.call_unary(o, p, self.method_StartRollCall.clone())
+    }
+
+    fn mark_itself(&self, o: ::grpc::RequestOptions, p: super::ring::Empty) -> ::grpc::SingleResponse<super::ring::Empty> {
+        self.grpc_client.call_unary(o, p, self.method_MarkItself.clone())
+    }
+}
+
+// server
+
+pub struct RingServer;
+
+
+impl RingServer {
+    pub fn new_service_def<H : Ring + 'static + Sync + Send + 'static>(handler: H) -> ::grpc::rt::ServerServiceDefinition {
+        let handler_arc = ::std::sync::Arc::new(handler);
+        ::grpc::rt::ServerServiceDefinition::new("/ringproto.Ring",
+            vec![
+                ::grpc::rt::ServerMethod::new(
+                    ::std::sync::Arc::new(::grpc::rt::MethodDescriptor {
+                        name: "/ringproto.Ring/StartRollCall".to_string(),
+                        streaming: ::grpc::rt::GrpcStreaming::Unary,
+                        req_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
+                        resp_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
+                    }),
+                    {
+                        let handler_copy = handler_arc.clone();
+                        ::grpc::rt::MethodHandlerUnary::new(move |o, p| handler_copy.start_roll_call(o, p))
+                    },
+                ),
+                ::grpc::rt::ServerMethod::new(
+                    ::std::sync::Arc::new(::grpc::rt::MethodDescriptor {
+                        name: "/ringproto.Ring/MarkItself".to_string(),
+                        streaming: ::grpc::rt::GrpcStreaming::Unary,
+                        req_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
+                        resp_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
+                    }),
+                    {
+                        let handler_copy = handler_arc.clone();
+                        ::grpc::rt::MethodHandlerUnary::new(move |o, p| handler_copy.mark_itself(o, p))
+                    },
+                ),
+            ],
+        )
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/grpc-ring/src/server.rs
+mod ring;
+mod ring_grpc;
+
+use crate::ring::Empty;
+use crate::ring_grpc::{Ring, RingServer};
+use failure::Error;
+use grpc::{Error as GrpcError, ServerBuilder, SingleResponse, RequestOptions};
+use grpc_ring::Remote;
+use log::{debug, trace};
+use std::env;
+use std::net::SocketAddr;
+use std::sync::Mutex;
+use std::sync::mpsc::{channel, Receiver, Sender};
+
+macro_rules! try_or_response {
+    ($x:expr) => {{
+        match $x {
+            Ok(value) => {
+                value
+            }
+            Err(err) => {
+                let error = GrpcError::Panic(err.to_string());
+                return SingleResponse::err(error);
+            }
+        }
+    }};
+}
+
+enum Action {
+    StartRollCall,
+    MarkItself,
+}
+
+struct RingImpl {
+    sender: Mutex<Sender<Action>>,
+}
+
+impl RingImpl {
+    fn new(sender: Sender<Action>) -> Self {
+        Self {
+            sender: Mutex::new(sender),
+        }
+    }
+
+    fn send_action(&self, action: Action) -> SingleResponse<Empty> {
+        let tx = try_or_response!(self.sender.lock());
+        try_or_response!(tx.send(action));
+        let result = Empty::new();
+        SingleResponse::completed(result)
+    }
+}
+
+impl Ring for RingImpl {
+    fn start_roll_call(&self, _: RequestOptions, _: Empty) -> SingleResponse<Empty> {
+        trace!("START_ROLL_CALL");
+        self.send_action(Action::StartRollCall)
+    }
+
+    fn mark_itself(&self, _: RequestOptions, _: Empty) -> SingleResponse<Empty> {
+        trace!("MARK_ITSELF");
+        self.send_action(Action::MarkItself)
+    }
+}
+
+fn main() -> Result<(), Error> {
+    env_logger::init();
+    let (tx, rx) = channel();
+    let addr: SocketAddr = env::var("ADDRESS")?.parse()?;
+    let mut server = ServerBuilder::new_plain();
+    server.http.set_addr(addr)?;
+    let ring = RingImpl::new(tx);
+    server.add_service(RingServer::new_service_def(ring));
+    server.http.set_cpu_pool_threads(4);
+    let _server = server.build()?;
+
+    worker_loop(rx)
+}
+
+fn worker_loop(receiver: Receiver<Action>) -> Result<(), Error> {
+    let next = env::var("NEXT")?.parse()?;
+    let remote = Remote::new(next)?;
+    let mut in_roll_call = false;
+    for action in receiver.iter() {
+        match action {
+            Action::StartRollCall => {
+                if !in_roll_call {
+                    if remote.start_roll_call().is_ok() {
+                        debug!("ON");
+                        in_roll_call = true;
+                    }
+                } else {
+                    if remote.mark_itself().is_ok() {
+                        debug!("OFF");
+                        in_roll_call = false;
+                    }
+                }
+            }
+            Action::MarkItself => {
+                if in_roll_call {
+                    if remote.mark_itself().is_ok() {
+                        debug!("OFF");
+                        in_roll_call = false;
+                    }
+                } else {
+                    debug!("SKIP");
+                }
+            }
+        }
+    }
+    Ok(())
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/jsonrpc-ring/Cargo.toml
+[package]
+name = "jsonrpc-ring"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+env_logger = "0.6"
+failure = "0.1"
+jsonrpc = { git = "https://github.com/apoelstra/rust-jsonrpc" }
+jsonrpc-http-server = { git = "https://github.com/paritytech/jsonrpc" }
+log = "0.4"
+serde = "1.0"
+serde_derive = "1.0"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/jsonrpc-ring/test.sh
+FIRST=127.0.0.1:4444
+SECOND=127.0.0.1:5555
+THIRD=127.0.0.1:6666
+
+start_service() {
+    RUST_LOG=jsonrpc_ring=trace RUST_BACKTRACE=1 ADDRESS=$1 NEXT=$2 target/debug/jsonrpc-ring > $3 2>&1 &
+}
+
+cargo build
+
+start_service $FIRST $SECOND first.log
+start_service $SECOND $THIRD second.log
+start_service $THIRD $FIRST third.log
+
+sleep 3
+
+curl -H "Content-Type: application/json" --data-binary '{"jsonrpc":"2.0","id":"curl","method":"start_roll_call","params":[]}' http://127.0.0.1:4444
+
+sleep 5
+
+pkill jsonrpc-ring
+
+echo FIRST
+cat first.log
+echo SECOND
+cat second.log
+echo THIRD
+cat third.log
+
+rm first.log second.log third.log
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter06/jsonrpc-ring/src/main.rs
+use failure::Error;
+use jsonrpc::client::Client;
+use jsonrpc::error::Error as ClientError;
+use jsonrpc_http_server::ServerBuilder;
+use jsonrpc_http_server::jsonrpc_core::{IoHandler, Error as ServerError, Value};
+use log::{debug, error, trace};
+use serde::Deserialize;
+use std::env;
+use std::fmt;
+use std::net::SocketAddr;
+use std::sync::Mutex;
+use std::sync::mpsc::{channel, Sender};
+use std::thread;
+
+const START_ROLL_CALL: &str = "start_roll_call";
+const MARK_ITSELF: &str = "mark_itself";
+
+enum Action {
+    StartRollCall,
+    MarkItself,
+}
+
+struct Remote {
+    client: Client,
+}
+
+impl Remote {
+    fn new(addr: SocketAddr) -> Self {
+        let url = format!("http://{}", addr);
+        let client = Client::new(url, None, None);
+        Self {
+            client
+        }
+    }
+
+    fn start_roll_call(&self) -> Result<bool, ClientError> {
+        self.call_method(START_ROLL_CALL, &[])
+    }
+
+    fn mark_itself(&self) -> Result<bool, ClientError> {
+        self.call_method(MARK_ITSELF, &[])
+    }
+
+    fn call_method<T>(&self, meth: &str, args: &[Value]) -> Result<T, ClientError>
+    where
+        T: for <'de> Deserialize<'de>,
+    {
+        let request = self.client.build_request(meth, args);
+        self.client.send_request(&request).and_then(|res| res.into_result::<T>())
+    }
+}
+
+fn to_internal<E: fmt::Display>(err: E) -> ServerError {
+    error!("Error: {}", err);
+    ServerError::internal_error()
+}
+
+fn spawn_worker() -> Result<Sender<Action>, Error> {
+    let (tx, rx) = channel();
+    let next: SocketAddr = env::var("NEXT")?.parse()?;
+    thread::spawn(move || {
+        let remote = Remote::new(next);
+        let mut in_roll_call = false;
+        for action in rx.iter() {
+            match action {
+                Action::StartRollCall => {
+                    if !in_roll_call {
+                        if remote.start_roll_call().is_ok() {
+                            debug!("ON");
+                            in_roll_call = true;
+                        }
+                    } else {
+                        if remote.mark_itself().is_ok() {
+                            debug!("OFF");
+                            in_roll_call = false;
+                        }
+                    }
+                }
+                Action::MarkItself => {
+                    if in_roll_call {
+                        if remote.mark_itself().is_ok() {
+                            debug!("OFF");
+                            in_roll_call = false;
+                        }
+                    } else {
+                        debug!("SKIP");
+                    }
+                }
+            }
+        }
+    });
+    Ok(tx)
+}
+
+fn main() -> Result<(), Error> {
+    env_logger::init();
+    let tx = spawn_worker()?;
+    let addr: SocketAddr = env::var("ADDRESS")?.parse()?;
+    let mut io = IoHandler::default();
+    let sender = Mutex::new(tx.clone());
+    io.add_method(START_ROLL_CALL, move |_| {
+        trace!("START_ROLL_CALL");
+        let tx = sender
+            .lock()
+            .map_err(to_internal)?;
+        tx.send(Action::StartRollCall)
+            .map_err(to_internal)
+            .map(|_| Value::Bool(true))
+    });
+    let sender = Mutex::new(tx.clone());
+    io.add_method(MARK_ITSELF, move |_| {
+        trace!("MARK_ITSELF");
+        let tx = sender
+            .lock()
+            .map_err(to_internal)?;
+        tx.send(Action::MarkItself)
+            .map_err(to_internal)
+            .map(|_| Value::Bool(true))
+    });
+
+
+    let server = ServerBuilder::new(io).start_http(&addr)?;
+
+    Ok(server.wait())
+}
+
+--#
+

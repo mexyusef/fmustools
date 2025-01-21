@@ -1,0 +1,6 @@
+--% index/fmus
+__PWD,d
+	@spt spor, kita coba gunakan sqlite di sini, agar jk upload ke cloud gampang...*
+	?pick
+		@parser js in action - cocok buat tulisan di medium atau dev.to*
+--#

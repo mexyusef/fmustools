@@ -1,0 +1,265 @@
+make a Rust Actix endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+make the graphql version
+
+Open sidebar
+Rust Actix Todo Controller
+
+
+User
+make a Rust Actix endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+ChatGPT
+Sure! Here's an example of a Rust Actix endpoint REST controller class for creating a todo table:
+
+rust
+Copy code
+use actix_web::{web, HttpResponse, Responder};
+use serde::{Deserialize, Serialize};
+use sqlx::PgPool;
+
+#[derive(Deserialize, Serialize)]
+struct Todo {
+    id: i32,
+    priority: f32,
+    completed: bool,
+    task: String,
+    due_date: chrono::NaiveDate,
+    created_at: chrono::NaiveDateTime,
+}
+
+#[derive(Deserialize)]
+struct CreateTodo {
+    priority: f32,
+    task: String,
+    due_date: chrono::NaiveDate,
+}
+
+async fn create_todo(
+    pool: web::Data<PgPool>,
+    todo: web::Json<CreateTodo>,
+) -> impl Responder {
+    let result = sqlx::query!(
+        "INSERT INTO todo (priority, completed, task, due_date, created_at)
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING id, priority, completed, task, due_date, created_at",
+        todo.priority,
+        false,
+        todo.task,
+        todo.due_date,
+        chrono::Utc::now().naive_utc()
+    )
+    .fetch_one(&*pool)
+    .await;
+
+    match result {
+        Ok(row) => HttpResponse::Created().json(row),
+        Err(_) => HttpResponse::InternalServerError().finish(),
+    }
+}
+
+pub fn configure(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        web::resource("/todos")
+            .route(web::post().to(create_todo)),
+    );
+}
+Make sure to add the required dependencies to your Cargo.toml:
+
+toml
+Copy code
+[dependencies]
+actix-web = "3.3.2"
+sqlx = { version = "0.6", features = ["postgres"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = "0.4"
+This example assumes you're using a PostgreSQL database with the sqlx crate for database access and actix-web for the web framework. The serde and chrono crates are used for JSON serialization and date/time handling, respectively.
+
+The /todos endpoint expects a JSON payload in the request body with the following structure:
+
+json
+Copy code
+{
+  "priority": 1.5,
+  "task": "Finish project",
+  "due_date": "2023-05-18"
+}
+The create_todo function handles the POST request and inserts the provided todo data into the todo table. It returns the created todo as JSON in the response body if successful or an internal server error if there was an issue with the database query.
+
+You can add more endpoints and functionality to this controller based on your requirements. Remember to set up the database connection pool and configure Actix to use this controller by calling the configure function with your ServiceConfig object.
+
+
+
+
+
+User
+make the graphql version
+
+ChatGPT
+Certainly! Here's an example of a Rust Actix endpoint GraphQL controller for creating a Todo using the Juniper crate:
+
+rust
+Copy code
+use actix_web::{web, HttpResponse, Responder};
+use chrono::NaiveDateTime;
+use juniper::http::graphiql::graphiql_source;
+use juniper::http::GraphQLRequest;
+use juniper::http::GraphQLResponse;
+use juniper::RootNode;
+use serde::{Deserialize, Serialize};
+use sqlx::PgPool;
+use std::sync::Arc;
+
+#[derive(Deserialize, Serialize)]
+struct Todo {
+    id: i32,
+    priority: f32,
+    completed: bool,
+    task: String,
+    due_date: NaiveDateTime,
+    created_at: NaiveDateTime,
+}
+
+#[derive(Deserialize)]
+struct CreateTodoInput {
+    priority: f32,
+    task: String,
+    due_date: NaiveDateTime,
+}
+
+#[derive(juniper::GraphQLInputObject)]
+struct CreateTodo {
+    input: CreateTodoInput,
+}
+
+#[derive(juniper::GraphQLObject)]
+struct CreateTodoPayload {
+    todo: Todo,
+}
+
+pub struct QueryRoot;
+
+#[juniper::graphql_object]
+impl QueryRoot {
+    fn apiVersion() -> &str {
+        "1.0"
+    }
+}
+
+pub struct MutationRoot;
+
+#[juniper::graphql_object(context = Context)]
+impl MutationRoot {
+    async fn create_todo(context: &Context, input: CreateTodoInput) -> CreateTodoPayload {
+        let pool = &context.db_pool;
+        
+        let result = sqlx::query!(
+            "INSERT INTO todo (priority, completed, task, due_date, created_at)
+             VALUES ($1, $2, $3, $4, $5)
+             RETURNING id, priority, completed, task, due_date, created_at",
+            input.priority,
+            false,
+            input.task,
+            input.due_date,
+            chrono::Utc::now().naive_utc()
+        )
+        .fetch_one(pool)
+        .await;
+
+        match result {
+            Ok(row) => CreateTodoPayload { todo: row.into() },
+            Err(_) => panic!("Failed to create a todo"),
+        }
+    }
+}
+
+impl From<sqlx::postgres::PgRow> for Todo {
+    fn from(row: sqlx::postgres::PgRow) -> Todo {
+        Todo {
+            id: row.id,
+            priority: row.priority,
+            completed: row.completed,
+            task: row.task,
+            due_date: row.due_date,
+            created_at: row.created_at,
+        }
+    }
+}
+
+pub struct Context {
+    db_pool: Arc<PgPool>,
+}
+
+impl juniper::Context for Context {}
+
+pub type Schema = RootNode<'static, QueryRoot, MutationRoot>;
+
+async fn graphql(
+    schema: web::Data<Schema>,
+    context: web::Data<Context>,
+    request: web::Json<GraphQLRequest>,
+) -> HttpResponse {
+    let db_pool = context.db_pool.clone();
+    let response = request.execute(&schema, &context).await;
+    let graphql_response = GraphQLResponse::from(response);
+
+    HttpResponse::Ok()
+        .content_type("application/json")
+        .json(graphql_response)
+}
+
+async fn graphiql() -> HttpResponse {
+    let html = graphiql_source("/graphql");
+    HttpResponse::Ok()
+        .content_type("text/html; charset=utf-8")
+        .body(html)
+}
+
+pub fn configure(cfg: &mut web::ServiceConfig) {
+    let schema = Arc::new(Schema::new(QueryRoot, MutationRoot));
+
+    cfg.data(schema.clone())
+        .data(Context {
+            db_pool: // your PostgreSQL connection pool initialization here,
+        })
+        .service(web::resource("/graphql").route(web::post().to(graphql)))
+        .service(web::resource("/graphiql").route(web::get().to(graphiql)));
+}
+In this example, we're using the Juniper crate to implement a GraphQL endpoint in Rust with Actix. The QueryRoot and MutationRoot structs define the GraphQL queries and mutations available in the schema. We have a single mutation called create_todo that takes the CreateTodoInput as an argument and returns a CreateTodoPayload containing the newly created Todo.
+
+The CreateTodoInput struct represents the input fields for creating a Todo and is used in the GraphQL schema. We also define the CreateTodo input object and CreateTodoPayload object, which are used to wrap the input and output of the create_todo mutation.
+
+The Context struct holds the PostgreSQL connection pool, which is passed to the resolver functions to perform database operations. Make sure to replace // your PostgreSQL connection pool initialization here with your actual PostgreSQL connection pool setup.
+
+The graphql function handles the HTTP POST request to the /graphql endpoint and executes the GraphQL request against the schema and context. The result is then serialized into a GraphQL response and returned.
+
+The graphiql function provides a GraphiQL interface for testing the GraphQL API in the browser.
+
+Finally, the configure function sets up the Actix service configuration by registering the GraphQL and GraphiQL endpoints, along with the necessary data and routes.
+
+Remember to add the required dependencies to your Cargo.toml:
+
+toml
+Copy code
+[dependencies]
+actix-web = "3.3.2"
+sqlx = { version = "0.6", features = ["postgres"] }
+serde = { version = "1.0", features = ["derive"] }
+juniper = "0.15"
+chrono = "0.4"
+Please ensure that you adjust the PostgreSQL connection pool initialization and other parts of the code to fit your specific requirements.

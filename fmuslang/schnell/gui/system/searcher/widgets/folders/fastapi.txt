@@ -1,0 +1,39 @@
+.,d
+    app,d
+        api,d
+            dependencies,d
+                auth.py,f(t=)
+            endpoints
+                __init__.py,f(t=)
+                auth.py,f(t=)
+                users.py,f(t=)
+            __init__.py,f(t=)
+            auth.py,f(t=)
+            db.py,f(t=)
+            models.py,f(t=)
+            schema.py,f(t=)
+        core,d
+            config.py,f(t=)
+            security.py,f(t=)
+            __init__.py,f(t=)
+        db,d
+            migrations,d
+            session.py,f(t=)
+            base.py,f(t=)
+            __init__.py,f(t=)
+        tests,d
+            api,d
+                __init__.py,f(t=)
+                test_auth.py,f(t=)
+                test_users.py,f(t=)
+            __init__.py,f(t=)
+        .env,f(t=)
+        .env.example,f(t=)
+        alembic.ini,f(t=)
+        docker-compose.yml,f(t=)
+        Dockerfile,f(t=)
+        main.py,f(t=)
+        requirements.txt,f(t=)
+        .gitignore,f(t=)
+        
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\fastapi.txt

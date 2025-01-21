@@ -1,0 +1,52 @@
+--% index/fmus
+__PWD,d
+	@ /b> do/oprek *
+	?pick
+    $* sudo apt install rabbitmq-server
+    $* sudo systemctl enable rabbitmq-server
+    $* sudo systemctl start rabbitmq-server
+    $* sudo rabbitmqctl stop
+    $* docker run -d -p 5672:5672 rabbitmq
+		@generate docker-compose.yml*
+			?pick
+				docker-compose.yml,f(e=__FILE__=https://github.com/bitnami/bitnami-docker-rabbitmq/blob/master/docker-compose.yml)
+				docker-compose.yml,f(e=__FILE__=https://www.section.io/engineering-education/dockerize-a-rabbitmq-instance/)
+--#
+
+--% https://github.com/bitnami/bitnami-docker-rabbitmq/blob/master/docker-compose.yml
+version: '2'
+
+services:
+  rabbitmq:
+    image: docker.io/bitnami/rabbitmq:3.9
+    ports:
+      - '4369:4369'
+      - '5551:5551'
+      - '5552:5552'
+      - '5672:5672'
+      - '25672:25672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_SECURE_PASSWORD=yes
+    volumes:
+      - 'rabbitmq_data:/bitnami/rabbitmq/mnesia'
+volumes:
+  rabbitmq_data:
+    driver: local
+--#
+
+--% https://www.section.io/engineering-education/dockerize-a-rabbitmq-instance/
+version: "3.8"
+services:
+    rabbitmq3:
+        container_name: "rabbitmq"
+        image: rabbitmq:3.8-management-alpine
+        environment:
+            - RABBITMQ_DEFAULT_USER=usef
+            - RABBITMQ_DEFAULT_PASS=rahasia
+        ports:
+            # AMQP protocol port
+            - '5672:5672'
+            # HTTP management UI
+            - '15672:15672'
+--#

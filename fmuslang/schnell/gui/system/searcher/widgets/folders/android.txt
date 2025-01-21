@@ -1,0 +1,2912 @@
+.,d
+    app,d
+        src,d
+            main,d
+                java,d
+                    com.example.myapp,d
+                        feature1,d
+                            Feature1Activity.kt,f(t=)
+                            Feature1ViewModel.kt,f(t=)
+                        feature2,d
+                            Feature2Activity.kt,f(t=)
+                            Feature2ViewModel.kt,f(t=)
+                        MyApp.kt
+                res,d
+                    layout,d
+                    values,d
+                    drawable,d
+            test,d
+                java,d
+                    com.example.myapp,d
+                        feature1,d
+                            Feature1Test.kt,f(t=)
+                        feature2,d
+                            Feature2Test.kt,f(t=)
+                        MyAppTest.kt,f(t=)
+            androidTest,d
+                java,d
+                    com.example.myapp,d
+                        feature1,d
+                            Feature1UiTest.kt,f(t=)
+                        feature2,d
+                            Feature2UiTest.kt,f(t=)
+                        MyAppUiTest.kt,f(t=)
+
+
+*****************
+react
+*****************
+/mnt/c/hapus/oprek-dan-hapus/arcore-android-sdk
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── assets
+│   ├── canonical_face_mesh.fbx
+│   └── canonical_face_texture.psd
+├── libraries
+│   └── include
+│       └── arcore_c_api.h
+├── media
+│   └── augmented_image_database
+│       ├── 000.jpg
+│       ├── 001.jpg
+│       ├── 002.jpg
+│       ├── 003.jpg
+│       ├── 004.jpg
+│       ├── 005.jpg
+│       ├── 006.jpg
+│       ├── 007.jpg
+│       ├── 008.jpg
+│       ├── 009.jpg
+│       └── README
+├── samples
+│   ├── augmented_faces_java
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── augmentedfaces
+│   │   │           │                           │   ├── AugmentedFaceRenderer.java
+│   │   │           │                           │   └── AugmentedFacesActivity.java
+│   │   │           │                           └── common
+│   │   │           │                               ├── helpers
+│   │   │           │                               │   ├── CameraPermissionHelper.java
+│   │   │           │                               │   ├── DepthSettings.java
+│   │   │           │                               │   ├── DisplayRotationHelper.java
+│   │   │           │                               │   ├── EisSettings.java
+│   │   │           │                               │   ├── FullScreenHelper.java
+│   │   │           │                               │   ├── InstantPlacementSettings.java
+│   │   │           │                               │   ├── LocationPermissionHelper.java
+│   │   │           │                               │   ├── SnackbarHelper.java
+│   │   │           │                               │   ├── TapHelper.java
+│   │   │           │                               │   └── TrackingStateHelper.java
+│   │   │           │                               └── rendering
+│   │   │           │                                   ├── BackgroundRenderer.java
+│   │   │           │                                   ├── ObjectRenderer.java
+│   │   │           │                                   ├── PlaneRenderer.java
+│   │   │           │                                   ├── PointCloudRenderer.java
+│   │   │           │                                   └── ShaderUtil.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── augmented_image_c
+│   │   ├── app
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── default.jpg
+│   │   │           │   ├── fit_to_scan.png
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── frame_base.png
+│   │   │           │   │   ├── frame_lower_left.obj
+│   │   │           │   │   ├── frame_lower_right.obj
+│   │   │           │   │   ├── frame_upper_left.obj
+│   │   │           │   │   ├── frame_upper_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   ├── sample_database.imgdb
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── cpp
+│   │   │           │   ├── augmented_image_application.cc
+│   │   │           │   ├── augmented_image_application.h
+│   │   │           │   ├── augmented_image_renderer.cc
+│   │   │           │   ├── augmented_image_renderer.h
+│   │   │           │   ├── background_renderer.cc
+│   │   │           │   ├── background_renderer.h
+│   │   │           │   ├── glm.h
+│   │   │           │   ├── jni_interface.cc
+│   │   │           │   ├── jni_interface.h
+│   │   │           │   ├── obj_renderer.cc
+│   │   │           │   ├── obj_renderer.h
+│   │   │           │   ├── util.cc
+│   │   │           │   └── util.h
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── c
+│   │   │           │                           └── augmentedimage
+│   │   │           │                               ├── AugmentedImageActivity.java
+│   │   │           │                               ├── CameraPermissionHelper.java
+│   │   │           │                               └── JniInterface.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── augmented_image_java
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── default.jpg
+│   │   │           │   ├── fit_to_scan.png
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── frame_base.png
+│   │   │           │   │   ├── frame_lower_left.obj
+│   │   │           │   │   ├── frame_lower_right.obj
+│   │   │           │   │   ├── frame_upper_left.obj
+│   │   │           │   │   ├── frame_upper_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   ├── sample_database.imgdb
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── augmentedimage
+│   │   │           │                           │   ├── AugmentedImageActivity.java
+│   │   │           │                           │   └── rendering
+│   │   │           │                           │       └── AugmentedImageRenderer.java
+│   │   │           │                           └── common
+│   │   │           │                               ├── helpers
+│   │   │           │                               │   ├── CameraPermissionHelper.java
+│   │   │           │                               │   ├── DepthSettings.java
+│   │   │           │                               │   ├── DisplayRotationHelper.java
+│   │   │           │                               │   ├── EisSettings.java
+│   │   │           │                               │   ├── FullScreenHelper.java
+│   │   │           │                               │   ├── InstantPlacementSettings.java
+│   │   │           │                               │   ├── LocationPermissionHelper.java
+│   │   │           │                               │   ├── SnackbarHelper.java
+│   │   │           │                               │   ├── TapHelper.java
+│   │   │           │                               │   └── TrackingStateHelper.java
+│   │   │           │                               └── rendering
+│   │   │           │                                   ├── BackgroundRenderer.java
+│   │   │           │                                   ├── ObjectRenderer.java
+│   │   │           │                                   ├── PlaneRenderer.java
+│   │   │           │                                   ├── PointCloudRenderer.java
+│   │   │           │                                   └── ShaderUtil.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── cloud_anchor_java
+│   │   ├── README.md
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── cloudanchor
+│   │   │           │                           │   ├── CloudAnchorActivity.java
+│   │   │           │                           │   ├── CloudAnchorManager.java
+│   │   │           │                           │   ├── FirebaseManager.java
+│   │   │           │                           │   ├── PrivacyNoticeDialogFragment.java
+│   │   │           │                           │   └── ResolveDialogFragment.java
+│   │   │           │                           └── common
+│   │   │           │                               ├── helpers
+│   │   │           │                               │   ├── CameraPermissionHelper.java
+│   │   │           │                               │   ├── DepthSettings.java
+│   │   │           │                               │   ├── DisplayRotationHelper.java
+│   │   │           │                               │   ├── EisSettings.java
+│   │   │           │                               │   ├── FullScreenHelper.java
+│   │   │           │                               │   ├── InstantPlacementSettings.java
+│   │   │           │                               │   ├── LocationPermissionHelper.java
+│   │   │           │                               │   ├── SnackbarHelper.java
+│   │   │           │                               │   └── TrackingStateHelper.java
+│   │   │           │                               └── rendering
+│   │   │           │                                   ├── BackgroundRenderer.java
+│   │   │           │                                   ├── ObjectRenderer.java
+│   │   │           │                                   ├── PlaneRenderer.java
+│   │   │           │                                   ├── PointCloudRenderer.java
+│   │   │           │                                   └── ShaderUtil.java
+│   │   │           └── res
+│   │   │               ├── drawable
+│   │   │               │   ├── button_bg.xml
+│   │   │               │   └── dialog_bg.xml
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   ├── activity_main.xml
+│   │   │               │   └── resolve_dialog.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── computervision_c
+│   │   ├── app
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   └── shaders
+│   │   │           │       ├── cpu_image.frag
+│   │   │           │       └── cpu_image.vert
+│   │   │           ├── cpp
+│   │   │           │   ├── computer_vision_application.cc
+│   │   │           │   ├── computer_vision_application.h
+│   │   │           │   ├── cpu_image_renderer.cc
+│   │   │           │   ├── cpu_image_renderer.h
+│   │   │           │   ├── jni_interface.cc
+│   │   │           │   ├── jni_interface.h
+│   │   │           │   ├── util.cc
+│   │   │           │   └── util.h
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── c
+│   │   │           │                           └── computervision
+│   │   │           │                               ├── CameraPermissionHelper.java
+│   │   │           │                               ├── ComputerVisionActivity.java
+│   │   │           │                               └── JniInterface.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── computervision_java
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   └── shaders
+│   │   │           │       ├── cpu_screenquad.frag
+│   │   │           │       ├── cpu_screenquad.vert
+│   │   │           │       ├── gpu_download.vert
+│   │   │           │       ├── gpu_download_i8.frag
+│   │   │           │       └── gpu_download_rgba.frag
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── common
+│   │   │           │                           │   ├── helpers
+│   │   │           │                           │   │   ├── CameraPermissionHelper.java
+│   │   │           │                           │   │   ├── DepthSettings.java
+│   │   │           │                           │   │   ├── DisplayRotationHelper.java
+│   │   │           │                           │   │   ├── EisSettings.java
+│   │   │           │                           │   │   ├── FullScreenHelper.java
+│   │   │           │                           │   │   ├── InstantPlacementSettings.java
+│   │   │           │                           │   │   ├── LocationPermissionHelper.java
+│   │   │           │                           │   │   ├── SnackbarHelper.java
+│   │   │           │                           │   │   ├── TapHelper.java
+│   │   │           │                           │   │   └── TrackingStateHelper.java
+│   │   │           │                           │   └── rendering
+│   │   │           │                           │       ├── BackgroundRenderer.java
+│   │   │           │                           │       ├── ObjectRenderer.java
+│   │   │           │                           │       ├── PlaneRenderer.java
+│   │   │           │                           │       ├── PointCloudRenderer.java
+│   │   │           │                           │       └── ShaderUtil.java
+│   │   │           │                           └── computervision
+│   │   │           │                               ├── ComputerVisionActivity.java
+│   │   │           │                               ├── CpuImageDisplayRotationHelper.java
+│   │   │           │                               ├── CpuImageRenderer.java
+│   │   │           │                               ├── EdgeDetector.java
+│   │   │           │                               ├── FrameTimeHelper.java
+│   │   │           │                               ├── TextureReader.java
+│   │   │           │                               └── TextureReaderImage.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── geospatial_java
+│   │   ├── app
+│   │   │   ├── build
+│   │   │   │   ├── generated
+│   │   │   │   │   ├── ap_generated_sources
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── res
+│   │   │   │   │   │   ├── pngs
+│   │   │   │   │   │   │   └── debug
+│   │   │   │   │   │   └── resValues
+│   │   │   │   │   │       └── debug
+│   │   │   │   │   └── source
+│   │   │   │   │       └── buildConfig
+│   │   │   │   │           └── debug
+│   │   │   │   │               └── com
+│   │   │   │   │                   └── google
+│   │   │   │   │                       └── ar
+│   │   │   │   │                           └── core
+│   │   │   │   │                               └── examples
+│   │   │   │   │                                   └── java
+│   │   │   │   │                                       └── geospatial
+│   │   │   │   │                                           └── BuildConfig.java
+│   │   │   │   ├── intermediates
+│   │   │   │   │   ├── aar_metadata_check
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   ├── annotation_processor_list
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── annotationProcessors.json
+│   │   │   │   │   ├── app_metadata
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── app-metadata.properties
+│   │   │   │   │   ├── compatible_screen_manifest
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── output-metadata.json
+│   │   │   │   │   ├── compile_and_runtime_not_namespaced_r_class_jar
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── R.jar
+│   │   │   │   │   ├── compressed_assets
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   │           └── assets
+│   │   │   │   │   │               ├── models
+│   │   │   │   │   │               │   ├── README.txt.jar
+│   │   │   │   │   │               │   ├── depth_color_palette.png.jar
+│   │   │   │   │   │               │   ├── dfg.raw.jar
+│   │   │   │   │   │               │   ├── geospatial_marker.obj.jar
+│   │   │   │   │   │               │   ├── pawn.obj.jar
+│   │   │   │   │   │               │   ├── pawn_albedo.png.jar
+│   │   │   │   │   │               │   ├── pawn_albedo_instant_placement.png.jar
+│   │   │   │   │   │               │   ├── pawn_roughness_metallic_ao.png.jar
+│   │   │   │   │   │               │   ├── spatial_marker_baked.png.jar
+│   │   │   │   │   │               │   ├── spatial_marker_yellow.png.jar
+│   │   │   │   │   │               │   └── trigrid.png.jar
+│   │   │   │   │   │               └── shaders
+│   │   │   │   │   │                   ├── ar_unlit_object.frag.jar
+│   │   │   │   │   │                   ├── ar_unlit_object.vert.jar
+│   │   │   │   │   │                   ├── background_show_camera.frag.jar
+│   │   │   │   │   │                   ├── background_show_camera.vert.jar
+│   │   │   │   │   │                   ├── background_show_depth_color_visualization.frag.jar
+│   │   │   │   │   │                   ├── background_show_depth_color_visualization.vert.jar
+│   │   │   │   │   │                   ├── cubemap_filter.frag.jar
+│   │   │   │   │   │                   ├── cubemap_filter.vert.jar
+│   │   │   │   │   │                   ├── environmental_hdr.frag.jar
+│   │   │   │   │   │                   ├── environmental_hdr.vert.jar
+│   │   │   │   │   │                   ├── occlusion.frag.jar
+│   │   │   │   │   │                   ├── occlusion.vert.jar
+│   │   │   │   │   │                   ├── plane.frag.jar
+│   │   │   │   │   │                   ├── plane.vert.jar
+│   │   │   │   │   │                   ├── point_cloud.frag.jar
+│   │   │   │   │   │                   ├── point_cloud.vert.jar
+│   │   │   │   │   │                   ├── streetscape_geometry.frag.jar
+│   │   │   │   │   │                   └── streetscape_geometry.vert.jar
+│   │   │   │   │   ├── data_binding_layout_info_type_merge
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── desugar_graph
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   │           ├── currentProject
+│   │   │   │   │   │           │   ├── dirs_bucket_0
+│   │   │   │   │   │           │   │   └── graph.bin
+│   │   │   │   │   │           │   ├── dirs_bucket_1
+│   │   │   │   │   │           │   │   └── graph.bin
+│   │   │   │   │   │           │   ├── dirs_bucket_2
+│   │   │   │   │   │           │   │   └── graph.bin
+│   │   │   │   │   │           │   ├── dirs_bucket_3
+│   │   │   │   │   │           │   │   └── graph.bin
+│   │   │   │   │   │           │   ├── jar_ddd2c83a07c491db7dbe98837d834fb63b9200275f0cabf0e6608311b594b270_bucket_0
+│   │   │   │   │   │           │   │   └── graph.bin
+│   │   │   │   │   │           │   ├── jar_ddd2c83a07c491db7dbe98837d834fb63b9200275f0cabf0e6608311b594b270_bucket_1
+│   │   │   │   │   │           │   │   └── graph.bin
+│   │   │   │   │   │           │   ├── jar_ddd2c83a07c491db7dbe98837d834fb63b9200275f0cabf0e6608311b594b270_bucket_2
+│   │   │   │   │   │           │   │   └── graph.bin
+│   │   │   │   │   │           │   └── jar_ddd2c83a07c491db7dbe98837d834fb63b9200275f0cabf0e6608311b594b270_bucket_3
+│   │   │   │   │   │           │       └── graph.bin
+│   │   │   │   │   │           ├── externalLibs
+│   │   │   │   │   │           ├── mixedScopes
+│   │   │   │   │   │           └── otherProjects
+│   │   │   │   │   ├── dex
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       ├── mergeExtDexDebug
+│   │   │   │   │   │       │   └── classes.dex
+│   │   │   │   │   │       ├── mergeLibDexDebug
+│   │   │   │   │   │       │   ├── 0
+│   │   │   │   │   │       │   ├── 1
+│   │   │   │   │   │       │   ├── 10
+│   │   │   │   │   │       │   ├── 11
+│   │   │   │   │   │       │   ├── 12
+│   │   │   │   │   │       │   ├── 13
+│   │   │   │   │   │       │   ├── 14
+│   │   │   │   │   │       │   ├── 15
+│   │   │   │   │   │       │   ├── 2
+│   │   │   │   │   │       │   ├── 3
+│   │   │   │   │   │       │   ├── 4
+│   │   │   │   │   │       │   ├── 5
+│   │   │   │   │   │       │   ├── 6
+│   │   │   │   │   │       │   ├── 7
+│   │   │   │   │   │       │   ├── 8
+│   │   │   │   │   │       │   └── 9
+│   │   │   │   │   │       └── mergeProjectDexDebug
+│   │   │   │   │   │           ├── 0
+│   │   │   │   │   │           │   └── classes.dex
+│   │   │   │   │   │           ├── 1
+│   │   │   │   │   │           ├── 10
+│   │   │   │   │   │           ├── 11
+│   │   │   │   │   │           ├── 12
+│   │   │   │   │   │           ├── 13
+│   │   │   │   │   │           ├── 14
+│   │   │   │   │   │           ├── 15
+│   │   │   │   │   │           │   └── classes.dex
+│   │   │   │   │   │           ├── 2
+│   │   │   │   │   │           ├── 3
+│   │   │   │   │   │           │   └── classes.dex
+│   │   │   │   │   │           ├── 4
+│   │   │   │   │   │           ├── 5
+│   │   │   │   │   │           ├── 6
+│   │   │   │   │   │           ├── 7
+│   │   │   │   │   │           │   └── classes.dex
+│   │   │   │   │   │           ├── 8
+│   │   │   │   │   │           └── 9
+│   │   │   │   │   ├── dex_archive_input_jar_hashes
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── dex_number_of_buckets_file
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── duplicate_classes_check
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   ├── external_file_lib_dex_archives
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   ├── external_libs_dex_archive
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── external_libs_dex_archive_with_artifact_transforms
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── incremental
+│   │   │   │   │   │   ├── debug-mergeJavaRes
+│   │   │   │   │   │   │   ├── merge-state
+│   │   │   │   │   │   │   └── zip-cache
+│   │   │   │   │   │   │       ├── 0RfM0qb5XOai8JILWj54NKYUMjI=
+│   │   │   │   │   │   │       ├── 0XLmIJKIxi_PTPjNTCCwhO9uRYU=
+│   │   │   │   │   │   │       ├── 0uJvUI17akFLP6qUHqnmrbvUlqE=
+│   │   │   │   │   │   │       ├── 568br4IFF2O+cFdOFk0EUE7Juqk=
+│   │   │   │   │   │   │       ├── 6aM3hSeOBGfI_8Vovgv8GUnhDf0=
+│   │   │   │   │   │   │       ├── 8UQHr+nyvzZfddOwsV1mHT4tG0U=
+│   │   │   │   │   │   │       ├── 9cwokXToYk70AvT3l4R6oKUPkgs=
+│   │   │   │   │   │   │       ├── CNcrKd0i12LEeJ_pI4aLZKHxjk4=
+│   │   │   │   │   │   │       ├── CbuNzQyBvWvle1xLy0IqudRfxSQ=
+│   │   │   │   │   │   │       ├── DPlMRdiT+pLRO1q4hLs5wgvovVg=
+│   │   │   │   │   │   │       ├── DQ7sQN3MTX5Lf2IfpKtWlneLWaY=
+│   │   │   │   │   │   │       ├── FqCa2UFaJ+5a48v6WMn9BX7Lv3g=
+│   │   │   │   │   │   │       ├── IYRAq44iaLYEdEppaOnCqgxtbi8=
+│   │   │   │   │   │   │       ├── Jg8x2yYTcEwPh9cYQI7YBZLxiAQ=
+│   │   │   │   │   │   │       ├── NTyX0dwWAiFm6pr5vHyF6D2_c8M=
+│   │   │   │   │   │   │       ├── QQMGU+6cW_0EtBAieMRIEv_xr6c=
+│   │   │   │   │   │   │       ├── RW66F+eJTUiyqbvLH5OTyLx7Ln8=
+│   │   │   │   │   │   │       ├── RnPt_sVRgnfYtsTzzG0JPxAv80A=
+│   │   │   │   │   │   │       ├── SLyqdIn84VGZb3ZjpKXvXKkb2DY=
+│   │   │   │   │   │   │       ├── TCDgJUausmPjWRw7cAelNmGBVow=
+│   │   │   │   │   │   │       ├── UP+Di2GNDisTSBmzADKJJqgl2b8=
+│   │   │   │   │   │   │       ├── VCXBE144XRL+4EdH4bkPAaKgDZg=
+│   │   │   │   │   │   │       ├── VKkBkQnOhTOhg7auw9EHuqtsvi8=
+│   │   │   │   │   │   │       ├── WH+FL5YtilSBI4F1F9GCuNGvWhE=
+│   │   │   │   │   │   │       ├── WwWgt++yIwIANI2hj9d3fZPeN64=
+│   │   │   │   │   │   │       ├── WyCWSegWVr6IHrTZ2CuEdXzNmFs=
+│   │   │   │   │   │   │       ├── X7BOt5RVbEFGJHMvbJ60TlVgXlk=
+│   │   │   │   │   │   │       ├── X7qZ5_pAtQSMiV53R_ArZSV+12c=
+│   │   │   │   │   │   │       ├── aRwNbUxDiMv2_lHXZAxWVv4fI5E=
+│   │   │   │   │   │   │       ├── bDgrrIHjNKJhf6djVXCp_Esn4eg=
+│   │   │   │   │   │   │       ├── cmxoSRi7lvolzPYBRy6F2jWsUi8=
+│   │   │   │   │   │   │       ├── dRUB2JMVcdbxn9pmMOo7NBkBgnI=
+│   │   │   │   │   │   │       ├── dnQZ0VBCBU1sje0nzNVfFJ0zQy4=
+│   │   │   │   │   │   │       ├── ggm8S5+li68WIfBm2L+kKYcZM8A=
+│   │   │   │   │   │   │       ├── hVmHgoTVwwjN8NzF6Cy_1zsAlJ8=
+│   │   │   │   │   │   │       ├── j6_AU1OWUxgtip3gDKgJYA0w83U=
+│   │   │   │   │   │   │       ├── m94xqAkYG+DxX2ui0qwuIjLnBzo=
+│   │   │   │   │   │   │       ├── mbVZHYKAyB9CkDGul7xIbQFTtZo=
+│   │   │   │   │   │   │       ├── n4uh7fuSieucaV+topXux57Gqvc=
+│   │   │   │   │   │   │       ├── o8MoJFPZ3IN9bpZ6o_NMB_sF_+E=
+│   │   │   │   │   │   │       ├── olRedv3CZBmjSF7tdNmJymojM0I=
+│   │   │   │   │   │   │       ├── qFnDzE02EWxMN9uDHZhzpsNEJts=
+│   │   │   │   │   │   │       ├── sLRkEijX+bugOforyZkTtk964z8=
+│   │   │   │   │   │   │       ├── u3L+Ru+_VRUy3Z0epBMXpNAU_E0=
+│   │   │   │   │   │   │       ├── vBDBun945pjORI3iqAVZzlxtMx4=
+│   │   │   │   │   │   │       ├── xKB0wcNjln_GOGTdMyME3OTN2ds=
+│   │   │   │   │   │   │       ├── xz2q0AeMOjGurE_1ZvPfFSbVAiI=
+│   │   │   │   │   │   │       └── zqIYwkV9QcjCZwDRW6dVQZm7vX4=
+│   │   │   │   │   │   ├── mergeDebugAssets
+│   │   │   │   │   │   │   └── merger.xml
+│   │   │   │   │   │   ├── mergeDebugJniLibFolders
+│   │   │   │   │   │   │   └── merger.xml
+│   │   │   │   │   │   ├── mergeDebugResources
+│   │   │   │   │   │   │   ├── compile-file-map.properties
+│   │   │   │   │   │   │   ├── merged.dir
+│   │   │   │   │   │   │   │   ├── values
+│   │   │   │   │   │   │   │   │   └── values.xml
+│   │   │   │   │   │   │   │   ├── values-af
+│   │   │   │   │   │   │   │   │   └── values-af.xml
+│   │   │   │   │   │   │   │   ├── values-am
+│   │   │   │   │   │   │   │   │   └── values-am.xml
+│   │   │   │   │   │   │   │   ├── values-ar
+│   │   │   │   │   │   │   │   │   └── values-ar.xml
+│   │   │   │   │   │   │   │   ├── values-ar-rEG
+│   │   │   │   │   │   │   │   │   └── values-ar-rEG.xml
+│   │   │   │   │   │   │   │   ├── values-ar-rSA
+│   │   │   │   │   │   │   │   │   └── values-ar-rSA.xml
+│   │   │   │   │   │   │   │   ├── values-as
+│   │   │   │   │   │   │   │   │   └── values-as.xml
+│   │   │   │   │   │   │   │   ├── values-az
+│   │   │   │   │   │   │   │   │   └── values-az.xml
+│   │   │   │   │   │   │   │   ├── values-b+es+419
+│   │   │   │   │   │   │   │   │   └── values-b+es+419.xml
+│   │   │   │   │   │   │   │   ├── values-b+sr+Latn
+│   │   │   │   │   │   │   │   │   └── values-b+sr+Latn.xml
+│   │   │   │   │   │   │   │   ├── values-be
+│   │   │   │   │   │   │   │   │   └── values-be.xml
+│   │   │   │   │   │   │   │   ├── values-bg
+│   │   │   │   │   │   │   │   │   └── values-bg.xml
+│   │   │   │   │   │   │   │   ├── values-bn
+│   │   │   │   │   │   │   │   │   └── values-bn.xml
+│   │   │   │   │   │   │   │   ├── values-bs
+│   │   │   │   │   │   │   │   │   └── values-bs.xml
+│   │   │   │   │   │   │   │   ├── values-ca
+│   │   │   │   │   │   │   │   │   └── values-ca.xml
+│   │   │   │   │   │   │   │   ├── values-cs
+│   │   │   │   │   │   │   │   │   └── values-cs.xml
+│   │   │   │   │   │   │   │   ├── values-da
+│   │   │   │   │   │   │   │   │   └── values-da.xml
+│   │   │   │   │   │   │   │   ├── values-de
+│   │   │   │   │   │   │   │   │   └── values-de.xml
+│   │   │   │   │   │   │   │   ├── values-de-rAT
+│   │   │   │   │   │   │   │   │   └── values-de-rAT.xml
+│   │   │   │   │   │   │   │   ├── values-de-rCH
+│   │   │   │   │   │   │   │   │   └── values-de-rCH.xml
+│   │   │   │   │   │   │   │   ├── values-el
+│   │   │   │   │   │   │   │   │   └── values-el.xml
+│   │   │   │   │   │   │   │   ├── values-en-rAU
+│   │   │   │   │   │   │   │   │   └── values-en-rAU.xml
+│   │   │   │   │   │   │   │   ├── values-en-rCA
+│   │   │   │   │   │   │   │   │   └── values-en-rCA.xml
+│   │   │   │   │   │   │   │   ├── values-en-rGB
+│   │   │   │   │   │   │   │   │   └── values-en-rGB.xml
+│   │   │   │   │   │   │   │   ├── values-en-rIE
+│   │   │   │   │   │   │   │   │   └── values-en-rIE.xml
+│   │   │   │   │   │   │   │   ├── values-en-rIN
+│   │   │   │   │   │   │   │   │   └── values-en-rIN.xml
+│   │   │   │   │   │   │   │   ├── values-en-rSG
+│   │   │   │   │   │   │   │   │   └── values-en-rSG.xml
+│   │   │   │   │   │   │   │   ├── values-en-rXC
+│   │   │   │   │   │   │   │   │   └── values-en-rXC.xml
+│   │   │   │   │   │   │   │   ├── values-en-rZA
+│   │   │   │   │   │   │   │   │   └── values-en-rZA.xml
+│   │   │   │   │   │   │   │   ├── values-es
+│   │   │   │   │   │   │   │   │   └── values-es.xml
+│   │   │   │   │   │   │   │   ├── values-es-rAR
+│   │   │   │   │   │   │   │   │   └── values-es-rAR.xml
+│   │   │   │   │   │   │   │   ├── values-es-rBO
+│   │   │   │   │   │   │   │   │   └── values-es-rBO.xml
+│   │   │   │   │   │   │   │   ├── values-es-rCL
+│   │   │   │   │   │   │   │   │   └── values-es-rCL.xml
+│   │   │   │   │   │   │   │   ├── values-es-rCO
+│   │   │   │   │   │   │   │   │   └── values-es-rCO.xml
+│   │   │   │   │   │   │   │   ├── values-es-rCR
+│   │   │   │   │   │   │   │   │   └── values-es-rCR.xml
+│   │   │   │   │   │   │   │   ├── values-es-rDO
+│   │   │   │   │   │   │   │   │   └── values-es-rDO.xml
+│   │   │   │   │   │   │   │   ├── values-es-rEC
+│   │   │   │   │   │   │   │   │   └── values-es-rEC.xml
+│   │   │   │   │   │   │   │   ├── values-es-rGT
+│   │   │   │   │   │   │   │   │   └── values-es-rGT.xml
+│   │   │   │   │   │   │   │   ├── values-es-rHN
+│   │   │   │   │   │   │   │   │   └── values-es-rHN.xml
+│   │   │   │   │   │   │   │   ├── values-es-rMX
+│   │   │   │   │   │   │   │   │   └── values-es-rMX.xml
+│   │   │   │   │   │   │   │   ├── values-es-rNI
+│   │   │   │   │   │   │   │   │   └── values-es-rNI.xml
+│   │   │   │   │   │   │   │   ├── values-es-rPA
+│   │   │   │   │   │   │   │   │   └── values-es-rPA.xml
+│   │   │   │   │   │   │   │   ├── values-es-rPE
+│   │   │   │   │   │   │   │   │   └── values-es-rPE.xml
+│   │   │   │   │   │   │   │   ├── values-es-rPR
+│   │   │   │   │   │   │   │   │   └── values-es-rPR.xml
+│   │   │   │   │   │   │   │   ├── values-es-rPY
+│   │   │   │   │   │   │   │   │   └── values-es-rPY.xml
+│   │   │   │   │   │   │   │   ├── values-es-rSV
+│   │   │   │   │   │   │   │   │   └── values-es-rSV.xml
+│   │   │   │   │   │   │   │   ├── values-es-rUS
+│   │   │   │   │   │   │   │   │   └── values-es-rUS.xml
+│   │   │   │   │   │   │   │   ├── values-es-rUY
+│   │   │   │   │   │   │   │   │   └── values-es-rUY.xml
+│   │   │   │   │   │   │   │   ├── values-es-rVE
+│   │   │   │   │   │   │   │   │   └── values-es-rVE.xml
+│   │   │   │   │   │   │   │   ├── values-et
+│   │   │   │   │   │   │   │   │   └── values-et.xml
+│   │   │   │   │   │   │   │   ├── values-eu
+│   │   │   │   │   │   │   │   │   └── values-eu.xml
+│   │   │   │   │   │   │   │   ├── values-fa
+│   │   │   │   │   │   │   │   │   └── values-fa.xml
+│   │   │   │   │   │   │   │   ├── values-fi
+│   │   │   │   │   │   │   │   │   └── values-fi.xml
+│   │   │   │   │   │   │   │   ├── values-fil
+│   │   │   │   │   │   │   │   │   └── values-fil.xml
+│   │   │   │   │   │   │   │   ├── values-fr
+│   │   │   │   │   │   │   │   │   └── values-fr.xml
+│   │   │   │   │   │   │   │   ├── values-fr-rCA
+│   │   │   │   │   │   │   │   │   └── values-fr-rCA.xml
+│   │   │   │   │   │   │   │   ├── values-fr-rCH
+│   │   │   │   │   │   │   │   │   └── values-fr-rCH.xml
+│   │   │   │   │   │   │   │   ├── values-gl
+│   │   │   │   │   │   │   │   │   └── values-gl.xml
+│   │   │   │   │   │   │   │   ├── values-gsw
+│   │   │   │   │   │   │   │   │   └── values-gsw.xml
+│   │   │   │   │   │   │   │   ├── values-gu
+│   │   │   │   │   │   │   │   │   └── values-gu.xml
+│   │   │   │   │   │   │   │   ├── values-h360dp-land-v13
+│   │   │   │   │   │   │   │   │   └── values-h360dp-land-v13.xml
+│   │   │   │   │   │   │   │   ├── values-h480dp-land-v13
+│   │   │   │   │   │   │   │   │   └── values-h480dp-land-v13.xml
+│   │   │   │   │   │   │   │   ├── values-h720dp-v13
+│   │   │   │   │   │   │   │   │   └── values-h720dp-v13.xml
+│   │   │   │   │   │   │   │   ├── values-hdpi-v4
+│   │   │   │   │   │   │   │   │   └── values-hdpi-v4.xml
+│   │   │   │   │   │   │   │   ├── values-he
+│   │   │   │   │   │   │   │   │   └── values-he.xml
+│   │   │   │   │   │   │   │   ├── values-hi
+│   │   │   │   │   │   │   │   │   └── values-hi.xml
+│   │   │   │   │   │   │   │   ├── values-hr
+│   │   │   │   │   │   │   │   │   └── values-hr.xml
+│   │   │   │   │   │   │   │   ├── values-hu
+│   │   │   │   │   │   │   │   │   └── values-hu.xml
+│   │   │   │   │   │   │   │   ├── values-hy
+│   │   │   │   │   │   │   │   │   └── values-hy.xml
+│   │   │   │   │   │   │   │   ├── values-id
+│   │   │   │   │   │   │   │   │   └── values-id.xml
+│   │   │   │   │   │   │   │   ├── values-in
+│   │   │   │   │   │   │   │   │   └── values-in.xml
+│   │   │   │   │   │   │   │   ├── values-is
+│   │   │   │   │   │   │   │   │   └── values-is.xml
+│   │   │   │   │   │   │   │   ├── values-it
+│   │   │   │   │   │   │   │   │   └── values-it.xml
+│   │   │   │   │   │   │   │   ├── values-iw
+│   │   │   │   │   │   │   │   │   └── values-iw.xml
+│   │   │   │   │   │   │   │   ├── values-ja
+│   │   │   │   │   │   │   │   │   └── values-ja.xml
+│   │   │   │   │   │   │   │   ├── values-ka
+│   │   │   │   │   │   │   │   │   └── values-ka.xml
+│   │   │   │   │   │   │   │   ├── values-kk
+│   │   │   │   │   │   │   │   │   └── values-kk.xml
+│   │   │   │   │   │   │   │   ├── values-km
+│   │   │   │   │   │   │   │   │   └── values-km.xml
+│   │   │   │   │   │   │   │   ├── values-kn
+│   │   │   │   │   │   │   │   │   └── values-kn.xml
+│   │   │   │   │   │   │   │   ├── values-ko
+│   │   │   │   │   │   │   │   │   └── values-ko.xml
+│   │   │   │   │   │   │   │   ├── values-ky
+│   │   │   │   │   │   │   │   │   └── values-ky.xml
+│   │   │   │   │   │   │   │   ├── values-land
+│   │   │   │   │   │   │   │   │   └── values-land.xml
+│   │   │   │   │   │   │   │   ├── values-large-v4
+│   │   │   │   │   │   │   │   │   └── values-large-v4.xml
+│   │   │   │   │   │   │   │   ├── values-ldltr-v21
+│   │   │   │   │   │   │   │   │   └── values-ldltr-v21.xml
+│   │   │   │   │   │   │   │   ├── values-lo
+│   │   │   │   │   │   │   │   │   └── values-lo.xml
+│   │   │   │   │   │   │   │   ├── values-lt
+│   │   │   │   │   │   │   │   │   └── values-lt.xml
+│   │   │   │   │   │   │   │   ├── values-lv
+│   │   │   │   │   │   │   │   │   └── values-lv.xml
+│   │   │   │   │   │   │   │   ├── values-mk
+│   │   │   │   │   │   │   │   │   └── values-mk.xml
+│   │   │   │   │   │   │   │   ├── values-ml
+│   │   │   │   │   │   │   │   │   └── values-ml.xml
+│   │   │   │   │   │   │   │   ├── values-mn
+│   │   │   │   │   │   │   │   │   └── values-mn.xml
+│   │   │   │   │   │   │   │   ├── values-mo
+│   │   │   │   │   │   │   │   │   └── values-mo.xml
+│   │   │   │   │   │   │   │   ├── values-mr
+│   │   │   │   │   │   │   │   │   └── values-mr.xml
+│   │   │   │   │   │   │   │   ├── values-ms
+│   │   │   │   │   │   │   │   │   └── values-ms.xml
+│   │   │   │   │   │   │   │   ├── values-my
+│   │   │   │   │   │   │   │   │   └── values-my.xml
+│   │   │   │   │   │   │   │   ├── values-nb
+│   │   │   │   │   │   │   │   │   └── values-nb.xml
+│   │   │   │   │   │   │   │   ├── values-ne
+│   │   │   │   │   │   │   │   │   └── values-ne.xml
+│   │   │   │   │   │   │   │   ├── values-night-v8
+│   │   │   │   │   │   │   │   │   └── values-night-v8.xml
+│   │   │   │   │   │   │   │   ├── values-nl
+│   │   │   │   │   │   │   │   │   └── values-nl.xml
+│   │   │   │   │   │   │   │   ├── values-no
+│   │   │   │   │   │   │   │   │   └── values-no.xml
+│   │   │   │   │   │   │   │   ├── values-or
+│   │   │   │   │   │   │   │   │   └── values-or.xml
+│   │   │   │   │   │   │   │   ├── values-pa
+│   │   │   │   │   │   │   │   │   └── values-pa.xml
+│   │   │   │   │   │   │   │   ├── values-pl
+│   │   │   │   │   │   │   │   │   └── values-pl.xml
+│   │   │   │   │   │   │   │   ├── values-port
+│   │   │   │   │   │   │   │   │   └── values-port.xml
+│   │   │   │   │   │   │   │   ├── values-pt
+│   │   │   │   │   │   │   │   │   └── values-pt.xml
+│   │   │   │   │   │   │   │   ├── values-pt-rBR
+│   │   │   │   │   │   │   │   │   └── values-pt-rBR.xml
+│   │   │   │   │   │   │   │   ├── values-pt-rPT
+│   │   │   │   │   │   │   │   │   └── values-pt-rPT.xml
+│   │   │   │   │   │   │   │   ├── values-ro
+│   │   │   │   │   │   │   │   │   └── values-ro.xml
+│   │   │   │   │   │   │   │   ├── values-ru
+│   │   │   │   │   │   │   │   │   └── values-ru.xml
+│   │   │   │   │   │   │   │   ├── values-si
+│   │   │   │   │   │   │   │   │   └── values-si.xml
+│   │   │   │   │   │   │   │   ├── values-sk
+│   │   │   │   │   │   │   │   │   └── values-sk.xml
+│   │   │   │   │   │   │   │   ├── values-sl
+│   │   │   │   │   │   │   │   │   └── values-sl.xml
+│   │   │   │   │   │   │   │   ├── values-small-v4
+│   │   │   │   │   │   │   │   │   └── values-small-v4.xml
+│   │   │   │   │   │   │   │   ├── values-sq
+│   │   │   │   │   │   │   │   │   └── values-sq.xml
+│   │   │   │   │   │   │   │   ├── values-sr
+│   │   │   │   │   │   │   │   │   └── values-sr.xml
+│   │   │   │   │   │   │   │   ├── values-sv
+│   │   │   │   │   │   │   │   │   └── values-sv.xml
+│   │   │   │   │   │   │   │   ├── values-sw
+│   │   │   │   │   │   │   │   │   └── values-sw.xml
+│   │   │   │   │   │   │   │   ├── values-sw600dp-v13
+│   │   │   │   │   │   │   │   │   └── values-sw600dp-v13.xml
+│   │   │   │   │   │   │   │   ├── values-ta
+│   │   │   │   │   │   │   │   │   └── values-ta.xml
+│   │   │   │   │   │   │   │   ├── values-te
+│   │   │   │   │   │   │   │   │   └── values-te.xml
+│   │   │   │   │   │   │   │   ├── values-th
+│   │   │   │   │   │   │   │   │   └── values-th.xml
+│   │   │   │   │   │   │   │   ├── values-tl
+│   │   │   │   │   │   │   │   │   └── values-tl.xml
+│   │   │   │   │   │   │   │   ├── values-tr
+│   │   │   │   │   │   │   │   │   └── values-tr.xml
+│   │   │   │   │   │   │   │   ├── values-uk
+│   │   │   │   │   │   │   │   │   └── values-uk.xml
+│   │   │   │   │   │   │   │   ├── values-ur
+│   │   │   │   │   │   │   │   │   └── values-ur.xml
+│   │   │   │   │   │   │   │   ├── values-uz
+│   │   │   │   │   │   │   │   │   └── values-uz.xml
+│   │   │   │   │   │   │   │   ├── values-v16
+│   │   │   │   │   │   │   │   │   └── values-v16.xml
+│   │   │   │   │   │   │   │   ├── values-v17
+│   │   │   │   │   │   │   │   │   └── values-v17.xml
+│   │   │   │   │   │   │   │   ├── values-v18
+│   │   │   │   │   │   │   │   │   └── values-v18.xml
+│   │   │   │   │   │   │   │   ├── values-v21
+│   │   │   │   │   │   │   │   │   └── values-v21.xml
+│   │   │   │   │   │   │   │   ├── values-v22
+│   │   │   │   │   │   │   │   │   └── values-v22.xml
+│   │   │   │   │   │   │   │   ├── values-v23
+│   │   │   │   │   │   │   │   │   └── values-v23.xml
+│   │   │   │   │   │   │   │   ├── values-v24
+│   │   │   │   │   │   │   │   │   └── values-v24.xml
+│   │   │   │   │   │   │   │   ├── values-v25
+│   │   │   │   │   │   │   │   │   └── values-v25.xml
+│   │   │   │   │   │   │   │   ├── values-v26
+│   │   │   │   │   │   │   │   │   └── values-v26.xml
+│   │   │   │   │   │   │   │   ├── values-v28
+│   │   │   │   │   │   │   │   │   └── values-v28.xml
+│   │   │   │   │   │   │   │   ├── values-vi
+│   │   │   │   │   │   │   │   │   └── values-vi.xml
+│   │   │   │   │   │   │   │   ├── values-w360dp-port-v13
+│   │   │   │   │   │   │   │   │   └── values-w360dp-port-v13.xml
+│   │   │   │   │   │   │   │   ├── values-w480dp-port-v13
+│   │   │   │   │   │   │   │   │   └── values-w480dp-port-v13.xml
+│   │   │   │   │   │   │   │   ├── values-watch-v20
+│   │   │   │   │   │   │   │   │   └── values-watch-v20.xml
+│   │   │   │   │   │   │   │   ├── values-watch-v21
+│   │   │   │   │   │   │   │   │   └── values-watch-v21.xml
+│   │   │   │   │   │   │   │   ├── values-xlarge-v4
+│   │   │   │   │   │   │   │   │   └── values-xlarge-v4.xml
+│   │   │   │   │   │   │   │   ├── values-zh
+│   │   │   │   │   │   │   │   │   └── values-zh.xml
+│   │   │   │   │   │   │   │   ├── values-zh-rCN
+│   │   │   │   │   │   │   │   │   └── values-zh-rCN.xml
+│   │   │   │   │   │   │   │   ├── values-zh-rHK
+│   │   │   │   │   │   │   │   │   └── values-zh-rHK.xml
+│   │   │   │   │   │   │   │   ├── values-zh-rTW
+│   │   │   │   │   │   │   │   │   └── values-zh-rTW.xml
+│   │   │   │   │   │   │   │   └── values-zu
+│   │   │   │   │   │   │   │       └── values-zu.xml
+│   │   │   │   │   │   │   ├── merger.xml
+│   │   │   │   │   │   │   └── stripped.dir
+│   │   │   │   │   │   ├── mergeDebugShaders
+│   │   │   │   │   │   │   └── merger.xml
+│   │   │   │   │   │   ├── packageDebug
+│   │   │   │   │   │   │   └── tmp
+│   │   │   │   │   │   │       └── debug
+│   │   │   │   │   │   │           ├── dex-renamer-state.txt
+│   │   │   │   │   │   │           └── zip-cache
+│   │   │   │   │   │   │               ├── androidResources
+│   │   │   │   │   │   │               └── javaResources0
+│   │   │   │   │   │   └── processDebugResources
+│   │   │   │   │   ├── javac
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── classes
+│   │   │   │   │   │           └── com
+│   │   │   │   │   │               └── google
+│   │   │   │   │   │                   └── ar
+│   │   │   │   │   │                       └── core
+│   │   │   │   │   │                           └── examples
+│   │   │   │   │   │                               └── java
+│   │   │   │   │   │                                   ├── common
+│   │   │   │   │   │                                   │   ├── helpers
+│   │   │   │   │   │                                   │   │   ├── CameraPermissionHelper.class
+│   │   │   │   │   │                                   │   │   ├── DepthSettings.class
+│   │   │   │   │   │                                   │   │   ├── DisplayRotationHelper.class
+│   │   │   │   │   │                                   │   │   ├── EisSettings.class
+│   │   │   │   │   │                                   │   │   ├── FullScreenHelper.class
+│   │   │   │   │   │                                   │   │   ├── InstantPlacementSettings.class
+│   │   │   │   │   │                                   │   │   ├── LocationPermissionHelper.class
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$1.class
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$2$1.class
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$2$2.class
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$2.class
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$DismissBehavior.class
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper.class
+│   │   │   │   │   │                                   │   │   ├── TapHelper$1.class
+│   │   │   │   │   │                                   │   │   ├── TapHelper.class
+│   │   │   │   │   │                                   │   │   ├── TrackingStateHelper$1.class
+│   │   │   │   │   │                                   │   │   └── TrackingStateHelper.class
+│   │   │   │   │   │                                   │   └── samplerender
+│   │   │   │   │   │                                   │       ├── Framebuffer.class
+│   │   │   │   │   │                                   │       ├── GLError.class
+│   │   │   │   │   │                                   │       ├── GpuBuffer.class
+│   │   │   │   │   │                                   │       ├── IndexBuffer.class
+│   │   │   │   │   │                                   │       ├── Mesh$PrimitiveMode.class
+│   │   │   │   │   │                                   │       ├── Mesh.class
+│   │   │   │   │   │                                   │       ├── SampleRender$1.class
+│   │   │   │   │   │                                   │       ├── SampleRender$Renderer.class
+│   │   │   │   │   │                                   │       ├── SampleRender.class
+│   │   │   │   │   │                                   │       ├── Shader$BlendFactor.class
+│   │   │   │   │   │                                   │       ├── Shader$Uniform.class
+│   │   │   │   │   │                                   │       ├── Shader$Uniform1f.class
+│   │   │   │   │   │                                   │       ├── Shader$Uniform2f.class
+│   │   │   │   │   │                                   │       ├── Shader$Uniform3f.class
+│   │   │   │   │   │                                   │       ├── Shader$Uniform4f.class
+│   │   │   │   │   │                                   │       ├── Shader$UniformInt.class
+│   │   │   │   │   │                                   │       ├── Shader$UniformMatrix2f.class
+│   │   │   │   │   │                                   │       ├── Shader$UniformMatrix3f.class
+│   │   │   │   │   │                                   │       ├── Shader$UniformMatrix4f.class
+│   │   │   │   │   │                                   │       ├── Shader$UniformTexture.class
+│   │   │   │   │   │                                   │       ├── Shader.class
+│   │   │   │   │   │                                   │       ├── Texture$ColorFormat.class
+│   │   │   │   │   │                                   │       ├── Texture$Target.class
+│   │   │   │   │   │                                   │       ├── Texture$WrapMode.class
+│   │   │   │   │   │                                   │       ├── Texture.class
+│   │   │   │   │   │                                   │       ├── VertexBuffer.class
+│   │   │   │   │   │                                   │       └── arcore
+│   │   │   │   │   │                                   │           ├── BackgroundRenderer.class
+│   │   │   │   │   │                                   │           ├── PlaneRenderer$1.class
+│   │   │   │   │   │                                   │           ├── PlaneRenderer$SortablePlane.class
+│   │   │   │   │   │                                   │           ├── PlaneRenderer.class
+│   │   │   │   │   │                                   │           ├── SpecularCubemapFilter$Chunk.class
+│   │   │   │   │   │                                   │           ├── SpecularCubemapFilter$ChunkIterable$1.class
+│   │   │   │   │   │                                   │           ├── SpecularCubemapFilter$ChunkIterable.class
+│   │   │   │   │   │                                   │           ├── SpecularCubemapFilter$ImportanceSampleCacheEntry.class
+│   │   │   │   │   │                                   │           └── SpecularCubemapFilter.class
+│   │   │   │   │   │                                   └── geospatial
+│   │   │   │   │   │                                       ├── BuildConfig.class
+│   │   │   │   │   │                                       ├── GeospatialActivity$1.class
+│   │   │   │   │   │                                       ├── GeospatialActivity$2.class
+│   │   │   │   │   │                                       ├── GeospatialActivity$3.class
+│   │   │   │   │   │                                       ├── GeospatialActivity$4.class
+│   │   │   │   │   │                                       ├── GeospatialActivity$AnchorType.class
+│   │   │   │   │   │                                       ├── GeospatialActivity$State.class
+│   │   │   │   │   │                                       ├── GeospatialActivity.class
+│   │   │   │   │   │                                       ├── PrivacyNoticeDialogFragment$1.class
+│   │   │   │   │   │                                       ├── PrivacyNoticeDialogFragment$2.class
+│   │   │   │   │   │                                       ├── PrivacyNoticeDialogFragment$NoticeDialogListener.class
+│   │   │   │   │   │                                       ├── PrivacyNoticeDialogFragment.class
+│   │   │   │   │   │                                       ├── VpsAvailabilityNoticeDialogFragment$1.class
+│   │   │   │   │   │                                       ├── VpsAvailabilityNoticeDialogFragment$NoticeDialogListener.class
+│   │   │   │   │   │                                       └── VpsAvailabilityNoticeDialogFragment.class
+│   │   │   │   │   ├── manifest_merge_blame_file
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── manifest-merger-blame-debug-report.txt
+│   │   │   │   │   ├── merged_assets
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   │           ├── models
+│   │   │   │   │   │           │   ├── README.txt
+│   │   │   │   │   │           │   ├── depth_color_palette.png
+│   │   │   │   │   │           │   ├── dfg.raw
+│   │   │   │   │   │           │   ├── geospatial_marker.obj
+│   │   │   │   │   │           │   ├── pawn.obj
+│   │   │   │   │   │           │   ├── pawn_albedo.png
+│   │   │   │   │   │           │   ├── pawn_albedo_instant_placement.png
+│   │   │   │   │   │           │   ├── pawn_roughness_metallic_ao.png
+│   │   │   │   │   │           │   ├── spatial_marker_baked.png
+│   │   │   │   │   │           │   ├── spatial_marker_yellow.png
+│   │   │   │   │   │           │   └── trigrid.png
+│   │   │   │   │   │           └── shaders
+│   │   │   │   │   │               ├── ar_unlit_object.frag
+│   │   │   │   │   │               ├── ar_unlit_object.vert
+│   │   │   │   │   │               ├── background_show_camera.frag
+│   │   │   │   │   │               ├── background_show_camera.vert
+│   │   │   │   │   │               ├── background_show_depth_color_visualization.frag
+│   │   │   │   │   │               ├── background_show_depth_color_visualization.vert
+│   │   │   │   │   │               ├── cubemap_filter.frag
+│   │   │   │   │   │               ├── cubemap_filter.vert
+│   │   │   │   │   │               ├── environmental_hdr.frag
+│   │   │   │   │   │               ├── environmental_hdr.vert
+│   │   │   │   │   │               ├── occlusion.frag
+│   │   │   │   │   │               ├── occlusion.vert
+│   │   │   │   │   │               ├── plane.frag
+│   │   │   │   │   │               ├── plane.vert
+│   │   │   │   │   │               ├── point_cloud.frag
+│   │   │   │   │   │               ├── point_cloud.vert
+│   │   │   │   │   │               ├── streetscape_geometry.frag
+│   │   │   │   │   │               └── streetscape_geometry.vert
+│   │   │   │   │   ├── merged_java_res
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── base.jar
+│   │   │   │   │   ├── merged_jni_libs
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── merged_manifest
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── AndroidManifest.xml
+│   │   │   │   │   ├── merged_manifests
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       ├── AndroidManifest.xml
+│   │   │   │   │   │       └── output-metadata.json
+│   │   │   │   │   ├── merged_native_libs
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   │           └── lib
+│   │   │   │   │   │               ├── arm64-v8a
+│   │   │   │   │   │               │   ├── libarcore_sdk_c.so
+│   │   │   │   │   │               │   └── libarcore_sdk_jni.so
+│   │   │   │   │   │               ├── armeabi-v7a
+│   │   │   │   │   │               │   ├── libarcore_sdk_c.so
+│   │   │   │   │   │               │   └── libarcore_sdk_jni.so
+│   │   │   │   │   │               ├── x86
+│   │   │   │   │   │               │   ├── libarcore_sdk_c.so
+│   │   │   │   │   │               │   └── libarcore_sdk_jni.so
+│   │   │   │   │   │               └── x86_64
+│   │   │   │   │   │                   ├── libarcore_sdk_c.so
+│   │   │   │   │   │                   └── libarcore_sdk_jni.so
+│   │   │   │   │   ├── merged_res
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       ├── drawable-xxhdpi_ic_geospatial_background.png.flat
+
+│   │   │   │   │   │       └── values_values.arsc.flat
+│   │   │   │   │   ├── merged_res_blame_folder
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   │           ├── multi-v2
+│   │   │   │   │   │           │   ├── debug.json
+
+│   │   │   │   │   │           │   └── values.json
+│   │   │   │   │   │           └── single
+│   │   │   │   │   │               └── debug.json
+│   │   │   │   │   ├── merged_shaders
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── mixed_scope_dex_archive
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── navigation_json
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── navigation.json
+│   │   │   │   │   ├── packaged_manifests
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       ├── AndroidManifest.xml
+│   │   │   │   │   │       └── output-metadata.json
+│   │   │   │   │   ├── processed_res
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   │           ├── output-metadata.json
+│   │   │   │   │   │           └── resources-debug.ap_
+│   │   │   │   │   ├── project_dex_archive
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   │           ├── 5aa95290f83773321017efb3fe91be4fbb2252b5a61b2a6b3243ffe14d185a6f_0.jar
+│   │   │   │   │   │           ├── 5aa95290f83773321017efb3fe91be4fbb2252b5a61b2a6b3243ffe14d185a6f_1.jar
+│   │   │   │   │   │           ├── 5aa95290f83773321017efb3fe91be4fbb2252b5a61b2a6b3243ffe14d185a6f_2.jar
+│   │   │   │   │   │           ├── 5aa95290f83773321017efb3fe91be4fbb2252b5a61b2a6b3243ffe14d185a6f_3.jar
+│   │   │   │   │   │           └── com
+│   │   │   │   │   │               └── google
+│   │   │   │   │   │                   └── ar
+│   │   │   │   │   │                       └── core
+│   │   │   │   │   │                           └── examples
+│   │   │   │   │   │                               └── java
+│   │   │   │   │   │                                   ├── common
+│   │   │   │   │   │                                   │   ├── helpers
+│   │   │   │   │   │                                   │   │   ├── CameraPermissionHelper.dex
+│   │   │   │   │   │                                   │   │   ├── DepthSettings.dex
+│   │   │   │   │   │                                   │   │   ├── DisplayRotationHelper.dex
+│   │   │   │   │   │                                   │   │   ├── EisSettings.dex
+│   │   │   │   │   │                                   │   │   ├── FullScreenHelper.dex
+│   │   │   │   │   │                                   │   │   ├── InstantPlacementSettings.dex
+│   │   │   │   │   │                                   │   │   ├── LocationPermissionHelper.dex
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$1.dex
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$2$1.dex
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$2$2.dex
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$2.dex
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper$DismissBehavior.dex
+│   │   │   │   │   │                                   │   │   ├── SnackbarHelper.dex
+│   │   │   │   │   │                                   │   │   ├── TapHelper$1.dex
+│   │   │   │   │   │                                   │   │   ├── TapHelper.dex
+│   │   │   │   │   │                                   │   │   ├── TrackingStateHelper$1.dex
+│   │   │   │   │   │                                   │   │   └── TrackingStateHelper.dex
+│   │   │   │   │   │                                   │   └── samplerender
+│   │   │   │   │   │                                   │       ├── Framebuffer.dex
+│   │   │   │   │   │                                   │       ├── GLError.dex
+│   │   │   │   │   │                                   │       ├── GpuBuffer.dex
+│   │   │   │   │   │                                   │       ├── IndexBuffer.dex
+│   │   │   │   │   │                                   │       ├── Mesh$PrimitiveMode.dex
+│   │   │   │   │   │                                   │       ├── Mesh.dex
+│   │   │   │   │   │                                   │       ├── SampleRender$1.dex
+│   │   │   │   │   │                                   │       ├── SampleRender$Renderer.dex
+│   │   │   │   │   │                                   │       ├── SampleRender.dex
+│   │   │   │   │   │                                   │       ├── Shader$BlendFactor.dex
+│   │   │   │   │   │                                   │       ├── Shader$Uniform.dex
+│   │   │   │   │   │                                   │       ├── Shader$Uniform1f.dex
+│   │   │   │   │   │                                   │       ├── Shader$Uniform2f.dex
+│   │   │   │   │   │                                   │       ├── Shader$Uniform3f.dex
+│   │   │   │   │   │                                   │       ├── Shader$Uniform4f.dex
+│   │   │   │   │   │                                   │       ├── Shader$UniformInt.dex
+│   │   │   │   │   │                                   │       ├── Shader$UniformMatrix2f.dex
+│   │   │   │   │   │                                   │       ├── Shader$UniformMatrix3f.dex
+│   │   │   │   │   │                                   │       ├── Shader$UniformMatrix4f.dex
+│   │   │   │   │   │                                   │       ├── Shader$UniformTexture.dex
+│   │   │   │   │   │                                   │       ├── Shader.dex
+│   │   │   │   │   │                                   │       ├── Texture$ColorFormat.dex
+│   │   │   │   │   │                                   │       ├── Texture$Target.dex
+│   │   │   │   │   │                                   │       ├── Texture$WrapMode.dex
+│   │   │   │   │   │                                   │       ├── Texture.dex
+│   │   │   │   │   │                                   │       ├── VertexBuffer.dex
+│   │   │   │   │   │                                   │       └── arcore
+│   │   │   │   │   │                                   │           ├── BackgroundRenderer.dex
+│   │   │   │   │   │                                   │           ├── PlaneRenderer$1.dex
+│   │   │   │   │   │                                   │           ├── PlaneRenderer$SortablePlane.dex
+│   │   │   │   │   │                                   │           ├── PlaneRenderer.dex
+│   │   │   │   │   │                                   │           ├── SpecularCubemapFilter$Chunk.dex
+│   │   │   │   │   │                                   │           ├── SpecularCubemapFilter$ChunkIterable$1.dex
+│   │   │   │   │   │                                   │           ├── SpecularCubemapFilter$ChunkIterable.dex
+│   │   │   │   │   │                                   │           ├── SpecularCubemapFilter$ImportanceSampleCacheEntry.dex
+│   │   │   │   │   │                                   │           └── SpecularCubemapFilter.dex
+│   │   │   │   │   │                                   └── geospatial
+│   │   │   │   │   │                                       ├── BuildConfig.dex
+│   │   │   │   │   │                                       ├── GeospatialActivity$1.dex
+│   │   │   │   │   │                                       ├── GeospatialActivity$2.dex
+│   │   │   │   │   │                                       ├── GeospatialActivity$3.dex
+│   │   │   │   │   │                                       ├── GeospatialActivity$4.dex
+│   │   │   │   │   │                                       ├── GeospatialActivity$AnchorType.dex
+│   │   │   │   │   │                                       ├── GeospatialActivity$State.dex
+│   │   │   │   │   │                                       ├── GeospatialActivity.dex
+│   │   │   │   │   │                                       ├── PrivacyNoticeDialogFragment$1.dex
+│   │   │   │   │   │                                       ├── PrivacyNoticeDialogFragment$2.dex
+│   │   │   │   │   │                                       ├── PrivacyNoticeDialogFragment$NoticeDialogListener.dex
+│   │   │   │   │   │                                       ├── PrivacyNoticeDialogFragment.dex
+│   │   │   │   │   │                                       ├── VpsAvailabilityNoticeDialogFragment$1.dex
+│   │   │   │   │   │                                       ├── VpsAvailabilityNoticeDialogFragment$NoticeDialogListener.dex
+│   │   │   │   │   │                                       └── VpsAvailabilityNoticeDialogFragment.dex
+│   │   │   │   │   ├── runtime_symbol_list
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── R.txt
+│   │   │   │   │   ├── signing_config_versions
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── signing-config-versions.json
+│   │   │   │   │   ├── stable_resource_ids_file
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── stableIds.txt
+│   │   │   │   │   ├── stripped_native_libs
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   │           └── lib
+│   │   │   │   │   │               ├── arm64-v8a
+│   │   │   │   │   │               │   ├── libarcore_sdk_c.so
+│   │   │   │   │   │               │   └── libarcore_sdk_jni.so
+│   │   │   │   │   │               ├── armeabi-v7a
+│   │   │   │   │   │               │   ├── libarcore_sdk_c.so
+│   │   │   │   │   │               │   └── libarcore_sdk_jni.so
+│   │   │   │   │   │               ├── x86
+│   │   │   │   │   │               │   ├── libarcore_sdk_c.so
+│   │   │   │   │   │               │   └── libarcore_sdk_jni.so
+│   │   │   │   │   │               └── x86_64
+│   │   │   │   │   │                   ├── libarcore_sdk_c.so
+│   │   │   │   │   │                   └── libarcore_sdk_jni.so
+│   │   │   │   │   ├── sub_project_dex_archive
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── out
+│   │   │   │   │   ├── symbol_list_with_package_name
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       └── package-aware-r.txt
+│   │   │   │   │   └── validate_signing_config
+│   │   │   │   │       └── debug
+│   │   │   │   ├── outputs
+│   │   │   │   │   ├── apk
+│   │   │   │   │   │   └── debug
+│   │   │   │   │   │       ├── app-debug.apk
+│   │   │   │   │   │       └── output-metadata.json
+│   │   │   │   │   └── logs
+│   │   │   │   │       └── manifest-merger-debug-report.txt
+│   │   │   │   └── tmp
+│   │   │   │       └── compileDebugJavaWithJavac
+│   │   │   │           └── source-classes-mapping.txt
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── README.txt
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── dfg.raw
+│   │   │           │   │   ├── geospatial_marker.obj
+│   │   │           │   │   ├── pawn.obj
+│   │   │           │   │   ├── pawn_albedo.png
+│   │   │           │   │   ├── pawn_albedo_instant_placement.png
+│   │   │           │   │   ├── pawn_roughness_metallic_ao.png
+│   │   │           │   │   ├── spatial_marker_baked.png
+│   │   │           │   │   ├── spatial_marker_yellow.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_unlit_object.frag
+│   │   │           │       ├── ar_unlit_object.vert
+│   │   │           │       ├── background_show_camera.frag
+│   │   │           │       ├── background_show_camera.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── cubemap_filter.frag
+│   │   │           │       ├── cubemap_filter.vert
+│   │   │           │       ├── environmental_hdr.frag
+│   │   │           │       ├── environmental_hdr.vert
+│   │   │           │       ├── occlusion.frag
+│   │   │           │       ├── occlusion.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── streetscape_geometry.frag
+│   │   │           │       └── streetscape_geometry.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── common
+│   │   │           │                           │   ├── helpers
+│   │   │           │                           │   │   ├── CameraPermissionHelper.java
+│   │   │           │                           │   │   ├── DepthSettings.java
+│   │   │           │                           │   │   ├── DisplayRotationHelper.java
+│   │   │           │                           │   │   ├── EisSettings.java
+│   │   │           │                           │   │   ├── FullScreenHelper.java
+│   │   │           │                           │   │   ├── InstantPlacementSettings.java
+│   │   │           │                           │   │   ├── LocationPermissionHelper.java
+│   │   │           │                           │   │   ├── SnackbarHelper.java
+│   │   │           │                           │   │   ├── TapHelper.java
+│   │   │           │                           │   │   └── TrackingStateHelper.java
+│   │   │           │                           │   └── samplerender
+│   │   │           │                           │       ├── Framebuffer.java
+│   │   │           │                           │       ├── GLError.java
+│   │   │           │                           │       ├── GpuBuffer.java
+│   │   │           │                           │       ├── IndexBuffer.java
+│   │   │           │                           │       ├── Mesh.java
+│   │   │           │                           │       ├── SampleRender.java
+│   │   │           │                           │       ├── Shader.java
+│   │   │           │                           │       ├── Texture.java
+│   │   │           │                           │       ├── VertexBuffer.java
+│   │   │           │                           │       └── arcore
+│   │   │           │                           │           ├── BackgroundRenderer.java
+│   │   │           │                           │           ├── PlaneRenderer.java
+│   │   │           │                           │           └── SpecularCubemapFilter.java
+│   │   │           │                           └── geospatial
+│   │   │           │                               ├── GeospatialActivity.java
+│   │   │           │                               ├── PrivacyNoticeDialogFragment.java
+│   │   │           │                               └── VpsAvailabilityNoticeDialogFragment.java
+│   │   │           └── res
+│   │   │               ├── drawable
+│   │   │               │   ├── button_bg.xml
+│   │   │               │   ├── dialog_bg.xml
+│   │   │               │   └── ic_settings_white.png
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   ├── ic_geospatial_background.png
+│   │   │               │   └── ic_geospatial_foreground.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               ├── menu
+│   │   │               │   └── setting_menu.xml
+│   │   │               ├── mipmap-anydpi-v26
+│   │   │               │   └── ic_launcher.xml
+│   │   │               └── values
+│   │   │                   ├── dimens.xml
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   ├── local.properties
+│   │   └── settings.gradle
+│   ├── hardwarebuffer_c
+│   │   ├── app
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── cpp
+│   │   │           │   ├── background_renderer.cc
+│   │   │           │   ├── background_renderer.h
+│   │   │           │   ├── glm.h
+│   │   │           │   ├── hello_ar_application.cc
+│   │   │           │   ├── hello_ar_application.h
+│   │   │           │   ├── jni_interface.cc
+│   │   │           │   ├── jni_interface.h
+│   │   │           │   ├── obj_renderer.cc
+│   │   │           │   ├── obj_renderer.h
+│   │   │           │   ├── plane_renderer.cc
+│   │   │           │   ├── plane_renderer.h
+│   │   │           │   ├── point_cloud_renderer.cc
+│   │   │           │   ├── point_cloud_renderer.h
+│   │   │           │   ├── texture.cc
+│   │   │           │   ├── texture.h
+│   │   │           │   ├── util.cc
+│   │   │           │   └── util.h
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── c
+│   │   │           │                           └── helloarhardwarebuffer
+│   │   │           │                               ├── CameraPermissionHelper.java
+│   │   │           │                               ├── DepthSettings.java
+│   │   │           │                               ├── HelloArActivity.java
+│   │   │           │                               ├── InstantPlacementSettings.java
+│   │   │           │                               └── JniInterface.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   ├── ic_launcher.png
+│   │   │               │   └── ic_settings.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               ├── menu
+│   │   │               │   └── settings_menu.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── hardwarebuffer_java
+│   │   ├── app
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── README.txt
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── dfg.raw
+│   │   │           │   │   ├── geospatial_marker.obj
+│   │   │           │   │   ├── pawn.obj
+│   │   │           │   │   ├── pawn_albedo.png
+│   │   │           │   │   ├── pawn_albedo_instant_placement.png
+│   │   │           │   │   ├── pawn_roughness_metallic_ao.png
+│   │   │           │   │   ├── spatial_marker_baked.png
+│   │   │           │   │   ├── spatial_marker_yellow.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_unlit_object.frag
+│   │   │           │       ├── ar_unlit_object.vert
+│   │   │           │       ├── background_show_camera.frag
+│   │   │           │       ├── background_show_camera.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── cubemap_filter.frag
+│   │   │           │       ├── cubemap_filter.vert
+│   │   │           │       ├── environmental_hdr.frag
+│   │   │           │       ├── environmental_hdr.vert
+│   │   │           │       ├── occlusion.frag
+│   │   │           │       ├── occlusion.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── streetscape_geometry.frag
+│   │   │           │       └── streetscape_geometry.vert
+│   │   │           ├── cpp
+│   │   │           │   ├── jni_interface.cc
+│   │   │           │   ├── jni_interface.h
+│   │   │           │   ├── opengl_helper.cc
+│   │   │           │   ├── opengl_helper.h
+│   │   │           │   ├── util.cc
+│   │   │           │   └── util.h
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── common
+│   │   │           │                           │   ├── helpers
+│   │   │           │                           │   │   ├── CameraPermissionHelper.java
+│   │   │           │                           │   │   ├── DepthSettings.java
+│   │   │           │                           │   │   ├── DisplayRotationHelper.java
+│   │   │           │                           │   │   ├── EisSettings.java
+│   │   │           │                           │   │   ├── FullScreenHelper.java
+│   │   │           │                           │   │   ├── InstantPlacementSettings.java
+│   │   │           │                           │   │   ├── LocationPermissionHelper.java
+│   │   │           │                           │   │   ├── SnackbarHelper.java
+│   │   │           │                           │   │   ├── TapHelper.java
+│   │   │           │                           │   │   └── TrackingStateHelper.java
+│   │   │           │                           │   └── samplerender
+│   │   │           │                           │       ├── Framebuffer.java
+│   │   │           │                           │       ├── GLError.java
+│   │   │           │                           │       ├── GpuBuffer.java
+│   │   │           │                           │       ├── IndexBuffer.java
+│   │   │           │                           │       ├── Mesh.java
+│   │   │           │                           │       ├── SampleRender.java
+│   │   │           │                           │       ├── Shader.java
+│   │   │           │                           │       ├── Texture.java
+│   │   │           │                           │       ├── VertexBuffer.java
+│   │   │           │                           │       └── arcore
+│   │   │           │                           │           ├── BackgroundRenderer.java
+│   │   │           │                           │           ├── PlaneRenderer.java
+│   │   │           │                           │           └── SpecularCubemapFilter.java
+│   │   │           │                           └── helloarhardwarebuffer
+│   │   │           │                               ├── HelloArHardwareBufferActivity.java
+│   │   │           │                               └── JniInterface.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   ├── ic_launcher.png
+│   │   │               │   └── ic_settings.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               ├── menu
+│   │   │               │   └── settings_menu.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── hello_ar_c
+│   │   ├── app
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── cpp
+│   │   │           │   ├── background_renderer.cc
+│   │   │           │   ├── background_renderer.h
+│   │   │           │   ├── glm.h
+│   │   │           │   ├── hello_ar_application.cc
+│   │   │           │   ├── hello_ar_application.h
+│   │   │           │   ├── jni_interface.cc
+│   │   │           │   ├── jni_interface.h
+│   │   │           │   ├── obj_renderer.cc
+│   │   │           │   ├── obj_renderer.h
+│   │   │           │   ├── plane_renderer.cc
+│   │   │           │   ├── plane_renderer.h
+│   │   │           │   ├── point_cloud_renderer.cc
+│   │   │           │   ├── point_cloud_renderer.h
+│   │   │           │   ├── texture.cc
+│   │   │           │   ├── texture.h
+│   │   │           │   ├── util.cc
+│   │   │           │   └── util.h
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── c
+│   │   │           │                           └── helloar
+│   │   │           │                               ├── CameraPermissionHelper.java
+│   │   │           │                               ├── DepthSettings.java
+│   │   │           │                               ├── HelloArActivity.java
+│   │   │           │                               ├── InstantPlacementSettings.java
+│   │   │           │                               └── JniInterface.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   ├── ic_launcher.png
+│   │   │               │   └── ic_settings.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               ├── menu
+│   │   │               │   └── settings_menu.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── hello_ar_java
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── README.txt
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── dfg.raw
+│   │   │           │   │   ├── geospatial_marker.obj
+│   │   │           │   │   ├── pawn.obj
+│   │   │           │   │   ├── pawn_albedo.png
+│   │   │           │   │   ├── pawn_albedo_instant_placement.png
+│   │   │           │   │   ├── pawn_roughness_metallic_ao.png
+│   │   │           │   │   ├── spatial_marker_baked.png
+│   │   │           │   │   ├── spatial_marker_yellow.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_unlit_object.frag
+│   │   │           │       ├── ar_unlit_object.vert
+│   │   │           │       ├── background_show_camera.frag
+│   │   │           │       ├── background_show_camera.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── cubemap_filter.frag
+│   │   │           │       ├── cubemap_filter.vert
+│   │   │           │       ├── environmental_hdr.frag
+│   │   │           │       ├── environmental_hdr.vert
+│   │   │           │       ├── occlusion.frag
+│   │   │           │       ├── occlusion.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── streetscape_geometry.frag
+│   │   │           │       └── streetscape_geometry.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── common
+│   │   │           │                           │   ├── helpers
+│   │   │           │                           │   │   ├── CameraPermissionHelper.java
+│   │   │           │                           │   │   ├── DepthSettings.java
+│   │   │           │                           │   │   ├── DisplayRotationHelper.java
+│   │   │           │                           │   │   ├── EisSettings.java
+│   │   │           │                           │   │   ├── FullScreenHelper.java
+│   │   │           │                           │   │   ├── InstantPlacementSettings.java
+│   │   │           │                           │   │   ├── LocationPermissionHelper.java
+│   │   │           │                           │   │   ├── SnackbarHelper.java
+│   │   │           │                           │   │   ├── TapHelper.java
+│   │   │           │                           │   │   └── TrackingStateHelper.java
+│   │   │           │                           │   └── samplerender
+│   │   │           │                           │       ├── Framebuffer.java
+│   │   │           │                           │       ├── GLError.java
+│   │   │           │                           │       ├── GpuBuffer.java
+│   │   │           │                           │       ├── IndexBuffer.java
+│   │   │           │                           │       ├── Mesh.java
+│   │   │           │                           │       ├── SampleRender.java
+│   │   │           │                           │       ├── Shader.java
+│   │   │           │                           │       ├── Texture.java
+│   │   │           │                           │       ├── VertexBuffer.java
+│   │   │           │                           │       └── arcore
+│   │   │           │                           │           ├── BackgroundRenderer.java
+│   │   │           │                           │           ├── PlaneRenderer.java
+│   │   │           │                           │           └── SpecularCubemapFilter.java
+│   │   │           │                           └── helloar
+│   │   │           │                               └── HelloArActivity.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   ├── ic_launcher.png
+│   │   │               │   └── ic_settings.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               ├── menu
+│   │   │               │   └── settings_menu.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── hello_ar_kotlin
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── README.txt
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── dfg.raw
+│   │   │           │   │   ├── geospatial_marker.obj
+│   │   │           │   │   ├── pawn.obj
+│   │   │           │   │   ├── pawn_albedo.png
+│   │   │           │   │   ├── pawn_albedo_instant_placement.png
+│   │   │           │   │   ├── pawn_roughness_metallic_ao.png
+│   │   │           │   │   ├── spatial_marker_baked.png
+│   │   │           │   │   ├── spatial_marker_yellow.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_unlit_object.frag
+│   │   │           │       ├── ar_unlit_object.vert
+│   │   │           │       ├── background_show_camera.frag
+│   │   │           │       ├── background_show_camera.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── cubemap_filter.frag
+│   │   │           │       ├── cubemap_filter.vert
+│   │   │           │       ├── environmental_hdr.frag
+│   │   │           │       ├── environmental_hdr.vert
+│   │   │           │       ├── occlusion.frag
+│   │   │           │       ├── occlusion.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── streetscape_geometry.frag
+│   │   │           │       └── streetscape_geometry.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       ├── java
+│   │   │           │                       │   └── common
+│   │   │           │                       │       ├── helpers
+│   │   │           │                       │       │   ├── CameraPermissionHelper.java
+│   │   │           │                       │       │   ├── DepthSettings.java
+│   │   │           │                       │       │   ├── DisplayRotationHelper.java
+│   │   │           │                       │       │   ├── EisSettings.java
+│   │   │           │                       │       │   ├── FullScreenHelper.java
+│   │   │           │                       │       │   ├── InstantPlacementSettings.java
+│   │   │           │                       │       │   ├── LocationPermissionHelper.java
+│   │   │           │                       │       │   ├── SnackbarHelper.java
+│   │   │           │                       │       │   ├── TapHelper.java
+│   │   │           │                       │       │   └── TrackingStateHelper.java
+│   │   │           │                       │       └── samplerender
+│   │   │           │                       │           ├── Framebuffer.java
+│   │   │           │                       │           ├── GLError.java
+│   │   │           │                       │           ├── GpuBuffer.java
+│   │   │           │                       │           ├── IndexBuffer.java
+│   │   │           │                       │           ├── Mesh.java
+│   │   │           │                       │           ├── SampleRender.java
+│   │   │           │                       │           ├── Shader.java
+│   │   │           │                       │           ├── Texture.java
+│   │   │           │                       │           ├── VertexBuffer.java
+│   │   │           │                       │           └── arcore
+│   │   │           │                       │               ├── BackgroundRenderer.java
+│   │   │           │                       │               ├── PlaneRenderer.java
+│   │   │           │                       │               └── SpecularCubemapFilter.java
+│   │   │           │                       └── kotlin
+│   │   │           │                           ├── common
+│   │   │           │                           │   └── helpers
+│   │   │           │                           │       └── ARCoreSessionLifecycleHelper.kt
+│   │   │           │                           └── helloar
+│   │   │           │                               ├── HelloArActivity.kt
+│   │   │           │                               ├── HelloArRenderer.kt
+│   │   │           │                               └── HelloArView.kt
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   ├── ic_launcher.png
+│   │   │               │   └── ic_settings.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               ├── menu
+│   │   │               │   └── settings_menu.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── hello_ar_vulkan_c
+│   │   ├── app
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background.frag
+│   │   │           │       ├── background.vert
+│   │   │           │       ├── background_frag.spv.h
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── background_vert.spv.h
+│   │   │           │       ├── generate_vulkan_files.md
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── cpp
+│   │   │           │   ├── android_vulkan_loader.cc
+│   │   │           │   ├── android_vulkan_loader.h
+│   │   │           │   ├── jni_interface.cc
+│   │   │           │   ├── jni_interface.h
+│   │   │           │   ├── simple_vulkan_application.cc
+│   │   │           │   ├── simple_vulkan_application.h
+│   │   │           │   ├── util.cc
+│   │   │           │   ├── util.h
+│   │   │           │   ├── vulkan_handler.cc
+│   │   │           │   └── vulkan_handler.h
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── c
+│   │   │           │                           └── simplevulkan
+│   │   │           │                               ├── CameraPermissionHelper.java
+│   │   │           │                               ├── JniInterface.java
+│   │   │           │                               ├── SimpleVulkanActivity.java
+│   │   │           │                               └── VulkanSurfaceView.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── hello_eis_kotlin
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── README.txt
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── dfg.raw
+│   │   │           │   │   ├── geospatial_marker.obj
+│   │   │           │   │   ├── pawn.obj
+│   │   │           │   │   ├── pawn_albedo.png
+│   │   │           │   │   ├── pawn_albedo_instant_placement.png
+│   │   │           │   │   ├── pawn_roughness_metallic_ao.png
+│   │   │           │   │   ├── spatial_marker_baked.png
+│   │   │           │   │   ├── spatial_marker_yellow.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_unlit_object.frag
+│   │   │           │       ├── ar_unlit_object.vert
+│   │   │           │       ├── background_show_camera.frag
+│   │   │           │       ├── background_show_camera.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── cubemap_filter.frag
+│   │   │           │       ├── cubemap_filter.vert
+│   │   │           │       ├── eis_show_camera.frag
+│   │   │           │       ├── eis_show_camera.vert
+│   │   │           │       ├── eis_show_depth_color_visualization.frag
+│   │   │           │       ├── eis_show_depth_color_visualization.vert
+│   │   │           │       ├── environmental_hdr.frag
+│   │   │           │       ├── environmental_hdr.vert
+│   │   │           │       ├── occlusion.frag
+│   │   │           │       ├── occlusion.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── streetscape_geometry.frag
+│   │   │           │       └── streetscape_geometry.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       ├── java
+│   │   │           │                       │   └── common
+│   │   │           │                       │       ├── helpers
+│   │   │           │                       │       │   ├── CameraPermissionHelper.java
+│   │   │           │                       │       │   ├── DepthSettings.java
+│   │   │           │                       │       │   ├── DisplayRotationHelper.java
+│   │   │           │                       │       │   ├── EisSettings.java
+│   │   │           │                       │       │   ├── FullScreenHelper.java
+│   │   │           │                       │       │   ├── InstantPlacementSettings.java
+│   │   │           │                       │       │   ├── LocationPermissionHelper.java
+│   │   │           │                       │       │   ├── SnackbarHelper.java
+│   │   │           │                       │       │   ├── TapHelper.java
+│   │   │           │                       │       │   └── TrackingStateHelper.java
+│   │   │           │                       │       └── samplerender
+│   │   │           │                       │           ├── Framebuffer.java
+│   │   │           │                       │           ├── GLError.java
+│   │   │           │                       │           ├── GpuBuffer.java
+│   │   │           │                       │           ├── IndexBuffer.java
+│   │   │           │                       │           ├── Mesh.java
+│   │   │           │                       │           ├── SampleRender.java
+│   │   │           │                       │           ├── Shader.java
+│   │   │           │                       │           ├── Texture.java
+│   │   │           │                       │           ├── VertexBuffer.java
+│   │   │           │                       │           └── arcore
+│   │   │           │                       │               ├── BackgroundRenderer.java
+│   │   │           │                       │               ├── PlaneRenderer.java
+│   │   │           │                       │               └── SpecularCubemapFilter.java
+│   │   │           │                       └── kotlin
+│   │   │           │                           ├── common
+│   │   │           │                           │   └── helpers
+│   │   │           │                           │       └── ARCoreSessionLifecycleHelper.kt
+│   │   │           │                           └── helloeis
+│   │   │           │                               ├── HelloEisActivity.kt
+│   │   │           │                               ├── HelloEisBackgroundRenderer.kt
+│   │   │           │                               ├── HelloEisRenderer.kt
+│   │   │           │                               └── HelloEisView.kt
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   ├── ic_launcher.png
+│   │   │               │   └── ic_settings.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               ├── menu
+│   │   │               │   └── settings_menu.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── ml_kotlin
+│   │   ├── app
+│   │   │   ├── README.md
+│   │   │   ├── build.gradle
+│   │   │   ├── docs
+│   │   │   │   └── screenshot.png
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── README.txt
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── dfg.raw
+│   │   │           │   │   ├── geospatial_marker.obj
+│   │   │           │   │   ├── pawn.obj
+│   │   │           │   │   ├── pawn_albedo.png
+│   │   │           │   │   ├── pawn_albedo_instant_placement.png
+│   │   │           │   │   ├── pawn_roughness_metallic_ao.png
+│   │   │           │   │   ├── spatial_marker_baked.png
+│   │   │           │   │   ├── spatial_marker_yellow.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_unlit_object.frag
+│   │   │           │       ├── ar_unlit_object.vert
+│   │   │           │       ├── background_show_camera.frag
+│   │   │           │       ├── background_show_camera.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── cubemap_filter.frag
+│   │   │           │       ├── cubemap_filter.vert
+│   │   │           │       ├── environmental_hdr.frag
+│   │   │           │       ├── environmental_hdr.vert
+│   │   │           │       ├── label.frag
+│   │   │           │       ├── label.vert
+│   │   │           │       ├── occlusion.frag
+│   │   │           │       ├── occlusion.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── streetscape_geometry.frag
+│   │   │           │       └── streetscape_geometry.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       ├── java
+│   │   │           │                       │   └── common
+│   │   │           │                       │       ├── helpers
+│   │   │           │                       │       │   ├── CameraPermissionHelper.java
+│   │   │           │                       │       │   ├── DepthSettings.java
+│   │   │           │                       │       │   ├── DisplayRotationHelper.java
+│   │   │           │                       │       │   ├── EisSettings.java
+│   │   │           │                       │       │   ├── FullScreenHelper.java
+│   │   │           │                       │       │   ├── InstantPlacementSettings.java
+│   │   │           │                       │       │   ├── LocationPermissionHelper.java
+│   │   │           │                       │       │   ├── SnackbarHelper.java
+│   │   │           │                       │       │   ├── TapHelper.java
+│   │   │           │                       │       │   └── TrackingStateHelper.java
+│   │   │           │                       │       └── samplerender
+│   │   │           │                       │           ├── Framebuffer.java
+│   │   │           │                       │           ├── GLError.java
+│   │   │           │                       │           ├── GpuBuffer.java
+│   │   │           │                       │           ├── IndexBuffer.java
+│   │   │           │                       │           ├── Mesh.java
+│   │   │           │                       │           ├── SampleRender.java
+│   │   │           │                       │           ├── Shader.java
+│   │   │           │                       │           ├── Texture.java
+│   │   │           │                       │           ├── VertexBuffer.java
+│   │   │           │                       │           └── arcore
+│   │   │           │                       │               ├── BackgroundRenderer.java
+│   │   │           │                       │               ├── PlaneRenderer.java
+│   │   │           │                       │               └── SpecularCubemapFilter.java
+│   │   │           │                       └── kotlin
+│   │   │           │                           ├── common
+│   │   │           │                           │   └── helpers
+│   │   │           │                           │       └── ARCoreSessionLifecycleHelper.kt
+│   │   │           │                           └── ml
+│   │   │           │                               ├── AppRenderer.kt
+│   │   │           │                               ├── MainActivity.kt
+│   │   │           │                               ├── MainActivityView.kt
+│   │   │           │                               ├── classification
+│   │   │           │                               │   ├── DetectedObjectResult.kt
+│   │   │           │                               │   ├── GoogleCloudVisionDetector.kt
+│   │   │           │                               │   ├── MLKitObjectDetector.kt
+│   │   │           │                               │   ├── ObjectDetector.kt
+│   │   │           │                               │   └── utils
+│   │   │           │                               │       ├── ImageUtils.kt
+│   │   │           │                               │       └── VertexUtils.kt
+│   │   │           │                               ├── render
+│   │   │           │                               │   ├── LabelRender.kt
+│   │   │           │                               │   ├── PointCloudRender.kt
+│   │   │           │                               │   └── TextTextureCache.kt
+│   │   │           │                               └── third_party
+│   │   │           │                                   └── YuvToRgbConverter.kt
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   ├── ic_launcher.png
+│   │   │               │   └── ic_settings.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── persistent_cloud_anchor_java
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── common
+│   │   │           │                           │   ├── helpers
+│   │   │           │                           │   │   ├── CameraPermissionHelper.java
+│   │   │           │                           │   │   ├── DepthSettings.java
+│   │   │           │                           │   │   ├── DisplayRotationHelper.java
+│   │   │           │                           │   │   ├── EisSettings.java
+│   │   │           │                           │   │   ├── FullScreenHelper.java
+│   │   │           │                           │   │   ├── InstantPlacementSettings.java
+│   │   │           │                           │   │   ├── LocationPermissionHelper.java
+│   │   │           │                           │   │   ├── SnackbarHelper.java
+│   │   │           │                           │   │   ├── TapHelper.java
+│   │   │           │                           │   │   └── TrackingStateHelper.java
+│   │   │           │                           │   └── rendering
+│   │   │           │                           │       ├── BackgroundRenderer.java
+│   │   │           │                           │       ├── ObjectRenderer.java
+│   │   │           │                           │       ├── PlaneRenderer.java
+│   │   │           │                           │       ├── PointCloudRenderer.java
+│   │   │           │                           │       └── ShaderUtil.java
+│   │   │           │                           └── persistentcloudanchor
+│   │   │           │                               ├── AnchorItem.java
+│   │   │           │                               ├── CloudAnchorActivity.java
+│   │   │           │                               ├── CloudAnchorManager.java
+│   │   │           │                               ├── FeatureMapQualityUi.java
+│   │   │           │                               ├── HostDialogFragment.java
+│   │   │           │                               ├── MainLobbyActivity.java
+│   │   │           │                               ├── MultiSelectItem.java
+│   │   │           │                               ├── PrivacyNoticeDialogFragment.java
+│   │   │           │                               └── ResolveAnchorsLobbyActivity.java
+│   │   │           └── res
+│   │   │               ├── drawable
+│   │   │               │   ├── button_bg.xml
+│   │   │               │   └── dialog_bg.xml
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   ├── anchor_item.xml
+│   │   │               │   ├── cloud_anchor.xml
+│   │   │               │   ├── main_lobby.xml
+│   │   │               │   ├── resolve_anchors_lobby.xml
+│   │   │               │   ├── resolve_dialog.xml
+│   │   │               │   └── save_anchor_dialog.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── raw_depth_java
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── depth_point_cloud.frag
+│   │   │           │       ├── depth_point_cloud.vert
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── common
+│   │   │           │                           │   ├── helpers
+│   │   │           │                           │   │   ├── CameraPermissionHelper.java
+│   │   │           │                           │   │   ├── DepthSettings.java
+│   │   │           │                           │   │   ├── DisplayRotationHelper.java
+│   │   │           │                           │   │   ├── EisSettings.java
+│   │   │           │                           │   │   ├── FullScreenHelper.java
+│   │   │           │                           │   │   ├── InstantPlacementSettings.java
+│   │   │           │                           │   │   ├── LocationPermissionHelper.java
+│   │   │           │                           │   │   ├── SnackbarHelper.java
+│   │   │           │                           │   │   ├── TapHelper.java
+│   │   │           │                           │   │   └── TrackingStateHelper.java
+│   │   │           │                           │   └── rendering
+│   │   │           │                           │       ├── BackgroundRenderer.java
+│   │   │           │                           │       ├── ObjectRenderer.java
+│   │   │           │                           │       ├── PlaneRenderer.java
+│   │   │           │                           │       ├── PointCloudRenderer.java
+│   │   │           │                           │       └── ShaderUtil.java
+│   │   │           │                           └── rawdepth
+│   │   │           │                               ├── DepthData.java
+│   │   │           │                               ├── PointCloudHelper.java
+│   │   │           │                               ├── RawDepthActivity.java
+│   │   │           │                               └── Renderer.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── recording_playback_java
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── anchor.obj
+│   │   │           │   │   ├── anchor.png
+│   │   │           │   │   ├── andy.obj
+│   │   │           │   │   ├── andy.png
+│   │   │           │   │   ├── andy_shadow.obj
+│   │   │           │   │   ├── andy_shadow.png
+│   │   │           │   │   ├── andy_spec.png
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── ear_fur.png
+│   │   │           │   │   ├── forehead_left.obj
+│   │   │           │   │   ├── forehead_right.obj
+│   │   │           │   │   ├── freckles.png
+│   │   │           │   │   ├── map_quality_bar.obj
+│   │   │           │   │   ├── map_quality_bar.png
+│   │   │           │   │   ├── nose.obj
+│   │   │           │   │   ├── nose_fur.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   └── shaders
+│   │   │           │       ├── ar_object.frag
+│   │   │           │       ├── ar_object.vert
+│   │   │           │       ├── background_show_depth_color_visualization.frag
+│   │   │           │       ├── background_show_depth_color_visualization.vert
+│   │   │           │       ├── object.frag
+│   │   │           │       ├── object.vert
+│   │   │           │       ├── plane.frag
+│   │   │           │       ├── plane.vert
+│   │   │           │       ├── point_cloud.frag
+│   │   │           │       ├── point_cloud.vert
+│   │   │           │       ├── screenquad.frag
+│   │   │           │       └── screenquad.vert
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── common
+│   │   │           │                           │   ├── helpers
+│   │   │           │                           │   │   ├── CameraPermissionHelper.java
+│   │   │           │                           │   │   ├── DepthSettings.java
+│   │   │           │                           │   │   ├── DisplayRotationHelper.java
+│   │   │           │                           │   │   ├── EisSettings.java
+│   │   │           │                           │   │   ├── FullScreenHelper.java
+│   │   │           │                           │   │   ├── InstantPlacementSettings.java
+│   │   │           │                           │   │   ├── LocationPermissionHelper.java
+│   │   │           │                           │   │   ├── SnackbarHelper.java
+│   │   │           │                           │   │   ├── TapHelper.java
+│   │   │           │                           │   │   └── TrackingStateHelper.java
+│   │   │           │                           │   └── rendering
+│   │   │           │                           │       ├── BackgroundRenderer.java
+│   │   │           │                           │       ├── ObjectRenderer.java
+│   │   │           │                           │       ├── PlaneRenderer.java
+│   │   │           │                           │       ├── PointCloudRenderer.java
+│   │   │           │                           │       └── ShaderUtil.java
+│   │   │           │                           └── hellorecordingplayback
+│   │   │           │                               └── HelloRecordingPlaybackActivity.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   └── activity_main.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   ├── semantics_java
+│   │   ├── app
+│   │   │   ├── build.gradle
+│   │   │   ├── proguard-rules.pro
+│   │   │   └── src
+│   │   │       └── main
+│   │   │           ├── AndroidManifest.xml
+│   │   │           ├── assets
+│   │   │           │   ├── models
+│   │   │           │   │   ├── README.txt
+│   │   │           │   │   ├── depth_color_palette.png
+│   │   │           │   │   ├── dfg.raw
+│   │   │           │   │   ├── geospatial_marker.obj
+│   │   │           │   │   ├── pawn.obj
+│   │   │           │   │   ├── pawn_albedo.png
+│   │   │           │   │   ├── pawn_albedo_instant_placement.png
+│   │   │           │   │   ├── pawn_roughness_metallic_ao.png
+│   │   │           │   │   ├── spatial_marker_baked.png
+│   │   │           │   │   ├── spatial_marker_yellow.png
+│   │   │           │   │   └── trigrid.png
+│   │   │           │   ├── shaders
+│   │   │           │   │   ├── ar_unlit_object.frag
+│   │   │           │   │   ├── ar_unlit_object.vert
+│   │   │           │   │   ├── background_semantics.frag
+│   │   │           │   │   ├── background_semantics.vert
+│   │   │           │   │   ├── background_show_camera.frag
+│   │   │           │   │   ├── background_show_camera.vert
+│   │   │           │   │   ├── background_show_depth_color_visualization.frag
+│   │   │           │   │   ├── background_show_depth_color_visualization.vert
+│   │   │           │   │   ├── cubemap_filter.frag
+│   │   │           │   │   ├── cubemap_filter.vert
+│   │   │           │   │   ├── environmental_hdr.frag
+│   │   │           │   │   ├── environmental_hdr.vert
+│   │   │           │   │   ├── occlusion.frag
+│   │   │           │   │   ├── occlusion.vert
+│   │   │           │   │   ├── plane.frag
+│   │   │           │   │   ├── plane.vert
+│   │   │           │   │   ├── point_cloud.frag
+│   │   │           │   │   ├── point_cloud.vert
+│   │   │           │   │   ├── streetscape_geometry.frag
+│   │   │           │   │   └── streetscape_geometry.vert
+│   │   │           │   └── textures
+│   │   │           │       └── semantics_sv12_colormap.png
+│   │   │           ├── java
+│   │   │           │   └── com
+│   │   │           │       └── google
+│   │   │           │           └── ar
+│   │   │           │               └── core
+│   │   │           │                   └── examples
+│   │   │           │                       └── java
+│   │   │           │                           ├── common
+│   │   │           │                           │   ├── helpers
+│   │   │           │                           │   │   ├── CameraPermissionHelper.java
+│   │   │           │                           │   │   ├── DepthSettings.java
+│   │   │           │                           │   │   ├── DisplayRotationHelper.java
+│   │   │           │                           │   │   ├── EisSettings.java
+│   │   │           │                           │   │   ├── FullScreenHelper.java
+│   │   │           │                           │   │   ├── InstantPlacementSettings.java
+│   │   │           │                           │   │   ├── LocationPermissionHelper.java
+│   │   │           │                           │   │   ├── SnackbarHelper.java
+│   │   │           │                           │   │   ├── TapHelper.java
+│   │   │           │                           │   │   └── TrackingStateHelper.java
+│   │   │           │                           │   └── samplerender
+│   │   │           │                           │       ├── Framebuffer.java
+│   │   │           │                           │       ├── GLError.java
+│   │   │           │                           │       ├── GpuBuffer.java
+│   │   │           │                           │       ├── IndexBuffer.java
+│   │   │           │                           │       ├── Mesh.java
+│   │   │           │                           │       ├── SampleRender.java
+│   │   │           │                           │       ├── Shader.java
+│   │   │           │                           │       ├── Texture.java
+│   │   │           │                           │       ├── VertexBuffer.java
+│   │   │           │                           │       └── arcore
+│   │   │           │                           │           ├── BackgroundRenderer.java
+│   │   │           │                           │           ├── PlaneRenderer.java
+│   │   │           │                           │           └── SpecularCubemapFilter.java
+│   │   │           │                           └── hellosemantics
+│   │   │           │                               ├── HelloSemanticsActivity.java
+│   │   │           │                               ├── SemanticLabelAdapter.java
+│   │   │           │                               └── SemanticsRenderer.java
+│   │   │           └── res
+│   │   │               ├── drawable-xxhdpi
+│   │   │               │   └── ic_launcher.png
+│   │   │               ├── layout
+│   │   │               │   ├── activity_main.xml
+│   │   │               │   └── semantics_color_item.xml
+│   │   │               └── values
+│   │   │                   ├── strings.xml
+│   │   │                   └── styles.xml
+│   │   ├── build.gradle
+│   │   ├── gradle
+│   │   │   └── wrapper
+│   │   │       ├── gradle-wrapper.jar
+│   │   │       └── gradle-wrapper.properties
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   └── settings.gradle
+│   └── shared_camera_java
+│       ├── app
+│       │   ├── build.gradle
+│       │   ├── proguard-rules.pro
+│       │   └── src
+│       │       └── main
+│       │           ├── AndroidManifest.xml
+│       │           ├── assets
+│       │           │   ├── models
+│       │           │   │   ├── anchor.obj
+│       │           │   │   ├── anchor.png
+│       │           │   │   ├── andy.obj
+│       │           │   │   ├── andy.png
+│       │           │   │   ├── andy_shadow.obj
+│       │           │   │   ├── andy_shadow.png
+│       │           │   │   ├── andy_spec.png
+│       │           │   │   ├── depth_color_palette.png
+│       │           │   │   ├── ear_fur.png
+│       │           │   │   ├── forehead_left.obj
+│       │           │   │   ├── forehead_right.obj
+│       │           │   │   ├── freckles.png
+│       │           │   │   ├── map_quality_bar.obj
+│       │           │   │   ├── map_quality_bar.png
+│       │           │   │   ├── nose.obj
+│       │           │   │   ├── nose_fur.png
+│       │           │   │   └── trigrid.png
+│       │           │   └── shaders
+│       │           │       ├── ar_object.frag
+│       │           │       ├── ar_object.vert
+│       │           │       ├── background_show_depth_color_visualization.frag
+│       │           │       ├── background_show_depth_color_visualization.vert
+│       │           │       ├── object.frag
+│       │           │       ├── object.vert
+│       │           │       ├── plane.frag
+│       │           │       ├── plane.vert
+│       │           │       ├── point_cloud.frag
+│       │           │       ├── point_cloud.vert
+│       │           │       ├── screenquad.frag
+│       │           │       └── screenquad.vert
+│       │           ├── java
+│       │           │   └── com
+│       │           │       └── google
+│       │           │           └── ar
+│       │           │               └── core
+│       │           │                   └── examples
+│       │           │                       └── java
+│       │           │                           ├── common
+│       │           │                           │   ├── helpers
+│       │           │                           │   │   ├── CameraPermissionHelper.java
+│       │           │                           │   │   ├── DepthSettings.java
+│       │           │                           │   │   ├── DisplayRotationHelper.java
+│       │           │                           │   │   ├── EisSettings.java
+│       │           │                           │   │   ├── FullScreenHelper.java
+│       │           │                           │   │   ├── InstantPlacementSettings.java
+│       │           │                           │   │   ├── LocationPermissionHelper.java
+│       │           │                           │   │   ├── SnackbarHelper.java
+│       │           │                           │   │   ├── TapHelper.java
+│       │           │                           │   │   └── TrackingStateHelper.java
+│       │           │                           │   └── rendering
+│       │           │                           │       ├── BackgroundRenderer.java
+│       │           │                           │       ├── ObjectRenderer.java
+│       │           │                           │       ├── PlaneRenderer.java
+│       │           │                           │       ├── PointCloudRenderer.java
+│       │           │                           │       └── ShaderUtil.java
+│       │           │                           └── sharedcamera
+│       │           │                               └── SharedCameraActivity.java
+│       │           └── res
+│       │               ├── drawable-xxhdpi
+│       │               │   └── ic_launcher.png
+│       │               ├── layout
+│       │               │   └── activity_main.xml
+│       │               └── values
+│       │                   ├── strings.xml
+│       │                   └── styles.xml
+│       ├── build.gradle
+│       ├── gradle
+│       │   └── wrapper
+│       │       ├── gradle-wrapper.jar
+│       │       └── gradle-wrapper.properties
+│       ├── gradle.properties
+│       ├── gradlew
+│       ├── gradlew.bat
+│       └── settings.gradle
+├── third_party
+│   └── glm
+│       ├── LICENSE
+│       ├── common.hpp
+│       ├── detail
+│       │   ├── _features.hpp
+
+│       │   └── type_vec4_simd.inl
+│       ├── exponential.hpp
+│       ├── ext
+│       │   ├── matrix_clip_space.hpp
+
+│       │   └── vector_ulp.inl
+│       ├── ext.hpp
+│       ├── fwd.hpp
+│       ├── geometric.hpp
+│       ├── glm.hpp
+│       ├── gtc
+│       │   ├── bitfield.hpp
+│       │   ├── bitfield.inl
+│       │   ├── color_space.hpp
+│       │   ├── color_space.inl
+│       │   ├── constants.hpp
+│       │   ├── constants.inl
+│       │   ├── epsilon.hpp
+│       │   ├── epsilon.inl
+│       │   ├── integer.hpp
+│       │   ├── integer.inl
+│       │   ├── matrix_access.hpp
+│       │   ├── matrix_access.inl
+│       │   ├── matrix_integer.hpp
+│       │   ├── matrix_inverse.hpp
+│       │   ├── matrix_inverse.inl
+│       │   ├── matrix_transform.hpp
+│       │   ├── matrix_transform.inl
+│       │   ├── noise.hpp
+│       │   ├── noise.inl
+│       │   ├── packing.hpp
+│       │   ├── packing.inl
+│       │   ├── quaternion.hpp
+│       │   ├── quaternion.inl
+│       │   ├── quaternion_simd.inl
+│       │   ├── random.hpp
+│       │   ├── random.inl
+│       │   ├── reciprocal.hpp
+│       │   ├── reciprocal.inl
+│       │   ├── round.hpp
+│       │   ├── round.inl
+│       │   ├── type_aligned.hpp
+│       │   ├── type_precision.hpp
+│       │   ├── type_precision.inl
+│       │   ├── type_ptr.hpp
+│       │   ├── type_ptr.inl
+│       │   ├── ulp.hpp
+│       │   ├── ulp.inl
+│       │   └── vec1.hpp
+│       ├── gtx
+│       │   ├── associated_min_max.hpp
+│       │   ├── associated_min_max.inl
+│       │   ├── bit.hpp
+│       │   ├── bit.inl
+│       │   ├── closest_point.hpp
+│       │   ├── closest_point.inl
+│       │   ├── color_encoding.hpp
+│       │   ├── color_encoding.inl
+│       │   ├── color_space.hpp
+│       │   ├── color_space.inl
+│       │   ├── color_space_YCoCg.hpp
+│       │   ├── color_space_YCoCg.inl
+│       │   ├── common.hpp
+│       │   ├── common.inl
+│       │   ├── compatibility.hpp
+│       │   ├── compatibility.inl
+│       │   ├── component_wise.hpp
+│       │   ├── component_wise.inl
+│       │   ├── dual_quaternion.hpp
+│       │   ├── dual_quaternion.inl
+│       │   ├── easing.hpp
+│       │   ├── easing.inl
+│       │   ├── euler_angles.hpp
+│       │   ├── euler_angles.inl
+│       │   ├── extend.hpp
+│       │   ├── extend.inl
+│       │   ├── extended_min_max.hpp
+│       │   ├── extended_min_max.inl
+│       │   ├── exterior_product.hpp
+│       │   ├── exterior_product.inl
+│       │   ├── fast_exponential.hpp
+│       │   ├── fast_exponential.inl
+│       │   ├── fast_square_root.hpp
+│       │   ├── fast_square_root.inl
+│       │   ├── fast_trigonometry.hpp
+│       │   ├── fast_trigonometry.inl
+│       │   ├── float_notmalize.inl
+│       │   ├── functions.hpp
+│       │   ├── functions.inl
+│       │   ├── gradient_paint.hpp
+│       │   ├── gradient_paint.inl
+│       │   ├── handed_coordinate_space.hpp
+│       │   ├── handed_coordinate_space.inl
+│       │   ├── hash.hpp
+│       │   ├── hash.inl
+│       │   ├── integer.hpp
+│       │   ├── integer.inl
+│       │   ├── intersect.hpp
+│       │   ├── intersect.inl
+│       │   ├── io.hpp
+│       │   ├── io.inl
+│       │   ├── log_base.hpp
+│       │   ├── log_base.inl
+│       │   ├── matrix_cross_product.hpp
+│       │   ├── matrix_cross_product.inl
+│       │   ├── matrix_decompose.hpp
+│       │   ├── matrix_decompose.inl
+│       │   ├── matrix_factorisation.hpp
+│       │   ├── matrix_factorisation.inl
+│       │   ├── matrix_interpolation.hpp
+│       │   ├── matrix_interpolation.inl
+│       │   ├── matrix_major_storage.hpp
+│       │   ├── matrix_major_storage.inl
+│       │   ├── matrix_operation.hpp
+│       │   ├── matrix_operation.inl
+│       │   ├── matrix_query.hpp
+│       │   ├── matrix_query.inl
+│       │   ├── matrix_transform_2d.hpp
+│       │   ├── matrix_transform_2d.inl
+│       │   ├── mixed_product.hpp
+│       │   ├── mixed_product.inl
+│       │   ├── norm.hpp
+│       │   ├── norm.inl
+│       │   ├── normal.hpp
+│       │   ├── normal.inl
+│       │   ├── normalize_dot.hpp
+│       │   ├── normalize_dot.inl
+│       │   ├── number_precision.hpp
+│       │   ├── number_precision.inl
+│       │   ├── optimum_pow.hpp
+│       │   ├── optimum_pow.inl
+│       │   ├── orthonormalize.hpp
+│       │   ├── orthonormalize.inl
+│       │   ├── perpendicular.hpp
+│       │   ├── perpendicular.inl
+│       │   ├── polar_coordinates.hpp
+│       │   ├── polar_coordinates.inl
+│       │   ├── projection.hpp
+│       │   ├── projection.inl
+│       │   ├── quaternion.hpp
+│       │   ├── quaternion.inl
+│       │   ├── range.hpp
+│       │   ├── raw_data.hpp
+│       │   ├── raw_data.inl
+│       │   ├── rotate_normalized_axis.hpp
+│       │   ├── rotate_normalized_axis.inl
+│       │   ├── rotate_vector.hpp
+│       │   ├── rotate_vector.inl
+│       │   ├── scalar_multiplication.hpp
+│       │   ├── scalar_relational.hpp
+│       │   ├── scalar_relational.inl
+│       │   ├── spline.hpp
+│       │   ├── spline.inl
+│       │   ├── std_based_type.hpp
+│       │   ├── std_based_type.inl
+│       │   ├── string_cast.hpp
+│       │   ├── string_cast.inl
+│       │   ├── texture.hpp
+│       │   ├── texture.inl
+│       │   ├── transform.hpp
+│       │   ├── transform.inl
+│       │   ├── transform2.hpp
+│       │   ├── transform2.inl
+│       │   ├── type_aligned.hpp
+│       │   ├── type_aligned.inl
+│       │   ├── type_trait.hpp
+│       │   ├── type_trait.inl
+│       │   ├── vec_swizzle.hpp
+│       │   ├── vector_angle.hpp
+│       │   ├── vector_angle.inl
+│       │   ├── vector_query.hpp
+│       │   ├── vector_query.inl
+│       │   ├── wrap.hpp
+│       │   └── wrap.inl
+│       ├── integer.hpp
+
+│       ├── readme.md
+│       ├── simd
+│       │   ├── common.h
+│       │   ├── exponential.h
+│       │   ├── geometric.h
+│       │   ├── integer.h
+│       │   ├── matrix.h
+│       │   ├── neon.h
+│       │   ├── packing.h
+│       │   ├── platform.h
+│       │   ├── trigonometric.h
+│       │   └── vector_relational.h
+│       ├── trigonometric.hpp
+│       ├── vec2.hpp
+│       ├── vec3.hpp
+│       ├── vec4.hpp
+│       └── vector_relational.hpp
+└── tools
+    ├── arcoreimg
+    │   ├── linux
+    │   │   └── arcoreimg
+    │   ├── macos
+    │   │   └── arcoreimg
+    │   └── windows
+    │       └── arcoreimg.exe
+    └── generate_dfg_texture.py
+
+886 directories, 2506 files
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\android.txt

@@ -1,0 +1,86 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+        **showtext=__FILE__=pg/definisikan db.js atau sequelize.js yg bs digunakan utk sequelize.define
+        **showtext=__FILE__=pg/definisikan db.js yang ready utk db.query
+        **showtext=__FILE__=sq3/config.json
+        **showtext=__FILE__=sq3/definisikan db.js atau sequelize.js yg bs digunakan utk sequelize.define
+        **showtext=__FILE__=sq3/definisikan db.js yang ready utk db.run, db.get, db.all
+--#
+
+--% pg/definisikan db.js atau sequelize.js yg bs digunakan utk sequelize.define
+const Sequelize = require("sequelize");
+
+const { DB_DATABASE, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
+
+const sequelize = new Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: "postgres"
+});
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully...");
+  })
+  .catch(err => {
+    console.error("Unable to connect to the database:", err);
+  });
+
+module.exports = sequelize;
+--#
+
+--% pg/definisikan db.js yang ready utk db.query
+const Pool = require("pg").Pool;
+const { DB_DATABASE, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
+pool = new Pool({
+    schema: DB_DATABASE,
+    user: DB_USER,
+    host: DB_HOST,
+    database: DB_DATABASE,
+    password: DB_PASSWORD,
+    port: DB_PORT,
+});
+
+module.exports = pool; // bisa pool.query(statement, [], (err, res)=>{})
+--#
+
+--% sq3/config.json
+{
+	"development": {
+		"dialect": "sqlite",
+		"storage": "./database.sqlite3"
+	},
+}
+--#
+
+--% sq3/definisikan db.js atau sequelize.js yg bs digunakan utk sequelize.define
+// buat config.json dari sq3/config.json
+
+var env       = process.env.NODE_ENV || 'development';
+var config    = require(__dirname + './config.json')[env];
+
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(config.database, config.username, config.password, config);
+
+module.exports = sequelize;
+--#
+
+--% sq3/definisikan db.js yang ready utk db.run, db.get, db.all
+// buat config.json dari sq3/config.json
+
+var env       = process.env.NODE_ENV || 'development';
+var config    = require(__dirname + './config.json')[env];
+
+const Sequelize = require('sqlite3').verbose();
+const db = new Sequelize.Database(lokasi);
+
+module.exports = db; // bisa utk db.get, dg.all, dg.run
+--#

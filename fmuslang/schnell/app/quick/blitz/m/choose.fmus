@@ -1,0 +1,8 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__CURDIR__/flutter/choose.fmus=index/fmus*)    
+    .,d(/load=__CURDIR__/kt/choose.fmus=index/fmus*)
+    .,d(/load=__CURDIR__/java/choose.fmus=index/fmus*)
+    .,d(/load=__CURDIR__/rn/choose.fmus=index/fmus*)
+    .,d(/load=__CURDIR__/kivy/choose.fmus=index/fmus*)
+--#

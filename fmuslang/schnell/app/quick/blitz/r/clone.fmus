@@ -1,0 +1,55 @@
+--% index.fmus
+__PWD,d
+	?pick
+		@Create a Modern Ecommerce Project with React, NodeJS & MongoDB | jan 2022*
+			$* python -m webbrowser -t https://www.youtube.com/watch?v=1NWBO8L81J8
+		@evernote clone*
+
+--#
+
+--% lamadev/mui real project/fmus
+__PWD,d
+	@ ref: https://www.youtube.com/watch?v=fzxEECHnsvU *
+	@ gh: https://github.com/safak/youtube2022/tree/react-mui *
+	?pick
+		frontend,d(mk)
+			$* npx create-react-app .
+--#
+
+--% evernote client/fmus
+__PWD,d
+	@ ref: https://www.youtube.com/watch?v=gSejTrQhL8Y *
+	@ gh: https://github.com/fadilnatakusumah/nevernote *
+	?pick
+		$* npx typeorm init --name backend --database mysql --docker
+		backend,d(/mk)
+			?pick
+				$* git add .
+				$* touch .gitignore
+				$* git commit -am"ok"
+				$* npx tsc --init
+				$* yarn nodemon
+				$* yarn add express apollo-server-express jsonwebtoken type-graphql cors morgan dotenv graphql bcryptjs
+				$* yarn add -D @types/morgan @types/jsonwebtoken @types/bcryptjs
+				$* yarn add cookie-parser
+				$* yarn add -D @types/cookie-parser
+		$* npx create-react-app frontend --template tyepscript
+		frontend,d(/mk)
+			?pick
+				$* git add .
+				$* touch .gitignore
+				$* git commit -am"ok"
+				$* yarn add @apollo/client graphql @emotion/css @emotion/react @emotion/styled react-router-dom jwt-decode
+				$* yarn add local-storage-fallback react-quill dayjs
+				$* yarn add -D @types/react-router-dom @graphql-codegen/cli
+				$* npx graphql-codegen init
+				$* yarn add react-icons
+				$* yarn add -D @types/react-icons
+				$* yarn add apollo-link-token-refresh
+		$* npx create-next-app@latest nxfrontend --ts
+		nxfrontend,d(/mk)
+			?pick
+				$* yarn add @apollo/client styled-components apollo-link-token-refresh daysjs graphql jwt-decode local-storage-fallback react-hook-form react-icons react-quill
+				$* yarn add -D @types/styled-components
+
+--#

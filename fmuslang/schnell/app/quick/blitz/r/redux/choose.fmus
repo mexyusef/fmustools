@@ -1,0 +1,46 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        .,d(/load=__CURDIR/starwars.fmus=index/fmus*)
+        .,d(/load=__CURDIR/starwars-spor-product.fmus=index/fmus*)
+--#
+
+--% struktur/1
+.,d
+	components,d(/mk)
+	redux,d(/mk)
+		actions,d(/mk)
+		reducers,d(/mk)
+		states,d(/mk)
+		store.tsx,f(t=)
+--#
+
+--% struktur/2
+.,d
+	components,d(/mk)
+	actions,d(/mk)
+	reducers,d(/mk)
+	stores,d(/mk)
+
+	containers,d(/mk)
+	contexts,d(/mk)
+	hocs,d(/mk)
+	hooks,d(/mk)
+	selectors,d(/mk)
+--#
+
+--% struktur/3
+.,d
+	components,d(/mk)
+	redux,d(/mk)
+		app1,d(/mk)
+			app1.selector.ts,f(t=)
+			app1.slice.ts,f(t=)
+		root.reducer.ts,f(t=)
+		store.ts,f(t=)
+--#
+
+--% struktur/4
+.,d
+	components,d(/mk)
+--#

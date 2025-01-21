@@ -1,0 +1,12 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan lingkungan*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+ada sensor, web, backend.
+lumayan versi peta realtime nya
+daftar sensor juga jadi menarik utk ditulis di cv.
+--#

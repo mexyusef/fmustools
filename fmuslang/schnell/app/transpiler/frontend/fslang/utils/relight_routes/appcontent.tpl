@@ -1,0 +1,6 @@
+__TAB(2)__TABLENAME_LOWER__,d(/mk)
+__TAB(3)create.js,f(e=__FILE__=/__TABLENAME_LOWER__/create)
+__TAB(3)read.js,f(e=__FILE__=/__TABLENAME_LOWER__/read)
+__TAB(3)detail.js,f(e=__FILE__=/__TABLENAME_LOWER__/detail)
+__TAB(3)update.js,f(e=__FILE__=/__TABLENAME_LOWER__/update)
+__TAB(3)delete.js,f(e=__FILE__=/__TABLENAME_LOWER__/delete)

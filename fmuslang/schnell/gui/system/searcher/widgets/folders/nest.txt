@@ -1,0 +1,66 @@
+.,d
+    src,d
+        app.module.ts,f(t=)
+        main.ts,f(t=)
+        config,d
+            database.config.ts,f(t=)
+            environment.config.ts,f(t=)
+        controllers,d
+            auth,d
+                auth.controller.ts,f(t=)
+            users,d
+                user.controller.ts,f(t=)
+        models,d
+            user.entity.ts,f(t=)
+            post.entity.ts,f(t=)
+        modules,d
+            auth,d
+                auth.module.ts,f(t=)
+                auth.service.ts,f(t=)
+                jwt.strategy.ts,f(t=)
+            users,d
+                users.module.ts,f(t=)
+                users.service.ts,f(t=)
+                user.entity.ts,f(t=)
+        middlewares,d
+            logger.middleware.ts,f(t=)
+        public,d
+            assets,d
+            images,d
+            styles,d
+            scripts,d
+        tests,d
+            auth.controller.spec.ts,f(t=)
+            users.service.spec.ts,f(t=)
+        utils,d
+            common,d
+                constants.ts,f(t=)
+                helper.functions.ts,f(t=)
+            decorators,d
+                custom.decorator.ts,f(t=)
+            guards,d
+                auth.guard.ts,f(t=)
+            interceptors,d
+                logger.interceptor.ts,f(t=)
+        app.controller.ts,f(t=)
+        app.service.ts,f(t=)
+        package.json,f(t=)
+        tsconfig.json,f(t=)
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\nest.txt
+
+C:\work\kenza\capcay\boilerplate-nest.txt
+C:\work\kenza\capcay\boilerplate-nest.mk
+
+C:\work\kenza\capcay\boilerplate-next.txt
+C:\work\kenza\capcay\boilerplate-next.mk
+
+C:\work\kenza\capcay\boilerplate-files.mk
+
+c:/hapus/oprek-dan-hapus/selasa18
+
+c:/hapus/oprek-dan-hapus,d
+    %NAMAFOLDER=selasa18
+    NAMAFOLDER,d
+        nest-biolerplate,d(/load=C:\work\kenza\capcay\boilerplate-nest.mk=struktur/project/fmus*)
+        /ketik)dir

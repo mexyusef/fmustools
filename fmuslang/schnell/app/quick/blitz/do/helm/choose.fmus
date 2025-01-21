@@ -1,0 +1,7 @@
+--% index/fmus
+__PWD,d
+    ?pick
+    	@create/update helm charts*
+    	@helm 2*
+    	@helm 3*
+--#

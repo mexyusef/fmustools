@@ -1,0 +1,23 @@
+
+
+--% init-ts
+.,d
+    $* tsc --init
+    # setup target=es6 dan module=commonjs
+    # setup outDir=./build,dest dan rootDir=./src,src
+--#
+
+--% install
+yarn add typescript express nodemon ts-node
+yarn add @type/express @types/node
+--#
+
+--% init-yarn
+yarn init
+--#
+
+--% add-scripts
+"start": "node ./build/index.js",
+"build": "tsc -p .",
+"dev": "nodemon ./src/index.ts",
+--#

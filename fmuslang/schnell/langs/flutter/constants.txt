@@ -1,0 +1,3 @@
+Colors.red
+FloatingActionButtonLocation.centerFloat
+VisualDensity.adaptivePlatformDensity

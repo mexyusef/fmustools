@@ -1,0 +1,520 @@
+--% README.md
+https://www.youtube.com/watch?v=I8TRkEcw9Mg
+Django Blog Application - Full Tutorial 2022
+--#
+
+--% index/fmus
+__PWD,d
+    ?pick
+        @create project*
+            ?pick
+                .,d(/load=__FILE__=create_project*)
+                @show create project+app info*
+                    info.txt,f(e=__FILE__=create_project_app/info)
+                    $* more info.txt
+        @admin*
+        @apps*
+            ?pick
+                @simple apps*
+                    apps.py,f(e=__FILE__=apps_simple)
+                    $* more apps.py
+        @forms*
+        @migrations*
+        @models*
+            ?pick
+                @simple model Item*
+                    models.py,f(e=__FILE__=models_simple/1)
+                    models2.py,f(e=__FILE__=models_simple/2)
+                    $* more models.py
+        @settings.py*
+            ?pick
+                @add rest_framework to INSTALLED_APPS*
+                    settings.py,f(f=settings.py,@ia=add_rest_framework_installed_apps_secondary="django.contrib.staticfiles")
+                @add __INPUT__ to INSTALLED_APPS*
+                    .,d(/load=__FILE__=add_input_installed_apps_primary*)
+                @add channels to INSTALLED_APPS*
+                    settings.py,f(f=settings.py,@ia=add_channels_installed_apps_secondary="INSTALLED_APPS")
+                @add ASGI_APPLICATION untuk websocket*
+                    settings.py,f(f=settings.py,@ib=add_asgi_application="MIDDLEWARE")
+                @add CHANNEL_LAYERS untuk websocket*
+                    settings.py,f(f=settings.py,@ib=add_channel_layers_application="MIDDLEWARE")
+        @serializers*
+            ?pick
+                @simple*
+                    serializers.py,f(e=__FILE__=serializers_simple)
+                    $* more serializers.py
+                @model serializer*
+                    serializers.py,f(e=__FILE__=serializers_model)
+                    $* more serializers.py
+        @templates*
+            ?pick
+                base.html,f(e=__FILE__=templates/base.html)
+                child.html,f(e=__FILE__=templates/child.html)
+                .,d(/load=__FILE__=templates/add_render*)
+        @urls*
+            ?pick
+                @app urls*
+                    urls.py,f(e=__FILE__=urls_simple)
+                    $* more urls.py
+                @root urls*
+                    urls.py,f(e=__FILE__=urls_root)
+                    $* more urls.py
+        @user management*
+        @views*
+            ?pick
+                @api_view: response_data_serializer*
+                    views.py,f(e=__FILE__=response_data_serializer)
+                    $* more views.py
+                @render template - list create*
+                    views.py,f(e=__FILE__=render_manual_template)
+                    $* more views.py                    
+                @render template - detail (blogpost*
+                    views.py,f(e=__FILE__=render_blogpost_detail)
+                    $* more views.py
+        .,d(/load=__FILE__=views/add simple http response to target file*)
+        @asgi, wsgi, dan websocket*
+            ?pick
+                @consumers simple*
+                    consumers.py,f(e=__FILE__=consumers_simple)
+                    $* more consumers.py
+                @routing simple*
+                    routing.py,f(e=__FILE__=routing_simple)
+                    $* more routing.py
+                @asgi sederhana*
+                    asgi.py,f(e=__FILE__=asgi_sederhana)
+                    $* more asgi.py
+                @asgi utk websocket dg ProtocolTypeRouter dan URLRouter*
+                    asgi.py,f(e=__FILE__=asgi_websocket)
+                    $* more asgi.py
+                @wsgi sederhana*
+                    wsgi.py,f(e=__FILE__=wsgi_sederhana)
+                    $* more wsgi.py
+        @shell*
+            ?pick
+                @python manage.py shell with info*
+                    info.txt,f(e=__FILE__=shell_info)
+                    $* more info.txt
+
+        .,d(/load=__CURDIR__/celery.fmus=index/fmus*)
+
+        $* pip install Django==3.2.12 djangorestframework
+
+        $* python manage.py shell
+        $* python manage.py createsuperuser
+        $* python manage.py makemigrations
+        $* python manage.py migrate
+
+        $* pipenv shell
+
+
+        $* django-admin startproject myproject
+        $* django-admin startapp myapp
+        $* python manage.py startapp myapp
+
+
+        $* python manage.py runserver
+        $* python manage.py runserver 0.0.0.0:8000
+
+        .,d(/load=__FILE__=one-project-one-app/1/fmus*)
+        .,d(/load=__FILE__=add-application-to-installed-app-bottom/1/fm*)
+        .,d(/load=__FILE__=add-application-to-installed-app-top/1/fm*)
+        .,d(/load=__FILE__=settings.py/tambah konfigurasi email*)
+        .,d(/load=__FILE__=target/celery task tambah bisa kirim email*)
+--#
+
+--% add-application-to-installed-app-bottom/1/fm
+__PWD,d
+    %__TEMPLATE__APPNAME=__INPUT__
+    settings.py,f(f=settings.py,@ia=add-application-to-installed-app-bottom/1/nama-aplikasi="'django.contrib.staticfiles'")
+--#
+
+--% add-application-to-installed-app-bottom/1/nama-aplikasi
+    '__TEMPLATE__APPNAME',
+--#
+
+--% add-application-to-installed-app-top/1/fm
+__PWD,d
+    %__TEMPLATE__APPNAME=__INPUT__
+    settings.py,f(f=settings.py,@ia=add-application-to-installed-app-bottom/1/nama-aplikasi="INSTALLED_APPS")
+--#
+
+--% one-project-one-app/2/fmus
+.,d
+    %__TEMPLATE_FOLDER_APP=__INPUT__
+    $* django-admin startapp __TEMPLATE_FOLDER_APP
+    $* code .
+--#
+
+--% one-project-one-app/1/fmus
+__PWD,d
+    %__TEMPLATE_FOLDER_PROJ=__INPUT__
+    $* django-admin startproject __TEMPLATE_FOLDER_PROJ
+    __TEMPLATE_FOLDER_PROJ,d(/load=__FILE__=one-project-one-app/2/fmus*)
+--#
+
+
+--% asgi_websocket
+import os
+from django.core.asgi import get_asgi_application
+from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.auth import AuthMiddlewareStack
+# AuthMiddlewareStack = CookieMiddleware -> SessionMiddleware -> AuthMiddleware
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', __TEMPLATE_PROJECT_FOLDER)
+application = ProtocolTypeRouter({
+    'http': get_asgi_application(),
+    'websocket': AuthMiddlewareStack(
+        URLRouter(
+            app.routing.ws_urlpatterns,
+        ),
+    ),
+})
+--#
+
+--% asgi_sederhana
+import os
+from django.core.asgi import get_asgi_application
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', __TEMPLATE_PROJECT_FOLDER)
+application = get_asgi_application()
+--#
+
+--% add_asgi_application
+ASGI_APPLICATION = '__TEMPLATE_PROJECT_FOLDER.asgi.application'
+--#
+
+--% add_channel_layers_application
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    }
+}
+--#
+
+--% consumers_simple
+import json
+from channels.generic.websocket import WebsocketConsumer
+from asgiref.sync import async_to_sync as ATS
+
+class AppConsumer(WebsocketConsumer):
+    def connect(self):
+
+        self.room_group_name = 'test'
+        ATS(self.channel_layer.group_add)(
+            self.room_group_name,
+            self.channel_name # automatically created for each user
+        )
+
+        self.accept()
+        self.send(text_data=json.dumps({
+            'type': 'connection_established',
+            'message': 'You are connected.',
+        }))
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        message = text_data_json['message']
+        #print('terima:', message)
+        ## whenever a consumer receives a message we want to broadcast
+        ## this msg out to everybody (frontend) that has a connection with this consumer
+        #self.send(text_data=json.dumps({
+        #    'type': 'chat',
+        #    'message': message,
+        #}))
+        ATS(self.channel_layer.group_send)(
+            self.room_group_name,
+            {
+                'type': 'chat_message',
+                'message': message,
+            }
+        )
+    def chat_message(self, event):
+        message = event['message']
+        self.send(text_data=json.dumps({
+            {
+                'type': 'chat',
+                'message': message,
+            }
+        }))
+    def disconnect(self, close_code):
+        pass
+--#
+
+--% routing_simple
+from django.urls import re_path
+from . import consumers
+ws_urlpatterns = [
+    re_path(r'ws/socket-server/', consumers.AppConsumer.as_asgi())
+]
+--#
+
+--% wsgi_sederhana
+wsgi_sederhana
+--#
+
+--% render_manual_template
+from django.shortcuts import render
+
+def render_template(request):
+    return render(request, 'appname/template.html')
+--#
+
+--% render_blogpost_detail
+from django.shortcuts import render, get_object_or_404
+
+def detail(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    return render(request, 'appname/detail.html', {'post':post})
+--#
+
+--% shell_info
+from base.models import Item
+
+Item.objects.cerate(name='Item #1')
+Item.objects.cerate(name='Item #2')
+Item.objects.cerate(name='Item #3')
+
+exit()
+--#
+
+--% add_input_installed_apps_primary
+.,d
+    %__TEMPLATE_APP_TO_INSTALL=__INPUT__
+    settings.py,f(f=settings.py,@ia=add_input_installed_apps_secondary="django.contrib.staticfiles")
+--#
+
+--% add_input_installed_apps_secondary
+    '__TEMPLATE_APP_TO_INSTALL',
+--#
+
+--% add_rest_framework_installed_apps_secondary
+    'rest_framework',
+--#
+
+--% add_channels_installed_apps_secondary
+    'channels',
+--#
+
+--% create_project
+.,d
+    %__TEMPLATE_BASEDIR=__INPUT__
+    $* django-admin startproject __TEMPLATE_BASEDIR
+    __TEMPLATE_BASEDIR,d
+        $* wsl ls -al
+--#
+
+--% create_project_app/info
+django-admin startproject myproj
+cd myproj
+django-admin startapp myapp1    
+
+...create model
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+
+--#
+
+--% models_simple/1
+from django.db import models
+
+class Item(models.Model):
+    name = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    company_name = models.CharField(max_length=150, blank=True, null=True)
+    emp_id = models.CharField(max_length=10, blank=True, null=True)
+    def __str__(self) -> str:
+        return self.name
+--#
+
+--% models_simple/2
+from django.db import models
+
+class MyModel(models.Model):
+    title = model.CharField(max_length=255)
+    slug = models.SlugField()
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering = ('-created_at',)
+--#
+
+--% serializers_simple
+from rest_framework import serializers
+from base.models import Item
+
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = '__all__'
+--#
+
+--% serializers_model
+from rest_framework import serializers
+from base.models import Item
+
+class ItemSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    content = serializers.CharField(max_length=200)
+    created = serializers.DateTimeField()
+
+class EmployeeSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=100)
+    company_name = serializers.CharField(max_length=150)
+    emp_id = serializers.CharField(max_length=10)
+
+    def create(self, validated_data):
+        return Employee.objects.create(**validated_data)
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.company_name = validated_data.get('company_name', instance.company_name)
+        instance.emp_id = validated_data.get('emp_id', instance.emp_id)
+        instance.save()
+
+--#
+
+
+--% admin_simple
+from django.contrib import admin
+
+from .models import Post
+admin.site.register(Post)
+--#
+
+--% apps_simple
+from django.apps import AppConfig
+
+class MyAppConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'myapp'
+--#
+
+--% urls_simple
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.listData, name='list-data'),
+    path('add/', views.createData, name='create-data'),
+]
+--#
+
+--% urls_root
+from django.urls import path, include
+from django.contrib import admin
+
+urlpatterns = [
+    path('admin/', admin.site.url),
+    path('', include('api.urls')),
+]
+--#
+
+--% response_data_serializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from base.models import Item
+
+@api_view(['GET'])
+def listData(request):
+    items = Item.objects.all()
+    serializer = ItemSerializer(items, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def createData(request):
+    serializer = ItemSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+--#
+
+--% response_data_manual
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view(['GET'])
+def getData(request):
+    person = {'name':'Usef', 'age':42}
+    return Response(person)
+--#
+
+--% templates/base.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}Judul homepage</title>
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+--#
+
+--% templates/child.html
+{% extends 'app/base.html' %}
+
+{% block title %}Home | {% endblock %}
+
+{% block content %}
+    <h1>isi anak di sini</h1>
+    {% for post in posts %}
+        <a href="{% url 'post_detail' post.slug %}">
+        {{ post.created_at|date:'M-d-Y H:i' }}
+        {{ post.created_at|timesince }}
+        {{ post.title }}
+        </a>
+    {% endfor %}
+{% endblock %}
+--#
+
+--% templates/add_render
+.,d
+    views.py,f(f=views.py,@iA=tambah/import=0)
+    views.py,f(f=views.py,@iA=tambah/renderfunction=-1)
+--#
+
+--% tambah/import
+from django.shortcuts import render
+--#
+
+--% tambah/renderfunction
+def namafungsi(request):
+    """
+    project/app/templates/app/child.html
+    """
+    return render(request, 'app/child.html')
+
+def namafungsi2(request):
+    """
+    project/app/templates/app/child.html
+    """
+    posts = Post.objects.all()
+    return render(request, 'app/child.html', {'posts':posts})
+--#
+
+--% views/add simple http response to target file
+__PWD,d
+    %__TEMPLATE_TARGETFILE=__INPUT__
+    /file>i/0/from django.http import HttpResponse\n|__TEMPLATE_TARGETFILE
+    /file>i/-1/\ndef index(request):\n\treturn HttpResponse('<h1>hello, world!</h1>')\n|__TEMPLATE_TARGETFILE
+--#
+
+--% settings.py/tambah konfigurasi email
+__PWD,d
+    /file>i/-1/__NLEMAIL_HOST = 'smtp.gmail.com'|settings.py
+    /file>i/-1/__NLEMAIL_PORT = 465|settings.py
+    /file>i/-1/__NLEMAIL_HOST_USER = 'usef@gmail.com'|settings.py
+    /file>i/-1/__NLEMAIL_HOST_PASSWORD = 'rahasia'|settings.py
+    /file>i/-1/__NLEMAIL_USE_TLS = False|settings.py
+    /file>i/-1/__NLEMAIL_USE_SSL = True__NL|settings.py
+--#
+
+--% target/celery task tambah bisa kirim email
+__PWD,d
+    %__TEMPLATE_TARGETFILE=__INPUT__
+    /file>i/0/from django.core.mail import send_email\n|__TEMPLATE_TARGETFILE
+    /file>i/-1/\n@shared_task\ndef send_email_task():\n\tsleep(10)\n\tsend_email('judul', 'badan', 'from@gmail.com', ['to@gmail.com'])\n\n\treturn None\n|__TEMPLATE_TARGETFILE
+--#

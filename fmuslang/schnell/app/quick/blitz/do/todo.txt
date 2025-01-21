@@ -1,0 +1,888 @@
+benjamincongdon.me
+scraping the web in golang with colly and goquery
+github.com/aave
+github.com/jmelm93
+youtube.com 
+  commitdev
+http://www.vurt.ru/2013/02/python-command-line-oneliners
+Vurt.ru blog
+
+Python command line oneliners
+There is list of pretty useful python small command line oneliners available out of the box. That means if you already have installed python on your system (most Linux, *BSD, including OSX) then you can use it even if you are not python developer.
+
+I love most way to create fake SMTP server:
+
+$ python -m smtpd -n -c DebuggingServer localhost:25
+If you develop using something else, but need to send emails and want to debug or just need something you can add to your Makefile this lines:
+
+mail:
+    python -m smtpd -n -c DebuggingServer localhost:20025
+And run make mail, voila you have running SMTP daemon on 20025 port. Easy!
+
+Make JSON beautiful? Next oneliner:
+
+$ echo '{"foo": "lorem", "bar": "ipsum"}' | python -mjson.tool
+You can only wish more if you like to see it in color. Hope you noticed pipe support.
+
+Full set of available HTTP services.
+
+$ python -m SimpleHTTPServer
+$ python -m CGIHTTPServer
+Wanna use different port?
+
+$ python -m SimpleHTTPServer 8080
+$ python -m CGIHTTPServer 9080
+It serve all files from local folder and below.
+
+XMLRPC is not very popular this days, but you still able to debug remote servers:
+
+$ python -c 'import xmlrpclib; print xmlrpclib.Server("http://host:8080").methodName(param,param2)'
+Real life example? Search on PyPI:
+
+$ python -c 'import xmlrpclib; print xmlrpclib.Server("http://pypi.python.org/pypi").package_releases("Flask")'
+['0.9']
+$ python -c 'import xmlrpclib; print xmlrpclib.Server("http://pypi.python.org/pypi").search({"name":"hopak"})'
+[{'_pypi_ordering': 12, 'version': '0.1.0', 'name': 'Flask-Hopak', 'summary': 'Admin interface for Flask that uses Hopak models'}, {'_pypi_ordering': 12, 'version': '0.4.2', 'name': 'hopak', 'summary': 'hopak framework base package'}]
+More python specific timeit module, it allows to measure speed of small code snippets:
+
+$ python -m timeit '"-".join(str(n) for n in range(100))' 
+10000 loops, best of 3: 33.2 usec per loop
+$ python -m timeit '"-".join([str(n) for n in range(100)])'
+10000 loops, best of 3: 28.2 usec per loop
+Even is possible to make a little setup using -s parameter:
+
+$ python -m timeit -s "import json" "json.dumps({'a':'a'})" 
+100000 loops, best of 3: 5.98 usec per loop
+More
+Probably listed here is more common for me. But if you like to discover more, then simple scan standard python library for if __name__ == '__main__' substring and check results:
+
+$ grep -r  "if __name__ == '__main__'" /path/to/python/libaray/
+← PreviousArchiveNext →
+
+
+http://www.vurt.ru/2015/03/codility-evaluation-report
+
+Vurt.ru blog
+Архив
+Контакты
+Обо мне
+Страницы
+Услуги
+Теги
+My codility test answers (python)
+Recently, during interview to some company, I got tested by Codility service. And here is my performance results. Generally this is copy&paste from their email. Hope this can be helpful for others who want to see what this tests are.
+
+This is overal performance table:
+
+Task name	Correctness	Performance	Task score
+1	PtrListLen	100	not assessed	100
+2	BugfixingLeaderSorted	100	not assessed	100
+3	DeepestPit	55	66	60
+4	CountMultiplicativePairs	80	87	83
+Total	84	N/A	343 / 400
+PtrListLen - problem description
+A pointer is called a linked list if:
+
+·         it is an empty pointer (it is then called a terminator or an empty list); or
+
+·         it points to a structure (called a node or the head) that contains a value and a linked list (called the tail).
+
+The length of a list is defined as the total number of nodes it contains. In particular, an empty list has length 0.
+
+For example, consider the following linked list:
+
+  A -> B -> C -> D ->
+This list contains four nodes: A, B, C and D. Node D is the last node and its tail is the terminator. The length of this list is 4.
+
+Assume that the following declarations are given:
+
+class IntList(object):
+  value = 0
+  next = None
+
+Write a function:
+
+def solution(L)
+
+that, given a non-empty linked list L consisting of N nodes, returns its length.
+
+For example, given list L shown in the example above, the function should return 4.
+
+Assume that:
+
+·         N is an integer within the range [1..5,000];
+
+·         list L does not have a cycle (each non-empty pointer points to a different structure).
+
+In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.
+
+Copyright 2009–2015 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.
+
+Tests
+Score: 100 of 100
+
+Estimated time complexity: None
+
+Test name
+
+Running time
+
+Result
+
+example
+example, length=4
+
+0.060 s
+
+OK
+
+extreme_single_double
+length=1
+
+0.044 s
+
+OK
+
+three_elems
+length=3
+
+0.044 s
+
+OK
+
+twenty_elements
+length=20
+
+0.044 s
+
+OK
+
+medium
+length=93
+
+0.044 s
+
+OK
+
+medium2
+length=999
+
+0.044 s
+
+OK
+
+1k_elements
+length=1,000
+
+0.044 s
+
+OK
+
+quite_long
+length=4,000
+
+0.052 s
+
+OK
+
+long
+length=5,000
+
+0.056 s
+
+OK
+
+Solution (language: Python)
+# you can use print for debugging purposes, e.g.
+# print "this is a debug message"
+ 
+def solution(L):
+    # write your code in Python 2.7
+    count = 0
+    while L:
+        count = count + 1
+        L = L.next
+    return count
+BugfixingLeaderSorted - problem description
+A non-empty zero-indexed array A consisting of N integers and sorted in a non-decreasing order is given. The leader of this array is the value that occurs in more than half of the elements of A.
+
+You are given an implementation of a function:
+
+def solution(A)
+
+that, given a non-empty zero-indexed array A consisting of N integers, sorted in a non-decreasing order, returns the leader of array A. The function should return −1 if array A does not contain a leader.
+
+For example, given array A consisting of ten elements such that:
+
+  A[0] = 2
+  A[1] = 2
+  A[2] = 2
+  A[3] = 2
+  A[4] = 2
+  A[5] = 3
+  A[6] = 4
+  A[7] = 4
+  A[8] = 4
+  A[9] = 6
+the function should return −1, because the value that occurs most frequently in the array, 2, occurs five times, and 5 is not more than half of 10.
+
+Given array A consisting of five elements such that:
+
+  A[0] = 1
+  A[1] = 1
+  A[2] = 1
+  A[3] = 1
+  A[4] = 50
+the function should return 1.
+
+Unfortunately, despite the fact that the function may return expected result for the example input, there is a bug in the implementation, which may produce incorrect results for other inputs. Find the bug and correct it. You should modify at most three lines of code.
+
+Assume that:
+
+·         N is an integer within the range [1..100,000];
+
+·         each element of array A is an integer within the range [0..2,147,483,647];
+
+·         array A is sorted in non-decreasing order.
+
+Complexity:
+
+·         expected worst-case time complexity is O(N);
+
+·         expected worst-case space complexity is O(N), beyond input storage (not counting the storage required for input arguments).
+
+Elements of input arrays can be modified.
+
+Copyright 2009–2015 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.
+
+Tests
+Score: 100 of 100
+
+Estimated time complexity: None
+
+Test name
+
+Running time
+
+Result
+
+example1
+first example test
+
+0.044 s
+
+OK
+
+example2
+second example test
+
+0.044 s
+
+OK
+
+simple1
+values from a continuous range
+
+0.044 s
+
+OK
+
+simple2
+0s/1s only
+
+0.044 s
+
+OK
+
+single
+one element
+
+0.044 s
+
+OK
+
+two_values
+two different values
+
+0.044 s
+
+OK
+
+extreme_big_values
+min/max values only
+
+0.044 s
+
+OK
+
+medium_1
+small sequence repeated many times
+
+0.044 s
+
+OK
+
+medium_2
+no leader and small sequence with values from a continuous range
+
+0.044 s
+
+OK
+
+cyclic_sequence
+no leader and small sequence repeated many times
+
+0.044 s
+
+OK
+
+medium_random
+random sequences
+
+0.044 s
+
+OK
+
+large
+two different values, length = ~100,000
+
+0.104 s
+
+OK
+
+large_range
+values from a continuous range, length = ~100,000
+
+0.108 s
+
+OK
+
+Solution (language: Python)
+def solution(A): 
+    n = len(A)
+    L = [-1] + A
+    count = 0
+    pos = (n + 1) // 2
+    candidate = L[pos]
+    for i in xrange(1, n + 1):
+        if (L[i] == candidate):
+            count = count + 1
+    if (2*count > n):
+        return candidate
+    return -1
+DeepestPit - problem description
+A non-empty zero-indexed array A consisting of N integers is given. A pit in this array is any triplet of integers (P, Q, R) such that:
+
+·         0 ≤ P < Q < R < N;
+
+·         sequence [A[P], A[P+1], ..., A[Q]] is strictly decreasing,
+i.e. A[P] > A[P+1] > ... > A[Q];
+
+·         sequence A[Q], A[Q+1], ..., A[R] is strictly increasing,
+i.e. A[Q] < A[Q+1] < ... < A[R].
+
+The depth of a pit (P, Q, R) is the number min{A[P] − A[Q], A[R] − A[Q]}.
+
+For example, consider array A consisting of 10 elements such that:
+
+  A[0] =  0
+  A[1] =  1
+  A[2] =  3
+  A[3] = -2
+  A[4] =  0
+  A[5] =  1
+  A[6] =  0
+  A[7] = -3
+  A[8] =  2
+  A[9] =  3
+Triplet (2, 3, 4) is one of pits in this array, because sequence [A[2], A[3]] is strictly decreasing (3 > −2) and sequence [A[3], A[4]] is strictly increasing (−2 < 0). Its depth is min{A[2] − A[3], A[4] − A[3]} = 2. Triplet (2, 3, 5) is another pit with depth 3. Triplet (5, 7, 8) is yet another pit with depth 4. There is no pit in this array deeper (i.e. having depth greater) than 4.
+
+Write a function:
+
+def solution(A)
+
+that, given a non-empty zero-indexed array A consisting of N integers, returns the depth of the deepest pit in array A. The function should return −1 if there are no pits in array A.
+
+For example, consider array A consisting of 10 elements such that:
+
+  A[0] =  0
+  A[1] =  1
+  A[2] =  3
+  A[3] = -2
+  A[4] =  0
+  A[5] =  1
+  A[6] =  0
+  A[7] = -3
+  A[8] =  2
+  A[9] =  3
+the function should return 4, as explained above.
+
+Assume that:
+
+·         N is an integer within the range [1..1,000,000];
+
+·         each element of array A is an integer within the range [−100,000,000..100,000,000].
+
+Complexity:
+
+·         expected worst-case time complexity is O(N);
+
+·         expected worst-case space complexity is O(N), beyond input storage (not counting the storage required for input arguments).
+
+Elements of input arrays can be modified.
+
+Copyright 2009–2015 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.
+
+Tests
+Score: 60 of 100
+
+Test name
+
+Running time
+
+Result
+
+example
+example test
+
+0.044 s
+
+OK
+
+extreme_no_pit
+small test cases
+
+0.044 s
+
+WRONG ANSWER
+got -1 expected 1
+
+extreme_depth
+
+0.044 s
+
+WRONG ANSWER
+got -1 expected 200000000
+
+simple1
+no pit
+
+0.044 s
+
+WRONG ANSWER
+got -1 expected 1
+
+simple2
+one pit
+
+0.044 s
+
+WRONG ANSWER
+got -1 expected 50
+
+user
+user-defined test case
+
+0.044 s
+
+OK
+
+simple3
+`vulcano' shape
+
+0.044 s
+
+OK
+
+retries
+retries
+
+0.044 s
+
+OK
+
+medium1
+medium correctness test
+
+0.104 s
+
+OK
+
+medium_pit
+medium test one pit
+
+0.044 s
+
+OK
+
+large_pit_1
+large test one pit 1
+
+0.148 s
+
+WRONG ANSWER
+got 43265 expected 43287
+
+large_pit_2
+large test one pit 2
+
+0.152 s
+
+WRONG ANSWER
+got 432950 expected 433170
+
+big_pit_1
+big test one pit 1
+
+0.120 s
+
+OK
+
+big_pit_2
+big test one pit 1
+
+0.132 s
+
+OK
+
+big3_1
+large random test
+
+0.424 s
+
+OK
+
+big3_2
+big random test
+
+1.336 s
+
+OK
+
+Solution (language: Python)
+# you can use print for debugging purposes, e.g.
+# print "this is a debug message"
+ 
+def solution(A):
+    deepest = 0
+    pit = lambda p, q, r: min(A[p] - A[q], A[r] - A[q])
+    p = 0
+    r = -1
+    q = -1
+    l = len(A)
+    for i in xrange(0, l):
+        if q<0 and A[i]>=A[i-1]:
+            q = i -1
+        if (q>=0 and r<0) and (A[i]<=A[i-1] or i+1==l):
+            r = i-1
+            deepest = max(deepest, pit(p, q, r))
+            p = i-1
+            q = -1 
+            r = -1
+    return deepest if deepest else -1
+CountMultiplicativePairs - problem description
+Zero-indexed arrays A and B consisting of N non-negative integers are given. Together, they represent N real numbers, denoted as C[0], ..., C[N−1]. Elements of A represent the integer parts and the corresponding elements of B (divided by 1,000,000) represent the fractional parts of the elements of C. More formally, A[I] and B[I] represent C[I] = A[I] + B[I] / 1,000,000.
+
+For example, consider the following arrays A and B:
+
+  A[0] = 0    B[0] = 500,000
+  A[1] = 1    B[1] = 500,000
+  A[2] = 2    B[2] = 0
+  A[3] = 2      B[3] = 0
+  A[4] = 3    B[4] = 0
+  A[5] = 5    B[5] = 20,000
+They represent the following real numbers:
+
+  C[0] = 0.5
+  C[1] = 1.5
+  C[2] = 2.0
+  C[3] = 2.0
+  C[4] = 3.0
+  C[5] = 5.02
+A pair of indices (P, Q) is multiplicative if 0 ≤ P < Q < N and C[P] * C[Q] ≥ C[P] + C[Q].
+
+The above arrays yield the following multiplicative pairs:
+
+·         (1, 4), because 1.5 * 3.0 = 4.5 ≥ 4.5 = 1.5 + 3.0,
+
+·         (1, 5), because 1.5 * 5.02 = 7.53 ≥ 6.52 = 1.5 + 5.02,
+
+·         (2, 3), because 2.0 * 2.0 = 4.0 ≥ 4.0 = 2.0 + 2.0,
+
+·         (2, 4) and (3, 4), because 2.0 * 3.0 = 6.0 ≥ 5.0 = 2.0 + 3.0.
+
+·         (2, 5) and (3, 5), because 2.0 * 5.02 = 10.04 ≥ 7.02 = 2.0 + 5.02.
+
+·         (4, 5), because 3.0 * 5.02 = 15.06 ≥ 8.02 = 3.0 + 5.02.
+
+Write a function:
+
+def solution(A, B)
+
+that, given zero-indexed arrays A and B, each containing N non-negative integers, returns the number of multiplicative pairs of indices.
+
+If the number of multiplicative pairs is greater than 1,000,000,000, the function should return 1,000,000,000.
+
+For example, given:
+
+  A[0] = 0    B[0] = 500,000
+  A[1] = 1    B[1] = 500,000
+  A[2] = 2    B[2] = 0
+  A[3] = 2    B[3] = 0
+  A[4] = 3    B[4] = 0
+  A[5] = 5    B[5] = 20,000
+the function should return 8, as explained above.
+
+Assume that:
+
+·         N is an integer within the range [0..100,000];
+
+·         each element of array A is an integer within the range [0..1,000];
+
+·         each element of array B is an integer within the range [0..999,999];
+
+·         real numbers created from arrays are sorted in non-decreasing order.
+
+Complexity:
+
+·         expected worst-case time complexity is O(N);
+
+·         expected worst-case space complexity is O(1), beyond input storage (not counting the storage required for input arguments).
+
+Elements of input arrays can be modified.
+
+Copyright 2009–2015 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.
+
+Tests
+Score: 83 of 100
+
+Estimated time complexity: O(N)
+
+Test name
+
+Running time
+
+Result
+
+example
+example test
+
+0.044 s
+
+OK
+
+simple_diagonal
+simple test with A = B
+
+0.052 s
+
+OK
+
+simple_equality
+simple test with multiple equalities to be counted
+
+0.052 s
+
+OK
+
+mulitple_zeros
+many zeros
+
+0.052 s
+
+WRONG ANSWER
+got 1 expected 2
+
+extreme_empty
+empty sequence + [1.5, 3.01]
+
+0.044 s
+
+WRONG ANSWER
+got -1 expected 0
+
+extreme_single
+singleton sequence + [1.4, 3.5]
+
+0.044 s
+
+OK
+
+doubles
+2-element sequences, precise calculation
+
+0.040 s
+
+OK
+
+precision_small
+precise calculation, N = 400
+
+0.044 s
+
+OK
+
+geometric_small
+geometric sequence, N = 111
+
+0.044 s
+
+OK
+
+arithmetic_small
+arithmetic sequence, N = ~300
+
+0.044 s
+
+OK
+
+random_small
+random sequence, N = ~600
+
+0.044 s
+
+OK
+
+geometric_medium
+geometric sequence, N = ~9,000
+
+0.064 s
+
+OK
+
+random_medium
+random sequence, N = ~10,000
+
+0.064 s
+
+OK
+
+arithmetic_medium
+arithmetic sequence, N = 20,000
+
+0.088 s
+
+OK
+
+geometric_large
+geometric sequence, N = ~60,000
+
+0.188 s
+
+OK
+
+arithmetic_large
+arithmetic sequence, N = 90,000
+
+0.244 s
+
+OK
+
+random_large
+random sequence, N = 100,000
+
+0.272 s
+
+OK
+
+extreme_large
+big numbers, N = 100,000
+
+0.280 s
+
+OK
+
+extreme_zeros
+almost all zeros, N <= 100,000
+
+0.224 s
+
+WRONG ANSWER
+got 0 expected 1000000000
+
+Solution (language: Python)
+def solution(A, B):
+    # write your code in Python 2.7
+    if not len(A) or not len(B) or len(A) != len(B):
+        return -1
+ 
+    # make C and filter all values <= 1
+    C = [A[i]+float(B[i])/1000000 for i in range(len(A)) if A[i]+float(B[i])/1000000 > 1]
+    
+    C.sort()
+    result = 0
+    
+    p = 0  # position
+    l = len(C) - 1
+    
+    while l > p:
+        res = C[l] / (C[l] - 1)
+        while (p < l and C[p] < res):
+            p = p + 1
+        if p == l:
+            break
+        result = result + (l-p)
+        
+        if result > 1000000000:
+            return 1000000000
+        
+        l = l-1
+        
+ 
+    return result
+← PreviousArchiveNext →
+
+
+Support
+If you like my posts, please support me on Gittip
+
+
+Published
+03 March 2015
+© Mikhail Kashkin 2009-2013
+
+
+
+Fork me on GitHub
+===
+ini isi todo.txt
+kita pengen tampilkan dg **showfile
+ok menarik juga cara oprek file spt ini.
+lumayan cepat utk desktop 32bit yg hd nya lambretta bgt.
+
+skrg pindahkan saja sebanyak mungkin apa2 yg kita punya di hd.
+kita punya 5 kerjaan besar.
+spor+sucor, whosedoctor, iotplatform, sop, sitarang, lingkungan
+	sitarang kasih kita gis
+	lingkungan dan iotplatform kasih kita sensor, mqtt, grpc, threejs, dst.
+	whosedoctor kasih kita twilio
+	sop hrsnya kasih kita diagram (jointjs revisit?)
+	spor kasih kita otp, email, sms, sosmed
+		pengen:
+		utilities utk postgres db -> sql per table
+	sucor kasih kita parsing dg javascript
+	iotplatform kasih kita rust-edge-grpc/protobuf, pi-sensor, django-pyro-grpc/protobuf-ibr, react-grpc/protobuf
+
+ini jadi andalan utk cv.
+selain kerjaan pribados kita.
+
+eh kita kan bisa nulis di sini...
+jadi bisa tampilkan sudah berapa lama waktu sejak xxx
+harusnya ada keybinding utk bisa insert datetime...
+
+masukkan ini ke database
+https://github.com/python/cpython/blob/3.10/Lib/webbrowser.py
+harusnya bisa dong pake chrome...
+==
+bayangkan besok lamar...
+kirim cv...what to put
+kerjaan utama kita versi stripped downnya.
+  lalang
+  fmus
+  spor - sucor
+  sop
+  meet doctor
+  iot platform
+  lingkungan
+  sitarang
+  ecoss

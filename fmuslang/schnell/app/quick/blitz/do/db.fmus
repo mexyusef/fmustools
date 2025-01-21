@@ -1,0 +1,280 @@
+--% index/fmus
+__PWD,d
+	@panggil dg u -e"/b>do/db" *
+	?pick
+		.,d(/load=__FILE__=cassandra/fmus*)
+		.,d(/load=__CURDIR__/elk.fmus=index/fmus*)
+		.,d(/load=__FILE__=firebase/fmus*)
+		.,d(/load=__FILE__=mariadb/fmus*)
+		.,d(/load=__FILE__=mongodb/fmus*)
+		.,d(/load=__FILE__=mssql/fmus*)
+		.,d(/load=__FILE__=mysql/fmus*)
+		.,d(/load=__FILE__=neo4j/fmus*)
+		.,d(/load=__FILE__=oracle/fmus*)
+		.,d(/load=__FILE__=postgres/fmus*)
+		.,d(/load=__CURDIR__/redis.fmus=redis/fmus*)
+		.,d(/load=__FILE__=sqlite3/fmus*)
+
+		.,d(/load=__FILE__=couchdb/fmus*)
+		.,d(/load=__FILE__=arangodb/fmus*)
+
+		@columnnar databases: clickhouse, druid*
+		@time-series databases*
+		@other databases: rocksdb, leveldb, memcached...*
+
+		.,d(/load=__FILE__=sql-play/fmus*)
+
+		@psql play*
+			?pick
+				@connect: "C:\Program Files\PostgreSQL\12\bin\psql.exe" -U usef -d tempdb -p 5432 *
+				@dump per table: pg_dump -Fc -v -U user_name -d db_name -t table_name > /path/to/file.bak *
+					?pick
+						@jangan pake -Fc ini bikin format binary custom*
+							$* "C:\Program Files\PostgreSQL\12\bin\pg_dump.exe" -Fc -v -U snap_dev -d snap_dev -t s_users > pengguna.sql
+						@jangan pake - hasil berantakan*
+							$* pg_dump.exe -Fc -v -U snap_dev -d snap_dev -t s_users > pengguna.sql
+						$* pg_dump.exe -W -U snap_dev -d snap_dev -t s_users -f pengguna.sql
+				@load sql file: psql -h localhost -U usef -p 5432 tempdb < tempdb.sql *
+				@create table: psql -U usef -d postgres -c "CREATE DATABASE hapuslah;" *
+					@tanpa -d, jadi psql: warning: extra command-line argument "-c" ignored *
+				@list tables:  psql -U usef tempdb -c "SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema='public' ORDER BY table_schema,table_name;" *
+					?pick
+						@ignore this
+							$* "C:\Program Files\PostgreSQL\12\bin\psql.exe" -U usef tempdb -c "SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema='public' ORDER BY table_schema,table_name;"
+							$* "C:\Program Files\PostgreSQL\12\bin\psql.exe" -U usef -d tempdb --command "SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema='public' ORDER BY table_schema,table_name;"
+						$* "C:\Program Files\PostgreSQL\12\bin\psql.exe" -U snap_dev -d snap_dev --command "SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema='snap_dev' ORDER BY table_schema,table_name;"
+				@list databases: psql -U usef -l
+					$* "C:\Program Files\PostgreSQL\12\bin\psql.exe" -U usef -l
+                $* sc queryex type=service state=all | wsl grep -i -A3 postgres
+                @postgres service - service name = "postgresql-x64-12"*
+                    ?pick
+                        $* net start postgresql-x64-12
+                        $* net stop postgresql-x64-12
+                        $* net pause postgresql-x64-12
+                        $* net continue postgresql-x64-12
+				$* for /F "tokens=*" %a in (db2.txt) do pg_dump.exe -W -U snap_dev -d snap_dev --schema-only -t %a -f %a-schema.sql
+				$* for /F "tokens=*" %a in (db2.txt) do pg_dump.exe -W -U snap_dev -d snap_dev --data-only --column-inserts -t %a -f %a-data.sql
+		.,d(/load=__FILE__=postgres/dump-table/fmus*)
+--#
+
+--% sql-play/fmus
+.,d
+	?pick
+		@check/make connection*
+		@create database*
+		@read/list database*
+		@delete database*
+		
+		@create table*
+		@read/list/detail table*
+		@update table - add/remove columns, add/remove constraints*
+		@delete table*
+
+		@create user/role*
+		@update/grant user/role*
+		@delete user/role*
+
+		@create/insert data/record/row*
+		@read/select data/record/row*
+		@update/join data/record/row*
+		@delete data/record/row*
+
+		@stored procedure, trigger, function, view, index*
+--#
+
+--% postgres/dump-table/fmus
+.,d
+	@jalankan dulu ini: << set PATH=C:\Program Files\PostgreSQL\12\bin;%PATH% >> *
+	$* set PATH=C:\Program Files\PostgreSQL\12\bin;%PATH%
+	$* psql.exe -U snap_dev -d snap_dev --command "SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema='snap_dev' ORDER BY table_schema,table_name;" > db.txt
+	$* wsl cat db.txt|wsl awk '{print $3}' > db2.txt
+	db2.txt,f(f=db2.txt,@rm=2="table_name")
+	$* more db2.txt
+	$* for /F "tokens=*" %a in (db2.txt) do pg_dump.exe -W -U snap_dev -d snap_dev -t %a -f %a.sql
+--#
+
+--% postgres/dump-table/batch
+rem sc queryex type=service state=all | wsl grep -i -A3 postgres
+rem net start postgresql-x64-12
+
+set PATH=C:\Program Files\PostgreSQL\12\bin;%PATH%
+psql.exe -U snap_dev -d snap_dev --command "SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema='snap_dev' ORDER BY table_schema,table_name;" > db.txt
+
+wsl cat db.txt|wsl awk '{print $3}' > db2.txt
+edit b2.txt utk hapus table_name atau rem db2.txt,f(f=db2.txt,@rm=2="table_name")
+more db2.txt
+
+for /F "tokens=*" %a in (db2.txt) do pg_dump.exe -W -U snap_dev -d snap_dev -t %a -f %a.sql
+--#
+
+--% postgres/pg_dump-table-schema-only
+https://stackoverflow.com/questions/43228951/backup-of-postgresql-database-design-without-data
+-s
+--schema-only
+--data-only
+--column-inserts
+
+(query service status)
+sc queryex type=service state=all | wsl grep -i -A3 postgres
+
+(harus console admin)
+net start postgresql-x64-12
+
+set PATH=C:\Program Files\PostgreSQL\12\bin;%PATH%
+psql.exe -U snap_dev -d snap_dev --command "SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema='snap_dev' ORDER BY table_schema,table_name;" > db.txt
+
+wsl cat db.txt|wsl awk '{print $3}' > db2.txt
+
+for /F "tokens=*" %a in (db2.txt) do pg_dump.exe -W -s -U snap_dev -d snap_dev -t %a -f %a.sql
+
+for /F "tokens=*" %a in (db2.txt) do pg_dump.exe -W -U snap_dev -d snap_dev --schema-only -t %a -f %a-schema.sql
+for /F "tokens=*" %a in (db2.txt) do pg_dump.exe -W -U snap_dev -d snap_dev --data-only --column-inserts -t %a -f %a-data.sql
+--#
+
+--% mssql/fmus
+.,d
+	?pick
+		@generate docker-compose*
+			?pick
+				@docker-compose.yml gaya upwork - ms.yml*
+					docker-compose.yml,f(f=__CURDIR__/../../../special/dc.ms)
+				@docker-compose.yml gaya awal/pertama latihan - ms2.yml*
+					docker-compose.yml,f(f=__CURDIR__/../../../special/dc.ms2)
+		@docker single run di sini*
+--#
+
+--% sqlite3/fmus
+__PWD,d
+	%__TEMPLATE_FOLDER_OPREK_ACER=C:\work\oprek\spor
+	?pick
+		@create database dengan cepat in curdir*
+			$* sqlite3 database.db < dump.sql
+			$* sqlite3 database.db -init dump.sql
+		@create content dengan cepat dari filepath ke db*
+		.,d(/load=__FILE__=oprek spor database, dengan buat db, jalankan manager dst*)
+--#
+
+--% oprek spor database, dengan buat db, jalankan manager dst
+__TEMPLATE_FOLDER_OPREK_ACER,d
+	%__TEMPLATE_FILE_OPREK=s_users-schema.sql
+	
+	@bersihkan file dulu*
+
+	@replace snap_dev. dg empty
+	/file>repl/snap_dev./|__TEMPLATE_FILE_OPREK
+	
+	@comment out SET
+	/file>C/SET /-- |__TEMPLATE_FILE_OPREK
+	
+	@comment out SELECT
+	/file>C/SELECT /-- |__TEMPLATE_FILE_OPREK
+	
+	@comment out ALTER sequence
+	/file>C/ALTER SEQUENCE /-- |__TEMPLATE_FILE_OPREK
+	
+	@join ALTER table sebelum comment out
+	/file>J/ALTER TABLE ONLY |__TEMPLATE_FILE_OPREK
+	
+	@comment out ALTER table
+	/file>C/ALTER TABLE /-- |__TEMPLATE_FILE_OPREK
+	
+	@join CREATE sequence jadi satu baris dari 6 baris
+	/file>J/CREATE SEQUENCE /6|__TEMPLATE_FILE_OPREK
+
+	@comment out CREATE sequence
+	/file>C/CREATE SEQUENCE /-- |__TEMPLATE_FILE_OPREK
+
+	@replace DEFAULT now() menjadi DEFAULT CURRENT_TIMESTAMP
+	/file>repl/DEFAULT now()/DEFAULT CURRENT_TIMESTAMP|__TEMPLATE_FILE_OPREK
+
+	@more commenting out...
+	/file>C/CREATE INDEX /-- |__TEMPLATE_FILE_OPREK
+	/file>C/COMMENT ON /-- |__TEMPLATE_FILE_OPREK
+	
+	$* sqlite3 spor.db < __TEMPLATE_FILE_OPREK
+	$* sqlman spor.db
+--#
+
+--% postgres/fmus
+.,d
+	?pick
+		@instalasi dalam local system*
+			@pg-dev libraries utk development*
+			@psql utilities dll utk development*
+		@getting pg client: xxx*
+		@generate docker-compose*
+			docker-compose.yml,f(f=__CURDIR__/../../../special/dc.pg)
+		@docker single run di sini*
+--#
+
+--% mysql/fmus
+.,d
+	?pick
+		@https://dev.mysql.com/downloads/workbench/*
+		@generate docker-compose*
+			docker-compose.yml,f(f=__CURDIR__/../../../special/dc.my)
+		@docker single run di sini*
+--#
+
+--% mariadb/fmus
+.,d
+	?pick
+		@generate docker-compose*
+			docker-compose.yml,f(f=__CURDIR__/../../../special/dc.ma)
+		@docker single run di sini*
+--#
+
+--% oracle/fmus
+.,d
+	?pick
+		@PL/SQL*
+		@Pro/C*
+		@generate docker-compose*
+		@docker single run di sini*
+--#
+
+--% neo4j/fmus
+.,d
+	?pick
+		@generate docker-compose*
+			docker-compose.yml,f(f=__CURDIR__/../../../special/dc.neo)
+		@docker single run di sini*
+--#
+
+--% mongodb/fmus
+.,d
+	?pick
+		@getting mongo client: xxx*
+		@generate docker-compose*
+			docker-compose.yml,f(f=__CURDIR__/../../../special/dc.mg)
+		@docker single run di sini*
+--#
+
+--% cassandra/fmus
+.,d
+	?pick
+		@generate docker-compose*
+			docker-compose.yml,f(f=__CURDIR__/../../../special/dc.cass)
+		@docker single run di sini*
+--#
+
+--% firebase/fmus
+.,d
+	?pick
+		@visit firebase console*
+		@generate docker-compose*
+		@docker single run di sini*
+--#
+
+
+--% couchdb/fmus
+.,d
+	?pick
+		@generate docker-compose*
+--#
+
+--% arangodb/fmus
+.,d
+	?pick
+		@generate docker-compose*
+--#

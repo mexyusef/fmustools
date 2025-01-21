@@ -1,0 +1,146 @@
+--% index/fmus
+.,d
+	src,d(/mk)
+		assets,d(/mk)
+		index.js,f(e=__FILE=/index.js)
+		index.css,f(e=__FILE=/index.css)
+		index.html,f(e=__FILE=/index.html)
+		components,d(/mk)
+			App,d(/mk)
+				index.js,f(e=__FILE=components/App/index.js)
+				ThreeAntD.js,f(e=__FILE=components/App/ThreeAntD.js)
+--#
+
+--% /index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import './index.css';
+import 'font-awesome/css/font-awesome.min.css';
+import { App } from './components/App';
+
+const ChartContext = React.createContext();
+ReactDOM.render(<App/>, document.querySelector('#app'));
+--#
+
+--% /index.css
+@import '~antd/dist/antd.css';
+@import '~antd/dist/antd.dark.css';
+/* @import '~antd/dist/antd.compact.css'; */
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap');
+
+:root {
+    --left-distance: 15%;
+    --left-sidebar-percent: -15%; /* negative dari left-distance */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    font-family: "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    overflow: hidden; /* flicker scrollbar */
+}
+
+body::after {
+    content: "";
+    background-image: url(./assets/images/jakarta.jpg);
+    background-size: cover;
+    opacity: 0.2;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    position: fixed;
+    z-index: -1;   
+}
+
+.highcharts-credits {
+    display: none;
+}
+--#
+
+--% /index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple IOT Platform</title>
+    <!-- <script src="https://unpkg.com/pbf@3.0.5/dist/pbf.js"></script> -->
+    <!-- <script src="https://unpkg.com/earcut@2.2.2/dist/earcut.min.js"></script> -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+            integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+            crossorigin=""/>
+
+</head>
+	<body>
+	    <div id="app"></div>
+	</body>
+</html>
+--#
+
+--% components/App/index.js
+export { default as App } from './ThreeAntD';
+--#
+
+--% components/App/ThreeAntD.js
+import React, { Component } from "react";
+import { Link } from 'react-router-dom';
+
+import * as THREE from "three";
+// const THREE = require('./ColladaLoader');
+import { MeshLambertMaterial, MeshPhongMaterial, MeshStandardMaterial } from "three";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
+import { CSS3DRenderer, CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+import axios from 'axios';
+import PubSub from 'pubsub-js';
+
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Paper from '@material-ui/core/Paper';
+import Toolbar from '@material-ui/core/Toolbar';
+
+import { IBRObject } from '@/building/IBRObject.js';
+import { init, renderSingleIBRStructure, render } from '@/building/renderers.js';
+import { BLOCKING_GRID_NAME, BOUNDARY_NAME, FLOOR_HEIGHT } from '@/building/constants.js';
+
+import {
+  Button,
+  Card,
+  Checkbox,
+  Divider,
+  Form,
+  Input,
+  Tabs,
+  notification,
+} from 'antd';
+
+
+import { Collapse } from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
+
+const { Panel } = Collapse;
+
+const style = {
+  height: 500 // we can control scene size by setting container dimensions
+};
+
+class Container extends React.Component {
+}
+
+export default Container;
+--#

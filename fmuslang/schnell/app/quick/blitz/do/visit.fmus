@@ -1,0 +1,113 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        $* python -m webbrowser -t https://portal.photomath.net/home
+            @masukkan yusef314159, google oauth*        
+
+        $* python -m webbrowser -t https://cloud.hasura.io/
+
+        
+        $* python -m webbrowser -t https://dashboard.heroku.com/new-app
+            @heroku*
+
+        @notion*
+        @figma*
+
+        /l)https://app.datacamp.com/learn/
+
+        $* python -m webbrowser -t https://vercel.com/dashboard/
+
+        $* python -m webbrowser -t https://app.netlify.com/
+
+        $* python -m webbrowser -t https://console.firebase.google.com/?pli=1
+
+        $* python -m webbrowser -t https://console.aws.amazon.com/
+
+        $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.topcoder.com')"
+        $* start /B python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.topcoder.com')"
+        $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.codewars.com')"
+        $* start /B python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.codewars.com')"
+        $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.kaggle.com')"
+        $* start /B python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.kaggle.com')"
+
+        @free DB*
+            @mongodb*
+            @neo4j*
+            @postgres/cockroach*
+                @https://www.elephantsql.com/plans.html*
+                @https://towardsdatascience.com/setting-up-a-postgresql-instance-on-the-cloud-4ec4cf168239*
+            @redis*
+
+        @json beautifer*
+            ?pick
+                
+                $* python -m webbrowser -t https://codebeautify.org/jsonviewer
+                $* python -m webbrowser -t https://prettier.io/playground/
+
+        $* python -m webbrowser -t https://jsonplaceholder.typicode.com/users/1
+
+        $* python -m webbrowser -t https://youtube.com/
+        #$* python -c"import webbrowser; webbrowser.open('https://youtube.com')"
+
+
+        # jangan gunakan yg gagal berikut ini
+        #$* python -c"import webbrowser; webbrowser.get('C:\Program Files\Google\Chrome\Application\chrome.exe').open('https://youtube.com')"
+        #$* python -c"import webbrowser; webbrowser.get(\"C:\Program Files\Google\Chrome\Application\chrome.exe\").open('https://youtube.com')"
+        #$* python -c"import webbrowser; webbrowser.get('\"C:\Program Files\Google\Chrome\Application\chrome.exe\"').open('https://youtube.com')"
+        #$* python -c"import webbrowser; webbrowser.get('\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\"').open('https://youtube.com')"
+        #$* python -c"import webbrowser; webbrowser.get('\"C:\\\\Program Files\\\\Google\\Chrome\\\\Application\\\\chrome.exe\"').open('https://youtube.com')"        
+        #$* python -c"import webbrowser; webbrowser.get('C:/\"Program Files\"/Google/Chrome/Application/chrome.exe').open('https://youtube.com')"
+        #$* python -c"import webbrowser; webbrowser.get('\"C:/Program Files/Google/Chrome/Application/chrome.exe\"').open('https://youtube.com')"
+        #$* python -c"import webbrowser; webbrowser.get('chrome.exe').open('https://youtube.com')"
+
+
+        $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://youtube.com')"
+
+        $* python -m webbrowser -t https://jsonformatter.org/json-pretty-print
+
+        $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://jsonformatter.org/json-pretty-print')"
+        
+        $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe --no-startup-window %s').open('https://google.com')"
+
+
+        $* python -m webbrowser -t https://www.youtube.com/c/Freecodecamp/videos
+        @developer websites*
+            ?pick
+                @hackernews*
+                @reddit*
+                $* python -m webbrowser -t https://learnxinyminutes.com/
+                $* python -m webbrowser -t https://dzone.com/refcardz
+                $* python -m webbrowser -t https://alvinalexander.com/
+                $* python -m webbrowser -t https://www.tutorialspoint.com/scala/index.htm
+                $* python -m webbrowser -t https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/?ref=ghm
+                $* python -m webbrowser -t https://www.baeldung.com/spring-boot
+                $* python -m webbrowser -t https://zetcode.com/all/
+                $* python -m webbrowser -t https://www.raywenderlich.com/27470499-beginning-data-science-with-jupyter-notebook-and-kotlin
+
+        @business websites*
+
+        $* python -m webbrowser -t https://temp-mail.org/en/
+
+        @github to follow/stalk*
+        @twitter developers*
+            $* python -m webbrowser -t https://twitter.com/dan_abramov
+            $* python -m webbrowser -t https://twitter.com/migueldeicaza
+
+        @twitter politics*
+
+        .,d(/load=__FILE__=buka/port*)
+        .,d(/load=__FILE__=buka/host/port*)
+--#
+
+--% buka/port
+.,d
+    %__TEMPLATE_PORT=__INPUT__
+    $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('http://localhost:__TEMPLATE_PORT')"
+--#
+
+--% buka/host/port
+.,d
+    %__TEMPLATE_PORT=__INPUT__
+    %__TEMPLATE_HOST=__INPUT__
+    $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('http://__TEMPLATE_HOST:__TEMPLATE_PORT')"
+--#

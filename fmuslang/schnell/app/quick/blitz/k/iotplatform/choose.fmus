@@ -1,0 +1,152 @@
+--% index/fmus
+__PWD,d
+	?pick
+		$* choco install cmake
+		.,d(/load=__FILE__=mengenai protobuf dan grpc di backend/fmus*)
+		.,d(/load=__CURDIR__/rs-edge.fmus=index/fmus*)
+		.,d(/load=__CURDIR__/web-cloud.fmus=index/fmus*)
+--#
+
+--% mengenai protobuf dan grpc di backend/fmus
+.,d
+	** showtext=__FILE__=mengenai protobuf dan grpc di backend/text
+--#
+
+--% mengenai protobuf dan grpc di backend/text
+- bikin connector.proto
+```
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "id.qca.iot.edge.connector";
+option java_outer_classname = "ConnectorProto";
+
+package connector;
+
+service DataService {
+	
+	rpc GenerateData (DataRequest) returns (DataReply) {}
+
+	// rpc FetchData (DataRequest) returns (DataReply) {}
+
+}
+
+message DataRequest {
+	string smart_building   = 1;
+	string sensor           = 2;
+	int32 min_value         = 3;
+	int32 max_value         = 4;
+	int32 yellow            = 5;
+	int32 red               = 6;
+	int32 interval          = 7;
+	string stopper          = 8;
+	int32 stop              = 9;
+}
+
+message DataReply {
+	string message          = 1;
+	string timestamp        = 2;
+	int32 value             = 3;
+	float float_value       = 4;
+}
+```
+
+- connector.sh utk generate *_pb2.py dan *_pb2_grpc.py
+python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. $1.proto
+
+kita hrs tau beda keduanya...klo gak salah ada stuff utk client dan server ???
+
+- lalu pendengar utk grpc ini dibungkus lewat pyro dalam connector.py `python connector.py`
+
+```
+import Pyro4, grpc, connector_pb2, connector_pb2_grpc
+
+GRPCURI = 'localhost:9051'
+GRPCOPTS = (('grpc.enable_http_proxy', 0),)
+
+@Pyro4.expose
+class RustConnector:
+	def grpc_call(self, building, sensor, minvalue, maxvalue, yellow, red, interval, stoptype, stop):
+		print(f"dipanggil oleh sensor: {sensor} dg min {minvalue} max {maxvalue}")
+
+		try:
+			with grpc.insecure_channel(GRPCURI, options=GRPCOPTS) as channel:
+				stub = connector_pb2_grpc.DataServiceStub(channel)
+				response = stub.GenerateData(
+					connector_pb2.DataRequest(
+						smart_building=building, 
+						sensor=sensor, 
+						min_value=minvalue, 
+						max_value=maxvalue, 
+						yellow=yellow, 
+						red=red, 
+						interval=interval, 
+						stopper=stoptype, 
+						stop=stop
+					)
+				)
+		except Exception as err:
+			print('gagal proses grpc call:', err)
+				
+		print("Greeter client received: " + response.message, "dan isi total:", response)
+		return {
+			'float_value': response.float_value,
+			'message': response.message,
+			'timestamp': response.timestamp,
+			'value': response.value,      
+		}
+
+
+if __name__ == '__main__':
+	daemon = Pyro4.Daemon()
+	uri = daemon.register(RustConnector)
+
+	print("Ready. Object uri =", uri)
+	with open('/tmp/pyro.url', 'w') as fd:
+		fd.write(str(uri))
+
+	daemon.requestLoop()
+```
+pemahamanku skrg adlh: bhw backend ini menerima panggilan dari sensor (via grpc)
+abis itu meneruskan ke "atas" via pyro di /tmp/pyro.url???
+
+- struktur backend
+(project)
+	apps/
+		building/
+		map/
+		qcrot/
+			urls.py
+		sensor/
+		user/
+	main/
+		urls.py
+
+apps/qcrot/urls.py
+```
+from django.urls import include, re_path, path
+from .views import IBRView, BinaryFileView
+
+urlpatterns = [
+	# http://localhost:8000/api/ibr/file
+	re_path(r'^file/?$', IBRView.as_view(), name='ibr-get'),
+	
+	# http://localhost:8000/api/ibr/binary
+	re_path(r'^binary/?$', BinaryFileView.as_view(), name='ibr-binary'),
+]
+```
+
+main/urls.py
+```
+from django.contrib import admin
+from django.urls import path, include
+from django.http import HttpResponse
+
+urlpatterns = [
+	path('', lambda req: HttpResponse('Alive!')),
+	path('building/', include('apps.building.urls')),
+	path('api/ibr/', include('apps.qcrot.urls')),
+	path('admin/', admin.site.urls),
+]
+```
+--#

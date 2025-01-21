@@ -1,0 +1,15 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @selenium dg python*
+            .,d(/load=__CURDIR__/../py/selen.fmus=index/fmus*)
+        @selenium dg js*
+            .,d(/load=__CURDIR__/../js/selen.fmus=index/fmus*)
+        @selenium dg go*
+            .,d(/load=__CURDIR__/../go/selen.fmus=index/fmus*)
+        @selenium dg java*
+            .,d(/load=__CURDIR__/../java/selen.fmus=index/fmus*)
+
+        @https://github.com/mozilla/geckodriver/releases *
+        @https://chromedriver.storage.googleapis.com/index.html *
+--#

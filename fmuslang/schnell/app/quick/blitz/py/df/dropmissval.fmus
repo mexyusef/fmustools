@@ -1,0 +1,38 @@
+--% index/fmus
+__PWD,d
+    main.py,f(e=__FILE__=template1)    
+    dropna.py,f(e=__FILE__=template2)
+    $* python main.py
+    $* python dropna.py
+--#
+
+--% template1
+# Dropping missing values using dropna(
+import pandas as pd
+import numpy as np
+dict = {
+    'First Score':[100, 90, np.nan, 95],
+    'Second Score': [30, np.nan, 45, 56],
+    'Third Score':[52, 40, 80, 98],
+    'Fourth Score':[np.nan, np.nan, np.nan, 65]
+}
+# creating a dataframe from dictionary
+df = pd.DataFrame(dict)   
+print(df)
+--#
+
+--% template2
+import pandas as pd
+import numpy as np
+dict = {
+    'First Score':[100, 90, np.nan, 95],
+    'Second Score': [30, np.nan, 45, 56],
+    'Third Score':[52, 40, 80, 98],
+    'Fourth Score':[np.nan, np.nan, np.nan, 65]
+} 
+# creating a dataframe from dictionary
+df = pd.DataFrame(dict)
+# using dropna() function  
+df.dropna()
+print(df)
+--#

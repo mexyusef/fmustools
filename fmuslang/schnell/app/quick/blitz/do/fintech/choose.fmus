@@ -1,0 +1,22 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @create bitcoin project*
+        @create blockchain project*
+        @create cardano project*
+        @create chia project*
+        @create dapps project*
+        @create ethereum project*
+        @create NFT (marketplace, platform) project*
+        @create smart contract project*
+        @create solana project*
+        @create solidity project*
+        @mysterium vpn*
+            @https://www.mysterium.network/*
+
+        @github nft marketplace*
+            @https://github.com/topics/nft-marketplace*
+            @https://www.google.com/search?client=firefox-b-d&q=github+nft+marketplace*
+
+        @make passive income/money - online*
+--#

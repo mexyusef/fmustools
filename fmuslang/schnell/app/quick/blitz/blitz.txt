@@ -1,0 +1,15 @@
+BLITZ_PREFIX = 'b)'
+
+b)cpp/cm1|source.cpp
+b)cpp/cm1|source.cpp,output.exe
+
+b)py/fa1.fmus
+b)react/func1.fmus
+
+u -e"/b)ml/titanic"
+
+siapa panggil blitz? (dan dahsyater)
+app.quick.__init__.py
+
+perlu juga tambah utk tdd
+krn ada yg minta dir: test dan tests.

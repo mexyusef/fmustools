@@ -1,0 +1,314 @@
+--% index/fmus
+.,d
+  main.py,f(e=__FILE__=main.py)
+  handler.py,f(e=__FILE__=handler.py)
+  bahasa.py,f(e=__FILE__=bahasa.py)
+--#
+
+--% main.py
+import datetime, sys, traceback
+
+schnelldir = '/home/usef/work/ulibs/schnell'
+sys.path.extend([schnelldir, '..'])
+
+# from app.dirutils import (ayah, joiner, here)
+from app.printutils import print_json, indah4, print_copy
+from app.utils import trycopy, env_exist, env_reload
+from app.treeutils import (
+	child, child1, 
+	anak, jumlahanak, beranak,
+	data,
+	token, chtoken, chdata,
+)
+from lark import (
+	Lark,
+	InlineTransformer,
+)
+# from app.transpiler.frontend.bahasa_html import bahasa
+from app.transpiler.frontend.bahasa import bahasa
+from app.transpiler.frontend.handler import handler
+
+
+class TheProcessor(InlineTransformer):
+	def declarative_program(self, *item_lines):
+		return item_lines
+
+
+def process_language(code, returning=False, debug=True):
+	# print('#1 process language, code:', code, 'grammar:', bahasa[:50] + '...')
+	try:
+		pre_parser = Lark(bahasa, start='declarative_program')
+		parser = pre_parser.parse
+		indah4('='*20 + ' ' + code + '\n', warna='red')
+		parsed_tree = parser(code)
+		instructions = TheProcessor().transform(parsed_tree)
+		results = []
+		for insn in instructions:
+			# print('loop outer:', data(insn))
+			if debug:
+				print(insn.pretty())
+			hasil = handler(insn)
+			# indah4(hasil, warna='yellow')
+			results.append(hasil)
+
+		hasil = '\n'.join(results)
+		if returning:
+			return hasil
+		indah4(hasil, warna='yellow')
+
+	except Exception as err:
+		print(err)
+		trace = traceback.format_exc()
+		print(trace)
+
+
+def myrepl(debug=True):
+	code = 1
+	while code != 'x':
+		try:
+			# prompt = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+			prompt = datetime.datetime.utcnow().isoformat()
+			code = input(f'FE {prompt} >> ')
+			code = code.strip()			
+			if code == 'bahasa':
+				indah4(bahasa, warna='green')
+			elif code != '' and code != 'x':
+				# print(f'code adlh: [{code}]')
+				process_language(code, debug=debug)
+		except EOFError as eof:
+			print('Ctrl+D? Exiting...', eof)
+			break
+		except Exception as err:
+			print(err)
+
+
+if __name__ == '__main__':
+	myrepl()
+--#
+
+--% handler.py
+import re
+from app.stringutils import tabify_content, tabify_contentlist
+from app.treeutils import (
+  data, 
+  token, 
+  child1, 
+  child2, 
+  child3, 
+  child4,
+  child,
+  chdata,
+  chtoken,
+  anak, 
+  ispohon, istoken,
+  beranak,
+  sebanyak,
+  jumlahanak, 
+)
+
+indent = 0
+# TAB = ' '*2
+TAB = '\t'
+
+def inc():
+  global indent
+  indent += 1
+
+def dec():
+  global indent
+  indent -= 1
+
+def tab():
+  global indent
+  return TAB*indent
+
+def element_name(tree):
+  kembali = token(tree)
+  return kembali
+
+def element_children(tree):
+  """
+  tree adlh tuple
+  itemsnya adlh Tree
+  """
+  # print('elem child terima data:', type(tree), data(tree))
+  anaks = []
+  for tuple_item in anak(tree): # tree
+    # print(' >> elem child iterate:', type(tuple_item), tuple_item) # tuple
+    for item in tuple_item:
+      res = declarative_element(item)
+      anaks.append(res)
+
+  return '\n'.join(anaks)
+
+def item_key_value_berslash(tree):
+  kembali = ''
+  k,v='',''
+  for item in anak(tree):  
+    jenis = data(item)    
+    if jenis == 'item_key':
+      k = token(item)
+    elif jenis == 'item_value_berslash':
+      v = token(item)
+      # print('value beraslash:', v, 'dari:', jenis)
+  kembali += f'{k}={v}'
+  return kembali  
+
+def item_key_value(tree):
+  kembali = ''
+  # kvs = []
+  k,v='',''
+  for item in anak(tree):
+    jenis = data(item)    
+    if jenis == 'item_key':
+      k = token(item)
+    elif jenis == 'item_value':
+      v = token(item)
+    # kvs.append(f'{k} = {v}')
+  kembali += f'{k}={v}'
+  return kembali
+
+def item_key_value_boolean(tree):
+  """
+  daripada:
+  disabled=true
+  mending:
+  disabled
+  """
+  name = token(tree)
+  # kembali = f'{name}=true'
+  kembali = f'{name}'
+  return kembali
+
+def element_config(tree):
+  kembali = ''
+  kvs = []
+  for item in anak(tree):
+    jenis = data(item)
+    if jenis == 'item_key_value':
+      kv = item_key_value(item)
+      kvs.append(kv)
+    elif jenis == 'item_key_value_berslash':
+      kv = item_key_value_berslash(item)
+      kvs.append(kv)
+    elif jenis == 'item_key_value_boolean':
+      kv = item_key_value_boolean(item)
+      kvs.append(kv)
+  kembali += ' '.join(kvs)
+  return kembali
+
+def declarative_element(tree):  
+  kembali = ''
+  name, attrs, children, text = '','','', ''
+  for item in anak(tree):
+    jenis = data(item)
+    if jenis == 'element_name':
+      name = element_name(item)
+    elif jenis == 'element_config':
+      attrs = element_config(item)
+    elif jenis == 'element_children':
+      children = element_children(item)
+    elif jenis == 'cdata_text':
+      text = token(item)
+  kembali += f'<{name}'
+  if attrs:
+    kembali += ' ' + attrs
+  kembali += '>\n'
+  if text:
+    inc()
+    content = tabify_content(text, tab())
+    kembali += content
+    dec()
+    kembali += '\n'
+  if children:
+    inc()
+    content = tabify_content(children, tab())
+    kembali += content
+    dec()
+    kembali += '\n'
+  kembali += f'</{name}>'
+  return kembali
+
+def handler(tree):
+  kembali = declarative_element(tree)
+  return kembali
+--#
+
+--% bahasa.py
+
+# <satu<dua<tiga/config/(children)
+
+declarative_program = """
+declarative_program: declarative_element (declarative_element)*
+
+declarative_element: "<" element_name element_config? cdata_text? element_children?
+
+element_name: HURUF_DIGIT
+element_config_separator: ","
+element_config: "/" element_config_item (element_config_separator element_config_item)* "/"
+  | "$" element_config_item_berslash (element_config_separator element_config_item_berslash)* "$"
+element_config_item: HURUF_DIGIT  -> item_key_value_boolean
+  | item_key "=" item_value       -> item_key_value
+element_config_item_berslash: HURUF_DIGIT  -> item_key_value_boolean
+  | item_key "=" item_value       -> item_key_value
+  | item_key "=" item_value_berslash       -> item_key_value_berslash
+
+element_children: "(" declarative_program ")"
+
+item_key: HURUF_DIGIT
+// item value hrs bisa terima:
+// ' " { } ( ) [ ] / @ : ;
+// <Route path="/@:username/favorites" component={ProfileFavorites} />
+
+item_value: HURUF_NILAI
+  | "'" HURUF_NILAI_BERSPASI "'" -> diapit_sq
+  | "\\"" HURUF_NILAI_BERSPASI "\\"" -> diapit_dq
+
+item_value_berslash: HURUF_NILAI_BERSLASH
+
+cdata_text: HURUF_CDATA
+
+transformer: transform_value (transform_value)*
+transform_value: "'" -> tx_single
+| "\\"" -> tx_double
+| "'d" -> tx_double
+| "'c" -> tx_braces
+| "'k" -> tx_brackets
+| "'p" -> tx_parentheses
+"""
+
+huruf_berbeda = """
+HURUF_CDATA: ("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|"."|" "|";"|":"|"+"|"-")*
+HURUF_NILAI: ("_"|LETTER|DIGIT|"\\""|"{") 	("_"|LETTER|DIGIT|"."|"\\""|"'"|"`"|"{"|"}"|"="|"<"|">"|"!"|"("|")"|" ")*
+HURUF_NILAI_BERSLASH: ("_"|LETTER|DIGIT|"\\""|"{") 	("_"|LETTER|DIGIT|"."|"\\""|"'"|"`"|"{"|"}"|"="|"<"|">"|"!"|"("|")"|" "|"/")*
+HURUF_NILAI_BERSPASI: ("_"|LETTER|DIGIT|"\\""|"{") 	("_"|LETTER|DIGIT|"."|"`"|"{"|"}"|"("|")"|"="|">"|" ")*
+HURUF_NON_OPEN: ("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|"."|","|" "|"+"|"="|"-"|"_"|"@"|"#"|"$"|"%"|"^"|"&"|"*")*
+HURUF_KODE_FRONTEND: ("_"|LETTER|DIGIT|"\\""|"{"|"<") 	("_"|LETTER|DIGIT|"."|"\\""|"'"|"`"|"{"|"}"|"="|"<"|">"|"!"|"("|")"|" "|"/")*
+"""
+
+huruf = """
+HURUF_DIGIT: ("_"|LETTER|DIGIT) 	("_"|LETTER|DIGIT|".")*
+"""
+
+from langs import base_grammar
+
+#<PersistGate /loading={<FullScreen Berspasi>},persistor={persistor}/
+#<PersistGate $loading={<FullScreen />},persistor={persistor}$
+#<PersistGate $loading={<FullScreen />},persistor={persistor}$bertulisan sblm children
+#<a<b<c
+#<a<b<c(<d<e)
+#<a/disabled=true,onClick={()=>Mycomponent}/(<b)
+# <a(<b<c(<e(<g(<i(<j<k/disabled/<l))<h)<f)<d)
+#<a/disabled, nama=kuda, onClick={handleMe}/
+#<a/disabled/ini adlh tulisanku untukmu
+#<a/disabled/ini adlh tulisanku untukmu(<b(<c))
+bahasa = f"""
+{declarative_program}
+
+{huruf_berbeda}
+
+{huruf}
+
+{base_grammar}
+"""
+--#

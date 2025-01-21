@@ -1,0 +1,68 @@
+Open sidebar
+ReactJS TDD Examples
+
+
+User
+TDD in ReactJS: show me some examples
+
+ChatGPT
+Sure! Here are some examples of Test-Driven Development (TDD) in ReactJS:
+
+Testing a component's rendering:
+jsx
+Copy code
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import MyComponent from './MyComponent';
+
+test('renders component correctly', () => {
+  render(<MyComponent />);
+  const componentElement = screen.getByTestId('my-component');
+  expect(componentElement).toBeInTheDocument();
+});
+Testing component props and behavior:
+jsx
+Copy code
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import MyComponent from './MyComponent';
+
+test('handles click event correctly', () => {
+  const handleClick = jest.fn();
+  render(<MyComponent onClick={handleClick} />);
+  const buttonElement = screen.getByTestId('my-button');
+  fireEvent.click(buttonElement);
+  expect(handleClick).toHaveBeenCalled();
+});
+Testing component state changes:
+jsx
+Copy code
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import MyComponent from './MyComponent';
+
+test('updates state correctly on button click', () => {
+  render(<MyComponent />);
+  const buttonElement = screen.getByTestId('my-button');
+  fireEvent.click(buttonElement);
+  const messageElement = screen.getByTestId('message');
+  expect(messageElement.textContent).toBe('Button clicked!');
+});
+Testing asynchronous operations (using async/await or promises):
+jsx
+Copy code
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
+import MyComponent from './MyComponent';
+
+test('fetches and displays data correctly', async () => {
+  render(<MyComponent />);
+  const loadingElement = screen.getByTestId('loading');
+  expect(loadingElement).toBeInTheDocument();
+
+  await waitFor(() => screen.getByTestId('data'));
+  const dataElement = screen.getByTestId('data');
+  expect(dataElement.textContent).toBe('Fetched data');
+});
+These examples demonstrate the basic concepts of testing React components using TDD principles. Remember to install the required testing libraries, such as @testing-library/react, and configure them appropriately for your project.
+

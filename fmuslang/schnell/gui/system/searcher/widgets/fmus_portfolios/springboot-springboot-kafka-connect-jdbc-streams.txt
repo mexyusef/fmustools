@@ -1,0 +1,73 @@
+kita ambil dari:
+C:\portfolio\_springboot\springboot-kafka-connect-jdbc-streams\README.md
+
+The main goal of this project is to play with 
+[`Kafka`](https://kafka.apache.org), 
+[`Kafka Connect`](https://docs.confluent.io/current/connect/index.html) and 
+[`Kafka Streams`](https://docs.confluent.io/current/streams/index.html)
+
+we have: 
+✅`store-api` that inserts/updates records in [`MySQL`](https://www.mysql.com); 
+✅`Source Connectors` that monitor inserted/updated records in `MySQL` and push messages related to those changes to `Kafka`; 
+✅`Sink Connectors` that listen messages from `Kafka` and insert/update documents in [`Elasticsearch`](https://www.elastic.co); 
+✅finally, `store-streams` that listens messages from `Kafka`, treats them using `Kafka Streams` and push new messages back to `Kafka`.
+
+## Applications
+
+- ### store-api
+Monolithic [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) application 
+that exposes a REST API to manage `Customers`, `Products` and `Orders`. 
+The data is stored in `MySQL`.
+
+- ### store-streams
+
+`Spring Boot` application that connects to `Kafka` 
+and uses `Kafka Streams API` to transform some _"input"_ topics into a new _"output"_ topic in `Kafka`.
+
+## (De)Serialization formats
+you can use [`JSON`](https://www.json.org) or [`Avro`](https://avro.apache.org/docs/current/gettingstartedjava.html) format 
+to serialize/deserialize data to/from the `binary` format used by Kafka. 
+The default format is `JSON`.
+## Start Environment
+
+## Create Kafka Topics
+In order to have topics in `Kafka` with more than `1` partition, 
+we have to create them manually and not let the connectors to create them for us. So, for it:
+
+- Open a new terminal and make sure you are in `springboot-kafka-connect-jdbc-streams` root folder
+
+- Run the script below
+```
+./create-kafka-topics.sh
+```
+
+It will create the topics `mysql.storedb.customers`, `mysql.storedb.products`, `mysql.storedb.orders`, `mysql.storedb.orders_products` with `5` partitions.
+
+## Create connectors
+
+## Running Applications with Maven
+
+## Running Applications as Docker containers
+
+### Build Application’s Docker Image
+
+### Application’s Environment Variables
+
+### Run Application’s Docker Container
+
+## Application's URL
+
+## Testing
+## Useful Links/Commands
+
+- **Kafka Topics UI**
+- **Kafka Connect UI**
+- **Schema Registry UI**
+- **Schema Registry**
+
+- **Kafka Manager**
+- **Elasticsearch**
+- **MySQL**
+- **Kafkacat**
+## Shutdown
+## Cleanup

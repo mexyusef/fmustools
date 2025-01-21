@@ -1,0 +1,3 @@
+bahasa utk ffmpeg...
+pengen sekali2 sih pake golang gitu
+bosen pake python terus.

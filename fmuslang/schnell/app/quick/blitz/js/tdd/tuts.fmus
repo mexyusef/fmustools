@@ -1,0 +1,1239 @@
+--% index/fmus
+.,d
+--#
+
+--% jest/math-test
+math.test.js
+
+function sum(a, b){
+    return a + b;
+}
+module.exports = {
+    sum
+}
+
+tests/math.test.js
+
+const { sum } = require('../math');
+
+test('should calculate the sum of two numbers', () => {
+	expect(4).toBe(sum(2, 2));
+});
+--#
+
+--% jest/math-util-test
+function sum(a, b){
+    return a + b;
+}
+module.exports = {
+    sum
+}
+== tests/math.test.js
+const { sum } = require('../math');
+
+describe('Sum Feature', () => {
+test('should calculate the sum of two numbers', () => {
+	const results = sum(2,2);
+	expect(results).toBe(4);
+	expect(results).toBeGreaterThan(3)
+	expect(results).toBeGreaterThanOrEqual(3)
+	expect(results).toBeLessThan(5)
+	expect(results).toBeLessThanOrEqual(5);
+	expect(results).toEqual(4)
+});
+test('should calculate the sum of two floating point numbers', () => {
+	const results = sum(0.1 , 0.3);
+	expect(results).toBeCloseTo(0.4);
+})
+});
+
+== util.js
+function greet(name){
+    return `Hello ${name}`;
+}
+module.exports  ={
+    greet
+}
+== tests/util.test.js
+const {greet} = require('../util');
+
+describe('Greet Feature', () => {
+  it('should get the greet message', () => {
+    const results = greet('Jane');
+    expect(results).toBe('Hello Jane');
+    expect(results).toMatch('Jane');
+    expect(results).toMatch(/Jane/);    
+  })
+})
+
+--#
+
+--% jest/util-truthiness-test
+function greet(name) {
+	return `Hello ${name}`;
+}
+function isEven(n) {
+	return n % 2 == 0;
+}
+function isOdd(n) {
+	return Math.abs(n % 2) == 1;
+}
+module.exports = {
+	greet,
+	isEven,
+	isOdd
+};
+
+== tests/util.test.js
+const { greet, isEven, isOdd } = require('../util');
+
+describe('Greet Feature', () => {
+	it('should get the greet message', () => {
+		const results = greet('Jane');
+		expect(results).toBe('Hello Jane');
+		expect(results).toMatch('Jane');
+		expect(results).toMatch(/Jane/);
+	});
+});
+
+describe('Even', () => {
+	it('should return true if number is even', () => {
+		const results = isEven(2);
+		expect(results).toBeTruthy();
+		expect(results).not.toBeFalsy();
+	});
+	it('should return false if number is not even', () => {
+		const results = isEven(3);
+		expect(results).not.toBeTruthy();
+		expect(results).toBeFalsy();
+	});
+});
+describe('Odd', () => {
+	it('should return true if number is odd', () => {
+		const results = isOdd(3);
+		expect(results).toBeTruthy();
+		expect(results).not.toBeFalsy();
+	});
+	it('should return false if number is not odd', () => {
+		const results = isOdd(4);
+		expect(results).not.toBeTruthy();
+		expect(results).toBeFalsy();
+	});
+});
+--#
+
+--% jest/util-array-obj-test
+function greet(name) {
+	return `Hello ${name}`;
+}
+function isEven(n) {
+	return n % 2 == 0;
+}
+function isOdd(n) {
+	return Math.abs(n % 2) == 1;
+}
+function getCustomer(id) {
+	return { id, name: 'Jane' };
+}
+const persons = ['Jane', 'Doe', 'Sane', 'Mathew'];
+function getPersons() {
+	return persons;
+}
+module.exports = {
+	greet,
+	isEven,
+	isOdd,
+	getCustomer,
+	getPersons
+};
+
+== tests/util.test.js
+const { greet, isEven, isOdd, getCustomer, getPersons } = require('../util');
+
+describe('Greet Feature', () => {
+	it('should get the greet message', () => {
+		const results = greet('Jane');
+		expect(results).toBe('Hello Jane');
+		expect(results).toMatch('Jane');
+		expect(results).toMatch(/Jane/);
+	});
+});
+
+describe('Even', () => {
+	it('should return true if number is even', () => {
+		const results = isEven(2);
+		expect(results).toBeTruthy();
+		expect(results).not.toBeFalsy();
+	});
+	it('should return false if number is not even', () => {
+		const results = isEven(3);
+		expect(results).not.toBeTruthy();
+		expect(results).toBeFalsy();
+	});
+});
+describe('Odd', () => {
+	it('should return true if number is odd', () => {
+		const results = isOdd(3);
+		expect(results).toBeTruthy();
+		expect(results).not.toBeFalsy();
+	});
+	it('should return false if number is not odd', () => {
+		const results = isOdd(4);
+		expect(results).not.toBeTruthy();
+		expect(results).toBeFalsy();
+	});
+});
+describe('Customer', () => {
+	it('should find customer by id', () => {
+		const results = getCustomer(1);
+		expect(results).toBeDefined();
+		expect(results).not.toBeUndefined();
+
+		expect(results).toEqual({ id: 1, name: 'Jane' });
+		expect(results).toHaveProperty('id', 1);
+
+		expect(results).toEqual(expect.objectContaining({ id: 1 }));
+	});
+});
+describe('Persons', () => {
+	it('should fetch all the persons', () => {
+		const results = getPersons();
+		expect(results).toHaveLength(4);
+		expect(results).toContain('Doe');
+
+		expect(results).toEqual(expect.arrayContaining(['Jane', 'Doe']));
+	});
+});
+--#
+
+--% jest/util-exception-test
+function greet(name) {
+	return `Hello ${name}`;
+}
+function isEven(n) {
+	return n % 2 == 0;
+}
+function isOdd(n) {
+	return Math.abs(n % 2) == 1;
+}
+function getCustomer(id) {
+	return { id, name: 'Jane' };
+}
+const persons = ['Jane', 'Doe', 'Sane', 'Mathew'];
+function getPersons() {
+	return persons;
+}
+
+function downloadCV(path) {
+	if (!path) {
+		throw new Error('invalid URL');
+	}
+	return 'Content';
+}
+module.exports = {
+	greet,
+	isEven,
+	isOdd,
+	getCustomer,
+	getPersons,
+	downloadCV
+};
+
+== tests/util.test.js
+const {
+	greet,
+	isEven,
+	isOdd,
+	getCustomer,
+	getPersons,
+	downloadCV
+} = require('../util');
+
+describe('Greet Feature', () => {
+	it('should get the greet message', () => {
+		const results = greet('Jane');
+		expect(results).toBe('Hello Jane');
+		expect(results).toMatch('Jane');
+		expect(results).toMatch(/Jane/);
+	});
+});
+
+describe('Even', () => {
+	it('should return true if number is even', () => {
+		const results = isEven(2);
+		expect(results).toBeTruthy();
+		expect(results).not.toBeFalsy();
+	});
+	it('should return false if number is not even', () => {
+		const results = isEven(3);
+		expect(results).not.toBeTruthy();
+		expect(results).toBeFalsy();
+	});
+});
+describe('Odd', () => {
+	it('should return true if number is odd', () => {
+		const results = isOdd(3);
+		expect(results).toBeTruthy();
+		expect(results).not.toBeFalsy();
+	});
+	it('should return false if number is not odd', () => {
+		const results = isOdd(4);
+		expect(results).not.toBeTruthy();
+		expect(results).toBeFalsy();
+	});
+});
+describe('Customer', () => {
+	it('should find customer by id', () => {
+		const results = getCustomer(1);
+		expect(results).toBeDefined();
+		expect(results).not.toBeUndefined();
+
+		expect(results).toEqual({ id: 1, name: 'Jane' });
+		expect(results).toHaveProperty('id', 1);
+
+		expect(results).toEqual(expect.objectContaining({ id: 1 }));
+	});
+});
+describe('Persons', () => {
+	it('should fetch all the persons', () => {
+		const results = getPersons();
+		expect(results).toHaveLength(4);
+		expect(results).toContain('Doe');
+
+		expect(results).toEqual(expect.arrayContaining(['Jane', 'Doe']));
+	});
+});
+
+describe('Download CV', () => {
+	it('should throw error if user does not provide path', () => {
+		expect(() => {
+			downloadCV();
+		}).toThrow();
+		expect(() => {
+			downloadCV();
+		}).toThrow('invalid URL');
+		expect(() => {
+			downloadCV(null);
+		}).toThrow();
+	});
+	it('should get the contents from the CV', () => {
+		const results = downloadCV('http://localhost:3000/cv/1');
+		expect(results).toBe('Content');
+	});
+});
+--#
+
+--% bdd/us
+.,d
+	package.json,f(e=__FILE__=bdd/package.json)
+	README.md,f(e=__FILE__=bdd/README.md)
+	gulpfile.js,f(e=__FILE__=bdd/gulfile.js)
+	Gruntfile.js,f(e=__FILE__=bdd/gruntfile.js)
+	features,d(/mk)
+		addition.feature,f(e=__FILE__=bdd/addition.feature)
+--#
+
+--% package.json
+{
+  "name": "bdd",
+  "version": "1.0.0",
+  "description": "Behaviour Driven Development in Javascript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cucumber.js features -r steps"
+  },
+  "author": "Haider Malik",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "cucumber": "^2.1.0",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-shell": "^2.1.0",
+    "gulp": "^3.9.1",
+    "gulp-shell": "^0.6.3"
+  }
+}
+--#
+--% bdd/README.md
+# BDD in JavaScript: Getting Started with Cucumber and Gherkin
+
+This repository exists as a set of example implementations of Cucumber.js functionality.  
+Article URL: https://www.sitepoint.com/bdd-in-javascript-cucumber-gherkin
+
+## Examples
+
+This repository has the following set of examples:
+
+* simple - A very simple example that does nothing special
+* background - Identical to the 'simple' example in terms of Javascript, but using a Background for common initialisation
+* outline - Identical to the 'simple' example in terms of Javascript, but using a Scenario Outline to generate Scenarios
+* datatable - Adaptation of the 'simple' example to use a Data Table to add an arbitrary list of numbers
+* hooks - Demonstration of a Before hook for resetting data
+* events - Demonstration of event handling for the lifecycle of running tests
+* world - Demonstration of the World concept for data sharing
+
+## Running examples
+
+The examples are all set up to run with either npm Scripts, Grunt or Gulp. They can all be run as either:
+
+* npm run-script <example>
+* grunt shell:<example>
+* gulp <example>
+
+## License
+
+For example, `npm run-script simple`, `grunt shell:background` or `gulp outline`.
+
+SitePoint's code archives and code examples are licensed under the MIT license.
+--#
+
+--% bdd/gulfile.js
+const gulp = require('gulp');
+const shell = require('gulp-shell');
+
+gulp.task(
+  'simple',
+  shell.task(['cucumber.js simple/features -r simple/steps'])
+);
+--#
+
+--% bdd/gruntfile.js
+module.exports = function(grunt) {
+  // Project configuration.
+  grunt.initConfig({
+    shell: {
+      simple: {
+        command: 'cucumber.js simple/features -r simple/steps'
+      }
+    }
+  });
+
+  // These plugins provide necessary tasks.
+  grunt.loadNpmTasks('grunt-shell');
+};
+--#
+
+--% bdd/addition.feature
+Feature: Addition
+    Scenario: 1 + 2
+        Given I start with 1
+        When I add 2
+        Then I end up with 3
+--#
+
+--% jest/assert
+// tests/assert-demo.test.js
+const assert = require('assert');
+describe('Assert library', () => {
+  it('assert() demo', () => {
+    assert(100 > 70, 'Expected value is not greater than received value');
+  });
+  //If two objects, or their child objects, are not equal, an error is thrown and the program is terminated:
+  it('deepEqual() demo', () => {
+    let x = { a: { n: 0 } };
+    let y = { a: { n: 0 } };
+    let z = { a: { n: 0 } };
+    assert.deepEqual(x, y); //OK
+    assert.deepEqual(
+      x,
+      z
+    ); /*AssertionError: { a: { n: 0 } } deepEqual {a: { n: 1 } }*/
+  });
+  //If two values are not equal, an error is thrown and the program is terminated:
+  it('equal() demo', () => {
+    assert.equal(50, 50); //OK
+    assert.equal(50, '50'); //OK
+    assert.equal(50, 50); /*AssertionError: 50 == 70 */
+  });
+});
+--#
+
+--% chai/jest/should/1
+// yarn add chai jest should
+module.exports = {
+  sum(a, b) {
+    return a + b;
+  }
+};
+
+== tests/assert-demo.test.js
+const assert = require('assert');
+describe('Assert library', () => {
+  it('assert() demo', () => {
+    assert(100 > 70, 'Expected value is not greater than received value');
+  });
+  //If two objects, or their child objects, are not equal, an error is thrown and the program is terminated:
+  it('deepEqual() demo', () => {
+    let x = { a: { n: 0 } };
+    let y = { a: { n: 0 } };
+    let z = { a: { n: 0 } };
+    assert.deepEqual(x, y); //OK
+    assert.deepEqual(
+      x,
+      z
+    ); /*AssertionError: { a: { n: 0 } } deepEqual {a: { n: 1 } }*/
+  });
+  //If two values are not equal, an error is thrown and the program is terminated:
+  it('equal() demo', () => {
+    assert.equal(50, 50); //OK
+    assert.equal(50, '50'); //OK
+    assert.equal(50, 50); /*AssertionError: 50 == 70 */
+  });
+});
+
+== tests/chai.js-demo.test.js
+const assert = require('chai').assert;
+const expect = require('chai').expect;
+const should = require('chai').should(); //actually call the function
+describe('chai assetion library', () => {
+  it('assert with chai demo', () => {
+    let foo = 'bar',
+      beverages = { tea: ['chai', 'matcha', 'oolong'] };
+    assert.typeOf(foo, 'string'); // without optional message
+    assert.typeOf(foo, 'string', 'foo is a string'); // with optional message
+    assert.equal(foo, 'bar', 'foo equal `bar`');
+    assert.lengthOf(foo, 3, 'foo`s value has a length of 3');
+    assert.lengthOf(beverages.tea, 3, 'beverages has 3 types of tea');
+  });
+  it('expect with chai', () => {
+    const foo = 'bar',
+      beverages = { tea: ['chai', 'matcha', 'oolong'] };
+
+    expect(foo).to.be.a('string');
+    expect(foo).to.equal('bar');
+    expect(foo).to.have.lengthOf(3);
+    expect(beverages)
+      .to.have.property('tea')
+      .with.lengthOf(3);
+  });
+
+  it('should with chai.js', () => {
+    const foo = 'bar',
+      beverages = { tea: ['chai', 'matcha', 'oolong'] };
+
+    foo.should.be.a('string');
+    foo.should.equal('bar');
+    foo.should.have.lengthOf(3);
+    beverages.should.have.property('tea').with.lengthOf(3);
+  });
+});
+
+== tests/expect-demo.test.js
+describe('Expect Assertion library', () => {
+  it('toBe Demo', () => {
+    expect(2 + 2).toBe(4);
+  });
+  it('toEqual demo', () => {
+    const data = { one: 1 };
+    data['two'] = 2;
+    expect(data).toEqual({ one: 1, two: 2 });
+  });
+
+  it('truthiness', () => {
+    const z = 0;
+    expect(z).not.toBeNull();
+    expect(z).toBeDefined();
+    expect(z).not.toBeUndefined();
+    expect(z).not.toBeTruthy();
+    expect(z).toBeFalsy();
+  });
+
+  it('toContain demo', () => {
+    const shoppingList = [
+      'diapers',
+      'kleenex',
+      'trash bags',
+      'paper towels',
+      'beer'
+    ];
+    expect(shoppingList).toContain('beer');
+  });
+
+  it('toMatch Demo', () => {
+    expect('Christoph').toMatch(/stop/);
+  });
+});
+
+== tests/should.js-demo.test.js
+//docs https://github.com/tj/should.js/
+const { sum } = require('../math');
+const should = require('should');
+describe('Should.js', () => {
+  it('should return 4 when the input number are 1 and 3', function() {
+    sum(1, 3).should.be.exactly(4);
+    sum(1, 3).should.be.exactly(4).and.be.a.Number;
+  });
+  it('startWith demo', () => {
+    'foobar'.should.startWith('foo');
+    'foobar'.should.not.startWith('bar');
+  });
+  it('above and greaterThan demo', () => {
+    const user = { age: 20 };
+    user.age.should.be.above(5);
+    user.age.should.not.be.above(100);
+  });
+  it('type demo', () => {
+    const user = {};
+    user.should.be.type('object');
+    'test'.should.be.type('string');
+  });
+});
+--#
+
+--% chai/jest/should/2
+// yarn add chai jest should
+module.exports = {
+  sum(a, b) {
+    return a + b;
+  }
+};
+
+== tests/assert-demo.test.js
+const assert = require('assert');
+describe('Assert library', () => {
+  it('assert() demo', () => {
+    assert(100 > 70, 'Expected value is not greater than received value');
+  });
+  //If two objects, or their child objects, are not equal, an error is thrown and the program is terminated:
+  it('deepEqual() demo', () => {
+    let x = { a: { n: 0 } };
+    let y = { a: { n: 0 } };
+    let z = { a: { n: 0 } };
+    assert.deepEqual(x, y); //OK
+    assert.deepEqual(
+      x,
+      z
+    ); /*AssertionError: { a: { n: 0 } } deepEqual {a: { n: 1 } }*/
+  });
+  //If two values are not equal, an error is thrown and the program is terminated:
+  it('equal() demo', () => {
+    assert.equal(50, 50); //OK
+    assert.equal(50, '50'); //OK
+    assert.equal(50, 50); /*AssertionError: 50 == 70 */
+  });
+});
+
+== tests/chai.js-demo.test.js
+const assert = require('chai').assert;
+const expect = require('chai').expect;
+const should = require('chai').should(); //actually call the function
+describe('chai assetion library', () => {
+  it('assert with chai demo', () => {
+    let foo = 'bar',
+      beverages = { tea: ['chai', 'matcha', 'oolong'] };
+    assert.typeOf(foo, 'string'); // without optional message
+    assert.typeOf(foo, 'string', 'foo is a string'); // with optional message
+    assert.equal(foo, 'bar', 'foo equal `bar`');
+    assert.lengthOf(foo, 3, 'foo`s value has a length of 3');
+    assert.lengthOf(beverages.tea, 3, 'beverages has 3 types of tea');
+  });
+  it('expect with chai', () => {
+    const foo = 'bar',
+      beverages = { tea: ['chai', 'matcha', 'oolong'] };
+
+    expect(foo).to.be.a('string');
+    expect(foo).to.equal('bar');
+    expect(foo).to.have.lengthOf(3);
+    expect(beverages)
+      .to.have.property('tea')
+      .with.lengthOf(3);
+  });
+
+  it('should with chai.js', () => {
+    const foo = 'bar',
+      beverages = { tea: ['chai', 'matcha', 'oolong'] };
+
+    foo.should.be.a('string');
+    foo.should.equal('bar');
+    foo.should.have.lengthOf(3);
+    beverages.should.have.property('tea').with.lengthOf(3);
+  });
+});
+
+== tests/expect-demo.test.js
+describe('Expect Assertion library', () => {
+  it('toBe Demo', () => {
+    expect(2 + 2).toBe(4);
+  });
+  it('toEqual demo', () => {
+    const data = { one: 1 };
+    data['two'] = 2;
+    expect(data).toEqual({ one: 1, two: 2 });
+  });
+
+  it('truthiness', () => {
+    const z = 0;
+    expect(z).not.toBeNull();
+    expect(z).toBeDefined();
+    expect(z).not.toBeUndefined();
+    expect(z).not.toBeTruthy();
+    expect(z).toBeFalsy();
+  });
+
+  it('toContain demo', () => {
+    const shoppingList = [
+      'diapers',
+      'kleenex',
+      'trash bags',
+      'paper towels',
+      'beer'
+    ];
+    expect(shoppingList).toContain('beer');
+  });
+
+  it('toMatch Demo', () => {
+    expect('Christoph').toMatch(/stop/);
+  });
+});
+
+== tests/should.js-demo.test.js
+//docs https://github.com/tj/should.js/
+const { sum } = require('../math');
+const should = require('should');
+describe('Should.js', () => {
+  it('should return 4 when the input number are 1 and 3', function() {
+    sum(1, 3).should.be.exactly(4);
+    sum(1, 3).should.be.exactly(4).and.be.a.Number;
+  });
+  it('startWith demo', () => {
+    'foobar'.should.startWith('foo');
+    'foobar'.should.not.startWith('bar');
+  });
+  it('above and greaterThan demo', () => {
+    const user = { age: 20 };
+    user.age.should.be.above(5);
+    user.age.should.not.be.above(100);
+  });
+  it('type demo', () => {
+    const user = {};
+    user.should.be.type('object');
+    'test'.should.be.type('string');
+  });
+});
+
+--#
+
+--% chai/jest/should/3
+// yarn add chai jest should
+module.exports = {
+  sum(a, b) {
+    return a + b;
+  }
+};
+
+== tests/assert-demo.test.js
+const assert = require('assert');
+describe('Assert library', () => {
+  it('assert() demo', () => {
+    assert(100 > 70, 'Expected value is not greater than received value');
+  });
+  //If two objects, or their child objects, are not equal, an error is thrown and the program is terminated:
+  it('deepEqual() demo', () => {
+    let x = { a: { n: 0 } };
+    let y = { a: { n: 0 } };
+    let z = { a: { n: 0 } };
+    assert.deepEqual(x, y); //OK
+    assert.deepEqual(
+      x,
+      z
+    ); /*AssertionError: { a: { n: 0 } } deepEqual {a: { n: 1 } }*/
+  });
+  //If two values are not equal, an error is thrown and the program is terminated:
+  it('equal() demo', () => {
+    assert.equal(50, 50); //OK
+    assert.equal(50, '50'); //OK
+    assert.equal(50, 50); /*AssertionError: 50 == 70 */
+  });
+});
+
+
+== tests/chai.js-demo.test.js
+const assert = require('chai').assert;
+const expect = require('chai').expect;
+const should = require('chai').should(); //actually call the function
+describe('chai assetion library', () => {
+  it('assert with chai demo', () => {
+    let foo = 'bar',
+      beverages = { tea: ['chai', 'matcha', 'oolong'] };
+    assert.typeOf(foo, 'string'); // without optional message
+    assert.typeOf(foo, 'string', 'foo is a string'); // with optional message
+    assert.equal(foo, 'bar', 'foo equal `bar`');
+    assert.lengthOf(foo, 3, 'foo`s value has a length of 3');
+    assert.lengthOf(beverages.tea, 3, 'beverages has 3 types of tea');
+  });
+  it('expect with chai', () => {
+    const foo = 'bar',
+      beverages = { tea: ['chai', 'matcha', 'oolong'] };
+
+    expect(foo).to.be.a('string');
+    expect(foo).to.equal('bar');
+    expect(foo).to.have.lengthOf(3);
+    expect(beverages)
+      .to.have.property('tea')
+      .with.lengthOf(3);
+  });
+
+  it('should with chai.js', () => {
+    const foo = 'bar',
+      beverages = { tea: ['chai', 'matcha', 'oolong'] };
+
+    foo.should.be.a('string');
+    foo.should.equal('bar');
+    foo.should.have.lengthOf(3);
+    beverages.should.have.property('tea').with.lengthOf(3);
+  });
+});
+
+== tests/expect-demo.test.js
+describe('Expect Assertion library', () => {
+  it('toBe Demo', () => {
+    expect(2 + 2).toBe(4);
+  });
+  it('toEqual demo', () => {
+    const data = { one: 1 };
+    data['two'] = 2;
+    expect(data).toEqual({ one: 1, two: 2 });
+  });
+
+  it('truthiness', () => {
+    const z = 0;
+    expect(z).not.toBeNull();
+    expect(z).toBeDefined();
+    expect(z).not.toBeUndefined();
+    expect(z).not.toBeTruthy();
+    expect(z).toBeFalsy();
+  });
+
+  it('toContain demo', () => {
+    const shoppingList = [
+      'diapers',
+      'kleenex',
+      'trash bags',
+      'paper towels',
+      'beer'
+    ];
+    expect(shoppingList).toContain('beer');
+  });
+
+  it('toMatch Demo', () => {
+    expect('Christoph').toMatch(/stop/);
+  });
+});
+
+
+== tests/should.js-demo.test.js
+//docs https://github.com/tj/should.js/
+const { sum } = require('../math');
+const should = require('should');
+describe('Should.js', () => {
+  it('should return 4 when the input number are 1 and 3', function() {
+    sum(1, 3).should.be.exactly(4);
+    sum(1, 3).should.be.exactly(4).and.be.a.Number;
+  });
+  it('startWith demo', () => {
+    'foobar'.should.startWith('foo');
+    'foobar'.should.not.startWith('bar');
+  });
+  it('above and greaterThan demo', () => {
+    const user = { age: 20 };
+    user.age.should.be.above(5);
+    user.age.should.not.be.above(100);
+  });
+  it('type demo', () => {
+    const user = {};
+    user.should.be.type('object');
+    'test'.should.be.type('string');
+  });
+});
+
+
+--#
+
+--% jasmine/1
+== package.json
+  "scripts": {
+    "test": "jasmine"
+  },
+== math.spec.js
+describe('A suite', function() {
+  it('contains spec with an expectation', function() {
+    expect(true).toBe(true);
+  });
+});
+
+== support/jasmine.json
+{
+  "spec_dir": "spec",
+  "spec_files": [
+    "**/*[sS]pec.js"
+  ],
+  "helpers": [
+    "helpers/**/*.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": true
+}
+--#
+
+--% chai/mocha
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+
+== test/db.js
+// const expect = require('chai').expect;
+// const Sequelize = require('sequelize');
+
+// describe('users', () => {
+//   let database;
+//   let User;
+
+//   // runs before all tests in this block
+//   before(async () => {
+//     database = new Sequelize('postgresql://localhost/app_test', {
+//       logging: false
+//     });
+//     User = database.define('user', {
+//       username: Sequelize.STRING,
+//       birthday: Sequelize.DATE
+//     });
+//   });
+
+//   // runs before each test in this block
+//   beforeEach(async () => {
+//     await User.sync();
+//     await User.create({
+//       username: 'zaiste',
+//       birthday: new Date(1988, 1, 21)
+//     });
+//   });
+
+//   // runs after each test in this block
+//   afterEach(async () => {
+//     await User.drop();
+//   });
+
+//   describe('#find()', () => {
+//     it('should find a user', async () => {
+//       const user = await User.findOne({ where: { username: 'zaiste' } });
+//       expect(user).to.be.a('object');
+//       expect(user).to.have.property('username');
+//       expect(user).to.have.property('birthday');
+//       expect(user.username).to.equal('zaiste');
+//     });
+//   });
+// });
+
+== test/test.js
+const assert = require('chai').assert;
+const expect = require('chai').expect;
+const should = require('chai').should();
+const { add } = require('../math');
+describe('Mocha demo', () => {
+  it('assert demo', () => {
+    const numbers = [1, 2, 3, 4, 5];
+    assert.isArray(numbers, 'is array of numbers');
+    assert.include(numbers, 1, 'array contains 2');
+    assert.lengthOf(numbers, 5, 'array contains 5 numbers');
+  });
+  it('expect style', () => {
+    const numbers = [1, 2, 3, 4, 5];
+    expect(numbers)
+      .to.be.an('array')
+      .that.includes(2);
+    expect(numbers).to.have.lengthOf(5);
+  });
+  it('should style', () => {
+    const numbers = [1, 2, 3, 4, 5];
+    numbers.should.be.an('array').that.includes(2);
+    numbers.should.have.lengthOf(5);
+  });
+});
+describe('#add()', () => {
+  it('2 + 2 is 4', async () => {
+    const p = await add(2, 2);
+    expect(p).to.equal(4);
+  });
+});
+
+== math.js
+module.exports = {
+  async add(a, b) {
+    return Promise.resolve(a + b);
+  }
+};
+
+--#
+
+--% ava/1
+  "scripts": {
+    "test": "node_modules/.bin/ava tests/**/*.test.js --verbose"
+  },
+== data.txt
+Hellow orld
+== tests/math.test.js
+import test from 'ava';
+const fs = require('fs');
+
+//Running tests serially
+test('foo', t => {
+  t.pass();
+});
+
+test('bar', async t => {
+  const bar = Promise.resolve('bar');
+  t.is(await bar, 'bar');
+});
+
+const getValue = () => {
+  return new Promise(resolve => {
+    return resolve(true);
+  });
+};
+test('promises the truth', async t => {
+  const value = await getValue();
+  t.true(value);
+});
+
+test.cb('data.txt can be read', t => {
+  // `t.end` automatically checks for error as first argument
+  fs.readFile('data.txt', t.end);
+});
+test.failing('demonstrate some bug', t => {
+  t.fail(); // Test will count as passed
+});
+
+--#
+
+--% tape/1
+  "scripts": {
+    "test": "node_modules/.bin/tape tests/**/*.js"
+  },
+== tests/test.js
+const test = require('tape');
+
+test('A passing test', assert => {
+  assert.pass('This test will pass.');
+  assert.end();
+});
+test('Assertions with tape.', assert => {
+  const expected = 'something to test';
+  const actual = 'something to test';
+
+  assert.equal(
+    actual,
+    expected,
+    'Given two mismatched values, .equal() should produce a nice bug report'
+  );
+
+  assert.end();
+});
+test('My first test', function(assert) {
+  assert.equal(1, 1, 'Numbers 1 and 2 are the same');
+  assert.end();
+});
+
+--#
+
+--% intern/1
+  "scripts": {
+    "test": "./node_modules/.bin/intern"
+  },
+== intern.json
+{
+  "suites": "tests/unit/**/*.js"
+}
+
+== tests/unit/test.js
+const { suite, test } = intern.getInterface('tdd');
+const { assert } = intern.getPlugin('chai');
+
+suite('app', () => {
+  test('print', () => {
+    const result = 'Smith';
+    assert.equal(result, 'Smith');
+  });
+});
+
+--#
+
+--% async/mocking
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-plugin-styled-components": "^1.5.1",
+    "concurrently": "^3.5.1",
+    "react": "^16.2.0",
+    "react-app-rewire-mobx": "^1.0.7",
+    "react-app-rewired": "^1.5.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "react-scripts": "1.1.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.3",
+    "sinon": "^4.4.9"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-app-rewired eject",
+    "watch": "concurrently --prefix \"[{name}]\" --names \"REACT,SASS\" -c \"bgBlue.bold,bgMagenta.bold\" \"yarn run start\" \"yarn run watch-styles\"",
+    "watch-styles": "sass --watch src/css/styles.scss:src/css/styles.css"
+  }
+== config-overrides.js
+const { injectBabelPlugin } = require("react-app-rewired");
+const rewireMobX = require("react-app-rewire-mobx");
+
+module.exports = function override(config, env) {
+  config = injectBabelPlugin("babel-plugin-styled-components", config);
+  config = rewireMobX(config, env);
+
+  return config;
+};
+== __mocks__/axios.js
+export default {
+  get: jest.fn(() => Promise.resolve({ data: {} }))
+};
+
+== services/posts.js
+import axios from 'axios';
+
+export default async () => {
+  const response = await axios.get(
+    'https://jsonplaceholder.typicode.com/posts'
+  );
+
+  return response.data.results;
+};
+
+== services/users.js
+import axios from 'axios';
+
+export default async () => {
+  const response = await axios.get(
+    'https://jsonplaceholder.typicode.com/users'
+  );
+
+  return response.data.results;
+};
+
+== services/__tests__/posts.js
+import mockAxios from 'axios';
+import getPosts from '../posts';
+
+it('calls axios and returns posts', async () => {
+  // setup
+  mockAxios.get.mockImplementationOnce(() =>
+    Promise.resolve({
+      data: {
+        results: [
+          {
+            userId: 1,
+            id: 1,
+            title:
+              'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+            body:
+              'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+          }
+        ]
+      }
+    })
+  );
+
+  // work
+  const posts = await getPosts();
+
+  // assertions / expects
+  expect(posts).toEqual([
+    {
+      userId: 1,
+      id: 1,
+      title:
+        'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body:
+        'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+    }
+  ]);
+  expect(mockAxios.get).toHaveBeenCalledTimes(1);
+  expect(mockAxios.get).toHaveBeenCalledWith(
+    'https://jsonplaceholder.typicode.com/posts'
+  );
+});
+
+== services/__tests__/users.js
+import mockAxios from 'axios';
+import getUsers from '../users';
+
+it('calls axios and returns users', async () => {
+  // setup
+  mockAxios.get.mockImplementationOnce(() =>
+    Promise.resolve({
+      data: {
+        results: [
+          {
+            id: 1,
+            name: 'Leanne Graham',
+            username: 'Bret',
+            email: 'Sincere@april.biz',
+            address: {
+              street: 'Kulas Light',
+              suite: 'Apt. 556',
+              city: 'Gwenborough',
+              zipcode: '92998-3874',
+              geo: {
+                lat: '-37.3159',
+                lng: '81.1496'
+              }
+            },
+            phone: '1-770-736-8031 x56442',
+            website: 'hildegard.org',
+            company: {
+              name: 'Romaguera-Crona',
+              catchPhrase: 'Multi-layered client-server neural-net',
+              bs: 'harness real-time e-markets'
+            }
+          }
+        ]
+      }
+    })
+  );
+
+  // work
+  const users = await getUsers();
+
+  // assertions / expects
+  expect(users).toEqual([
+    {
+      id: 1,
+      name: 'Leanne Graham',
+      username: 'Bret',
+      email: 'Sincere@april.biz',
+      address: {
+        street: 'Kulas Light',
+        suite: 'Apt. 556',
+        city: 'Gwenborough',
+        zipcode: '92998-3874',
+        geo: {
+          lat: '-37.3159',
+          lng: '81.1496'
+        }
+      },
+      phone: '1-770-736-8031 x56442',
+      website: 'hildegard.org',
+      company: {
+        name: 'Romaguera-Crona',
+        catchPhrase: 'Multi-layered client-server neural-net',
+        bs: 'harness real-time e-markets'
+      }
+    }
+  ]);
+  expect(mockAxios.get).toHaveBeenCalledTimes(1);
+  expect(mockAxios.get).toHaveBeenCalledWith(
+    'https://jsonplaceholder.typicode.com/users'
+  );
+});
+
+--#

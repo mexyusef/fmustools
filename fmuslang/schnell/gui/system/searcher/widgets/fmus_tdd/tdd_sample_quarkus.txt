@@ -1,0 +1,55 @@
+# Quarkus TDD Examples
+TDD in Quarkus: show me some examples
+
+ChatGPT
+Certainly! Test-driven development (TDD) is a software development approach where tests are written before the actual implementation code. Quarkus, a Java framework for building cloud-native applications, fully supports TDD. Here are some examples of TDD in Quarkus:
+
+Testing a REST Endpoint:
+java
+Copy code
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
+import io.restassured.RestAssured;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+
+@QuarkusTest
+public class MyResourceTest {
+
+    @Test
+    public void testHelloEndpoint() {
+        given()
+          .when().get("/hello")
+          .then()
+             .statusCode(200)
+             .body(is("Hello, world!"));
+    }
+}
+In this example, we are testing a REST endpoint ("/hello") by using the RestAssured library. The test verifies that the endpoint returns a status code of 200 and the response body is "Hello, world!".
+
+Testing JPA Entities and Repository:
+java
+Copy code
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+
+@QuarkusTest
+public class UserRepositoryTest {
+
+    @Inject
+    UserRepository userRepository;
+
+    @Test
+    @Transactional
+    public void testCreateUser() {
+        User user = new User("John Doe", "john@example.com");
+        userRepository.persist(user);
+        assertNotNull(user.getId());
+    }
+}
+In this example, we are testing a JPA repository for creating a user. The test uses the @Transactional annotation to roll back the changes made during the test. It verifies that a user is persisted in the database and has been assigned an ID.
+
+These examples demonstrate the basic structure of TDD in Quarkus. You write tests that cover various aspects of your application, such as REST endpoints, persistence layers, business logic, etc. By following the TDD approach, you can ensure that your code is thoroughly tested and reliable.

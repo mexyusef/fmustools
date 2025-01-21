@@ -1,0 +1,301 @@
+--% index/fmus
+__PWD,d
+	CMakeLists.txt,f(e=__FILE__=cmakelists)
+
+	utama1.cpp,f(e=__FILE__=template1)
+	utama2.cpp,f(e=__FILE__=template2)
+	utama3.cpp,f(e=__FILE__=template3)
+	utama4.cpp,f(e=__FILE__=template4)
+
+    M.cpp,f(e=__FILE__=M)
+    string_operations.cpp,f(e=__FILE__=string_operations)
+    sysinfo.cpp,f(e=__FILE__=sysinfo)
+    sysinfo2.cpp,f(e=__FILE__=sysinfo2)
+    sysinfo2_impl.cpp,f(e=__FILE__=sysinfo2_impl)
+    sysinfo_arch.cpp,f(e=__FILE__=sysinfo_arch)
+    sysinfo_cpu.cpp,f(e=__FILE__=sysinfo_cpu)
+	inc.hpp,f(e=__FILE__=inc.hpp)
+	build,d(/mk)
+		$* cmake ..
+		$* make
+		$* ls -al
+		#$* __PWD/build/hasil01
+--#
+
+--% README.md
+include_directories(common)
+masukkan inc.hpp ke common
+utk bisa #include<inc.hpp>
+
+1:
+
+2:
+
+3:
+
+4:
+--#
+
+--% template1
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main()
+{
+    std::vector<int> v = {1, 2, 3};
+    std::cout << "2 found at position: " 
+          << std::find(v.begin(), v.end(), 2) - v.begin() << "\n";
+}
+
+--#
+--% template2
+import string_operations;
+
+int main()
+{
+    so::print(so::join("this is", "test"));
+}
+
+--#
+--% template3
+import sysinfo;
+
+#include <iostream>
+
+int main()
+{
+    std::cout << get_arch() << '\n';
+    std::cout << get_cpu() << '\n';
+}
+
+
+--#
+--% template4
+import M;
+
+#include <stdio.h>
+
+int main()
+{
+    printf("%d\n", f(5));
+    printf("%f\n", g(0.0, 1));
+    return 0;
+}
+
+--#
+
+--% M.cpp
+export module M;
+
+export int f(int x)
+{
+    return 2 + x;
+}
+export double g(double y, int z)
+{
+    return y * z;
+}
+
+--#
+--% string_operations.cpp
+module;
+#include <iostream>
+export module string_operations;
+
+const char* inner_join(const char* s1,
+                       const char* s2,
+                       const char* delim)
+{
+    static std::string retval;
+    retval = std::string{s1} + delim + s2;
+    return retval.c_str();
+}
+
+export namespace so
+{
+const char* join(const char* s1, const char* s2)
+{
+    return inner_join(s1, s2, " ");
+}
+void print(const char* str)
+{
+    std::cout << str << std::endl;
+}
+} // namespace so
+
+
+--#
+--% sysinfo.cpp
+export module sysinfo;
+
+export import :cpu;
+export import :arch;
+
+--#
+--% sysinfo2.cpp
+export module sysinfo2;
+
+export const char* get_arch();
+export const char* get_cpu();
+
+--#
+--% sysinfo2_impl.cpp
+module sysinfo2;
+
+const char* get_arch()
+{
+    return "amd64 (sysinfo2)";
+}
+
+const char* get_cpu()
+{
+    return "Intel Core i7 (sysinfo2)";
+}
+
+--#
+--% sysinfo_arch.cpp
+export module sysinfo:arch;
+
+export const char* get_arch()
+{
+    return "amd64";
+}
+
+
+--#
+--% sysinfo_cpu.cpp
+export module sysinfo:cpu;
+
+export const char* get_cpu()
+{
+    return "Intel Core i7";
+}
+
+--#
+
+--% inc.hpp
+#pragma once
+
+#include <fmt/format.h>
+#include <fmt/ostream.h>
+#include <range/v3/all.hpp>
+#include <cstdio>
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <algorithm>
+#include <cxxabi.h>
+#include <typeinfo>
+#include <math.h>
+#include <utility>
+
+using namespace fmt;
+using std::cout;
+using std::endl;
+using namespace std::string_literals;
+
+template<typename T>
+struct ShowType;
+
+inline std::string demangle(const std::string& name)
+{
+    int status;
+    auto ptr = abi::__cxa_demangle(name.c_str(), nullptr, nullptr, &status);
+    std::string str(ptr);
+    free(ptr);
+    return str;
+}
+
+template<typename T>
+inline std::string typeName()
+{
+    return demangle(typeid(T).name());
+}
+
+template<typename T>
+inline std::string typeName(T&& obj)
+{
+    return demangle(typeid(obj).name());
+}
+--#
+
+--% cmakelists
+cmake_minimum_required (VERSION 3.11.0)
+project (latihan)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+
+#cmake_minimum_required(VERSION 3.6)
+#project(latihan)
+#set(CMAKE_CXX_STANDARD 17)
+
+
+include(FetchContent)
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
+    GIT_TAG 0889856d6160775462e9e0722d121aab0e75e873
+)
+FetchContent_GetProperties(fmt)
+if(NOT fmt_POPULATED)
+    FetchContent_Populate(fmt)
+endif()
+set(FMT_PATH ${fmt_SOURCE_DIR})
+
+
+
+FetchContent_Declare(
+    ranges
+    GIT_REPOSITORY "https://github.com/ericniebler/range-v3.git"
+    GIT_TAG 50ef05324f880569436c424d0c33ba4de36fb6d9
+)
+FetchContent_GetProperties(ranges)
+if(NOT ranges_POPULATED)
+    FetchContent_Populate(ranges)
+endif()
+set(RANGES_PATH ${ranges_SOURCE_DIR})
+
+
+
+FetchContent_Declare(
+    cppcoro
+    GIT_REPOSITORY "https://github.com/lewissbaker/cppcoro.git"
+    GIT_TAG 00b34af58e8e74e0ca1739967ce410792e024964
+)
+FetchContent_GetProperties(cppcoro)
+if(NOT cppcoro_POPULATED)
+    FetchContent_Populate(cppcoro)
+endif()
+set(CPPCORO_PATH ${cppcoro_SOURCE_DIR})
+
+
+
+add_subdirectory(${FMT_PATH} ${CMAKE_CURRENT_BINARY_DIR}/fmt EXCLUDE_FROM_ALL)
+include_directories(${FMT_PATH}/include)
+include_directories(${RANGES_PATH}/include)
+include_directories(${CPPCORO_PATH}/include)
+
+
+add_compile_options(-fmodules-ts)
+
+add_executable(hasil01 utama1.cpp)
+target_link_libraries(hasil01 PRIVATE fmt::fmt-header-only)
+
+add_executable(hasil02 string_operations.cpp utama2.cpp)
+
+add_executable(hasil03
+    sysinfo_cpu.cpp
+    sysinfo_arch.cpp
+    sysinfo.cpp
+    utama3.cpp
+)
+
+add_executable(hasil04
+    sysinfo2.cpp
+    sysinfo2_impl.cpp
+    utama4.cpp
+)
+--#

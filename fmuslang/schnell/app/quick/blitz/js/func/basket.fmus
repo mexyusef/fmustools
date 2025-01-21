@@ -1,0 +1,90 @@
+--% index/fmus
+__PWD,d
+    basket-clone.js,f(e=__FILE__=basket-clone.js)
+    basket-func.js,f(e=__FILE__=basket-func.js)
+    basket-push.js,f(e=__FILE__=basket-push.js)
+    grade-tests.js,f(e=__FILE__=grade-tests.js)
+--#
+
+--% basket-clone.js
+const basket = [];
+
+function deepClone( obj ) {
+    return JSON.parse( JSON.stringify( obj ) );
+}
+
+function addElement( basket, itemName, itemPrice ) {
+    return deepClone( basket ).concat( [ {
+        itemName,
+        itemPrice
+    } ] );
+}
+
+const basket1 = addElement( basket, 'Biscuits', 1 );
+const basket2 = addElement( basket1, 'Tea', 2 );
+
+basket2[0].itemPrice = 2;
+
+console.log( basket1[0].itemPrice );
+--#
+
+--% basket-func.js
+const basket = [];
+
+function addElement(
+    basket,
+    itemName,
+    itemPrice
+) {
+    return basket.concat( [ {
+        itemName,
+        itemPrice
+    } ] );
+}
+
+const basket1 = addElement(
+    basket,
+    'Biscuits',
+    1
+);
+
+console.log( basket1 );
+--#
+
+--% basket-push.js
+const basket = [];
+
+function addElement(
+    itemName,
+    itemPrice
+) {
+    basket.push( {
+        itemName,
+        itemPrice
+    } );
+}
+
+addElement( 'Biscuits', 1 );
+
+console.log( basket );
+--#
+
+--% grade-tests.js
+function mapScoresToGrades( tests, average ) {
+    let getGradeTest = average =>
+        ( ( testScore ) => testScore >= average ? 'A' : 'F' );
+    let gradeTest = getGradeTest( average );
+    return tests.map( gradeTest );
+}
+
+function getAverage( tests ) {
+    return tests.reduce( ( acc, elem ) => acc + elem ) / tests.length;
+}
+
+function gradeTests( tests ) {
+    const average = getAverage( tests );
+    return mapScoresToGrades( tests, average );
+}
+
+console.log( gradeTests( [ 0.1, 0.5, 1 ] ) );
+--#

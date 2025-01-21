@@ -1,0 +1,3072 @@
+springboot-ecommerce2
+    src,d
+        main,d
+    upload-dir,d
+
+# springboot-ecommerce2
+
+### Things todo list
+
+1. Clone this repository: `git clone https://github.com/hendisantika/springboot-ecommerce2.git`
+2. Navigate to the folder: `cd springboot-ecommerce2`
+3. Make sure that your DB is UP & Running. Then change the application.properties file based on your credentials.
+4. Run the application: `mvn clean spring-boot:run`
+
+### Image Screen shot
+
+Swagger UI
+
+![Swagger UI](upload-dir/swagger.png "Swagger UI")
+
+#################################################
+#################################################
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\database-dump.sql
+-- MariaDB dump 10.18  Distrib 10.5.8-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: ecommerce
+-- ------------------------------------------------------
+-- Server version	10.5.8-MariaDB-3
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categories`
+(
+    `id`            bigint(20) NOT NULL AUTO_INCREMENT,
+    `category_name` varchar(255) DEFAULT NULL,
+    `description`   varchar(255) DEFAULT NULL,
+    `image_url`     varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories`
+--
+
+LOCK
+TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories`
+VALUES (1, 'Electronics', 'string', 'string'),
+       (2, 'Kites', 'These are Kites',
+        'https://images.unsplash.com/photo-1600387822941-a6ac49b2f0a3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8a2l0ZXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
+       (3, 'Television', 'Television',
+        'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NXx8dGVsZXZpc2lvbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
+       (4, 'Shoes', 'Shoes',
+        'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8c2hvZXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
+       (5, 'Clothes', 'Clothes', NULL),
+       (6, NULL, 'Kids space', NULL),
+       (7, 'Toys', 'Space for kids', NULL),
+       (8, 'Demo3', 'This is Demo category',
+        'https://images.unsplash.com/photo-1560529178-855fa2041193?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTd8fHRveXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
+       (9, 'Demo5', 'This is demo test',
+        'https://images.unsplash.com/photo-1545997281-2cfe4d4b740f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fHRveXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
+       (10, 'Demo', 'Demo', 'null'),
+       (11, 'demo4', 'demo4', 'null'),
+       (12, 'Demo10', 'Demo10', 'Demo10'),
+       (13, 'Smartphones', 'This contains all sartphones',
+        'https://images.unsplash.com/photo-1510878933023-e2e2e3942fb0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80'),
+       (14, 'Clocks', 'Collection of clocks',
+        'https://images.unsplash.com/photo-1585586463948-9e40851ed193?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'),
+       (15, 'Kites', 'This is a collection of kites',
+        'https://images.unsplash.com/photo-1534640881905-039ca1e21a81?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8a2l0ZXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
+       (16, 'Books', 'This section contains Books',
+        'https://images.unsplash.com/photo-1524578271613-d550eacf6090?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8Ym9va3N8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
+       (17, 'Automobiles', 'Find all vehicles',
+        'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Fyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
+       (18, 'Bags', 'High Quality Bags', NULL),
+       (19, 'Groceries', 'Find all your groceries here',
+        'https://images.unsplash.com/photo-1543168256-418811576931?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Z3JvY2VyaWVzfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
+       (20, 'Biscuits', 'Tasty Biscuits',
+        'https://images.unsplash.com/photo-1531685932387-e60fae5f6163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fGJpc2N1aXRzfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK
+TABLES;
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
+    `description` varchar(255) DEFAULT NULL,
+    `imageurl`    varchar(255) DEFAULT NULL,
+    `name`        varchar(255) DEFAULT NULL,
+    `price`       double NOT NULL,
+    `category_id` bigint(20) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY           `FKog2rp4qthbtt2lfyhfo32lsw9` (`category_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK
+TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products`
+VALUES (1, 'Microcontroller board for starters.',
+        'https://images.unsplash.com/photo-1608564697071-ddf911d81370?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzOHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Arduino UNO', 500, 9),
+       (2, 'Highly accurate',
+        'https://images.unsplash.com/photo-1497997457905-3f85463eb0bc?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8c2Vuc29yfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Ultrasonic sensor', 200, 2),
+       (3, 'hello World',
+        'https://images.unsplash.com/photo-1609584862854-57387c661076?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Hello World', 100, 1),
+       (4, 'This is a Car',
+        'https://images.unsplash.com/photo-1600661653561-629509216228?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fGV2fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Tesla Car', 10000, 17),
+       (5, 'This is demo200',
+        'https://images.unsplash.com/photo-1602526211905-6adc54adb8d2?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'demo200', 50000, 1),
+       (6, 'This is a toy',
+        'https://images.unsplash.com/photo-1563396983906-b3795482a59a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8dG95c3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Toy', 200, 3),
+       (7, 'Demo',
+        'https://images.unsplash.com/photo-1469037784699-75dcff1cbf75?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjZ8fHRveXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Demo', 89, 5),
+       (8, 'This is a great Toy',
+        'https://images.unsplash.com/photo-1517348159000-002b80abf80f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fHRveXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Toy', 500, 1),
+       (9, 'This is a car',
+        'https://images.unsplash.com/photo-1502877338535-766e1452684a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Car', 5000, 1),
+       (10, 'This is a Iphone',
+        'https://images.unsplash.com/photo-1556656793-08538906a9f8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+        'Iphone', 1000, 1),
+       (11, 'This is a watch',
+        'https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+        'Watch', 2000, 1),
+       (12, 'This is a clock',
+        'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y2xvY2t8ZW58MHx8MHw%3D&auto=format&fit=crop&w=500&q=60',
+        'Wall Clock', 2000, 14),
+       (13, 'This is a TV',
+        'https://images.unsplash.com/photo-1571415060716-baff5f717c37?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8dHZ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'LG TV', 5000, 3),
+       (14, 'This is a Samsung Smartphone',
+        'https://images.unsplash.com/photo-1553179459-4514c0f52f41?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTR8fHNhbXN1bmclMjBzbWFydHBob25lfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Samsung Galaxy ', 5000, 13),
+       (15, 'Fruits',
+        'https://images.unsplash.com/photo-1609257574707-a3114f91cefe?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Fruits', 1500, 2),
+       (16, 'A great historical tamil novel by Amarar Kalki!',
+        'https://dwtr67e3ikfml.cloudfront.net/bookCovers/8d0aebe488c9389b799f9c153bc05717ce2fa45f', 'Ponniyin Selvan',
+        2500, 2),
+       (17, 'This is a Historical clock',
+        'https://images.unsplash.com/photo-1415604934674-561df9abf539?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8Y2xvY2tzfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        'Ancient Clock', 1000, 14);
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK
+TABLES;
+
+--
+-- Table structure for table `tokens`
+--
+
+DROP TABLE IF EXISTS `tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tokens`
+(
+    `id`           int(11) NOT NULL AUTO_INCREMENT,
+    `token`        varchar(255) DEFAULT NULL,
+    `created_date` datetime     DEFAULT NULL,
+    `user_id`      int(11) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY            `FK2dylsfo39lgjyqml2tbe0b0ss` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tokens`
+--
+
+LOCK
+TABLES `tokens` WRITE;
+/*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
+INSERT INTO `tokens`
+VALUES (1, '0a686925-7735-4d5e-930a-285e23d8aed1', '2020-12-22 13:19:11', 1),
+       (2, '73110419-d579-4fd9-ad98-dd9402226adb', '2020-12-22 13:22:02', 2),
+       (3, '9816248d-4623-474f-a985-d11b094325f9', '2020-12-22 13:22:14', 3),
+       (4, '120038ca-5a15-49fa-a50f-6580345ad35e', '2020-12-27 06:24:23', 4),
+       (5, 'ea8303ca-29c7-4892-961a-5829814d02d3', '2020-12-27 06:25:06', 5),
+       (6, '59f35dc9-9dc4-4bcc-ab28-f4ea6f81722d', '2020-12-27 06:25:16', 6),
+       (7, 'cba245a4-d4eb-41a2-9789-e3dc9b46855a', '2020-12-27 07:48:16', 7),
+       (8, '3ea96f41-708c-4ad6-adf8-b862fc7ee125', '2020-12-27 07:50:11', 8),
+       (9, 'fb32b650-fd27-4dc3-b8e2-9bee7f5a66f3', '2020-12-27 08:23:40', 9),
+       (10, 'f54d51b9-01e3-4a1c-9ab7-b072801305dd', '2020-12-27 08:41:01', 10),
+       (11, '1b7e5c1a-0161-453f-950e-367397190065', '2020-12-27 15:39:16', 11),
+       (12, '4fee3514-cc3d-46c8-a0eb-0cc04a0fda59', '2020-12-28 09:55:06', 12),
+       (13, 'a3699f8e-56c6-4d00-8849-68833c37b571', '2020-12-28 10:03:34', 13),
+       (14, '4a0d58f1-1171-4721-b617-ad2604bc12c2', '2020-12-28 10:04:09', 14),
+       (15, '3d0bd78a-b4a1-4a91-bc9c-a9960c83a6e2', '2020-12-28 11:30:29', 15),
+       (16, 'f0425c15-7a5e-4735-993d-cb3577143c16', '2020-12-28 12:41:57', 16),
+       (17, '495d3ac3-fb1a-4373-9997-42329a10e31c', '2020-12-29 14:07:45', 17),
+       (18, '8d32ef2a-9494-4d0f-912e-684940cd03ff', '2020-12-29 14:10:29', 18),
+       (19, '73a0a7e4-eaf4-4f7c-a1a1-3f29b19d9d1a', '2020-12-29 16:23:12', 19),
+       (20, 'b368062c-6074-4ef3-8311-b6b37581d202', '2020-12-30 21:32:04', 20),
+       (21, '2e8418cb-af90-47f1-a94a-bec5bf7f4b1b', '2021-01-01 09:04:52', 21),
+       (22, '6415441f-c621-435e-8535-7170a5f8c50f', '2021-01-01 09:40:21', 22),
+       (23, 'f4c3c2e9-f82a-4137-a174-de197428cd8b', '2021-01-01 10:05:17', 23);
+/*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
+UNLOCK
+TABLES;
+
+--
+-- Table structure for table `user_profile`
+--
+
+DROP TABLE IF EXISTS `user_profile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_profile`
+(
+    `id`         bigint(20) NOT NULL AUTO_INCREMENT,
+    `email`      varchar(255) DEFAULT NULL,
+    `first_name` varchar(255) DEFAULT NULL,
+    `last_name`  varchar(255) DEFAULT NULL,
+    `username`   varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_profile`
+--
+
+LOCK
+TABLES `user_profile` WRITE;
+/*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
+UNLOCK
+TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users`
+(
+    `id`         int(11) NOT NULL AUTO_INCREMENT,
+    `email`      varchar(255) DEFAULT NULL,
+    `first_name` varchar(255) DEFAULT NULL,
+    `last_name`  varchar(255) DEFAULT NULL,
+    `password`   varchar(255) DEFAULT NULL,
+    `role`       varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK
+TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users`
+VALUES (16, 't@t.t', 'rr', 'rr', 'E358EFA489F58062F10DD7316B65649E', 'user'),
+       (15, 'tt@tt.ttt', 'string', 'string', 'B45CFFE084DD3D20D928BEE85E7B0F21', 'user'),
+       (14, 't@tt.tt', NULL, NULL, 'ACCC9105DF5383111407FD5B41255E23', 'user'),
+       (13, 'tt@tt.t', NULL, NULL, '633DE4B0C14CA52EA2432A3C8A5C4C31', 'user'),
+       (12, 'tt@tt.tt', 't', 't', 'ACCC9105DF5383111407FD5B41255E23', 'user'),
+       (11, 'test@test.com', 'test', 'test', 'CEB6C970658F31504A901B89DCD3E461', 'user'),
+       (10, 't@t.in', 'string', 'string', 'B45CFFE084DD3D20D928BEE85E7B0F21', 'user'),
+       (9, 'admin@gmail.com', 'admin', 'admin', '21232F297A57A5A743894A0E4A801FC3', 'user'),
+       (17, 'chathrua@test.com', 'Chathrua', 'Buddhika', '34F85CA80EC353D3052B8A2D3973A0C5', 'user'),
+       (18, NULL, NULL, 'Darsha', '69FE8DBF75B65A08B4C1F005B400F261', 'user'),
+       (19, 'testuser@gmail.com', 'test', 'user', '098F6BCD4621D373CADE4E832627B4F6', 'user'),
+       (20, 'chathu@gmail.com', 'Chathura', 'Darsha', '69FE8DBF75B65A08B4C1F005B400F261', 'user'),
+       (21, 'sdcdsc@gmail.com', 'Chathura', 'Darsha', '69FE8DBF75B65A08B4C1F005B400F261', 'user'),
+       (22, 'ascscas@ds.hi', 'ascsc', 'Darshaaas', '81DC9BDB52D04DC20036DBD8313ED055', 'user'),
+       (23, 'asdf@asdf.com', 'dsih', 'jisci', 'A545F9A48DF4BE512630CC53CEE1916B', 'user');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK
+TABLES;
+
+--
+-- Table structure for table `wishlist`
+--
+
+DROP TABLE IF EXISTS `wishlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wishlist`
+(
+    `id`           int(11) NOT NULL AUTO_INCREMENT,
+    `user_id`      int(11) NOT NULL,
+    `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `product_id`   bigint(20) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY            `FK6p7qhvy1bfkri13u29x6pu8au` (`product_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+LOCK
+TABLES `wishlist` WRITE;
+/*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
+INSERT INTO `wishlist`
+VALUES (1, 1, '2021-01-12 21:06:39', 1),
+       (2, 1, '2021-01-12 21:11:54', 6),
+       (3, 2, '2021-01-12 21:12:34', 3),
+       (5, 9, '2021-01-13 02:48:42', 3),
+       (6, 11, '2021-01-13 02:51:01', 1);
+/*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
+UNLOCK
+TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\makefile-ubuntu-digital-ocean.sh
+apt-get update && apt-get upgrade && apt-get autoremove
+apt-get install default-jdk default-jre mysql-server maven
+mysql_secure_installation
+mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+FLUSH PRIVILEGES;
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\makefile.sh
+sudo yum update -y
+
+#Install git in your EC2 instance
+sudo yum install git -y
+
+#INSTALL APACHE HTTP SERVER
+sudo yum install httpd -y
+
+#install java
+sudo yum install java-11-openjdk-devel -y
+
+#install apache maven
+sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+sudo yum install -y apache-maven
+
+#install jdk for springboot
+sudo yum install java-11-openjdk-devel
+sudo yum install java-11-openjdk
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\pom.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.8.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.hendisantika</groupId>
+    <artifactId>springboot-ecommerce2</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>springboot-ecommerce2</name>
+    <description>springboot-ecommerce2</description>
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-52</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <!-- <scope>provided</scope> -->
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-bean-validators</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\run.sh
+#git stash
+#git checkout master
+#git pull
+
+sudo kill -9 `sudo lsof -t -i:8080`
+mvn package -DskipTests=true
+# create upload-dir
+#mkdir upload-dir
+nohup java -jar -Dspring.profiles.active=prod target/springboot-ecommerce2-0.0.1-SNAPSHOT.jar &
+#jobs -l
+#nohup python3 -m http.server 8001 &
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\resources\application.properties
+spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta&useSSL=false
+spring.datasource.username=root
+spring.datasource.password=root
+spring.sql.init.mode=always
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.generate-ddl=false
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.open-in-view=true
+#Api Context Path prefix
+#server.servlet.contextPath=/api
+logging.level.org.hibernate.SQL=debug
+application-description=@project.description@
+application-version=@project.version@
+# swagger-ui custom path
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.api-docs.path=/v3/api-docs
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\resources\application.yml
+springdoc:
+  version: '@springdoc.version@'
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+  show-actuator: true
+#  group-configs:
+#    - group: ecommerce
+#      paths-to-match: /**
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\test\java\com\hendisantika\SpringbootEcommerce2ApplicationTests.java
+package com.hendisantika;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SpringbootEcommerce2ApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\SpringbootEcommerce2Application.java
+package com.hendisantika;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class SpringbootEcommerce2Application extends SpringBootServletInitializer {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootEcommerce2Application.class, args);
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(SpringbootEcommerce2Application.class);
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\config
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\config\MessageStrings.java
+package com.hendisantika.config;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.38
+ */
+public class MessageStrings {
+
+    public static final String USER_NOT_PERMITTED = "user is not permitted to perform this operation";
+    public static final String AUTH_TOKEN_NOT_PRESENT = "authentication token not present";
+    public static final String AUTH_TOKEN_NOT_VALID = "authentication token not valid";
+    public static final String USER_CREATED = "user created successfully";
+    public static final String ID_NOT_PRESENT = "primary key is required for updating";
+    public static final String WRONG_PASSWORD = "please check the pass";
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\config\StorageProperties.java
+package com.hendisantika.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.39
+ */
+@ConfigurationProperties("storage")
+public class StorageProperties {
+
+    /**
+     * Folder location for storing files
+     */
+    private String location = "upload-dir";
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\config\SwaggerConfig.java
+package com.hendisantika.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.40
+ */
+@Configuration
+public class SwaggerConfig {
+//    @Bean
+//    public Docket productApi() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .apiInfo(getApiInfo())
+//                .select()
+//                .apis(RequestHandlerSelectors.basePackage("com.hendisantika"))
+//                .paths(PathSelectors.any())
+//                .build();
+//    }
+//
+//    private ApiInfo getApiInfo() {
+//        Contact contact = new Contact("hendisantika", "https://linktr.ee/hendisantika", "hendisantika@yahoo.co.id");
+//        return new ApiInfoBuilder()
+//                .title("ECommerce API")
+//                .description("Documentation Ecommerce API")
+//                .version("1.0.0")
+//                .license("Apache 2.0")
+//                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
+//                .contact(contact)
+//                .build();
+//    }
+
+    @Bean
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("ecommerce")
+                .pathsToMatch("/**")
+                .build();
+    }
+
+    @Bean
+    public OpenAPI customOpenAPI(@Value("${application-description}") String appDesciption, @Value("${application" +
+            "-version}") String appVersion) {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("ECommerce Application API")
+                        .version(appVersion)
+                        .description(appDesciption)
+                        .termsOfService("http://swagger.io/terms/")
+                        .license(new License().name("Apache 2.0").url("http://springdoc.org")));
+
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\config\Webconfig.java
+package com.hendisantika.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.40
+ */
+@Configuration
+class Webconfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("*")
+                        .allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS");
+            }
+        };
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\common\ApiResponse.java
+package com.hendisantika.common;
+
+import lombok.Data;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.11
+ */
+@Data
+public class ApiResponse {
+    private final boolean success;
+    private final String message;
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\common\PagedList.java
+package com.hendisantika.common;
+
+import lombok.Data;
+
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.11
+ */
+@Data
+public class PagedList<T> {
+    private int totalPages;
+    private long totalElements;
+    private boolean hasNext;
+    private boolean hasPrevious;
+    private List<T> data;
+}
+
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\util\Helper.java
+package com.hendisantika.util;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.20
+ */
+public class Helper {
+    public static boolean notNull(Object obj) {
+        return obj != null;
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\controller\CategoryController.java
+package com.hendisantika.controller;
+
+import com.hendisantika.common.ApiResponse;
+import com.hendisantika.entity.Category;
+import com.hendisantika.service.CategoryService;
+import com.hendisantika.util.Helper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/01/22
+ * Time: 06.07
+ */
+@RestController
+@Tag(name = "Category", description = "Endpoints for managing category")
+@RequestMapping("/category")
+public class CategoryController {
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @GetMapping("/")
+    @Operation(
+            summary = "List All Categories",
+            description = "List All Categories.",
+            tags = {"Category"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Category.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<List<Category>> getCategories() {
+        List<Category> body = categoryService.listCategories();
+        return new ResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    @PostMapping("/create")
+    @Operation(
+            summary = "Create New Category",
+            description = "Create New Category.",
+            tags = {"Category"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Category.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<ApiResponse> createCategory(@Valid @RequestBody Category category) {
+        if (Helper.notNull(categoryService.readCategory(category.getCategoryName()))) {
+            return new ResponseEntity<>(new ApiResponse(false, "category already exists"), HttpStatus.CONFLICT);
+        }
+        categoryService.createCategory(category);
+        return new ResponseEntity<>(new ApiResponse(true, "created the category"), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/update/{categoryID}")
+    @Operation(
+            summary = "Update Category by Category ID",
+            description = "Update Category by Category ID.",
+            tags = {"Category"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Category.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable("categoryID") long categoryID,
+                                                      @Valid @RequestBody Category category) {
+        // Check to see if the category exists.
+        if (Helper.notNull(categoryService.readCategory(categoryID))) {
+            // If the category exists then update it.
+            categoryService.updateCategory(categoryID, category);
+            return new ResponseEntity<>(new ApiResponse(true, "updated the category"), HttpStatus.OK);
+        }
+
+        // If the category doesn't exist then return a response of unsuccessful.
+        return new ResponseEntity<>(new ApiResponse(false, "category does not exist"), HttpStatus.NOT_FOUND);
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\controller\FileUploadController.java
+package com.hendisantika.controller;
+
+import com.hendisantika.entity.FileInfo;
+import com.hendisantika.service.FileStoreService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/01/22
+ * Time: 06.10
+ */
+@RestController
+@RequestMapping("/fileUpload")
+@Tag(name = "File Upload", description = "Endpoints for File Upload")
+public class FileUploadController {
+
+    @Autowired
+    private FileStoreService fileStoreService;
+
+    @PostMapping("/")
+    @Operation(
+            summary = "Handle Files Upload",
+            description = "Handle Files Upload.",
+            tags = {"File Upload"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            String.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+        return fileStoreService.store(file);
+    }
+
+    @GetMapping("/")
+    @Operation(
+            summary = "List Files",
+            description = "List Files.",
+            tags = {"File Upload"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            FileInfo.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<List<FileInfo>> getListFiles() {
+        List<FileInfo> fileInfos = fileStoreService.loadAll().map(path -> {
+            String filename = path.getFileName().toString();
+            String url = MvcUriComponentsBuilder
+                    .fromMethodName(FileUploadController.class, "getFile", path.getFileName().toString()).build().toString();
+
+            return new FileInfo(filename, url);
+        }).collect(Collectors.toList());
+
+        Stream<Path> pathStream = fileStoreService.loadAll();
+        return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
+    }
+
+    @GetMapping("/files/{filename:.+}")
+    @Operation(
+            summary = "Get File by Filename",
+            description = "Get File by Filename.",
+            tags = {"File Upload"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Resource.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+        Resource file = fileStoreService.load(filename);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\controller\ProductController.java
+package com.hendisantika.controller;
+
+import com.hendisantika.common.ApiResponse;
+import com.hendisantika.dto.ProductDto;
+import com.hendisantika.entity.Category;
+import com.hendisantika.service.CategoryService;
+import com.hendisantika.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/01/22
+ * Time: 06.12
+ */
+@RestController
+@RequestMapping("/product")
+@Tag(name = "Product", description = "Endpoints for managing Product")
+public class ProductController {
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @GetMapping("/")
+    @Operation(
+            summary = "Get List Product",
+            description = "Get List Product.",
+            tags = {"Product"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            ProductDto.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<List<ProductDto>> getProducts() {
+        List<ProductDto> body = productService.listProducts();
+        return new ResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    @Operation(
+            summary = "Add New Product",
+            description = "Add New Product.",
+            tags = {"Product"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            ApiResponse.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<ApiResponse> addProduct(@RequestBody ProductDto productDto) {
+        Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
+        if (!optionalCategory.isPresent()) {
+            return new ResponseEntity<>(new ApiResponse(false, "category is invalid"), HttpStatus.CONFLICT);
+        }
+        Category category = optionalCategory.get();
+        productService.addProduct(productDto, category);
+        return new ResponseEntity<>(new ApiResponse(true, "Product has been added"), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/update/{productID}")
+    @Operation(
+            summary = "Get Product By ID",
+            description = "Get Product By ID.",
+            tags = {"Product"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            ApiResponse.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productID") long productID,
+                                                     @RequestBody @Valid ProductDto productDto) {
+        Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
+        if (!optionalCategory.isPresent()) {
+            return new ResponseEntity<>(new ApiResponse(false, "category is invalid"), HttpStatus.CONFLICT);
+        }
+        Category category = optionalCategory.get();
+        productService.updateProduct(productID, productDto, category);
+        return new ResponseEntity<>(new ApiResponse(true, "Product has been updated"), HttpStatus.OK);
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\controller\UserController.java
+package com.hendisantika.controller;
+
+import com.hendisantika.dto.ResponseDto;
+import com.hendisantika.dto.SignInDto;
+import com.hendisantika.dto.SignInResponseDto;
+import com.hendisantika.dto.SignupDto;
+import com.hendisantika.entity.User;
+import com.hendisantika.exception.AuthenticationFailException;
+import com.hendisantika.exception.CustomException;
+import com.hendisantika.repository.UserRepository;
+import com.hendisantika.service.AuthenticationService;
+import com.hendisantika.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/01/22
+ * Time: 06.16
+ */
+@RequestMapping("user")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RestController
+@Tag(name = "User", description = "Endpoints for managing User")
+public class UserController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/all")
+    @Operation(
+            summary = "Get All Users",
+            description = "Get All Users.",
+            tags = {"User"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            ArrayList.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public List<User> findAllUser(@RequestParam("token") String token) throws AuthenticationFailException {
+        authenticationService.authenticate(token);
+        return userRepository.findAll();
+    }
+
+    @PostMapping("/signup")
+    @Operation(
+            summary = "SignUp User",
+            description = "SignUp User.",
+            tags = {"User"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            SignupDto.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseDto Signup(@RequestBody SignupDto signupDto) throws CustomException {
+        return userService.signUp(signupDto);
+    }
+
+    //TODO token should be updated
+    @PostMapping("/signIn")
+    @Operation(
+            summary = "SignIn User",
+            description = "SignIn User.",
+            tags = {"User"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            SignInDto.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public SignInResponseDto signIn(@RequestBody SignInDto signInDto) throws CustomException {
+        return userService.signIn(signInDto);
+    }
+
+//    @PostMapping("/updateUser")
+//    public ResponseDto updateUser(@RequestParam("token") String token, @RequestBody UserUpdateDto userUpdateDto) {
+//        authenticationService.authenticate(token);
+//        return userService.updateUser(token, userUpdateDto);
+//    }
+
+
+//    @PostMapping("/createUser")
+//    public ResponseDto updateUser(@RequestParam("token") String token, @RequestBody UserCreateDto userCreateDto)
+//            throws CustomException, AuthenticationFailException {
+//        authenticationService.authenticate(token);
+//        return userService.createUser(token, userCreateDto);
+//    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\controller\UserProfileController.java
+package com.hendisantika.controller;
+
+import com.hendisantika.common.ApiResponse;
+import com.hendisantika.entity.UserProfile;
+import com.hendisantika.service.UserProfileService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/01/22
+ * Time: 06.18
+ */
+@RestController
+@RequestMapping("/user")
+@Tag(name = "User Profile", description = "Endpoints for managing User Profile")
+public class UserProfileController {
+
+    @Autowired
+    private UserProfileService userProfileService;
+
+    @GetMapping("/")
+    @Operation(
+            summary = "Get All Users Profile",
+            description = "Get All Users Profile.",
+            tags = {"User Profile"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            ArrayList.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<List<UserProfile>> getUsers() {
+        List<UserProfile> dtos = userProfileService.listProfiles();
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    @Operation(
+            summary = "Add New User Survey",
+            description = "Add New User Survey.",
+            tags = {"User Profile"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            ApiResponse.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<ApiResponse> addSurvey(@RequestBody @Valid UserProfile profile) {
+        userProfileService.addProfile(profile);
+        return new ResponseEntity<>(new ApiResponse(true, "Profile has been created."), HttpStatus.CREATED);
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\controller\WishListController.java
+package com.hendisantika.controller;
+
+import com.hendisantika.common.ApiResponse;
+import com.hendisantika.dto.ProductDto;
+import com.hendisantika.entity.Product;
+import com.hendisantika.entity.WishList;
+import com.hendisantika.service.AuthenticationService;
+import com.hendisantika.service.ProductService;
+import com.hendisantika.service.WishListService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/01/22
+ * Time: 06.20
+ */
+@RestController
+@RequestMapping("/wishlist")
+@Tag(name = "Wish List", description = "Endpoints for managing Wish List")
+public class WishListController {
+
+    @Autowired
+    private WishListService wishListService;
+
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @GetMapping("/{userId}")
+    @Operation(
+            summary = "Get All Users WishList",
+            description = "Get All Users WishList.",
+            tags = {"Wish List"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            ArrayList.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<List<ProductDto>> getWishList(@PathVariable("userId") Integer userId) {
+        List<WishList> body = wishListService.readWishList(userId);
+        List<ProductDto> products = new ArrayList<>();
+        for (WishList wishList : body) {
+            products.add(ProductService.getDtoFromProduct(wishList.getProduct()));
+        }
+
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    @Operation(
+            summary = "Add New Wish List",
+            description = "Add New Wish List.",
+            tags = {"Wish List"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            ApiResponse.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
+    public ResponseEntity<ApiResponse> addWishList(@RequestBody Product product, @RequestParam("token") String token) {
+        int userId = authenticationService.getUser(token).getId();
+        WishList wishList = new WishList(userId, product.getId());
+        wishListService.createWishlist(wishList);
+        return new ResponseEntity<>(new ApiResponse(true, "Add to wishlist"), HttpStatus.CREATED);
+
+    }
+}
+
+#################################################dto
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\dto\ProductDto.java
+package com.hendisantika.dto;
+
+import com.hendisantika.entity.Product;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 07.55
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductDto {
+    private Long id;
+    private @NotNull String name;
+    private @NotNull String imageURL;
+    private @NotNull double price;
+    private @NotNull String description;
+    private @NotNull Long categoryId;
+
+    public ProductDto(Product product) {
+        this.setId(product.getId());
+        this.setName(product.getName());
+        this.setImageURL(product.getImageURL());
+        this.setDescription(product.getDescription());
+        this.setPrice(product.getPrice());
+        this.setCategoryId(product.getCategory().getId());
+    }
+
+    public ProductDto(@NotNull String name, @NotNull String imageURL, @NotNull double price,
+                      @NotNull String description, @NotNull Long categoryId) {
+        this.name = name;
+        this.imageURL = imageURL;
+        this.price = price;
+        this.description = description;
+        this.categoryId = categoryId;
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\dto\ResponseDto.java
+package com.hendisantika.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 07.57
+ */
+@Data
+@AllArgsConstructor
+public class ResponseDto {
+    private String status;
+    private String message;
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\dto\SignInDto.java
+package com.hendisantika.dto;
+
+import lombok.Data;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 07.57
+ */
+@Data
+public class SignInDto {
+    private String email;
+    private String password;
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\dto\SignInResponseDto.java
+package com.hendisantika.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 07.57
+ */
+@Data
+@AllArgsConstructor
+public class SignInResponseDto {
+    private String status;
+    private String token;
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\dto\SignupDto.java
+package com.hendisantika.dto;
+
+import lombok.Data;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 07.58
+ */
+@Data
+public class SignupDto {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\dto\UserCreateDto.java
+package com.hendisantika.dto;
+
+import com.hendisantika.entity.Role;
+import lombok.Data;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 07.59
+ */
+@Data
+public class UserCreateDto {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private Role role;
+    private String password;
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\dto\UserUpdateDto.java
+package com.hendisantika.dto;
+
+import com.hendisantika.entity.Role;
+import lombok.Data;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 07.59
+ */
+@Data
+public class UserUpdateDto {
+    private Integer id;
+    private String firstName;
+    private String lastName;
+    private Role role;
+}
+
+################################################# entity
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\entity\AuthenticationToken.java
+package com.hendisantika.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.UUID;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.00
+ */
+
+@Entity
+@Table(name = "tokens")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AuthenticationToken {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+
+    private String token;
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "user_id")
+    private User user;
+
+    public AuthenticationToken(User user) {
+        this.user = user;
+        this.createdDate = new Date();
+        this.token = UUID.randomUUID().toString();
+    }
+
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\entity\Category.java
+package com.hendisantika.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.Set;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.06
+ */
+@Entity
+@Table(name = "categories")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Category {
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    Set<Product> products;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "category_name")
+    private @NotBlank String categoryName;
+    private @NotBlank String description;
+
+    // add imageURL here
+    private @NotBlank String imageUrl;
+
+    public Category(@NotBlank String categoryName, @NotBlank String description) {
+        this.categoryName = categoryName;
+        this.description = description;
+    }
+
+    public Category(@NotBlank String categoryName, @NotBlank String description, @NotBlank String imageUrl) {
+        this.categoryName = categoryName;
+        this.description = description;
+        this.imageUrl = imageUrl;
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\entity\FileInfo.java
+package com.hendisantika.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.08
+ */
+@Data
+@AllArgsConstructor
+public class FileInfo {
+    private String name;
+    private String url;
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\entity\Product.java
+package com.hendisantika.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hendisantika.dto.ProductDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.07
+ */
+@Entity
+@Table(name = "products")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Product {
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    Category category;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private @NotNull String name;
+    private @NotNull String imageURL;
+    private @NotNull double price;
+    private @NotNull String description;
+
+    public Product(ProductDto productDto, Category category) {
+        this.name = productDto.getName();
+        this.imageURL = productDto.getImageURL();
+        this.description = productDto.getDescription();
+        this.price = productDto.getPrice();
+        this.category = category;
+    }
+
+    public Product(String name, String imageURL, double price, String description, Category category) {
+        super();
+        this.name = name;
+        this.imageURL = imageURL;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\entity\ResponseStatus.java
+package com.hendisantika.entity;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.01
+ */
+public enum ResponseStatus {
+    success,
+    error
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\entity\Role.java
+package com.hendisantika.entity;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.02
+ */
+public enum Role {
+    user,
+    manager,
+    admin
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\entity\User.java
+package com.hendisantika.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.02
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
+
+    @Column(name = "password")
+    private String password;
+
+    public User(String firstName, String lastName, String email, Role role, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\entity\UserProfile.java
+package com.hendisantika.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.03
+ */
+@Entity
+@Table(name = "user_profile")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserProfile {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String username;
+    private String email;
+    private String firstName;
+    private String lastName;
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\entity\WishList.java
+package com.hendisantika.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.09
+ */
+@Entity
+@Table(name = "wishlist")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class WishList {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "user_id")
+    private @NotBlank Integer userId;
+
+    @Column(name = "product_id")
+    private @NotBlank Long productId;
+
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Product product;
+
+    public WishList(Integer userId, Long productId) {
+        this.userId = userId;
+        this.productId = productId;
+        this.createdDate = new Date();
+    }
+
+}
+
+################################################# exception
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\exception\AuthenticationFailException.java
+package com.hendisantika.exception;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.29
+ */
+public class AuthenticationFailException extends IllegalArgumentException {
+    public AuthenticationFailException(String msg) {
+        super(msg);
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\exception\CustomException.java
+package com.hendisantika.exception;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.30
+ */
+public class CustomException extends IllegalArgumentException {
+    public CustomException(String msg) {
+        super(msg);
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\exception\ExceptionControllerAdvice.java
+package com.hendisantika.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.31
+ */
+@ControllerAdvice
+public class ExceptionControllerAdvice {
+
+    @ExceptionHandler(value = UpdateFailException.class)
+    public final ResponseEntity<String> handleUpdateFailException(UpdateFailException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = AuthenticationFailException.class)
+    public final ResponseEntity<String> handleUpdateFailException(AuthenticationFailException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = CustomException.class)
+    public final ResponseEntity<String> handleUpdateFailException(CustomException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\exception\ExceptionHandlerAdvice.java
+package com.hendisantika.exception;
+
+import com.hendisantika.common.ApiResponse;
+import org.springframework.core.NestedExceptionUtils;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import javax.validation.ValidationException;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.34
+ */
+@ControllerAdvice
+public class ExceptionHandlerAdvice {
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiResponse> conflict(DataIntegrityViolationException ex) {
+        String message = getMostSpecificMessage(ex);
+
+        return new ResponseEntity<ApiResponse>(new ApiResponse(false, message), HttpStatus.CONFLICT);
+    }
+
+//	@ExceptionHandler(AccessDeniedException.class)
+//	public ResponseEntity<ApiResponse> accessDenied(AccessDeniedException ex){
+//		String message = ex.getMessage();
+//
+//		return new ResponseEntity<ApiResponse>(new ApiResponse(false, message), HttpStatus.FORBIDDEN);
+//	}
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ApiResponse> validationException(ValidationException ex) {
+        String message = ex.getMessage();
+
+        return new ResponseEntity<ApiResponse>(new ApiResponse(false, message), HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ApiResponse> methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        ex.printStackTrace();
+
+        String message = ex.getMessage();
+        return new ResponseEntity<ApiResponse>(new ApiResponse(false, message), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse> unhandledExceptions(Exception ex) {
+        String message = NestedExceptionUtils.getMostSpecificCause(ex).getMessage();
+
+        ex.printStackTrace();
+
+        return new ResponseEntity<ApiResponse>(new ApiResponse(false, message), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private String getMostSpecificMessage(DataIntegrityViolationException ex) {
+        String message = NestedExceptionUtils.getMostSpecificCause(ex).getMessage();
+
+        if (message.contains("Detail:")) {
+            message = message.substring(message.indexOf("Detail:") + "Detail:".length());
+        }
+
+        return message;
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\exception\StorageException.java
+package com.hendisantika.exception;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.35
+ */
+public class StorageException extends RuntimeException {
+
+    public StorageException(String message) {
+        super(message);
+    }
+
+    public StorageException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\exception\UpdateFailException.java
+package com.hendisantika.exception;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.36
+ */
+
+public class UpdateFailException extends IllegalArgumentException {
+    public UpdateFailException(String msg) {
+        super(msg);
+    }
+}
+## C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\exception\ValidationException.java
+package com.hendisantika.exception;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.36
+ */
+public class ValidationException extends RuntimeException {
+    private static final long serialVersionUID = 6064663768170825752L;
+
+    public ValidationException(String message) {
+        super(message);
+    }
+
+    public ValidationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\repository\CategoryRepository.java
+package com.hendisantika.repository;
+
+import com.hendisantika.entity.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.14
+ */
+
+@Repository
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+
+    Category findByCategoryName(String categoryName);
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\repository\ProductRepository.java
+package com.hendisantika.repository;
+
+import com.hendisantika.entity.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.16
+ */
+public interface ProductRepository extends JpaRepository<Product, Long> {
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\repository\TokenRepository.java
+package com.hendisantika.repository;
+
+import com.hendisantika.entity.AuthenticationToken;
+import com.hendisantika.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.17
+ */
+@Repository
+public interface TokenRepository extends JpaRepository<AuthenticationToken, Integer> {
+    AuthenticationToken findTokenByUser(User user);
+
+    AuthenticationToken findTokenByToken(String token);
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\repository\UserProfileRepository.java
+package com.hendisantika.repository;
+
+import com.hendisantika.entity.UserProfile;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.18
+ */
+public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\repository\UserRepository.java
+package com.hendisantika.repository;
+
+import com.hendisantika.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.18
+ */
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer> {
+
+    List<User> findAll();
+
+    User findByEmail(String email);
+
+    User findUserByEmail(String email);
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\repository\WishListRepository.java
+package com.hendisantika.repository;
+
+import com.hendisantika.entity.WishList;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.19
+ */
+@Repository
+public interface WishListRepository extends JpaRepository<WishList, Integer> {
+
+    List<WishList> findAllByUserIdOrderByCreatedDateDesc(Integer userId);
+
+
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\service\AuthenticationService.java
+package com.hendisantika.service;
+
+import com.hendisantika.config.MessageStrings;
+import com.hendisantika.entity.AuthenticationToken;
+import com.hendisantika.entity.User;
+import com.hendisantika.exception.AuthenticationFailException;
+import com.hendisantika.repository.TokenRepository;
+import com.hendisantika.util.Helper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.27
+ */
+@Service
+public class AuthenticationService {
+
+    @Autowired
+    private TokenRepository tokenRepository;
+
+    public void saveConfirmationToken(AuthenticationToken authenticationToken) {
+        tokenRepository.save(authenticationToken);
+    }
+
+    public AuthenticationToken getToken(User user) {
+        return tokenRepository.findTokenByUser(user);
+    }
+
+    public User getUser(String token) {
+        AuthenticationToken authenticationToken = tokenRepository.findTokenByToken(token);
+        if (Helper.notNull(authenticationToken)) {
+            if (Helper.notNull(authenticationToken.getUser())) {
+                return authenticationToken.getUser();
+            }
+        }
+        return null;
+    }
+
+    public void authenticate(String token) throws AuthenticationFailException {
+        if (!Helper.notNull(token)) {
+            throw new AuthenticationFailException(MessageStrings.AUTH_TOKEN_NOT_PRESENT);
+        }
+        if (!Helper.notNull(getUser(token))) {
+            throw new AuthenticationFailException(MessageStrings.AUTH_TOKEN_NOT_VALID);
+        }
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\service\CategoryService.java
+package com.hendisantika.service;
+
+import com.hendisantika.entity.Category;
+import com.hendisantika.repository.CategoryRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.42
+ */
+@Service
+@Transactional
+public class CategoryService {
+
+    private final CategoryRepository categoryRepository;
+
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
+    public List<Category> listCategories() {
+        return categoryRepository.findAll();
+    }
+
+    public void createCategory(Category category) {
+        categoryRepository.save(category);
+    }
+
+    public Category readCategory(String categoryName) {
+        return categoryRepository.findByCategoryName(categoryName);
+    }
+
+    public Optional<Category> readCategory(Long categoryId) {
+        return categoryRepository.findById(categoryId);
+    }
+
+    public void updateCategory(Long categoryID, Category newCategory) {
+        Category category = categoryRepository.findById(categoryID).get();
+        category.setCategoryName(newCategory.getCategoryName());
+        category.setDescription(newCategory.getDescription());
+        category.setProducts(newCategory.getProducts());
+        category.setImageUrl(newCategory.getImageUrl());
+
+        categoryRepository.save(category);
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\service\FileStoreService.java
+package com.hendisantika.service;
+
+import com.hendisantika.config.StorageProperties;
+import com.hendisantika.exception.StorageException;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
+import java.util.stream.Stream;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.47
+ */
+@Service
+public class FileStoreService {
+
+    private final StorageProperties properties = new StorageProperties();
+    private final Path rootLocation = Paths.get(properties.getLocation());
+
+    public String store(MultipartFile file) {
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Failed to store empty file.");
+            }
+
+            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+            String uploadedFileName = UUID.randomUUID() + "." + extension;
+
+            Path destinationFile = rootLocation.resolve(
+                            Paths.get(uploadedFileName))
+                    .normalize().toAbsolutePath();
+
+            try (InputStream inputStream = file.getInputStream()) {
+                Files.copy(inputStream, destinationFile,
+                        StandardCopyOption.REPLACE_EXISTING);
+
+                final String baseUrl =
+                        ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+
+                return baseUrl + "/fileUpload/files/" + uploadedFileName;
+            }
+        } catch (IOException e) {
+            throw new StorageException("Failed to store file.", e);
+        }
+    }
+
+    public Stream<Path> loadAll() {
+        try {
+            return Files.walk(this.rootLocation, 1)
+                    .filter(path -> !path.equals(this.rootLocation))
+                    .map(this.rootLocation::relativize);
+        } catch (IOException e) {
+            throw new StorageException("Failed to read stored files", e);
+        }
+    }
+
+    public Resource load(String filename) {
+        try {
+            Path file = rootLocation.resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\service\ProductService.java
+package com.hendisantika.service;
+
+import com.hendisantika.dto.ProductDto;
+import com.hendisantika.entity.Category;
+import com.hendisantika.entity.Product;
+import com.hendisantika.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/01/22
+ * Time: 08.49
+ */
+@Service
+public class ProductService {
+    @Autowired
+    private ProductRepository productRepository;
+
+    public List<ProductDto> listProducts() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDto> productDtos = new ArrayList<>();
+        for (Product product : products) {
+            ProductDto productDto = getDtoFromProduct(product);
+            productDtos.add(productDto);
+        }
+        return productDtos;
+    }
+
+    public static ProductDto getDtoFromProduct(Product product) {
+        ProductDto productDto = new ProductDto(product);
+        return productDto;
+    }
+
+    public static Product getProductFromDto(ProductDto productDto, Category category) {
+        Product product = new Product(productDto, category);
+        return product;
+    }
+
+    public void addProduct(ProductDto productDto, Category category) {
+        Product product = getProductFromDto(productDto, category);
+        productRepository.save(product);
+    }
+
+    public void updateProduct(long productID, ProductDto productDto, Category category) {
+        Product product = getProductFromDto(productDto, category);
+        product.setId(productID);
+        productRepository.save(product);
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\service\UserProfileService.java
+package com.hendisantika.service;
+
+import com.hendisantika.entity.UserProfile;
+import com.hendisantika.repository.UserProfileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/01/22
+ * Time: 06.00
+ */
+@Service
+public class UserProfileService {
+
+    @Autowired
+    private UserProfileRepository userRepo;
+
+    public void addProfile(UserProfile userProfile) {
+        userRepo.save(userProfile);
+    }
+
+    public List<UserProfile> listProfiles() {
+        return userRepo.findAll();
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\service\UserService.java
+package com.hendisantika.service;
+
+import com.hendisantika.config.MessageStrings;
+import com.hendisantika.dto.ResponseDto;
+import com.hendisantika.dto.SignInDto;
+import com.hendisantika.dto.SignInResponseDto;
+import com.hendisantika.dto.SignupDto;
+import com.hendisantika.dto.UserCreateDto;
+import com.hendisantika.entity.AuthenticationToken;
+import com.hendisantika.entity.ResponseStatus;
+import com.hendisantika.entity.Role;
+import com.hendisantika.entity.User;
+import com.hendisantika.exception.AuthenticationFailException;
+import com.hendisantika.exception.CustomException;
+import com.hendisantika.repository.UserRepository;
+import com.hendisantika.util.Helper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import static com.hendisantika.config.MessageStrings.USER_CREATED;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/01/22
+ * Time: 06.01
+ */
+@Service
+public class UserService {
+
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    public ResponseDto signUp(SignupDto signupDto) throws CustomException {
+        // Check to see if the current email address has already been registered.
+        if (Helper.notNull(userRepository.findByEmail(signupDto.getEmail()))) {
+            // If the email address has been registered then throw an exception.
+            throw new CustomException("User already exists");
+        }
+        // first encrypt the password
+        String encryptedPassword = signupDto.getPassword();
+        try {
+            encryptedPassword = hashPassword(signupDto.getPassword());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            logger.error("hashing password failed {}", e.getMessage());
+        }
+
+
+        User user = new User(signupDto.getFirstName(), signupDto.getLastName(), signupDto.getEmail(), Role.user,
+                encryptedPassword);
+
+        User createdUser;
+        try {
+            // save the User
+            createdUser = userRepository.save(user);
+            // generate token for user
+            final AuthenticationToken authenticationToken = new AuthenticationToken(createdUser);
+            // save token in database
+            authenticationService.saveConfirmationToken(authenticationToken);
+            // success in creating
+            return new ResponseDto(ResponseStatus.success.toString(), USER_CREATED);
+        } catch (Exception e) {
+            // handle signup error
+            throw new CustomException(e.getMessage());
+        }
+    }
+
+    public SignInResponseDto signIn(SignInDto signInDto) throws CustomException {
+        // first find User by email
+        User user = userRepository.findByEmail(signInDto.getEmail());
+        if (!Helper.notNull(user)) {
+            throw new AuthenticationFailException("user not present");
+        }
+        try {
+            // check if password is right
+            if (!user.getPassword().equals(hashPassword(signInDto.getPassword()))) {
+                // passowrd doesnot match
+                throw new AuthenticationFailException(MessageStrings.WRONG_PASSWORD);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            logger.error("hashing password failed {}", e.getMessage());
+            throw new CustomException(e.getMessage());
+        }
+
+        AuthenticationToken token = authenticationService.getToken(user);
+
+        if (!Helper.notNull(token)) {
+            // token not present
+            throw new CustomException("token not present");
+        }
+
+        return new SignInResponseDto("success", token.getToken());
+    }
+
+    private String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+        byte[] digest = md.digest();
+        String myHash = DatatypeConverter
+                .printHexBinary(digest).toUpperCase();
+        return myHash;
+    }
+
+    public ResponseDto createUser(String token, UserCreateDto userCreateDto) throws CustomException,
+            AuthenticationFailException {
+        User creatingUser = authenticationService.getUser(token);
+        if (!canCrudUser(creatingUser.getRole())) {
+            // user can't create new user
+            throw new AuthenticationFailException(MessageStrings.USER_NOT_PERMITTED);
+        }
+        String encryptedPassword = userCreateDto.getPassword();
+        try {
+            encryptedPassword = hashPassword(userCreateDto.getPassword());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            logger.error("hashing password failed {}", e.getMessage());
+        }
+
+        User user = new User(userCreateDto.getFirstName(), userCreateDto.getLastName(), userCreateDto.getEmail(),
+                userCreateDto.getRole(), encryptedPassword);
+        User createdUser;
+        try {
+            createdUser = userRepository.save(user);
+            final AuthenticationToken authenticationToken = new AuthenticationToken(createdUser);
+            authenticationService.saveConfirmationToken(authenticationToken);
+            return new ResponseDto(ResponseStatus.success.toString(), USER_CREATED);
+        } catch (Exception e) {
+            // handle user creation fail error
+            throw new CustomException(e.getMessage());
+        }
+
+    }
+
+    private boolean canCrudUser(Role role) {
+        return role == Role.admin || role == Role.manager;
+    }
+
+    private boolean canCrudUser(User userUpdating, Integer userIdBeingUpdated) {
+        Role role = userUpdating.getRole();
+        // admin and manager can crud any user
+        if (role == Role.admin || role == Role.manager) {
+            return true;
+        }
+        // user can update his own record, but not his role
+        return role == Role.user && userUpdating.getId() == userIdBeingUpdated;
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce2\src\main\java\com\hendisantika\service\WishListService.java
+package com.hendisantika.service;
+
+import com.hendisantika.entity.WishList;
+import com.hendisantika.repository.WishListRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce2
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/01/22
+ * Time: 06.05
+ */
+@Service
+@Transactional
+public class WishListService {
+
+    private final WishListRepository wishListRepository;
+
+    public WishListService(WishListRepository wishListRepository) {
+        this.wishListRepository = wishListRepository;
+    }
+
+    public void createWishlist(WishList wishList) {
+        wishListRepository.save(wishList);
+    }
+
+    public List<WishList> readWishList(Integer userId) {
+        return wishListRepository.findAllByUserIdOrderByCreatedDateDesc(userId);
+    }
+}
+
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################

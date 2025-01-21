@@ -1,0 +1,140 @@
+
+--% index/fmus
+__PWD,d
+	~unless[q]
+		@antd: https://ant.design/components/overview/ *
+		@bs5: https://getbootstrap.com/docs/5.1/getting-started/introduction/ *
+		@bs4: https://getbootstrap.com/docs/4.6/getting-started/introduction/ *
+		@mui: https://mui.com/material-ui/react-autocomplete/ *
+			?pick
+				$* yarn add @mui/material @emotion/react @emotion/styled
+				$* yarn add @mui/material @mui/styled-engine-sc styled-components
+				$* yarn add @mui/icons-material
+		@mui: https://material.io/components?platform=web *
+		@https://github.com/material-components/material-components-android *
+		@mantine.dev*
+		.,d(/load=__FILE__=load_forever*)
+--#
+
+--% mui/info
+https://mui.com/material-ui/getting-started/installation/
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+/>
+
+* {
+	font-family: "Roboto", sans-serif;
+}
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+/>
+
+CDN
+
+You can start using MUI with minimal Front-end infrastructure, which is great for prototyping.
+
+Two Universal Module Definition (UMD) files are provided:
+
+    one for development: https://unpkg.com/@mui/material@latest/umd/material-ui.development.js
+    one for production: https://unpkg.com/@mui/material@latest/umd/material-ui.production.min.js
+
+--#
+
+--% readme
+showcases:
+pyqt5
+wxwidgets
+tkinter
+kivy
+electron
+
+javafx, scalafx, java swing, eclipse swt
+go qt
+rs qt
+c++ qt
+c# wf/wpf/...
+
+android, flutter, reactnative
+
+react antd
+react bs4/bs5
+react mui4/mui5
+react styled-components, tailwind, chakraui...
+--#
+
+--% load_forever
+__PWD,d
+	?pick
+		@affix*
+		@alert*
+		@anchor*
+		@autocomplete*
+		@avatar*
+		@backtop*
+		@badge*
+		@breadcrumb*
+		@button*
+		@calendar*
+		@card*
+		@carousel*
+		@cascader*
+		@checkbox*
+		@collapse*
+		@comment*
+		@configprovider*
+		@datepicker*
+		@descriptions*
+		@dialog*
+		@divider*
+		@drawer*
+		@dropdown*
+		@empty*
+		@form*
+		@grid*
+		@icon*
+		@image*
+		@input*
+		@inputnumber*
+		@layout*
+		@list*
+		@mentions*
+		@menu*
+		@message*
+		@modal*
+		@navigation*
+		@notification*
+		@pageheader*
+		@pagination*
+		@popconfirm*
+		@popover*
+		@progress*
+		@radio*
+		@rate*
+		@result*
+		@select*
+		@skeleton*
+		@slider*
+		@space*
+		@spin*
+		@statistics*
+		@steps*
+		@switch*        
+		@table*
+		@tabs*
+		@tag*
+		@timeline*
+		@timepicker*
+		@tooltip*
+		@transfer*
+		@tree*
+		@treeselect*
+		@typography*
+		@upload*
+
+		@ =========== EDITOR =========== *
+		@react-quill*
+--#

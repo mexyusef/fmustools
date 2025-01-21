@@ -1,0 +1,38 @@
+
+
+objective
+
+u -e/>type/params
+
+u -e/>s/{word,paragraph,text,phone,citydll}
+u -e/>dt/<format>,between,in year,from-to-now,quote-item/single-quote-item
+u -e/>ts/<format>,between,in year,from-to-now,quote-item/single-quote-item
+u -e/>[]/num=5,types=[i,s],quote-items/single-quote-items
+u -e/>[[]]/num=5,types=[i,s]    2d/matrix
+u -e/>{}/num=5,types=[i,s]
+u -e/>i/between,num-digits,max=...,min=...
+u -e/>f/between,num-digits,max=...,min=...,places=...
+
+random_digit
+random_number
+
+u -e/(s/fn
+
+u -e/([]/10,s,fn
+u -e/([]/10,s,ln
+u -e/([]/10,s,city
+u -e/([]/10,s,country
+u -e/([]/3,s,phone_number
+u -e/([]/3,s,name_male
+
+u -e/([]/10,i,0-100
+u -e/([]/20,i,100-1000
+
+u -e/([]/5,['satu','dua','tiga','enam','tujuh']
+u -e/([]/15,[1,2,3,4]
+
+u -e/([]/5,s,fn
+['Mary', 'Brian', 'David', 'James', 'Daniel']
+
+u -e/([]/5,i,10-50
+['38', '43', '33', '19', '19']

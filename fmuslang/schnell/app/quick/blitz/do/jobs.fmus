@@ -1,0 +1,82 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @gunakan firefox*
+            ?pick
+                $* python -m webbrowser -t "https://www.upwork.com/nx/jobs/search/?q=fullstack&from_recent_search=true&sort=recency"
+                $* python -m webbrowser -t "https://www.upwork.com/nx/jobs/search/?q=python&from_recent_search=true&sort=recency"
+                $* python -m webbrowser -t "https://www.upwork.com/nx/jobs/search/?q=node&from_recent_search=true&sort=recency"
+                $* python -m webbrowser -t "https://www.upwork.com/nx/jobs/search/?q=react&from_recent_search=true&sort=recency"
+                $* python -m webbrowser -t https://weworkremotely.com/categories/remote-full-stack-programming-jobs#job-listings
+                $* python -m webbrowser -t https://weworkremotely.com/categories/remote-back-end-programming-jobs#job-listings
+                $* python -m webbrowser -t https://weworkremotely.com/categories/remote-front-end-programming-jobs#job-listings
+                $* python -m webbrowser -t https://stackoverflow.com/jobs?sort=p
+                $* python -m webbrowser -t "https://stackoverflow.com/jobs?med=clc&clc-var=3"
+
+                # belum dichromekan
+
+                $* python -m webbrowser -t https://www.jobstreet.co.id/en/job-search/senior-software-developer-jobs/?sort=createdAt
+
+                $* python -m webbrowser -t https://www.glassdoor.com/Job/jakarta-senior-software-developer-jobs-SRCH_IL.0,7_IC2709872_KO8,33.htm?fromAge=14
+                
+
+                $* python -m webbrowser -t https://nodesk.co/remote-jobs/
+                $* python -m webbrowser -t https://remoteok.com/remote-dev-jobs                
+                $* python -m webbrowser -t https://remote.co/remote-jobs/developer/
+                $* python -m webbrowser -t "https://remotive.com/?live_jobs%5BrefinementList%5D%5Bquick_location_filter%5D%5B0%5D=Worldwide"
+                $* python -m webbrowser -t https://www.workingnomads.com/remote-full-stack-jobs
+                $* python -m webbrowser -t https://www.crossover.com/jobs
+
+                $* python -m webbrowser -t "https://www.google.com/search?ie=UTF-8q=senior+software+developer+remote"
+
+
+        $* python -m webbrowser -t https://www.upwork.com/ab/account-security/login?redir=%2Fsignup%2Fhome
+
+        @upwork fullstack search*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.upwork.com/nx/jobs/search/?q=fullstack&from_recent_search=true&sort=recency')"
+
+        @upwork fullstack search - 50 jobs per page?*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.upwork.com/nx/jobs/search/?q=fullstack&sort=recency')"
+        
+        @upwork python search*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.upwork.com/nx/jobs/search/?q=python&from_recent_search=true&sort=recency')"
+        
+        @upwork node search*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.upwork.com/nx/jobs/search/?q=node&from_recent_search=true&sort=recency')"
+        
+        @upwork react search*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.upwork.com/nx/jobs/search/?q=react&from_recent_search=true&sort=recency')"
+        
+        @wwr fullstack*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://weworkremotely.com/categories/remote-full-stack-programming-jobs#job-listings')"
+        
+        @wwr backend*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://weworkremotely.com/categories/remote-back-end-programming-jobs#job-listings')"
+        
+        @wwr frontend*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://weworkremotely.com/categories/remote-front-end-programming-jobs#job-listings')"
+
+        @dice*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.dice.com/jobs/q-Remote+Sr.+Software+Engineer-jobs')"
+
+        @simplyhired*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.simplyhired.com/search?q=sr.+software+engineer&l=remote')"
+
+        @swissdevjobs*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://swissdevjobs.ch/jobs/all/remote')"
+
+        @google search: senior software developer remote*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://www.google.com/search?q=senior+software+developer+remote&uact=5&oq=senior+software+developer+remote&sclient=gws-wiz')"
+        
+        @SO newest*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://stackoverflow.com/jobs?sort=p')"
+        
+        @SO*
+            $* python -c"import webbrowser; webbrowser.get('C:/Program Files/Google/Chrome/Application/chrome.exe %s').open('https://stackoverflow.com/jobs?med=clc&clc-var=3')"
+        
+
+
+        .,d(/load=___CURDIR/vamp.fmus=index/fmus)
+		@edit this file: $ULIBPY_BASEDIR\app\quick\blitz\do\jobs.fmus*
+			$* code ULIBPY_BASEDIR\app\quick\blitz\do\jobs.fmus
+--#

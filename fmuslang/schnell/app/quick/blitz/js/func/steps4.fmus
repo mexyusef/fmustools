@@ -1,0 +1,1369 @@
+--% index/fmus
+__PWD,d
+    ?pick
+    	section1.txt,f(e=__FILE__=section1)
+    	section2.txt,f(e=__FILE__=section2)
+    	section3.txt,f(e=__FILE__=section3)
+    	section4.txt,f(e=__FILE__=section4)
+    	section5.txt,f(e=__FILE__=section5)
+    	section6.txt,f(e=__FILE__=section6)
+    	section7.txt,f(e=__FILE__=section7)
+--#
+
+--% section1
+function sum(numbers) {
+  var sum = 0;
+  for (var i = 0, l = numbers.length; i < l; i++) {
+    sum += numbers[i];
+  }
+  return sum;
+}
+
+function sum2(numbers) {
+  return numbers.reduce(function (sum, num) {
+    return sum, num;
+  }, 0);
+}
+
+function getNumbers(coll) {
+  return coll.map(function () {
+    return Number(this.innerHTML);
+  });
+}
+
+function updateView() {
+  var sum = 0;
+
+  $('.line-item').each(function () {
+    sum += Number(this.innerHTML);
+  });
+
+  $('.total').text(sum);
+}
+
+function updateView2() {
+  $('.total').text(sum(getNumbers($('.line-item'))));
+}
+
+function updateView() {
+  var sum = 0;
+
+  $('.line-item').each(function () {
+    sum += Number(this.innerHTML);
+  });
+
+  $('.total').text(sum);
+}
+
+// Pure
+function sum(numbers) {
+  return numbers.reduce(function (sum, num) {
+    return sum, num;
+  }, 0);
+}
+
+// Pure
+function getNumbers(coll) {
+  return coll.map(function () {
+    return Number(this.innerHTML);
+  });
+}
+
+// Impure - wiring
+function updateView2() {
+  $('.total').text(sum(getNumbers($('.line-item'))));
+}
+--#
+
+--% section2
+var helloWorld = function helloWorld() {
+  return "Hello, bleak world";
+};
+
+helloWorld.id = 42;
+
+var person = {
+  hello: function () {
+    return "Hello";
+  }
+};
+
+person.hello();
+function contains(list, item) {
+  return list.indexOf(item) >= 0;
+}
+
+function nodesByTypes(types, ast) {
+  return ast.filter(function (node) {
+    return contains(types, node[0]);
+  });
+}
+
+function second(list) {
+  return list[1];
+}
+
+function addedFlags(ast) {
+  return nodesByTypes(['add-flags'], ast).map(second);
+}
+
+function splitBy(predicate, list) {
+  var result = [];
+
+  list.forEach(function (elem) {
+    if (predicate(elem)) {
+      result.push([]);
+      return result;
+    } else if (result.length === 0) {
+      result.push([]);
+    }
+
+    result[result.length - 1].push(elem);
+  });
+
+  return result;
+}
+
+function isParagraph(node) {
+  return node[0] === 'paragraph';
+}
+
+function makeParagraph(entries) {
+  return entries.map(second).join('\n');
+}
+
+function prepareView(page) {
+  return splitBy(
+    isParagraph,
+    nodesByTypes(['plainText', 'paragraph'], page.ast)
+  ).map(makeParagraph);
+}
+
+var ast = [
+  ['plainText', 'You are in a'],
+  ['plainText', 'cold and dark place'],
+  ['paragraph'],
+  ['paragraph'],
+  ['plainText', 'You are cold']
+];
+
+console.log(prepareView({ast: ast}));
+function merge() {
+  return [].reduce.call(arguments, function (res, obj) {
+    return Object.keys(obj).reduce(function (res, prop) {
+      res[prop] = obj[prop];
+      return res;
+    }, res);
+  }, {});
+}
+
+function not(fn) {
+  return function (val) {
+    return !fn(val);
+  };
+}
+
+function contained(list) {
+  return function (item) {
+    return list.indexOf(item) >= 0;
+  };
+}
+
+function applyChangeset(user, changes) {
+  return merge({
+    flags: user.flags.filter(not(contained(changes.removeFlags))).
+      concat(changes.addFlags),
+    currentPage: changes.currentPage,
+    pages: user.pages.concat(changes.currentPage)
+  });
+}
+
+var user = {
+  name: 'Chris',
+  flags: ['n00b'],
+  pages: [0]
+};
+
+var changeset = {
+  removeFlags: ['n00b', 'advanced'],
+  addFlags: ['beginner'],
+  currentPage: 1
+};
+
+console.log(applyChangeset(user, changeset));
+--#
+
+--% section3
+var bcrypt = require("bcrypt");
+
+function save(user, callback) {
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) { return callback(err); }
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) { return callback(err); }
+      db.put(user.username, {
+        username: user.username,
+        salt: salt,
+        passwordHash: hash,
+        games: []
+      }, function (err, user) {
+        if (err) { return callback(err); }
+        callback(undefined, {
+          username: user.username,
+          games: user.games
+        });
+      });
+    });
+  });
+}
+var bcrypt = require('bcrypt');
+
+function series(steps, callback) {
+  var stepfns = steps.slice();
+
+  function doNext() {
+    var next = stepfns.shift();
+    var args = [].slice.call(arguments);
+
+    if (next) {
+      next.apply(null, args.concat(function (err, result) {
+        if (err) { return callback(err); }
+        doNext(result);
+      }));
+    } else {
+      callback.apply(null, [undefined].concat(args));
+    }
+  }
+
+  doNext();
+}
+
+function save(user, callback) {
+  series([
+    function (next) {
+      bcrypt.genSalt(10, next);
+    },
+    function (salt, next) {
+      bcrypt.hash(user.password, salt, next);
+    },
+    function (hash, next) {
+      db.put(user.username, {
+        username: user.username,
+        salt: salt,
+        passwordHash: hash,
+        games: []
+      }, next);
+    }
+  ], function (err, user) {
+    if (err) { return callback(err); }
+    callback(undefined, {
+      username: user.username,
+      games: user.games
+    });
+  });
+}
+var bcrypt = require('bcrypt');
+var genSalt = promisify(bcrypt.genSalt);
+var genHash = promisify(bcrypt.hash);
+var dbPut = promisify(db.put);
+
+function prepareUser(user) {
+  return {
+    username: user.username,
+    games: user.games
+  };
+}
+
+function persistUser(user) {
+  return function (res) {
+    return dbPut(user.username, {
+      username: user.username,
+      salt: res[0],
+      passwordHash: res[1],
+      games: []
+    })
+  };
+}
+
+function save(user, callback) {
+  var salt = genSalt(10);
+  var hash = salt.then(function (salt) {
+    return genHash(user.password, salt);
+  });
+
+  return Promise.all([salt, hash])
+    .then(persistUser(user))
+    .then(prepareUser);
+}
+--#
+
+--% section4
+function nth(n, list) {
+  return list[n];
+}
+
+function partial(fn) {
+  var args = [].slice.call(arguments, 1);
+
+  return function () {
+    var allArgs = args.concat([].slice.call(arguments));
+    return fn.apply(null, allArgs);
+  };
+}
+
+var second = partial(nth, 1);
+
+function addedFlags(ast) {
+  return nodesByTypes(['add-flag'], ast).map(second);
+}
+
+function contains(list, item) {
+  return list.indexOf(item) >= 0;
+}
+
+function nodesByTypes(types, ast) {
+  return ast.filter(function (node) {
+    return contains(types, node[0]);
+  });
+}
+
+function addedFlags(ast) {
+  return nodesByTypes(['add-flags'], ast).map(second);
+}
+
+function splitBy(predicate, list) {
+  var result = [];
+
+  list.forEach(function (elem) {
+    if (predicate(elem)) {
+      result.push([]);
+      return result;
+    } else if (result.length === 0) {
+      result.push([]);
+    }
+
+    result[result.length - 1].push(elem);
+  });
+
+  return result;
+}
+
+function isParagraph(node) {
+  return node[0] === 'paragraph';
+}
+
+function makeParagraph(entries) {
+  return entries.map(second).join('\n');
+}
+
+function prepareView(page) {
+  return splitBy(
+    isParagraph,
+    nodesByTypes(['plainText', 'paragraph'], page.ast)
+  ).map(makeParagraph);
+}
+
+console.log(prepareView({
+  id: 0,
+  ast: [
+    ['add-flag', 'STARTED_2'],
+    ['paragraph'],
+    ['plainText', 'You are in a vast desert.'],
+    ['paragraph'],
+    ['paragraph'],
+    ['alternative', 1, 'Head north'],
+    ['alternative', 2, 'Head south'],
+    ['alternative', 0, 'Hang around']
+  ]
+}));
+var fs = require('fs');
+var path = require('path');
+var readFile = promisify(fs.readFile);
+var readdir = promisify(fs.readdir);
+var parser = require('./parser');
+
+function partial(fn) {
+  var args = [].slice.call(arguments, 1);
+
+  return function () {
+    var allArgs = args.concat([].slice.call(arguments));
+    return fn.apply(null, allArgs);
+  };
+}
+
+function getFileId(file) {
+  return parseInt(file.split('/').pop().split('.')[0]);
+}
+
+function createPage(id, content) {
+  return {
+    id: id,
+    ast: parser.parse(content)
+  };
+}
+
+function parseFile(file) {
+  return readFile(file, 'utf-8').
+    then(partial(createPage, getFileId(file)));
+}
+
+function unary(fn) {
+  return function () {
+    return fn.apply(this, [].slice.call(arguments, 0, 1));
+  };
+}
+
+function sortBy(fn, coll) {
+  return coll.sort(function (a, b) {
+    var pa = fn(a), pb = fn(b);
+    if (pa < pb) { return -1; }
+    if (pa > pb) { return 1; }
+    return 0;
+  });
+}
+
+function prop(name) {
+  return function (obj) {
+    return obj[name];
+  };
+}
+
+var sortById = partial(sortBy, prop('id'));
+
+function parseDir(dir) {
+  return readdir(dir).
+    then(function (entries) {
+      var joinDir = unary(partial(path.join, dir));
+      return Promise.all(entries.map(joinDir).map(parseFile));
+    }).
+    then(sortById);
+}
+var fs = require('fs');
+var path = require('path');
+var readFile = promisify(fs.readFile);
+var readdir = promisify(fs.readdir);
+var parser = require('./parser');
+
+function getFileId(file) {
+  return parseInt(file.split('/').pop().split('.')[0]);
+}
+
+function createPage(id, content) {
+  return {
+    id: id,
+    ast: parser.parse(content)
+  };
+}
+
+function parseFile(file) {
+  return readFile(file, 'utf-8').
+    then(partial(createPage, getFileId(file)));
+}
+
+function unary(fn) {
+  return function () {
+    var args = [].slice.call(arguments, 0, 1);
+    return fn.apply(null, args);
+  };
+}
+
+var sortBy = autoCurry(function (fn, coll) {
+  return coll.sort(function (a, b) {
+    var pa = fn(a), pb = fn(b);
+    if (pa < pb) { return -1; }
+    if (pa > pb) { return 1; }
+    return 0;
+  });
+});
+
+var prop = autoCurry(function (name, obj) {
+  return obj[name];
+});
+
+var sortById = sortBy(prop('id'));
+
+function parseDir(dir) {
+  return readdir(dir).
+    then(function (entries) {
+      var joinPath = unary(partial(path.join, dir));
+      return Promise.all(entries.map(joinPath).map(parseFile));
+    }).
+    then(sortById);
+}
+
+function promisify(fn) {
+  return function () {
+    var args = [].slice.call(arguments);
+    var self = this;
+    return new Promise(function (resolve, reject) {
+      fn.apply(self, args.concat(function (err, result) {
+        if (err) { return reject(err); }
+        resolve(result);
+      }));
+    });
+  };
+}
+function curry(fn, args, length) {
+  length = length || fn.length;
+  return function (arg) {
+    var allArgs = (args || []).concat([].slice.call(arguments, 0, 1));
+
+    if (allArgs.length === length) {
+      return fn.apply(this, allArgs);
+    } else {
+      return curry(fn, allArgs);
+    }
+  };
+}
+
+function autoCurry(fn, length) {
+  return function () {
+    if (arguments.length >= (length || fn.length)) {
+      return fn.apply(this, arguments);
+    } else {
+      return curry(fn, [], length);
+    }
+  };
+}
+
+function nth(n, list) {
+  return list[n];
+}
+
+var second = curry(nth, 1);
+
+function partial(fn) {
+  var args = [].slice.call(arguments, 1);
+
+  return function () {
+    var allArgs = args.concat([].slice.call(arguments));
+    return fn.apply(null, allArgs);
+  };
+}
+function curry(fn, args, length) {
+  length = length || fn.length;
+  return function (arg) {
+    var allArgs = (args || []).concat([].slice.call(arguments, 0, 1));
+
+    if (allArgs.length === length) {
+      return fn.apply(this, allArgs);
+    } else {
+      return curry(fn, allArgs);
+    }
+  };
+}
+
+function autoCurry(fn, length) {
+  return function () {
+    if (arguments.length >= (length || fn.length)) {
+      return fn.apply(this, arguments);
+    } else {
+      return curry(fn, [], length);
+    }
+  };
+}
+var filterById = autoCurry(function (id, item) {
+  return id === item.id;
+});
+
+var find = autoCurry(function (pred, coll) {
+  for (var i = 0, l = coll.length; i < l; i++) {
+    if (pred(coll[i])) {
+      return coll[i];
+    }
+  }
+});
+
+var eq = autoCurry(function (v1, v2) {
+  return v1 === v2;
+});
+
+function getPage(id, pages) {
+  return find(compose(eq(id), prop('id')), pages);
+}
+
+function curry(fn, args, length) {
+  length = length || fn.length;
+  return function (arg) {
+    var allArgs = (args || []).concat([].slice.call(arguments, 0, 1));
+
+    if (allArgs.length === length) {
+      return fn.apply(this, allArgs);
+    } else {
+      return curry(fn, allArgs);
+    }
+  };
+}
+
+function autoCurry(fn, length) {
+  return function () {
+    if (arguments.length >= (length || fn.length)) {
+      return fn.apply(this, arguments);
+    } else {
+      return curry(fn, [], length);
+    }
+  };
+}
+
+var prop = autoCurry(function (name, obj) {
+  return obj[name];
+});
+--#
+
+--% section5
+function list(items) {
+  var data = items.slice();
+
+  return {
+    get: function (i) {
+      return data[i];
+    },
+
+    push: function (item) {
+      return list(data.concat(item));
+    },
+
+    set: function (i, item) {
+      if (data[i] === item) {
+        return this;
+      }
+
+      var copy = data.slice();
+      copy[i] = item;
+      return list(copy);
+    },
+
+    toArray: function () {
+      return data.slice();
+    }
+  };
+}
+
+var nums = list([0, 1, 2]);
+var moreNums = nums.push(3);
+var evenMore = moreNums.set(0, 0);
+
+console.log('nums', nums.toArray());
+console.log('moreNums', moreNums.toArray());
+console.log('evenMore', evenMore.toArray());
+console.log(moreNums === evenMore);
+var List = require('immutable').List;
+var Map = require('immutable').Map;
+
+function repeat(num, item) {
+  var items = [];
+
+  while (num--) {
+    items.push(item);
+  }
+
+  return List(items);
+}
+
+function randomly() {
+  return Math.random() - 0.5;
+}
+
+logTiles(repeat(3, Map({isMine: true})));
+
+function initTiles(rows, cols, mines) {
+  return repeat(mines, Map({isMine: true})).
+    concat(repeat(rows * cols - mines, Map({}))).
+    sort(randomly).
+    map(function (item, idx) {
+      return item.set('id', idx);
+    });
+}
+
+function createGame(options) {
+  return Map({
+    rows: options.rows,
+    cols: options.cols,
+    tiles: initTiles(options.rows, options.cols, options.mines)
+  });
+}
+
+var map = autoCurry(function (fn, coll) {
+  return coll.map(fn);
+});
+
+function revealMine(tile) {
+  return tile.get('isMine') ? tile.set('isRevealed', true) : tile;
+}
+
+function revealMines(game) {
+  return game.updateIn(['tiles'], map(revealMine));
+}
+
+function lose(game) {
+  return revealMines(game.set('isDead', true));
+}
+
+function revealTile(game, tileId) {
+  if (!game.getIn(['tiles', tileId])) {
+    return game;
+  }
+  var updated = game.setIn(['tiles', tileId, 'isRevealed'], true);
+  return game.getIn(['tiles', tileId, 'isMine']) ? lose(updated) : updated;
+}
+
+var game = createGame({rows: 3, cols: 3, mines: 3});
+
+function pad(str, length) {
+  return str + repeat(length - str.length, ' ').join('');
+}
+
+function logTiles(tiles) {
+  var size = Math.ceil(Math.sqrt(tiles.size));
+
+  var width = tiles.reduce(function (w, tile) {
+    return Math.max(w, tile.toString().length);
+  }, 0);
+
+  console.log('List[');
+
+  for (var y = 0; y < size; y++) {
+    var str = '    ';
+
+    for (var x = 0; x < size && (y * size + x) < tiles.size; x++) {
+      str += pad(tiles.get(y * size + x).toString(), width) + '   ';
+    }
+
+    console.log(str);
+  }
+
+  console.log(']');
+}
+
+function curry(fn, args, length) {
+  length = length || fn.length;
+  return function (arg) {
+    var allArgs = (args || []).concat([].slice.call(arguments, 0, 1));
+
+    if (allArgs.length === length) {
+      return fn.apply(this, allArgs);
+    } else {
+      return curry(fn, allArgs);
+    }
+  };
+}
+
+function autoCurry(fn, length) {
+  return function (arg) {
+    if (arguments.length >= (length || fn.length)) {
+      return fn.apply(this, arguments);
+    } else {
+      return curry(fn, [].slice.call(arguments), length);
+    }
+  };
+}
+--#
+
+--% section6
+function first(list) {
+  return list[0];
+}
+
+function rest(list) {
+  return list.slice(1);
+}
+
+function sum(numbers) {
+  if (numbers.length === 0) {
+    return 0;
+  } else {
+    return first(numbers) + sum(rest(numbers));
+  }
+}
+
+function join(separator, list) {
+  if (list.length === 0) {
+    return '';
+  } else if (list.length === 1) {
+    return first(list);
+  } else {
+    return first(list) + separator + join(separator, rest(list));
+  }
+}
+
+function makeList(first, rest) {
+  return [first].concat(rest);
+}
+
+function getEmails(users) {
+  if (users.length === 0) {
+    return [];
+  } else {
+    return makeList(first(users).email, rest(users));
+  }
+}
+function sum(numbers, memo) {
+  memo = memo || 0;
+
+  if (numbers.length === 0) {
+    return memo;
+  } else {
+    return partial(sum, rest(numbers), memo + first(numbers));
+  }
+}
+
+function trampoline(fn) {
+  while (typeof fn === 'function') {
+    fn = fn();
+  }
+
+  return fn;
+}
+
+function first(list) {
+  return list[0];
+}
+
+function rest(list) {
+  return list.slice(1);
+}
+
+function partial(fn) {
+  var args = [].slice.call(arguments, 1);
+  return function () {
+    var allArgs = args.concat([].slice.call(arguments));
+    return fn.apply(this, allArgs);
+  };
+}
+--#
+
+--% section7
+var blogPosts = [
+  {author: {email: 'christian@cjohansen.no'}, title: 'Thinking outside the DOM'},
+  {author: {email: 'magnar@kodemaker.no'}, title: 'Introducing Stasis'},
+  {author: {email: 'christian@cjohansen.no'}, title: 'Working with React'},
+  {author: {email: 'christian@cjohansen.no'}, title: 'Functional programming'}
+];
+
+function curry(fn, args, length) {
+  return function (arg) {
+    var allArgs = (args || []).concat([].slice.call(arguments, 0, 1));
+    length = length || fn.length;
+    if (allArgs.length < length) {
+      return curry(fn, allArgs);
+    }
+    return fn.apply(this, allArgs);
+  };
+}
+
+function autoCurry(fn, length) {
+  length = length || fn.length;
+  return function () {
+    if (arguments.length >= length) {
+      return fn.apply(this, arguments);
+    } else {
+      return curry(fn, [].slice.call(arguments, 0));
+    }
+  };
+}
+
+function partial(fn) {
+  var args = [].slice.call(arguments, 1);
+  return function () {
+    return fn.apply(this, args.concat([].slice.call(arguments)));
+  };
+};
+
+var _nth = autoCurry(function (n, list) {
+  return list[n];
+});
+
+var first = partial(_nth, 0);
+var second = partial(_nth, 1);
+
+var eq = autoCurry(function (val, other) {
+  return val === other;
+});
+
+function compose() {
+  var fns = [].slice.call(arguments).reverse();
+  return function () {
+    return first(fns.reduce(function (args, fn) {
+      return [fn.apply(null, args)];
+    }, arguments));
+  };
+}
+
+function identity(v) { return v; };
+
+function rest(list) {
+  return list.slice(1);
+}
+
+function makeList(first, rest) {
+  return [first].concat(rest);
+}
+
+var prop = autoCurry(function (prop, obj) {
+  return obj[prop];
+});
+
+function renderBlogPost(post) {
+  console.log(post.title);
+}
+
+function square(n) {
+  console.log('Squaring', n);
+  return n * n;
+}
+
+function nth(n, sequence) {
+  if (sequence === null) {
+    return null;
+  }
+  if (n === 0) {
+    return sequence.first();
+  } else {
+    return nth(n - 1, sequence.rest());
+  }
+}
+
+function sequence(list) {
+  return {
+    first: partial(first, list),
+    rest: compose(sequence, partial(rest, list))
+  };
+}
+
+function map(fn, seq) {
+  function lazy(sequence) {
+    if (sequence === null) {
+      return null;
+    }
+
+    return {
+      first: function () {
+        return fn(sequence.first());
+      },
+
+      rest: function () {
+        return lazy(sequence.rest());
+      }
+    };
+  }
+  
+  return lazy(seq);
+}
+
+function filter(pred, seq) {
+  function lazy(sequence) {
+    return {
+      first: function () {
+        var seq = sequence;
+        while (seq) {
+          if (pred(seq.first())) {
+            return seq.first();
+          }
+          seq = seq.rest();
+        }
+      },
+
+      rest: function () {
+        var seq = sequence;
+        while (seq) {
+          if (pred(seq.first())) {
+            return seq.rest();
+          }
+          seq = seq.rest();
+        }
+      }
+    };
+  }
+
+  return lazy(seq);
+}
+
+function isEven(num) {
+  return num % 2 === 0;
+}
+
+var list = sequence([{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}, {id: 7}, {id: 8}, {id: 9}]);
+var mapped = map(function (i) {
+  console.log('Mapping', i);
+  return i.id;
+}, list);
+var res = filter(isEven, mapped);
+
+console.log(nth(1, res));
+console.log(nth(4, res));
+function curry(fn, args, length) {
+  return function (arg) {
+    var allArgs = (args || []).concat([].slice.call(arguments, 0, 1));
+    length = length || fn.length;
+    if (allArgs.length < length) {
+      return curry(fn, allArgs);
+    }
+    return fn.apply(this, allArgs);
+  };
+}
+
+function autoCurry(fn, length) {
+  length = length || fn.length;
+  return function () {
+    if (arguments.length >= length) {
+      return fn.apply(this, arguments);
+    } else {
+      return curry(fn, [].slice.call(arguments, 0));
+    }
+  };
+}
+
+function partial(fn) {
+  var args = [].slice.call(arguments, 1);
+  return function () {
+    return fn.apply(this, args.concat([].slice.call(arguments)));
+  };
+};
+
+var _nth = autoCurry(function (n, list) {
+  return list[n];
+});
+
+var first = partial(_nth, 0);
+var second = partial(_nth, 1);
+
+var eq = autoCurry(function (val, other) {
+  return val === other;
+});
+
+function compose() {
+  var fns = [].slice.call(arguments).reverse();
+  return function () {
+    return first(fns.reduce(function (args, fn) {
+      return [fn.apply(null, args)];
+    }, arguments));
+  };
+}
+
+function identity(v) { return v; };
+
+function rest(list) {
+  return list.slice(1);
+}
+
+function makeList(first, rest) {
+  return [first].concat(rest);
+}
+
+var prop = autoCurry(function (prop, obj) {
+  console.log('prop(' + prop + ', ' + JSON.stringify(obj) + ')');
+  return obj[prop];
+});
+
+function renderBlogPost(post) {
+  console.log(post.title);
+}
+
+function square(n) {
+  return n * n;
+}
+
+function nth(n, sequence) {
+  if (sequence === null) {
+    return null;
+  }
+  if (n === 0) {
+    return sequence.first();
+  } else {
+    return nth(n - 1, sequence.rest());
+  }
+}
+
+function isEven(num) {
+  console.log('isEven(' + num + ')');
+  return num % 2 === 0;
+}
+
+function trampoline(fn) {
+  while (typeof fn === 'function') {
+    fn = fn();
+  }
+
+  return fn;
+}
+
+var func = autoCurry(function (prop, obj) {
+  return obj ? obj[prop]() : null;
+});
+
+function lazy(source, first, rest) {
+  if (source === null) {
+    return null;
+  }
+
+  var head, tail;
+  return {
+    first: function () {
+      if (!head) {
+        head = first(source);
+      }
+      return head;
+    },
+
+    rest: function () {
+      if (!tail) {
+        tail = partial(lazy, rest(source), first, rest);
+      }
+      return trampoline(tail);
+    }
+  };
+}
+
+function nullifyEmpty(list) {
+  return list.length === 0 ? null : list;
+}
+
+function sequence(list) {
+  return lazy(list, first, compose(nullifyEmpty, rest));
+}
+
+function map(fn, seq) {
+  return lazy(seq, compose(fn, func('first')), func('rest'));
+}
+
+function filter(pred, seq) {
+  function findFirst(seq) {
+    while (seq) {
+      if (pred(seq.first())) {
+        return seq;
+      }
+      seq = seq.rest();
+    }
+  }
+
+  return lazy(
+    seq,
+    compose(func('first'), findFirst),
+    compose(func('rest'), findFirst)
+  );
+}
+
+function realize(seq) {
+  var arr = [];
+  while (seq) {
+    if (seq.first()) {
+      arr.push(seq.first());
+    }
+    seq = seq.rest();
+  }
+  return arr;
+}
+
+var list = sequence([{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}, {id: 7}, {id: 8}, {id: 9}]);
+var res = map(prop('id'), list);
+console.log(realize(filter(isEven, res)));
+function curry(fn, args, length) {
+  return function (arg) {
+    var allArgs = (args || []).concat([].slice.call(arguments, 0, 1));
+    length = length || fn.length;
+    if (allArgs.length < length) {
+      return curry(fn, allArgs);
+    }
+    return fn.apply(this, allArgs);
+  };
+}
+
+function autoCurry(fn, length) {
+  length = length || fn.length;
+  return function () {
+    if (arguments.length >= length) {
+      return fn.apply(this, arguments);
+    } else {
+      return curry(fn, [].slice.call(arguments, 0));
+    }
+  };
+}
+
+function partial(fn) {
+  var args = [].slice.call(arguments, 1);
+  return function () {
+    return fn.apply(this, args.concat([].slice.call(arguments)));
+  };
+};
+
+var _nth = autoCurry(function (n, list) {
+  return list[n];
+});
+
+var first = partial(_nth, 0);
+var second = partial(_nth, 1);
+
+var eq = autoCurry(function (val, other) {
+  return val === other;
+});
+
+function compose() {
+  var fns = [].slice.call(arguments).reverse();
+  return function () {
+    return first(fns.reduce(function (args, fn) {
+      return [fn.apply(null, args)];
+    }, arguments));
+  };
+}
+
+function identity(v) { return v; };
+
+function rest(list) {
+  return list.slice(1);
+}
+
+function makeList(first, rest) {
+  return [first].concat(rest);
+}
+
+var prop = autoCurry(function (prop, obj) {
+  console.log('prop(' + prop + ', ' + JSON.stringify(obj) + ')');
+  return obj[prop];
+});
+
+function renderBlogPost(post) {
+  console.log(post.title);
+}
+
+function square(n) {
+  return n * n;
+}
+
+function nth(n, sequence) {
+  if (sequence === null) {
+    return null;
+  }
+  if (n === 0) {
+    return sequence.first();
+  } else {
+    return nth(n - 1, sequence.rest());
+  }
+}
+
+function isEven(num) {
+  console.log('isEven(' + num + ')');
+  return num % 2 === 0;
+}
+
+function trampoline(fn) {
+  while (typeof fn === 'function') {
+    fn = fn();
+  }
+
+  return fn;
+}
+
+var func = autoCurry(function (prop, obj) {
+  return obj ? obj[prop]() : null;
+});
+
+function lazy(source, first, rest) {
+  if (source === null) {
+    return null;
+  }
+
+  var head, tail;
+  return {
+    first: function () {
+      if (!head) {
+        head = first(source);
+      }
+      return head;
+    },
+
+    rest: function () {
+      if (!tail) {
+        tail = partial(lazy, rest(source), first, rest);
+      }
+      return trampoline(tail);
+    }
+  };
+}
+
+function nullifyEmpty(list) {
+  return list.length === 0 ? null : list;
+}
+
+function sequence(list) {
+  return lazy(list, first, compose(nullifyEmpty, rest));
+}
+
+function map(fn, seq) {
+  return lazy(seq, compose(fn, func('first')), func('rest'));
+}
+
+function filter(pred, seq) {
+  function findFirst(seq) {
+    while (seq) {
+      if (pred(seq.first())) {
+        return seq;
+      }
+      seq = seq.rest();
+    }
+  }
+
+  return lazy(
+    seq,
+    compose(func('first'), findFirst),
+    compose(func('rest'), findFirst)
+  );
+}
+
+function realize(seq) {
+  var arr = [];
+  while (seq) {
+    if (seq.first()) {
+      arr.push(seq.first());
+    }
+    seq = seq.rest();
+  }
+  return arr;
+}
+
+function isPrime(n) {
+  if (n === 2) {
+    return true;
+  }
+  if (n < 2) {
+    return false;
+  }
+  for (var i = 2; i <= Math.ceil(Math.sqrt(n)); ++i) {
+    if (n % i === 0) { return false; }
+  }
+  return true;
+}
+
+function inc(n) {
+  return n + 1;
+}
+
+function take(n, seq) {
+  var arr = [];
+  while (seq && n--) {
+    arr.push(seq.first());
+    seq = seq.rest();
+  }
+  return arr;
+}
+
+function drop(n, seq) {
+  while (n--) {
+    seq = seq.rest();
+  }
+  return seq;
+}
+
+function slice(start, length, seq) {
+  return take(length, drop(start, seq));
+}
+
+function repeat(val) {
+  return lazy(val, identity, identity);
+}
+
+function randomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+console.log(take(5, map(compose(inc, randomInt), repeat(6))));
+--#

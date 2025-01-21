@@ -1,0 +1,86 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@fmusify karya iot platform - termasuk raspberry, sensor, mqtt, grpc*
+		@fmusify karya spor backend+frontend - ada komponen sosmed*
+		@fmusify karya sucor backoffice - ada parser*
+		@fmusify karya sop frontend mongodb*
+		@fmusify karya android java, flutter, reactnative + android kotlin dari harddisk...*
+		
+		@fmusify MUMPUNG pegang acer: oprek android notification dan flutter notification*
+		@fmusify CLONING this project and that project (ada monday.com)*
+
+		@kerjakan ulang dan fmusify: notification di flutter dan android*
+		@fmusify karya ulang/flaskfaker yg ada berbagai docker-compose dst*
+		@fmusify kerjaan orang vietnam devat*
+		@fmusify django+flask templates yg sudah kita punya, cek lagi apa sih githubnya*		
+		@fmusify packt js, java, c++ secepat mungkin, treasures!*
+		@fmusify proyek websocket dan webrtc dari youtube*
+		@fmusify proyek react form (bs, mui, antd, tw, styled) + handler nest, node, django, flask, fastapi, springboot*
+		@apply toptal, crossover, clevertech, arc.dev, commit.dev*
+		@fmusify freecodecamp*
+		@belajar go colly, goquery, scrapy agar bisa scrape pasardana*
+		@belajar google app script, gmail api, sheet api, slide api, gdrive, search api, yt api*
+
+		@oprek bahasa ruby *
+		@oprek bahasa elixir *
+		@oprek bahasa golang *
+		@oprek bahasa rust *
+
+		**showtext=__FILE__=catatan
+
+		**showfile=__CURDIR__/todo.txt
+		$* "C:\Program Files\Sublime Text 3\sublime_text.exe" ULIBPY_BASEDIR\app\quick\blitz\do\todo.txt
+		$* code ULIBPY_BASEDIR\app\quick\blitz\do\todo.txt
+
+		**showfile=__CURDIR__/interesting.txt
+		$* "C:\Program Files\Sublime Text 3\sublime_text.exe" ULIBPY_BASEDIR\app\quick\blitz\do\interesting.txt
+		$* code ULIBPY_BASEDIR\app\quick\blitz\do\interesting.txt
+
+		@edit this file: ULIBPY_BASEDIR\app\quick\blitz\do\todo.fmus*
+			?pick
+				$* code ULIBPY_BASEDIR\app\quick\blitz\do\todo.fmus
+				$* "C:\Program Files\Sublime Text 3\sublime_text.exe" ULIBPY_BASEDIR\app\quick\blitz\do\todo.fmus
+--#
+
+--% catatan
+3 kerjaan utama
+spor
+	yg penting bisa bikin sosmed
+whosedoctor
+iot platform
+sop frontend (hanya utk bisa gunakan mongodb)
+kerjaan lain:
+sitarang
+lingkungan
+==
+ambil sebanyak mungkin resources dari hd
+
+kita juga perlu androidify dan flutterify nih...fmus
+
+bisa gak selesai hari ini?
+semua pake postgres?
+	pengen bisa dump per table...jangan per database...
+
+(done) dimana kita bisa search file bernama...term1 term2 dari sebuah basedir
+	coba lihat di fileutils
+	sudah bisa /))///choose.fmus utk cari choose.fmus di dalam
+--#
+
+--% README.md
+harus ada berbagai info yg bisa diberikan...
+misal bahwa aku akan diberikan tugas ini, jadi harus siapkan this fmus etc.
+
+fmusifing itu artinya, jadikan segala sesuatu ready to create dan use.
+
+think in terms of time:
+kamis, 7 april
+--#
+
+--% bayangan tugas take home test
+auth
+payment - stripe, paypal
+sosmed - bisa post dan comment
+tdd + documentation
+graphql + rest
+--#

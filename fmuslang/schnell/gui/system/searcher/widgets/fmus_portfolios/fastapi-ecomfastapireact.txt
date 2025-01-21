@@ -1,0 +1,120 @@
+app = FastAPI()
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+Base.metadata.create_all(bind=engine)
+uvicorn.run("main:app", reload=True)
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\fastapi-ecomfastapireact-auth.txt
+
+app.include_router(authrouter.router)
+    router = APIRouter(tags=["Authentication"])
+    @router.post("/login") def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+        user = db.query(User).filter(User.email == request.username).first()
+        if not user: ...
+        if not Hashing.verify(user.password, request.password): ...
+        access_token = create_access_token(data={"sub": user.email})
+        response = { ... }
+        return response
+
+app.include_router(usersrouter.router)
+    router = APIRouter(prefix="/users", tags=["Users"])
+    @router.get("/") def getAllUser(db: Session = Depends(get_db)):
+    @router.post("/") def createUser(user: RegisterUser, db: Session = Depends(get_db)):
+    @router.get("/me") def getMe(current_user: User = Depends(get_currentUser)):
+    @router.put("/{userid}") def updateUser(userid: int, user: RegisterUser, db: Session = Depends(get_db)):
+    @router.delete("/{userid}") def deleteUser(userid: int, db: Session = Depends(get_db)):
+
+app.include_router(reviewrouter.router)
+    router = APIRouter(prefix="/review", tags=["Review"])
+    @router.get("/") def getAllReview(db: Session = Depends(get_db)):
+    @router.post("/create/{productid}") def createReview(productid: int,request: ReviewCreate,db: Session = Depends(get_db),current_user: User = Depends(get_currentUser),):
+    @router.post("/coba") def cobaReview(request: ReviewCreate):
+
+app.include_router(productrouter.router)
+    router = APIRouter(prefix="/product", tags=["Products"])
+    @router.get("/") def getallProduct(db: Session = Depends(get_db)):
+    @router.post("/") def createProduct(request: ProductSchema, db: Session = Depends(get_db)):
+    @router.get("/{productid}") def showProduct(productid: int, db: Session = Depends(get_db)):
+    @router.put("/{productid}") def updateProduct(productid: int, request: ProductSchema, db: Session = Depends(get_db)):
+    @router.delete("/{productid}") def deleteProduct(productid: int, db: Session = Depends(get_db)):
+
+app.include_router(orderrouter.router)
+    router = APIRouter(prefix="/order", tags=["Order"])
+    @router.get("/") def getAll(db: Session = Depends(get_db)):
+    @router.post("/") def createOrder(request: OrderCreatePlaceOrder, db: Session = Depends(get_db)):
+    @router.get("/orderbyuser/{userid}") def orderByUser(userid: int, db: Session = Depends(get_db)):
+    @router.get("/orderbyid/{id}") def orderById(id: int, db: Session = Depends(get_db)):
+
+
+from pydantic import BaseModel
+from typing import List, Optional
+
+
+class CartSchema(BaseModel):
+    address_line1: str
+    address_city: str
+    address_country: str
+    address_zip: str
+
+
+class TokenSchema(BaseModel):
+    id: str
+    email: str
+    card: CartSchema
+
+
+class CartItemSchema(BaseModel):
+    name: str
+    quantity: int
+    price: int
+
+
+class CurrentUserSchema(BaseModel):
+    id: int
+    name: str
+    email: str
+    is_staff: bool
+    is_active: bool
+
+
+class OrderCreatePlaceOrder(BaseModel):
+    token: TokenSchema
+    cartItems: List[CartItemSchema]
+    currentUser: CurrentUserSchema
+    subtotal: int
+
+
+class ReviewSchema(BaseModel):
+    user_id: int
+    name: str
+    comment: str
+    rating: int
+
+
+class ProductSchema(BaseModel):
+    name: str
+    image: str
+    category: str
+    description: str
+    price: int
+    countInStock: int
+    rating: Optional[int]
+
+
+class ReviewCreate(BaseModel):
+    rating: int
+    comment: str
+
+
+class RegisterUser(BaseModel):
+    name: str
+    email: str
+    password: str
+    is_staff: Optional[bool]
+    is_active: Optional[bool]

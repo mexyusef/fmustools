@@ -1,0 +1,199 @@
+--% index/fmus
+__PWD,d
+	?pick
+		main.py,f(code[py]=fM)
+			$* code .
+		main.ipynb,f(t=)
+			$* code .
+		Hello.java,f(code[java]=fM)
+			$* code .
+		main.scala,f(code[scala]=fM)
+			$* code .
+		main.rs,f(code[rs]=fM)
+			$* code .
+		$* jupyter-notebook --port __INPUT||9000
+
+		$* start /B celery -A tasks worker -l info -P solo
+
+		@github actions - ci/cd*
+		@gitlab ci/cd*
+		@jenkins ci/cd*
+		@argo ci/cd*
+		@bitbucket ci/cd*
+		@circle ci/cd*
+		@travis ci/cd*
+
+		@grafana*
+		@prometheus*
+		@https://www.fastly.com*
+		@https://newrelic.com*
+
+		$* yarn upgrade-interactive --latest
+
+		@chrome options
+			@ --no-startup-window
+			@ --profile-directory="Profile 1"
+			@ https://superuser.com/questions/1203937/how-can-i-launch-chrome-as-a-background-process-from-the-command-line
+
+		@file format manipulation (write, read, edit) - excel, word/docx, pdf, pptx, json, goog sheet/slide, csv, yaml, xml...*
+
+		@play with notebook - dg vscode dan/atau jupyter-notebook, specify folder or curdir*
+			?pick
+				@create vscode ipynb*
+				@run jupyter-notebook at curdir*
+				@run jupyter-notebook at specific folder*
+
+		@swagger*
+		@open api*
+
+		@update tools - npm, yarn, pnpm, pip*
+			$* pnpm add -g pnpm
+
+		@create tools - batch files, script files etc*
+			.,d(/load=__FILE__=create-tools/fmus*)
+
+		.,d(/load=__FILE__=linux/to .bashrc*)
+
+		@create temporary files*
+			?pick
+				$* code __SYS_TEMP2capcay.html
+				$* code __SYS_TEMP2capcay.css
+				$* code __SYS_TEMP2capcay.js
+				$* code __SYS_TEMP2capcay.py
+				$* code __SYS_TEMP2Capcay.java
+				$* code __SYS_TEMP2capcay.txt
+				$* code __SYS_TEMP2capcay.fmus
+
+		$* cmd.exe /c start cmd.exe /k "cd __SYS_TEMP"
+			$* set ULIBPY__PWD__=
+			@ kita sekarang berada di __PWD*
+		$* cmd.exe /c start /i cmd.exe /k "cd __SYS_TEMP"
+		$* set ULIBPY__PWD__=
+			$* echo %ULIBPY__PWD__%
+
+		@ windows administration - sc, net, netstat, tasklist *
+			?pick
+				$* sc queryex type=service
+				$* sc queryex type=service | wsl grep -i service_name
+				$* sc queryex type=service state=all
+				$* sc queryex type=service state=all | wsl grep -i service_name
+				$* sc queryex type=service state=inactive
+				$* sc queryex type=service state=inactive | wsl grep -i service_name
+				$* sc queryex type=service state=all | wsl grep -i postgres
+				@postgres service - service name = "postgresql-x64-12"*
+					?pick
+						$* net start postgresql-x64-12
+						$* net stop postgresql-x64-12
+						$* net pause postgresql-x64-12
+						$* net continue postgresql-x64-12
+				$* netstat -an |wsl grep -e'LISTENING\b'
+					@gak berikan PID*
+				$* netstat -ano |wsl grep -e'LISTENING\b'
+					@berikan nilai PID*
+				$* tasklist /fi "pid eq 2216"
+				$* tasklist | more
+
+
+		@ generate docker-compose.yml*
+			?pick
+				@elasticsearch-logstash-kibana.yml*
+					.,d(/load=__CURDIR__/../../../special/elk.fmus=index/fmus*)
+				@kafka.yml*
+					.,d(/load=__CURDIR__/kafka.fmus=index/fmus*)
+				@mqtt.yml*
+					.,d(/load=__CURDIR__/mqtt.fmus=index/fmus*)
+				@rabbit-mq.yml*
+					.,d(/load=__CURDIR__/rmq.fmus=index/fmus*)
+--#
+
+--% create-tools/fmus
+.,d
+	termux,d(/mk)
+		internet,f(e=__FILE__=termux/internet)
+		ff,f(e=__FILE__=termux/ff)
+	linux,d(/mk)
+		aliases.txt,f(e=__FILE__=linux/aliases)
+	windows,d(/mk)
+		u.bat,f(e=__FILE__=wmcer)
+		g.bat,f(e=__FILE__=wmgen)
+		andro.bat,f(e=__FILE__=andro)
+		note8.bat,f(e=__FILE__=note8)
+		repl.bat,f(e=__FILE__=repl)
+		term.bat,f(e=__FILE__=term)
+--#
+
+--% linux/to .bashrc
+__PWD,d
+	/file>i/-1/alias pbcopy="xclip -selection clipboard"__NL|~/.bashrc
+	/file>i/-1/__NLalias pbpaste="xclip -selection clipboard -o"__NL|~/.bashrc
+--#
+
+--% linux/aliases
+# sudo apt install xclip xsel
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+alias u='python /home/usef/work/sidoarjo/schnell/wmcer.py'
+alias g='python /home/usef/work/sidoarjo/schnell/wmgen.py'
+alias W='(cd /home/usef/work/sidoarjo/schnell && python -mcreator.repl)'
+
+alias gp='git pull'
+alias gpb='git pull --rebase'
+
+# push hrs lebih panjang dari pull
+alias gps='git push'
+alias gsh='git push'
+
+alias PD='pnpm dev'
+alias PI='pnpm i'
+alias PS='pnpm start'
+
+alias mmm='(cd /home/usef/work/flaskfaker && git add . && git commit -am'\''update'\'' && git push)'
+alias sejarah='(cd /home/usef/work/ulang && git add . && git commit -am'\''update'\'' && git push)'
+--#
+
+--% termux/internet
+#!/bin/sh
+# $1 harus diprefix dg https:// atau http://, otherwise donno how to open
+if [ $# != 1 ]; then
+	echo 'usage: termux-open-url <url>'
+	echo 'Open an URL for viewing.'
+	exit 1
+fi
+am start --user 0 -a android.intent.action.VIEW -d $1 > /dev/null
+--#
+
+--% termux/ff
+#!/bin/bash
+# cuma aktifkan firefox, tapi tdk akses alamat
+# open-in-firefox.sh - open URL from Termux command line in Firefox Android browser
+# Works with file:// URLs too, unlike with termux-open{-url}.
+exec am start --user 0 -a android.intent.action.VIEW -n org.mozilla.firefox/.App -d "$1" >/dev/null
+--#
+
+--% wmcer
+@echo off
+python ULIBPY_BASEDIR\wmcer.py %*
+--#
+
+--% wmgen
+@echo off
+python ULIBPY_BASEDIR\wmgen.py "%*"
+--#
+
+--% andro
+"C:\Android Studio\bin\studio64.exe" %*
+--#
+
+--% note8
+ssh -p 8022 -l u0_a194 192.168.0.102
+--#
+
+--% repl
+@echo off
+cd c:\work\sidoarjo\schnell & python -m creator.repl
+--#
+
+--% term
+@echo off
+cmd.exe /k start cmd.exe
+--#

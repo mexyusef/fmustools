@@ -1,0 +1,2015 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan qti terutama arsip, siit, polling, datascience, ml...*
+			?pick
+				**showtext=__FILE__=readme
+				**showtext=__FILE__=command/history
+--#
+
+--% readme
+juga berbagai isi dari github/gitlabnya...
+--#
+
+--% command/history
+su mulyadi
+docker login registry.gitlab.com
+docker build -t registry.gitlab.com/qti/sop-project/sop_backend
+docker build --help
+docker pull registry.gitlab.com/qti/sop-project/sop_backend
+apt-get install xclip
+xclip -sel clip < /home/sop/.ssh/id_rsa
+cat /home/sop/.ssh/id_rsa | clip
+cat /home/sop/.ssh/id_rsa 
+nano /home/sop/ssh/config
+nano /home/sop/.ssh/config
+more /home/sop/.ssh/config 
+more /home/sop/.ssh/id_rsa
+ssh -T git@gitlab.com
+more /home/sop/.ssh/id_rsa
+cp /home/sop/.ssh/id_rsa /home/sop/
+chmod 777 id_rsa 
+su mlyadi
+su mulyadi
+cd /home/sop/integrasi/sop_backend/
+docker ps
+clear
+docker ps
+docker stop sop_backend_sop_ian_1
+docker stop sop_backend_postgres_ian_1
+git pull
+docker-compose up --build
+su mulyadi
+git pull
+git status
+docker-compose up --build
+docker start sop_backend_postgres_ian_1
+docker start sop_backend_sop_ian_1
+git clonegit@gitlab.com:QTI/SOP-Project/sop_frontend.git
+git clone git@gitlab.com:QTI/SOP-Project/sop_frontend.git
+ls
+ls -lh
+cd /home/mulyadi/baru/
+ls
+rm -rf *
+git clone git@gitlab.com:QTI/SOP-Project/sop_frontend.git
+ls -lh
+https://gitlab.com/QTI/SOP-Project/sop_frontend.git
+git clone https://gitlab.com/QTI/SOP-Project/sop_frontend.git
+cd sop_frontend/
+ls
+git status
+git checkout dev
+yarn build
+yarn install
+yarn build
+top
+free -m
+cd /home/mulyadi/baru/
+ls
+cd sop_frontend/
+ls
+yarn build
+git pull
+git status
+git checkout master
+git pull
+git status
+docker build -t sop-frontend-manual .
+cd /home/mulyadi/baru/
+ls
+cd sop_frontend/
+yarn build
+git status
+git pull
+git checkout dev
+git pull
+git comit list
+git commit list
+git log
+git status
+git checkout master
+git log
+yarn build
+ls
+cd sop_frontend_ian/
+ls
+ls -lh
+more server/index.js 
+more server/tasks/index.js 
+more Dockerfile 
+docker ps
+clear
+docker ps
+ip a
+docker ps
+cp Dockerfile /home/mulyadi/baru/sop_frontend/Dockerfile
+cd /home/mulyadi/baru/sop_frontend/
+docker build -t sop-test-manual .
+nano Dockerfile 
+more src/config.js 
+more webpack/webpack.prod.js 
+git pull
+git status
+ip a
+cd sop_frontend_ian/
+more Dockerfile 
+docker ps
+ls -lh
+cd /home/mulyadi/baru/
+git status
+cd sop_frontend/
+git status
+cd src/utils
+nano diagram.js 
+cd ../..
+yarn build
+nano src/config.js 
+nano .env
+nano Dockerfile 
+nano .gitlab-ci.yml 
+nano Dockerfile 
+ls -lh
+nano webpack/webpack.prod.js 
+nano webpack/webpack.dev.js 
+ip a
+nano src/config.js 
+yarn build
+ls -lh
+docker login registry.gitlab.com
+clear
+more Dockerfile 
+more .gitlab-ci.yml 
+docker build -t /qti/sop-project/sop_frontend-manual:latest --pull .
+docker login registry.gitlab.com
+docker build -t /qti/sop-project/sop_frontend-manual:latest --pull .
+docker build -t sop_frontend-manual --pull .
+git pull
+yarn build
+ls -lh
+docker build -t sop_frontend-manual --pull .
+docker ps
+docker stop df0030cea1f0
+docker run -p 3001:3000 -p 8181:8080 --link mongo -d 9b5eb3b1cf4d  
+docker ps
+cd /home/mulyadi/sop_frontend/
+ls
+git pull
+docker build -t sop_frontend-manual --pull .
+docker run -p 3005:3000 -p 8585:8080 --link mongo -d 1bedf5596bd4
+cd /home/mulyadi/baru/sop_frontend/
+git pull
+docker build -t sop_frontend-manual --pull .
+docker run -p 3006:3000 -p 8686:8080 --link mongo -d 1bedf5596bd4
+docker ps
+docker stop 324542b3c3ed
+docker rm 324542b3c3ed
+docker run -p 3006:3000 -p 8686:8080 --link mongo -d 3f5505d1b1b1
+docker stop 08d1f1561a98
+docker ps
+docker run -p 3000:3000 -p 8080:8080 --link mongo -d 1bedf5596bd4
+cd sop_frontend/
+ls -lh
+yarn build 
+git pull
+docker build -t sop_frontend-manual --pull .
+docker ps
+docker stop 6060041c44b6 
+docker rm 6060041c44b6 
+docker run -p 3000:3000 -p 8080:8080 --link mongo -d  cea5b2ecf966
+docker ps
+apt-get install docker-containerd-shim
+apt-get search containerd-shim
+apt-search containerd-shim
+apt-cache search containerd-shim
+locate docker-runc
+locate containerd-shim
+/usr/bin/containerd-shim
+ls -lh /usr/bin/containerd-shim
+docker ps
+docker run
+docker run --help
+docker run -d nginx
+docker ps
+ls -lh docker
+updatedb
+locate containerd-shim
+ln -s /usr/bin/docker-containerd-shim /usr/bin/containerd-shim
+docker run -d nginx
+docker run -p 3000:3000 -p 8080:8080 --link mongo -d  cea5b2ecf966
+rm /etc
+rm /usr/bin/containerd-shim
+/etc/init.d/docker restart
+docker ps
+docker run -d nginx
+docker ps -as
+docker ps 
+docker stop 286e4c5fdd1f
+docker rm 286e4c5fdd1f
+docker ps -as
+docker ps
+docker start mongo
+docker stop 9464ba6c4d90
+docker stop 34fbaa09a426 
+docker stop 3ae038a7d3c0
+docker stop a07860e66d9c
+docker start mongo-realtime-doc
+docker start redis-realtime-doc
+docker start realtime-doc-backend
+docker start realtime-doc-socket 
+docker start sop-notif
+docker start 
+docker start elastic
+docker ps
+cd /data
+mkdir /data
+cd /data/
+ls
+docker logs mongo
+docker load --input mongo-backup.tar.gz 
+docker stop mongo
+docker ps
+docker ps -as
+clear
+docker ps -as
+docker commit 52272f7f7c0f mongo-indonet
+docker save -o mongo-indonet.tar.gz mongo-indonet
+docker rm mongo
+ls -lh
+docker run -p 27017:27017 -d mongo-backup
+docker ps
+docker stop 4cc45ed73afd
+docker rm 4cc45ed73afd
+
+docker ps
+ip a
+docker ps
+docker stop mongo
+docker rm mongo
+docker load --input mongobackup2.tar.gz 
+docker run -p 27017:27017 --name mongo -d mongobackup2:latest
+docke rps
+docker ps
+docker stop a19fe0ce00f0
+docker start a19fe0ce00f0
+docker logs mongo
+docker start a19fe0ce00f0
+docker stop mongo
+docker rm mongo
+docker ps
+docker run -p 27017:27017 --name mongo -d mongobackup2
+docker ps
+docker stop mongo
+docker rm mongo
+docker run -p 27017:27017 --name mongo -d mongo
+docker import mongo.tar mongo
+docker ps
+docker stop mongo
+docker rm mongo
+docker run -p 27017:27017 --name mongo -d mongobackup2
+docker start a19fe0ce00f0
+docker ps
+docker run -p 3006:3000 -p 8686:8080 --link mongo -d 3f5505d1b1b1
+docker stop 3f5505d1b1b1
+docker ps
+docker stop elastic_ritchie
+docker rm elastic_ritchie
+docker start a19fe0ce00f0
+docker rm a19fe0ce00f0
+docker ps
+mount -t nfs 10.10.10.59:/upload /data
+df -h
+docker ps
+passwd alli
+docker run -p 27017:27017 --name mongo -d mongo
+docker run -p 27019:27017 --name mongo -d mongo
+docker run  --name mongo -d mongo
+docker run -p 27019:27017 -d --name mongo  mongo
+docker ps 
+docker ps -as
+docker start mongo
+docker ps
+docker stop mongo
+docker run -p 27017:27017 --name mongodb -d mongobackup2
+docker stop mongodb
+docker start mongo
+iptables -nL
+iptables -A INPUT -p tcp --dport 27017 -j DROP
+iptables -nL
+iptables-save 
+service iptables save
+iptables -A OUTPUT -p tcp --dport 27017 -j DROP
+iptables -nL
+iptables -I FORWARD 1 -p tcp --dport 27017 -j DROP
+iptables -nL
+iptables -D FORWARD 1
+iptables -nL
+iptables -D INPUT 1
+iptables -D OUTPUT 1
+iptables -nL
+iptables -I DOCKER 1 -i eth1 -p tcp --dport 27017 -j DROP
+docker ps
+iptables -nL
+iptables -D DOCKER 1
+iptables -nL
+vipw
+top
+apt-get install nginx
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+cp /home/mulyadi/
+cp /home/mulyadi/sertifikat/cert /etc/nginx/
+cp -R /home/mulyadi/sertifikat/cert /etc/nginx/
+cp -R /home/mulyadi/sertifikat/key/ /etc/nginx/
+nano /etc/nginx/nginx.conf 
+nano /etc/nginx/sites-available/default 
+nginx -t -c /etc/nginx/nginx.conf 
+/etc/init.d/nginx restart
+more /etc/nginx/sites-available/default 
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+ip a
+iptables -nL
+clear
+iptables -nL
+iptables -I INPUT 1 -p tcp --dport 3333 -j ACCEPT
+iptables -I OUTPUT 1 -p tcp --dport 3333 -j ACCEPT
+iptables -I FORWARD 1 -p tcp --dport 3333 -j ACCEPT
+iptables -I FDOCKER 1 -p tcp --dport 3333 -j ACCEPT
+iptables -I DOCKER 1 -p tcp --dport 3333 -j ACCEPT
+iptables -I DOCKER 1 -i eth1 -p tcp --dport 27017 -j DROP
+ifconfig
+docker ps
+ifconfig
+iptables -nL
+ifconfig
+nano backup.sh
+crontab -e
+ifconfig
+docker ps
+chmod +x /home/mulyadi/backup.sh 
+ls -lh
+crontab -e
+docker ps
+docker stop dreamy_davinci
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+nano /etc/nginx/sites-available/default 
+nano /etc/network/interfaces
+top
+docke rps
+docker ps
+ls -lh
+ifconfig
+docker logs mongo
+clear
+docker logs mongo
+docker logs sop-frontend-dist
+iptables -nL
+npm -g install extract-mongo-schema
+extract-mongo-schema -d "mongodb://localhost:27017/sop" -o schema.json
+extract-mongo-schema -d "mongodb://localhost:27017/sop" -o schema.html -f html-diagram
+Host gitserv
+clear
+ls -lh
+ip a
+iptables -A FORWARD -i eth1 -p tcp --dport 27017 -j DROP
+iptables -A FORWARD -i eth0 -p tcp --dport 27017 -j DROP
+iptables -nL
+iptables -nL
+ls
+cd /home/mulyadi/
+docker exec -i mongo sh -c 'mongorestore --archive' < db-25032019.dump 
+ifconfig
+iptables -nL
+telnet localhost 27017
+iptables -nL
+iptables -D FORWARD 24 
+iptables -D FORWARD 23
+iptables -nL
+ifconfig
+iptables -I INPUT 1 -i eth1 -p tcp --dport 27017 -j DROP
+nano /etc/nginx/sites-available/default 
+nginx -t -c /etc/nginx/nginx.conf 
+/etc/init.d/nginx restart
+journalctl -xe
+nginx -t -c /etc/nginx/nginx.conf 
+systemctl restart nginx
+journalctl -xe
+nano /etc/nginx/nginx.conf 
+nano /etc/nginx/sites-available/default 
+nginx -t -c /etc/nginx/nginx.conf 
+/etc/init.d/nginx restart
+systemctl status nginx
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+May 14 10:55:50 docker nginx[63569]: nginx: [emerg] bind() to 0.0.0.0:8081 failed (98: Address already in use)
+clear
+ip a
+apt-get update && apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+apt-get update
+apt-get install -y kubectl
+kubectl version
+cd /home/mulyadi/
+certbot
+add-apt-repository ppa:certbot/certbot
+apt-get update
+wget https://dl.eff.org/certbot-auto -O /usr/sbin/certbot-auto
+chmod a+x /usr/sbin/certbot-auto
+certbot-auto certonly --standalone -d sop.qti.co.id
+cp /etc/letsencrypt/live/sop.qti.co.id/privkey.pem /etc/nginx/cert/
+cp /etc/letsencrypt/live/sop.qti.co.id/fullchain.pem /etc/nginx/cert/
+cp /etc/letsencrypt/live/sop.qti.co.id/cert.pem /etc/nginx/cert/
+cp /etc/letsencrypt/live/sop.qti.co.id/chain.pem /etc/nginx/cert/
+nano /etc/nginx/sites-available/default 
+nginx -t -c /etc/nginx/nginx.conf 
+/etc/init.d/nginx restart
+docker ps
+docker logs mongo
+docker ps
+docker ps -as
+docker start mongo
+docker ps
+nano /etc/nginx/nginx.conf 
+nano /etc/nginx/sites-available/default 
+more /etc/nginx/nginx.conf 
+tail /var/log/nginx/error.log
+tail /var/log/nginx/access.log
+mkdir /home/mulyadi/backupbaru
+cp /etc/letsencrypt/live/sop.qti.co.id/* /home/mulyadi/backupbaru/
+cd /home/mulyadi/backupbaru/
+ls -lh
+cp /etc/nginx/nginx.conf /home/mulyadi/backupbaru/
+cp /etc/nginx/sites-available/default /home/mulyadi/backupbaru/
+ls
+tar zcvf backup-sertifikat.tar.gz
+tar zcvf backup-sertifikat.tar.gz .
+docker ps
+docker exec -ti sop-frontend-dist /bin/bash
+more /etc/nginx/sites-available/default 
+cd /home/mulyadi/baru/
+cd sop_frontend/
+nano deploy/etc/nginx/conf.d/default.conf 
+more /etc/nginx/sites-available/default 
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx reload
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx reload
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx reload
+more /etc/nginx/sites-available/default 
+iptables -nL
+cp /etc/letsencrypt/live/sop.qti.co.id/chain.pem /etc/nginx/cert/chain.pem 
+cp /etc/letsencrypt/live/sop.qti.co.id/cert.pem /etc/nginx/cert/cert.pem 
+cp /etc/letsencrypt/live/sop.qti.co.id/fullchain.pem /etc/nginx/cert/fullchain.pem 
+cp /etc/letsencrypt/live/sop.qti.co.id/privkey.pem /etc/nginx/cert/privkey.pem 
+more /etc/nginx/sites-available/default 
+nginx -t -c /etc/nginx/nginx.conf 
+/etc/init.d/nginx reload
+cd /home/mulyadi/baru/sop_frontend/
+more src/config.js 
+more /etc/nginx/sites-available/default 
+more Dockerfile 
+more deploy/etc/nginx/conf.d/default.conf 
+more webpack/webpack.prod.js 
+more .env 
+nano .env 
+nano src/config.js 
+docker ps
+docker stop sop-frontend-dist-manual-8
+docker start sop-frontend-dist-manual-8
+docker build -t sop-frontend-dist-manual-9 .
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx reload
+nano /etc/nginx/sites-available/default 
+links2
+elinks
+apt-get install links2
+links2 http://127.0.0.1:3000
+links2 http://127.0.0.1:8080
+links2 https://127.0.0.1:8080
+links2 http://127.0.0.1:8080
+links2 http://127.0.0.1:3000
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx reload
+iptables -nL
+iptables -I INPUT 1 -p tcp --dport 3478 -j ACCEPT
+iptables -I INPUT 1 -p udp --dport 3478 -j ACCEPT
+iptables -I INPUT 1 -p tcp --dport 19302 -j ACCEPT
+iptables -I INPUT 1 -p udp --dport 19302 -j ACCEPT
+iptables -I DOCKER 1 -p tcp --dport 3478 -j ACCEPT
+iptables -I DOCKER 1 -p udp --dport 3478 -j ACCEPT
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx reload
+telnet stun/l.google.com 19302
+telnet stun.l.google.com 19302
+docker images
+docker rmi 1b64e47095f9
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx reload
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx reload
+docker ps
+tail /var/log/nginx/error.log
+docker ps
+docker logs sop-frontend-dist
+ls
+cd baru/sop_frontend/
+git pull
+more src/config.js 
+rm src/config.js 
+git pull
+rm .env 
+git pull
+nano /etc/nginx/sites-available/default 
+nginx -t -c /etc/nginx/nginx.conf 
+/etc/init.d/nginx restart
+more /etc/nginx/sites-available/default 
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+dpkg -i google-chrome-stable_current_amd64.deb
+updatedb
+locate lxcfs
+top
+ls
+more Dockerfile 
+more .env 
+more Dockerfile 
+docker ps
+docker logs sop-frontend-puppeteer
+iptables -nL
+more /etc/nginx/sites-available/default 
+cd /home/mulyadi/backupbaru/
+cd ..
+cd baru/
+ls
+cd sop_frontend/
+more .env 
+more src/config.js
+more src/containers/Communication/Communication.js 
+docker ps
+docker stop  sop-frontend-dist-manual-22
+docker start  sop-frontend-dist
+cd /home/mulyadi/baru/
+ls
+cd sop_frontend/
+docker build sop_frontend_manual-16 .
+docker build -t sop_frontend_manual-16 .
+ip a
+docker stop sop-frontend-dist
+docker run -d --name sop_frontend_manual-16 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis:redis -v sop-data:/data sop_frontend_manual-16
+docker run -d --name sop_frontend_manual-16 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop_frontend_manual-16
+docker ps
+docker logs sop_frontend_manual-16
+docker ps
+docker stop sop-frontend-dist-manual-21
+docker start sop-frontend-dist
+docker stop sop-frontend-dist
+docker run -d --name sop-frontend-dist-manual-22 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontend-dist-manual-22
+docker ps
+docker stop sop-frontend-dist-manual-22
+docker start sop-frontend-dist
+cd baru/
+cd sop_frontend/
+ls
+nano .env 
+nano src/containers/Communication/Communication.js 
+docker build -t sop-frontned-dist-manual-17 .
+docker stop sop-frontend-dist
+docker run -d --name sop-frontned-dist-manual-17 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis:redis -v sop-data:/data sop-frontned-dist-manual-17
+docker run -d --name sop-frontned-dist-manual-17 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontned-dist-manual-17
+docker ps
+docker logs sop-frontned-dist-manual-17
+nano src/containers/Communication/Communication.js 
+docker build -t sop-frontned-dist-manual-18 .
+docker stop sop-frontned-dist-manual-17
+docker run -d --name sop-frontned-dist-manual-18 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontned-dist-manual-18
+docke rps
+docker ps
+docker logs sop-frontned-dist-manual-18
+docker stop sop-frontned-dist-manual-18
+docker start sop-frontend-dist
+/etc/init.d/nginx stop
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx start
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+chown -R mulyadi:mulyadi /home/mulyadi/baru/
+clear
+ls
+nano src/containers/Communication/Communication.js 
+docker build -t sop-frontend-dist-manual-19 .
+docker ps
+docker stop sop-frontend-dist
+docker run -d --name sop-frontend-dist-manual-19 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontend-dist-manual-19
+df -h
+docker images
+docker rmi b334ea96f0e5 
+docker rmi ebc44bad220a
+docker rmi 7b009f3b5e3b
+docker rmi 054ca104208e
+docker rmi 5d6488ebfaec
+df -h
+docker build -t sop-frontend-dist-manual-19 .
+docker build -t sop-frontend-dist-manual-20 .
+docker run -d --name sop-frontend-dist-manual-20 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontend-dist-manual-20
+docker logs sop-frontend-dist-manual-20
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+docker ps
+tail /var/log/nginx/error.log
+docker ps
+tail /var/log/nginx/error.log
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+nano .env 
+docker ps
+docker stop sop-frontend-dist-manual-20
+docker start sop-frontend-dist
+docker ps
+nano src/containers/Communication/Communication.js 
+docker build -t sop-frontend-dist-manual-21 .
+docker stop sop-frontend-dist
+docker run -d --name sop-frontend-dist-manual-21 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontend-dist-manual-21
+nano .env 
+nano Dockerfile 
+docker build -t sop-frontend-dist-manual-22 .
+cd /home/mulyadi/baru/sop_frontend/
+more deploy/etc/nginx/conf.d/default.conf 
+more deploy/etc/services.d/sop/run 
+more deploy/etc/services.d/sop/finish 
+more deploy/etc/nginx/conf.d/default.conf 
+more Dockerfile 
+more /etc/nginx/sites-available/default 
+more .env 
+ip a
+pwd
+ls -lh
+docker build -t sop-frontend-10-manual .
+docker ps
+docker stop sop-frontend-dist-manual-8
+docker run -d --name sop-frontend-10-manual -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis:redis -v sop-data:/data sop-frontend-10-manual
+docker run -d --name sop-frontend-10-manual -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontend-10-manual
+nano /etc/nginx/sites-available/default 
+nano src/config.js 
+docker build -t sop-frontend-11-manual .
+docker stop sop-frontend-10-manual
+docker run -d --name sop-frontend-11-manual -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontend-11-manual
+nano .env 
+docker build -t sop-frontend-12-manual .
+docker stop sop-frontend-11-manual
+docker run -d --name sop-frontend-12-manual -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontend-12-manual
+docker stop sop-frontend-12-manual
+docker ps -as
+docker start sop-frontend-dist
+docker stop sop-frontend-dist
+docker start sop-frontend-manual-8
+docker start sop-frontend-dist-manual-8
+nano  src/config.js 
+nano  .env 
+nano webpack/webpack.prod.js 
+nano webpack/webpack.dev.js 
+docker build -t sop-frontend-13-manual .
+docker ps
+docker stop sop-frontend-dist-manual-8
+docker run -d --name sop-frontend-13-manual -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontend-13-manual
+docker stop sop-frontend-13-manual
+docker start sop-frontend-dist-manual-8
+apt-get update
+apt-get install python-certbot-nginx
+df -h
+docker images
+docker rmi e50307a27f3a
+docker rmi dc6eecc51392
+docker rmi e074ff3deddd
+docker rmi ff358c9f31ac
+apt-get install python-certbot-nginx
+nano /etc/nginx/sites-available/default 
+nginx -t -c /etc/nginx/nginx.conf 
+more /etc/nginx/sites-available/default 
+nano /etc/nginx/sites-available/default 
+tail /var/log/nginx/error.log
+nginx -t -c /etc/nginx/nginx.conf 
+/etc/init.d/nginx restart
+nano /etc/nginx/sites-available/default 
+nginx -t -c /etc/nginx/nginx.conf 
+/etc/init.d/nginx restart
+docker ps
+docker stop sop-frontend-dist
+docker start sop-frontend-dist
+docker logs sop-frontend-dist
+docker ps
+docker logs sop-frontend-dist
+nano /etc/nginx/sites-available/default 
+docker exec -ti sop-frontend-dist /bin/bash
+nano /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+cd baru/
+ls
+cd sop_frontend/
+ls
+git pull
+more src/config.js 
+git status
+git fetch devel
+git fetch dev
+git status
+git fetch origin dev
+git status
+git checkout dev
+git status
+git pull
+rm Dockerfile 
+rm src/config.js 
+git pull
+ls
+docker build -t sop-frontend-manual-7 .
+ls
+nano .env 
+yarn build
+docker ps
+docker stop sop-frontend-dist
+yarn start
+nano .env 
+yarn build
+yarn start
+npm install --dotenv-extended
+yarn start
+docker ps
+nano deploy/etc/nginx/conf.d/default.conf 
+docker build -t sop-frontend-manual-8 .
+docker run -d --name sop-frontend-dist-manual-8 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis:redis -v sop-data:/data sop-frontend-manual-8
+docker ps
+docker run -d --name sop-frontend-dist-manual-8 -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop -v sop-data:/data sop-frontend-manual-8
+git pull
+rm src/containers/Communication/Communication.js 
+git pull
+rm package-lock.json 
+git pull
+nano src/containers/Communication/Communication.js 
+ls -lh
+cd /home/mulyadi/baru/sop_frontend/
+ls
+ls -lh
+docker ps
+clear
+docker logs
+docker ps
+docker commit 8ad919f9c51b sop-frontend-puppeteer-img
+docker save -o sop-frontend-puppeteer-img.tar.gz sop-frontend-puppeteer-img
+ls -lh
+chmod mulyadi:mulyadi sop-frontend-puppeteer-img.tar.gz 
+chown mulyadi:mulyadi sop-frontend-puppeteer-img.tar.gz 
+clear
+iptables -nL
+iptables -I DOCKER 1 -p tcp --dport 27017 -j REDIRECT --to-port 27777
+iptables -t nat -A  PREROUTING -p tcp --dport 27017 -j REDIRECT --to-port 27777
+iptables -I DOCKER 1 -p tcp --dport 27777 -j ACCEPT
+iptables -t nat -A  PREROUTING -p tcp --dport 27017 -j DNAT --to-port 27777
+iptables -t nat -nL
+iptables -t nat -D PREROUTING 2 
+iptables -t nat -A  PREROUTING -p tcp --dport 27777 -j DNAT --to-port 27017
+iptables -t nat -A  PREROUTING -p tcp --dport 27777 -j REDIRECT --to-port 27017
+iptables -t nat -D PREROUTING 2 
+iptables -t nat -I INPUT 1 -p tcp --dport 27777 -j DNAT --to-destination 10.10.10.9:27017
+iptables -t nat -I PREROUTING 1 -p tcp --dport 27777 -j DNAT --to-destination 10.10.10.9:27017
+iptables -t nat -I POSTROUTING 1 -j MASQUERADE
+iptables -t nat -nL
+iptables -D POSTROUTING 1
+iptables -t nat -D POSTROUTING 1
+iptables -t nat -D PREROUTING 1
+iptables -nL
+iptables -D DOCKER 4
+iptables -nL |more
+ip a
+iptables -I DOCKER 1 -p tcp --dport -i eth1 -j DROP
+iptables -I DOCKER 1 -p tcp --dport 27017 -i eth1 -j DROP
+iptables -nL |more
+iptables -D DOCKER 2
+top
+iptables -I DOCKER 1 -p tcp --dport 27017 -j DROP
+cd sop_frontend/
+vi .env 
+vi Dockerfile 
+vi deploy/etc/nginx/conf.d/default.conf 
+ping 10.10.10.149
+docker ps
+iptables -nL
+iptables -t nat -nL
+git clone https://gitlab.com/QTI/arsip-project/arsip-backend.git
+ls
+cd arsip-backend/
+ls
+more config.py 
+docker ps
+more sop_frontend/.env 
+docker ps
+df -h
+docker images
+docker rmi 83e3e7a93e52 
+docker rmi d963de24aa8e
+df -h
+ip a
+df -h
+docker ps
+docker stop sop-frontend-dist
+df -h
+docker stop mongo
+docker start mongo
+docker start sop-frontend-dist
+docker logs sop-frontend-dist
+ls -lh
+df -h
+top
+df -h
+docker ps
+docker stop sop-frontend-dist
+docker stop bob.couch
+docker stop bob.postgres
+docker stop bob.sqlserver
+docker stop bob.neo
+docker stop bob.mongo
+docker stop bob.redis
+docker stop bob.cassandra
+docker stop pensive_volhard
+docker stop sop-test-redis
+docker stop fossology
+docker stop pgsqlfoss
+docker stop splash
+docker stop snipeit
+docker stop redis-sop
+docker stop mongo
+docker stop sop-notif
+docker stop  realtime-doc-backend
+docker stop  realtime-doc-socket
+docker stop  mongo-realtime-doc
+docker stop elastic
+docker stop sq
+docker stop registry
+docker ps
+docker sotp bob.maria
+docker stop bob.maria
+docker stop gitlab-runner-03
+docker stop redis-realtime-doc
+docker ps
+halt -p
+df -h
+docker ps
+clear
+docker ps
+docker stat
+docker stats
+df -h
+docker images
+docker rmi a535007864c2
+docker ps
+nano /etc/init.d/networking 
+ls -lh
+cd /home/sop/
+ls -lh
+rm sop_backend_sop2.tar.gz 
+rm sop-backend-manual.tar.gz
+ls -lh
+df -h
+cd /root/
+ls -lh
+cd ..
+ls -lh
+ls
+cd backup
+mkdir backup
+cd backup
+git clone https://gitlab.com/QTI/SOP-Project/sop_frontend.git
+ls
+cd sop_frontend/
+ls
+tar zcvf sop_frontend.tar.gz .
+ls
+mv sop_frontend.tar.gz /home/mulyadi/
+iptables -nL
+ifconfig
+iptables -I INPUT 1 -i eth1 -j DROP
+vi /home/mulyadi/sop_frontend/deploy/etc/nginx/conf.d/default.conf 
+vi /home/mulyadi/sop_frontend/Dockerfile 
+vi /home/mulyadi/sop_frontend/deploy/etc/services.d/sop/finish 
+vi /home/mulyadi/sop_frontend/deploy/etc/services.d/sop/run 
+vi /home/mulyadi/sop_frontend/deploy/etc/nginx/conf.d/default.conf 
+ls
+iptables -D INPUT 1
+iptables -I INPUT 1 -i eth1 -p tcp --dport 27017 -j DROP
+iptables -I DOCKER 1 -i eth1 -p tcp --dport 27017 -j DROP
+ls
+more 
+docker exec -i mongo sh -c 'mongorestore --archive' < mongodb-04-08-2019.dump 
+docker exec -i mongo sh -c 'mongorestore --archive' < mongodb-03-08-2019.dump 
+docker exec -i mongo sh -c 'mongorestore --archive' < mongodb-01-08-2019.dump 
+docker exec -i mongo sh -c 'mongorestore --archive' < mongodb-14-07-2019.dump 
+traceroute detik.com
+traceroute 113.197.108.222
+certbot-auto -d sop.qti.co.id
+more /etc/nginx/nginx.conf 
+more /etc/nginx/sites-available/default 
+/etc/init.d/nginx restart
+more /etc/letsencrypt/live/sop.qti.co.id/privkey.pem 
+more /etc/letsencrypt/live/sop.qti.co.id/fullchain.pem 
+more /etc/nginx/sites-available/default 
+ip a
+apt-get install netfilter-persistent
+apt-get update
+vi /etc/apt/sources.list
+vi /etc/apt/sources.list.d/mongodb-org-3.6.list
+apt-get update
+vi /etc/apt/sources.list.d/yarn.list
+apt-get update
+apt-get -f install iptables-persistent
+apt-get install libu2f-udev
+apt-get -f install iptables-persistent
+df -h
+apt-get -f install
+apt-get install iptables-persistent
+/etc/init.d/iptables-persistent save
+netfilter-persistent save
+netfilter-persistent reload
+more backup.sh 
+halt -p
+docker ps
+docker image
+docker ps -as
+docker ps
+ip a
+ipconfig
+ifconfig
+docker ps
+docker stop 488623621a03
+docker stop 3baa0a3ec2db
+
+docker ps
+docker stop  mongo-realtime-doc
+docker stop  mongo
+iptables -I INPUT 1 -p 27017 -i eth1 -j DROP
+iptables -I INPUT 1 -p tcp --dport 27017 -i eth1 -j DROP
+iptables -I DOCKER 1 -p tcp --dport 27017 -i eth1 -j DROP
+ls
+bdocker ps
+docker ps
+vipw
+docker ps
+crontab -e
+docker ps
+docker ps
+clear
+docker ps
+more backup.sh 
+ls
+more backup.sh 
+clear
+more backup.sh 
+crontab -e
+more /home/mulyadi/sop_frontend/deploy/etc/nginx/conf.d/default.conf 
+su
+docker ps
+docker exec -ti mongo /bin/bash
+docker ps
+cd baru/
+docker exec -i mongo sh -c 'mongorestore --archive' < mongodb-26-12-2019.dump 
+docker ps
+docker exec -ti mongo /bin/bash
+cd /home/mulyadi/baru/
+docker exec -i mongo sh -c 'mongorestore --archive' < mongodb-26-12-2019.dump 
+cd ~
+cd /
+ls /home/
+ls /home/rita/
+ls
+cd /home/mulyadi/
+ls
+cd /root/
+ls
+cd /home/sop/
+cd /home/mulyadi/
+ls
+crontab -e
+rm /home/sop/sop-frontend-manual.tar.gz 
+df -h
+ls
+vi docker-cleanup.sh
+docker images
+chmod +x docker-cleanup.sh 
+./docker-cleanup.sh 
+vi docker-cleanup.sh 
+./docker-cleanup.sh 
+vi docker-cleanup.sh 
+./docker-cleanup.sh 
+vi docker-cleanup.sh 
+./docker-cleanup.sh 
+df -h
+docker ps
+docker ps -as
+docker start sop-frontend-dist
+docker rm sop-frontend-dist
+docker start mongo
+docker ps
+./docker-cleanup.sh 
+docker ps
+/etc/init.d/nginx stop
+certbot-auto certonly -d sop.qti.co.id
+more /etc/nginx/sites-available/default 
+/etc/init.d/nginx start
+history
+iptables -nL
+history
+iptables -nL
+docker ps
+docker ps -as
+docker ps
+git clone https://gitlab.com/QTI/project-mandiri/raport-mandiri.git
+ls
+cd raport-mandiri/
+git status
+git checkout dev
+git status
+ls -lh
+vi Dockerfile 
+docker build -t raport-mandiri .
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+docker ps
+docker logs raportmu-mandiri
+docker ps
+docker ps -as
+docker logs 
+docker logs raportmu-mandiri
+docker ps
+docker stop raportmu-mandiri
+docker start raportmu-mandiri
+docker ps
+docker logs raportmu-mandiri
+docker ps
+docker logs raportmu-mandiri
+docker ps
+docker logs raportmu-mandiri
+docker -f logs raportmu-mandiri
+docker logs -f raportmu-mandiri
+vi Dockerfile 
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+vi Dockerfile 
+git status
+docker build -t raport-mandiri .
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+docker ps 
+docker logs raportmu-mandiri~
+docker ps 
+vi Dockerfile 
+docker build -t raport-mandirii .
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3003:8080 raport-mandirii:latest
+docker logs raportmu-mandiri
+docker ps 
+docker ps -as
+docker logs raportmu-mandiri
+git status
+vi Dockerfile 
+docker build -t raport-mandiri .
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+docker ps
+docker logs raportmu-mandiri
+docker ps
+docker ps\
+docker ps
+docker logs raportmu-mandiri
+cd backend-anjab/
+ls -lh
+vi Dockerfile 
+docker build -t backend-anjab .
+docker ps
+docker run -d --name anjab-backend-prod -v /root/backend-anjab/uploads:/usr/local/app/uploads -p 8089:3001 backend-anjab:latest
+docker rm anjab-backend-prod
+docker run -d --name anjab-backend-prod -v /root/backend-anjab/uploads:/usr/local/app/uploads -p 8089:3001 backend-anjab:latest
+docker logs -f anjab-backend-prod
+docker ps
+docker ps -as
+vi Dockerfile 
+docker build -t backend-anjab .
+docker stop anjab-backend-prod
+docker rm anjab-backend-prod
+docker run -d --name anjab-backend-prod -v /root/backend-anjab/uploads:/usr/local/app/uploads -p 8089:3001 backend-anjab:latest
+docker logs anajb-backend-prod
+docker logs anjab-backend-prod
+docker exec -ti anjab-backend-prod /bin/bash
+cd backend-anjab/
+node -v
+more DO
+more Dockerfile 
+npm cache clean --force
+npm -g install pm2
+more Dockerfile 
+yarn install --production=true
+cd ~
+ls
+nvm
+cat /etc/debian_version 
+curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh -o install_nvm.sh
+chmod +x install_nvm.sh 
+./install_nvm.sh 
+nvm install 11.10.1
+node -v
+nvm install 11.10.1
+nvm alias defalut 11.10.1
+cd /home/mulyadi/backend-anjab/
+ls
+more Dockerfile 
+pm2 list
+yarn install --production=true
+more Dockerfile 
+npm install jsdom
+more Dockerfile 
+more package.json 
+vi package.json 
+yarn start
+more .env.example 
+mv .env.example .env
+vi .env 
+yarn start
+more .env 
+yarn start
+more Dockerfile 
+more deploy/etc/services.d/app/finish 
+more deploy/etc/services.d/app/run 
+pm2-runtime process.yml
+netstat -tulp
+more Dockerfile 
+yarn start
+more .env 
+yarn start
+npm install cross--env
+npm install cross-env
+yarn start
+ls -lh
+node server.js 
+mkdir root
+cp package.json root/
+yarn start
+ls -lh
+yarn
+yarn start
+more deploy/etc/services.d/app/finish 
+more deploy/etc/services.d/app/run 
+pm2-runtime process.yml
+pm2 start app.js 
+pm2 desc 0
+pm2 delete app
+NODE_PORT=3333 pm2 start app.js 
+pm2 logs app
+vi package.json 
+vi Dockerfile 
+pm2 delete app
+vi package.json 
+vi .env 
+NODE_PORT=3333 pm2 start app.js 
+pm2 logs app
+vi .env 
+vi Dockerfile 
+NODE_PORT=3333 pm2 start app.js 
+pm2 delete app
+NODE_PORT=3333 pm2 start app.js 
+pm2 logs app
+vi .env 
+yarn start 
+NODE_PORT=3333 pm2 start app.js 
+pm2 delete app
+NODE_PORT=3333 pm2 start app.js 
+pms logs app
+apt install pms
+df -h
+apt-get -f install
+apt install pms
+pm2 logs app
+vi .env 
+NODE_PORT=3333 pm2 start server.js 
+pm2 delete app
+pmw logs server
+pmw logs -f server
+pmw logs server
+pm2 list
+pmw logs server
+apt install pmw
+pm2 list
+pm2 logs server 
+more server.js 
+vi server.js 
+pm2 logs server 
+pm2 delete app
+pm2 delete server
+yarn start
+NODE_PORT=3333 pm2 start server.js 
+pm2 logs server
+yarn start
+more .env 
+vi ./.env 
+yarn start
+clear
+pm2 delete server
+NODE_PORT=3333 pm2 start server.js 
+pm2 logs server
+ls
+git clone https://gitlab.com/QTI/project-anjab/backend-anjab.git
+cd backend-anjab/
+ls
+more .env.example 
+ls -lh
+git chekout dev
+git checkout dev
+git pull
+more Dockerfile 
+vi Dockerfile 
+docker build -t backend-anjab .
+yarn add jsdom
+vi Dockerfile 
+nvm use 11.10.1
+more Dockerfile 
+yarn install --production=true
+node -v
+cd /home/mulyadi/
+ls
+ls -lh
+cd /root/
+ls -lh
+ip a
+ls -lh
+docker ps
+vi Dockerfile 
+cd /home/mulyadi/backend-anjab/
+vi Dockerfile 
+docker build -t backend-anjab .
+vi Dockerfile 
+docker build -t backend-anjab .
+vi Dockerfile 
+docker build -t backend-anjab .
+mkdir /root/backend-anjab
+mkdir /root/backend-anjab/uploads
+docker run -d --name anjab-backend-prod -v /root/backend-anjab/uploads:/usr/local/app/uploads -p 8089:3001 backend-anjab:latest
+docker ps
+docker logs anjab-backend-prod
+df -h
+cd /r
+ls
+cd /root
+ls
+cd /home/mulyadi/
+./docker-cleanup.sh 
+cd backend-anjab/
+git pull
+mv Dockerfile /home/
+git pull
+tail /var/log/mes
+docker-compose build -t backend-anjab .
+docker build -t backend-anjab .
+more Dockerfile 
+vi Dockerfile 
+docker-compose build -t backend-anjab .
+docker build -t backend-anjab .
+vi Dockerfile 
+docker build -t backend-anjab .
+docker ps -as
+docker ps
+docker stop anjab-backend-prod
+docker rm anjab-backend-prod
+./docker-cleanup.sh 
+docker run -d --name anjab-backend-prod -v /root/backend-anjab/uploads:/usr/local/app/uploads -p 8089:3001 backend-anjab:latest
+docke rps
+docker ps
+docker logs anjab-backend-prod
+vi Dockerfile 
+docker build -t backend-anjab .
+docker stop anjab-backend-prod
+docker rm anjab-backend-prod
+docker run -d --name anjab-backend-prod -v /root/backend-anjab/uploads:/usr/local/app/uploads -p 8089:3001 backend-anjab:latest
+docker ps
+docker logs anjab-backend-prod
+docker ps
+clear
+docker ps
+docker logs anjab-backend-prod |more
+vi Dockerfile 
+docker build -t backend-anjab .
+docker stop anjab-backend-prod
+docker rm anjab-backend-prod
+docker run -d --name anjab-backend-prod -v /root/backend-anjab/uploads:/usr/local/app/uploads -p 8089:3001 backend-anjab:latest
+docker logs anjab-backend-prod
+docker logs -f anjab-backend-prod
+ls
+docker exec anjabdb sh -c 'mongodump --archive' > anjabdb-10-02-2020.dump 
+docker exec -i anjabdb sh -c 'mongorestore --archive' < anjabdb-10-02-2020.dump 
+ls
+cd backend-anjab/
+ls
+vi .env 
+history
+pm2 list
+pm2 delete server
+vi server.js 
+NODE_PORT=3333 pm2 start server.js
+pm2 logs server
+vi .env 
+pm2 delete server
+NODE_PORT=3333 pm2 start server.js
+pm2 logs server
+vi .env 
+docker ps
+ls
+docker ps
+ls
+dockeps
+docker ps
+docker run -p 27018:27017 --name anjabdb -d mongo
+docker ps
+docker run -p 27018:27017 --name anjabdb -d mongo
+docker run --help
+docker run -p 27018:27017 -d mongo
+docker run -p 27018:27017 --name anjabdb -d mongo
+docker run -d nginx
+docker ps
+docker stop affectionate_cohen
+docker rm affectionate_cohen
+docker run --name anjabdb -p 27018:27017 -d mongo
+history
+docker run -d --name anjabdb -p 27018:27017 mongo
+docker run -d --name anjabdb -p 27018:27017 mongo:latest
+docker run -d --name anjabdb -p 27019:27017 mongo:latest
+docker run -d --name anjabdb mongo:latest
+docker run -d --name anjabdb mongo
+docker pull mongo
+docker run -d --name anjabdb -p 27018:27017 mongo:latest
+docker ps
+docker run -d --name anjabdb -p 27019:27017 mongo:latest
+docker rm anjabdb
+docker run -d --name anjabdb -p 27019:27017 mongo:latest
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=123QWEasdzxc' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
+docker ps
+docker ps
+cd /root/
+ls
+cd /home/mulyadi/
+./docker-cleanup.sh 
+vi raport-mandiri/Dockerfile 
+cd raport-mandiri/
+docker build -t raport-mandiri-manual .
+history
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri-manual:latest
+docker logs raportmu-mandiri
+docker logs -f raportmu-mandiri
+vi Dockerfile 
+docker build -t raport-mandiri-manual .
+docker rm raportmu-mandiri
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri-manual:latest
+docker logs -f raportmu-mandiri
+ls
+mkdir -p /var/lib/openproject/{pgdata,logs,static}
+docker run -d -p 8283:80 --name openproject -e SECRET_KEY_BASE=secret   -v /var/lib/openproject/pgdata:/var/lib/postgresql/9.6/main   -v /var/lib/openproject/logs:/var/log/supervisor   -v /var/lib/openproject/static:/var/db/openproject   openproject/community:10
+docker ps
+docker logs openproject
+docker images
+docker ps
+docker rmi a535007864c2
+docker rmi  7dc607542eaa
+docker rm  d5c26fb54042
+docker rm  717cd4c9cadc
+docker rmi  7dc607542eaa
+docker rmi a535007864c2
+./docker-cleanup.sh 
+df -h
+docker rmi 7dc607542eaa
+clear
+iptables -nL
+iptables -A INPUT -p tcp --dport 1435 -j REDIRECT --to-port 1433
+iptables -I INPUT 2 -p tcp --destionation 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+iptables -I INPUT 2 -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+dmesg
+iptables -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+docker ps
+docker stop sipg
+docker stop bob.kibana
+docker stop sop_sop_1
+docker stop sop_postgres_1
+docker stop sop_backend_postgres_1
+docker stop sop_backend_postgres_ian_1
+docker stop gitlab-runner-03
+docker ps
+docker stop registry
+docker stop sq
+pm2 list
+top
+kill 2224
+top
+crontab -e
+su sop
+password sop
+passwd sop
+exit
+history
+docker start anjabdb
+docker start mongo
+docker start redis-sop
+docker start sop-frontend-dist
+pm2 logs
+pm2 list
+cd backend-anjab/
+NODE_PORT=3333 pm2 start server.js
+docker start anjab-fe
+docker ps -as
+git pull
+cp Dockerfile /root/
+cp package.json /root/
+cp yarn.lock /root/
+rm Dockerfile 
+rm package.json 
+rm Do
+rm yarn.lock 
+git pull
+vi package.json 
+pm2 list
+pm2 delete server
+history
+NODE_PORT=3333 pm2 start server.js
+ls
+docker exec -i mongo sh -c 'mongorestore --archive' < mongodb-10-02-2020.dump 
+docker ps
+docker stop sop-frontend-dist
+docker start sop-frontend-dist
+docker run -d --name sop-frontend-dist -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop:redis-sop -v sop-data:/data registry.gitlab.com/qti/sop-project/sop_frontend:latest
+docker rm sop-frontend-dist
+docker run -d --name sop-frontend-dist -p 8080:8080 -p 3000:3000 --link mongo:mongo --link redis-sop:redis-sop -v sop-data:/data registry.gitlab.com/qti/sop-project/sop_frontend:latest
+docker logs anjab-db
+docker logs anjabdb
+docker ps
+pm2 logs server
+cd backend-anjab/
+yarn instlal
+yarn install
+pm2 delete servre
+pm2 delete server
+history
+NODE_PORT=3333 pm2 start server.js
+cd ..
+ls
+cd backend-anjab/
+git pull
+rm yarn.lock 
+git pull
+yarn install
+pm2 list
+pm2 delete server
+NODE_PORT=3333 pm2 start server.js
+cd backend-anjab/
+git pull
+ping 10.10.10.183
+ping 10.10.10.182
+ping 10.10.10.181
+ls
+git clone https://gitlab.com/QTI/project-anjab/frontend-anjab.git
+cd frontend-anjab/
+git checkout dev
+git pull
+more Dockerfile 
+more src/config.prod.js 
+more src/config.example.js 
+more Dockerfile 
+docker build -t frontend-anjab .
+cd frontend-anjab/
+docker build -t frontend-anjab .
+tail /usr/local/app/yarn-error.log
+vi package.json 
+cd frontend-anjab/
+vi yarn.lock 
+vi Dockerfile 
+vi package.json 
+mv yarn.lock /home/
+docker build -t frontend-anjab .
+yarn install
+top
+docker start mandiri-db
+top
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+df -h
+docker ps
+docker logs mandiri-db
+ip a
+top
+pkill 58500
+su sop
+kill 58500
+top
+userdel gitlab-+
+docker ps
+top
+vipw
+top
+docker ps
+top
+docker ps
+docker stop mandiri-db
+docker ps
+passwd -l sop
+docker stats
+docker ps
+pm2 list
+cd backend-anjab/
+exit
+iptables -nL
+history
+giptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+ls -lh
+cd frontend-anjab/
+yarn install
+more Dockerfile 
+yarn start
+docker ps
+ip a
+cd frontend-anjab/
+more Dockerfile 
+ls
+yarn build
+cp src/config.prod.js src/config.js
+more src/config.prod.js 
+yarn build
+vi Dockerfile 
+docker build -t frontend-anjab .
+ls
+vi Dockerfile 
+docker build -t frontend-anjab .
+ncy "redux@^3.0.0 || ^4.0.0".
+docker ps -as
+docker ps
+docker stop anjab-frontend
+docker rm anjab-frontend
+docker run -p 8090:80 --name frontend-anjab -d frontend-anjab:latest
+ls -lh
+cd frontend-anjab/
+ls
+vi Dockerfile 
+docker build -t frontend-anjab .
+cd /home/mulyadi/raport-mandiri/
+git pull
+history
+docker build -t raport-mandiri .
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+./docker-cleanup.sh 
+df -h
+cd frontend-anjab/
+vi Dockerfile 
+./docker-cleanup.sh 
+docker build -t frontend-anjab
+docker build -t frontend-anjab .
+docker stop frontend-anjab
+docker rm frontend-anjab
+docker run -p 8090:80 --name frontend-anjab -d 
+docker run -p 8090:80 --name frontend-anjab -d frontend-anjab:latest
+docker exec -ti frontend-anjab /bin/sh
+cd /home/mulyadi/backend-anjab/
+git pull
+rm package.json 
+git pull
+ip a
+pm2 list
+cd ..
+cd frontend-anjab/
+vi Dockerfile 
+vi deploy/etc/nginx/conf.d/default.conf 
+docker build -t frontend-anjab .
+docker ps
+docker stop frontend-anjab
+docker rm frontend-anjab
+docker run -p 8090:80 --name frontend-anjab -d frontend-anjab:latest
+docker logs frontend-anjab
+docer exec -ti frontend-anjab /bin/bash
+docker exec -ti frontend-anjab /bin/bash
+vi Dockerfile 
+docker build -t frontend-anjab .
+docker stop frontend-anjab
+docker rm frontend-anjab
+docker run -p 8090:80 --name frontend-anjab -d frontend-anjab:latest
+ls
+vi Dockerfile 
+docker build -t frontend-anjab .
+cd raport-mandiri/
+git pull
+docker build -t raport-mandiri .
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+history
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+cd frontend-anjab/
+ld
+ls
+vi Dockerfile 
+docker build -t frontend-anjab .
+docker ps
+docker stop frontend-anjab
+docker rm frontend-anjab
+docker run -p 8090:80 --name frontend-anjab -d frontend-anjab:latest
+docker logs frontend-anjab
+docker exec -ti frontend-anjab /bin/sh
+vi Dockerfile 
+ls dist/
+yarn start
+vi package.json 
+yarn start
+vi src/index.
+vi src/index.js 
+vi src/config.js
+vi Dockerfile 
+cd /home/mulyadi/raport-mandiri/
+git pull
+docker build -t raport-mandiri .
+docker ps
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+history |more
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+docker logs raportmu-mandiri
+cd frontend-anjab/
+ls
+vi Dockerfile 
+./docker-cleanup.sh 
+df -h
+ls
+cd frontend-anjab/
+ls
+yarn install
+yarn start
+vi webpack/webpack.dev.js 
+yarn start
+vi webpack/webpack.dev.js 
+vi webpack/webpack.prod.js 
+vi webpack/webpack.base.js 
+vi .env
+vi package.json 
+iptables -nL
+yarn start
+vi package.json 
+yarn start
+vi package.json 
+yarn start
+pm2 start yarn --name api -- start
+pm2 logs api
+pm2 delete api
+pm2 start yarn --interpreter bash --name api -- start
+pm2 logs api
+cd ..
+cd backend-anjab/
+history
+NODE_PORT=3333 pm2 start server.js
+pm2 logs server
+docker ps
+pm2 logs server
+telnet localhost 27019
+vi .env 
+pm2 delete server
+NODE_PORT=3333 pm2 start server.js
+pm2 logs server
+docker logs anjab-db
+docker logs anjabdb
+iptables -I INPUT 1 -p tcp --dport 8081 -j ACCEPT
+telnet 117.54.250.111 8081
+df -h
+docker logs raportmu-mandiri
+top
+docker ps
+docker logs mandiri-db
+docker stats
+top
+pm2 list
+pm2 stop api
+pm2 list
+top
+pm2 stop server
+top
+kill 14801
+pkill 14801
+top
+pkill 15048
+top
+pm2 list
+docker stop
+docker ps
+docker stop 
+docker stop raportmu-mandiri
+docker stop frontend-anjab
+docker stop mongo
+docker stop anjabdb
+docker stop redis-sop
+docker stop sop-notif
+docker ps
+reboot
+./docker-cleanup.sh 
+docker rmi 6585b04d1af4
+docker rm
+docker rm efb5a090544e
+docker rmi 6585b04d1af4
+docker rmi bf8769bce75f
+docker rm e888fed147ee
+docker rmi bf8769bce75f
+df -h
+ping 10.10.10.126
+pm2 list
+pm2 logs server
+history
+biptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+top
+docker ps
+docker stop anjab-backend
+docker stop raportmu-mandiri
+docker stop anjabdb
+docker stop sq
+docker stop registry
+docker ps
+reboot
+pm2 list
+cd frontend-anjab/
+history
+pm2 start yarn --interpreter bash --name api -- start
+cd ..
+cd backend-anjab/
+NODE_PORT=3333 pm2 start server.js
+pm2 logs server
+pm2 delete api
+pm2 delete server
+docker ps
+docker start mandiri-db
+docker start raportmu-mandiri
+history
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+docker start anjabdb
+docker start anjab-backend
+docker ps
+docker stop bob.banana
+docker stop bob.elastic
+docker stop bob.kibana
+docker stop backend_postgres_1
+cd frontend-anjab/
+vi src/config.js 
+vi src/config.example.js 
+yarn start
+history
+pm2 start yarn --interpreter bash --name api -- start
+pm2 logs
+pm2 list
+pm2 logs api
+cd frontend-anjab/
+git pull
+cp Dockerfile /home/
+cp package.json /home/
+rm Dockerfile 
+rm package.json 
+rm yarn.lock 
+docker build -t frontend-anjab .
+git pull
+docker build -t frontend-anjab .
+pm2 list
+docker ps
+docker stop anjab-backend
+docker stop raportmu-mandiri
+top
+docker ps
+docker stats
+docker stop mongo
+docker stop anjab-db
+docker stop anjabdb
+docker stop redis-sop
+docker ps
+reboot
+docker ps
+docker start anjabdb
+cd frontend-anjab/
+ls
+more Dockerfile 
+cd ..
+mkdir new
+cd new/
+git clone https://gitlab.com/QTI/project-anjab/frontend-anjab.git
+cd frontend-anjab/
+git checkout dev
+git pull
+vi Dockerfile 
+vi src/config.example.js 
+vi src/config.prod.js 
+docker build -t frontend-anjab-dev .
+yarn
+yarn install
+yarn build
+cp src/config.prod.js src/config.js
+yarn build
+cd new/
+cd frontend-anjab/
+ls
+yarn build
+vi /home/mulyadi/new/frontend-anjab/src/Routes.js
+yarn build
+ls
+docker build -t frontend-anjab-dev .
+docker stop frontend-anjab
+docker rm frontend-anjab
+docer rm anjab-frontend
+docker rm anjab-frontend
+docker run -p 8081:80 --name anjab-frontend -d frontend-anjab:latest
+docker ps
+top
+docker ps
+docker exec -ti anjab-frontend /bin/bash
+cd dist/
+ls
+docker stop anjab-frontend
+docker stop anjab-backend
+docke stop anjabdb
+docker stop anjabdb
+docker ps
+docker stop raportmu-mandiri
+docker logs tail mandiri-db
+docker ps
+reboot
+docker ps
+docker stop sipg
+docker start mandiri-db
+docker start raportmu-mandiri
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+ip a
+top
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+docker ps
+docker stop sipg
+docker stop bob.banana
+docker stop bob.kibana
+docker stop bob.elastic
+docker ps
+dtop
+top
+docker logs mandiri-db
+docker logs mandiri-db
+reboot
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+reboot
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+reboot
+docker start mandiri-db
+docker start raportmu-mandiri
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+docker ps
+docker start mandiri-db
+docker start raportmu-mandiri
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+git pull
+docker build -t raport-mandiri .
+history
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+./docker-cleanup.sh 
+df -h
+ls .ssh/
+more .ssh/id_rsa.pub
+cd /home/mulyadi/raport-mandiri/
+git pull
+df -h
+docker images
+bvgdocker rmi 1678f9acf03c
+docker rmi 1678f9acf03c
+docker rmi 83e3e7a93e52
+docker rm 74638da46ce8
+docker rmi 83e3e7a93e52
+docker build -t raport-mandiri .
+docker ps
+history
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri:latest
+bdocker logs raportmu-mandiri
+docker logs raportmu-mandiri
+ssh 117.54.250.115
+cd ~
+more .ssh/known_hosts 
+more .ssh/id_pub.rsa
+ls .ssh
+useradd -s /bin/bash -d /home/tiffan -m -G sudo tiffan
+passwd tiffan
+exit
+docker ps -as
+updatedb
+history
+ptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+history
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+crontab -e
+su sop
+userdel sop
+kill 2198
+userdel sop
+pkill 2198
+userdel sop
+top
+pkill 2219
+top
+passwd sop
+su sop
+userdel sop
+ps ax
+top
+kill 2219
+pkill 2219
+top
+userdel sop
+top
+userdel sop
+pkill 2198
+userdel sop
+kill 2198
+userdel sop
+kill -9 2198
+userdel sop
+top
+history
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+exit
+history
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri-manual:latest
+docker ps
+docker logs raportmu-mandiri
+cd raport-mandiri/
+git pull
+docker build -t raport-mandiri-manual .
+docker stop raportmu-mandiri
+docker rm raportmu-mandiri
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri-manual:latest
+docker logs raportmu-mandiri
+reboot
+docker ps
+df -h
+cd raport-mandiri/
+git pull
+rm Dockerfile 
+git pull
+more Dockerfile 
+docker build -t raport-mandiri-manual .
+git pull
+docker build -t raport-mandiri-manual .
+history
+docker run -d --name raportmu-mandiri -v /data/www/mandiri/uploads/:/usr/local/app/uploads -p 3002:8080 raport-mandiri-manual:latest
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+docker logs raportmu-mandiri
+docker ps
+cd raport-mandiri/
+git pull
+more Dockerfile 
+apt-get update
+vi /etc/apt/sources.list
+vi /etc/apt/sources.list.d/runner_gitlab-runner.list
+vi /etc/apt/sources.list.d/mongodb-org-3.6.list
+vi /etc/apt/sources.list.d/webupd8team-ubuntu-java-xenial.list
+vi /etc/apt/sources.list.d/yarn.list
+vi /etc/apt/sources.list.d/kubernetes.list
+vi /etc/apt/sources.list.d
+apt-get update
+apt-get install sshpass
+apt-get -f install
+ls
+mv Dockerfile /home/mulyadi/
+vi Dockerfile
+docker build -t raport-mandiri-manual .
+vi Dockerfile 
+rm Dockerfile 
+vi Dockerfile
+docker build -t raport-mandiri-manual .
+vi Dockerfile
+docker build -t raport-mandiri-manual .
+./docker-cleanup.sh 
+ls
+more Dockerfile 
+./docker-cleanup.sh 
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+exit
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+exit
+docker start mandiri-db
+docker start raportmu-mandiri
+iptables -t nat -A PREROUTING -p tcp --destination 117.54.250.111 --dport 1435 -j REDIRECT --to-port 1433
+exit
+more docker-cleanup.sh 
+--#

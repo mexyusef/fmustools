@@ -1,0 +1,46 @@
+# Create Todo Table API
+make a POSTMAN/newman api collection for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+ChatGPT
+To create a POSTMAN or Newman API collection for creating a table named todo with the specified columns, you can follow the steps below:
+
+Open the POSTMAN app or create a new collection in POSTMAN.
+
+Create a new request and set the HTTP method to POST.
+
+Set the request URL to the endpoint where you want to create the table. For example, if the endpoint is http://localhost:8000/api/create_table, set the URL accordingly.
+
+In the request body, select the raw option and set the body format to JSON.
+
+Copy and paste the following JSON payload into the request body:
+
+{
+  "query": "CREATE TABLE todo ( id INT PRIMARY KEY, priority FLOAT, completed BOOL, task VARCHAR(255), due_date DATE, created_at TIMESTAMP );"
+}
+
+Save the request and provide a suitable name for it, such as "Create todo Table".
+
+You can now send the request to create the table.
+
+If you want to export the collection to a file format that can be imported into Newman, you can follow these steps:
+
+In the POSTMAN app, select the collection that contains the "Create todo Table" request.
+
+Click on the three-dot menu next to the collection name and choose the "Export" option.
+
+Select the desired file format (e.g., JSON) and save the exported file to your preferred location.
+
+Once you have the exported collection file, you can use it with Newman to run the collection from the command line. Assuming you have Newman installed, you can execute the following command:
+
+newman run mycollection.json
+
+Replace mycollection.json with the path to the exported collection file.
+
+By following these steps, you will have a POSTMAN or Newman API collection ready to create a todo table with the specified columns.

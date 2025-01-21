@@ -1,0 +1,3220 @@
+--% index/fmus
+__PWD,d
+  .,d(/load=__FILE__=index/fmus/under_pwd*)
+--#
+
+--% index/fmus/under_pwd
+__REPLACE_WITH_PROJECT_DIR_OR_INPUT__,d(/mk)
+	%utama=__FILE__
+	.pylintrc,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/.pylintrc)
+	.travis.yml,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/.travis.yml)
+	CODE_OF_CONDUCT.md,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/CODE_OF_CONDUCT.md)
+	CONTRIBUTING.md,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/CONTRIBUTING.md)
+	LICENSE,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/LICENSE)
+	Makefile,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/Makefile)
+	MANIFEST.in,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/MANIFEST.in)
+	NOTICE,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/NOTICE)
+	Pipfile,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/Pipfile)
+	Pipfile.lock,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/Pipfile.lock)
+	README.md,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/README.md)
+	setup.cfg,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/setup.cfg)
+	setup.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/setup.py)
+	tox.ini,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tox.ini)
+	.github,d(/mk)
+		PULL_REQUEST_TEMPLATE.md,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/.github/PULL_REQUEST_TEMPLATE.md)
+	serverlessrepo,d(/mk)
+		application_metadata.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/application_metadata.py)
+		application_policy.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/application_policy.py)
+		exceptions.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/exceptions.py)
+		parser.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/parser.py)
+		permission_helper.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/permission_helper.py)
+		publish.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/publish.py)
+		__init__.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/__init__.py)
+		__version__.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/__version__.py)
+	tests,d(/mk)
+		__init__.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/__init__.py)
+		unit,d(/mk)
+			conftest.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/conftest.py)
+			test_application_metadata.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_application_metadata.py)
+			test_application_policy.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_application_policy.py)
+			test_parser.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_parser.py)
+			test_permission_helper.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_permission_helper.py)
+			test_publish.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_publish.py)
+			__init__.py,f(e=utama=E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/__init__.py)
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/.pylintrc
+[MASTER]
+
+# A comma-separated list of package or module names from where C extensions may
+# be loaded. Extensions are loading into the active Python interpreter and may
+# run arbitrary code.
+extension-pkg-whitelist=
+
+# Add files or directories to the blacklist. They should be base names, not
+# paths.
+ignore=CVS
+
+# Add files or directories matching the regex patterns to the blacklist. The
+# regex matches against base names, not paths.
+ignore-patterns=
+
+# Python code to execute, usually for sys.path manipulation such as
+# pygtk.require().
+#init-hook=
+
+# Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
+# number of processors available to use.
+jobs=1
+
+# Control the amount of potential inferred values when inferring a single
+# object. This can help the performance when dealing with large functions or
+# complex, nested conditions.
+limit-inference-results=100
+
+# List of plugins (as comma separated values of python modules names) to load,
+# usually to register additional checkers.
+load-plugins=
+
+# Pickle collected data for later comparisons.
+persistent=yes
+
+# Specify a configuration file.
+#rcfile=
+
+# When enabled, pylint would attempt to guess common misconfiguration and emit
+# user-friendly hints instead of false-positive error messages.
+suggestion-mode=yes
+
+# Allow loading of arbitrary C extensions. Extensions are imported into the
+# active Python interpreter and may run arbitrary code.
+unsafe-load-any-extension=no
+
+
+[MESSAGES CONTROL]
+
+# Only show warnings with the listed confidence levels. Leave empty to show
+# all. Valid levels: HIGH, INFERENCE, INFERENCE_FAILURE, UNDEFINED.
+confidence=
+
+# Disable the message, report, category or checker with the given id(s). You
+# can either give multiple identifiers separated by comma (,) or put this
+# option multiple times (only on the command line, not in the configuration
+# file where it should appear only once). You can also use "--disable=all" to
+# disable everything first and then reenable specific checks. For example, if
+# you want to run only the similarities checker, you can use "--disable=all
+# --enable=similarities". If you want to run only the classes checker, but have
+# no Warning level messages displayed, use "--disable=all --enable=classes
+# --disable=W".
+disable=useless-object-inheritance,
+        unused-argument,
+        too-many-instance-attributes
+
+# Enable the message, report, category or checker with the given id(s). You can
+# either give multiple identifier separated by comma (,) or put this option
+# multiple time (only on the command line, not in the configuration file where
+# it should appear only once). See also the "--disable" option for examples.
+enable=c-extension-no-member
+
+
+[REPORTS]
+
+# Python expression which should return a note less than 10 (10 is the highest
+# note). You have access to the variables errors warning, statement which
+# respectively contain the number of errors / warnings messages and the total
+# number of statements analyzed. This is used by the global evaluation report
+# (RP0004).
+evaluation=10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)
+
+# Template used to display messages. This is a python new-style format string
+# used to format the message information. See doc for all details.
+#msg-template=
+
+# Set the output format. Available formats are text, parseable, colorized, json
+# and msvs (visual studio). You can also give a reporter class, e.g.
+# mypackage.mymodule.MyReporterClass.
+output-format=text
+
+# Tells whether to display a full report or only the messages.
+reports=no
+
+# Activate the evaluation score.
+score=yes
+
+
+[REFACTORING]
+
+# Maximum number of nested blocks for function / method body
+max-nested-blocks=5
+
+# Complete name of functions that never returns. When checking for
+# inconsistent-return-statements if a never returning function is called then
+# it will be considered as an explicit return statement and no message will be
+# printed.
+never-returning-functions=sys.exit
+
+
+[BASIC]
+
+# Naming style matching correct argument names.
+argument-naming-style=snake_case
+
+# Regular expression matching correct argument names. Overrides argument-
+# naming-style.
+#argument-rgx=
+
+# Naming style matching correct attribute names.
+attr-naming-style=snake_case
+
+# Regular expression matching correct attribute names. Overrides attr-naming-
+# style.
+#attr-rgx=
+
+# Bad variable names which should always be refused, separated by a comma.
+bad-names=foo,
+          bar,
+          baz,
+          toto,
+          tutu,
+          tata
+
+# Naming style matching correct class attribute names.
+class-attribute-naming-style=any
+
+# Regular expression matching correct class attribute names. Overrides class-
+# attribute-naming-style.
+#class-attribute-rgx=
+
+# Naming style matching correct class names.
+class-naming-style=PascalCase
+
+# Regular expression matching correct class names. Overrides class-naming-
+# style.
+#class-rgx=
+
+# Naming style matching correct constant names.
+const-naming-style=UPPER_CASE
+
+# Regular expression matching correct constant names. Overrides const-naming-
+# style.
+#const-rgx=
+
+# Minimum line length for functions/classes that require docstrings, shorter
+# ones are exempt.
+docstring-min-length=-1
+
+# Naming style matching correct function names.
+function-naming-style=snake_case
+
+# Regular expression matching correct function names. Overrides function-
+# naming-style.
+#function-rgx=
+
+# Good variable names which should always be accepted, separated by a comma.
+good-names=i,
+           j,
+           k,
+           e,
+           ex,
+           Run,
+           _
+
+# Include a hint for the correct naming format with invalid-name.
+include-naming-hint=no
+
+# Naming style matching correct inline iteration names.
+inlinevar-naming-style=any
+
+# Regular expression matching correct inline iteration names. Overrides
+# inlinevar-naming-style.
+#inlinevar-rgx=
+
+# Naming style matching correct method names.
+method-naming-style=snake_case
+
+# Regular expression matching correct method names. Overrides method-naming-
+# style.
+#method-rgx=
+
+# Naming style matching correct module names.
+module-naming-style=snake_case
+
+# Regular expression matching correct module names. Overrides module-naming-
+# style.
+#module-rgx=
+
+# Colon-delimited sets of names that determine each other's naming style when
+# the name regexes allow several styles.
+name-group=
+
+# Regular expression which should only match function or class names that do
+# not require a docstring.
+no-docstring-rgx=^_
+
+# List of decorators that produce properties, such as abc.abstractproperty. Add
+# to this list to register other decorators that produce valid properties.
+# These decorators are taken in consideration only for invalid-name.
+property-classes=abc.abstractproperty
+
+# Naming style matching correct variable names.
+variable-naming-style=snake_case
+
+# Regular expression matching correct variable names. Overrides variable-
+# naming-style.
+#variable-rgx=
+
+
+[FORMAT]
+
+# Expected format of line ending, e.g. empty (any line ending), LF or CRLF.
+expected-line-ending-format=
+
+# Regexp for a line that is allowed to be longer than the limit.
+ignore-long-lines=^\s*(# )?<?https?://\S+>?$
+
+# Number of spaces of indent required inside a hanging or continued line.
+indent-after-paren=4
+
+# String used as indentation unit. This is usually "    " (4 spaces) or "\t" (1
+# tab).
+indent-string='    '
+
+# Maximum number of characters on a single line.
+max-line-length=120
+
+# Maximum number of lines in a module.
+max-module-lines=1000
+
+# List of optional constructs for which whitespace checking is disabled. `dict-
+# separator` is used to allow tabulation in dicts, etc.: {1  : 1,\n222: 2}.
+# `trailing-comma` allows a space between comma and closing bracket: (a, ).
+# `empty-line` allows space-only lines.
+no-space-check=trailing-comma,
+               dict-separator
+
+# Allow the body of a class to be on the same line as the declaration if body
+# contains single statement.
+single-line-class-stmt=no
+
+# Allow the body of an if to be on the same line as the test if there is no
+# else.
+single-line-if-stmt=no
+
+
+[LOGGING]
+
+# Logging modules to check that the string format arguments are in logging
+# function parameter format.
+logging-modules=logging
+
+
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+notes=FIXME,
+      XXX,
+      TODO
+
+
+[SIMILARITIES]
+
+# Ignore comments when computing similarities.
+ignore-comments=yes
+
+# Ignore docstrings when computing similarities.
+ignore-docstrings=yes
+
+# Ignore imports when computing similarities.
+ignore-imports=no
+
+# Minimum lines number of a similarity.
+min-similarity-lines=4
+
+
+[SPELLING]
+
+# Limits count of emitted suggestions for spelling mistakes.
+max-spelling-suggestions=4
+
+# Spelling dictionary name. Available dictionaries: none. To make it working
+# install python-enchant package..
+spelling-dict=
+
+# List of comma separated words that should not be checked.
+spelling-ignore-words=
+
+# A path to a file that contains private dictionary; one word per line.
+spelling-private-dict-file=
+
+# Tells whether to store unknown words to indicated private dictionary in
+# --spelling-private-dict-file option instead of raising a message.
+spelling-store-unknown-words=no
+
+
+[TYPECHECK]
+
+# List of decorators that produce context managers, such as
+# contextlib.contextmanager. Add to this list to register other decorators that
+# produce valid context managers.
+contextmanager-decorators=contextlib.contextmanager
+
+# List of members which are set dynamically and missed by pylint inference
+# system, and so shouldn't trigger E1101 when accessed. Python regular
+# expressions are accepted.
+generated-members=
+
+# Tells whether missing members accessed in mixin class should be ignored. A
+# mixin class is detected if its name ends with "mixin" (case insensitive).
+ignore-mixin-members=yes
+
+# Tells whether to warn about missing members when the owner of the attribute
+# is inferred to be None.
+ignore-none=yes
+
+# This flag controls whether pylint should warn about no-member and similar
+# checks whenever an opaque object is returned when inferring. The inference
+# can return multiple potential results while evaluating a Python object, but
+# some branches might not be evaluated, which results in partial inference. In
+# that case, it might be useful to still emit no-member and other checks for
+# the rest of the inferred objects.
+ignore-on-opaque-inference=yes
+
+# List of class names for which member attributes should not be checked (useful
+# for classes with dynamically set attributes). This supports the use of
+# qualified names.
+ignored-classes=optparse.Values,thread._local,_thread._local
+
+# List of module names for which member attributes should not be checked
+# (useful for modules/projects where namespaces are manipulated during runtime
+# and thus existing member attributes cannot be deduced by static analysis. It
+# supports qualified module names, as well as Unix pattern matching.
+ignored-modules=
+
+# Show a hint with possible names when a member name was not found. The aspect
+# of finding the hint is based on edit distance.
+missing-member-hint=yes
+
+# The minimum edit distance a name should have in order to be considered a
+# similar match for a missing member name.
+missing-member-hint-distance=1
+
+# The total number of similar names that should be taken in consideration when
+# showing a hint for a missing member.
+missing-member-max-choices=1
+
+
+[VARIABLES]
+
+# List of additional names supposed to be defined in builtins. Remember that
+# you should avoid defining new builtins when possible.
+additional-builtins=
+
+# Tells whether unused global variables should be treated as a violation.
+allow-global-unused-variables=yes
+
+# List of strings which can identify a callback function by name. A callback
+# name must start or end with one of those strings.
+callbacks=cb_,
+          _cb
+
+# A regular expression matching the name of dummy variables (i.e. expected to
+# not be used).
+dummy-variables-rgx=_+$|(_[a-zA-Z0-9_]*[a-zA-Z0-9]+?$)|dummy|^ignored_|^unused_
+
+# Argument names that match this expression will be ignored. Default to name
+# with leading underscore.
+ignored-argument-names=_.*|^ignored_|^unused_
+
+# Tells whether we should check for unused import in __init__ files.
+init-import=no
+
+# List of qualified module names which can have objects that can redefine
+# builtins.
+redefining-builtins-modules=six.moves,past.builtins,future.builtins,builtins,io
+
+
+[CLASSES]
+
+# List of method names used to declare (i.e. assign) instance attributes.
+defining-attr-methods=__init__,
+                      __new__,
+                      setUp
+
+# List of member names, which should be excluded from the protected access
+# warning.
+exclude-protected=_asdict,
+                  _fields,
+                  _replace,
+                  _source,
+                  _make
+
+# List of valid names for the first argument in a class method.
+valid-classmethod-first-arg=cls
+
+# List of valid names for the first argument in a metaclass class method.
+valid-metaclass-classmethod-first-arg=cls
+
+
+[DESIGN]
+
+# Maximum number of arguments for function / method.
+max-args=5
+
+# Maximum number of attributes for a class (see R0902).
+max-attributes=7
+
+# Maximum number of boolean expressions in an if statement.
+max-bool-expr=5
+
+# Maximum number of branch for function / method body.
+max-branches=12
+
+# Maximum number of locals for function / method body.
+max-locals=15
+
+# Maximum number of parents for a class (see R0901).
+max-parents=7
+
+# Maximum number of public methods for a class (see R0904).
+max-public-methods=20
+
+# Maximum number of return / yield for function / method body.
+max-returns=6
+
+# Maximum number of statements in function / method body.
+max-statements=50
+
+# Minimum number of public methods for a class (see R0903).
+min-public-methods=2
+
+
+[IMPORTS]
+
+# Allow wildcard imports from modules that define __all__.
+allow-wildcard-with-all=no
+
+# Analyse import fallback blocks. This can be used to support both Python 2 and
+# 3 compatible code, which means that the block might have code that exists
+# only in one or another interpreter, leading to false positives when analysed.
+analyse-fallback-blocks=no
+
+# Deprecated modules which should not be used, separated by a comma.
+deprecated-modules=optparse,tkinter.tix
+
+# Create a graph of external dependencies in the given file (report RP0402 must
+# not be disabled).
+ext-import-graph=
+
+# Create a graph of every (i.e. internal and external) dependencies in the
+# given file (report RP0402 must not be disabled).
+import-graph=
+
+# Create a graph of internal dependencies in the given file (report RP0402 must
+# not be disabled).
+int-import-graph=
+
+# Force import order to recognize a module as part of the standard
+# compatibility libraries.
+known-standard-library=
+
+# Force import order to recognize a module as part of a third party library.
+known-third-party=enchant
+
+
+[EXCEPTIONS]
+
+# Exceptions that will emit a warning when being caught. Defaults to
+# "Exception".
+overgeneral-exceptions=Exception
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/.travis.yml
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+# Enable 3.7 without globally enabling sudo and dist: xenial for other build jobs
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
+install:
+  # Install package dependencies
+  - make init
+
+script:
+  # Run unit tests and check code style
+  - make build
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/CODE_OF_CONDUCT.md
+## Code of Conduct
+This project has adopted the [Amazon Open Source Code of Conduct](https://aws.github.io/code-of-conduct). 
+For more information see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq) or contact 
+opensource-codeofconduct@amazon.com with any additional questions or comments.
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/CONTRIBUTING.md
+# Contributing Guidelines
+
+Thank you for your interest in contributing to our project. Whether it's a bug report, new feature, correction, or additional 
+documentation, we greatly value feedback and contributions from our community.
+
+Please read through this document before submitting any issues or pull requests to ensure we have all the necessary 
+information to effectively respond to your bug report or contribution.
+
+
+## Reporting Bugs/Feature Requests
+
+We welcome you to use the GitHub issue tracker to report bugs or suggest features.
+
+When filing an issue, please check [existing open](https://github.com/awslabs/aws-serverlessrepo-python/issues), or [recently closed](https://github.com/awslabs/aws-serverlessrepo-python/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aclosed%20), issues to make sure somebody else hasn't already 
+reported the issue. Please try to include as much information as you can. Details like these are incredibly useful:
+
+* A reproducible test case or series of steps
+* The version of our code being used
+* Any modifications you've made relevant to the bug
+* Anything unusual about your environment or deployment
+
+
+## Contributing via Pull Requests
+Contributions via pull requests are much appreciated. Before sending us a pull request, please ensure that:
+
+1. You are working against the latest source on the *master* branch.
+2. You check existing open, and recently merged, pull requests to make sure someone else hasn't addressed the problem already.
+3. You open an issue to discuss any significant work - we would hate for your time to be wasted.
+
+To send us a pull request, please:
+
+1. Fork the repository.
+2. Modify the source; please focus on the specific change you are contributing. If you also reformat all the code, it will be hard for us to focus on your change.
+3. Ensure local tests pass.
+4. Commit to your fork using clear commit messages.
+5. Send us a pull request, answering any default questions in the pull request interface.
+6. Pay attention to any automated CI failures reported in the pull request, and stay involved in the conversation.
+
+GitHub provides additional document on [forking a repository](https://help.github.com/articles/fork-a-repo/) and 
+[creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
+
+
+## Finding contributions to work on
+Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels (enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any ['help wanted'](https://github.com/awslabs/aws-serverlessrepo-python/labels/help%20wanted) issues is a great place to start. 
+
+
+## Code of Conduct
+This project has adopted the [Amazon Open Source Code of Conduct](https://aws.github.io/code-of-conduct). 
+For more information see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq) or contact 
+opensource-codeofconduct@amazon.com with any additional questions or comments.
+
+
+## Security issue notifications
+If you discover a potential security issue in this project we ask that you notify AWS/Amazon Security via our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Please do **not** create a public github issue.
+
+
+## Licensing
+
+See the [LICENSE](https://github.com/awslabs/aws-serverlessrepo-python/blob/master/LICENSE) file for our project's licensing. We will ask you to confirm the licensing of your contribution.
+
+We may ask you to sign a [Contributor License Agreement (CLA)](http://en.wikipedia.org/wiki/Contributor_License_Agreement) for larger changes.
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/LICENSE
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/Makefile
+init:
+	pip install pipenv --upgrade
+	pipenv install --dev --skip-lock
+
+test:
+	# Run unit tests, fail if coverage falls below 85%
+	pipenv run pytest --cov serverlessrepo --cov-report term-missing --cov-fail-under 85 tests/unit
+
+flake:
+	# Make sure code conforms to PEP8 standards
+	pipenv run flake8 serverlessrepo
+	# Ignore missing docstring errors for tests
+	pipenv run flake8 tests --ignore=D100,D101,D102,D103,D104
+
+lint:
+	# Linter performs static analysis to catch latent bugs
+	pipenv run pylint --rcfile .pylintrc serverlessrepo
+	# Ignore missing docstring and invalid method name errors for tests
+	pipenv run pylint --rcfile .pylintrc tests --disable=C0111,C0103
+
+# Command to run everytime you make changes to verify everything works
+build: flake lint test
+
+# Verifications to run before sending a pull request
+pr: init build
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/MANIFEST.in
+include README.md LICENSE NOTICE CONTRIBUTING.md CODE_OF_CONDUCT.md
+include Pipfile Pipfile.lock Makefile
+recursive-include tests *.py
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/NOTICE
+AWS Serverless Application Repository - Python
+Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/Pipfile
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+pytest = "*"
+pytest-cov = "*"
+pylint = "*"
+mock = "*"
+"flake8" = "*"
+tox = "*"
+
+[packages]
+serverlessrepo = {editable = true,path = "."}
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/Pipfile.lock
+{
+    "_meta": {
+        "hash": {
+            "sha256": "9818ceaee67ab2471c0e44534df10ed63ca5bdc422428c18e2653eeec64e8ba2"
+        },
+        "pipfile-spec": 6,
+        "requires": {},
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "boto3": {
+            "hashes": [
+                "sha256:8c67ad9a9cbeb65a2edcb5f7568415b055a2de069800efcf78e278303dec498f",
+                "sha256:9d1f974bb37bf1a05691ab39b53a6933afaadfdd73e8d601bf6c4216ea6d72d8"
+            ],
+            "version": "==1.9.193"
+        },
+        "botocore": {
+            "hashes": [
+                "sha256:47ffea20fd516605d3c03bedfbf01d3e6ed30d1be21520f21d0cba4fc0da426e",
+                "sha256:af49d272018442dd544160ee97fbaa6cfbf36b8a74e9eb41e6eed9f390133b56"
+            ],
+            "version": "==1.12.193"
+        },
+        "docutils": {
+            "hashes": [
+                "sha256:02aec4bd92ab067f6ff27a38a38a41173bf01bed8f89157768c1573f53e474a6",
+                "sha256:51e64ef2ebfb29cae1faa133b3710143496eca21c530f3f71424d77687764274",
+                "sha256:7a4bd47eaf6596e1295ecb11361139febe29b084a87bf005bf899f9a42edc3c6"
+            ],
+            "version": "==0.14"
+        },
+        "jmespath": {
+            "hashes": [
+                "sha256:3720a4b1bd659dd2eecad0666459b9788813e032b83e7ba58578e48254e0a0e6",
+                "sha256:bde2aef6f44302dfb30320115b17d030798de8c4110e28d5cf6cf91a7a31074c"
+            ],
+            "version": "==0.9.4"
+        },
+        "python-dateutil": {
+            "hashes": [
+                "sha256:7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493df2fb",
+                "sha256:c89805f6f4d64db21ed966fda138f8a5ed7a4fdbc1a8ee329ce1b74e3c74da9e"
+            ],
+            "markers": "python_version >= '2.7'",
+            "version": "==2.8.0"
+        },
+        "pyyaml": {
+            "hashes": [
+                "sha256:57acc1d8533cbe51f6662a55434f0dbecfa2b9eaf115bede8f6fd00115a0c0d3",
+                "sha256:588c94b3d16b76cfed8e0be54932e5729cc185caffaa5a451e7ad2f7ed8b4043",
+                "sha256:68c8dd247f29f9a0d09375c9c6b8fdc64b60810ebf07ba4cdd64ceee3a58c7b7",
+                "sha256:70d9818f1c9cd5c48bb87804f2efc8692f1023dac7f1a1a5c61d454043c1d265",
+                "sha256:86a93cccd50f8c125286e637328ff4eef108400dd7089b46a7be3445eecfa391",
+                "sha256:a0f329125a926876f647c9fa0ef32801587a12328b4a3c741270464e3e4fa778",
+                "sha256:a3c252ab0fa1bb0d5a3f6449a4826732f3eb6c0270925548cac342bc9b22c225",
+                "sha256:b4bb4d3f5e232425e25dda21c070ce05168a786ac9eda43768ab7f3ac2770955",
+                "sha256:cd0618c5ba5bda5f4039b9398bb7fb6a317bb8298218c3de25c47c4740e4b95e",
+                "sha256:ceacb9e5f8474dcf45b940578591c7f3d960e82f926c707788a570b51ba59190",
+                "sha256:fe6a88094b64132c4bb3b631412e90032e8cfe9745a58370462240b8cb7553cd"
+            ],
+            "version": "==5.1.1"
+        },
+        "s3transfer": {
+            "hashes": [
+                "sha256:6efc926738a3cd576c2a79725fed9afde92378aa5c6a957e3af010cb019fac9d",
+                "sha256:b780f2411b824cb541dbcd2c713d0cb61c7d1bcadae204cdddda2b35cef493ba"
+            ],
+            "version": "==0.2.1"
+        },
+        "serverlessrepo": {
+            "editable": true,
+            "path": "."
+        },
+        "six": {
+            "hashes": [
+                "sha256:3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c",
+                "sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"
+            ],
+            "version": "==1.12.0"
+        },
+        "urllib3": {
+            "hashes": [
+                "sha256:b246607a25ac80bedac05c6f282e3cdaf3afb65420fd024ac94435cabe6e18d1",
+                "sha256:dbe59173209418ae49d485b87d1681aefa36252ee85884c31346debd19463232"
+            ],
+            "markers": "python_version >= '3.4'",
+            "version": "==1.25.3"
+        }
+    },
+    "develop": {
+        "astroid": {
+            "hashes": [
+                "sha256:6560e1e1749f68c64a4b5dee4e091fce798d2f0d84ebe638cf0e0585a343acf4",
+                "sha256:b65db1bbaac9f9f4d190199bb8680af6f6f84fd3769a5ea883df8a91fe68b4c4"
+            ],
+            "version": "==2.2.5"
+        },
+        "atomicwrites": {
+            "hashes": [
+                "sha256:03472c30eb2c5d1ba9227e4c2ca66ab8287fbfbbda3888aa93dc2e28fc6811b4",
+                "sha256:75a9445bac02d8d058d5e1fe689654ba5a6556a1dfd8ce6ec55a0ed79866cfa6"
+            ],
+            "version": "==1.3.0"
+        },
+        "attrs": {
+            "hashes": [
+                "sha256:69c0dbf2ed392de1cb5ec704444b08a5ef81680a61cb899dc08127123af36a79",
+                "sha256:f0b870f674851ecbfbbbd364d6b5cbdff9dcedbc7f3f5e18a6891057f21fe399"
+            ],
+            "version": "==19.1.0"
+        },
+        "coverage": {
+            "hashes": [
+                "sha256:3684fabf6b87a369017756b551cef29e505cb155ddb892a7a29277b978da88b9",
+                "sha256:39e088da9b284f1bd17c750ac672103779f7954ce6125fd4382134ac8d152d74",
+                "sha256:3c205bc11cc4fcc57b761c2da73b9b72a59f8d5ca89979afb0c1c6f9e53c7390",
+                "sha256:465ce53a8c0f3a7950dfb836438442f833cf6663d407f37d8c52fe7b6e56d7e8",
+                "sha256:48020e343fc40f72a442c8a1334284620f81295256a6b6ca6d8aa1350c763bbe",
+                "sha256:5296fc86ab612ec12394565c500b412a43b328b3907c0d14358950d06fd83baf",
+                "sha256:5f61bed2f7d9b6a9ab935150a6b23d7f84b8055524e7be7715b6513f3328138e",
+                "sha256:68a43a9f9f83693ce0414d17e019daee7ab3f7113a70c79a3dd4c2f704e4d741",
+                "sha256:6b8033d47fe22506856fe450470ccb1d8ba1ffb8463494a15cfc96392a288c09",
+                "sha256:7ad7536066b28863e5835e8cfeaa794b7fe352d99a8cded9f43d1161be8e9fbd",
+                "sha256:7bacb89ccf4bedb30b277e96e4cc68cd1369ca6841bde7b005191b54d3dd1034",
+                "sha256:839dc7c36501254e14331bcb98b27002aa415e4af7ea039d9009409b9d2d5420",
+                "sha256:8f9a95b66969cdea53ec992ecea5406c5bd99c9221f539bca1e8406b200ae98c",
+                "sha256:932c03d2d565f75961ba1d3cec41ddde00e162c5b46d03f7423edcb807734eab",
+                "sha256:988529edadc49039d205e0aa6ce049c5ccda4acb2d6c3c5c550c17e8c02c05ba",
+                "sha256:998d7e73548fe395eeb294495a04d38942edb66d1fa61eb70418871bc621227e",
+                "sha256:9de60893fb447d1e797f6bf08fdf0dbcda0c1e34c1b06c92bd3a363c0ea8c609",
+                "sha256:9e80d45d0c7fcee54e22771db7f1b0b126fb4a6c0a2e5afa72f66827207ff2f2",
+                "sha256:a545a3dfe5082dc8e8c3eb7f8a2cf4f2870902ff1860bd99b6198cfd1f9d1f49",
+                "sha256:a5d8f29e5ec661143621a8f4de51adfb300d7a476224156a39a392254f70687b",
+                "sha256:aca06bfba4759bbdb09bf52ebb15ae20268ee1f6747417837926fae990ebc41d",
+                "sha256:bb23b7a6fd666e551a3094ab896a57809e010059540ad20acbeec03a154224ce",
+                "sha256:bfd1d0ae7e292105f29d7deaa9d8f2916ed8553ab9d5f39ec65bcf5deadff3f9",
+                "sha256:c62ca0a38958f541a73cf86acdab020c2091631c137bd359c4f5bddde7b75fd4",
+                "sha256:c709d8bda72cf4cd348ccec2a4881f2c5848fd72903c185f363d361b2737f773",
+                "sha256:c968a6aa7e0b56ecbd28531ddf439c2ec103610d3e2bf3b75b813304f8cb7723",
+                "sha256:df785d8cb80539d0b55fd47183264b7002077859028dfe3070cf6359bf8b2d9c",
+                "sha256:f406628ca51e0ae90ae76ea8398677a921b36f0bd71aab2099dfed08abd0322f",
+                "sha256:f46087bbd95ebae244a0eda01a618aff11ec7a069b15a3ef8f6b520db523dcf1",
+                "sha256:f8019c5279eb32360ca03e9fac40a12667715546eed5c5eb59eb381f2f501260",
+                "sha256:fc5f4d209733750afd2714e9109816a29500718b32dd9a5db01c0cb3a019b96a"
+            ],
+            "version": "==4.5.3"
+        },
+        "entrypoints": {
+            "hashes": [
+                "sha256:589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19",
+                "sha256:c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"
+            ],
+            "version": "==0.3"
+        },
+        "filelock": {
+            "hashes": [
+                "sha256:18d82244ee114f543149c66a6e0c14e9c4f8a1044b5cdaadd0f82159d6a6ff59",
+                "sha256:929b7d63ec5b7d6b71b0fa5ac14e030b3f70b75747cef1b10da9b879fef15836"
+            ],
+            "version": "==3.0.12"
+        },
+        "flake8": {
+            "hashes": [
+                "sha256:19241c1cbc971b9962473e4438a2ca19749a7dd002dd1a946eaba171b4114548",
+                "sha256:8e9dfa3cecb2400b3738a42c54c3043e821682b9c840b0448c0503f781130696"
+            ],
+            "index": "pypi",
+            "version": "==3.7.8"
+        },
+        "importlib-metadata": {
+            "hashes": [
+                "sha256:6dfd58dfe281e8d240937776065dd3624ad5469c835248219bd16cf2e12dbeb7",
+                "sha256:cb6ee23b46173539939964df59d3d72c3e0c1b5d54b84f1d8a7e912fe43612db"
+            ],
+            "version": "==0.18"
+        },
+        "isort": {
+            "hashes": [
+                "sha256:54da7e92468955c4fceacd0c86bd0ec997b0e1ee80d97f67c35a78b719dccab1",
+                "sha256:6e811fcb295968434526407adb8796944f1988c5b65e8139058f2014cbe100fd"
+            ],
+            "version": "==4.3.21"
+        },
+        "lazy-object-proxy": {
+            "hashes": [
+                "sha256:159a745e61422217881c4de71f9eafd9d703b93af95618635849fe469a283661",
+                "sha256:23f63c0821cc96a23332e45dfaa83266feff8adc72b9bcaef86c202af765244f",
+                "sha256:3b11be575475db2e8a6e11215f5aa95b9ec14de658628776e10d96fa0b4dac13",
+                "sha256:3f447aff8bc61ca8b42b73304f6a44fa0d915487de144652816f950a3f1ab821",
+                "sha256:4ba73f6089cd9b9478bc0a4fa807b47dbdb8fad1d8f31a0f0a5dbf26a4527a71",
+                "sha256:4f53eadd9932055eac465bd3ca1bd610e4d7141e1278012bd1f28646aebc1d0e",
+                "sha256:64483bd7154580158ea90de5b8e5e6fc29a16a9b4db24f10193f0c1ae3f9d1ea",
+                "sha256:6f72d42b0d04bfee2397aa1862262654b56922c20a9bb66bb76b6f0e5e4f9229",
+                "sha256:7c7f1ec07b227bdc561299fa2328e85000f90179a2f44ea30579d38e037cb3d4",
+                "sha256:7c8b1ba1e15c10b13cad4171cfa77f5bb5ec2580abc5a353907780805ebe158e",
+                "sha256:8559b94b823f85342e10d3d9ca4ba5478168e1ac5658a8a2f18c991ba9c52c20",
+                "sha256:a262c7dfb046f00e12a2bdd1bafaed2408114a89ac414b0af8755c696eb3fc16",
+                "sha256:acce4e3267610c4fdb6632b3886fe3f2f7dd641158a843cf6b6a68e4ce81477b",
+                "sha256:be089bb6b83fac7f29d357b2dc4cf2b8eb8d98fe9d9ff89f9ea6012970a853c7",
+                "sha256:bfab710d859c779f273cc48fb86af38d6e9210f38287df0069a63e40b45a2f5c",
+                "sha256:c10d29019927301d524a22ced72706380de7cfc50f767217485a912b4c8bd82a",
+                "sha256:dd6e2b598849b3d7aee2295ac765a578879830fb8966f70be8cd472e6069932e",
+                "sha256:e408f1eacc0a68fed0c08da45f31d0ebb38079f043328dce69ff133b95c29dc1"
+            ],
+            "version": "==1.4.1"
+        },
+        "mccabe": {
+            "hashes": [
+                "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42",
+                "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"
+            ],
+            "version": "==0.6.1"
+        },
+        "mock": {
+            "hashes": [
+                "sha256:83657d894c90d5681d62155c82bda9c1187827525880eda8ff5df4ec813437c3",
+                "sha256:d157e52d4e5b938c550f39eb2fd15610db062441a9c2747d3dbfa9298211d0f8"
+            ],
+            "index": "pypi",
+            "version": "==3.0.5"
+        },
+        "more-itertools": {
+            "hashes": [
+                "sha256:409cd48d4db7052af495b09dec721011634af3753ae1ef92d2b32f73a745f832",
+                "sha256:92b8c4b06dac4f0611c0729b2f2ede52b2e1bac1ab48f089c7ddc12e26bb60c4"
+            ],
+            "version": "==7.2.0"
+        },
+        "packaging": {
+            "hashes": [
+                "sha256:0c98a5d0be38ed775798ece1b9727178c4469d9c3b4ada66e8e6b7849f8732af",
+                "sha256:9e1cbf8c12b1f1ce0bb5344b8d7ecf66a6f8a6e91bcb0c84593ed6d3ab5c4ab3"
+            ],
+            "version": "==19.0"
+        },
+        "pluggy": {
+            "hashes": [
+                "sha256:0825a152ac059776623854c1543d65a4ad408eb3d33ee114dff91e57ec6ae6fc",
+                "sha256:b9817417e95936bf75d85d3f8767f7df6cdde751fc40aed3bb3074cbcb77757c"
+            ],
+            "version": "==0.12.0"
+        },
+        "py": {
+            "hashes": [
+                "sha256:64f65755aee5b381cea27766a3a147c3f15b9b6b9ac88676de66ba2ae36793fa",
+                "sha256:dc639b046a6e2cff5bbe40194ad65936d6ba360b52b3c3fe1d08a82dd50b5e53"
+            ],
+            "version": "==1.8.0"
+        },
+        "pycodestyle": {
+            "hashes": [
+                "sha256:95a2219d12372f05704562a14ec30bc76b05a5b297b21a5dfe3f6fac3491ae56",
+                "sha256:e40a936c9a450ad81df37f549d676d127b1b66000a6c500caa2b085bc0ca976c"
+            ],
+            "version": "==2.5.0"
+        },
+        "pyflakes": {
+            "hashes": [
+                "sha256:17dbeb2e3f4d772725c777fabc446d5634d1038f234e77343108ce445ea69ce0",
+                "sha256:d976835886f8c5b31d47970ed689944a0262b5f3afa00a5a7b4dc81e5449f8a2"
+            ],
+            "version": "==2.1.1"
+        },
+        "pylint": {
+            "hashes": [
+                "sha256:5d77031694a5fb97ea95e828c8d10fc770a1df6eb3906067aaed42201a8a6a09",
+                "sha256:723e3db49555abaf9bf79dc474c6b9e2935ad82230b10c1138a71ea41ac0fff1"
+            ],
+            "index": "pypi",
+            "version": "==2.3.1"
+        },
+        "pyparsing": {
+            "hashes": [
+                "sha256:530d8bf8cc93a34019d08142593cf4d78a05c890da8cf87ffa3120af53772238",
+                "sha256:f78e99616b6f1a4745c0580e170251ef1bbafc0d0513e270c4bd281bf29d2800"
+            ],
+            "version": "==2.4.1"
+        },
+        "pytest": {
+            "hashes": [
+                "sha256:6ef6d06de77ce2961156013e9dff62f1b2688aa04d0dc244299fe7d67e09370d",
+                "sha256:a736fed91c12681a7b34617c8fcefe39ea04599ca72c608751c31d89579a3f77"
+            ],
+            "index": "pypi",
+            "version": "==5.0.1"
+        },
+        "pytest-cov": {
+            "hashes": [
+                "sha256:2b097cde81a302e1047331b48cadacf23577e431b61e9c6f49a1170bbe3d3da6",
+                "sha256:e00ea4fdde970725482f1f35630d12f074e121a23801aabf2ae154ec6bdd343a"
+            ],
+            "index": "pypi",
+            "version": "==2.7.1"
+        },
+        "six": {
+            "hashes": [
+                "sha256:3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c",
+                "sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"
+            ],
+            "version": "==1.12.0"
+        },
+        "toml": {
+            "hashes": [
+                "sha256:229f81c57791a41d65e399fc06bf0848bab550a9dfd5ed66df18ce5f05e73d5c",
+                "sha256:235682dd292d5899d361a811df37e04a8828a5b1da3115886b73cf81ebc9100e"
+            ],
+            "version": "==0.10.0"
+        },
+        "tox": {
+            "hashes": [
+                "sha256:dab0b0160dd187b654fc33d690ee1d7bf328bd5b8dc6ef3bb3cc468969c659ba",
+                "sha256:ee35ffce74933a6c6ac10c9a0182e41763140a5a5070e21b114feca56eaccdcd"
+            ],
+            "index": "pypi",
+            "version": "==3.13.2"
+        },
+        "typed-ast": {
+            "hashes": [
+                "sha256:18511a0b3e7922276346bcb47e2ef9f38fb90fd31cb9223eed42c85d1312344e",
+                "sha256:262c247a82d005e43b5b7f69aff746370538e176131c32dda9cb0f324d27141e",
+                "sha256:2b907eb046d049bcd9892e3076c7a6456c93a25bebfe554e931620c90e6a25b0",
+                "sha256:354c16e5babd09f5cb0ee000d54cfa38401d8b8891eefa878ac772f827181a3c",
+                "sha256:4e0b70c6fc4d010f8107726af5fd37921b666f5b31d9331f0bd24ad9a088e631",
+                "sha256:630968c5cdee51a11c05a30453f8cd65e0cc1d2ad0d9192819df9978984529f4",
+                "sha256:66480f95b8167c9c5c5c87f32cf437d585937970f3fc24386f313a4c97b44e34",
+                "sha256:71211d26ffd12d63a83e079ff258ac9d56a1376a25bc80b1cdcdf601b855b90b",
+                "sha256:95bd11af7eafc16e829af2d3df510cecfd4387f6453355188342c3e79a2ec87a",
+                "sha256:bc6c7d3fa1325a0c6613512a093bc2a2a15aeec350451cbdf9e1d4bffe3e3233",
+                "sha256:cc34a6f5b426748a507dd5d1de4c1978f2eb5626d51326e43280941206c209e1",
+                "sha256:d755f03c1e4a51e9b24d899561fec4ccaf51f210d52abdf8c07ee2849b212a36",
+                "sha256:d7c45933b1bdfaf9f36c579671fec15d25b06c8398f113dab64c18ed1adda01d",
+                "sha256:d896919306dd0aa22d0132f62a1b78d11aaf4c9fc5b3410d3c666b818191630a",
+                "sha256:ffde2fbfad571af120fcbfbbc61c72469e72f550d676c3342492a9dfdefb8f12"
+            ],
+            "markers": "implementation_name == 'cpython'",
+            "version": "==1.4.0"
+        },
+        "virtualenv": {
+            "hashes": [
+                "sha256:861bbce3a418110346c70f5c7a696fdcf23a261424e1d28aa4f9362fc2ccbc19",
+                "sha256:ba8ce6a961d842320681fb90a3d564d0e5134f41dacd0e2bae7f02441dde2d52"
+            ],
+            "version": "==16.6.2"
+        },
+        "wcwidth": {
+            "hashes": [
+                "sha256:3df37372226d6e63e1b1e1eda15c594bca98a22d33a23832a90998faa96bc65e",
+                "sha256:f4ebe71925af7b40a864553f761ed559b43544f8f71746c2d756c7fe788ade7c"
+            ],
+            "version": "==0.1.7"
+        },
+        "wrapt": {
+            "hashes": [
+                "sha256:565a021fd19419476b9362b05eeaa094178de64f8361e44468f9e9d7843901e1"
+            ],
+            "version": "==1.11.2"
+        },
+        "zipp": {
+            "hashes": [
+                "sha256:4970c3758f4e89a7857a973b1e2a5d75bcdc47794442f2e2dd4fe8e0466e809a",
+                "sha256:8a5712cfd3bb4248015eb3b0b3c54a5f6ee3f2425963ef2a0125b8bc40aafaec"
+            ],
+            "version": "==0.5.2"
+        }
+    }
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/README.md
+# AWS Serverless Application Repository - Python
+
+A Python library with convenience helpers for working with the [AWS Serverless Application Repository](https://aws.amazon.com/serverless/serverlessrepo/).
+
+## Installation
+
+Simply use pip to install the library:
+
+```text
+pip install serverlessrepo
+```
+
+## Basic Usage
+
+The serverlessrepo module provides a simple interface for publishing applications and managing application permissions. To get started, import the serverlessrepo module:
+
+```python
+import serverlessrepo
+```
+
+### Publish Applications
+
+#### publish_application(template, sar_client=None)
+
+Given an [AWS Serverless Application Model (SAM)](https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md) template, it publishes a new application using the specified metadata in AWS Serverless Application Repository. If the application already exists, it updates metadata of the application and publishes a new version if specified in the template.
+
+For example:
+
+```python
+import boto3
+import yaml
+from serverlessrepo import publish_application
+
+sar_client = boto3.client('serverlessrepo', region_name='us-east-1')
+
+with open('template.yaml', 'r') as f:
+    template = f.read()
+    # if sar_client is not provided, we will initiate the client using region inferred from aws configurations
+    output = publish_application(template, sar_client)
+
+    # Alternatively, pass parsed template as a dictionary
+    template_dict = yaml.loads(template)
+    output = publish_application(template_dict, sar_client)
+```
+
+The output of `publish_application` has the following structure:
+
+```text
+{
+    'application_id': 'arn:aws:serverlessrepo:us-east-1:123456789012:applications/test-app',
+    'actions': ['CREATE_APPLICATION'],
+    'details': {
+        'Author': 'user1',
+        'Description': 'hello',
+        'Name': 'hello-world',
+        'SemanticVersion': '0.0.1',
+        'SourceCodeUrl': 'https://github.com/hello'}
+    }
+}
+```
+
+There are three possible values for the `actions` field:
+
+* `['CREATE_APPLICATION']` - Created a new application.
+* `['UPDATE_APPLICATION']` - Updated metadata of an existing application.
+* `['UPDATE_APPLICATION', 'CREATE_APPLICATION_VERSION']` - Updated metadata of an existing application and created a new version, only applicable if a new SemanticVersion is provided in the input template.
+
+`details` has different meaning based on the `actions` taken:
+
+* If a new application is created, it shows metadata values used to create the application.
+* If application is updated, it shows updated metadata values.
+* If application is updated and new version is created, it shows updated metadata values as well as the new version number.
+
+#### update_application_metadata(template, application_id, sar_client=None)
+
+Parses the application metadata from the SAM template and only updates the metadata.
+
+For example:
+
+```python
+import boto3
+import yaml
+from serverlessrepo import update_application_metadata
+
+sar_client = boto3.client('serverlessrepo', region_name='us-east-1')
+
+with open('template.yaml', 'r') as f:
+    template = f.read()
+    application_id = 'arn:aws:serverlessrepo:us-east-1:123456789012:applications/test-app'
+    # if sar_client is not provided, we will initiate the client using region inferred from aws configurations
+    update_application_metadata(template, application_id, sar_client)
+
+    # Alternatively, pass parsed template as a dictionary
+    template_dict = yaml.loads(template)
+    update_application_metadata(template_dict, application_id, sar_client)
+```
+
+### Manage Application Permissions
+
+#### make_application_public(application_id, sar_client=None)
+
+Makes an application public so that it's visible to everyone.
+
+#### make_application_private(application_id, sar_client=None)
+
+Makes an application private so that it's only visible to the owner.
+
+#### share_application_with_accounts(application_id, account_ids, sar_client=None)
+
+Shares the application with specified AWS accounts.
+
+#### Examples
+
+```python
+import boto3
+from serverlessrepo import (
+    make_application_public,
+    make_application_private,
+    share_application_with_accounts
+)
+
+application_id = 'arn:aws:serverlessrepo:us-east-1:123456789012:applications/test-app'
+sar_client = boto3.client('serverlessrepo', region_name='us-east-1')
+
+# Share an application publicly
+make_application_public(application_id, sar_client)
+
+# Make an application private
+make_application_private(application_id, sar_client)
+
+# Share an application with other AWS accounts
+share_application_with_accounts(application_id, ['123456789013', '123456789014'], sar_client)
+```
+
+## Development
+
+* Fork the repository, then clone to your local:
+  * `git clone https://github.com/<username>/aws-serverlessrepo-python.git`
+* Set up the environment: `make init`
+  * It installs [Pipenv](https://github.com/pypa/pipenv) to manage package dependencies. Then it creates a virtualenv and installs dependencies from [Pipfile](./Pipfile) (including dev).
+* Install new packages: `pipenv install [package names]`
+  * Pipenv will automatically update [Pipfile](./Pipfile) and [Pipfile.lock](./Pipfile.lock) for you.
+  * Add new dependencies to [setup.py](./setup.py) install_requires if they are needed for consumers of this library.
+* Verify that everything works: `make build`
+  * You can run `make test` separately to verify that tests pass.
+  * Check code style with `make flake` and `make lint`.
+* Make code changes, run all verifications again before sending a Pull Request: `make pr`
+
+## License
+
+This library is licensed under the Apache 2.0 License.
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/setup.cfg
+[metadata]
+description-file = README.md
+license_file = LICENSE
+
+[flake8]
+max-line-length = 120
+
+[bdist_wheel]
+universal=1
+
+[coverage:run]
+omit =
+    # omit package metadata file
+    serverlessrepo/__version__.py
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/setup.py
+"""A setuptools based setup module."""
+
+from io import open
+from os import path
+from setuptools import setup, find_packages
+
+# Required packages for this module to work
+REQUIRED = [
+    'pyyaml~=5.1',
+    'boto3~=1.9, >=1.9.56',
+    'six~=1.11'
+]
+
+here = path.abspath(path.dirname(__file__))
+
+# Get the long description from the README file
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = '\n' + f.read()
+
+about = {}
+with open(path.join(here, 'serverlessrepo', '__version__.py')) as f:
+    exec(f.read(), about)
+
+setup(
+    name=about['__title__'],
+    version=about['__version__'],
+    description=about['__description__'],
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    author=about['__author__'],
+    author_email=about['__author_email__'],
+    url=about['__url__'],
+    license=about['__license__'],
+    keywords="AWS Serverless Application Repository",
+    packages=find_packages(exclude=['tests', 'docs']),
+    # Support Python 2.7 and 3.4 or greater
+    python_requires=(
+        '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*'
+    ),
+    install_requires=REQUIRED,
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
+        'Environment :: Other Environment',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Information Technology',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Topic :: Internet',
+        'Topic :: Software Development :: Build Tools',
+        'Topic :: Utilities',
+    ]
+)
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tox.ini
+[tox]
+envlist = py27, py34, py35, py36, py37
+
+[testenv]
+whitelist_externals = make
+commands =
+    make pr
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/.github/PULL_REQUEST_TEMPLATE.md
+*Issue #, if available:*
+
+*Description of changes:*
+
+
+By submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license.
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/application_metadata.py
+"""Module containing class to store SAR application metadata."""
+
+from .exceptions import InvalidApplicationMetadataError
+
+
+class ApplicationMetadata(object):
+    """Class representing SAR metadata."""
+
+    # SAM template SAR metadata properties
+    NAME = 'Name'
+    DESCRIPTION = 'Description'
+    AUTHOR = 'Author'
+    SPDX_LICENSE_ID = 'SpdxLicenseId'
+    LICENSE_BODY = 'LicenseBody'
+    LICENSE_URL = 'LicenseUrl'
+    README_BODY = 'ReadmeBody'
+    README_URL = 'ReadmeUrl'
+    LABELS = 'Labels'
+    HOME_PAGE_URL = 'HomePageUrl'
+    SEMANTIC_VERSION = 'SemanticVersion'
+    SOURCE_CODE_URL = 'SourceCodeUrl'
+
+    def __init__(self, app_metadata):
+        """
+        Initialize the object given SAR metadata properties.
+
+        :param app_metadata: Dictionary containing SAR metadata properties
+        :type app_metadata: dict
+        """
+        self.template_dict = app_metadata  # save the original template definitions
+        self.name = app_metadata.get(self.NAME)
+        self.description = app_metadata.get(self.DESCRIPTION)
+        self.author = app_metadata.get(self.AUTHOR)
+        self.spdx_license_id = app_metadata.get(self.SPDX_LICENSE_ID)
+        self.license_body = app_metadata.get(self.LICENSE_BODY)
+        self.license_url = app_metadata.get(self.LICENSE_URL)
+        self.readme_body = app_metadata.get(self.README_BODY)
+        self.readme_url = app_metadata.get(self.README_URL)
+        self.labels = app_metadata.get(self.LABELS)
+        self.home_page_url = app_metadata.get(self.HOME_PAGE_URL)
+        self.semantic_version = app_metadata.get(self.SEMANTIC_VERSION)
+        self.source_code_url = app_metadata.get(self.SOURCE_CODE_URL)
+
+    def __eq__(self, other):
+        """Return whether two ApplicationMetadata objects are equal."""
+        return isinstance(other, type(self)) and self.__dict__ == other.__dict__
+
+    def validate(self, required_props):
+        """
+        Check if the required application metadata properties have been populated.
+
+        :param required_props: List of required properties
+        :type required_props: list
+        :return: True, if the metadata is valid
+        :raises: InvalidApplicationMetadataError
+        """
+        missing_props = [p for p in required_props if not getattr(self, p)]
+        if missing_props:
+            raise InvalidApplicationMetadataError(
+                error_message='{} properties not provided'.format(', '.join(sorted(missing_props))))
+
+        if self.license_body and self.license_url:
+            raise InvalidApplicationMetadataError(error_message='provide either LicenseBody or LicenseUrl')
+
+        if self.readme_body and self.readme_url:
+            raise InvalidApplicationMetadataError(error_message='provide either ReadmeBody or ReadmeUrl')
+
+        return True
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/application_policy.py
+"""Module containing class to store SAR application permissions."""
+
+import re
+
+from .exceptions import InvalidApplicationPolicyError
+
+
+class ApplicationPolicy(object):
+    """Class representing SAR application policy."""
+
+    # Supported actions for setting SAR application permissions
+    GET_APPLICATION = 'GetApplication'
+    LIST_APPLICATION_DEPENDENCIES = 'ListApplicationDependencies'
+    CREATE_CLOUD_FORMATION_CHANGE_SET = 'CreateCloudFormationChangeSet'
+    CREATE_CLOUD_FORMATION_TEMPLATE = 'CreateCloudFormationTemplate'
+    LIST_APPLICATION_VERSIONS = 'ListApplicationVersions'
+    SEARCH_APPLICATIONS = 'SearchApplications'
+    DEPLOY = 'Deploy'
+
+    SUPPORTED_ACTIONS = [
+        GET_APPLICATION,
+        LIST_APPLICATION_DEPENDENCIES,
+        CREATE_CLOUD_FORMATION_CHANGE_SET,
+        CREATE_CLOUD_FORMATION_TEMPLATE,
+        LIST_APPLICATION_VERSIONS,
+        SEARCH_APPLICATIONS,
+        DEPLOY
+    ]
+
+    _PRINCIPAL_PATTERN = re.compile(r'^([0-9]{12}|\*)$')
+
+    def __init__(self, principals, actions):
+        """
+        Initialize the object given the principals and actions.
+
+        :param principals: List of AWS account IDs, or *
+        :type principals: list of str
+        :param actions: List of actions supported by SAR
+        :type actions: list of str
+        """
+        self.principals = principals
+        self.actions = actions
+
+    def validate(self):
+        """
+        Check if the formats of principals and actions are valid.
+
+        :return: True, if the policy is valid
+        :raises: InvalidApplicationPolicyError
+        """
+        if not self.principals:
+            raise InvalidApplicationPolicyError(error_message='principals not provided')
+
+        if not self.actions:
+            raise InvalidApplicationPolicyError(error_message='actions not provided')
+
+        if any(not self._PRINCIPAL_PATTERN.match(p) for p in self.principals):
+            raise InvalidApplicationPolicyError(
+                error_message='principal should be 12-digit AWS account ID or "*"')
+
+        unsupported_actions = sorted(set(self.actions) - set(self.SUPPORTED_ACTIONS))
+        if unsupported_actions:
+            raise InvalidApplicationPolicyError(
+                error_message='{} not supported'.format(', '.join(unsupported_actions)))
+
+        return True
+
+    def to_statement(self):
+        """
+        Convert to a policy statement dictionary.
+
+        :return: Dictionary containing Actions and Principals
+        :rtype: dict
+        """
+        return {
+            'Principals': self.principals,
+            'Actions': self.actions
+        }
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/exceptions.py
+"""Collection of public exceptions raised by this library."""
+
+
+class ServerlessRepoError(Exception):
+    """Base exception raised by serverlessrepo library."""
+
+    MESSAGE = ''
+
+    def __init__(self, **kwargs):
+        """Init the exception object."""
+        Exception.__init__(self, self.MESSAGE.format(**kwargs))
+
+
+class InvalidApplicationMetadataError(ServerlessRepoError):
+    """Raised when invalid application metadata is provided."""
+
+    MESSAGE = "Invalid application metadata: '{error_message}'"
+
+
+class ApplicationMetadataNotFoundError(ServerlessRepoError):
+    """Raised when application metadata is not found."""
+
+    MESSAGE = "Application metadata not found in the SAM template: '{error_message}'"
+
+
+class InvalidApplicationPolicyError(ServerlessRepoError):
+    """Raised when invalid application policy is provided."""
+
+    MESSAGE = "Invalid application policy: '{error_message}'"
+
+
+class S3PermissionsRequired(ServerlessRepoError):
+    """Raised when S3 bucket access is denied."""
+
+    MESSAGE = "The AWS Serverless Application Repository does not have read access to bucket '{bucket}', " \
+              "key '{key}'. Please update your Amazon S3 bucket policy to grant the service read " \
+              "permissions to the application artifacts you have uploaded to your S3 bucket. See " \
+              "https://docs.aws.amazon.com/serverlessrepo/latest/devguide/serverless-app-publishing-applications.html" \
+              " for more details."
+
+
+class InvalidS3UriError(ServerlessRepoError):
+    """Raised when the template contains invalid S3 URIs."""
+
+    MESSAGE = "{message}"
+
+
+class ServerlessRepoClientError(ServerlessRepoError):
+    """Wrapper for botocore ClientError."""
+
+    MESSAGE = "{message}"
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/parser.py
+"""Helper to parse JSON/YAML SAM template and dump YAML files."""
+
+import re
+import copy
+import json
+from collections import OrderedDict
+
+import six
+import yaml
+from yaml.resolver import ScalarNode, SequenceNode
+
+from .application_metadata import ApplicationMetadata
+from .exceptions import ApplicationMetadataNotFoundError
+
+METADATA = 'Metadata'
+SERVERLESS_REPO_APPLICATION = 'AWS::ServerlessRepo::Application'
+APPLICATION_ID_PATTERN = r'arn:[\w\-]+:serverlessrepo:[\w\-]+:[0-9]+:applications\/[\S]+'
+
+
+def intrinsics_multi_constructor(loader, tag_prefix, node):
+    """
+    YAML constructor to parse CloudFormation intrinsics.
+
+    :return: a dictionary with key being the instrinsic name
+    """
+    # Get the actual tag name excluding the first exclamation
+    tag = node.tag[1:]
+
+    # Some intrinsic functions doesn't support prefix "Fn::"
+    prefix = 'Fn::'
+    if tag in ['Ref', 'Condition']:
+        prefix = ''
+
+    cfntag = prefix + tag
+
+    if tag == 'GetAtt' and isinstance(node.value, six.string_types):
+        # ShortHand notation for !GetAtt accepts Resource.Attribute format
+        # while the standard notation is to use an array
+        # [Resource, Attribute]. Convert shorthand to standard format
+        value = node.value.split('.', 1)
+
+    elif isinstance(node, ScalarNode):
+        # Value of this node is scalar
+        value = loader.construct_scalar(node)
+
+    elif isinstance(node, SequenceNode):
+        # Value of this node is an array (Ex: [1,2])
+        value = loader.construct_sequence(node)
+
+    else:
+        # Value of this node is an mapping (ex: {foo: bar})
+        value = loader.construct_mapping(node)
+
+    return {cfntag: value}
+
+
+def _dict_representer(dumper, data):
+    return dumper.represent_dict(data.items())
+
+
+def yaml_dump(dict_to_dump):
+    """
+    Dump the dictionary as a YAML document.
+
+    :param dict_to_dump: Data to be serialized as YAML
+    :type dict_to_dump: dict
+    :return: YAML document
+    :rtype: str
+    """
+    yaml.SafeDumper.add_representer(OrderedDict, _dict_representer)
+    return yaml.safe_dump(dict_to_dump, default_flow_style=False)
+
+
+def _dict_constructor(loader, node):
+    return OrderedDict(loader.construct_pairs(node))
+
+
+def parse_template(template_str):
+    """
+    Parse the SAM template.
+
+    :param template_str: A packaged YAML or json CloudFormation template
+    :type template_str: str
+    :return: Dictionary with keys defined in the template
+    :rtype: dict
+    """
+    try:
+        # PyYAML doesn't support json as well as it should, so if the input
+        # is actually just json it is better to parse it with the standard
+        # json parser.
+        return json.loads(template_str, object_pairs_hook=OrderedDict)
+    except ValueError:
+        yaml.SafeLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, _dict_constructor)
+        yaml.SafeLoader.add_multi_constructor('!', intrinsics_multi_constructor)
+        return yaml.safe_load(template_str)
+
+
+def get_app_metadata(template_dict):
+    """
+    Get the application metadata from a SAM template.
+
+    :param template_dict: SAM template as a dictionary
+    :type template_dict: dict
+    :return: Application metadata as defined in the template
+    :rtype: ApplicationMetadata
+    :raises ApplicationMetadataNotFoundError
+    """
+    if SERVERLESS_REPO_APPLICATION in template_dict.get(METADATA, {}):
+        app_metadata_dict = template_dict.get(METADATA).get(SERVERLESS_REPO_APPLICATION)
+        return ApplicationMetadata(app_metadata_dict)
+
+    raise ApplicationMetadataNotFoundError(
+        error_message='missing {} section in template Metadata'.format(SERVERLESS_REPO_APPLICATION))
+
+
+def parse_application_id(text):
+    """
+    Extract the application id from input text.
+
+    :param text: text to parse
+    :type text: str
+    :return: application id if found in the input
+    :rtype: str
+    """
+    result = re.search(APPLICATION_ID_PATTERN, text)
+    return result.group(0) if result else None
+
+
+def strip_app_metadata(template_dict):
+    """
+    Strip the "AWS::ServerlessRepo::Application" metadata section from template.
+
+    :param template_dict: SAM template as a dictionary
+    :type template_dict: dict
+    :return: stripped template content
+    :rtype: str
+    """
+    if SERVERLESS_REPO_APPLICATION not in template_dict.get(METADATA, {}):
+        return template_dict
+
+    template_dict_copy = copy.deepcopy(template_dict)
+
+    # strip the whole metadata section if SERVERLESS_REPO_APPLICATION is the only key in it
+    if not [k for k in template_dict_copy.get(METADATA) if k != SERVERLESS_REPO_APPLICATION]:
+        template_dict_copy.pop(METADATA, None)
+    else:
+        template_dict_copy.get(METADATA).pop(SERVERLESS_REPO_APPLICATION, None)
+
+    return template_dict_copy
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/permission_helper.py
+"""Module containing methods to manage application permissions."""
+
+import boto3
+
+from .application_policy import ApplicationPolicy
+
+
+def make_application_public(application_id, sar_client=None):
+    """
+    Set the application to be public.
+
+    :param application_id: The Amazon Resource Name (ARN) of the application
+    :type application_id: str
+    :param sar_client: The boto3 client used to access SAR
+    :type sar_client: boto3.client
+    :raises ValueError
+    """
+    if not application_id:
+        raise ValueError('Require application id to make the app public')
+
+    if not sar_client:
+        sar_client = boto3.client('serverlessrepo')
+
+    application_policy = ApplicationPolicy(['*'], [ApplicationPolicy.DEPLOY])
+    application_policy.validate()
+    sar_client.put_application_policy(
+        ApplicationId=application_id,
+        Statements=[application_policy.to_statement()]
+    )
+
+
+def make_application_private(application_id, sar_client=None):
+    """
+    Set the application to be private.
+
+    :param application_id: The Amazon Resource Name (ARN) of the application
+    :type application_id: str
+    :param sar_client: The boto3 client used to access SAR
+    :type sar_client: boto3.client
+    :raises ValueError
+    """
+    if not application_id:
+        raise ValueError('Require application id to make the app private')
+
+    if not sar_client:
+        sar_client = boto3.client('serverlessrepo')
+
+    sar_client.put_application_policy(
+        ApplicationId=application_id,
+        Statements=[]
+    )
+
+
+def share_application_with_accounts(application_id, account_ids, sar_client=None):
+    """
+    Share the application privately with given AWS account IDs.
+
+    :param application_id: The Amazon Resource Name (ARN) of the application
+    :type application_id: str
+    :param account_ids: List of AWS account IDs, or *
+    :type account_ids: list of str
+    :param sar_client: The boto3 client used to access SAR
+    :type sar_client: boto3.client
+    :raises ValueError
+    """
+    if not application_id or not account_ids:
+        raise ValueError('Require application id and list of AWS account IDs to share the app')
+
+    if not sar_client:
+        sar_client = boto3.client('serverlessrepo')
+
+    application_policy = ApplicationPolicy(account_ids, [ApplicationPolicy.DEPLOY])
+    application_policy.validate()
+    sar_client.put_application_policy(
+        ApplicationId=application_id,
+        Statements=[application_policy.to_statement()]
+    )
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/publish.py
+"""Module containing functions to publish or update application."""
+
+import re
+import copy
+
+import boto3
+from botocore.exceptions import ClientError
+
+from .application_metadata import ApplicationMetadata
+from .parser import (
+    yaml_dump, parse_template, get_app_metadata,
+    parse_application_id, strip_app_metadata
+)
+from .exceptions import ServerlessRepoClientError, S3PermissionsRequired, InvalidS3UriError
+
+CREATE_APPLICATION = 'CREATE_APPLICATION'
+UPDATE_APPLICATION = 'UPDATE_APPLICATION'
+CREATE_APPLICATION_VERSION = 'CREATE_APPLICATION_VERSION'
+
+
+def publish_application(template, sar_client=None):
+    """
+    Create a new application or new application version in SAR.
+
+    :param template: Content of a packaged YAML or JSON SAM template
+    :type template: str_or_dict
+    :param sar_client: The boto3 client used to access SAR
+    :type sar_client: boto3.client
+    :return: Dictionary containing application id, actions taken, and updated details
+    :rtype: dict
+    :raises ValueError
+    """
+    if not template:
+        raise ValueError('Require SAM template to publish the application')
+
+    if not sar_client:
+        sar_client = boto3.client('serverlessrepo')
+
+    template_dict = _get_template_dict(template)
+    app_metadata = get_app_metadata(template_dict)
+    stripped_template_dict = strip_app_metadata(template_dict)
+    stripped_template = yaml_dump(stripped_template_dict)
+    try:
+        request = _create_application_request(app_metadata, stripped_template)
+        response = sar_client.create_application(**request)
+        application_id = response['ApplicationId']
+        actions = [CREATE_APPLICATION]
+    except ClientError as e:
+        if not _is_conflict_exception(e):
+            raise _wrap_client_error(e)
+
+        # Update the application if it already exists
+        error_message = e.response['Error']['Message']
+        application_id = parse_application_id(error_message)
+        try:
+            request = _update_application_request(app_metadata, application_id)
+            sar_client.update_application(**request)
+            actions = [UPDATE_APPLICATION]
+        except ClientError as e:
+            raise _wrap_client_error(e)
+
+        # Create application version if semantic version is specified
+        if app_metadata.semantic_version:
+            try:
+                request = _create_application_version_request(app_metadata, application_id, stripped_template)
+                sar_client.create_application_version(**request)
+                actions.append(CREATE_APPLICATION_VERSION)
+            except ClientError as e:
+                if not _is_conflict_exception(e):
+                    raise _wrap_client_error(e)
+
+    return {
+        'application_id': application_id,
+        'actions': actions,
+        'details': _get_publish_details(actions, app_metadata.template_dict)
+    }
+
+
+def update_application_metadata(template, application_id, sar_client=None):
+    """
+    Update the application metadata.
+
+    :param template: Content of a packaged YAML or JSON SAM template
+    :type template: str_or_dict
+    :param application_id: The Amazon Resource Name (ARN) of the application
+    :type application_id: str
+    :param sar_client: The boto3 client used to access SAR
+    :type sar_client: boto3.client
+    :raises ValueError
+    """
+    if not template or not application_id:
+        raise ValueError('Require SAM template and application ID to update application metadata')
+
+    if not sar_client:
+        sar_client = boto3.client('serverlessrepo')
+
+    template_dict = _get_template_dict(template)
+    app_metadata = get_app_metadata(template_dict)
+    request = _update_application_request(app_metadata, application_id)
+    sar_client.update_application(**request)
+
+
+def _get_template_dict(template):
+    """
+    Parse string template and or copy dictionary template.
+
+    :param template: Content of a packaged YAML or JSON SAM template
+    :type template: str_or_dict
+    :return: Template as a dictionary
+    :rtype: dict
+    :raises ValueError
+    """
+    if isinstance(template, str):
+        return parse_template(template)
+
+    if isinstance(template, dict):
+        return copy.deepcopy(template)
+
+    raise ValueError('Input template should be a string or dictionary')
+
+
+def _create_application_request(app_metadata, template):
+    """
+    Construct the request body to create application.
+
+    :param app_metadata: Object containing app metadata
+    :type app_metadata: ApplicationMetadata
+    :param template: A packaged YAML or JSON SAM template
+    :type template: str
+    :return: SAR CreateApplication request body
+    :rtype: dict
+    """
+    app_metadata.validate(['author', 'description', 'name'])
+    request = {
+        'Author': app_metadata.author,
+        'Description': app_metadata.description,
+        'HomePageUrl': app_metadata.home_page_url,
+        'Labels': app_metadata.labels,
+        'LicenseBody': app_metadata.license_body,
+        'LicenseUrl': app_metadata.license_url,
+        'Name': app_metadata.name,
+        'ReadmeBody': app_metadata.readme_body,
+        'ReadmeUrl': app_metadata.readme_url,
+        'SemanticVersion': app_metadata.semantic_version,
+        'SourceCodeUrl': app_metadata.source_code_url,
+        'SpdxLicenseId': app_metadata.spdx_license_id,
+        'TemplateBody': template
+    }
+    # Remove None values
+    return {k: v for k, v in request.items() if v}
+
+
+def _update_application_request(app_metadata, application_id):
+    """
+    Construct the request body to update application.
+
+    :param app_metadata: Object containing app metadata
+    :type app_metadata: ApplicationMetadata
+    :param application_id: The Amazon Resource Name (ARN) of the application
+    :type application_id: str
+    :return: SAR UpdateApplication request body
+    :rtype: dict
+    """
+    request = {
+        'ApplicationId': application_id,
+        'Author': app_metadata.author,
+        'Description': app_metadata.description,
+        'HomePageUrl': app_metadata.home_page_url,
+        'Labels': app_metadata.labels,
+        'ReadmeBody': app_metadata.readme_body,
+        'ReadmeUrl': app_metadata.readme_url
+    }
+    return {k: v for k, v in request.items() if v}
+
+
+def _create_application_version_request(app_metadata, application_id, template):
+    """
+    Construct the request body to create application version.
+
+    :param app_metadata: Object containing app metadata
+    :type app_metadata: ApplicationMetadata
+    :param application_id: The Amazon Resource Name (ARN) of the application
+    :type application_id: str
+    :param template: A packaged YAML or JSON SAM template
+    :type template: str
+    :return: SAR CreateApplicationVersion request body
+    :rtype: dict
+    """
+    app_metadata.validate(['semantic_version'])
+    request = {
+        'ApplicationId': application_id,
+        'SemanticVersion': app_metadata.semantic_version,
+        'SourceCodeUrl': app_metadata.source_code_url,
+        'TemplateBody': template
+    }
+    return {k: v for k, v in request.items() if v}
+
+
+def _is_conflict_exception(e):
+    """
+    Check whether the botocore ClientError is ConflictException.
+
+    :param e: botocore exception
+    :type e: ClientError
+    :return: True if e is ConflictException
+    """
+    error_code = e.response['Error']['Code']
+    return error_code == 'ConflictException'
+
+
+def _wrap_client_error(e):
+    """
+    Wrap botocore ClientError exception into ServerlessRepoClientError.
+
+    :param e: botocore exception
+    :type e: ClientError
+    :return: S3PermissionsRequired or InvalidS3UriError or general ServerlessRepoClientError
+    """
+    error_code = e.response['Error']['Code']
+    message = e.response['Error']['Message']
+
+    if error_code == 'BadRequestException':
+        if "Failed to copy S3 object. Access denied:" in message:
+            match = re.search('bucket=(.+?), key=(.+?)$', message)
+            if match:
+                return S3PermissionsRequired(bucket=match.group(1), key=match.group(2))
+        if "Invalid S3 URI" in message:
+            return InvalidS3UriError(message=message)
+
+    return ServerlessRepoClientError(message=message)
+
+
+def _get_publish_details(actions, app_metadata_template):
+    """
+    Get the changed application details after publishing.
+
+    :param actions: Actions taken during publishing
+    :type actions: list of str
+    :param app_metadata_template: Original template definitions of app metadata
+    :type app_metadata_template: dict
+    :return: Updated fields and values of the application
+    :rtype: dict
+    """
+    if actions == [CREATE_APPLICATION]:
+        return {k: v for k, v in app_metadata_template.items() if v}
+
+    include_keys = [
+        ApplicationMetadata.AUTHOR,
+        ApplicationMetadata.DESCRIPTION,
+        ApplicationMetadata.HOME_PAGE_URL,
+        ApplicationMetadata.LABELS,
+        ApplicationMetadata.README_URL,
+        ApplicationMetadata.README_BODY
+    ]
+
+    if CREATE_APPLICATION_VERSION in actions:
+        # SemanticVersion and SourceCodeUrl can only be updated by creating a new version
+        additional_keys = [ApplicationMetadata.SEMANTIC_VERSION, ApplicationMetadata.SOURCE_CODE_URL]
+        include_keys.extend(additional_keys)
+    return {k: v for k, v in app_metadata_template.items() if k in include_keys and v}
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/__init__.py
+"""Common library for AWS Serverless Application Repository."""
+
+from .publish import (  # noqa: F401
+    publish_application,
+    update_application_metadata
+)
+
+from .permission_helper import (  # noqa: F401
+    make_application_public,
+    make_application_private,
+    share_application_with_accounts
+)
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/serverlessrepo/__version__.py
+"""Serverlessrepo version and package meta-data."""
+
+__title__ = 'serverlessrepo'
+__version__ = '0.1.10'
+__license__ = 'Apache 2.0'
+__description__ = (
+    'A Python library with convenience helpers for working '
+    'with the AWS Serverless Application Repository.'
+)
+__url__ = 'https://github.com/awslabs/aws-serverlessrepo-python'
+__author__ = 'Amazon Web Services'
+__author_email__ = 'aws-sam-developer@amazon.com'
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/__init__.py
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/conftest.py
+import os
+
+# set expected aws region environment variable
+os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_application_metadata.py
+from unittest import TestCase
+
+from serverlessrepo.application_metadata import ApplicationMetadata
+from serverlessrepo.exceptions import InvalidApplicationMetadataError
+
+
+class TestApplicationMetadata(TestCase):
+
+    def test_init(self):
+        app_metadata_dict = {
+            'Name': 'name',
+            'Description': 'description',
+            'Author': 'author',
+            'SpdxLicenseId': '123456',
+            'LicenseBody': 'license body',
+            'LicenseUrl': 's3://bucket/license.txt',
+            'ReadmeBody': 'readme body',
+            'ReadmeUrl': 's3://bucket/README.md',
+            'Labels': ['label1', 'label2', 'label3'],
+            'HomePageUrl': 'https://github.com/my-id/my-repo/',
+            'SemanticVersion': '1.0.0',
+            'SourceCodeUrl': 's3://bucket/code.zip'
+        }
+        app_metadata = ApplicationMetadata(app_metadata_dict)
+        self.assertEqual(app_metadata.name, app_metadata_dict['Name'])
+        self.assertEqual(app_metadata.description, app_metadata_dict['Description'])
+        self.assertEqual(app_metadata.author, app_metadata_dict['Author'])
+        self.assertEqual(app_metadata.spdx_license_id, app_metadata_dict['SpdxLicenseId'])
+        self.assertEqual(app_metadata.license_body, app_metadata_dict['LicenseBody'])
+        self.assertEqual(app_metadata.license_url, app_metadata_dict['LicenseUrl'])
+        self.assertEqual(app_metadata.readme_body, app_metadata_dict['ReadmeBody'])
+        self.assertEqual(app_metadata.readme_url, app_metadata_dict['ReadmeUrl'])
+        self.assertEqual(app_metadata.labels, app_metadata_dict['Labels'])
+        self.assertEqual(app_metadata.home_page_url, app_metadata_dict['HomePageUrl'])
+        self.assertEqual(app_metadata.semantic_version, app_metadata_dict['SemanticVersion'])
+        self.assertEqual(app_metadata.source_code_url, app_metadata_dict['SourceCodeUrl'])
+
+    def test_required_properties_not_provided(self):
+        app_metadata_dict = {'description': 'hello'}
+        app_metadata = ApplicationMetadata(app_metadata_dict)
+        required_props = ['author', 'name']
+        with self.assertRaises(InvalidApplicationMetadataError) as context:
+            app_metadata.validate(required_props)
+
+        message = str(context.exception)
+        expected = 'author, name properties not provided'
+        self.assertTrue(expected in message)
+
+    def test_both_license_parameters_provided(self):
+        app_metadata_dict = {
+            'LicenseBody': 'license body',
+            'LicenseUrl': 's3://bucket/license.txt',
+        }
+        app_metadata = ApplicationMetadata(app_metadata_dict)
+        with self.assertRaises(InvalidApplicationMetadataError) as context:
+            app_metadata.validate([])
+
+        message = str(context.exception)
+        self.assertTrue('provide either LicenseBody or LicenseUrl' in message)
+
+    def test_both_readme_parameters_provided(self):
+        app_metadata_dict = {
+            'ReadmeBody': 'Readme body',
+            'ReadmeUrl': 's3://bucket/README.md',
+        }
+        app_metadata = ApplicationMetadata(app_metadata_dict)
+        with self.assertRaises(InvalidApplicationMetadataError) as context:
+            app_metadata.validate([])
+
+        message = str(context.exception)
+        self.assertTrue('provide either ReadmeBody or ReadmeUrl' in message)
+
+    def test_valid_app_metadata(self):
+        app_metadata = ApplicationMetadata({})
+        self.assertTrue(app_metadata.validate([]))
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_application_policy.py
+from unittest import TestCase
+
+from serverlessrepo.application_policy import ApplicationPolicy
+from serverlessrepo.exceptions import InvalidApplicationPolicyError
+
+
+class TestApplicationPolicy(TestCase):
+
+    def test_init(self):
+        app_policy = ApplicationPolicy(['1', '2'], ['a', 'b'])
+        self.assertEqual(app_policy.principals, ['1', '2'])
+        self.assertEqual(app_policy.actions, ['a', 'b'])
+
+    def test_valid_principals_actions(self):
+        principals = ['123456789011', '*']
+        actions = [ApplicationPolicy.DEPLOY, ApplicationPolicy.GET_APPLICATION]
+        app_policy = ApplicationPolicy(principals, actions)
+        self.assertTrue(app_policy.validate())
+
+    def test_empty_principals(self):
+        app_policy = ApplicationPolicy([], [ApplicationPolicy.DEPLOY])
+        with self.assertRaises(InvalidApplicationPolicyError) as context:
+            app_policy.validate()
+
+        message = str(context.exception)
+        expected = 'principals not provided'
+        self.assertTrue(expected in message)
+
+    def test_not_12_digits_principals(self):
+        app_policy = ApplicationPolicy(['123'], [ApplicationPolicy.DEPLOY])
+        with self.assertRaises(InvalidApplicationPolicyError) as context:
+            app_policy.validate()
+
+        message = str(context.exception)
+        expected = 'principal should be 12-digit AWS account ID or "*"'
+        self.assertTrue(expected in message)
+
+    def test_empty_actions(self):
+        app_policy = ApplicationPolicy(['123456789012'], [])
+        with self.assertRaises(InvalidApplicationPolicyError) as context:
+            app_policy.validate()
+
+        message = str(context.exception)
+        expected = 'actions not provided'
+        self.assertTrue(expected in message)
+
+    def test_not_supported_actions(self):
+        app_policy = ApplicationPolicy(['123456789012'], ['RandomActionA', 'RandomActionB'])
+        with self.assertRaises(InvalidApplicationPolicyError) as context:
+            app_policy.validate()
+
+        message = str(context.exception)
+        expected = 'RandomActionA, RandomActionB not supported'
+        self.assertTrue(expected in message)
+
+    def test_to_statement(self):
+        app_policy = ApplicationPolicy(['1', '2'], ['actionA', 'actionB'])
+        expected_statement = {
+            'Principals': ['1', '2'],
+            'Actions': ['actionA', 'actionB']
+        }
+        self.assertEqual(app_policy.to_statement(), expected_statement)
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_parser.py
+import re
+from collections import OrderedDict
+from unittest import TestCase
+
+from serverlessrepo.exceptions import ApplicationMetadataNotFoundError
+from serverlessrepo.application_metadata import ApplicationMetadata
+import serverlessrepo.parser as parser
+
+
+class TestParser(TestCase):
+
+    yaml_with_tags = """
+    Resource:
+        Key1: !Ref Something
+        Key2: !GetAtt Another.Arn
+        Key3: !FooBar [!Baz YetAnother, "hello"]
+        Key4: !SomeTag {"a": "1"}
+        Key5: !GetAtt OneMore.Outputs.Arn
+        Key6: !Condition OtherCondition
+    """
+
+    parsed_yaml_dict = {
+        "Resource": {
+            "Key1": {
+                "Ref": "Something"
+            },
+            "Key2": {
+                "Fn::GetAtt": ["Another", "Arn"]
+            },
+            "Key3": {
+                "Fn::FooBar": [
+                    {"Fn::Baz": "YetAnother"},
+                    "hello"
+                ]
+            },
+            "Key4": {
+                "Fn::SomeTag": {
+                    "a": "1"
+                }
+            },
+            "Key5": {
+                "Fn::GetAtt": ["OneMore", "Outputs.Arn"]
+            },
+            "Key6": {
+                "Condition": "OtherCondition"
+            }
+        }
+    }
+
+    def test_parse_yaml_with_tags(self):
+        output = parser.parse_template(self.yaml_with_tags)
+        self.assertEqual(self.parsed_yaml_dict, output)
+
+        # Make sure formatter and parser work well with each other
+        formatted_str = parser.yaml_dump(output)
+        output_again = parser.parse_template(formatted_str)
+        self.assertEqual(output, output_again)
+
+    def test_yaml_getatt(self):
+        # This is an invalid syntax for !GetAtt. But make sure the code does not crash when we encouter this syntax
+        # Let CloudFormation interpret this value at runtime
+        input_str = """
+        Resource:
+            Key: !GetAtt ["a", "b"]
+        """
+
+        output_dir = {
+            "Resource": {
+                "Key": {
+                    "Fn::GetAtt": ["a", "b"]
+                }
+            }
+        }
+
+        actual_output = parser.parse_template(input_str)
+        self.assertEqual(actual_output, output_dir)
+
+    def test_parse_json_with_tabs(self):
+        template = '{\n\t"foo": "bar"\n}'
+        output = parser.parse_template(template)
+        self.assertEqual(output, {'foo': 'bar'})
+
+    def test_parse_json_preserve_elements_order(self):
+        input_template = """
+        {
+            "B_Resource": {
+                "Key2": {
+                    "Name": "name2"
+                },
+                "Key1": {
+                    "Name": "name1"
+                }
+            },
+            "A_Resource": {
+                "Key2": {
+                    "Name": "name2"
+                },
+                "Key1": {
+                    "Name": "name1"
+                }
+            }
+        }
+        """
+        expected_dict = OrderedDict([
+            ('B_Resource', OrderedDict([('Key2', {'Name': 'name2'}), ('Key1', {'Name': 'name1'})])),
+            ('A_Resource', OrderedDict([('Key2', {'Name': 'name2'}), ('Key1', {'Name': 'name1'})]))
+        ])
+        output_dict = parser.parse_template(input_template)
+        self.assertEqual(expected_dict, output_dict)
+
+    def test_parse_yaml_preserve_elements_order(self):
+        input_template = """
+        B_Resource:
+            Key2:
+                Name: name2
+            Key1:
+                Name: name1
+        A_Resource:
+            Key2:
+                Name: name2
+            Key1:
+                Name: name1
+        """
+        output_dict = parser.parse_template(input_template)
+        expected_dict = OrderedDict([
+            ('B_Resource', OrderedDict([('Key2', {'Name': 'name2'}), ('Key1', {'Name': 'name1'})])),
+            ('A_Resource', OrderedDict([('Key2', {'Name': 'name2'}), ('Key1', {'Name': 'name1'})]))
+        ])
+        self.assertEqual(expected_dict, output_dict)
+
+        output_template = parser.yaml_dump(output_dict)
+        # yaml dump changes indentation, remove spaces and new line characters to just compare the text
+        self.assertEqual(re.sub(r'\n|\s', '', input_template),
+                         re.sub(r'\n|\s', '', output_template))
+
+    def test_get_app_metadata_missing_metadata(self):
+        template_dict_without_metadata = {
+            'RandomKey': {
+                'Key1': 'Something'
+            }
+        }
+        with self.assertRaises(ApplicationMetadataNotFoundError) as context:
+            parser.get_app_metadata(template_dict_without_metadata)
+
+        message = str(context.exception)
+        expected = 'missing AWS::ServerlessRepo::Application section in template Metadata'
+        self.assertTrue(expected in message)
+
+    def test_get_app_metadata_missing_app_metadata(self):
+        template_dict_without_app_metadata = {
+            'Metadata': {
+                'Key1': 'Something'
+            }
+        }
+        with self.assertRaises(ApplicationMetadataNotFoundError) as context:
+            parser.get_app_metadata(template_dict_without_app_metadata)
+
+        message = str(context.exception)
+        expected = 'missing AWS::ServerlessRepo::Application section in template Metadata'
+        self.assertTrue(expected in message)
+
+    def test_get_app_metadata_return_metadata(self):
+        app_metadata = {
+            'Name': 'name',
+            'Description': 'description',
+            'Author': 'author'
+        }
+
+        template_dict = {
+            'Metadata': {
+                'AWS::ServerlessRepo::Application': dict(app_metadata)
+            }
+        }
+
+        expected = ApplicationMetadata(app_metadata)
+        actual = parser.get_app_metadata(template_dict)
+        self.assertEqual(expected, actual)
+
+    def test_parse_application_id_aws_partition(self):
+        application_id = 'arn:aws:serverlessrepo:us-east-1:123456789012:applications/test-app'
+        text_with_application_id = 'Application with id {} already exists.'.format(application_id)
+        result = parser.parse_application_id(text_with_application_id)
+        self.assertEqual(result, application_id)
+
+    def test_parse_application_id_aws_cn_partition(self):
+        application_id = 'arn:aws-cn:serverlessrepo:cn-northwest-1:123456789012:applications/test-app'
+        text_with_application_id = 'Application with id {} already exists.'.format(application_id)
+        result = parser.parse_application_id(text_with_application_id)
+        self.assertEqual(result, application_id)
+
+    def test_parse_application_id_aws_us_gov_partition(self):
+        application_id = 'arn:aws-us-gov:serverlessrepo:us-gov-east-1:123456789012:applications/test-app'
+        text_with_application_id = 'Application with id {} already exists.'.format(application_id)
+        result = parser.parse_application_id(text_with_application_id)
+        self.assertEqual(result, application_id)
+
+    def test_parse_application_id_return_none(self):
+        text_without_application_id = 'text without application id'
+        result = parser.parse_application_id(text_without_application_id)
+        self.assertIsNone(result)
+
+    def test_strip_app_metadata_when_input_does_not_contain_metadata(self):
+        template_dict = {'Resources': {}}
+        actual_output = parser.strip_app_metadata(template_dict)
+        self.assertEqual(actual_output, template_dict)
+
+    def test_strip_app_metadata_when_metadata_only_contains_app_metadata(self):
+        template_dict = {
+            'Metadata': {
+                'AWS::ServerlessRepo::Application': {}
+            },
+            'Resources': {},
+        }
+        expected_output = {'Resources': {}}
+        actual_output = parser.strip_app_metadata(template_dict)
+        self.assertEqual(actual_output, expected_output)
+
+    def test_strip_app_metadata_when_metadata_contains_additional_keys(self):
+        template_dict = {
+            'Metadata': {
+                'AWS::ServerlessRepo::Application': {},
+                'AnotherKey': {}
+            },
+            'Resources': {}
+        }
+        expected_output = {
+            'Metadata': {
+                'AnotherKey': {}
+            },
+            'Resources': {}
+        }
+        actual_output = parser.strip_app_metadata(template_dict)
+        self.assertEqual(actual_output, expected_output)
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_permission_helper.py
+from unittest import TestCase
+from mock import Mock, patch
+
+import serverlessrepo.permission_helper as permission_helper
+from serverlessrepo.application_policy import ApplicationPolicy
+from serverlessrepo.exceptions import InvalidApplicationPolicyError
+
+
+class TestPermissionHelper(TestCase):
+
+    def setUp(self):
+        patcher = patch('serverlessrepo.permission_helper.boto3')
+        self.addCleanup(patcher.stop)
+        self.boto3_mock = patcher.start()
+        self.serverlessrepo_mock = Mock()
+        self.boto3_mock.client.return_value = self.serverlessrepo_mock
+        self.application_id = 'arn:aws:serverlessrepo:us-east-1:123456789012:applications/test-app'
+        self.account_ids = ['123456789012']
+
+    def test_make_application_public_succeeded(self):
+        permission_helper.make_application_public(self.application_id)
+        self.serverlessrepo_mock.put_application_policy.assert_called_with(
+            ApplicationId=self.application_id,
+            Statements=[{
+                'Principals': ['*'],
+                'Actions': [ApplicationPolicy.DEPLOY]
+            }]
+        )
+
+    def test_make_application_public_exception_with_empty_application_id(self):
+        with self.assertRaises(ValueError) as context:
+            permission_helper.make_application_public('')
+
+        message = str(context.exception)
+        expected = 'Require application id to make the app public'
+        self.assertEqual(expected, message)
+
+    def test_make_application_public_with_passed_in_sar_client(self):
+        sar_client = Mock()
+        permission_helper.make_application_public(self.application_id, sar_client)
+
+        # the self initiated boto3 client shouldn't be used
+        self.serverlessrepo_mock.put_application_policy.assert_not_called()
+        sar_client.put_application_policy.assert_called_once()
+
+    def test_make_application_private_succeeded(self):
+        permission_helper.make_application_private(self.application_id)
+        self.serverlessrepo_mock.put_application_policy.assert_called_with(
+            ApplicationId=self.application_id,
+            Statements=[]
+        )
+
+    def test_make_application_private_exception_with_empty_application_id(self):
+        with self.assertRaises(ValueError) as context:
+            permission_helper.make_application_private('')
+
+        message = str(context.exception)
+        expected = 'Require application id to make the app private'
+        self.assertEqual(expected, message)
+
+    def test_make_application_private_with_passed_in_sar_client(self):
+        sar_client = Mock()
+        permission_helper.make_application_private(self.application_id, sar_client)
+
+        # the self initiated boto3 client shouldn't be used
+        self.serverlessrepo_mock.put_application_policy.assert_not_called()
+        sar_client.put_application_policy.assert_called_once()
+
+    def test_share_application_with_accounts_succeeded(self):
+        permission_helper.share_application_with_accounts(self.application_id, self.account_ids)
+        self.serverlessrepo_mock.put_application_policy.assert_called_with(
+            ApplicationId=self.application_id,
+            Statements=[{
+                'Principals': self.account_ids,
+                'Actions': [ApplicationPolicy.DEPLOY]
+            }]
+        )
+
+    def test_share_application_with_accounts_exception_with_empty_application_id(self):
+        with self.assertRaises(ValueError) as context:
+            permission_helper.share_application_with_accounts('', self.account_ids)
+
+        message = str(context.exception)
+        expected = 'Require application id and list of AWS account IDs to share the app'
+        self.assertEqual(expected, message)
+
+    def test_share_application_with_accounts_exception_with_empty_account_ids(self):
+        with self.assertRaises(ValueError) as context:
+            permission_helper.share_application_with_accounts(self.application_id, [])
+
+        message = str(context.exception)
+        expected = 'Require application id and list of AWS account IDs to share the app'
+        self.assertEqual(expected, message)
+
+    def test_share_application_with_accounts_exception_with_invalid_account_ids(self):
+        with self.assertRaises(InvalidApplicationPolicyError) as context:
+            permission_helper.share_application_with_accounts(self.application_id, ['123', '456'])
+
+        message = str(context.exception)
+        expected = 'principal should be 12-digit AWS account ID or "*"'
+        self.assertTrue(expected in message)
+
+    def test_share_application_with_passed_in_sar_client(self):
+        sar_client = Mock()
+        permission_helper.share_application_with_accounts(self.application_id, self.account_ids, sar_client)
+
+        # the self initiated boto3 client shouldn't be used
+        self.serverlessrepo_mock.put_application_policy.assert_not_called()
+        sar_client.put_application_policy.assert_called_once()
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/test_publish.py
+import json
+from unittest import TestCase
+from mock import patch, Mock
+
+from botocore.exceptions import ClientError
+
+from serverlessrepo import publish_application, update_application_metadata
+from serverlessrepo.exceptions import (
+    InvalidApplicationMetadataError,
+    S3PermissionsRequired,
+    InvalidS3UriError,
+    ServerlessRepoClientError
+)
+from serverlessrepo.parser import get_app_metadata, strip_app_metadata, yaml_dump
+from serverlessrepo.publish import (
+    CREATE_APPLICATION,
+    UPDATE_APPLICATION,
+    CREATE_APPLICATION_VERSION
+)
+
+
+class TestPublishApplication(TestCase):
+
+    def setUp(self):
+        patcher = patch('serverlessrepo.publish.boto3')
+        self.addCleanup(patcher.stop)
+        self.boto3_mock = patcher.start()
+        self.serverlessrepo_mock = Mock()
+        self.boto3_mock.client.return_value = self.serverlessrepo_mock
+        self.template = """
+        {
+            "Metadata": {
+                "AWS::ServerlessRepo::Application": {
+                    "Name": "test-app",
+                    "Description": "hello world",
+                    "Author": "abc",
+                    "LicenseUrl": "s3://test-bucket/LICENSE",
+                    "ReadmeUrl": "s3://test-bucket/README.md",
+                    "Labels": ["test1", "test2"],
+                    "HomePageUrl": "https://github.com/abc/def",
+                    "SourceCodeUrl": "https://github.com/abc/def",
+                    "SemanticVersion": "1.0.0"
+                }
+            },
+            "Resources": { "Key1": {}, "Key2": {} }
+        }
+        """
+        self.template_dict = json.loads(self.template)
+        self.yaml_template_without_metadata = yaml_dump(strip_app_metadata(self.template_dict))
+        self.application_id = 'arn:aws:serverlessrepo:us-east-1:123456789012:applications/test-app'
+        self.application_exists_error = ClientError(
+            {
+                'Error': {
+                    'Code': 'ConflictException',
+                    'Message': 'Application with id {} already exists'.format(self.application_id)
+                }
+            },
+            'create_application'
+        )
+        self.not_conflict_exception = ClientError(
+            {
+                'Error': {
+                    'Code': 'BadRequestException',
+                    'Message': 'Random message'
+                }
+            },
+            'create_application'
+        )
+        self.s3_denied_exception = ClientError(
+            {
+                'Error': {
+                    'Code': 'BadRequestException',
+                    'Message': 'Failed to copy S3 object. Access denied: bucket=test-bucket, key=test-file'
+                }
+            },
+            'create_application'
+        )
+        self.invalid_s3_uri_exception = ClientError(
+            {
+                'Error': {
+                    'Code': 'BadRequestException',
+                    'Message': 'Invalid S3 URI'
+                }
+            },
+            'create_application'
+        )
+
+    def test_publish_raise_value_error_for_empty_template(self):
+        with self.assertRaises(ValueError) as context:
+            publish_application('')
+
+        message = str(context.exception)
+        expected = 'Require SAM template to publish the application'
+        self.assertEqual(expected, message)
+        self.serverlessrepo_mock.create_application.assert_not_called()
+
+    def test_publish_raise_value_error_for_not_dict_or_string_template(self):
+        with self.assertRaises(ValueError) as context:
+            publish_application(123)
+
+        message = str(context.exception)
+        expected = 'Input template should be a string or dictionary'
+        self.assertEqual(expected, message)
+        self.serverlessrepo_mock.create_application.assert_not_called()
+
+    @patch('serverlessrepo.publish.parse_template')
+    def test_publish_template_string_should_parse_template(self, parse_template_mock):
+        self.serverlessrepo_mock.create_application.return_value = {
+            'ApplicationId': self.application_id
+        }
+        parse_template_mock.return_value = self.template_dict
+        publish_application(self.template)
+        parse_template_mock.assert_called_with(self.template)
+
+    @patch('serverlessrepo.publish.copy.deepcopy')
+    def test_publish_template_dict_should_copy_template(self, copy_mock):
+        self.serverlessrepo_mock.create_application.return_value = {
+            'ApplicationId': self.application_id
+        }
+        copy_mock.return_value = self.template_dict
+        publish_application(self.template_dict)
+        copy_mock.assert_called_with(self.template_dict)
+
+    def test_publish_new_application_should_create_application(self):
+        self.serverlessrepo_mock.create_application.return_value = {
+            'ApplicationId': self.application_id
+        }
+
+        actual_result = publish_application(self.template)
+        app_metadata_template = get_app_metadata(self.template_dict).template_dict
+        expected_result = {
+            'application_id': self.application_id,
+            'actions': [CREATE_APPLICATION],
+            'details': app_metadata_template
+        }
+        self.assertEqual(expected_result, actual_result)
+
+        expected_request = dict({'TemplateBody': self.yaml_template_without_metadata}, **app_metadata_template)
+        self.serverlessrepo_mock.create_application.assert_called_once_with(**expected_request)
+        # publish a new application will only call create_application
+        self.serverlessrepo_mock.update_application.assert_not_called()
+        self.serverlessrepo_mock.create_application_version.assert_not_called()
+
+    def test_publish_raise_metadata_error_for_invalid_create_application_request(self):
+        template_without_app_name = self.template.replace('"Name": "test-app",', '')
+        with self.assertRaises(InvalidApplicationMetadataError) as context:
+            publish_application(template_without_app_name)
+
+        message = str(context.exception)
+        self.assertEqual("Invalid application metadata: 'name properties not provided'", message)
+        # create_application shouldn't be called if application metadata is invalid
+        self.serverlessrepo_mock.create_application.assert_not_called()
+
+    def test_publish_raise_serverlessrepo_client_error_when_create_application(self):
+        self.serverlessrepo_mock.create_application.side_effect = self.not_conflict_exception
+
+        # should raise exception if it's not ConflictException
+        with self.assertRaises(ServerlessRepoClientError):
+            publish_application(self.template)
+
+        # shouldn't call the following APIs if the exception isn't application already exists
+        self.serverlessrepo_mock.update_application.assert_not_called()
+        self.serverlessrepo_mock.create_application_version.assert_not_called()
+
+    def test_publish_raise_s3_permission_error_when_create_application(self):
+        self.serverlessrepo_mock.create_application.side_effect = self.s3_denied_exception
+        with self.assertRaises(S3PermissionsRequired) as context:
+            publish_application(self.template)
+
+        message = str(context.exception)
+        self.assertIn("The AWS Serverless Application Repository does not have read access to bucket "
+                      "'test-bucket', key 'test-file'.", message)
+
+    def test_publish_raise_invalid_s3_uri_when_create_application(self):
+        self.serverlessrepo_mock.create_application.side_effect = self.invalid_s3_uri_exception
+        with self.assertRaises(InvalidS3UriError) as context:
+            publish_application(self.template)
+
+        message = str(context.exception)
+        self.assertIn("Invalid S3 URI", message)
+
+    def test_publish_existing_application_should_update_application_if_version_not_specified(self):
+        self.serverlessrepo_mock.create_application.side_effect = self.application_exists_error
+        template_without_version = self.template.replace('"SemanticVersion": "1.0.0"', '')
+
+        actual_result = publish_application(template_without_version)
+        expected_result = {
+            'application_id': self.application_id,
+            'actions': [UPDATE_APPLICATION],
+            'details': {
+                # Name, LicenseUrl and SourceCodeUrl shouldn't show up
+                'Description': 'hello world',
+                'Author': 'abc',
+                'ReadmeUrl': 's3://test-bucket/README.md',
+                'Labels': ['test1', 'test2'],
+                'HomePageUrl': 'https://github.com/abc/def'
+            }
+        }
+        self.assertEqual(expected_result, actual_result)
+
+        self.serverlessrepo_mock.create_application.assert_called_once()
+        # should continue to update application if the exception is application already exists
+        expected_request = dict({'ApplicationId': self.application_id}, **expected_result['details'])
+        self.serverlessrepo_mock.update_application.assert_called_once_with(**expected_request)
+        # create_application_version shouldn't be called if version is not provided
+        self.serverlessrepo_mock.create_application_version.assert_not_called()
+
+    @patch('serverlessrepo.publish._wrap_client_error')
+    def test_publish_wrap_client_error_when_update_application(self, wrap_client_error_mock):
+        self.serverlessrepo_mock.create_application.side_effect = self.application_exists_error
+        self.serverlessrepo_mock.update_application.side_effect = self.not_conflict_exception
+        wrap_client_error_mock.return_value = ServerlessRepoClientError(message="client error")
+        with self.assertRaises(ServerlessRepoClientError):
+            publish_application(self.template)
+
+        # create_application_version shouldn't be called if update_application fails
+        self.serverlessrepo_mock.create_application_version.assert_not_called()
+
+    def test_publish_existing_application_should_update_application_if_version_exists(self):
+        self.serverlessrepo_mock.create_application.side_effect = self.application_exists_error
+        self.serverlessrepo_mock.create_application_version.side_effect = ClientError(
+            {'Error': {'Code': 'ConflictException', 'Message': 'Random'}},
+            'create_application_version'
+        )
+
+        actual_result = publish_application(self.template)
+        expected_result = {
+            'application_id': self.application_id,
+            'actions': [UPDATE_APPLICATION],
+            'details': {
+                # Name, LicenseUrl and SourceCodeUrl shouldn't show up
+                'Description': 'hello world',
+                'Author': 'abc',
+                'Labels': ['test1', 'test2'],
+                'HomePageUrl': 'https://github.com/abc/def',
+                'ReadmeUrl': 's3://test-bucket/README.md'
+            }
+        }
+        self.assertEqual(expected_result, actual_result)
+
+        self.serverlessrepo_mock.create_application.assert_called_once()
+        self.serverlessrepo_mock.update_application.assert_called_once()
+        self.serverlessrepo_mock.create_application_version.assert_called_once()
+
+    def test_publish_new_version_should_create_application_version(self):
+        self.serverlessrepo_mock.create_application.side_effect = self.application_exists_error
+
+        actual_result = publish_application(self.template)
+        expected_result = {
+            'application_id': self.application_id,
+            'actions': [UPDATE_APPLICATION, CREATE_APPLICATION_VERSION],
+            'details': {
+                # Name and LicenseUrl shouldn't show up since they can't be updated
+                'Description': 'hello world',
+                'Author': 'abc',
+                'ReadmeUrl': 's3://test-bucket/README.md',
+                'Labels': ['test1', 'test2'],
+                'HomePageUrl': 'https://github.com/abc/def',
+                'SourceCodeUrl': 'https://github.com/abc/def',
+                'SemanticVersion': '1.0.0'
+            }
+        }
+        self.assertEqual(expected_result, actual_result)
+
+        self.serverlessrepo_mock.create_application.assert_called_once()
+        self.serverlessrepo_mock.update_application.assert_called_once()
+        # should continue to create application version
+        expected_request = {
+            'ApplicationId': self.application_id,
+            'SourceCodeUrl': 'https://github.com/abc/def',
+            'SemanticVersion': '1.0.0',
+            'TemplateBody': self.yaml_template_without_metadata
+        }
+        self.serverlessrepo_mock.create_application_version.assert_called_once_with(**expected_request)
+
+    @patch('serverlessrepo.publish._wrap_client_error')
+    def test_publish_wrap_client_error_when_create_application_version(self, wrap_client_error_mock):
+        self.serverlessrepo_mock.create_application.side_effect = self.application_exists_error
+        self.serverlessrepo_mock.create_application_version.side_effect = self.not_conflict_exception
+        wrap_client_error_mock.return_value = ServerlessRepoClientError(message="client error")
+        with self.assertRaises(ServerlessRepoClientError):
+            publish_application(self.template)
+
+    def test_create_application_with_passed_in_sar_client(self):
+        sar_client = Mock()
+        sar_client.create_application.return_value = {
+            'ApplicationId': self.application_id
+        }
+        publish_application(self.template, sar_client)
+
+        sar_client.create_application.assert_called_once()
+        sar_client.update_application.assert_not_called()
+        sar_client.create_application_version.assert_not_called()
+
+        # the self initiated boto3 client shouldn't be used
+        self.serverlessrepo_mock.create_application.assert_not_called()
+        self.serverlessrepo_mock.update_application.assert_not_called()
+        self.serverlessrepo_mock.create_application_version.assert_not_called()
+
+    def test_update_application_with_passed_in_sar_client(self):
+        sar_client = Mock()
+        sar_client.create_application.side_effect = self.application_exists_error
+        publish_application(self.template, sar_client)
+
+        sar_client.create_application.assert_called_once()
+        sar_client.update_application.assert_called_once()
+        sar_client.create_application_version.assert_called_once()
+
+        # the self initiated boto3 client shouldn't be used
+        self.serverlessrepo_mock.create_application.assert_not_called()
+        self.serverlessrepo_mock.update_application.assert_not_called()
+        self.serverlessrepo_mock.create_application_version.assert_not_called()
+
+    def test_create_application_with_licensebody(self):
+        self.serverlessrepo_mock.create_application.return_value = {
+            'ApplicationId': self.application_id
+        }
+        template_with_licensebody = self.template \
+            .replace('"LicenseUrl": "s3://test-bucket/LICENSE"', '"LicenseBody": "test test"')
+        actual_result = publish_application(template_with_licensebody)
+        expected_result = {
+            'application_id': self.application_id,
+            'actions': [CREATE_APPLICATION],
+            'details': {
+                'Author': 'abc',
+                'Description': 'hello world',
+                'HomePageUrl': 'https://github.com/abc/def',
+                'Labels': ['test1', 'test2'],
+                'LicenseBody': 'test test',
+                'Name': 'test-app',
+                'ReadmeUrl': 's3://test-bucket/README.md',
+                'SemanticVersion': '1.0.0',
+                'SourceCodeUrl': 'https://github.com/abc/def'
+            }
+        }
+        self.assertEqual(expected_result, actual_result)
+
+    def test_update_application_with_readmebody(self):
+        self.serverlessrepo_mock.create_application.side_effect = self.application_exists_error
+        template_with_readmebody = self.template \
+            .replace('"SemanticVersion": "1.0.0"', '') \
+            .replace('"ReadmeUrl": "s3://test-bucket/README.md"', '"ReadmeBody": "test test"')
+        actual_result = publish_application(template_with_readmebody)
+        expected_result = {
+            'application_id': self.application_id,
+            'actions': [UPDATE_APPLICATION],
+            'details': {
+                'Description': 'hello world',
+                'Author': 'abc',
+                'ReadmeBody': 'test test',
+                'Labels': ['test1', 'test2'],
+                'HomePageUrl': 'https://github.com/abc/def'
+            }
+        }
+        self.assertEqual(expected_result, actual_result)
+
+
+class TestUpdateApplicationMetadata(TestCase):
+    def setUp(self):
+        patcher = patch('serverlessrepo.publish.boto3')
+        self.addCleanup(patcher.stop)
+        self.boto3_mock = patcher.start()
+        self.serverlessrepo_mock = Mock()
+        self.boto3_mock.client.return_value = self.serverlessrepo_mock
+        self.template = """
+        {
+            "Metadata": {
+                "AWS::ServerlessRepo::Application": {
+                    "Name": "test-app",
+                    "Description": "hello world",
+                    "Author": "abc",
+                    "SemanticVersion": "1.0.0"
+                }
+            }
+        }
+        """
+        self.template_dict = json.loads(self.template)
+        self.application_id = 'arn:aws:serverlessrepo:us-east-1:123456789012:applications/test-app'
+
+    def test_raise_value_error_for_empty_template(self):
+        with self.assertRaises(ValueError) as context:
+            update_application_metadata('', self.application_id)
+
+        message = str(context.exception)
+        expected = 'Require SAM template and application ID to update application metadata'
+        self.assertEqual(expected, message)
+        self.serverlessrepo_mock.update_application.assert_not_called()
+
+    def test_raise_value_error_for_empty_application_id(self):
+        with self.assertRaises(ValueError) as context:
+            update_application_metadata(self.template, '')
+
+        message = str(context.exception)
+        expected = 'Require SAM template and application ID to update application metadata'
+        self.assertEqual(expected, message)
+        self.serverlessrepo_mock.update_application.assert_not_called()
+
+    def test_raise_value_error_for_not_dict_or_string_template(self):
+        with self.assertRaises(ValueError) as context:
+            update_application_metadata(123, self.application_id)
+
+        message = str(context.exception)
+        expected = 'Input template should be a string or dictionary'
+        self.assertEqual(expected, message)
+        self.serverlessrepo_mock.update_application.assert_not_called()
+
+    @patch('serverlessrepo.publish.parse_template')
+    def test_update_application_metadata_with_template_string_should_parse_template(self, parse_template_mock):
+        parse_template_mock.return_value = self.template_dict
+        update_application_metadata(self.template, self.application_id)
+        parse_template_mock.assert_called_with(self.template)
+
+    @patch('serverlessrepo.publish.copy.deepcopy')
+    def test_publish_template_dict_should_copy_template(self, copy_mock):
+        copy_mock.return_value = self.template_dict
+        update_application_metadata(self.template_dict, self.application_id)
+        copy_mock.assert_called_with(self.template_dict)
+
+    def test_update_application_metadata_ignore_irrelevant_fields(self):
+        update_application_metadata(self.template, self.application_id)
+        # SemanticVersion in the template should be ignored
+        expected_request = {
+            'ApplicationId': self.application_id,
+            'Author': 'abc',
+            'Description': 'hello world'
+        }
+        self.serverlessrepo_mock.update_application.assert_called_once_with(**expected_request)
+
+    def test_update_application_metadata_with_passed_in_sar_client(self):
+        sar_client = Mock()
+        update_application_metadata(self.template, self.application_id, sar_client)
+
+        # the self initiated boto3 client shouldn't be used
+        self.serverlessrepo_mock.update_application.assert_not_called()
+        sar_client.update_application.assert_called_once()
+
+--#
+
+--% E:/desktop-laptop/_rwe/aws-serverlessrepo-python/tests/unit/__init__.py
+
+--#
+

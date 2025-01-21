@@ -1,0 +1,14 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan upwork termasuk moleculer etc*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+ada apa aja:
+flutter
+	menarik ada video call, fcm/notification, dst.
+backend
+bisa gak recreate dg cepat???
+--#

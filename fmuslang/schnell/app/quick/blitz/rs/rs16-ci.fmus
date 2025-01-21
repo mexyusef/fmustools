@@ -1,0 +1,110 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	docker-compose.yml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/docker-compose.yml)
+	images,d(/mk)
+		rust-slave,d(/mk)
+			build.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/images/rust-slave/build.sh)
+			Dockerfile,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/images/rust-slave/Dockerfile)
+	microservice,d(/mk)
+		.gitignore,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/microservice/.gitignore)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/microservice/Cargo.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/microservice/src/main.rs)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/docker-compose.yml
+version: '3.1'
+services:
+    git-server:
+        image: gogs/gogs
+        ports:
+            - '10022:22'
+            - '10080:3000'
+        volumes:
+            - ./gogs:/data
+    teamcity:
+        image: jetbrains/teamcity-server
+        ports:
+            - '8111:8111'
+        volumes:
+            - ./teamcity/datadir:/data/teamcity_server/datadir
+            - ./teamcity/logs:/opt/teamcity/logs
+    agent:
+        build: ./images/rust-slave
+        environment:
+            - SERVER_URL=http://teamcity:8111
+        volumes:
+            - ./teamcity/agent:/data/teamcity_agent/conf
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/images/rust-slave/build.sh
+docker build -t rust-slave .
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/images/rust-slave/Dockerfile
+FROM jetbrains/teamcity-minimal-agent:latest
+
+ENV RUST_VERSION=1.32.0
+
+RUN curl https://sh.rustup.rs -sSf \
+  | sh -s -- -y --no-modify-path --default-toolchain $RUST_VERSION
+
+ENV PATH=/root/.cargo/bin:$PATH
+
+RUN rustup --version; \
+    cargo --version; \
+    rustc --version;
+
+RUN apt-get update
+RUN apt-get install -y build-essential
+
+RUN rustup component add rustfmt
+RUN rustup component add clippy
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/microservice/.gitignore
+target
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/microservice/Cargo.toml
+[package]
+name = "microservice"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+env_logger = "0.5"
+actix = "0.7"
+actix-web = "0.7"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter16/rustci/microservice/src/main.rs
+use actix_web::{middleware, server, App, HttpRequest};
+
+fn index(_req: &HttpRequest) -> &'static str {
+    "Microservice Updated"
+}
+
+fn main() {
+    env_logger::init();
+    let sys = actix::System::new("microservice");
+    server::new(|| {
+        App::new()
+            .middleware(middleware::Logger::default())
+            .resource("/", |r| r.f(index))
+    })
+    .bind("127.0.0.1:8080")
+    .unwrap()
+    .start();
+    let _ = sys.run();
+}
+
+--#
+

@@ -1,0 +1,159 @@
+--% index/fmus
+__PWD,d
+    %TEMPLATE_BASEDIR=__INPUT__
+    TEMPLATE_BASEDIR,d(/mk)
+		# https://youtu.be/3uYmbbpvJfM?t=812
+		templates,d(/mk)
+			home.html,f(e=__FILE=home.html)
+		upload,d(/mk)
+			#__init__.py,f(e=__FILE=upload.init)
+			admin.py,f(e=__FILE=upload.admin)
+			#apps.py,f(e=__FILE=upload.apps)
+			forms.py,f(e=__FILE=upload.forms)
+			models.py,f(e=__FILE=upload.models)
+			#tests.py,f(e=__FILE=upload.tests)
+			views.py,f(e=__FILE=upload.views)
+			urls.py,f(e=__FILE=upload.urls)
+		README.md,f(e=__FILE=README.md)
+--#
+
+--% README.md
+https://www.youtube.com/watch?v=3uYmbbpvJfM
+kita belum selesai utk settings.py, dst.
+jg tambahan:
+https://www.youtube.com/watch?v=lx0I_nsxvPc
+--#
+
+--% home.html
+<html lang="en">
+<head>
+<title>Django Upload</title>
+<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' crossorigin='anonymous'>
+</script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js' crossorigin='anonymous'>
+</script>
+<script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js' crossorigin='anonymous'>
+</script>
+<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js' crossorigin='anonymous'>
+</script>
+</head>
+
+<style>
+.not-visible {
+	display: none;
+}
+</style>
+
+<body>
+
+<form action='' method='post' id='upload_form'>
+{% csrf_token %}
+{{ form.as_p }}
+<input type='submit' value='Upload' class='btn btn-primary'>
+</form>
+<div class='container not-visible progress' id='progress' />
+
+<script>
+const uploadForm = document.getElementById('upload_form');
+const inputFile = document.getElementById('id_image');
+const progressBar = document.getElementById('progress');
+$('#upload_form').submit(function(e) {
+	e.preventDefault();
+	$form = $(this);
+	const formData = new FormData(this);
+	const mediaData = inputFile.files[0];
+	if mediaData !== null) {
+		console.log(mediaData);
+		progressBar.classList.remove('not-visible');
+	}
+	$.ajax({
+		type: 'POST',
+		url: '/',
+		data: formData,
+		dataType: 'json',
+		beforeSend: function() {},
+		xhr: function() {
+			const xhr = new window.XMLHttpRequest();
+			xhr.upload.addEventListener('progress', e => {
+				if (e.lengthComputable) {
+					const percent = (e.loaded / e.total) * 100;
+					progressBar.innerHTML = `<div
+					class='progress-bar progress-bar-striped bg-success'
+					role='progress-bar'
+					style='width: ${percent}%'
+					aria-valuenow='${percent}'
+					aria-valuemin='0'
+					aria-valuemax='100'
+					>
+					</div>`;
+				}
+			});
+			return xhr;
+		},
+		success: function(response) {
+		console.log(response);
+		uploadForm.reset();
+		progressBar.classList.add('not-visible');
+		},
+		error: function(error) {console.log(error)},
+		cache: false,
+		contentType: false,
+		processData: false,
+	});
+});
+</script>
+</body>
+</html>
+--#
+
+--% upload.admin
+from django.contrib import admin
+from .models import Upload
+admin.site.register(Upload)
+--#
+
+--% upload.forms
+from django import forms
+from upload.models import Upload
+class UploadForm(forms.ModelForm):
+	class Meta:
+		model = Upload()
+		fields = ['title', 'image']
+--#
+--% upload.models
+from django.db import models
+class Upload(models.Model):
+	title = models.CharField(max_length=50)
+	image = models.ImageField()
+	def __str__(self):
+		return self.title
+--#
+
+--% upload.views
+from django.shortcuts import render
+from django.views.generic import View
+from upload.forms import UploadForm
+class HomeView(View):
+	def get(self, request):
+		form = UploadForm()
+		return render(request, 'home.html', context={'form':form})
+--#
+--% upload.urls
+from django.contrib import admin
+from django.urls import path
+from upload.views import HomeView
+
+urlpatterns = [
+	path('admin/', admin.site.urls),
+	path('', HomeView.as_view(), name='home')
+]
+--#
+
+--% upload.apps
+--#
+
+--% upload.init
+--#
+
+--% upload.tests
+--#

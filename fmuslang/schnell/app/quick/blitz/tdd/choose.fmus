@@ -1,0 +1,54 @@
+--% create many pytest files
+__PWD,d
+	~while[y,Y]
+		tests,d(/mk)
+			test___INPUT__.py,f(n=def test____INPUT____LP__RP:__NL__TAB1assert True)
+--#
+
+--% index/fmus
+__PWD,d
+	?pick
+		$* python -m pip install pytest
+		$* python -m unittest discover
+		$* pytest
+		$* pytest -v
+		$* pytest -k __INPUT__ -v
+		$* pytest -m __INPUT__ -v
+		$* pytest -v --junitxml = "result.xml"
+		@pytest*
+			@sample simple test*
+				tests,d(/mk)
+					test_benar.py,f(n=def test_always_true__LP__RP:__NL__TAB1assert True)
+					test_salah.py,f(n=def test_always_true__LP__RP:__NL__TAB1assert 0==False)
+				$* code .
+		.,d(/load=__FILE__=create many pytest files*)
+
+		@unittest*
+		@mocha chai enzyme supertest jest react-testing-library cypress*
+		@junit*
+		@testng*
+		@bdd - cucumber etc*
+		@browerstack*
+		@playwright*
+		@postman/cli*
+		@selenium*
+		@soap ui*
+		@watch - yt tuts*
+			?pick
+				@https://www.youtube.com/watch?v=QVxxgEyZt9Y, TDD With TypeScript, Express, NodeJS, and Mocha Unit Tests | Ultimate Full-Stack JavaScript Setup*
+				@https://www.youtube.com/watch?v=MLTRHc5dk6s, Intro To JavaScript Unit Testing With Mocha JS & Chai*
+				@https://www.youtube.com/watch?v=XSsJ9XXvH_E, node.jSTL # 7 - Testing, Mocha, Chai, and you!*
+				@https://www.youtube.com/watch?v=uIdbfW2T8NE, Supertest REST API Express - Ejemplo simple*
+				@https://www.youtube.com/watch?v=tX-gu6FWcsE, TDD Live Coding - Test Driven Development Tutorial with React, Jest, and Enzyme*
+				@https://www.youtube.com/watch?v=Flo268xRpV0, React Testing Tutorial with React Testing Library and Jest*
+--#
+
+
+--% tdd live coding - test driven development tutorial with react, jest, and enzyme
+https://www.youtube.com/watch?v=tX-gu6FWcsE
+durasi: 1 jam
+quarter 1
+quarter 2
+quarter 3
+quarter 4
+--#

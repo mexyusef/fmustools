@@ -1,0 +1,13 @@
+__TAB(3)$$GANTI_DENGAN_MODEL_LOWER$$,d(/mk)
+__TAB(4)%__TEMPLATE_MODELNAME=$$GANTI_DENGAN_MODEL_UPPER$$
+__TAB(4)%__TEMPLATE_Modelname=$$GANTI_DENGAN_MODEL_TITLE$$
+__TAB(4)%__TEMPLATE_modelname=$$GANTI_DENGAN_MODEL_LOWER$$
+__TAB(4)%__TEMPLATE_MODELNAMES=$$GANTI_DENGAN_MODEL_UPPER_PLURAL$$
+__TAB(4)%__TEMPLATE_modelnames=$$GANTI_DENGAN_MODEL_LOWER_PLURAL$$
+__TAB(4)__init__.py,f(e=utama=/myflask2/project/apps/$$GANTI_DENGAN_MODEL_LOWER$$/__init__.py)
+__TAB(4)models.py,f(e=utama=/myflask2/project/apps/$$GANTI_DENGAN_MODEL_LOWER$$/models.py)
+__TAB(4)forms.py,f(e=utama=/myflask2/project/apps/$$GANTI_DENGAN_MODEL_LOWER$$/forms.py)
+__TAB(4)routes.py,f(e=utama=/myflask2/project/apps/$$GANTI_DENGAN_MODEL_LOWER$$/routes.py)
+__TAB(4)resource.py,f(e=utama=/myflask2/project/apps/$$GANTI_DENGAN_MODEL_LOWER$$/resource.py)
+__TAB(4)static,d(/mk)
+__TAB(4)templates,d(/mk)

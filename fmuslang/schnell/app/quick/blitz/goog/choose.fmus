@@ -1,0 +1,64 @@
+--% index/fmus
+__PWD,d
+  	?pick
+		@google dependencies installation*
+			?pick
+				$* pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+
+		@create credentials*
+			?pick
+				$* python -m webbrowser -t https://developers.google.com/workspace/guides/create-credentials
+				$* python -m webbrowser -t https://developers.google.com/workspace/guides/create-project
+				$* python -m webbrowser -t https://console.cloud.google.com/
+				$* python -m webbrowser -t https://console.cloud.google.com/apis/library/
+				$* python -m webbrowser -t https://google.com/script/start/
+				$* python -m webbrowser -t https://script.google.com/
+				@enable app script*
+					$* python -m webbrowser -t https://script.google.com/home/usersettings
+				@buat api keys*
+				@buat oauth client id*
+				@buat service account*
+
+		@quick project - (quick project)*
+			?pick
+				@gmail api - sudah ada nih - (quick project)*
+					?pick
+						@create simple project - (quick project)*
+							.,d(/load=__CURDIR__/gmail.fmus=gmail/simple1/us*)
+						@enable gmail api*
+							$* python -m webbrowser -t https://console.cloud.google.com/apis/library/gmail.googleapis.com?project=gmail-creds-346512
+						@create credentials*
+							$* python -m webbrowser -t https://console.cloud.google.com/apis/credentials?project=gmail-creds-346512
+							@create service account utk credentials.json*
+								?pick
+									$* python -m webbrowser -t https://console.cloud.google.com/iam-admin/serviceaccounts/create?previousPage=%2Fapis%2Fcredentials%3Fproject%3Dgmail-creds-346512&project=gmail-creds-346512
+									$* python -m webbrowser -t https://console.cloud.google.com/iam-admin/serviceaccounts/details/112580730779479440849;edit=true/keys?project=gmail-creds-346512
+						$* python -m webbrowser -t https://developers.google.com/gmail/api/guides
+						$* python -m webbrowser -t https://developers.google.com/gmail/api/reference/rest
+				@gdrive api*
+				@sheet api - (quick project)*
+					?pick
+						.,d(/load=__CURDIR__/sheet.fmus=sheet/simple1/us*)
+				@slide api*
+				@search api*
+				@youtube api*
+				@google app script api - (quick project)*
+					?pick
+						$* python -m webbrowser -t https://developers.google.com/resources/api-libraries/documentation/script/v1/python/latest/index%2Ehtml
+						.,d(/load=__CURDIR__/appscript.fmus=appscript/simple1/us*)
+		@google devs references*
+			?pick
+				$* python -m webbrowser -t https://developers.google.com/apps-script/api/quickstart/python
+				$* python -m webbrowser -t https://developers.google.com/apps-script/api/quickstart/nodejs
+
+				$* python -m webbrowser -t https://developers.google.com/sheets/api/quickstart/python
+				$* python -m webbrowser -t https://developers.google.com/sheets/api/quickstart/nodejs
+				$* python -m webbrowser -t https://cloud.google.com/appsheet/automation?hl=en
+				$* python -m webbrowser -t https://developers.google.com/sheets?hl=en
+				$* python -m webbrowser -t https://developers.google.com/sheets/api?hl=en
+
+				$* python -m webbrowser -t https://developers.google.com/products
+				$* python -m webbrowser -t https://firebase.google.com/docs
+				$* python -m webbrowser -t https://developers.google.com/youtube
+				$* python -m webbrowser -t https://developers.google.com/maps
+--#

@@ -1,0 +1,109 @@
+--% index/fmus
+__PWD,d
+    %TEMPLATE_BASEDIR=__INPUT__
+    TEMPLATE_BASEDIR,d(/mk)
+        README.md,f(e=__FILE__=README.md)
+        uploads,d(/mk)
+        dbconnection.js,f(e=__FILE__=dbconnection.js)
+        index.html,f(e=__FILE__=index.html)
+        index.js,f(e=__FILE__=index.js)
+        .,d(/load=__FILE__=instalasi)
+        $* nodemon index.js
+--#
+
+--% instalasi
+.,d
+    $* yarn add express 
+    $* yarn add -D nodemon
+    $* yarn add express-fileupload
+--#
+
+--% README.md
+https://www.youtube.com/watch?v=dWL49d97pnE
+Node Js File Upload API | Upload any file using node js | Express upload file | Node js Tutorial
+--#
+
+--% dbconnection.js
+dbconnection.js
+--#
+
+--% index.js
+const express = require('express');
+const uploader = require('express-fileupload');
+const app = express();
+
+app.use(express.json());
+app.use(uploader());
+
+const conn = require('./dbconnection');
+
+app.get('/', (req, res) => {
+    const statement = '';
+    conn.query(statement, (err, res) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.post('/', (req, res) => {
+    const data = req.body;
+    const statement = '';
+    conn.query(statement, data, (err, res) => {
+        if (err) throw err;
+        res.send(result);
+    });
+})
+
+app.put('/:id', (req, res) => {
+    const data = [];
+    const data = req.body;
+    const statement = '';
+    conn.query(statement, data, (err, res) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.get('/file-upload', (req, res) => {
+    //res.send('test');
+    res.sendFile(__dirname + '/index.html');
+});
+
+app.post('/file-upload', (req, res) => {
+    //res.send('test');
+    //res.sendFile(__dirname + '/index.html');
+    if (req.files) {
+        let file = req.files.file;
+        let filename = file.name;
+        console.log(filename);
+        file.mv('./uploads/' + filename, err => {
+            if (err) throw err;
+            res.send('File uploaded...');
+        });
+    }
+});
+
+app.listen(4200);
+--#
+
+--% index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <h1>Upload</h1>
+    <form method='post' action='/file-upload' enctype='multipart/form-data'>
+        Choose file: 
+        <br/>
+        <input type='file' name='file'>
+        <br/>
+        <input type='submit' name='Upload'>
+    </form>
+</body>
+</html>
+--#

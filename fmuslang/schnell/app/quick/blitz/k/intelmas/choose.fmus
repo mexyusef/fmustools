@@ -1,0 +1,20 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan mostly java*
+			**showtext=__FILE__=readme
+		@recreate ecoss - ada komponen java dan python*
+		@recreate nrt*
+		@recreate npm*
+		@recreate scheduler*
+--#
+
+--% readme
+ecoss
+npm
+nrt
+scheduler
+
+ada banyak oprek xml files...
+bisa generate dan parsing dong?
+--#

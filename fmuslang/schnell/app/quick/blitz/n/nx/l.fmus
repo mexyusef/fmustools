@@ -1,0 +1,5 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__CURDIR__/choose.fmus=index/fmus*)
+--#

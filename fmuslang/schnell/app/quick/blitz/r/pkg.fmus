@@ -1,0 +1,9 @@
+--% index/fmus
+__PWD,d
+	?pick
+        $* yarn add axios
+		$* yarn add next-auth
+        $* yarn add react-redux
+        $* yarn add redux
+        $* yarn add @reduxjs/toolkit
+--#

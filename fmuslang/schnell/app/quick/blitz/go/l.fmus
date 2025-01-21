@@ -1,0 +1,41 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+		main.go,f(code[go]=fM)
+			$* code .
+        __PRC__TEMP__PRC__/play,d(/mk)
+            main.go,f(code[go]=fM)
+            $* code .
+
+        $* go mod init https://github.com/mexyusef/__INPUT__
+        $* go mod init __INPUT__
+        $* go run main.go
+
+
+        .,d(/load=__FILE__=gin/gonic*)
+        .,d(/load=__FILE__=gorilla/mux*)
+        .,d(/load=__FILE__=echo*)
+
+        $* code ULIBPY_BASEDIR\app\quick\blitz\go\l.fmus
+--#
+
+--% gin/gonic
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% gorilla/mux
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% echo
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#

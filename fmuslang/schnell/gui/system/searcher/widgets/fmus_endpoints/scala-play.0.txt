@@ -1,0 +1,149 @@
+make a Scala Play endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+make the graphql version
+
+Open sidebar
+Scala Play REST Controller
+
+
+User
+make a Scala Play endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+ChatGPT
+Sure! Here's an example of a Scala Play REST controller class for creating a Todo table:
+
+scala
+Copy code
+import javax.inject.Inject
+import play.api.mvc.{AbstractController, ControllerComponents}
+import play.api.libs.json._
+import java.time.{LocalDate, LocalDateTime}
+import scala.concurrent.{ExecutionContext, Future}
+
+case class Todo(id: Int, priority: Float, completed: Boolean, task: String, dueDate: LocalDate, createdAt: LocalDateTime)
+
+class TodoController @Inject()(cc: ControllerComponents)(implicit ec: ExecutionContext) extends AbstractController(cc) {
+
+  implicit val localDateReads: Reads[LocalDate] = Reads.dateReads("yyyy-MM-dd")
+  implicit val localDateTimeReads: Reads[LocalDateTime] = Reads.jodaLocalDateTimeReads("yyyy-MM-dd'T'HH:mm:ss")
+
+  implicit val todoWrites: Writes[Todo] = Json.writes[Todo]
+  implicit val todoReads: Reads[Todo] = Json.reads[Todo]
+
+  private var todos: List[Todo] = List.empty[Todo]
+
+  def createTodo = Action.async(parse.json) { implicit request =>
+    request.body.validate[Todo].fold(
+      errors => {
+        Future.successful(BadRequest(Json.obj("message" -> JsError.toJson(errors))))
+      },
+      todo => {
+        todos = todos :+ todo
+        Future.successful(Created(Json.obj("message" -> "Todo created")))
+      }
+    )
+  }
+}
+In the above code, we define a case class Todo to represent the structure of a single todo item. The TodoController class extends AbstractController provided by Play framework and handles the creation of todos.
+
+The localDateReads and localDateTimeReads implicit values define the custom JSON deserialization for LocalDate and LocalDateTime types respectively.
+
+The todoWrites and todoReads implicit values are used for JSON serialization and deserialization of the Todo class.
+
+The todos variable represents a list of todos (you would typically replace this with a database or other storage mechanism).
+
+The createTodo method is the endpoint for creating a new todo item. It expects JSON data in the request body representing a Todo object. It validates the JSON against the todoReads implicit value. If the validation succeeds, the new todo is added to the todos list, and a 201 Created response is returned. If the validation fails, a 400 Bad Request response is returned with the validation errors.
+
+Please note that this example assumes you have the necessary dependencies and configurations set up for Scala Play framework. You'll need to have the Play framework installed and have a project set up with the appropriate dependencies for JSON handling.
+
+
+
+
+
+User
+make the graphql version
+
+ChatGPT
+Certainly! Here's an example of a Scala Play GraphQL controller class for creating a Todo table:
+
+scala
+Copy code
+import javax.inject.Inject
+import play.api.mvc.{BaseController, ControllerComponents}
+import play.api.libs.json.Json
+import play.api.libs.json.Reads._
+import play.api.libs.functional.syntax._
+import sangria.macros._
+import sangria.execution._
+import sangria.marshalling.playJson._
+import sangria.schema._
+import sangria.execution.deferred.DeferredResolver
+import scala.concurrent.ExecutionContext
+
+case class Todo(id: Int, priority: Float, completed: Boolean, task: String, dueDate: String, createdAt: String)
+
+class TodoController @Inject()(cc: ControllerComponents)(implicit ec: ExecutionContext)
+  extends BaseController(cc) {
+
+  implicit val todoReads = Json.reads[Todo]
+  implicit val todoWrites = Json.writes[Todo]
+
+  val TodoType = ObjectType("Todo", fields[Unit, Todo](
+    Field("id", IntType, resolve = _.value.id),
+    Field("priority", FloatType, resolve = _.value.priority),
+    Field("completed", BooleanType, resolve = _.value.completed),
+    Field("task", StringType, resolve = _.value.task),
+    Field("dueDate", StringType, resolve = _.value.dueDate),
+    Field("createdAt", StringType, resolve = _.value.createdAt)
+  ))
+
+  val QueryType = ObjectType("Query", fields[Unit, Unit](
+    Field("todos", ListType(TodoType),
+      resolve = _ => List(
+        Todo(1, 1.5f, completed = false, "Task 1", "2023-05-18", "2023-05-18T10:00:00"),
+        Todo(2, 2.0f, completed = true, "Task 2", "2023-05-19", "2023-05-19T14:30:00")
+      )
+    )
+  ))
+
+  val schema = Schema(QueryType)
+
+  def graphql(query: String) = Action.async { implicit request =>
+    val operation = graphql"query $query"
+
+    Executor.execute(schema, operation)
+      .map(Ok(_))
+      .recover {
+        case error: QueryAnalysisError => BadRequest(error.resolveError)
+        case error: ErrorWithResolver => InternalServerError(error.resolveError)
+      }
+  }
+}
+In the above code, we define a case class Todo to represent the structure of a single todo item. The TodoController class extends BaseController provided by Play framework and handles the GraphQL requests for todos.
+
+The todoReads and todoWrites implicit values are used for JSON serialization and deserialization of the Todo class.
+
+The TodoType defines the GraphQL object type for Todo with fields corresponding to its properties.
+
+The QueryType defines the root query type, which includes a field todos that resolves to a list of todos.
+
+The schema defines the GraphQL schema with the QueryType as the root type.
+
+The graphql method handles the GraphQL requests. It parses the GraphQL query using graphql"" macro and executes it using the Executor.execute method. The result is returned as a JSON response.
+
+Please note that this example assumes you have the necessary dependencies and configurations set up for Scala Play framework and Sangria GraphQL library. You'll need to have the Play framework and Sangria dependencies installed and have a project set up with the appropriate configurations for GraphQL handling.
+

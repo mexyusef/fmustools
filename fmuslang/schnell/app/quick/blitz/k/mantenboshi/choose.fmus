@@ -1,0 +1,10 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan mantenboshi terutama ivideo dan klikmytime*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+napaktilas cepat mantenboshi - teknik cepat belajar ulang rails
+--#

@@ -1,0 +1,121 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @create project with pnpm*
+        	.,d(/load=__FILE__=init_pnpm*)
+        @create project with npm*
+        	.,d(/load=__FILE__=init_npm*)
+		@create project with yarn*
+        	.,d(/load=__FILE__=init_yarn*)
+
+		@apollo cli ts graphql codegen https://www.youtube.com/watch?v=Tw_wn6XUfnU *
+--#
+
+--% init_yarn
+.,d
+	%__TEMPLATE_BASEFOLDER=__INPUT__
+	%__TEMPLATE_PORT=8000
+	__TEMPLATE_BASEFOLDER,d(/mk)
+		$* yarn init -y
+		$* yarn add -D express typescript ts-node nodemon @types/node @types/express
+		package.json,f(f=package.json,@ia=package.json/scripts="scripts")
+		package.json,f(f=package.json,@rs="dist/server.js"="index.js")
+		?pick
+			nodemon.json,f(e=__FILE__=nodemon.json)
+			package.json,f(f=package.json,@rs="nodemon src/app.ts"="nodemon")
+		tsconfig.json,f(e=__FILE__=tsconfig.json)
+		src,d(/mk)
+			server.ts,f(e=__FILE__=server.ts)
+
+		$* python -m webbrowser -t http://localhost:__TEMPLATE_PORT/
+		$* nodemon start		
+--#
+
+--% init_npm
+.,d
+	%__TEMPLATE_BASEFOLDER=__INPUT__
+	%__TEMPLATE_PORT=8000
+	__TEMPLATE_BASEFOLDER,d(/mk)
+		$* npm init -y
+		$* npm i -D express typescript ts-node nodemon @types/node @types/express
+		package.json,f(f=package.json,@ia=package.json/scripts="scripts")
+		package.json,f(f=package.json,@rs="dist/server.js"="index.js")
+		nodemon.json,f(e=__FILE__=nodemon.json)
+		tsconfig.json,f(e=__FILE__=tsconfig.json)
+		src,d(/mk)
+			server.ts,f(e=__FILE__=server.ts)
+
+		$* python -m webbrowser -t http://localhost:__TEMPLATE_PORT/
+		$* npx nodemon start		
+--#
+
+--% init_pnpm
+.,d
+	%__TEMPLATE_BASEFOLDER=__INPUT__
+	%__TEMPLATE_PORT=8000
+	__TEMPLATE_BASEFOLDER,d(/mk)
+		$* pnpm init -y
+		$* pnpm add express typescript ts-node nodemon @types/node @types/express
+		package.json,f(f=package.json,@ia=package.json/scripts="scripts")
+		package.json,f(f=package.json,@rs="dist/server.js"="index.js")
+		nodemon.json,f(e=__FILE__=nodemon.json)
+		tsconfig.json,f(e=__FILE__=tsconfig.json)
+		src,d(/mk)
+			server.ts,f(e=__FILE__=server.ts)
+		#$* tsc --init
+		$* python -m webbrowser -t http://localhost:__TEMPLATE_PORT/
+		$* pnpx nodemon start		
+--#
+
+--% server.ts
+import express, { Application, Request, Response, NextFunction } from 'express';
+const app: Application = express();
+
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+	res.status(200).json({"status": "alive"})
+	//res.send('alive');
+})
+
+app.listen(__TEMPLATE_PORT, () => {
+	console.log(`
+	Server running on http://localhost:__TEMPLATE_PORT/
+	`)
+});
+--#
+
+
+--% tsconfig.json
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"outDir": "dist",
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"sourceMap": true,
+		"strict": true,
+	},
+	"exclude": [
+		"node_modules"
+	]
+}
+--#
+
+--% nodemon.json
+{
+	"signal": "SIGTERM",
+	"env": {
+		"NODE_ENV": "development"
+	},
+	"ext": "ts",
+	"exec": "pnpx ts-node -- src/server.ts"
+}
+--#
+
+--% package.json/scripts
+	"dev": "nodemon",
+	"start": "tsc && node dist/server.js",
+	"build": "tsc -p .",
+--#

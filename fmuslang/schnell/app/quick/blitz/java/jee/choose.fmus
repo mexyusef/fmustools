@@ -1,0 +1,13 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @ ejb *
+        @ jdbc *
+        @ jms *
+        @ jpa *
+        @ jsp *
+        @ rest *
+        @ servlet *
+        @ soap *
+        @ xml *
+--#

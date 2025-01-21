@@ -1,0 +1,10 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @jquery project*
+        @vanillajs project*
+        @ajax project*
+        @lodash project*
+        @emberjs project*
+        @backbonejs project*
+--#

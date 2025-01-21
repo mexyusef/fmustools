@@ -1,0 +1,64 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    info.txt,f(e=__FILE__=info.txt)
+    $* more info.txt
+    $* go run main.go
+--#
+
+--% main.go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
+
+type city struct {
+	Name string
+	Area uint64
+}
+
+func postHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		var tempCity city
+		decoder := json.NewDecoder(r.Body)
+		err := decoder.Decode(&tempCity)
+		if err != nil {
+			panic(err)
+		}
+		defer r.Body.Close()
+		fmt.Printf("Got %s city with area of %d sq miles!\n", tempCity.Name, tempCity.Area)
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("201 - Created"))
+	} else {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		w.Write([]byte("405 - Method Not Allowed"))
+	}
+}
+
+func main() {
+	http.HandleFunc("/city", postHandler)
+	http.ListenAndServe(":8000", nil)
+}
+--#
+
+--% info.txt
+localhost:8000/city
+curl -X POST -d "{\"city\": \"dallas\"}" localhost:8000/city
+
+curl -X POST -d "{\"city\": \"dallas\"}" localhost:8000/city
+201 - Created
+
+curl -X POST -H "Content-Type: application/json" -d "{\"Name\": \"jakarta\", \"Area\": 2000}" localhost:8000/city
+	Got jakarta city with area of 2000 sq miles!
+	201 - Created
+--#

@@ -1,0 +1,714 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	actors,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/test.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/main.rs)
+			actors,d(/mk)
+				count.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/actors/count.rs)
+				log.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/actors/log.rs)
+				mod.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/actors/mod.rs)
+				resize.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/actors/resize.rs)
+	blocking,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/blocking/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/blocking/test.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/blocking/src/main.rs)
+	one-thread,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/one-thread/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/one-thread/test.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/one-thread/src/main.rs)
+	thread-pool,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/thread-pool/Cargo.toml)
+		test.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/thread-pool/test.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/thread-pool/src/main.rs)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/Cargo.toml
+[package]
+name = "actors"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+actix = "0.7"
+failure = "0.1"
+futures = "0.1"
+hyper = "0.12"
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+syslog = "4.0"
+queryst = "2.0"
+image = "0.20"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/test.sh
+curl --request POST \
+     --data-binary "@../../media/image.jpg" \
+     --output "files/resized.jpg" \
+     "http://localhost:8080/resize?width=100&height=100"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/main.rs
+use actix::{Actor, Addr};
+use actix::sync::SyncArbiter;
+use std::io::{Error, ErrorKind};
+use failure::Fail;
+use futures::{future, Future, Stream};
+use serde_json::Value;
+use hyper::{Body, Method, Request, Response, Server, StatusCode};
+use hyper::service::service_fn;
+
+mod actors;
+
+use self::actors::{
+    count::{Count, CountActor},
+    log::{Log, LogActor},
+    resize::{Resize, ResizeActor},
+};
+
+static INDEX: &[u8] = b"Resize Microservice";
+
+fn other<E>(err: E) -> Error
+where
+    E: Into<Box<std::error::Error + Send + Sync>>,
+{
+    Error::new(ErrorKind::Other, err)
+}
+
+fn to_number(value: &Value, default: u16) -> u16 {
+    value.as_str()
+        .and_then(|x| x.parse::<u16>().ok())
+        .unwrap_or(default)
+}
+
+fn count_up(state: &State, path: &str) -> impl Future<Item=(), Error=Error> {
+    let path = path.to_string();
+    let log = state.log.clone();
+    state.count.send(Count(path.clone()))
+        .and_then(move |value| {
+            let message = format!("total requests for '{}' is {}", path, value);
+            log.send(Log(message))
+        })
+        .map_err(|err| other(err.compat()))
+}
+
+fn microservice_handler(state: &State, req: Request<Body>)
+    -> Box<Future<Item=Response<Body>, Error=Error> + Send>
+{
+    match (req.method(), req.uri().path().to_owned().as_ref()) {
+        (&Method::GET, "/") => {
+            let fut = count_up(state, "/").map(|_| Response::new(INDEX.into()));
+            Box::new(fut)
+        },
+        (&Method::POST, "/resize") => {
+            let (width, height) = {
+                let uri = req.uri().query().unwrap_or("");
+                let query = queryst::parse(uri).unwrap_or(Value::Null);
+                let w = to_number(&query["width"], 180);
+                let h = to_number(&query["height"], 180);
+                (w, h)
+            };
+            let resize = state.resize.clone();
+            let body = req.into_body()
+                .map_err(other)
+                .concat2()
+                .map(|chunk| {
+                    chunk.to_vec()
+                })
+                .and_then(move |buffer| {
+                    let msg = Resize {
+                        buffer,
+                        width,
+                        height,
+                    };
+                    resize.send(msg)
+                        .map_err(|err| other(err.compat()))
+                        .and_then(|x| x.map_err(other))
+                })
+                .map(|resp| {
+                    Response::new(resp.into())
+                });
+            let fut = count_up(state, "/resize").and_then(move |_| body);
+            Box::new(fut)
+        },
+        _ => {
+            response_with_code(StatusCode::NOT_FOUND)
+        },
+    }
+}
+
+fn response_with_code(status_code: StatusCode)
+    -> Box<Future<Item=Response<Body>, Error=Error> + Send>
+{
+    let resp = Response::builder()
+        .status(status_code)
+        .body(Body::empty())
+        .unwrap();
+    Box::new(future::ok(resp))
+}
+
+#[derive(Clone)]
+struct State {
+    resize: Addr<ResizeActor>,
+    count: Addr<CountActor>,
+    log: Addr<LogActor>,
+}
+
+fn main() {
+    actix::run(|| {
+        let resize = SyncArbiter::start(2, || ResizeActor);
+        let count = CountActor::new().start();
+        let log = LogActor::new().start();
+
+        let state = State { resize, count, log };
+
+        let addr = ([127, 0, 0, 1], 8080).into();
+        let builder = Server::bind(&addr);
+        let server = builder.serve(move || {
+            let state = state.clone();
+            service_fn(move |req| microservice_handler(&state, req))
+        });
+        server.map_err(drop)
+    });
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/actors/count.rs
+use actix::{Actor, Context, Handler, Message};
+use std::collections::HashMap;
+
+type Value = u64;
+
+pub struct Count(pub String);
+
+impl Message for Count {
+    type Result = Value;
+}
+
+pub struct CountActor {
+    counter: HashMap<String, Value>,
+}
+
+impl CountActor {
+    pub fn new() -> Self {
+        Self {
+            counter: HashMap::new(),
+        }
+    }
+}
+
+impl Actor for CountActor {
+    type Context = Context<Self>;
+}
+
+impl Handler<Count> for CountActor {
+    type Result = Value;
+
+    fn handle(&mut self, Count(path): Count, _: &mut Context<Self>) -> Self::Result {
+        let value = self.counter.entry(path).or_default();
+        *value = *value + 1;
+        *value
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/actors/log.rs
+use actix::{Actor, Context, Handler, Message};
+use syslog::{Facility, Formatter3164, Logger, LoggerBackend};
+
+pub struct Log(pub String);
+
+impl Message for Log {
+    type Result = ();
+}
+
+pub struct LogActor {
+    writer: Logger<LoggerBackend, String, Formatter3164>,
+}
+
+impl LogActor {
+    pub fn new() -> Self {
+        let formatter = Formatter3164 {
+            facility: Facility::LOG_USER,
+            hostname: None,
+            process: "rust-microservice".into(),
+            pid: 0,
+        };
+        let writer = syslog::unix(formatter).unwrap();
+        Self {
+            writer,
+        }
+    }
+}
+
+impl Actor for LogActor {
+    type Context = Context<Self>;
+}
+
+impl Handler<Log> for LogActor {
+    type Result = ();
+
+    fn handle(&mut self, Log(mesg): Log, _: &mut Context<Self>) -> Self::Result {
+        self.writer.info(mesg).ok();
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/actors/mod.rs
+pub mod count;
+pub mod log;
+pub mod resize;
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/actors/src/actors/resize.rs
+use actix::{Actor, Handler, Message, SyncContext};
+use image::{ImageResult, FilterType};
+
+type Buffer = Vec<u8>;
+
+pub struct Resize {
+    pub buffer: Buffer,
+    pub width: u16,
+    pub height: u16,
+}
+
+impl Message for Resize {
+    type Result = ImageResult<Buffer>;
+}
+
+pub struct ResizeActor;
+
+impl Actor for ResizeActor {
+    type Context = SyncContext<Self>;
+}
+
+impl Handler<Resize> for ResizeActor {
+    type Result = ImageResult<Buffer>;
+
+    fn handle(&mut self, data: Resize, _: &mut SyncContext<Self>) -> Self::Result {
+        let format = image::guess_format(&data.buffer)?;
+        let img = image::load_from_memory(&data.buffer)?;
+        let scaled = img.resize(data.width as u32, data.height as u32, FilterType::Lanczos3);
+        let mut result = Vec::new();
+        scaled.write_to(&mut result, format)?;
+        Ok(result)
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/blocking/Cargo.toml
+[package]
+name = "blocking"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+futures = "0.1"
+hyper = "0.12"
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+queryst = "2.0"
+image = "0.20"
+tokio-threadpool = "0.1"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/blocking/test.sh
+curl --request POST \
+     --data-binary "@../../media/image.jpg" \
+     --output "files/resized.jpg" \
+     "http://localhost:8080/resize?width=100&height=100"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/blocking/src/main.rs
+use image::{ImageResult, FilterType};
+use std::io::{Error, ErrorKind};
+use futures::{future, Future, Stream};
+use serde_json::Value;
+use hyper::{Body, Method, Request, Response, Server, StatusCode};
+use hyper::service::service_fn;
+use tokio_threadpool::blocking;
+
+static INDEX: &[u8] = b"Resize Microservice";
+
+fn convert(data: &[u8], width: u16, height: u16) -> ImageResult<Vec<u8>> {
+    let format = image::guess_format(&data)?;
+    let img = image::load_from_memory(&data)?;
+    let scaled = img.resize(width as u32, height as u32, FilterType::Lanczos3);
+    let mut result = Vec::new();
+    scaled.write_to(&mut result, format)?;
+    Ok(result)
+}
+
+fn other<E>(err: E) -> Error
+where
+    E: Into<Box<std::error::Error + Send + Sync>>,
+{
+    Error::new(ErrorKind::Other, err)
+}
+
+fn to_number(value: &Value, default: u16) -> u16 {
+    value.as_str()
+        .and_then(|x| x.parse::<u16>().ok())
+        .unwrap_or(default)
+}
+
+fn microservice_handler(req: Request<Body>)
+    -> Box<Future<Item=Response<Body>, Error=Error> + Send>
+{
+    match (req.method(), req.uri().path().to_owned().as_ref()) {
+        (&Method::GET, "/") => {
+            Box::new(future::ok(Response::new(INDEX.into())))
+        },
+        (&Method::POST, "/resize") => {
+            let (width, height) = {
+                let uri = req.uri().query().unwrap_or("");
+                let query = queryst::parse(uri).unwrap_or(Value::Null);
+                let w = to_number(&query["width"], 180);
+                let h = to_number(&query["height"], 180);
+                (w, h)
+            };
+            let body = req.into_body()
+                .map_err(other)
+                .concat2()
+                .map(|chunk| {
+                    chunk.to_vec()
+                })
+                .and_then(move |buffer| {
+                    future::poll_fn(move || {
+                        let buffer = &buffer;
+                        blocking(move || {
+                            convert(buffer, width, height).unwrap()
+                        })
+                    })
+                    .map_err(other)
+                })
+                .map(|resp| {
+                    Response::new(resp.into())
+                });
+            Box::new(body)
+        },
+        _ => {
+            response_with_code(StatusCode::NOT_FOUND)
+        },
+    }
+}
+
+fn response_with_code(status_code: StatusCode)
+    -> Box<Future<Item=Response<Body>, Error=Error> + Send>
+{
+    let resp = Response::builder()
+        .status(status_code)
+        .body(Body::empty())
+        .unwrap();
+    Box::new(future::ok(resp))
+}
+
+
+fn main() {
+    let addr = ([127, 0, 0, 1], 8080).into();
+    let builder = Server::bind(&addr);
+    let server = builder.serve(|| {
+        service_fn(|req| microservice_handler(req))
+    });
+    let server = server.map_err(drop);
+    hyper::rt::run(server);
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/one-thread/Cargo.toml
+[package]
+name = "one-thread"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+futures = "0.1"
+hyper = "0.12"
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+queryst = "2.0"
+image = "0.20"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/one-thread/test.sh
+curl --request POST \
+     --data-binary "@../../media/image.jpg" \
+     --output "files/resized.jpg" \
+     "http://localhost:8080/resize?width=100&height=100"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/one-thread/src/main.rs
+use image::{ImageResult, FilterType};
+use std::io::{Error, ErrorKind};
+use std::thread;
+use futures::{future, Future, Sink, Stream};
+use futures::sync::{mpsc, oneshot};
+use serde_json::Value;
+use hyper::{Body, Method, Request, Response, Server, StatusCode};
+use hyper::service::service_fn;
+
+static INDEX: &[u8] = b"Resize Microservice";
+
+struct WorkerRequest {
+    buffer: Vec<u8>,
+    width: u16,
+    height: u16,
+    tx: oneshot::Sender<WorkerResponse>,
+}
+
+type WorkerResponse = Result<Vec<u8>, Error>;
+
+fn start_worker() -> mpsc::Sender<WorkerRequest> {
+    let (tx, rx) = mpsc::channel::<WorkerRequest>(1);
+    thread::spawn(move || {
+        let requests = rx.wait();
+        for req in requests {
+            if let Ok(req) = req {
+                let resp = convert(req.buffer, req.width, req.height).map_err(other);
+                req.tx.send(resp).ok();
+            }
+        }
+    });
+    tx
+}
+
+fn convert(data: Vec<u8>, width: u16, height: u16) -> ImageResult<Vec<u8>> {
+    let format = image::guess_format(&data)?;
+    let img = image::load_from_memory(&data)?;
+    let scaled = img.resize(width as u32, height as u32, FilterType::Lanczos3);
+    let mut result = Vec::new();
+    scaled.write_to(&mut result, format)?;
+    Ok(result)
+}
+
+fn other<E>(err: E) -> Error
+where
+    E: Into<Box<std::error::Error + Send + Sync>>,
+{
+    Error::new(ErrorKind::Other, err)
+}
+
+fn to_number(value: &Value, default: u16) -> u16 {
+    value.as_str()
+        .and_then(|x| x.parse::<u16>().ok())
+        .unwrap_or(default)
+}
+
+fn microservice_handler(tx: mpsc::Sender<WorkerRequest>, req: Request<Body>)
+    -> Box<Future<Item=Response<Body>, Error=Error> + Send>
+{
+    match (req.method(), req.uri().path().to_owned().as_ref()) {
+        (&Method::GET, "/") => {
+            Box::new(future::ok(Response::new(INDEX.into())))
+        },
+        (&Method::POST, "/resize") => {
+            let (width, height) = {
+                let uri = req.uri().query().unwrap_or("");
+                let query = queryst::parse(uri).unwrap_or(Value::Null);
+                let w = to_number(&query["width"], 180);
+                let h = to_number(&query["height"], 180);
+                (w, h)
+            };
+            let body = req.into_body()
+                .map_err(other)
+                .concat2()
+                .map(|chunk| {
+                    chunk.to_vec()
+                })
+                .and_then(move |buffer| {
+                    let (resp_tx, resp_rx) = oneshot::channel();
+                    let resp_rx = resp_rx.map_err(other);
+                    let request = WorkerRequest {
+                        buffer,
+                        width,
+                        height,
+                        tx: resp_tx,
+                    };
+                    tx.send(request)
+                        .map_err(other)
+                        .and_then(move |_| resp_rx)
+                        .and_then(|x| x)
+                })
+                .map(|resp| {
+                    Response::new(resp.into())
+                });
+            Box::new(body)
+        },
+        _ => {
+            response_with_code(StatusCode::NOT_FOUND)
+        },
+    }
+}
+
+fn response_with_code(status_code: StatusCode)
+    -> Box<Future<Item=Response<Body>, Error=Error> + Send>
+{
+    let resp = Response::builder()
+        .status(status_code)
+        .body(Body::empty())
+        .unwrap();
+    Box::new(future::ok(resp))
+}
+
+
+fn main() {
+    let addr = ([127, 0, 0, 1], 8080).into();
+    let builder = Server::bind(&addr);
+    let tx = start_worker();
+    let server = builder.serve(move || {
+        let tx = tx.clone();
+        service_fn(move |req| microservice_handler(tx.clone(), req))
+    });
+    let server = server.map_err(drop);
+    hyper::rt::run(server);
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/thread-pool/Cargo.toml
+[package]
+name = "thread_pool"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+futures = "0.1"
+hyper = "0.12"
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+queryst = "2.0"
+image = "0.20"
+futures-cpupool = "0.1"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/thread-pool/test.sh
+curl --request POST \
+     --data-binary "@../../media/image.jpg" \
+     --output "files/resized.jpg" \
+     "http://localhost:8080/resize?width=100&height=100"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter10/thread-pool/src/main.rs
+use image::{ImageResult, FilterType};
+use std::io::{Error, ErrorKind};
+use futures::{future, Future, Stream};
+use serde_json::Value;
+use hyper::{Body, Method, Request, Response, Server, StatusCode};
+use hyper::service::service_fn;
+use futures_cpupool::CpuPool;
+
+static INDEX: &[u8] = b"Resize Microservice";
+
+fn convert(data: &[u8], width: u16, height: u16) -> ImageResult<Vec<u8>> {
+    let format = image::guess_format(&data)?;
+    let img = image::load_from_memory(&data)?;
+    let scaled = img.resize(width as u32, height as u32, FilterType::Lanczos3);
+    let mut result = Vec::new();
+    scaled.write_to(&mut result, format)?;
+    Ok(result)
+}
+
+fn other<E>(err: E) -> Error
+where
+    E: Into<Box<std::error::Error + Send + Sync>>,
+{
+    Error::new(ErrorKind::Other, err)
+}
+
+fn to_number(value: &Value, default: u16) -> u16 {
+    value.as_str()
+        .and_then(|x| x.parse::<u16>().ok())
+        .unwrap_or(default)
+}
+
+fn microservice_handler(pool: CpuPool, req: Request<Body>)
+    -> Box<Future<Item=Response<Body>, Error=Error> + Send>
+{
+    match (req.method(), req.uri().path().to_owned().as_ref()) {
+        (&Method::GET, "/") => {
+            Box::new(future::ok(Response::new(INDEX.into())))
+        },
+        (&Method::POST, "/resize") => {
+            let (width, height) = {
+                let uri = req.uri().query().unwrap_or("");
+                let query = queryst::parse(uri).unwrap_or(Value::Null);
+                let w = to_number(&query["width"], 180);
+                let h = to_number(&query["height"], 180);
+                (w, h)
+            };
+            let body = req.into_body()
+                .map_err(other)
+                .concat2()
+                .map(|chunk| {
+                    chunk.to_vec()
+                })
+                .and_then(move |buffer| {
+                    let task = future::lazy(move || {
+                        convert(&buffer, width, height)
+                    });
+                    pool.spawn(task)
+                        .map_err(other)
+                })
+                .map(|resp| {
+                    Response::new(resp.into())
+                });
+            Box::new(body)
+        },
+        _ => {
+            response_with_code(StatusCode::NOT_FOUND)
+        },
+    }
+}
+
+fn response_with_code(status_code: StatusCode)
+    -> Box<Future<Item=Response<Body>, Error=Error> + Send>
+{
+    let resp = Response::builder()
+        .status(status_code)
+        .body(Body::empty())
+        .unwrap();
+    Box::new(future::ok(resp))
+}
+
+
+fn main() {
+    let addr = ([127, 0, 0, 1], 8080).into();
+    let pool = CpuPool::new(4);
+    let builder = Server::bind(&addr);
+    let server = builder.serve(move || {
+        let pool = pool.clone();
+        service_fn(move |req| microservice_handler(pool.clone(), req))
+    });
+    let server = server.map_err(drop);
+    hyper::rt::run(server);
+}
+
+--#
+

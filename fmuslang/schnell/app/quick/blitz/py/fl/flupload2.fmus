@@ -1,0 +1,202 @@
+--% index/fmus
+__PWD,d
+    %TEMPLATE_BASEDIR=__INPUT__
+    TEMPLATE_BASEDIR,d(/mk)
+        .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+	main.py,f(e=__FILE__=main.py)
+	templates,d(/mk)
+		index.html,f(e=__FILE__=index.html)
+--#
+
+--% index.html
+<html>
+<head>
+<script language="javascript">
+function changeFormAction() {
+	theform = document.getElementById('singleuploadchunked')
+	simplefilename = document.getElementById('thefile').value.split('\\').pop()
+
+	document.getElementById('thefilename').value = simplefilename
+	theform.action = "/singleuploadchunked/" + simplefilename
+}
+
+function submitForm() {
+	theform = document.getElementById('singleuploadchunked')
+	if (document.getElementById('thefile').value=='') {
+		alert("Need to provide a file to upload first!")
+	} else {
+		theform.submit()
+	}
+}
+</script>
+
+
+</head>
+	<body>
+
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<p style="color: red; font-weight: bold;">
+					{% for message in messages %}
+					  	<p>{{ message }}</p>
+					{% endfor %}
+				</p>
+			{% endif %}
+		{% endwith %}
+
+		<h2>JSON normalizer</h2>
+		<form action="/multipleupload" method="POST" enctype="multipart/form-data">
+			<input type="file" name="files[]" />
+			<input type="submit" value="submit single file"/>
+		</form>
+
+	</body>
+</html>
+--#
+
+--% main.py
+# import sys
+import flask, json, os, tempfile
+from flask import send_file
+from io import StringIO
+from werkzeug.utils import secure_filename
+
+# ALLOWED_EXTENSIONS = set(['json', 'jpg', 'png'])
+ALLOWED_EXTENSIONS = set(['json'])
+app = flask.Flask(__name__)
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route("/")
+def entry_point():
+	return flask.render_template('index.html',  tempdir=tempfile.gettempdir())
+
+def add_flash_message(msg):
+	"""Provides message to end user in browser"""
+	print(msg)
+	flask.flash(msg)
+
+
+def process_file(filepath):
+	fd = open(filepath, 'r')
+	baris = fd.readlines()
+	print('file json berjumlah baris:', len(baris))
+	fd.close()
+	itemize = '[ ' + ',\n'.join(baris) + ']'
+	data = json.loads(itemize)
+	filename = os.path.basename(filepath)
+	dirname = os.path.dirname(filepath)
+	name, ext = os.path.splitext(filename)
+	newname = os.path.join(dirname, name + '-output' + ext)
+	with open(newname, 'w') as fd:
+		content = json.dumps(data, indent=4)
+		fd.write(content)
+	return newname
+
+@app.route("/multipleupload", methods=["GET", "POST", "PUT"])
+def multiple_upload(file_element_name="files[]"):
+	"""
+	Saves files uploaded from <input type="file">, can be multiple files
+	
+	Positive Test (single file):
+	curl -X POST http://localhost:8080/multipleupload -F "files[]=@tests/car.jpg"
+	Positive Test (multiple files):
+	curl -X POST http://localhost:8080/multipleupload -F "files[]=@tests/car.jpg" -F "files[]=@tests/testdoc.pdf"
+
+	Negative Test (using GET method):
+	curl -X GET http://localhost:8080/multipleupload
+	Negative Test (no input file element):
+	curl -X POST http://localhost:8080/multipleupload
+	Negative Test (not whitelisted file extension):
+	curl -X POST http://localhost:8080/multipleupload -F "files[]=@tests/testdoc.docx"
+	"""
+
+	# must be POST/PUT
+	# if flask.request.method not in ['POST', 'PUT']:
+	# 	add_flash_message("Can only upload on POST/PUT methods")
+		# return flask.redirect(flask.url_for("multiple_upload"))
+
+	# files will be materialized as soon as we touch request.files,
+	# so check for errors right up front
+	# try:
+	# 	flask.request.files
+	# except OSError as e:
+	# 	print("ERROR ON INITIAL TOUCH OF request.files")
+	# 	add_flash_message("ERROR materializing files to disk: " + StringIO(str(e)).getvalue())
+		# return flask.redirect(flask.url_for("multiple_upload"))
+
+	# if file_element_name not in flask.request.files:
+	# 	add_flash_message('No files uploaded')
+		# return flask.redirect(flask.url_for("multiple_upload"))
+
+	# get list of files uploaded
+	files = flask.request.files.getlist(file_element_name)
+
+	# if user did not select file, filename will be empty
+	# if len(files)==1 and files[0].filename == '':
+	# 	add_flash_message('No selected file')
+		# return flask.redirect(flask.url_for("multiple_upload"))
+
+	filepath = None
+	ufile = files[0]
+	output_file = None
+	try:
+		filename = secure_filename(ufile.filename)
+		if allowed_file(filename):
+			print("uploading file {} of type {}".format(filename, ufile.content_type))
+			filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+			ufile.save(filepath)
+			if filepath.endswith('.json'):
+				output_file = process_file(filepath)				
+			flask.flash("Uploaded file: {filename} => {output_file} ")
+		else:
+			add_flash_message("Not processing extension " + filename)
+	except OSError as e:
+		add_flash_message("ERROR writing file " + filename + " to disk: " + StringIO(str(e)).getvalue())
+
+	return send_file(output_file, as_attachment=True)
+
+	# for ufile in files:
+	# 	try:
+	# 		filename = secure_filename(ufile.filename)
+	# 		if allowed_file(filename):
+	# 			print("uploading file {} of type {}".format(filename, ufile.content_type))
+	# 			filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+	# 			ufile.save(filepath)
+	# 			if filepath.endswith('.json'):
+	# 				output_file = process_file(filepath)
+	# 				send_file(output_file, as_attachment=True)
+	# 			flask.flash("Just uploaded: " + filename)
+	# 		else:
+	# 			add_flash_message("not going to process file with extension " + filename)
+	# 	except OSError as e:
+	# 		add_flash_message("ERROR writing file " + filename + " to disk: " + StringIO(str(e)).getvalue())
+
+	# return flask.redirect(flask.url_for("entry_point"))
+
+
+def main():
+	print("tempdir: " + tempfile.gettempdir())
+	app.config['UPLOAD_FOLDER'] = tempfile.gettempdir()
+
+	# Below error if MAX_CONTENT_LENGTH is exceeded by upload
+	# [error] 11#11: *1 readv() failed (104: Connection reset by peer) while reading upstream
+	#app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100MB limit
+	app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024 * 1024  # 2GB limit
+	app.config['CHUNK_SIZE'] = 4096
+
+	# secret key used for flask.flash messages
+	app.secret_key = 'abc123'
+
+	port = int(os.getenv("PORT", 8080))
+	app.run(host='0.0.0.0', port=port)
+
+
+if __name__ == '__main__':
+	main()
+--#

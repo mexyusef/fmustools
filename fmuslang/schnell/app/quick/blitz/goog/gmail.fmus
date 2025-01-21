@@ -1,0 +1,297 @@
+--% gmail/simple1/us
+.,d
+	?pick
+		main.py,f(e=__FILE=gmail/simple1/main.py)
+		main.py,f(e=__FILE=gmail/thread/main.py)
+		main.py,f(e=__FILE=gmail/thread2/main.py)
+	$* python main.py
+--#
+
+--% gmail/simple1/main.py
+from __future__ import print_function
+
+import os.path
+
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
+# If modifying these scopes, delete the file token.json.
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+
+
+def main():
+	"""Shows basic usage of the Gmail API.
+	Lists the user's Gmail labels.
+	"""
+	creds = None
+	# The file token.json stores the user's access and refresh tokens, and is
+	# created automatically when the authorization flow completes for the first
+	# time.
+	if os.path.exists('token.json'):
+		creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+	# If there are no (valid) credentials available, let the user log in.
+	if not creds or not creds.valid:
+		if creds and creds.expired and creds.refresh_token:
+			creds.refresh(Request())
+		else:
+			flow = InstalledAppFlow.from_client_secrets_file(
+				'credentials.json', SCOPES)
+			creds = flow.run_local_server(port=0)
+		# Save the credentials for the next run
+		with open('token.json', 'w') as token:
+			token.write(creds.to_json())
+
+	try:
+		# Call the Gmail API
+		service = build('gmail', 'v1', credentials=creds)
+		results = service.users().labels().list(userId='me').execute()
+		labels = results.get('labels', [])
+
+		if not labels:
+			print('No labels found.')
+			return
+		print('Labels:')
+		for label in labels:
+			print(label['name'])
+
+	except HttpError as error:
+		# TODO(developer) - Handle errors from gmail API.
+		print(f'An error occurred: {error}')
+
+
+if __name__ == '__main__':
+	main()
+--#
+
+
+--% gmail/thread/main.py
+#https://github.com/googleworkspace/python-samples/blob/master/gmail/snippet/thread/threads.py
+from __future__ import print_function
+
+import os.path
+
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
+# If modifying these scopes, delete the file token.json.
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+
+
+def main():
+	"""Shows basic usage of the Gmail API.
+	Lists the user's Gmail labels.
+	"""
+	creds = None
+	# The file token.json stores the user's access and refresh tokens, and is
+	# created automatically when the authorization flow completes for the first
+	# time.
+	if os.path.exists('token.json'):
+		creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+	# If there are no (valid) credentials available, let the user log in.
+	if not creds or not creds.valid:
+		if creds and creds.expired and creds.refresh_token:
+			creds.refresh(Request())
+		else:
+			flow = InstalledAppFlow.from_client_secrets_file(
+				'credentials.json', SCOPES)
+			creds = flow.run_local_server(port=0)
+		# Save the credentials for the next run
+		with open('token.json', 'w') as token:
+			token.write(creds.to_json())
+
+	try:
+		# Call the Gmail API
+		service = build('gmail', 'v1', credentials=creds)
+
+		# pylint: disable=maybe-no-member
+		threads = service.users().threads().list(userId='me').execute().get('threads', [])
+		for thread in threads:
+			tdata = service.users().threads().get(userId='me', id=thread['id']).execute()
+			nmsgs = len(tdata['messages'])
+			# skip if <3 msgs in thread
+			if nmsgs > 2:
+				msg = tdata['messages'][0]['payload']
+				subject = ''
+				for header in msg['headers']:
+					if header['name'] == 'Subject':
+						subject = header['value']
+						break
+				if subject:  # skip if no Subject line
+					print(F'- {subject}, {nmsgs}')
+		###############################################################
+		#results = service.users().labels().list(userId='me').execute()
+		#labels = results.get('labels', [])
+		#if not labels:
+		#    print('No labels found.')
+		#    return
+		#print('Labels:')
+		#for label in labels:
+		#    print(label['name'])
+		###############################################################
+
+	except HttpError as error:
+		# TODO(developer) - Handle errors from gmail API.
+		print(f'An error occurred: {error}')
+
+
+if __name__ == '__main__':
+	main()
+--#
+
+
+--% gmail/thread2/main.py
+#https://github.com/googleworkspace/python-samples/blob/master/gmail/snippet/thread/threads.py
+from __future__ import print_function
+
+import os.path
+
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
+# If modifying these scopes, delete the file token.json.
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+
+
+def main():
+	"""Shows basic usage of the Gmail API.
+	Lists the user's Gmail labels.
+	"""
+	creds = None
+	# The file token.json stores the user's access and refresh tokens, and is
+	# created automatically when the authorization flow completes for the first
+	# time.
+	if os.path.exists('token.json'):
+		creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+	# If there are no (valid) credentials available, let the user log in.
+	if not creds or not creds.valid:
+		if creds and creds.expired and creds.refresh_token:
+			creds.refresh(Request())
+		else:
+			flow = InstalledAppFlow.from_client_secrets_file(
+				'credentials.json', SCOPES)
+			creds = flow.run_local_server(port=0)
+		# Save the credentials for the next run
+		with open('token.json', 'w') as token:
+			token.write(creds.to_json())
+
+	try:
+		# Call the Gmail API
+		service = build('gmail', 'v1', credentials=creds)
+
+		# pylint: disable=maybe-no-member
+		threads = service.users().threads().list(userId='me').execute().get('threads', [])
+		counter = 1
+		for thread in threads:
+			if counter>100:
+				break
+			tdata = service.users().threads().get(userId='me', id=thread['id']).execute()
+			nmsgs = len(tdata['messages'])
+			msg = tdata['messages'][0]['payload']			
+			for header in msg['headers']:
+				if header['name'] == 'Subject':
+					subject = header['value']
+					print(F'- #{counter} {subject} ({nmsgs})')
+					counter += 1
+
+		###############################################################
+		#results = service.users().labels().list(userId='me').execute()
+		#labels = results.get('labels', [])
+		#if not labels:
+		#    print('No labels found.')
+		#    return
+		#print('Labels:')
+		#for label in labels:
+		#    print(label['name'])
+		###############################################################
+
+	except HttpError as error:
+		# TODO(developer) - Handle errors from gmail API.
+		print(f'An error occurred: {error}')
+
+
+if __name__ == '__main__':
+	main()
+--#
+
+--% gmail/simple1/readme.md
+C:\Users\usef\work\tmp>python main.py
+Traceback (most recent call last):
+  File "C:\Users\usef\work\tmp\main.py", line 56, in <module>
+	main()
+  File "C:\Users\usef\work\tmp\main.py", line 30, in main
+	flow = InstalledAppFlow.from_client_secrets_file(
+  File "C:\Users\usef\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\google_auth_oauthlib\flow.py", line 207, in from_client_secrets_file
+	return cls.from_client_config(client_config, scopes=scopes, **kwargs)
+  File "C:\Users\usef\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\google_auth_oauthlib\flow.py", line 165, in from_client_config
+	raise ValueError("Client secrets must be for a web or installed app.")
+
+ValueError: Client secrets must be for a web or installed app.
+https://stackoverflow.com/questions/56445257/valueerror-client-secrets-must-be-for-a-web-or-installed-app
+The problem was that I was using the json generated under Service account keys Manage service accounts and not the one under OAuth 2.0 client IDs.
+
+Authorization Error
+Error 403: access_denied
+The developer hasn’t given you access to this app. It’s currently being tested and it hasn’t been verified by Google. If you think you should have access, contact the developer (yusef314159@gmail.com).
+	https://stackoverflow.com/questions/65756266/error-403-access-denied-the-developer-hasn-t-given-you-access-to-this-app-despi
+
+	https://stackoverflow.com/questions/65184355/error-403-access-denied-from-google-authentication-web-api-despite-google-acc
+OAuth consent screen
+Scopes
+Test users
+4
+Summary 
+
+== finally
+>python main.py
+Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=508006936218-1f8q4mhsj8mne7mjh56pskb9gmf4eqgv.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A61524%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.readonly&state=nwGwZl3mDD5JxXwm1upxunPWMB3YOq&access_type=offline
+Labels:
+CHAT
+SENT
+INBOX <- kita pengen baca ini...
+IMPORTANT
+TRASH
+DRAFT
+SPAM
+CATEGORY_FORUMS
+CATEGORY_UPDATES
+CATEGORY_PERSONAL
+CATEGORY_PROMOTIONS
+CATEGORY_SOCIAL
+STARRED
+UNREAD
+backup
+personal
+
+cek:
+https://github.com/googleworkspace/python-samples/tree/master/gmail/snippet
+
+output utk thread
+=================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Easy Pickings: support robust on_commit handlers, 3
+- [elixir-core:10855] Non UTF8 Binaries in ExUnit.CaptureIO, 10
+- [phoenix-core] phx.gen.auth two-factor authentication (2FA), 9
+- Ticket #21289 - Login rate limiting, 9
+- Ryan B replied to you, 3
+- [elixir-core:10847] [Proposal] - Add an option to deps.get to force failure on lock mismatch, 8
+- Django 1.5 app had subclasses without tables without proxy and now 1.6 won't sync with proxy, 5
+- Configuration of "level" in LOGGING, 5
+- [Brick] Brick, subclasses vs type, and validation, 4
+- [wxPython-users] New release, 4
+- Revisiting MSSQL and Azure SQL Support in Django, 16
+- [Haskell-cafe] RFC: removing “alternative installation methods” from haskell.org (or finding them owners), 31
+- [Haskell-cafe]   Model beverage, 3
+- New reply to a comment on "Gilbert Burns Ready for Khamzat Chimaev After Learning Lessons Against Kamaru Usman | Morning Kombat", 3
+- [Brick] Modeling Meters with Brick, 15
+--#
+

@@ -1,0 +1,15 @@
+dependencies {
+    implementation 'io.dropwizard:dropwizard-core:2.0.25'
+    implementation 'io.dropwizard:dropwizard-jersey:2.0.25'
+}
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+}
+
+shadowJar {
+    archiveBaseName.set('your-project-name')
+    archiveVersion.set('')
+    manifest {
+        attributes 'Main-Class': 'your.package.name.ApplicationClassName'
+    }
+}

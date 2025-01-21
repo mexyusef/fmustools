@@ -1,0 +1,8 @@
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\portfolio\flow-wizard.txt
+C:/work/kenza/resources/images/portfolio/flow-wizard01.jpg
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\portfolio\messenger-video.txt
+C:/work/kenza/resources/images/portfolio/messenger-video01.jpg
+C:/work/kenza/resources/images/portfolio/messenger-video02.jpg
+- belum coba login dg sso
+- sudah dg register...

@@ -1,0 +1,7 @@
+--% index/fmus
+__PWD,d
+  @berada di: __CURDIR*
+  __init__.py,f(f=__CURDIR/../proshop_store/__init__.py)
+  index-input.mk,f(t=)
+--#
+

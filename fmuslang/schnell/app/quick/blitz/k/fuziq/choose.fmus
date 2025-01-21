@@ -1,0 +1,13 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan fuziq/maybank dari AHCE ke yang lain*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+napaktilas cepat fuziq, finess alliance
+ada bbrp proyek kan tuh...
+
+singatku ada xml parser sederhana versi C++.
+--#

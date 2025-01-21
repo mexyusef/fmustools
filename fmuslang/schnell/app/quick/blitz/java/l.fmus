@@ -1,0 +1,61 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+		Hello.java,f(code[java]=fM)
+			$* code .
+        __PRC__TEMP__PRC__/play,d(/mk)
+            Hello.java,f(code[java]=fM)
+            $* code .
+
+        .,d(/load=__FILE__=springboot*)
+        .,d(/load=__FILE__=dropwizard*)        
+        .,d(/load=__FILE__=micronaut*)
+        .,d(/load=__FILE__=jakartaee*)
+        .,d(/load=__FILE__=quarkus*)
+        .,d(/load=__FILE__=vertx*)
+        .,d(/load=__FILE__=rxjava*)
+        .,d(/load=__FILE__=springmvc*)
+
+        $* code ULIBPY_BASEDIR\app\quick\blitz\java\l.fmus
+--#
+
+--% springboot
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% dropwizard
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% micronaut
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% jakartaee
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% quarkus
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% vertx
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% rxjava
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#

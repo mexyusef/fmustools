@@ -1,0 +1,28 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        Procfile,f(n=web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app)
+        Procfile,f(n=web: gunicorn -k uvicorn.workers.UvicornWorker --log-level debug main:app)
+        $* pip freeze
+        $* pip freeze > requirements.txt
+        $* heroku login
+        $* heroku create
+        $* heroku addons:create heroku-postgresql:hobby-dev
+        $* heroku logs --tail
+        $* heroku git:clone -a namaproyek
+        $* heroku git:remote -a namaproyek
+            @setara dg git remote add origin https://github...*
+        $* heroku run rails db:migrate
+        $* heroku run rails db:seed
+        $* git push heroku master
+
+        @install heroku cli*
+
+        $* python -m webbrowser -t https://dashboard.heroku.com/new-app
+        $* python -m webbrowser -t https://elements.heroku.com/addons
+            @utk install heroku postgres, heroku redis, dst*
+
+        @heroku postgres *
+            @https://www.youtube.com/watch?v=MT9qvby477w, FastAPI + Postgres on Heroku Tutorial*
+
+--#

@@ -1,0 +1,100 @@
+http://localhost:3000
+
+C:\portfolio\messenger-video,d
+    $* code .
+C:/work/kenza/resources/images/portfolio,d
+    messenger-video01.jpg,f(b64=OCR=whatever)
+C:/work/kenza/resources/images/portfolio/messenger-video01.jpg
+
+
+
+
+
+
+C:\portfolio\messenger-video>pnpm prisma generate
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+
+✔ Generated Prisma Client (4.13.0 | library) to .\node_modules\.pnpm\@prisma+client@4.13.0_prisma@4.13.0\node_modules\@prisma\client in 122ms
+You can now start using Prisma Client in your code. Reference: https://pris.ly/d/client
+```
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+```
+
+C:\portfolio\messenger-video>
+
+
+
+
+> messenger-clone@0.1.0 dev C:\portfolio\messenger-video
+> next dev
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from C:\portfolio\messenger-video\.env
+
+C:\portfolio\messenger-video>pnpm dev
+
+> messenger-clone@0.1.0 dev C:\portfolio\messenger-video
+> next dev
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from C:\portfolio\messenger-video\.env
+warn  - You have enabled experimental features (appDir, swcPlugins) in next.config.js.
+info  - Thank you for testing `appDir` please leave your feedback at https://nextjs.link/app-feedback
+warn  - Experimental features are not covered by semver, and may cause unexpected or broken application behavior. Use at your own risk.
+
+event - compiled client and server successfully in 8.9s (262 modules)
+wait  - compiling...
+event - compiled client and server successfully in 802 ms (262 modules)
+wait  - compiling /(site)/page (client and server)...
+warn  - ./node_modules/.pnpm/node-fetch@2.6.11/node_modules/node-fetch/lib/index.js
+Module not found: Can't resolve 'encoding' in 'C:\portfolio\messenger-video\node_modules\.pnpm\node-fetch@2.6.11\node_modules\node-fetch\lib'
+
+Import trace for requested module:
+./node_modules/.pnpm/node-fetch@2.6.11/node_modules/node-fetch/lib/index.js
+./node_modules/.pnpm/pusher@5.1.3/node_modules/pusher/lib/requests.js
+./node_modules/.pnpm/pusher@5.1.3/node_modules/pusher/lib/pusher.js
+./app/libs/pusher.ts
+./app/hooks/useActiveChannel.ts
+./app/components/ActiveStatus.tsx
+error - Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues
+    at new PrismaClient (C:\portfolio\messenger-video\node_modules\.pnpm\@prisma+client@4.13.0_prisma@4.13.0\node_modules\.prisma\client\index.js:3:11)
+    at eval (webpack-internal:///(sc_server)/./app/libs/prismadb.ts:8:37)
+    at (sc_server)/./app/libs/prismadb.ts (C:\portfolio\messenger-video\.next\server\app\api\auth\[...nextauth]\route.js:286:1)
+    at __webpack_require__ (C:\portfolio\messenger-video\.next\server\webpack-runtime.js:33:43)
+    at eval (webpack-internal:///(sc_server)/./app/api/auth/[...nextauth]/route.ts:15:76)
+    at (sc_server)/./app/api/auth/[...nextauth]/route.ts (C:\portfolio\messenger-video\.next\server\app\api\auth\[...nextauth]\route.js:275:1)
+    at __webpack_require__ (C:\portfolio\messenger-video\.next\server\webpack-runtime.js:33:43)
+    at eval (webpack-internal:///(sc_server)/./node_modules/.pnpm/next@13.3.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fauth%2F%5B...nextauth%5D%2Froute&page=%2Fapi%2Fauth%2F%5B...nextauth%5D%2Froute&appPaths=&pagePath=private-next-app-dir%2Fapi%2Fauth%2F%5B...nextauth%5D%2Froute.ts&appDir=C%3A%5Cportfolio%5Cmessenger-video%5Capp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=C%3A%5Cportfolio%5Cmessenger-video&isDev=true&tsconfigPath=tsconfig.json&assetPrefix=&nextConfigOutput=&preferredRegion=!:14:116)
+    at (sc_server)/./node_modules/.pnpm/next@13.3.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fauth%2F%5B...nextauth%5D%2Froute&page=%2Fapi%2Fauth%2F%5B...nextauth%5D%2Froute&appPaths=&pagePath=private-next-app-dir%2Fapi%2Fauth%2F%5B...nextauth%5D%2Froute.ts&appDir=C%3A%5Cportfolio%5Cmessenger-video%5Capp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=C%3A%5Cportfolio%5Cmessenger-video&isDev=true&tsconfigPath=tsconfig.json&assetPrefix=&nextConfigOutput=&preferredRegion=! (C:\portfolio\messenger-video\.next\server\app\api\auth\[...nextauth]\route.js:264:1)
+    at __webpack_require__ (C:\portfolio\messenger-video\.next\server\webpack-runtime.js:33:43)
+    at __webpack_exec__ (C:\portfolio\messenger-video\.next\server\app\api\auth\[...nextauth]\route.js:3317:39)
+    at C:\portfolio\messenger-video\.next\server\app\api\auth\[...nextauth]\route.js:3318:28
+    at Object.<anonymous> (C:\portfolio\messenger-video\.next\server\app\api\auth\[...nextauth]\route.js:3321:3)
+    at Module._compile (node:internal/modules/cjs/loader:1218:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1272:10)
+    at Module.load (node:internal/modules/cjs/loader:1081:32)
+    at Module._load (node:internal/modules/cjs/loader:922:12)
+    at Module.require (node:internal/modules/cjs/loader:1105:19)
+    at require (node:internal/modules/cjs/helpers:103:18)
+    at requirePage (C:\portfolio\messenger-video\node_modules\.pnpm\next@13.3.4_react-dom@18.2.0_react@18.2.0\node_modules\next\dist\server\require.js:156:12)
+    at C:\portfolio\messenger-video\node_modules\.pnpm\next@13.3.4_react-dom@18.2.0_react@18.2.0\node_modules\next\dist\server\load-components.js:68:84
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async loadComponentsImpl (C:\portfolio\messenger-video\node_modules\.pnpm\next@13.3.4_react-dom@18.2.0_react@18.2.0\node_modules\next\dist\server\load-components.js:68:26)
+    at async DevServer.findPageComponentsImpl (C:\portfolio\messenger-video\node_modules\.pnpm\next@13.3.4_react-dom@18.2.0_react@18.2.0\node_modules\next\dist\server\next-server.js:765:36) {
+  digest: undefined
+}
+warn  - ./node_modules/.pnpm/node-fetch@2.6.11/node_modules/node-fetch/lib/index.js
+Module not found: Can't resolve 'encoding' in 'C:\portfolio\messenger-video\node_modules\.pnpm\node-fetch@2.6.11\node_modules\node-fetch\lib'
+
+
+Import trace for requested module:
+./node_modules/.pnpm/node-fetch@2.6.11/node_modules/node-fetch/lib/index.js
+./node_modules/.pnpm/pusher@5.1.3/node_modules/pusher/lib/requests.js
+./node_modules/.pnpm/pusher@5.1.3/node_modules/pusher/lib/pusher.js
+./app/libs/pusher.ts
+./app/hooks/useActiveChannel.ts
+./app/components/ActiveStatus.tsx
+error - Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.

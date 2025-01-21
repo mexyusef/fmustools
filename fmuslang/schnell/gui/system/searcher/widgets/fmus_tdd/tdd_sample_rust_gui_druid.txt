@@ -1,0 +1,241 @@
+# Rust TDD with Druid
+TDD in Rust GUI Druid: show me some examples
+
+ChatGPT
+Certainly! Here are a few examples of how you can use Test-Driven Development (TDD) with the Druid library in Rust to create GUI applications. Please note that the code examples assume you have the necessary dependencies and Rust environment set up to work with Druid.
+
+Example 1: Creating a basic button and testing its functionality.
+
+First, let's set up a new project using Cargo:
+
+shell
+Copy code
+$ cargo new druid_tdd_example
+$ cd druid_tdd_example
+Next, open the Cargo.toml file and add the following dependencies:
+
+toml
+Copy code
+[dependencies]
+druid = "0.7.0"
+Now, let's create a test file for our button component. In the src folder, create a new file called button.rs:
+
+rust
+Copy code
+// src/button.rs
+use druid::{ExtEventSink, KeyEvent, Modifiers, Widget, WidgetExt, WidgetPod};
+use druid::widget::{Button, Flex, Label};
+
+pub fn create_button() -> impl Widget<String> {
+    let button = Button::new("Click me!")
+        .on_click(|_, _, _| {
+            println!("Button clicked!");
+        });
+
+    Flex::column()
+        .with_child(button)
+        .padding(10.0)
+}
+In the code above, we define a function create_button that creates a simple button with a label. When the button is clicked, it prints a message to the console.
+
+Now, let's write a test for our button component. In the same src folder, create a new file called button_test.rs:
+
+rust
+Copy code
+// src/button_test.rs
+#[cfg(test)]
+mod tests {
+    use druid::widget::prelude::*;
+    use druid::Data;
+    use druid::Env;
+    use druid::Event;
+    use druid::Window;
+    use druid::WidgetPod;
+    use super::create_button;
+
+    struct TestState;
+
+    impl Data for TestState {
+        fn same(&self, _: &Self) -> bool {
+            true
+        }
+    }
+
+    struct TestWidget {
+        button_widget: WidgetPod<String, Box<dyn Widget<String>>>,
+    }
+
+    impl TestWidget {
+        fn new() -> Self {
+            let button_widget = WidgetPod::new(Box::new(create_button()));
+
+            Self {
+                button_widget,
+            }
+        }
+    }
+
+    impl Widget<TestState> for TestWidget {
+        fn event(&mut self, ctx: &mut EventCtx, event: &Event, _data: &mut TestState, _env: &Env) {
+            self.button_widget.event(ctx, event, &mut "".to_string(), _env);
+        }
+
+        fn lifecycle(&mut self, _ctx: &mut LifeCycleCtx, _event: &LifeCycle, _data: &TestState, _env: &Env) {}
+
+        fn update(&mut self, _ctx: &mut UpdateCtx, _old_data: &TestState, _data: &TestState, _env: &Env) {}
+
+        fn layout(&mut self, _ctx: &mut LayoutCtx, bc: &BoxConstraints, _data: &TestState, _env: &Env) -> Size {
+            let size = self.button_widget.layout(_ctx, bc, &"".to_string(), _env);
+            self.button_widget.set_layout_rect(_ctx, &"".to_string(), _env, size.to_rect());
+            size
+        }
+
+        fn paint(&mut self, ctx: &mut PaintCtx, _data: &TestState, _env: &Env) {
+            self.button_widget.paint(ctx, &"".to_string(), _env);
+        }
+    }
+
+    #[test]
+    fn test_button_click() {
+        let mut window = Window::new(TestWidget::new()).title("Button Test");
+        let (ext_handle, _) = druid::app::AppLauncher::minimal(
+            |win_desc, _, _| win_desc,
+            |_app_state, _app| {},
+            |_, _| {},
+        )
+            .launch(window).unwrap();
+
+        ext_handle.submit_command(druid::commands::sys::WindowCmd::CloseWindow, None);
+
+        druid::app::AppLauncher::<TestState>::with_window(window)
+            .use_simple_logger()
+            .launch(TestState)
+            .expect("Failed to launch application");
+    }
+}
+In the test code above, we define a TestState struct and a TestWidget struct, which is used to test the button component. The TestWidget implements the necessary methods from the Widget trait and forwards the events to the button widget.
+
+Finally, we write a test function test_button_click, which launches a minimal Druid application with our TestWidget as the root widget. It then simulates a click event on the button widget and closes the window.
+
+To run the test, open a terminal and execute:
+
+shell
+Copy code
+$ cargo test --package druid_tdd_example
+Example 2: Testing text input and button interaction.
+
+Here's an example that tests the interaction between a text input field and a button. Create a new file called text_button_test.rs in the src folder:
+
+rust
+Copy code
+// src/text_button_test.rs
+#[cfg(test)]
+mod tests {
+    use druid::widget::prelude::*;
+    use druid::Data;
+    use druid::Env;
+    use druid::Event;
+    use druid::Window;
+    use druid::WidgetPod;
+    use druid::widget::{Button, Flex, Label, TextBox};
+    use druid::commands::TEXTBOX_UPDATE;
+
+    struct TestState {
+        input_text: String,
+    }
+
+    impl Default for TestState {
+        fn default() -> Self {
+            TestState {
+                input_text: String::new(),
+            }
+        }
+    }
+
+    struct TestWidget {
+        input_widget: WidgetPod<String, Box<dyn Widget<String>>>,
+        button_widget: WidgetPod<String, Box<dyn Widget<String>>>,
+    }
+
+    impl TestWidget {
+        fn new() -> Self {
+            let input_widget = WidgetPod::new(Box::new(
+                TextBox::new().with_id("input").lens(TestState::input_text),
+            ));
+            let button_widget = WidgetPod::new(Box::new(Button::new("Submit")));
+
+            Self {
+                input_widget,
+                button_widget,
+            }
+        }
+    }
+
+    impl Widget<TestState> for TestWidget {
+        fn event(&mut self, ctx: &mut EventCtx, event: &Event, data: &mut TestState, _env: &Env) {
+            self.input_widget.event(ctx, event, &mut data.input_text, _env);
+            self.button_widget.event(ctx, event, &mut data.input_text, _env);
+
+            if let Event::Command(cmd) = event {
+                if let Some(text) = cmd.get(TEXTBOX_UPDATE) {
+                    data.input_text = text.clone();
+                }
+            }
+        }
+
+        fn lifecycle(&mut self, _ctx: &mut LifeCycleCtx, _event: &LifeCycle, _data: &TestState, _env: &Env) {}
+
+        fn update(&mut self, _ctx: &mut UpdateCtx, _old_data: &TestState, _data: &TestState, _env: &Env) {}
+
+        fn layout(&mut self, _ctx: &mut LayoutCtx, bc: &BoxConstraints, data: &TestState, _env: &Env) -> Size {
+            let input_size = self.input_widget.layout(_ctx, bc, &data.input_text, _env);
+            let button_size = self.button_widget.layout(_ctx, bc, &data.input_text, _env);
+
+            let total_height = input_size.height.max(button_size.height);
+            let total_width = input_size.width + button_size.width;
+
+            let input_rect = Rect::from_origin_size(Point::ORIGIN, Size::new(input_size.width, total_height));
+            let button_rect = Rect::from_origin_size(Point::new(input_size.width, 0.0), Size::new(button_size.width, total_height));
+
+            self.input_widget.set_layout_rect(_ctx, &data.input_text, _env, input_rect);
+            self.button_widget.set_layout_rect(_ctx, &data.input_text, _env, button_rect);
+
+            Size::new(total_width, total_height)
+        }
+
+        fn paint(&mut self, ctx: &mut PaintCtx, data: &TestState, _env: &Env) {
+            self.input_widget.paint(ctx, &data.input_text, _env);
+            self.button_widget.paint(ctx, &data.input_text, _env);
+        }
+    }
+
+    #[test]
+    fn test_text_button_interaction() {
+        let mut window = Window::new(TestWidget::new()).title("Text Button Test");
+        let (ext_handle, _) = druid::app::AppLauncher::minimal(
+            |win_desc, _, _| win_desc,
+            |_app_state, _app| {},
+            |_, _| {},
+        )
+            .launch(window).unwrap();
+
+        ext_handle.submit_command(druid::commands::sys::WindowCmd::CloseWindow, None);
+
+        druid::app::AppLauncher::<TestState>::with_window(window)
+            .use_simple_logger()
+            .launch(TestState::default())
+            .expect("Failed to launch application");
+    }
+}
+In this example, we define a TestState struct that holds the text entered into the input field. The TestWidget struct contains both the input field and the button widget.
+
+The TestWidget struct implements the necessary methods from the Widget trait, handles events for both the input field and the button, and updates the TestState accordingly.
+
+The test_text_button_interaction function launches a minimal Druid application with our TestWidget as the root widget. It tests the interaction between the input field and the button by typing text into the input field and clicking the button. The window is then closed.
+
+To run the test, execute the following command in the terminal:
+
+shell
+Copy code
+$ cargo test --package druid_tdd_example
+These examples demonstrate how you can use TDD principles to test GUI components in Rust with the Druid library. By writing tests first, you can ensure the functionality of your GUI components and catch any regressions as you continue to develop your application.

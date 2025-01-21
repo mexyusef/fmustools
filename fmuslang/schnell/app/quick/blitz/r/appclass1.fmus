@@ -1,0 +1,22 @@
+--% index/fmus
+__PWD,d
+	%__TEMPLATE_CLASS_COMPONENT=__INPUT__
+    __TEMPLATE_CLASS_COMPONENT.js,f(e=__FILE=template1)
+--#
+
+--% template1
+import React, { Component } from 'react';
+
+class __TEMPLATE_CLASS_COMPONENT extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+    render() {
+        return (<>
+        </>);
+    }
+}
+
+export default __TEMPLATE_CLASS_COMPONENT;
+--#

@@ -1,0 +1,3 @@
+"""
+pikirkan gimana kita bisa bikin celery-based async task...
+"""

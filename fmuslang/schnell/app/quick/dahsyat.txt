@@ -1,0 +1,12 @@
+
+men-tar dan siapkan utk retrieve dari note8 ke desktop:
+u -e"/tar>monoproject*|node_modules,__pycache__"
+
+scraping
+fm//sc>colly/a.ay.az.ba.bb.bc.bd.be.bf.bg.bh.bi.bj.bk.bl.bm//|https://medium.com/
+https://dev.to/
+
+selenium
+
+fm//sel>hless,chr| nop/wi/nop/wt=css=span.normal.ng-binding=Rp./css=span.normal.ng-binding/txt/css=span.date.ng-binding/txt / css=a.btn.btn-signin/c /nop/q|https://pasardana.id/fund/2789
+https://www.upwork.com/nx/jobs/search/?q=fullstack&from_recent_search=true&sort=recency

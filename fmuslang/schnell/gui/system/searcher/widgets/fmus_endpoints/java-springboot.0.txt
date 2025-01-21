@@ -1,0 +1,123 @@
+make a Spring Boot endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+make the graphql version
+
+Open sidebar
+Spring Boot Todo Controller
+
+
+User
+make a Spring Boot endpoint REST controller class for `CREATE TABLE todo (
+  id INT PRIMARY KEY,
+  priority FLOAT,
+  completed BOOL,
+  task VARCHAR(255),
+  due_date DATE,
+  created_at TIMESTAMP
+);
+
+ChatGPT
+Certainly! Here's an example of a Spring Boot REST controller class for creating a todo table:
+
+java
+Copy code
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+
+@RestController
+@RequestMapping("/todos")
+public class TodoController {
+
+    private final TodoRepository todoRepository;
+
+    @Autowired
+    public TodoController(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
+
+    @PostMapping
+    public ResponseEntity<Todo> createTodo(
+            @RequestParam(value = "id") int id,
+            @RequestParam(value = "priority") float priority,
+            @RequestParam(value = "completed") boolean completed,
+            @RequestParam(value = "task") String task,
+            @RequestParam(value = "dueDate") Date dueDate
+    ) {
+        Todo todo = new Todo();
+        todo.setId(id);
+        todo.setPriority(priority);
+        todo.setCompleted(completed);
+        todo.setTask(task);
+        todo.setDueDate(dueDate);
+        todo.setCreatedAt(new Date()); // Set the current timestamp
+
+        Todo createdTodo = todoRepository.save(todo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTodo);
+    }
+}
+In this example, the TodoController class is annotated with @RestController, indicating that it handles RESTful requests. The base URL for all endpoints in this controller is /todos. The TodoController class has a dependency on a TodoRepository bean, which you would need to define separately.
+
+The createTodo method is annotated with @PostMapping to handle HTTP POST requests to the /todos endpoint. The method takes the necessary request parameters (id, priority, completed, task, and dueDate) using the @RequestParam annotation.
+
+Inside the createTodo method, a new Todo object is created and populated with the request parameters. The createdAt field is set to the current timestamp using new Date(). The Todo object is then saved using the todoRepository.save() method, and the created Todo object is returned in the response body with a status code of 201 (CREATED).
+
+Remember to define the Todo entity class and the TodoRepository interface separately, as they are not included in the code provided above.
+
+
+
+
+
+User
+make the graphql version
+
+ChatGPT
+Certainly! Here's an example of a Spring Boot GraphQL controller class for creating a todo table:
+
+java
+Copy code
+import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
+@Component
+public class TodoMutationResolver implements GraphQLMutationResolver {
+
+    private final TodoRepository todoRepository;
+
+    @Autowired
+    public TodoMutationResolver(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
+
+    public Todo createTodo(int id, float priority, boolean completed, String task, Date dueDate) {
+        Todo todo = new Todo();
+        todo.setId(id);
+        todo.setPriority(priority);
+        todo.setCompleted(completed);
+        todo.setTask(task);
+        todo.setDueDate(dueDate);
+        todo.setCreatedAt(new Date()); // Set the current timestamp
+
+        return todoRepository.save(todo);
+    }
+}
+In this example, the TodoMutationResolver class is annotated with @Component to indicate that it is a Spring component and can be automatically detected.
+
+The class implements the GraphQLMutationResolver interface, which allows it to handle GraphQL mutations. The createTodo method is defined to handle the creation of a new todo. It takes the necessary input parameters (id, priority, completed, task, and dueDate) and returns a Todo object.
+
+Inside the createTodo method, a new Todo object is created and populated with the input parameters. The createdAt field is set to the current timestamp using new Date(). The Todo object is then saved using the todoRepository.save() method and returned as the result of the mutation.
+
+Remember to define the Todo entity class and the TodoRepository interface separately, as they are not included in the code provided above. Additionally, you would need to set up the necessary GraphQL configuration and define the schema for the createTodo mutation in your application.

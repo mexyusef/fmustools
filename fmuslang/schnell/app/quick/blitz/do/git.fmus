@@ -1,0 +1,221 @@
+--% index/fmus
+__PWD,d
+	?pick
+		.,d(/load=__CURDIR__/git/choose.fmus=index/fmus*)
+		@revert changes to one file (status: belum commit)*
+			@https://stackoverflow.com/questions/692246/undo-working-copy-modifications-of-one-file-in-git*
+			@git checkout -- path/to/file*
+
+		$* git init
+		$* git remote add __INPUT__
+		$* git add -A
+		$* git commit -m __INPUT__
+		$* git branch -M main
+		$* git push origin main
+		$* git push -u origin main
+		$* git push origin master
+		$* git push -u origin master
+		$* git push heroku master
+
+		@github cli operations/play/features*
+			?pick
+				@clone project*
+				@read issues from a project*
+				@read latest n commits from a project - main branch*
+				@read latest n commits from a project - all branches*
+				@show branches from a project*
+				@create git project - push to gh*
+
+		$* gh auth login
+		$* gh auth login --web
+		@create tokenfile: filecontainingtoken*
+			?pick
+				filecontainingtoken,f(n=aaa)
+					@katy*
+				filecontainingtoken,f(n=aaa)
+					@yusef314*
+				filecontainingtoken,f(n= aaa)
+					@mexyusef*
+		$* gh auth login --with-token < filecontainingtoken
+		$* gh issue list
+		$* gh pr status
+		$* gh pr checkout
+		$* gh pr create
+		$* gh pr checks
+		$* gh release create
+		$* gh repo view
+		$* gh repo create
+		$* gh repo clone cli/cli
+		$* gh repo view --web
+		$* gh alias set
+		@help: https://cli.github.com/manual/gh*
+		**showtext=__FILE__=gh-repo-create-help
+		**showtext=__FILE__=gh-auth-login-help
+		.,d(/load=__FILE__=git-clone-kerjaan-orang-dan-monitor-issue-pr-etc/fm*)
+		.,d(/load=__FILE__=contoh-bikin-repo-bernama-hapus-dari-command-line/fm*)
+--#
+
+--% git-clone-kerjaan-orang-dan-monitor-issue-pr-etc/fm
+__PWD,d
+--#
+
+--% contoh-bikin-repo-bernama-hapus-dari-command-line/fm
+__PWD,d
+--#
+
+--% gh-auth-login-help
+https://cli.github.com/manual/gh_auth_login
+
+gh auth login
+
+gh auth login [flags]
+
+Authenticate with a GitHub host.
+
+The default authentication mode is a web-based browser flow. 
+After completion, an authentication token will be stored internally.
+
+Alternatively, use --with-token to pass in a token on standard input. 
+The minimum required scopes for the token are: "repo", "read:org".
+
+Alternatively, gh will use the authentication token found in environment variables. 
+This method is most suitable for "headless" use of gh such as in automation. 
+See gh help environment for more info.
+
+To use gh in GitHub Actions, add GH_TOKEN: $ to "env".
+Options
+
+-p, --git-protocol <string>
+	The protocol to use for git operations: {ssh|https}
+-h, --hostname <string>
+	The hostname of the GitHub instance to authenticate with
+-s, --scopes <strings>
+	Additional authentication scopes to request
+-w, --web
+	Open a browser to authenticate
+--with-token
+	Read token from standard input
+
+Examples
+
+# start interactive setup
+$ gh auth login
+
+# authenticate against github.com by reading the token from a file
+$ gh auth login --with-token < mytoken.txt
+
+# authenticate with a specific GitHub instance
+$ gh auth login --hostname enterprise.internal
+
+See also
+--#
+
+--% gh-repo-create-help
+gh pr [status, list, view, checkout, create]
+gh issue [status, list, view, create]
+gh help
+
+gh repo create myproject --source=. --private
+gh repo create myproject --source=. --private --remote=jauh
+
+https://cli.github.com/manual/gh_repo_create
+
+gh repo create
+
+gh repo create [<name>] [flags]
+
+Create a new GitHub repository.
+
+To create a repository interactively, use gh repo create with no arguments.
+
+To create a remote repository non-interactively, supply the repository name and one of --public, --private, or --internal. Pass --clone to clone the new repository locally.
+
+To create a remote repository from an existing local repository, specify the source directory with --source. By default, the remote repository name will be the name of the source directory. Pass --push to push any local commits to the new repository.
+Options
+
+-c, --clone
+	Clone the new repository to the current directory
+-d, --description <string>
+	Description of the repository
+--disable-issues
+	Disable issues in the new repository
+--disable-wiki
+	Disable wiki in the new repository
+-g, --gitignore <string>
+	Specify a gitignore template for the repository
+-h, --homepage <URL>
+	Repository home page URL
+--internal
+	Make the new repository internal
+-l, --license <string>
+	Specify an Open Source License for the repository
+--private
+	Make the new repository private
+--public
+	Make the new repository public
+--push
+	Push local commits to the new repository
+-r, --remote <string>
+	Specify remote name for the new repository
+-s, --source <string>
+	Specify path to local repository to use as source
+-t, --team <name>
+	The name of the organization team to be granted access
+-p, --template <repository>
+	Make the new repository based on a template repository
+
+Examples
+
+# create a repository interactively
+gh repo create
+
+# create a new remote repository and clone it locally
+gh repo create my-project --public --clone
+
+# create a remote repository from the current directory
+gh repo create my-project --private --source=. --remote=upstream
+
+See also
+
+	gh repo
+
+In use
+With no arguments
+
+Inside a git repository, and with no arguments, `gh` will automatically create a repository on GitHub on your account for your current directory, using the directory name.
+
+# Create a repository for the current directory.
+~/Projects/my-project$ gh repo create
+✓ Created repository user/my-project on GitHub
+✓ Added remote https://github.com/user/my-project.git
+~/Projects/my-project$
+
+Setting a repository name
+
+Enter a name to set a repository name other than the directory name.
+
+~/Projects/my-project$ gh repo create my-cool-project
+✓ Created repository user/my-cool-project on GitHub
+✓ Added remote https://github.com/user/my-cool-project.git
+~/Projects/my-project$
+
+Setting your organization as an owner
+
+Use OWNER/REPO syntax to create a repository under an organization that you are a part of.
+
+# Create a repository in your organization
+~/Projects/my-project$ gh repo create org/repo
+✓ Created repository org/repo on GitHub
+✓ Added remote https://github.com/org/repo.git
+~/Projects/my-project$
+
+With flags
+
+Use flags to choose your repository settings.
+
+# Create a repository using flags
+~/Projects/my-project$ gh repo create --enable-issues=false --public
+✓ Created repository user/my-project on GitHub
+✓ Added remote https://github.com/user/my-project.git
+~/Projects/my-project$
+--#

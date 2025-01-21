@@ -1,0 +1,271 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% divrhino global var
+allFacts := make([]Fact, 0)
+--#
+
+--% divrhino collector new
+collector := colly.NewCollector(
+    colly.AllowedDomains("factretriever.com", "www.factretriever.com"),
+)
+--#
+
+--% divrhino collector on html
+collector.OnHTML(".factsList li", func(element *colly.HTMLElement) {
+    factId, err := strconv.Atoi(element.Attr("id"))
+    if err != nil {
+        log.Println("Could not get id")
+    }
+    factDesc := element.Text
+
+    fact := Fact{
+        ID:          factId,
+        Description: factDesc,
+    }
+
+    allFacts = append(allFacts, fact)
+})
+--#
+
+--% divrhino collector on request
+collector.OnRequest(func(request *colly.Request) {
+    fmt.Println("Visiting", request.URL.String())
+})
+--#
+
+--% divrhino collector visit
+collector.Visit("https://www.factretriever.com/rhino-facts")
+--#
+
+--% divrhino write json call
+writeJSON(allFacts)
+--#
+
+--% divrhino write json define
+func writeJSON(data []Fact) {
+	file, err := json.MarshalIndent(data, "", " ")
+	if err != nil {
+		log.Println("Unable to create json file")
+		return
+	}
+	_ = ioutil.WriteFile("rhinofacts.json", file, 0644)
+}
+--#
+
+--% https://divrhino.com/articles/build-webscraper-with-go-and-colly/0
+__PWD,d
+    ?pick
+        @package main and imports *
+            /l. [i/0/@@@__NL|main.go] go/Pmain
+            /l. [i/-1/@@@|main.go] go/I`fmt`
+            /l. [i/-1/@@@|main.go] go/I`ioutil`
+            /l. [i/-1/@@@|main.go] go/I`log`
+            /l. [i/-1/@@@|main.go] go/I`json`
+            /l. [i/-1/@@@|main.go] go/I`strconv`
+            /l. [i/-1/@@@|main.go] go/I`colly`
+        
+        @ add struct, input line number *
+            $* wsl nl main.go | more
+            /c. [i/__INPUT__/@@@__NL|main.go] go/{@Fact}ID,i;Description,s
+
+        /file>i/__INPUT__/func main() {__NL__NL__NL}|main.go
+
+        @ global var *
+            $* wsl nl main.go | wsl cat
+            /file>I/__INPUT__/__FILE__=divrhino global var|main.go
+        @ collector new *
+            $* wsl nl main.go | wsl cat
+            /file>I/__INPUT__/__FILE__=divrhino collector new|main.go
+        @ collector on html *
+            $* wsl nl main.go | wsl cat
+            /file>I/__INPUT__/__FILE__=divrhino collector on html|main.go
+        @ collector on request *
+            $* wsl nl main.go | wsl cat
+            /file>I/__INPUT__/__FILE__=divrhino collector on request|main.go
+        @ collector visit *
+            $* wsl nl main.go | wsl cat
+            /file>I/__INPUT__/__FILE__=divrhino collector visit|main.go
+        @ write json call *
+            $* wsl nl main.go | wsl cat
+            /file>I/__INPUT__/__FILE__=divrhino write json call|main.go
+        @ write json define *
+            $* wsl nl main.go | wsl cat
+            /file>I/__INPUT__/__FILE__=divrhino write json define|main.go
+
+        /file>>__INPUT__/t|main.go
+        /file>>__INPUT__/s|main.go
+        /file>i/__INPUT__/__NL|main.go
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+        .,d(/load=__FILE__=https://divrhino.com/articles/build-webscraper-with-go-and-colly/0*)
+        $* python -m webbrowser -t https://zetcode.com/all/#go
+        @oprek colly*
+            @https://zetcode.com/golang/colly/*
+            .,d(/load=__CURDIR__/colly.fmus=index/fmus*)
+        @oprek goquery*
+            @https://zetcode.com/golang/goquery/*
+            .,d(/load=__CURDIR__/gq.fmus=index/fmus*)
+
+        @package json to main*
+        main.go,f(t=)
+        main.go,f(n=package main)
+        /file>i/0/package main|main.go
+        /file>IA/package main/__FILE__=import main+colly|main.go
+        /file>I/-1/__FILE__=func main skeleton|main.go
+
+        .,d(/load=__FILE__=insert c new colly.NewCollector*)
+        .,d(/load=__FILE__=insert c new colly.NewCollector_c.AllowedDomains_*)
+        .,d(/load=__FILE__=insert c.OnRequest func request *colly.Request*)
+        .,d(/load=__FILE__=indent 1 tab pada input line number*)
+        .,d(/load=__FILE__=indent 1 space tab pada input line number*)
+        .,d(/load=__FILE__=dedent 1 tab pada input line number*)
+        .,d(/load=__FILE__=dedent 1 space tab pada input line number*)
+        .,d(/load=__FILE__=tab to space main.go*)
+        .,d(/load=__FILE__=space to tab main.go*)
+        .,d(/load=__FILE__=add colly visit url by input/0*)
+        .,d(/load=__FILE__=kasih c.OnHTML pada baris input, simple tag+text saja dulu/0*)
+
+        .,d(/load=__FILE__=contoh insert tabify/0*)
+
+        $* more main.go
+        $* wsl nl main.go | more
+        $* code main.go
+--#
+
+--% c.OnRequest(func(request *colly.Request)
+c.OnRequest(func(request *colly.Request) {
+    fmt.Println("Visiting", request.URL.String())
+})
+--#
+
+--% insert c.OnRequest func request *colly.Request
+__PWD,d
+    $* wsl nl main.go | more
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__
+    /file>I/__TEMPLATE_NOMOR_BARIS/__FILE__=c.OnRequest(func(request *colly.Request)|main.go
+    $* wsl nl main.go | more
+--#
+
+--% insert c new colly.NewCollector_c.AllowedDomains_
+__PWD,d
+    $* wsl nl main.go | more
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__
+    /file>i/__TEMPLATE_NOMOR_BARIS/c := colly.NewCollector(c.AllowedDomains("factretriever.com", "www.factretriever.com"),)|main.go
+    $* wsl nl main.go | more
+--#
+
+--% contoh insert tabify_1
+ini tulisan yg dimulai dari 0 tab
+    ini tulisan yg dimulai dari 1 tab
+        ini tulisan yg dimulai dari 2 tab
+            ini tulisan yg dimulai dari 3 tab
+                ini tulisan yg dimulai dari 4 tab
+                    ini tulisan yg dimulai dari 5 tab
+__NL
+--#
+
+--% contoh insert tabify/0
+__PWD,d
+    $* wsl nl main.go | more
+    %__TEMPLATE_NOMOR_BARIS_INSERT=__INPUT__
+    %__TEMPLATE_JUMLAH_TAB=__INPUT__
+    %__TEMPLATE_TAB_OR_SPACE=__INPUT__
+    /file>I>/__TEMPLATE_NOMOR_BARIS_INSERT/__FILE__=contoh insert tabify_1/__TEMPLATE_TAB_OR_SPACE/__TEMPLATE_JUMLAH_TAB|main.go
+    $* wsl nl main.go | more
+--#
+
+--% kasih c.OnHTML pada baris input, simple tag+text saja dulu/1
+    c.OnHTML("title", func(e *colly.HTMLElement) {
+        fmt.Println(e.Text)
+    })
+--#
+
+--% kasih c.OnHTML pada baris input, simple tag+text saja dulu/0
+__PWD,d
+    %__TEMPLATE_NOBARIS=__INPUT__
+    /file>I/__TEMPLATE_NOBARIS/__FILE__=kasih c.OnHTML pada baris input, simple tag+text saja dulu/1|main.go
+--#
+
+--% add colly visit url by input/0
+__PWD,d
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__
+    %__TEMPLATE_ALAMAT_URL=__INPUT__
+    /file>i/__TEMPLATE_NOMOR_BARIS/c.Visit("http:__SL__SL__TEMPLATE_ALAMAT_URL")__NL|main.go
+    @indent space 4 1x*
+    /file>>__TEMPLATE_NOMOR_BARIS/s/1/4|main.go
+    $* wsl nl main.go | more
+--#
+
+
+--% tab to space main.go
+__PWD,d
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__    
+    /file>ts|main.go
+    $* wsl nl main.go | more
+--#
+
+--% space to tab main.go
+__PWD,d
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__    
+    /file>st|main.go
+    $* wsl nl main.go | more
+--#
+
+--% dedent 1 tab pada input line number
+__PWD,d
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__    
+    /file><__TEMPLATE_NOMOR_BARIS/t|main.go
+    $* wsl nl main.go | more
+--#
+
+--% dedent 1 space tab pada input line number
+__PWD,d
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__
+    /file><__TEMPLATE_NOMOR_BARIS/s|main.go
+    $* wsl nl main.go | more
+--#
+
+--% indent 1 tab pada input line number
+__PWD,d
+    $* wsl nl main.go | more
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__
+    /file>>__TEMPLATE_NOMOR_BARIS/t|main.go
+    $* wsl nl main.go | more
+--#
+
+--% indent 1 space tab pada input line number
+__PWD,d
+    $* wsl nl main.go | more
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__
+    /file>>__TEMPLATE_NOMOR_BARIS/s|main.go
+    $* wsl nl main.go | more
+--#
+
+--% insert c new colly.NewCollector
+__PWD,d
+    $* wsl nl main.go | more
+    %__TEMPLATE_NOMOR_BARIS=__INPUT__
+    /file>i/__TEMPLATE_NOMOR_BARIS/c := colly.NewCollector()|main.go
+    $* wsl nl main.go | more
+--#
+
+--% import main+colly
+__NL
+import (
+    "fmt"
+    "github.com/gocolly/colly/v2"
+)
+--#
+
+--% func main skeleton
+func main() {
+
+}
+--#

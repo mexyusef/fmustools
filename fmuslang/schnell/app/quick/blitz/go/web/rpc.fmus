@@ -1,0 +1,100 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    server.go,f(e=__FILE__=main.go)
+    client.go,f(e=__FILE__=client.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    info.txt,f(e=__FILE__=info.txt)
+    $* more info.txt
+
+    #**wnd_ngetik=__FILE__=ketik/server
+
+    @jalankan di terminal baru: go run client.go*
+    **term
+    $*go run server.go
+    
+--#
+
+--% ketik/server
+server
+server
+server
+--#
+
+--% ketik/client
+client
+client
+client
+--#
+
+--% main.go
+package main
+
+import (
+	"log"
+	"net"
+	"net/http"
+	"net/rpc"
+	"time"
+)
+
+type Args struct{}
+
+type TimeServer int64
+
+func (t *TimeServer) GiveServerTime(args *Args, reply *int64) error {
+	// Fill reply pointer to send the data back
+	*reply = time.Now().Unix()
+	return nil
+}
+
+func main() {
+	timeserver := new(TimeServer)
+	rpc.Register(timeserver)
+	rpc.HandleHTTP()
+	// Listen for requests on port 1234
+	l, e := net.Listen("tcp", ":1234")
+	if e != nil {
+		log.Fatal("listen error:", e)
+	}
+	http.Serve(l, nil)
+}
+--#
+
+--% client.go
+package main
+
+import (
+	"log"
+	"net/rpc"
+)
+
+type Args struct {
+}
+
+func main() {
+	var reply int64
+	args := Args{}
+	client, err := rpc.DialHTTP("tcp", "localhost"+":1234")
+	if err != nil {
+		log.Fatal("dialing:", err)
+	}
+	err = client.Call("TimeServer.GiveServerTime", args, &reply)
+	if err != nil {
+		log.Fatal("arith error:", err)
+	}
+	log.Printf("%d", reply)
+}
+--#
+
+--% info.txt
+go run server.go
+
+go run client.go
+2022/04/06 04:33:24 1649194404
+--#

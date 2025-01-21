@@ -1,0 +1,38 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    ?pick
+		main.js,f(code[js]=fM)
+			$* code .
+        __PRC__TEMP__PRC__/play,d(/mk)
+            main.js,f(code[js]=fM)
+            $* code .
+
+        $* jupyter-notebook --port __INPUT||9000
+
+        .,d(/load=__FILE__=node/express*)
+        .,d(/load=__FILE__=nestjs*)
+        .,d(/load=__FILE__=nextjs*)
+
+        $* code ULIBPY_BASEDIR\app\quick\blitz\js\l.fmus
+--#
+
+--% node/express
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% nestjs
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#
+
+--% nextjs
+__PWD,d
+    /D>dj|[usef:rahasia@localhost:5432/tempdb#8000##9000]__INPUT__
+--#

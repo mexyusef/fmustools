@@ -1,0 +1,89 @@
+--% index/fmus
+__PWD,d
+    ?pick
+
+        @create simple crud project*
+        @create GQL (apollo, hasura) project*
+        @create ORM (pg, sequelize, prisma, knex) project*
+        @create todo project*
+        @create blog project*
+        @create fileupload project*
+        @create forms project (templates or react-based) project - login, register, create user, etc*
+
+        @create chrome extension *
+        @create firefox extension *
+
+        @create chat project*
+        @create payment project - stripe, paypal*
+        @create auth project - okta, auth0, oauth2, jwt, gql, firebase*
+        @create task management project*
+        @create erp - mrp - crm - hrm project*
+            @https://studygyaan.com/build-django-crm-project-from-scratch*
+        @create social media project*
+        @create news website project*
+        @create ecommerce project (kita punya banyak contoh - masukkan semua)*
+
+        @create socket.io project*
+        @create websocket project*
+        @create webrtc project*
+        @create webassembly project*
+        @create jquery project*
+        @create threejs project*
+        @create jointjs project*
+        @create webgl project*
+        @create d3.js project*
+
+        @create EBNF go parser project*
+        @create EBNF java parser project*
+        @create EBNF python parser project*
+        @create EBNF js parser project*
+
+        @create pub/sub framework*
+        @create message queue framework*
+        @create producer/consumer framework*
+        @create event-loop/libevent/async framework*
+
+        @create compiler project*
+        @create video streaming (HSL, DASH, RTMP) - server dan client - project*
+        @create proxy project*
+        @create scheduler project*
+        @create network management system project*
+
+        @create gui texteditor project*
+        @create gui videoplayer project*
+        @create gui webbrowser project*
+        @create simple gui project*
+
+        @create scraper project - instagram, twitter, facebook, marketplace*
+            ?pick
+                @daily scraping practice*
+                    ?pick
+                        @jsoup*
+                        @scrapy*
+                        @bs4*
+                        @colly*
+                        @goquery*
+                        @puppeteer*
+                        @request+xpath*
+
+        @create selenium, browserstack, phantomjs, ... project*
+        @create automation (click, keyboard) project (pyautogui, mouse, keyboard)*
+
+		@https://www.youtube.com/watch?v=m-t5ZNHNa_Y, Drag and Drop File Upload using DropzoneJS Python Flask PostgreSQL*
+        @https://www.youtube.com/watch?v=jUtCtlCRAT4, Django and dropzone js | Upload multiple files on drag and drop using Django and JavaScript*
+        @medium: Real-Time Video Streams With Streamlit-WebRTC, https://betterprogramming.pub/real-time-video-streams-with-streamlit-webrtc-bd38d15f2ef3*
+
+        @fmusify freecodecamp*        
+
+        @create vuejs project*
+        @create svelte project*
+        @create remix project*
+        @create gatsby project*
+        @create elixir/phoenix project*
+        @create ruby/rails project*
+        @create php/laravel project*
+        @create php/symfony project*
+        @create asp.net core project*
+        @create xamarin project*
+        @create ios/swift project*
+--#

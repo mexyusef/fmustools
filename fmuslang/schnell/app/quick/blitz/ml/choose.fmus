@@ -1,0 +1,34 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@prediksi titanic dari github*
+			.,d(/load=__CURDIR__/titanic.fmus=index/fmus*)
+		@prediksi houseprice dari github*
+			.,d(/load=__CURDIR__/houseprice.fmus=index/fmus*)
+		@create recommendation system*
+		@prediksi timeseries dari github*
+
+		@create neural network/ANN/CNN/RNN/deep learning project*
+
+		@create data pipeline*
+		@create data ETL*
+
+		@oprek open ai, DALL-E2, GPT-3 dll*
+			@https://openai.com/api/*
+
+				
+		@create keras boilerplate*
+		@create matplotlib boilerplate*
+		@create networkx boilerplate*
+		@create opencv boilerplate*
+		@create pandas/numpy boilerplate*
+		@create plotly boilerplate*
+		@create pyspark boilerplate*
+		@create pytorch boilerplate*
+		@create scikit/scipy boilerplate*
+		@create tensorflow boilerplate*
+		
+--#
+
+--% misc/readme
+--#

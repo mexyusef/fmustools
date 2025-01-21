@@ -1,0 +1,33 @@
+--% index/fmus
+__PWD,d
+	@gaya lama dari https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository*
+	$* git init
+	?pick
+		@masukkan alamat github, misal mexyusef/whatever*
+			.,d(/load=__FILE__=addorigin/1*)
+		@masukkan alamat github, misal https://github.com/mexyusef/whatever*
+			.,d(/load=__FILE__=addorigin/2*)
+	$* git sparse-checkout init
+	.,d(/load=__FILE__=path-checkout*)
+	$* git sparse-checkout list
+	$* git pull origin master
+	$* tree .
+--#
+
+--% addorigin/1
+.,d
+	%__TEMPLATE_SUMBER_GITHUB_PATH=__INPUT__
+	$* git remote add origin https://github.com/__TEMPLATE_SUMBER_GITHUB_PATH
+--#
+
+--% addorigin/2
+.,d
+	%__TEMPLATE_SUMBER_GITHUB_URL=__INPUT__
+	$* git remote add origin __TEMPLATE_SUMBER_GITHUB_URL
+--#
+
+--% path-checkout
+.,d
+	%__TEMPLATE_CHECKOUT_PATH=__INPUT__
+	$* git sparse-checkout set "__TEMPLATE_CHECKOUT_PATH"
+--#

@@ -1,0 +1,15 @@
+**.,d
+  gocli,d(/mk)
+    __init__.py,f(t=)
+    index-input.mk,f(t=)
+
+ubah wslpath \\wsl$\Ubuntu-20.04\home\usef\work\ulibs\schnell\app\transpiler\frontend\fslang\misc\work.fmus ke /home/usef/work/ulibs/schnell/app/transpiler/frontend/fslang/misc/work.fmus
+Running program [.,d
+  zhapus,d(/mk)
+    __init__.py,f(t=)
+    index-input.mk,f(t=)
+] at [/home/usef/work/ulibs/schnell/app/transpiler/frontend/fslang/misc/work.fmus]
+/tmp/sample >< /tmp/sample/zhapus, jadi targetdir = joiner(projectdir, item.workdir)
+platform: wsl linuxifying: /tmp/sample/zhapus
+linuxifying: /tmp/sample/zhapus
+True => Folder: [/tmp/sample/zhapus] sudah ada

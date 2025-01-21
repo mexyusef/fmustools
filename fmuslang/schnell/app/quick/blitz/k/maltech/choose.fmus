@@ -1,0 +1,15 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan maltech terutama broadphone, streamsation, mincle, dst*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+napaktilas cepat maltech (jp dan id)
+
+streamsation
+kita streaming audio disini, dg jwplayer dan rtmp (servernya pake apa ya?)
+
+https://github.com/denex/hls-downloader
+--#

@@ -1,0 +1,71 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        $* pip install Flask
+
+        @render template*
+            .,d(/load=__FILE__=render_template_index.html/fmus*)
+
+        @create flask upload project*
+            ?pick
+                .,d(/load=__CURDIR__/flupload1.fmus=index/fmus*)
+                .,d(/load=__CURDIR__/flupload2.fmus=index/fmus*)
+                .,d(/load=__CURDIR__/flupload3.fmus=index/fmus*)
+
+        $* flask run
+--#
+
+--% render_template_index.html/fmus
+.,d
+    %__TEMPLATE_BASEDIR=__INPUT__
+    %__TEMPLATE_SERVERHOST=0.0.0.0
+    %__TEMPLATE_SERVERPORT=8000
+    __TEMPLATE_BASEDIR,d(/mk)
+        templates,d(/mk)
+            index.html,f(e=__FILE__=render_template_index.html/index.html)
+        main.py,f(e=__FILE__=render_template_index.html/main.py)
+        $* python main.py
+
+--#
+
+--% render_template_index.html/main.py
+import logging
+import os
+from flask import Flask, render_template
+
+
+#logging config
+logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',level=logging.WARN,datefmt='%Y-%m-%d %H:%M:%S')
+logger = logging.getLogger(__name__)
+
+
+application = Flask(__name__)
+application.secret_key = os.urandom(24)
+
+@application.route("/")
+def home():
+    return render_template("index.html")
+
+def main():
+    print('Running server at __TEMPLATE_SERVERHOST:__TEMPLATE_SERVERPORT')
+    application.run(host='__TEMPLATE_SERVERHOST',port=__TEMPLATE_SERVERPORT,debug=True)
+
+if __name__ == "__main__":
+    main()
+--#
+
+--% render_template_index.html/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Judul</title>
+</head>
+<body>
+    <h1>Hello, Flask!
+    </h1>
+</body>
+</html>
+--#

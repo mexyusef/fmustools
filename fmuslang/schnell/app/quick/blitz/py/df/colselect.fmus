@@ -1,0 +1,17 @@
+--% index/fmus
+__PWD,d
+    main.py,f(e=__FILE__=template1)
+    $* python main.py
+--#
+
+--% template1
+import pandas as pd
+data = {
+    'Name':['Jai', 'Princi', 'Gaurav', 'Anuj'],
+    'Age':[27, 24, 22, 32],
+    'Address':['Delhi', 'Kanpur', 'Allahabad', 'Kannauj'],
+    'Qualification':['Msc', 'MA', 'MCA', 'Phd']
+}
+df = pd.DataFrame(data)
+print(df[['Name', 'Qualification']])
+--#

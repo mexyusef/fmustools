@@ -1,0 +1,51 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main1.go,f(e=__FILE__=main1.go)
+    main2.go,f(e=__FILE__=main2.go)
+--#
+
+--% main1.go
+package main
+import (
+ 	"github.com/levigross/grequests"
+ 	"log"
+ 	)
+
+func main() {
+	resp, err := grequests.Get("http://httpbin.org/get", nil)
+	// You can modify the request by passing an optional RequestOptions struct
+	if err != nil {
+		log.Fatalln("Unable to make request: ", err)
+	}
+	log.Println(resp.String())		
+}
+// basic request
+--#
+
+--% main2.go
+package main
+
+import (
+	"log"
+
+	"github.com/levigross/grequests"
+)
+
+func main() {
+	resp, err := grequests.Get("http://httpbin.org/get", nil)
+	// You can modify the request by passing an optional RequestOptions struct
+	if err != nil {
+		log.Fatalln("Unable to make request: ", err)
+	}
+	var returnData map[string]interface{}
+	resp.JSON(&returnData)
+	log.Println(returnData)
+
+}
+// json request
+--#

@@ -1,0 +1,68 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    info.txt,f(e=__FILE__=info.txt)
+    greek.txt,f(e=__FILE__=greek.txt)
+    latin.txt,f(e=__FILE__=latin.txt)
+    $* more info.txt
+    $* go run main.go
+--#
+
+--% main.go
+package main
+
+import (
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"os/exec"
+
+	"github.com/julienschmidt/httprouter"
+)
+
+func getCommandOutput(command string, arguments ...string) string {
+	out, _ := exec.Command(command, arguments...).Output()
+	return string(out)
+}
+
+func goVersion(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	response := getCommandOutput("go", "version")
+	io.WriteString(w, response)
+	return
+}
+
+func getFileContent(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	fmt.Fprintf(w, getCommandOutput("more", params.ByName("name")))
+}
+
+func main() {
+	router := httprouter.New()
+	router.GET("/api/v1/go-version", goVersion)
+	router.GET("/api/v1/show-file/:name", getFileContent)
+	log.Fatal(http.ListenAndServe(":8000", router))
+}
+--#
+
+--% info.txt
+localhost:8000/api/v1/go-version
+
+localhost:8000/api/v1/show-file/:name
+localhost:8000/api/v1/show-file/greek.txt
+localhost:8000/api/v1/show-file/latin.txt
+--#
+
+--% latin.txt
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+--#
+
+--% greek.txt
+Οἱ δὲ Φοίνιϰες οὗτοι οἱ σὺν Κάδμῳ ἀπιϰόμενοι.. ἐσήγαγον διδασϰάλια ἐς τοὺς ῞Ελληνας ϰαὶ δὴ ϰαὶ γράμματα, οὐϰ ἐόντα πρὶν ῞Ελλησι ὡς ἐμοὶ δοϰέειν, πρῶτα μὲν τοῖσι ϰαὶ ἅπαντες χρέωνται Φοίνιϰες· μετὰ δὲ χρόνου προβαίνοντος ἅμα τῇ ϕωνῇ μετέβαλον ϰαὶ τὸν ϱυϑμὸν τῶν γραμμάτων. Περιοίϰεον δέ σϕεας τὰ πολλὰ τῶν χώρων τοῦτον τὸν χρόνον ῾Ελλήνων ῎Ιωνες· οἳ παραλαβόντες διδαχῇ παρὰ τῶν Φοινίϰων τὰ γράμματα, μεταρρυϑμίσαντές σϕεων ὀλίγα ἐχρέωντο, χρεώμενοι δὲ ἐϕάτισαν, ὥσπερ ϰαὶ τὸ δίϰαιον ἔϕερε ἐσαγαγόντων Φοινίϰων ἐς τὴν ῾Ελλάδα, ϕοινιϰήια ϰεϰλῆσϑαι.
+--#

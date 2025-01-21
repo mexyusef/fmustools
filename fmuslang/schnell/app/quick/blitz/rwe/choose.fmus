@@ -1,0 +1,24 @@
+--% index/fmus
+__PWD,d
+	?pick
+		.,d(/load=__CURDIR__=awslambda.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=awslambda2.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=choose.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=django.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=django2.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=fastapi.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=flask.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=ktspring.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=nest.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=nest2.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=node.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=nodeprisma1.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=nodeprisma2.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=serverless.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=serverless2.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=serverless3.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=spring.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=springboot.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=springboot2.fmus=index/fmus*)
+		.,d(/load=__CURDIR__=vertx.fmus=index/fmus*)
+--#

@@ -1,0 +1,654 @@
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ganarcrm_django.settings')
+
+
+# Stripe
+STRIPE_PUB_KEY = ''
+STRIPE_SECRET_KEY = ''
+
+STRIPE_PRICE_ID_SMALL_TEAM = ''
+STRIPE_PRICE_ID_BIG_TEAM = ''
+
+STRIPE_WEBHOOK_KEY = ''
+
+FRONTEND_WEBSITE_SUCCESS_URL = 'http://localhost:8081/dashboard/team/plans/thankyou'
+FRONTEND_WEBSITE_CANCEL_URL = 'http://localhost:8081/dashboard/team/plans'
+
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080',
+    'http://localhost:8081'
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'djoser',
+    'client.apps.ClientConfig',
+    'lead.apps.LeadConfig',
+    'team.apps.TeamConfig',
+]
+
+ROOT_URLCONF = 'ganarcrm_django.urls'
+WSGI_APPLICATION = 'ganarcrm_django.wsgi.application'
+
+#################################################
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+
+    path('api/v1/', include('djoser.urls')),
+    path('api/v1/', include('djoser.urls.authtoken')),
+    path('api/v1/', include('lead.urls')),
+    path('api/v1/', include('team.urls')),
+    path('api/v1/', include('client.urls')),
+]
+
+#################################################
+client,d
+lead,d
+team,d
+C:\portfolio\_django\ganarcrm\ganarcrm_django\client\admin.py
+from django.contrib import admin
+
+from .models import Client
+
+admin.site.register(Client)
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\client\models.py
+from django.contrib.auth.models import User
+from django.db import models
+
+from team.models import Team
+
+class Client(models.Model):
+    team = models.ForeignKey(Team, related_name='clients', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    contact_person = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=255)
+    website = models.CharField(max_length=255, blank=True, null=True)
+    created_by = models.ForeignKey(User, related_name='clients', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+class Note(models.Model):
+    team = models.ForeignKey(Team, related_name='notes', on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, related_name='notes', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    body = models.TextField(blank=True, null=True)
+    created_by = models.ForeignKey(User, related_name='notes', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\client\serializers.py
+from rest_framework import serializers
+
+from .models import Client, Note
+
+class ClientSerializer(serializers.ModelSerializer):    
+    class Meta:
+        model = Client
+        read_only_fields = (
+            'created_by',
+            'created_at',
+            'modified_at',
+        ),
+        fields = (
+            'id',
+            'name',
+            'contact_person',
+            'email',
+            'phone',
+            'website',
+            'created_at',
+            'modified_at',
+        )
+
+class NoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Note
+        fields = (
+            'id',
+            'name',
+            'body',
+        )
+
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\client\urls.py
+from django.urls import path, include
+
+from rest_framework.routers import DefaultRouter
+
+from .views import ClientViewSet, NoteViewSet, convert_lead_to_client, delete_client
+
+router = DefaultRouter()
+router.register('clients', ClientViewSet, basename='clients')
+router.register('notes', NoteViewSet, basename='notes')
+
+urlpatterns = [
+    path('convert_lead_to_client/', convert_lead_to_client, name='convert_lead_to_client'),
+    path('clients/delete_client/<int:client_id>/', delete_client, name='delete_client'),
+    path('', include(router.urls)),
+]
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\client\views.py
+from django.contrib.auth.models import User
+from django.http import Http404
+from django.shortcuts import render
+
+from rest_framework import viewsets, status, filters
+from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from lead.models import Lead
+from team.models import Team
+
+from .models import Client, Note
+from .serializers import ClientSerializer, NoteSerializer
+
+class ClientPagination(PageNumberPagination):
+    page_size = 10
+
+class ClientViewSet(viewsets.ModelViewSet):
+    serializer_class = ClientSerializer
+    queryset = Client.objects.all()
+    pagination_class = ClientPagination
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'contact_person')
+    
+    def perform_create(self, serializer):
+        team = Team.objects.filter(members__in=[self.request.user]).first()
+
+        serializer.save(team=team, created_by=self.request.user)
+
+    def get_queryset(self):
+        team = Team.objects.filter(members__in=[self.request.user]).first()
+
+        return self.queryset.filter(team=team)
+
+class NoteViewSet(viewsets.ModelViewSet):
+    serializer_class = NoteSerializer
+    queryset = Note.objects.all()
+
+    def get_queryset(self):
+        team = Team.objects.filter(members__in=[self.request.user]).first()
+        client_id = self.request.GET.get('client_id')
+
+        return self.queryset.filter(team=team).filter(client_id=client_id)
+
+    def perform_create(self, serializer):
+        team = Team.objects.filter(members__in=[self.request.user]).first()
+        client_id = self.request.data['client_id']
+
+        serializer.save(team=team, created_by=self.request.user, client_id=client_id)
+
+@api_view(['POST'])
+def convert_lead_to_client(request):
+    team = Team.objects.filter(members__in=[request.user]).first()
+    lead_id = request.data['lead_id']
+
+    try:
+        lead = Lead.objects.filter(team=team).get(pk=lead_id)
+    except Lead.DoesNotExist:
+        raise Http404
+    
+    client = Client.objects.create(team=team, name=lead.company, contact_person=lead.contact_person, email=lead.email, phone=lead.phone, website=lead.website, created_by=request.user)
+
+    return Response()
+
+@api_view(['POST'])
+def delete_client(request, client_id):
+    team = Team.objects.filter(members__in=[request.user]).first()
+
+    client = team.clients.filter(pk=client_id)
+    client.delete()
+
+    return Response({'message': 'The client was deleted'})
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\lead\admin.py
+from django.contrib import admin
+
+from .models import Lead
+
+admin.site.register(Lead)
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\lead\models.py
+from django.contrib.auth.models import User
+from django.db import models
+
+from team.models import Team
+
+class Lead(models.Model):
+    NEW = 'new'
+    CONTACTED = 'contacted'
+    INPROGRESS = 'inprogress'
+    LOST = 'lost'
+    WON = 'won'
+
+    CHOICES_STATUS = (
+        (NEW, 'New'),
+        (CONTACTED, 'Contacted'),
+        (INPROGRESS, 'In progress'),
+        (LOST, 'Lost'),
+        (WON, 'Won'),
+    )
+
+    LOW = 'low'
+    MEDIUM = 'medium'
+    HIGH = 'high'
+
+    CHOICES_PRIORITY = (
+        (LOW, 'Low'),
+        (MEDIUM, 'Medium'),
+        (HIGH, 'High'),
+    )
+
+    team = models.ForeignKey(Team, related_name='leads', on_delete=models.CASCADE)
+    company = models.CharField(max_length=255)
+    contact_person = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=255)
+    website = models.CharField(max_length=255, blank=True, null=True)
+    confidence = models.IntegerField(blank=True, null=True)
+    estimated_value = models.IntegerField(blank=True, null=True)
+    status = models.CharField(max_length=25, choices=CHOICES_STATUS, default=NEW)
+    priority = models.CharField(max_length=25, choices=CHOICES_PRIORITY, default=MEDIUM)
+    assigned_to = models.ForeignKey(User, related_name='assignedleads', blank=True, null=True, on_delete=models.SET_NULL)
+    created_by = models.ForeignKey(User, related_name='leads', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\lead\serializers.py
+from rest_framework import serializers
+
+from .models import Lead
+
+from team.serializers import UserSerializer
+
+class LeadSerializer(serializers.ModelSerializer):
+    assigned_to = UserSerializer(read_only=True)
+    
+    class Meta:
+        model = Lead
+        read_only_fields = (
+            'created_by',
+            'created_at',
+            'modified_at',
+        ),
+        fields = (
+            'id',
+            'company',
+            'contact_person',
+            'email',
+            'phone',
+            'website',
+            'confidence',
+            'estimated_value',
+            'status',
+            'priority',
+            'assigned_to',
+            'created_at',
+            'modified_at',
+        )
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\lead\urls.py
+from django.urls import path, include
+
+from rest_framework.routers import DefaultRouter
+
+from .views import LeadViewSet, delete_lead
+
+router = DefaultRouter()
+router.register('leads', LeadViewSet, basename='leads')
+
+urlpatterns = [
+    path('leads/delete_lead/<int:lead_id>/', delete_lead, name='delete_lead'),
+    path('', include(router.urls)),
+]
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\lead\views.py
+from django.contrib.auth.models import User
+from django.shortcuts import render
+
+from rest_framework import viewsets, filters
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
+
+from team.models import Team
+
+from .models import Lead
+from .serializers import LeadSerializer
+
+class LeadPagination(PageNumberPagination):
+    page_size = 2
+
+class LeadViewSet(viewsets.ModelViewSet):
+    serializer_class = LeadSerializer
+    queryset = Lead.objects.all()
+    pagination_class = LeadPagination
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('company', 'contact_person')
+    
+    def perform_create(self, serializer):
+        team = Team.objects.filter(members__in=[self.request.user]).first()
+
+        serializer.save(team=team, created_by=self.request.user)
+    
+    def perform_update(self, serializer):
+        obj = self.get_object()
+
+        member_id = self.request.data['assigned_to']
+
+        if member_id:
+            user = User.objects.get(pk=member_id)
+            serializer.save(assigned_to=user)
+        else:
+            serializer.save()
+
+    def get_queryset(self):
+        team = Team.objects.filter(members__in=[self.request.user]).first()
+
+        return self.queryset.filter(team=team)
+
+@api_view(['POST'])
+def delete_lead(request, lead_id):
+    team = Team.objects.filter(members__in=[request.user]).first()
+
+    lead = team.leads.filter(pk=lead_id)
+    lead.delete()
+
+    return Response({'message': 'The lead was deleted'})
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\team\admin.py
+from django.contrib import admin
+
+from .models import Team, Plan
+
+admin.site.register(Team)
+admin.site.register(Plan)
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\team\models.py
+from django.contrib.auth.models import User
+from django.db import models
+
+class Plan(models.Model):
+    name = models.CharField(max_length=255)
+    max_leads = models.IntegerField(default=5)
+    max_clients = models.IntegerField(default=5)
+    price = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
+
+class Team(models.Model):
+    PLAN_ACTIVE = 'active'
+    PLAN_CANCELLED = 'cancelled'
+
+    CHOICES_PLAN_STATUS = (
+        (PLAN_ACTIVE, 'Active'),
+        (PLAN_CANCELLED, 'Cancelled')
+    )
+
+    name = models.CharField(max_length=255)
+    members = models.ManyToManyField(User, related_name='teams')
+    created_by = models.ForeignKey(User, related_name='created_teams', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    plan = models.ForeignKey(Plan, related_name='teams', on_delete=models.SET_NULL, null=True, blank=True)
+    plan_status = models.CharField(max_length=20, choices=CHOICES_PLAN_STATUS, default=PLAN_ACTIVE)
+    plan_end_date = models.DateTimeField(blank=True, null=True)
+    stripe_customer_id = models.CharField(max_length=255, blank=True, null=True)
+    stripe_subscription_id = models.CharField(max_length=255, blank=True, null=True)
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\team\serializers.py
+from django.contrib.auth.models import User
+
+from rest_framework import serializers
+
+from .models import Team, Plan
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+        )
+
+class PlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plan
+        fields = (
+            "id",
+            "name",
+            "max_leads",
+            "max_clients",
+            "price"
+        )
+
+class TeamSerializer(serializers.ModelSerializer):
+    members = UserSerializer(many=True, read_only=True)
+    created_by = UserSerializer(read_only=True)
+    plan = PlanSerializer(read_only=True)
+
+    class Meta:
+        model = Team
+        fields = (
+            "id",
+            "name",
+            "members",
+            "created_by",
+            "plan",
+            "plan_end_date"
+        )
+#################################################C:\portfolio\_django\ganarcrm\ganarcrm_django\team\views.py
+import json
+from rest_framework.serializers import Serializer
+import stripe
+
+from datetime import datetime
+
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.http import Http404, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+from rest_framework import viewsets, status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from stripe import webhook
+from stripe.api_resources import line_item
+
+from .models import Team, Plan
+from .serializers import TeamSerializer, UserSerializer
+
+class TeamViewSet(viewsets.ModelViewSet):
+    serializer_class = TeamSerializer
+    queryset = Team.objects.all()
+
+    def get_queryset(self):
+        return self.queryset.filter(members__in=[self.request.user]).first()
+    
+    def perform_create(self, serializer):
+        obj = serializer.save(created_by=self.request.user)
+        obj.members.add(self.request.user)
+        obj.save()
+
+class UserDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+    
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_stripe_pub_key(requets):
+    pub_key = settings.STRIPE_PUB_KEY
+
+    return Response({'pub_key': pub_key})
+
+@api_view(['GET'])
+def get_my_team(request):
+    team = Team.objects.filter(members__in=[request.user]).first()
+    serializer = TeamSerializer(team)
+
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def upgrade_plan(request):
+    team = Team.objects.filter(members__in=[request.user]).first()
+    plan = request.data['plan']
+
+    print('Plan', plan)
+
+    if plan == 'free':
+        plan = Plan.objects.get(name='Free')
+    elif plan == 'smallteam':
+        plan = Plan.objects.get(name='Small team')
+    elif plan == 'bigteam':
+        plan = Plan.objects.get(name='Big team')
+    
+    team.plan = plan
+    team.save()
+
+    serializer = TeamSerializer(team)
+
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def add_member(request):
+    team = Team.objects.filter(members__in=[request.user]).first()
+    email = request.data['email']
+
+    print('Email', email)
+
+    user = User.objects.get(username=email)
+
+    team.members.add(user)
+    team.save()
+
+    return Response()
+
+@api_view(['POST'])
+def check_session(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    error = ''
+
+    try:
+        team = Team.objects.filter(members__in=[request.user]).first()
+        subscription = stripe.Subscription.retrieve(team.stripe_subscription_id)
+        product = stripe.Product.retrieve(subscription.plan.product)
+
+        team.plan_status = Team.PLAN_ACTIVE
+        team.plan_end_date = datetime.fromtimestamp(subscription.current_period_end)
+        team.plan = Plan.objects.get(name=product.name)
+        team.save()
+
+        serializer = TeamSerializer(team)
+
+        return Response(serializer.data)
+    except Exception:
+        error = 'There something wrong. Please try again!'
+
+        return Response({'error': error})
+
+@api_view(['POST'])
+def cancel_plan(request):
+    team = Team.objects.filter(members__in=[request.user]).first()
+    plan_free = Plan.objects.get(name='Free')
+
+    team.plan = plan_free
+    team.plan_status = Team.PLAN_CANCELLED
+    team.save()
+
+    try:
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.Subscription.delete(team.stripe_subscription_id)
+    except Exception:
+        return Response({'error': 'Something went wrong. Please try again'})
+    
+    serializer = TeamSerializer(team)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def create_checkout_session(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    data = json.loads(request.body)
+    plan = data['plan']
+
+    if plan == 'smallteam':
+        price_id = settings.STRIPE_PRICE_ID_SMALL_TEAM
+    else:
+        price_id = settings.STRIPE_PRICE_ID_BIG_TEAM
+    
+    team = Team.objects.filter(members__in=[request.user]).first()
+
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            client_reference_id = team.id,
+            success_url = '%s?session_id={CHECKOUT_SESSION_ID}' % settings.FRONTEND_WEBSITE_SUCCESS_URL,
+            cancel_url = '%s' % settings.FRONTEND_WEBSITE_CANCEL_URL,
+            payment_method_types = ['card'],
+            mode = 'subscription',
+            line_items = [
+                {
+                    'price': price_id,
+                    'quantity': 1
+                }
+            ]
+        )
+        return Response({'sessionId': checkout_session['id']})
+    except Exception as e:
+        return Response({'error': str(e)})
+
+@csrf_exempt
+def stripe_webhook(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    webhook_key = settings.STRIPE_WEBHOOK_KEY
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    print('payload', payload)
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, webhook_key
+        )
+    except ValueError as e:
+        return HttpResponse(status=400)
+    except stripe.error.SignaturVerificationError as e:
+        return HttpResponse(status=400)
+    
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        team = Team.objects.get(pk=session.get('client_reference_id'))
+        team.stripe_customer_id = session.get('customer')
+        team.stripe_subscription_id = session.get('subscription')
+        team.save()
+
+    return HttpResponse(status=200)

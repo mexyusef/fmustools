@@ -1,0 +1,1585 @@
+--% index/fmus
+__PWD,d
+  .,d(/load=__FILE__=index/fmus/under_pwd*)
+--#
+
+--% index/fmus/under_pwd
+__REPLACE_WITH_PROJECT_DIR_OR_INPUT__,d(/mk)
+	%utama=__FILE__
+	.classpath,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/.classpath)
+	.editorconfig,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/.editorconfig)
+	.gitignore,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/.gitignore)
+	.project,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/.project)
+	build.sh,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/build.sh)
+	pom.xml,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/pom.xml)
+	readme.md,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/readme.md)
+	start.sh,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/start.sh)
+	.vscode,d(/mk)
+		settings.json,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/.vscode/settings.json)
+	frontend,d(/mk)
+		.editorconfig,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/.editorconfig)
+		.gitignore,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/.gitignore)
+		angular.json,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/angular.json)
+		package.json,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/package.json)
+		README.md,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/README.md)
+		tsconfig.json,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/tsconfig.json)
+		tslint.json,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/tslint.json)
+		src,d(/mk)
+			index.html,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/index.html)
+			karma.conf.js,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/karma.conf.js)
+			main.ts,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/main.ts)
+			polyfills.ts,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/polyfills.ts)
+			styles.scss,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/styles.scss)
+			tsconfig.app.json,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/tsconfig.app.json)
+			tsconfig.spec.json,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/tsconfig.spec.json)
+			tslint.json,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/tslint.json)
+			app,d(/mk)
+				app-routing.module.ts,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app-routing.module.ts)
+				app.component.html,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app.component.html)
+				app.component.scss,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app.component.scss)
+				app.component.ts,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app.component.ts)
+				app.module.ts,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app.module.ts)
+				home,d(/mk)
+					home.component.html,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/home/home.component.html)
+					home.component.scss,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/home/home.component.scss)
+					home.component.spec.ts,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/home/home.component.spec.ts)
+					home.component.ts,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/home/home.component.ts)
+			assets,d(/mk)
+				.gitkeep,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/assets/.gitkeep)
+			environments,d(/mk)
+				environment.prod.ts,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/environments/environment.prod.ts)
+				environment.ts,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/frontend/src/environments/environment.ts)
+	src,d(/mk)
+		main,d(/mk)
+			java,d(/mk)
+				endpoints,d(/mk)
+					Ping.java,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/src/main/java/endpoints/Ping.java)
+				models,d(/mk)
+					Test.java,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/src/main/java/models/Test.java)
+				persistence,d(/mk)
+					PostgresBaseDao.java,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/src/main/java/persistence/PostgresBaseDao.java)
+					test,d(/mk)
+						TestDao.java,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/src/main/java/persistence/test/TestDao.java)
+				services,d(/mk)
+					MakeTest.java,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/src/main/java/services/MakeTest.java)
+			webapp,d(/mk)
+				META-INF,d(/mk)
+					context-heroku.xml,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/src/main/webapp/META-INF/context-heroku.xml)
+					context.xml,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/src/main/webapp/META-INF/context.xml)
+				WEB-INF,d(/mk)
+					web.xml,f(e=utama=E:/java-boilerplate/java-maven-boilerplate/src/main/webapp/WEB-INF/web.xml)
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/.classpath
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="target/generated-sources/annotations">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="ignore_optional_problems" value="true"/>
+			<attribute name="m2e-apt" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="target/generated-test-sources/test-annotations">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="ignore_optional_problems" value="true"/>
+			<attribute name="m2e-apt" value="true"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/.editorconfig
+root = true
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/.gitignore
+
+# Created by https://www.gitignore.io/api/java,macos,maven,windows,jetbrains+all,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=java,macos,maven,windows,jetbrains+all,visualstudiocode
+
+### Java ###
+# Compiled class file
+*.class
+
+**/node_modules/**
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+### JetBrains+all ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Generated files
+.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
+
+# CMake
+cmake-build-*/
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+# Android studio 3.1+ serialized cache file
+.idea/caches/build_file_checksums.ser
+
+# JetBrains templates
+**___jb_tmp___
+.settings
+
+### JetBrains+all Patch ###
+# Ignores the whole .idea folder and all .iml files
+# See https://github.com/joeblau/gitignore.io/issues/186 and https://github.com/joeblau/gitignore.io/issues/360
+
+.idea/
+
+# Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
+
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
+
+# Sonarlint plugin
+.idea/sonarlint
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# End of https://www.gitignore.io/api/java,macos,maven,windows,jetbrains+all,visualstudiocode
+
+src/main/webapp/*.js
+src/main/webapp/*.html
+src/main/webapp/*.json
+src/main/webapp/*.txt
+src/main/webapp/*.map
+src/main/webapp/*.css
+src/main/webapp/favicon.ico
+src/main/webapp/assets/
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/.project
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>dynamic-feed-validator</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.wst.common.project.facet.core.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.m2e.core.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+	</natures>
+</projectDescription>
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/build.sh
+#!/bin/sh
+echo '__________________BUILDING WAR__________________';
+sudo rm -rf target/ && \
+sudo heroku repo:purge_cache -a bw-dynamic-feed-validator
+sudo heroku repo:reset -a bw-dynamic-feed-validator 
+
+echo '____removed target files____'
+mvn clean install && \
+cd frontend && \
+sudo rm -rf dist
+sudo npm run build && \
+cd .. && \
+cp -R ./frontend/dist/. ./src/main/webapp
+
+git add . && \
+git commit -m "build" && \
+git push origin master
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/pom.xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>bw</groupId>
+  <artifactId>dynamic-feed-validator</artifactId>
+  <version>1.0</version>
+  <packaging>war</packaging>
+
+  <name>dynamic-feed-validator</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+		<java.version>11</java.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-servlet</artifactId>
+      <version>2.26</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish.jersey.inject</groupId>
+      <artifactId>jersey-hk2</artifactId>
+      <version>2.26</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.1-901-1.jdbc4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-json-jackson</artifactId>
+      <version>2.27</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-json</artifactId>
+      <version>1.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.websocket</groupId>
+      <artifactId>javax.websocket-api</artifactId>
+      <version>1.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <path>/</path>
+          <port>9080</port>
+          <mode>both</mode>
+        </configuration>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>com.github.jsimone</groupId>
+                  <artifactId>webapp-runner</artifactId>
+                  <version>9.0.8.0</version>
+                  <destFileName>webapp-runner.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.tomcat</groupId>
+                  <artifactId>tomcat-dbcp</artifactId>
+                  <version>9.0.8</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.postgresql</groupId>
+                  <artifactId>postgresql</artifactId>
+                  <version>42.2.2</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.tomcat.embed</groupId>
+                  <artifactId>tomcat-embed-websocket</artifactId>
+                  <version>9.0.21</version>
+                  <destFileName>tomcat-embed-websocket.jar</destFileName>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/readme.md
+# Maven boilerpalte
+
+## Java
+run: `sh start.sh`
+
+build: `sh build.sh`
+
+
+## Angular
+go to 'frontend' (cd)
+
+install: `npm install`
+
+run: `npm start`
+
+build: `npm run build`
+
+
+## Oracle DB
+link:https://hub.docker.com/r/wnameless/oracle-xe-11g-r2
+
+`docker run -d -p 49161:1521 -e ORACLE_ALLOW_REMOTE=true wnameless/oracle-xe-11g-r2`
+
+```
+hostname: localhost
+port: 49161
+sid: xe
+username: system
+password: oracle
+```
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/start.sh
+#!/bin/sh
+echo '__________________STARTING__________________'
+sudo mvn clean install && sudo mvn tomcat7:run
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/.vscode/settings.json
+{
+  "java.configuration.updateBuildConfiguration": "automatic"
+}
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/.editorconfig
+# Editor configuration, see https://editorconfig.org
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/.gitignore
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
+
+# dependencies
+/node_modules
+
+# profiling files
+chrome-profiler-events.json
+speed-measure-plugin.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/angular.json
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "frontend": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "frontend:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "frontend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "frontend:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "frontend-e2e": {
+      "root": "e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "frontend"
+}
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/package.json
+{
+  "name": "frontend",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --port 8000",
+    "build": "ng build --prod --source-map",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~7.2.0",
+    "@angular/common": "~7.2.0",
+    "@angular/compiler": "~7.2.0",
+    "@angular/core": "~7.2.0",
+    "@angular/forms": "~7.2.0",
+    "@angular/platform-browser": "~7.2.0",
+    "@angular/platform-browser-dynamic": "~7.2.0",
+    "@angular/router": "~7.2.0",
+    "@stomp/stompjs": "^5.4.2",
+    "@types/socket.io": "^2.1.2",
+    "@types/sockjs-client": "^1.1.1",
+    "@types/stompjs": "^2.3.4",
+    "core-js": "^2.5.4",
+    "ngx-socket-io": "^2.1.1",
+    "rxjs": "~6.3.3",
+    "socket.io": "^2.2.0",
+    "sockjs-client": "^1.3.0",
+    "tslib": "^1.9.0",
+    "zone.js": "~0.8.26"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.13.0",
+    "@angular/cli": "~7.3.8",
+    "@angular/compiler-cli": "~7.2.0",
+    "@angular/language-service": "~7.2.0",
+    "@types/node": "~8.9.4",
+    "@types/jasmine": "~2.8.8",
+    "@types/jasminewd2": "~2.0.3",
+    "codelyzer": "~4.5.0",
+    "jasmine-core": "~2.99.1",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.0.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~1.1.2",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "protractor": "~5.4.0",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.11.0",
+    "typescript": "~3.2.2"
+  }
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/README.md
+# dynamic feed validator frontend
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/tsconfig.json
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  }
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/tslint.json
+{
+  "extends": "tslint:recommended",
+  "rulesDirectory": [
+    "codelyzer"
+  ],
+  "rules": {
+    "array-type": false,
+    "arrow-parens": false,
+    "deprecation": {
+      "severity": "warn"
+    },
+    "import-blacklist": [
+      true,
+      "rxjs/Rx"
+    ],
+    "interface-name": false,
+    "max-classes-per-file": false,
+    "max-line-length": [
+      true,
+      140
+    ],
+    "member-access": false,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "static-field",
+          "instance-field",
+          "static-method",
+          "instance-method"
+        ]
+      }
+    ],
+    "no-consecutive-blank-lines": false,
+    "no-console": [
+      true,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "no-empty": false,
+    "no-inferrable-types": [
+      true,
+      "ignore-params"
+    ],
+    "no-non-null-assertion": true,
+    "no-redundant-jsdoc": true,
+    "no-switch-case-fall-through": true,
+    "no-use-before-declare": true,
+    "no-var-requires": false,
+    "object-literal-key-quotes": [
+      true,
+      "as-needed"
+    ],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "trailing-comma": false,
+    "no-output-on-prefix": true,
+    "use-input-property-decorator": true,
+    "use-output-property-decorator": true,
+    "use-host-property-decorator": true,
+    "no-input-rename": true,
+    "no-output-rename": true,
+    "use-life-cycle-interface": true,
+    "use-pipe-transform-interface": true,
+    "component-class-suffix": true,
+    "directive-class-suffix": true
+  }
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/index.html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Noud is cool</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <base href="/">
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/karma.conf.js
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/1.0/config/configuration-file.html
+
+module.exports = function (config) {
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('@angular-devkit/build-angular/plugins/karma')
+    ],
+    client: {
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+    coverageIstanbulReporter: {
+      dir: require('path').join(__dirname, '../coverage/frontend'),
+      reports: ['html', 'lcovonly', 'text-summary'],
+      fixWebpackSourcePaths: true
+    },
+    reporters: ['progress', 'kjhtml'],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['Chrome'],
+    singleRun: false,
+    restartOnFileChange: true
+  });
+};
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/main.ts
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
+
+if (environment.production) {
+  enableProdMode();
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/polyfills.ts
+/**
+ * This file includes polyfills needed by Angular and is loaded before the app.
+ * You can add your own extra polyfills to this file.
+ *
+ * This file is divided into 2 sections:
+ *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
+ *   2. Application imports. Files imported after ZoneJS that should be loaded before your main
+ *      file.
+ *
+ * The current setup is for so-called "evergreen" browsers; the last versions of browsers that
+ * automatically update themselves. This includes Safari >= 10, Chrome >= 55 (including Opera),
+ * Edge >= 13 on the desktop, and iOS 10 and Chrome on mobile.
+ *
+ * Learn more in https://angular.io/guide/browser-support
+ */
+
+/***************************************************************************************************
+ * BROWSER POLYFILLS
+ */
+
+/** IE10 and IE11 requires the following for NgClass support on SVG elements */
+// import 'classlist.js';  // Run `npm install --save classlist.js`.
+
+/**
+ * Web Animations `@angular/platform-browser/animations`
+ * Only required if AnimationBuilder is used within the application and using IE/Edge or Safari.
+ * Standard animation support in Angular DOES NOT require any polyfills (as of Angular 6.0).
+ */
+// import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+
+/**
+ * By default, zone.js will patch all possible macroTask and DomEvents
+ * user can disable parts of macroTask/DomEvents patch by setting following flags
+ * because those flags need to be set before `zone.js` being loaded, and webpack
+ * will put import in the top of bundle, so user need to create a separate file
+ * in this directory (for example: zone-flags.ts), and put the following flags
+ * into that file, and then add the following code before importing zone.js.
+ * import './zone-flags.ts';
+ *
+ * The flags allowed in zone-flags.ts are listed here.
+ *
+ * The following flags will work for all browsers.
+ *
+ * (window as any).__Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame
+ * (window as any).__Zone_disable_on_property = true; // disable patch onProperty such as onclick
+ * (window as any).__zone_symbol__BLACK_LISTED_EVENTS = ['scroll', 'mousemove']; // disable patch specified eventNames
+ *
+ *  in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
+ *  with the following flag, it will bypass `zone.js` patch for IE/Edge
+ *
+ *  (window as any).__Zone_enable_cross_context_check = true;
+ *
+ */
+
+/***************************************************************************************************
+ * Zone JS is required by default for Angular itself.
+ */
+import 'zone.js/dist/zone';  // Included with Angular CLI.
+
+
+/***************************************************************************************************
+ * APPLICATION IMPORTS
+ */
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/styles.scss
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+::selection {
+  background-color: #95C7EC;
+  color: #282c37;
+}
+
+body {
+  color: #323232;
+  overflow: auto !important;
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/tsconfig.app.json
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "types": []
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/tsconfig.spec.json
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "files": [
+    "test.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "**/*.spec.ts",
+    "**/*.d.ts"
+  ]
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/tslint.json
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "app",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "app",
+      "kebab-case"
+    ]
+  }
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+
+const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app.component.html
+<div class="page">
+  <router-outlet></router-outlet>
+</div>
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app.component.scss
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+
+export class AppComponent {
+
+  constructor() {}
+
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/home/home.component.html
+<div class="home">
+    <h1>Home route</h1>
+</div>
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/home/home.component.scss
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/home/home.component.spec.ts
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { HomeComponent } from './home.component';
+
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ HomeComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/app/home/home.component.ts
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
+})
+
+export class HomeComponent implements OnInit {
+  ngOnInit(): void {
+    console.log('init');
+  }
+
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/assets/.gitkeep
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/environments/environment.prod.ts
+export const environment = {
+  production: true,
+  API_URL: '/api',
+  SOCKET_URL:(window.location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + window.location.host + '/socket'
+};
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/frontend/src/environments/environment.ts
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
+export const environment = {
+  production: false,
+  API_URL: 'http://localhost:9090/api',
+  SOCKET_URL: 'ws://localhost:9090/socket'
+};
+
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/src/main/java/endpoints/Ping.java
+package endpoints;
+
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
+import javax.ws.rs.*;
+
+@Path("/ping")
+public class Ping {
+
+    @GET
+    @Produces("application/json")
+    public String ping() {
+        JsonObjectBuilder pingObject = Json.createObjectBuilder();
+        pingObject.add("ping", "pong");
+
+        return pingObject.build().toString();
+    }
+
+    @GET
+    @Path("/pong")
+    public String pong() {
+        return "<h1>Dit is h1 in HTML</h1>";
+    }
+
+    @GET
+    @Path("/a/{message}")
+    @Produces("application/json")
+    public String pingThePong(@PathParam("message") String message) {
+        JsonObjectBuilder pingObject = Json.createObjectBuilder();
+        pingObject.add("message", message);
+
+        return pingObject.build().toString();
+    }
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/src/main/java/models/Test.java
+package models;
+
+import java.util.ArrayList;
+
+public class Test {
+
+    private ArrayList<String> keys;
+    private String name;
+
+    public Test(ArrayList<String> keys, String name) {
+        this.keys = keys;
+        this.name = name;
+    }
+
+    public ArrayList<String> getKeys() {
+        return keys;
+    }
+
+    public boolean addKey(String key) {
+        return keys.add(key);
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/src/main/java/persistence/PostgresBaseDao.java
+package persistence;
+
+import java.sql.*;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class PostgresBaseDao {
+
+    public static final String URL = "jdbc:postgresql://localhost:5432/test";
+    public static final String USERNAME = "noud";
+    public static final String PASSWORD = "test1234";
+
+    protected final Connection getConnection() {
+
+        Connection result = null;
+
+        try {
+            InitialContext ic = new InitialContext();
+            DataSource ds = (DataSource) ic.lookup("java:comp/env/jdbc/PostgresDS");
+
+            result = ds.getConnection();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/src/main/java/persistence/test/TestDao.java
+package persistence.test;
+
+public interface TestDao {
+    public boolean save();
+    public Object getById(String feedId);
+    public boolean notNull() throws ClassNotFoundException;
+    public boolean update(String columnName, String newValue, int blueprintId);
+    public boolean delete(String feedId);
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/src/main/java/services/MakeTest.java
+package services;
+
+public class MakeTest {
+    public String litleBitOfLogicHere() {
+        return "ganz mooi!";
+    }
+}
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/src/main/webapp/META-INF/context-heroku.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Resource name="jdbc/PostgresDS"
+    url="${DB_URL}"
+    driverClassName="org.postgresql.Driver" 
+    auth="Container" 
+    type="javax.sql.DataSource" />
+</Context>
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/src/main/webapp/META-INF/context.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Resource
+    name="jdbc/PostgresDS"
+    url="jdbc:postgresql://localhost:5432/test"
+    driverClassName="org.postgresql.Driver"
+    auth="Container"
+    type="javax.sql.DataSource"
+    username="noud"
+    password="test1234"
+  />
+</Context>
+
+--#
+
+--% E:/java-boilerplate/java-maven-boilerplate/src/main/webapp/WEB-INF/web.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee web-app_4_0.xsd" version="4.0">
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/index.html</location>
+    </error-page>
+
+    <servlet>
+        <servlet-name>Rest Service</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>endpoints</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>
+                org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature
+            </param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Rest Service</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+
+        <init-param>
+            <param-name>cors.allowed.methods</param-name>
+            <param-value>GET, POST, PUT, DELETE, OPTIONS, HEAD</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>cors.allowed.headers</param-name>
+            <param-value>
+                Accept,Accept-Encoding,Accept-Language,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization,Connection,Content-Type,Host,Origin,Referer,Token-Id,User-Agent,
+                X-Requested-With</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+</web-app>
+
+--#

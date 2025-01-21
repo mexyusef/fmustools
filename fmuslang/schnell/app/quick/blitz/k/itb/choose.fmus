@@ -1,0 +1,10 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan c++ yate bts*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+yate bts terutama - kan ada bikin package di debian etc.
+--#

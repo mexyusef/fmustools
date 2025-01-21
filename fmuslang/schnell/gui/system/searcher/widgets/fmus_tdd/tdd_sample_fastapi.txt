@@ -1,0 +1,87 @@
+# TDD Examples in FastAPI
+TDD in FastAPI: show me some examples
+
+ChatGPT
+Certainly! Test-driven development (TDD) is a software development practice that involves writing tests before writing the actual code. In the context of FastAPI, you can use testing frameworks like Pytest to write tests for your API endpoints. Here are some examples of how you can use TDD with FastAPI:
+
+Testing a GET endpoint:
+python
+Copy code
+# main.py
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
+
+# test_main.py
+import json
+from fastapi.testclient import TestClient
+from main import app
+
+client = TestClient(app)
+
+def test_read_item():
+    response = client.get("/items/42?q=test")
+    assert response.status_code == 200
+    assert response.json() == {"item_id": 42, "q": "test"}
+Testing a POST endpoint:
+python
+Copy code
+# main.py
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    price: float
+
+@app.post("/items/")
+async def create_item(item: Item):
+    return {"item": item}
+
+# test_main.py
+import json
+from fastapi.testclient import TestClient
+from main import app
+
+client = TestClient(app)
+
+def test_create_item():
+    item_data = {"name": "Example Item", "price": 9.99}
+    response = client.post("/items/", json=item_data)
+    assert response.status_code == 200
+    assert response.json() == {"item": item_data}
+Testing an endpoint with authentication:
+python
+Copy code
+# main.py
+from fastapi import FastAPI, Depends
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+
+app = FastAPI()
+security = HTTPBasic()
+
+def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
+    return credentials.username
+
+@app.get("/users/me")
+async def read_user_me(current_username: str = Depends(get_current_username)):
+    return {"username": current_username}
+
+# test_main.py
+import json
+from fastapi.testclient import TestClient
+from main import app
+
+client = TestClient(app)
+
+def test_read_user_me():
+    response = client.get("/users/me", auth=("username", "password"))
+    assert response.status_code == 200
+    assert response.json() == {"username": "username"}
+These are just a few examples of how you can use TDD with FastAPI to test your API endpoints. Remember to install the required dependencies, such as pytest and pytest-asyncio, and run your tests using the pytest command.

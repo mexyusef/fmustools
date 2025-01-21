@@ -1,0 +1,917 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	integration,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/Cargo.toml)
+		tests,d(/mk)
+			content.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/content.rs)
+			mailer.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/mailer.rs)
+			router.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/router.rs)
+			types.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/types.rs)
+			users.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/users.rs)
+			utils.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/utils.rs)
+	structural-logging,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/structural-logging/Cargo.toml)
+		jaeger.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/structural-logging/jaeger.sh)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/structural-logging/src/main.rs)
+	tracing,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/tracing/Cargo.toml)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/tracing/src/main.rs)
+	units,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/Cargo.toml)
+		src,d(/mk)
+			lib.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/src/lib.rs)
+		static,d(/mk)
+			comments.html,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/static/comments.html)
+			index.html,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/static/index.html)
+			login.html,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/static/login.html)
+			script.js,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/static/script.js)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/Cargo.toml
+[package]
+name = "integration"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+cookie = "0.11"
+rand = "0.6"
+reqwest = "0.9"
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+uuid = { version = "0.5", features = ["serde", "v4"] }
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/content.rs
+mod types;
+mod utils;
+
+use self::utils::{Method, WebApi};
+use self::types::Comment;
+
+#[test]
+fn content_healthcheck() {
+    let mut api = WebApi::content();
+    api.healthcheck("/", "Content Microservice");
+}
+
+#[test]
+fn add_comment() {
+    let mut api = WebApi::content();
+    let uuid = uuid::Uuid::new_v4().to_string();
+    let comment = utils::rand_str();
+    let params = vec![
+        ("uid", uuid.as_ref()),
+        ("text", comment.as_ref()),
+    ];
+    let _: () = api.request(Method::POST, "/new_comment", params);
+
+    let comments: Vec<Comment> = api.request(Method::GET, "/list", vec![]);
+    assert!(comments.into_iter().any(|Comment { text, ..}| { text == comment }))
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/mailer.rs
+mod utils;
+
+use self::utils::{Method, WebApi};
+
+#[test]
+fn mails_healthcheck() {
+    let mut api = WebApi::mailer();
+    api.healthcheck("/", "Mailer Microservice");
+}
+
+#[test]
+fn send_mail() {
+    let mut api = WebApi::mailer();
+    let email = utils::rand_str() + "@example.com";
+    let code = utils::rand_str();
+    let params = vec![
+        ("to", email.as_ref()),
+        ("code", code.as_ref()),
+    ];
+    let sent: bool = api.request(Method::POST, "/send", params);
+    assert!(sent);
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/router.rs
+mod types;
+mod utils;
+
+use self::utils::{Method, StatusCode, WebApi};
+use self::types::Comment;
+
+#[test]
+fn router_healthcheck() {
+    let mut api = WebApi::router();
+    api.healthcheck("/healthcheck", "Router Microservice");
+}
+
+#[test]
+fn check_router_full() {
+    let mut api = WebApi::router();
+    let username = utils::rand_str() + "@example.com";
+    let password = utils::rand_str();
+    let params = vec![
+        ("email", username.as_ref()),
+        ("password", password.as_ref()),
+    ];
+    api.check_status(Method::POST, "/api/signup", params, StatusCode::FOUND);
+
+    let params = vec![
+        ("email", username.as_ref()),
+        ("password", password.as_ref()),
+    ];
+    api.check_status(Method::POST, "/api/signin", params, StatusCode::FOUND);
+
+    let comment = utils::rand_str();
+    let params = vec![
+        ("text", comment.as_ref()),
+    ];
+    api.check_status(Method::POST, "/api/new_comment", params, StatusCode::FOUND);
+
+    let comments: Vec<Comment> = api.request(Method::GET, "/api/comments", vec![]);
+    assert!(comments.into_iter().any(|Comment { text, ..}| { text == comment }))
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/types.rs
+#![allow(dead_code)]
+
+use serde_derive::Deserialize;
+use uuid::Uuid;
+
+#[derive(Deserialize)]
+pub struct UserId {
+    id: Uuid,
+}
+
+#[derive(Deserialize)]
+pub struct Comment {
+    pub id: i32,
+    pub uid: String,
+    pub text: String,
+}
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/users.rs
+mod types;
+mod utils;
+
+use self::types::UserId;
+use self::utils::{Method, WebApi};
+
+#[test]
+fn users_healthcheck() {
+    let mut api = WebApi::users();
+    api.healthcheck("/", "Users Microservice");
+}
+
+#[test]
+fn check_signup_and_signin() {
+    let mut api = WebApi::users();
+    let username = utils::rand_str() + "@example.com";
+    let password = utils::rand_str();
+    let params = vec![
+        ("email", username.as_ref()),
+        ("password", password.as_ref()),
+    ];
+    let _: () = api.request(Method::POST, "/signup", params);
+
+    let params = vec![
+        ("email", username.as_ref()),
+        ("password", password.as_ref()),
+    ];
+    let _: UserId = api.request(Method::POST, "/signin", params);
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/integration/tests/utils.rs
+#![allow(dead_code)]
+
+use cookie::{Cookie, CookieJar};
+use rand::{Rng, thread_rng};
+use rand::distributions::Alphanumeric;
+pub use reqwest::{self, Client, Method, RedirectPolicy, StatusCode};
+use reqwest::header::{COOKIE, SET_COOKIE};
+use serde::Deserialize;
+use std::collections::HashMap;
+use std::iter;
+use std::time::Duration;
+use std::thread;
+
+pub struct WebApi {
+    client: Client,
+    url: String,
+    jar: CookieJar,
+}
+
+impl WebApi {
+    fn new(url: &str) -> Self {
+        let client = Client::builder()
+            .redirect(RedirectPolicy::none())
+            .build()
+            .unwrap();
+        Self {
+            client,
+            url: url.into(),
+            jar: CookieJar::new(),
+        }
+    }
+
+    pub fn users() -> Self { WebApi::new(USERS) }
+    pub fn mailer() -> Self { WebApi::new(MAILER) }
+    pub fn content() -> Self { WebApi::new(CONTENT) }
+    pub fn router() -> Self { WebApi::new(ROUTER) }
+
+    pub fn healthcheck(&mut self, path: &str, content: &str) {
+        let url = url(&self.url, path);
+        let mut resp = reqwest::get(&url).unwrap();
+        assert_eq!(resp.status(), StatusCode::OK);
+        let text = resp.text().unwrap();
+        assert_eq!(text, content);
+    }
+
+    pub fn check_status<'a, I>(&mut self, method: Method, path: &'a str, values: I, status: StatusCode)
+    where
+        I: IntoIterator<Item = (&'a str, &'a str)>,
+    {
+        let url = url(&self.url, path);
+        let params = values.into_iter().collect::<HashMap<_, _>>();
+        let cookies = self.jar.iter()
+            .map(|kv| format!("{}={}", kv.name(), kv.value()))
+            .collect::<Vec<_>>()
+            .join(";");
+        let resp = self.client.request(method, &url)
+            .header(COOKIE, cookies)
+            .form(&params)
+            .send()
+            .unwrap();
+        if let Some(value) = resp.headers().get(SET_COOKIE) {
+            let raw_cookie = value.to_str().unwrap().to_owned();
+            let cookie = Cookie::parse(raw_cookie).unwrap();
+            self.jar.add(cookie);
+        }
+        assert_eq!(status, resp.status());
+    }
+
+    pub fn request<'a, I, J>(&mut self, method: Method, path: &'a str, values: I) -> J
+    where
+        I: IntoIterator<Item = (&'a str, &'a str)>,
+        J: for <'de> Deserialize<'de>,
+    {
+        let url = url(&self.url, path);
+        let params = values.into_iter().collect::<HashMap<_, _>>();
+        let mut resp = self.client.request(method, &url)
+            .form(&params)
+            .send()
+            .unwrap();
+
+        let status = resp.status().to_owned();
+
+        let text = resp
+            .text()
+            .unwrap();
+
+        if status != StatusCode::OK {
+            panic!("Bad response [{}] of '{}': {}", resp.status(), path, text);
+        }
+
+        let value = serde_json::from_str(&text);
+        match value {
+            Ok(value) => value,
+            Err(err) => {
+                panic!("Can't convert '{}': {}", text, err);
+            },
+        }
+    }
+}
+
+pub fn rand_str() -> String {
+    let mut rng = thread_rng();
+    iter::repeat(())
+            .map(|()| rng.sample(Alphanumeric))
+            .take(7)
+            .collect()
+}
+
+pub fn wait(s: u64) {
+    thread::sleep(Duration::from_secs(s));
+}
+
+const USERS: &str = "http://localhost:8001";
+
+const MAILER: &str = "http://localhost:8002";
+
+const CONTENT: &str = "http://localhost:8003";
+
+const ROUTER: &str = "http://localhost:8000";
+
+pub fn url(url: &str, path: &str) -> String {
+    url.to_owned() + path
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/structural-logging/Cargo.toml
+[package]
+name = "structural-logging"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+slog = "2.4"
+slog-async = "2.3"
+slog-json = "2.3"
+slog-term = "2.4"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/structural-logging/jaeger.sh
+docker run -it --rm --name jaeger \
+    -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 \
+    -p 5775:5775/udp \
+    -p 6831:6831/udp \
+    -p 6832:6832/udp \
+    -p 5778:5778 \
+    -p 16686:16686 \
+    -p 14268:14268 \
+    -p 9411:9411 \
+    jaegertracing/all-in-one:1.8
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/structural-logging/src/main.rs
+use slog::{crit, debug, error, Drain, Duplicate, Level, LevelFilter};
+use slog_async::Async;
+use slog_term::{CompactFormat, PlainDecorator};
+use slog_json::Json;
+use std::fs::OpenOptions;
+use std::sync::Mutex;
+
+fn main() {
+   let log_path = "app.log";
+   let file = OpenOptions::new()
+      .create(true)
+      .write(true)
+      .truncate(true)
+      .open(log_path)
+      .unwrap();
+
+    let drain = Mutex::new(Json::default(file)).fuse();
+    let file_drain = LevelFilter::new(drain, Level::Error);
+
+    let decorator = PlainDecorator::new(std::io::stderr());
+    let err_drain = CompactFormat::new(decorator).build().fuse();
+
+    let drain_pair = Duplicate::new(file_drain, err_drain).fuse();
+    let drain = Async::new(drain_pair).build().fuse();
+
+    let log = slog::Logger::root(drain, slog::o!(
+        "version" => env!("CARGO_PKG_VERSION"),
+        "host" => "localhost",
+        "port" => 8080,
+    ));
+    debug!(log, "started");
+    debug!(log, "{} workers", 2;);
+    debug!(log, "request"; "from" => "example.com");
+    error!(log, "worker failed"; "worker_id" => 1);
+    crit!(log, "server can't continue to work");
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/tracing/Cargo.toml
+[package]
+name = "tracing"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rustracing = "0.1"
+rustracing_jaeger = "0.1"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/tracing/src/main.rs
+use rustracing::sampler::AllSampler;
+use rustracing::tag::Tag;
+use rustracing_jaeger::Tracer;
+use rustracing_jaeger::reporter::JaegerCompactReporter;
+use std::time::Duration;
+use std::thread;
+
+fn wait(ms: u64) {
+    thread::sleep(Duration::from_millis(ms));
+}
+
+fn main() {
+    let (tracer1, span_rx1) = Tracer::new(AllSampler);
+    let (tracer2, span_rx2) = Tracer::new(AllSampler);
+    thread::spawn(move || {
+        loop {
+            {
+                let req_span = tracer1
+                    .span("incoming request")
+                    .start();
+                wait(50);
+                {
+                    let db_span = tracer2
+                        .span("database query")
+                        .child_of(&req_span)
+                        .tag(Tag::new("query", "SELECT column FROM table;"))
+                        .start();
+                    wait(100);
+                    let _resp_span = tracer2
+                        .span("generating response")
+                        .follows_from(&db_span)
+                        .tag(Tag::new("user_id", "1234"))
+                        .start();
+                    wait(10);
+                }
+            }
+            wait(150);
+        }
+    });
+
+    let reporter1 = JaegerCompactReporter::new("router").unwrap();
+    let reporter2 = JaegerCompactReporter::new("dbaccess").unwrap();
+    loop {
+        if let Ok(span) = span_rx1.try_recv() {
+            reporter1.report(&[span]).unwrap();
+        }
+        if let Ok(span) = span_rx2.try_recv() {
+            reporter2.report(&[span]).unwrap();
+        }
+        thread::yield_now();
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/Cargo.toml
+[package]
+name = "router"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+actix = "0.7"
+actix-web = "0.7"
+env_logger = "0.5"
+failure = "0.1"
+futures = "0.1"
+lazy_static = "1.2"
+log = "0.4"
+mockito = "0.15"
+reqwest = "0.9"
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+serde_urlencoded = "0.5"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/src/lib.rs
+use actix_web::{
+    client, middleware, server, fs, App, Error, Form, HttpMessage,
+    HttpRequest, HttpResponse, FutureResponse, Result,
+};
+use actix_web::http::{self, header, StatusCode};
+use actix_web::middleware::{Finished, Middleware, Response, Started};
+use actix_web::middleware::identity::RequestIdentity;
+use actix_web::middleware::identity::{CookieIdentityPolicy, IdentityService};
+use failure::format_err;
+use futures::{IntoFuture, Future};
+use log::{error};
+use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
+use std::cell::RefCell;
+
+fn boxed<I, E, F>(fut: F) -> Box<Future<Item = I, Error = E>>
+where
+    F: Future<Item = I, Error = E> + 'static,
+{
+    Box::new(fut)
+}
+
+fn get_request(url: &str) -> impl Future<Item = Vec<u8>, Error = Error> {
+    client::ClientRequest::get(url)
+        .finish().into_future()
+        .and_then(|req| {
+            req.send()
+                .map_err(Error::from)
+                .and_then(|resp| resp.body().from_err())
+                .map(|bytes| bytes.to_vec())
+        })
+}
+
+fn post_request<T, O>(url: &str, params: T) -> impl Future<Item = O, Error = Error>
+where
+    T: Serialize,
+    O: for <'de> Deserialize<'de> + 'static,
+{
+    client::ClientRequest::post(url)
+        .form(params)
+        .into_future()
+        .and_then(|req| {
+            req.send()
+                .map_err(Error::from)
+                .and_then(|resp| {
+                    if resp.status().is_success() {
+                        let fut = resp
+                            .json::<O>()
+                            .from_err();
+                        boxed(fut)
+                    } else {
+                        error!("Microservice error: {}", resp.status());
+                        let fut = Err(format_err!("microservice error"))
+                            .into_future()
+                            .from_err();
+                        boxed(fut)
+                    }
+                })
+        })
+}
+
+
+#[derive(Deserialize, Serialize)]
+pub struct UserForm {
+    email: String,
+    password: String,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct UserId {
+    id: String,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct Comment {
+    pub id: Option<i32>,
+    pub uid: String,
+    pub text: String,
+}
+
+#[derive(Deserialize)]
+pub struct AddComment {
+    pub text: String,
+}
+
+#[derive(Serialize)]
+pub struct NewComment {
+    pub uid: String,
+    pub text: String,
+}
+
+fn signup((req, params): (HttpRequest<State>, Form<UserForm>)) -> FutureResponse<HttpResponse> {
+    let fut = post_request(&req.state().links.signup, params.into_inner())
+        .map(|_: ()| {
+            HttpResponse::Found()
+            .header(header::LOCATION, "/login.html")
+            .finish()
+        });
+    Box::new(fut)
+}
+
+fn signin((req, params): (HttpRequest<State>, Form<UserForm>)) -> FutureResponse<HttpResponse> {
+    let fut = post_request(&req.state().links.signin, params.into_inner())
+        .map(move |id: UserId| {
+            req.remember(id.id);
+            HttpResponse::build_from(&req)
+            .status(StatusCode::FOUND)
+            .header(header::LOCATION, "/comments.html")
+            .finish()
+        });
+    Box::new(fut)
+}
+
+fn new_comment((req, params): (HttpRequest<State>, Form<AddComment>)) -> FutureResponse<HttpResponse> {
+    let fut = req.identity()
+        .ok_or(format_err!("not authorized").into())
+        .into_future()
+        .and_then(move |uid| {
+            let params = NewComment {
+                uid,
+                text: params.into_inner().text,
+            };
+            post_request::<_, ()>(&req.state().links.new_comment, params)
+                .map(move |_| req)
+        })
+        .and_then(|req| {
+            let res = HttpResponse::build_from(&req)
+                .status(StatusCode::FOUND)
+                .header(header::LOCATION, "/comments.html")
+                .finish();
+            Ok(res)
+        });
+    Box::new(fut)
+}
+
+fn comments(req: HttpRequest<State>) -> FutureResponse<HttpResponse> {
+    let fut = get_request(&req.state().links.comments)
+        .map(|data| {
+            HttpResponse::Ok().body(data)
+        });
+    Box::new(fut)
+}
+
+fn counter(req: HttpRequest<State>) -> String {
+    format!("{}", req.state().counter.borrow())
+}
+
+#[derive(Clone)]
+struct LinksMap {
+    signup: String,
+    signin: String,
+    new_comment: String,
+    comments: String,
+}
+
+#[derive(Clone)]
+struct State {
+    counter: RefCell<i64>,
+    links: LinksMap,
+}
+
+pub struct Counter;
+
+impl Middleware<State> for Counter {
+    fn start(&self, req: &HttpRequest<State>) -> Result<Started> {
+        let value = *req.state().counter.borrow();
+        *req.state().counter.borrow_mut() = value + 1;
+        Ok(Started::Done)
+    }
+
+    fn response(&self, _req: &HttpRequest<State>, resp: HttpResponse) -> Result<Response> {
+        Ok(Response::Done(resp))
+    }
+
+    fn finish(&self, _req: &HttpRequest<State>, _resp: &HttpResponse) -> Finished {
+        Finished::Done
+    }
+}
+
+fn start(links: LinksMap) {
+    let sys = actix::System::new("router");
+
+    let state = State {
+        counter: RefCell::default(),
+        links,
+    };
+
+    server::new(move || {
+        App::with_state(state.clone())
+            .middleware(middleware::Logger::default())
+            .middleware(IdentityService::new(
+                    CookieIdentityPolicy::new(&[0; 32])
+                    .name("auth-example")
+                    .secure(false),
+                    ))
+            .middleware(Counter)
+            .scope("/api", |scope| {
+                scope
+                    .route("/signup", http::Method::POST, signup)
+                    .route("/signin", http::Method::POST, signin)
+                    .route("/new_comment", http::Method::POST, new_comment)
+                    .route("/comments", http::Method::GET, comments)
+            })
+            .route("/stats/counter", http::Method::GET, counter)
+            .handler(
+                "/",
+                fs::StaticFiles::new("./static/").unwrap().index_file("index.html")
+            )
+    }).workers(1)
+        .bind("127.0.0.1:8080")
+        .unwrap()
+        .start();
+
+    sys.run();
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{start, Comment, LinksMap, UserForm, UserId};
+    use lazy_static::lazy_static;
+    use mockito::{mock, Mock};
+    use reqwest::Client;
+    use serde::{Deserialize, Serialize};
+    use std::sync::Mutex;
+    use std::time::Duration;
+    use std::thread;
+
+    lazy_static! {
+        static ref STARTED: Mutex<bool> = Mutex::new(false);
+    }
+
+    fn mock_url(base: &str, path: &str) -> String {
+        format!("{}{}", base, path)
+    }
+
+    fn test_url(path: &str) -> String {
+        format!("http://127.0.0.1:8080/api{}", path)
+    }
+
+    fn add_mock<T>(method: &str, path: &str, result: T) -> Mock
+    where
+        T: Serialize,
+    {
+        mock(method, path)
+            .with_status(200)
+            .with_header("Content-Type", "application/json")
+            .with_body(serde_json::to_string(&result).unwrap())
+            .create()
+    }
+
+    fn setup() {
+        let mut started = STARTED.lock().unwrap();
+        if !*started {
+            thread::spawn(|| {
+                // Mocks have to be initialized from the same thread
+                let url = mockito::server_url();
+                let _signup = add_mock("POST", "/signup", ());
+                let _signin = add_mock("POST", "/signin", UserId { id: "user-id".into() });
+                let _new_comment = add_mock("POST", "/new_comment", ());
+                let comment = Comment {
+                    id: None,
+                    text: "comment".into(),
+                    uid: "user-id".into(),
+                };
+                let _comments = add_mock("GET", "/comments", vec![comment]);
+                let links = LinksMap {
+                    signup: mock_url(&url, "/signup"),
+                    signin: mock_url(&url, "/signin"),
+                    new_comment: mock_url(&url, "/new_comment"),
+                    comments: mock_url(&url, "/comments"),
+                };
+                start(links);
+            });
+            thread::sleep(Duration::from_secs(5));
+            *started = true;
+        }
+    }
+
+    fn test_post<T>(path: &str, data: &T)
+    where
+        T: Serialize,
+    {
+        setup();
+        let client =  Client::new();
+        let resp = client.post(&test_url(path))
+            .form(data)
+            .send()
+            .unwrap();
+        let status = resp.status();
+        assert!(status.is_success());
+    }
+
+    fn test_get<T>(path: &str) -> T
+    where
+        T: for <'de> Deserialize<'de>,
+    {
+        let client =  Client::new();
+        let data = client.get(&test_url(path))
+            .send()
+            .unwrap()
+            .text()
+            .unwrap();
+        serde_json::from_str(&data).unwrap()
+    }
+
+    #[test]
+    fn test_signup_with_client() {
+        let user = UserForm {
+            email: "abc@example.com".into(),
+            password: "abc".into(),
+        };
+        test_post("/signup", &user);
+    }
+
+    #[test]
+    fn test_signin_with_client() {
+        let user = UserForm {
+            email: "abc@example.com".into(),
+            password: "abc".into(),
+        };
+        test_post("/signin", &user);
+    }
+
+    #[test]
+    fn test_list_with_client() {
+        let _: Vec<Comment> = test_get("/comments");
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/static/comments.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <form action="/api/new_comment" method="post">
+        Comment:<br>
+        <input type="text" name="text"><br>
+        <button type="submit">Add</button>
+    </form>
+    <div id="comments"></div>
+  </body>
+</html>
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/static/index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <form action="/api/signup" method="post">
+        Email:<br>
+        <input type="text" name="email"><br>
+        Password<br>
+        <input type="password" name="password"><br>
+        <button type="submit">Signup</button>
+    </form>
+  </body>
+</html>
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/static/login.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <form action="/api/signin" method="post">
+        Email:<br>
+        <input type="text" name="email"><br>
+        Password<br>
+        <input type="password" name="password"><br>
+        <button type="submit">Login</button>
+    </form>
+  </body>
+</html>
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter13/units/static/script.js
+
+function create_node(text) {
+    var element = document.getElementById("comments");
+    var para = document.createElement("p");
+    var node = document.createTextNode(text);
+    para.appendChild(node);
+    element.appendChild(para);
+}
+
+fetch('/api/comments')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        console.log(data);
+        for(var i in data)
+        {
+            var item = data[i];
+            create_node(item.uid);
+            create_node(item.text);
+        }
+        console.log(JSON.stringify(comments));
+    });
+
+--#
+

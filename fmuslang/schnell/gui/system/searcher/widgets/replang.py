@@ -1,0 +1,391 @@
+import os, sys
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from PyQt5.Qsci import *
+
+# envfile = "c:/users/usef/work/sidoarjo/schnell/.env"
+# from dotenv import load_dotenv
+# load_dotenv(envfile)
+# schnelldir = os.environ['ULIBPY_BASEDIR']
+# sidoarjodir = os.environ['ULIBPY_ROOTDIR']
+# sys.path.extend([sidoarjodir, schnelldir])
+
+from pathlib import Path
+sidoarjodir = str(Path(__file__).resolve().parent.parent.parent.parent.parent.parent)
+# schnelldir = str(Path(__file__).resolve().parent.parent.parent.parent.parent)
+#                              file        wid    sea    sys    gui    sch    sido
+sys.path.append(sidoarjodir)
+
+from schnell.app.fileutils import (
+	file_content,
+	file_lines, 
+	line_contains,
+	get_definition_by_key_permissive_start,
+	get_definition_by_key_permissive_start_with_lineno,
+	get_daftar,
+	create_if_empty_file,
+	ulib_history,
+)
+from schnell.app.utils import env_get
+from schnell.gui.system.searcher.widgets.flowwidget import FlowWidget
+from schnell.gui.system.searcher.widgets.common import get_icon, set_theme
+from schnell.gui.system.searcher.widgets.editor_standard import EditorStandard
+bahasa = [
+    'ts',    
+    'js',
+    'java',
+    'py',
+    # 'bash',
+    # 'batch',
+    # 'clj',
+    'cpp',
+    'cs',
+    'css',
+    'dart',
+    # 'elixir',
+    # 'elm',
+    # 'erlang',
+    'go',
+    # 'groovy',
+    # 'hs',
+    'html',
+    'kt',
+    # 'nim',
+    # 'php',
+    # 'pl',
+    # 'rb',
+    # 'r',
+    'rs',
+    'scala',
+    # 'swift',
+    # 'zig',
+]
+
+
+repl_keywords = [
+    'class', 'more_classes', 'struct',
+    'field', 'method', 'constructor', 'function',
+    'module', 'library', 'package',
+    'interface',
+    'string', 'number',
+    'null',
+    'byte',
+    'datetime',
+    'random', 'range',
+    'dict', 'list', 'set', 'tuple', 'object', 'collection',
+    'deque', 'queue', 'stack',
+    'enum', 'enumerate',
+    'io_stdout', 'io_stdin', 'io_stderr', 'io_file', 'io_dir',
+
+    'option', 'result',
+    'operator', 'generator', 'iterator', 'itertools', 'functools',
+    'decorator',
+    'exception',
+    'system',
+    'timer', 'thread',
+    'check', 'convert', 'type',
+    'stream',
+    'vars', 'const',
+    'async',
+    'cli', 'oneliner', 'repl',
+    'args',
+
+    'test',
+    'for', 'for_each', 'for_of',
+    'switch', 'if', 'while',
+    'reference',
+
+    'access_modifier',
+    'assign',
+    # 'block',
+    # 'clipboard',
+    # 'comment',
+    'concepts',
+    'csv', 'xml', 'yaml',
+    # 'dataframe',    
+    'db',
+    'env',
+    # 'docker',
+    # 'email',    
+    # 'errors',
+    # 'excel',
+
+    'extension',
+    'filter', 'map', 'reduce', 'fold',
+
+    'import',
+    'install',
+    'main',
+
+    'generic',
+    'grammar',
+    # 'gui',
+    # 'html',
+    # 'http',
+    # 'interop',
+    # 'invoke',
+    # 'ipc',
+
+    'json',
+    'keyword',
+    'lambda',
+    'lock',
+    'log',
+    # 'loop',
+    'macro',
+    
+    'math',
+    'media',
+    'memory',
+    # 'msword',
+    'network',
+    'parallel',
+    # 'pdf',
+    # 'projects',
+
+    # 'rx_reactive',
+    'recursion',
+    'reflection',
+    'regex',
+    # 'rss',
+    # 'selenium',
+    # 'simple_type',
+    # 'simple_typename',
+    'serializer',
+    'sleep',
+    # 'task',
+    # 'uuid',
+    # 'version',
+    'web',
+    # 'threed',    
+    # 'compare',
+    # 'karya',
+    # 'oefening',
+    # 'regrammar',
+]
+
+
+
+class ReplangWidget(QWidget):
+
+    change_radio = pyqtSignal(str)
+    repl_result = pyqtSignal(str)
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def radio_toggle_handler(self, value):
+        # print(f"""
+        # group:
+        # group checked id {self.radio_group.checkedId()}
+        # group checked button {self.radio_group.checkedButton()}
+        # group buttons {self.radio_group.buttons()}
+        # radio tercek berdasarkan group = {self.radio_group.checkedButton().text()}
+        # """)
+        newbahasa = self.radio_group.checkedButton().text()
+        self.change_radio.emit(newbahasa)
+
+
+    def edit_last_file(self):
+        from schnell.app.utils import edit_entry
+        edit_entry(self.last_file, self.lineno)
+        self.f12.setToolTip(self.last_file)
+
+
+    def initUI(self):
+
+        self.main_layout = QVBoxLayout()
+        self.langchoice = QComboBox(self)
+        # self.langchoice.addItems(['satu', 'dua', 'tiga', 'empat', 'lima'])
+        self.langchoice.addItems(bahasa)
+        self.langchoice.currentTextChanged.connect(self.change_bahasa)
+        # self.langchoice.currentIndexChanged.connect(self.change_bahasa)
+        # self.langchoice.textChanged.connect(lambda value: print(value))
+        self.f12 = QPushButton("f12")
+        self.f12.setStyleSheet('background-color: blanchedalmond; color: indigo; font-size: 18px;')
+        self.f12.clicked.connect(self.edit_last_file)
+        self.flow_bahasa = FlowWidget()
+        self.flow_bahasa.add_item(self.langchoice)
+        self.flow_bahasa.setStyleSheet("""
+QPushButton {
+    font-family: Verdana, Consolas;
+    font-size: 17px;
+    padding: 10px;
+    margin: 5px;
+}
+QPushButton:hover {
+    background-color: beige;
+}
+QComboBox {
+    font-family: Verdana, Consolas;
+    font-size: 17px;
+    padding: 10px;
+}
+        """)
+        self.lineno = -1
+        self.last_file = None
+        self.bylangsdir = env_get('ULIBPY_BYLANGSDIR')
+        self.radios = []
+        self.radio_group = QButtonGroup(self)
+        for i,bhs in enumerate(bahasa,1):
+            # if i == 0:
+            #     radio.setChecked(True)
+            radio = QRadioButton(bhs)
+            radio.toggled.connect(self.radio_toggle_handler)
+            self.radios.append(radio)
+            self.radio_group.addButton(radio, i)
+            self.flow_bahasa.add_item(radio)
+        self.flow_bahasa.add_item(self.f12)
+        self.radios[0].setChecked(True)
+        self.flower = FlowWidget()
+        self.flower.setStyleSheet("""
+QPushButton {
+    background-color: burlywood;
+    font-family: Verdana, Consolas;
+    font-size: 16px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 2px;
+}
+QPushButton:hover {
+    background-color: cornsilk;
+}
+""")
+        self.change_bahasa(self.langchoice.currentText())
+        self.change_radio.connect(lambda bhs: self.langchoice.setCurrentText (bhs))
+
+        self.editor = EditorStandard(self)
+        self.repl_result.connect(lambda result: self.editor.setText(result))
+
+        # self.main_layout.addWidget(self.flow_bahasa, 1)
+        # self.main_layout.addWidget(self.flower, 2)
+        # self.main_layout.addWidget(self.editor, 7)
+
+        self.main_splitter = QSplitter(Qt.Vertical)
+        self.main_splitter.addWidget(self.flow_bahasa)
+        self.main_splitter.addWidget(self.flower)
+        self.main_splitter.addWidget(self.editor)
+        self.main_splitter.setHandleWidth(8)
+        self.main_splitter.handle(1).setStyleSheet('background: 3px blue;')
+        self.main_splitter.handle(2).setStyleSheet('background: 3px blue;')
+
+        self.main_splitter.setStretchFactor(0, 1)
+        self.main_splitter.setStretchFactor(1, 2)
+        self.main_splitter.setStretchFactor(2, 7)
+        self.main_layout.addWidget(self.main_splitter)
+
+        self.setLayout(self.main_layout)
+
+        self.resize(1200, 800)
+        self.setWindowTitle('Replang')
+        # QShortcut(QKeySequence("Ctrl+Q"), self, activated=lambda: qApp.quit())
+        # self.show()
+
+    def change_bahasa(self, bhs):
+        widgets = []
+        for keyword in sorted(repl_keywords):
+            menu = self.generate_menu(keyword)
+            b = QPushButton(keyword)
+            b.setMenu(menu)
+            menu.setProperty('button', b)
+            widgets.append(b)
+        self.flower.clear_add_items(widgets)
+
+    def generate_menu(self, keyword):
+        menu = QMenu(keyword) # menu title dan button text kita bikin sama
+        bhs = self.langchoice.currentText()
+        name = f'{keyword}.{bhs}.mk'
+        # # gak salah pake redis???
+        # # 4/12/23 matikan dulu
+        # from schnell.app.redisutils import search_bongkar
+        # daftar_filepath_baris_entry = search_bongkar(f'ULIBPY_ROOTDIR*{name}*')
+        # for item in sorted(daftar_filepath_baris_entry):
+        #     names = item.split('mk:')
+        #     name = names[1]
+        #     menu.addAction(get_icon(), name, self.handle_menu_action)
+        #     # b = QPushButton(name)
+        #     # widgets.append(b)
+        return menu
+
+    def handle_menu_action(self):
+        """
+        action triggered
+            pengirim: CIP class init pass
+            menu = class
+            button = class
+            bhs = py        
+        """
+        pengirim = self.sender()
+        menu = pengirim.parent()
+        button = menu.property('button')
+        # print(f"""action triggered
+        # pengirim: {pengirim.text()}
+        # menu = {menu.title()}
+        # button = {button.text()}
+        # bhs = {self.langchoice.currentText()}
+        # """)
+        baris_entry = pengirim.text()
+        keyword = button.text()
+        bhs = self.langchoice.currentText()
+        self.last_file = os.path.join(self.bylangsdir, f'{keyword}.{bhs}.mk')
+        try:
+            result, self.lineno = get_definition_by_key_permissive_start_with_lineno(self.last_file, baris_entry)
+            result = result.strip()
+            self.repl_result.emit(result)
+        except Exception as err:
+            print(err)
+
+
+# def get_icon():
+#     pixmap = QPixmap(16, 16)
+#     pixmap.fill(Qt.transparent)
+#     painter = QPainter()
+#     painter.begin(pixmap)
+#     painter.setFont(QFont('Webdings', 11))
+#     painter.setPen(Qt.GlobalColor(random.randint(4, 18)))
+#     painter.drawText(0, 0, 16, 16, Qt.AlignCenter, random.choice(string.ascii_letters))
+#     painter.end()
+#     return QIcon(pixmap)
+
+
+# def set_theme(app):
+#     app.setStyle("Fusion")
+#     palette = QPalette()
+#     palette.setColor(QPalette.Window, QColor(53, 53, 53))
+#     palette.setColor(QPalette.WindowText, Qt.white)
+#     palette.setColor(QPalette.Base, QColor(25, 25, 25))
+#     palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
+#     palette.setColor(QPalette.ToolTipBase, Qt.black)
+#     palette.setColor(QPalette.ToolTipText, Qt.white)
+#     palette.setColor(QPalette.Text, Qt.white)
+#     palette.setColor(QPalette.Button, QColor(53, 53, 53))
+#     palette.setColor(QPalette.ButtonText, Qt.white)
+#     palette.setColor(QPalette.BrightText, Qt.red)
+#     palette.setColor(QPalette.Link, QColor(42, 130, 218))
+#     palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+#     palette.setColor(QPalette.HighlightedText, Qt.black)
+#     app.setPalette(palette)
+
+
+background_image_stylesheet = '''
+ReplangWidget {
+    border-image: url("bg.jpg");
+    background-repeat: no-repeat; 
+    background-position: center;
+}
+'''
+
+
+def main():
+    app = QApplication([])
+    w = ReplangWidget()
+    w.setStyleSheet(background_image_stylesheet)
+    w.show()
+    sys.exit(app.exec_())
+
+
+if __name__ == '__main__':
+    main()

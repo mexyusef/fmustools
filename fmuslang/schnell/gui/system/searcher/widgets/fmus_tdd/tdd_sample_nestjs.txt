@@ -1,0 +1,85 @@
+# NestJS TDD Examples
+TDD in NestJS: show me some examples
+
+ChatGPT
+Sure! I can provide you with a few examples of how to write tests using Test-Driven Development (TDD) approach in NestJS.
+
+Example 1: Testing a Controller
+
+Let's say you have a basic controller called UserController with a getUser method that retrieves user details from a service. Here's an example of how you can test it using TDD:
+
+typescript
+Copy code
+import { Test, TestingModule } from '@nestjs/testing';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
+
+describe('UserController', () => {
+  let userController: UserController;
+  let userService: UserService;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [UserController],
+      providers: [UserService],
+    }).compile();
+
+    userController = module.get<UserController>(UserController);
+    userService = module.get<UserService>(UserService);
+  });
+
+  it('should return user details', async () => {
+    const userId = '123';
+    const user = { id: userId, name: 'John Doe' };
+
+    jest.spyOn(userService, 'getUser').mockResolvedValue(user);
+
+    expect(await userController.getUser(userId)).toBe(user);
+    expect(userService.getUser).toBeCalledWith(userId);
+  });
+});
+In this example, we create a testing module using Test.createTestingModule and specify the UserController and UserService as the controllers and providers, respectively. We then use module.get to get instances of the controller and service to be tested.
+
+The it block defines the test case. Here, we set up a mock implementation of the getUser method in the userService using jest.spyOn. We then call the getUser method of the controller and assert that it returns the expected user and calls the getUser method of the service with the correct userId.
+
+Example 2: Testing a Service
+
+Let's consider a service called UserService with a createUser method that creates a new user. Here's an example of how you can write a test for it using TDD:
+
+typescript
+Copy code
+import { Test, TestingModule } from '@nestjs/testing';
+import { UserService } from './user.service';
+import { UserRepository } from './user.repository';
+
+describe('UserService', () => {
+  let userService: UserService;
+  let userRepository: UserRepository;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        UserService,
+        { provide: UserRepository, useValue: {} },
+      ],
+    }).compile();
+
+    userService = module.get<UserService>(UserService);
+    userRepository = module.get<UserRepository>(UserRepository);
+  });
+
+  it('should create a new user', async () => {
+    const createUserDto = { name: 'John Doe', email: 'john@example.com' };
+    const createdUser = { id: '123', ...createUserDto };
+
+    jest.spyOn(userRepository, 'createUser').mockResolvedValue(createdUser);
+
+    expect(await userService.createUser(createUserDto)).toBe(createdUser);
+    expect(userRepository.createUser).toBeCalledWith(createUserDto);
+  });
+});
+In this example, we create a testing module and provide the UserService as well as a mocked version of the UserRepository. The mock implementation of the createUser method in the userRepository is set up using jest.spyOn.
+
+The it block defines the test case. Here, we call the createUser method of the service with a test input DTO and assert that it returns the expected created user and calls the createUser method of the repository with the correct DTO.
+
+These examples demonstrate how to write tests for a controller and a service using TDD in NestJS. By following the TDD approach, you first define the tests and their expected behavior, and then implement the corresponding code to make the tests pass.

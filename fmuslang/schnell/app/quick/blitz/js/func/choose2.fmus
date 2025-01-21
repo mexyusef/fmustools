@@ -1,0 +1,978 @@
+--% index/fmus
+__PWD,d
+	?pick
+        factorial.js,f(f=__CURDIR__/factorial.js)
+        invoice-oop.js,f(f=__CURDIR__/invoice-oop.js)
+        invoice-func.js,f(f=__CURDIR__/invoice-func.js)
+        scope-strict.js,f(e=__FILE__=scope-strict.js)
+        data-structures.js,f(e=__FILE__=data-structures.js)
+        obj-defineproperty.js,f(e=__FILE__=obj-defineproperty.js)
+        obj-freeze.js,f(e=__FILE__=obj-freeze.js)
+        obj-shorthand.js,f(e=__FILE__=obj-shorthand.js)
+        arrow-func.js,f(e=__FILE__=arrow-func.js)
+        destructure.js,f(e=__FILE__=destructure.js)
+        spread-operator.js,f(e=__FILE__=spread-operator.js)
+        clone-array.js,f(e=__FILE__=clone-array.js)
+        obj-assign.js,f(e=__FILE__=obj-assign.js)
+        obj-clone.js,f(e=__FILE__=obj-clone.js)
+        obj-deepclone.js,f(e=__FILE__=obj-deepclone.js)
+        map-reduce-filter.js,f(e=__FILE__=map-reduce-filter.js)
+        elevator-chain.js,f(e=__FILE__=elevator-chain.js)
+        elevator-sequence.js,f(e=__FILE__=elevator-sequence.js)
+        sequence-test.js,f(e=__FILE__=sequence-test.js)
+        .,d(/load=__CURDIR__/basket.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/forms.fmus=index/fmus*)
+        3.1,d(/mk)
+            format-currency.js,f(e=__FILE__=format-currency.js)
+            bind.js,f(e=__FILE__=bind.js)
+        3.2,d(/mk)
+            head-tail.js,f(e=__FILE__=head-tail.js)
+            array-prototype-extensions.js,f(e=__FILE__=array-prototype-extensions.js)
+            format-currency-foreach.js,f(e=__FILE__=format-currency-foreach.js)
+            side-effects-with-foreach.js,f(e=__FILE__=side-effects-with-foreach.js)
+        3.3,d(/mk)
+            map-reduce-filter2.js,f(e=__FILE__=map-reduce-filter2.js)
+            map-reduce-filter3.js,f(e=__FILE__=map-reduce-filter3.js)
+            map-square.js,f(e=__FILE__=map-square.js)
+            sum-of-square.js,f(e=__FILE__=sum-of-square.js)
+            eliminating-foreach.js,f(e=__FILE__=eliminating-foreach.js)
+        3.4,d(/mk)
+            students-and-tests.js,f(e=__FILE__=students-and-tests.js)
+            first-query.sql,f(e=__FILE__=first-query.sql)
+            students-and-tests-map-reduce.js,f(e=__FILE__=students-and-tests-map-reduce.js)
+            second-query.sql,f(e=__FILE__=second-query.sql)
+            group-query-mapreduce.js,f(e=__FILE__=group-query-mapreduce.js)
+            group-query-mapreducefilter.js,f(e=__FILE__=group-query-mapreducefilter.js)
+        3.5,d(/mk)
+            filter-using-reduce.js,f(e=__FILE__=filter-using-reduce.js)
+            first-query.sql,f(e=__FILE__=first-query.sql)
+            filtered-students-and-tests.js,f(e=__FILE__=filtered-students-and-tests.js)
+            second-query.sql,f(e=__FILE__=second-query.sql)
+            filtered-group-query.js,f(e=__FILE__=filtered-group-query.js)
+        tree-and-nodelist.js,f(e=__FILE__=tree-and-nodelist.js)
+        tree-reducer.js,f(e=__FILE__=tree-reducer.js)
+--#
+
+--% scope-strict.js
+// Strict mode in self-executing function
+(function() {
+    'use strict';
+    // lunch = 'Pasta Carbonara';  // Throws an error, as lunch is global
+})();
+
+(function() {
+    'use strict';
+    var lunch = 'Pasta Carbonara';
+})();
+
+// Strict mode in block
+{
+    'use strict';
+    const lunch = 'Pasta Carbonara';
+    // lunch = 'Pizza Funghi';  // Throws an error, as constants cannot be redeclared
+}
+--#
+
+--% data-structures.js
+{
+    "use strict";
+    const lunch = 'Pasta Carbonara'; // String
+    const calories = 525;            // Number
+    const isHot = true;              // Boolean
+    const nothing = undefined;       // Undefined
+    const emptyObject =  null;       // Null (object)
+    const ON = Symbol();             // Symbol
+    const indexOutOfArray = [][0];   // Undefined
+
+    console.log( 'typeof []', typeof [] ); // 'object'
+    console.log( 'Array.isArray( [] )', Array.isArray( [] ) ); // true
+
+    const arr = [1, 2, 3 ];
+
+    arr[1] = 99;
+    console.log( 'arr', arr );
+};
+--#
+
+--% obj-defineproperty.js
+// fries is not editable
+let fridge = Object.defineProperty(
+    {},
+    'fries',
+    { 
+        value: 1, 
+        enumerable: true 
+    }
+);
+
+// changing the fries property won't succeed
+fridge.fries = 2;
+console.log( 'fridge.fries', fridge.fries ); // stays 1
+
+// you can still add new properties to the fridge
+fridge.chicken = 3;
+console.log( 'fridge', fridge ); // chicken is added to the fridge
+--#
+
+--% obj-freeze.js
+// fries is not editable
+let fridge = { fries: 1 };
+
+// changing the fries property will succeed
+fridge.fries = 2;
+console.log( 'fridge.fries', fridge.fries ); // changes to 2
+
+// let's freeze the fridge. This means
+// - you cannot add or remove properties
+// - you cannot change existing property values
+Object.freeze( fridge );
+
+// you cannot add new properties to the fridge
+fridge.chicken = 3;
+console.log( 'fridge', fridge ); // no changes
+
+delete fridge.fries;
+console.log( 'firdge', fridge ); // no changes
+
+fridge.fries = 3;
+console.log( 'firdge', fridge ); // no changes
+--#
+
+--% obj-shorthand.js
+let entertain = 'Entertain';
+let you = 'You';
+let me = {
+    entertain,
+    you,
+    toString() {
+        return `
+            Let 
+            me 
+            ${this.entertain} 
+            ${this.you}`;
+    }
+};
+
+console.log( me );
+
+console.log( me.toString() );
+--#
+
+--% arrow-func.js
+console.log( typeof function() { } );
+
+const addOne = num => num + 1;
+
+console.log( addOne( 5 ) );
+
+const addCallback = (num1, num2) => num1 + num2;
+const add = (...num) => num.reduce( addCallback, 0 );
+
+console.log( add(1, 2, 3, 4, 5) );
+--#
+
+--% destructure.js
+const [head, ...tail] = [1, 2, 3];
+
+console.log( head, tail );
+
+let right = {
+    first: 'Zsolt',
+    last: 'Nagy',
+    languages: [ 'JavaScript', 'Java', 'Prolog' ]
+};
+
+const { first, languages: [, ...langTail] } = right;
+
+console.log( first, langTail );
+
+const arr = [1, 2, 3];
+const getTail = ([,...tail]) => tail;
+
+console.log( getTail( arr ) );
+--#
+
+--% spread-operator.js
+const [, ...tail] = [1, 2, 3];
+
+console.log( [...tail, ...tail] ); // [2, 3, 2, 3]
+console.log( [...tail, ...tail, 4] ); // [2, 3, 2, 3, 4]
+
+let logArgs = (a, b, c) => console.log( a, b, c );
+
+logArgs( ...tail, ...tail ); // 2, 3, 2
+// returns undefined
+
+let logHeadTail = ( head, ...tail ) => console.log( head, tail );
+
+logHeadTail( ...tail, ...tail ); // 2, [3, 2, 3]
+// returns undefined
+--#
+
+--% clone-array.js
+const cloneArray = arr => [...arr];
+
+const originalArray = ['hi', {on: true}];
+
+const newArray = cloneArray( originalArray );
+
+newArray[0] = 'hello';
+
+newArray[1].on = 'false';
+
+console.log( 'originalArray:', originalArray );
+console.log( 'newArray:', newArray );
+--#
+
+--% obj-assign.js
+let target = { className: 'js-container' };
+let source = { tagName: 'div' };
+
+let combinedObject = Object.assign( target, source );
+
+// target is mutated
+console.log( combinedObject, target, source );
+
+let target2 = { className: 'js-container' };
+let source2 = { tagName: 'div' };
+
+let combinedObject2 = Object.assign( target, source );
+
+// target2 is not mutated
+console.log( combinedObject2, target2, source2 );
+--#
+
+--% obj-clone.js
+const cloneObject = o => Object.assign( {}, o );
+
+const domNode = {
+    className: 'js-container',
+    tagName: 'div',
+    childNodes: [ { text: 'Hi' } ]
+};
+
+const clonedNode = cloneObject( domNode );
+
+domNode.childNodes[0] = {};
+
+console.log( 'domNode', domNode );
+console.log( 'clonedNode', clonedNode );
+--#
+
+--% obj-deepclone.js
+const cloneObject = o => JSON.parse( JSON.stringify( o ) );
+
+const domNode = {
+    className: 'js-container',
+    tagName: 'div',
+    childNodes: [ { text: 'Hi' } ]
+};
+
+const clonedNode = cloneObject( domNode );
+
+domNode.childNodes[0] = {};
+
+console.log( 'domNode', domNode );
+console.log( 'clonedNode', clonedNode );
+--#
+
+--% map-reduce-filter.js
+console.log(
+    [ 'Functional', 'programming', 'is', 'cool' ]
+        .map( word => word.length )        // [10, 11, 2, 4]
+        .filter( num => num % 2 === 0 )    // [10, 2, 4]
+        .reduce( (a, b) => a + b, 0 )      // 16
+);
+--#
+
+--% elevator-chain.js
+
+const elevator = {
+    floor: 5,
+    up()   { 
+        this.floor += 1; 
+        return this;
+    },
+    down() { 
+        this.floor -= 1; 
+        return this;
+    }
+};
+
+const newFloor = elevator
+                    .up()
+                    .up()
+                    .down()
+                    .up()
+                    .floor;
+
+console.log( newFloor );
+--#
+
+--% elevator-sequence.js
+
+const sequence2 = ( f1, f2 ) => 
+    (...args) => 
+    f2( f1( ...args ) );
+
+const sequence = ( f1, ...fRest ) =>
+    fRest.reduce( sequence2, f1 );
+
+const elevator = {
+    floor: 5
+};
+
+const up = elevator => {
+    return {
+        floor: elevator.floor + 1
+    }
+};
+
+const down = elevator => {
+    return {
+        floor: elevator.floor - 1
+    }
+};
+
+const move = sequence( up, up, down, up );
+const newElevator = move( elevator );
+
+console.log( newElevator.floor );
+--#
+
+--% sequence-test.js
+
+const sequence = ( f1, f2 ) => 
+    (...args) => 
+    f2( f1( ...args ) );
+
+const f1 = ( a, b ) => a + b;
+const f2 = a => `Result: ${a}`;
+
+console.log( f2( f1( 2, 5 ) ) );
+
+console.log( sequence( f1, f2 )(2, 5) );
+--#
+
+--% bind.js
+const area = function() {
+    return this.width * this.height;
+};
+
+// bind returns a function
+const boundArea = area.bind( { width: 2, height: 3 } );
+
+console.log( boundArea() );
+--#
+
+--% format-currency.js
+const formatCurrency = function( currencySymbol, decimalSeparator ) {
+    return function( value ) {
+        const wholePart = Math.trunc( value / 100 );
+        let fractionPart = value % 100;
+        if ( fractionPart < 10 ) fractionPart = '0' + fractionPart;
+        return `${currencySymbol}${wholePart}${decimalSeparator}${fractionPart}`;
+    }
+}
+
+const formatter = formatCurrency( '$', ',' );
+
+console.log( formatter( 0 ) );
+console.log( formatter( 1209 ) );
+--#
+
+--% format-currency-foreach.js
+const formatCurrency = function( currencySymbol, decimalSeparator ) {
+    return function( value ) {
+        const wholePart = Math.trunc( value / 100 );
+        let fractionPart = value % 100;
+        if ( fractionPart < 10 ) fractionPart = '0' + fractionPart;
+        return `${currencySymbol}${wholePart}${decimalSeparator}${fractionPart}`;
+    }
+}
+
+const formatter = formatCurrency( '€', '.' );
+const currencies = [ 0, 1209, 10000, 10010 ];
+
+/*
+// simple for loop: imperative
+for ( let i = 0; i < currencies.length; ++i ) {
+    console.log( formatter( currencies[i] ) );
+}
+
+// for...of: ES6, imperative, more compact
+for ( let value of currencies ) {
+    console.log( formatter( value ) );
+}
+*/
+
+currencies.forEach( value => console.log( formatter( value ) ) );
+
+--#
+
+--% head-tail.js
+const arr = [ 1, 2, 3, 4 ];
+const [ head, ...tail ] = arr;
+console.log( 'head, tail: ', head, tail );
+
+const append = ( [head1, ...tail1], array2 ) => 
+    typeof head1 === 'undefined' ?
+    array2 :
+    [ head1, ...append( tail1, array2 ) ];
+
+console.log( 'append( [1, 2, 3], [4, 5] ):', append( [1, 2, 3], [4, 5] ) );
+--#
+
+--% array-prototype-extensions.js
+const arr1 = [1, 2, 3 ];
+const arr2 = [4, 5 ];
+
+console.log( 'arr1.concat( arr2 )', arr1.concat( arr2 ) );
+
+console.log( 
+    'arr1.concat( arr2 ).every( x => x % 2 === 1 )',
+    arr1.concat( arr2 ).every( x => x % 2 === 1 )
+);
+
+console.log( 
+    'arr1.concat( arr2 ).some( x => x % 2 === 1 )',
+    arr1.concat( arr2 ).some( x => x % 2 === 1 )
+);
+
+console.log( 
+    'arr1.concat( arr2 ).find( x => x % 2 === 1 )',
+    arr1.concat( arr2 ).find( x => x % 2 === 1 )
+);
+
+console.log( 
+    "arr1.concat( arr2 ).join( ',' )", 
+    arr1.concat( arr2 ).join( ',' ) 
+);
+
+console.log(
+    "arr1.concat( arr2 ).join( ',' ).split( ',' )",
+    arr1.concat( arr2 ).join( ',' ).split( ',' )
+);
+
+console.log(
+    "arr1.concat( arr2 ).join( ',' ).split( ',' ).reverse()",
+    arr1.concat( arr2 ).join( ',' ).split( ',' ).reverse()
+);
+--#
+
+--% side-effects-with-foreach.js
+const formatCurrency = function( currencySymbol, decimalSeparator ) {
+    return function( value ) {
+        const wholePart = Math.trunc( value / 100 );
+        let fractionPart = value % 100;
+        if ( fractionPart < 10 ) fractionPart = '0' + fractionPart;
+        return `${currencySymbol}${wholePart}${decimalSeparator}${fractionPart}`;
+    }
+}
+
+const formatter = formatCurrency( '€', '.' );
+const currencies = [ 0, 1209, 10000, 10010 ];
+
+// Return an array of formatted values
+let formattedCurrencies = [];
+currencies.forEach( value => {
+    formattedCurrencies.push( formatter( value ) );
+} );
+console.log( 'formattedCurrencies', formattedCurrencies );
+
+// Calculate the sum of the currencies array
+let sum = 0;
+currencies.forEach( value => {
+    sum += value;
+} );
+console.log( 'sum', sum );
+
+// Filter expensive items (>= 10000)
+let expensiveItems = [];
+currencies.forEach( value => {
+    if ( value >= 10000 ) expensiveItems.push( value );
+} );
+console.log( 'expensiveItems', expensiveItems );
+
+--#
+
+--% map-reduce-filter2.js
+
+
+const map = ( [head, ...tail], f ) =>
+    typeof head === 'undefined' ?
+    [] :
+    [ f( head ), ...map( tail, f ) ];
+
+console.log( map( [1, 2, 3, 4], x => x ** 2 ) );
+
+
+const reduce = ( [head, ...tail], f, accumulator ) =>
+    typeof head === 'undefined' ?
+    accumulator :
+    reduce( tail, f, f( accumulator, head ) );
+
+console.log( reduce( [1, 2, 3, 4], (x, y) => x + y , 0 ) );
+
+
+const filter = ( [head, ...tail], predicate ) =>
+    typeof head === 'undefined' ?
+    [] :
+    predicate( head ) ?
+    [ head, ...filter( tail, predicate ) ] :
+    filter( tail, predicate );
+
+console.log( filter( [1,2,3,4,5], x => x%2 === 1 ) );
+--#
+
+--% map-reduce-filter3.js
+const square = x => x ** 2;
+
+const sum = ( x, y ) => x + y;
+
+const twoOrHigher = x => x >= 2;
+
+console.log( [1, 2, 3, 4].map( square ).filter( twoOrHigher ).reduce( sum, 0 ) );
+--#
+
+--% map-square.js
+const square = x => x ** 2;
+console.log( [1, 2, 3, 4].map( square ) );
+--#
+
+--% sum-of-square.js
+const square = x => x ** 2;
+const sum = ( x, y ) => x + y;
+console.log( [1, 2, 3, 4].map( square ).reduce( sum, 0 ) );
+--#
+
+--% eliminating-foreach.js
+const formatCurrency = function( currencySymbol, decimalSeparator ) {
+    return function( value ) {
+        const wholePart = Math.trunc( value / 100 );
+        let fractionPart = value % 100;
+        if ( fractionPart < 10 ) fractionPart = '0' + fractionPart;
+        return `${currencySymbol}${wholePart}${decimalSeparator}${fractionPart}`;
+    }
+}
+
+const formatter = formatCurrency( '€', '.' );
+const currencies = [ 0, 1209, 10000, 10010 ];
+
+// Return an array of formatted values
+const formattedCurrencies = currencies.map( formatter );
+console.log( 'formattedCurrencies', formattedCurrencies );
+
+// Calculate the sum of the currencies array
+const sum = currencies.reduce( (a, b) => a + b, 0 );
+console.log( 'sum', sum );
+
+// Filter expensive items (>= 10000)
+const expensiveItems = currencies.filter( v => v >= 10000 );
+console.log( 'expensiveItems', expensiveItems );
+
+--#
+
+--% students-and-tests.js
+const students = [
+    {
+        id: 1,
+        name: 'Marcus',
+        birthDate: '1997-12-11'
+    },
+    {
+        id: 2,
+        name: 'Andrea',
+        birthDate: '1993-09-08'
+    },
+    {
+        id: 3,
+        name: 'Max',
+        birthDate: '1994-11-14'
+    }
+];
+
+const tests = [
+    {
+        id: 1,
+        studentID: 1,
+        title: 'Fractals',
+        score: 0.5
+    },
+    {
+        id: 2,
+        studentID: 1,
+        title: 'Functional Programming',
+        score: 0.75
+    },
+    {
+        id: 3,
+        studentID: 2,
+        title: 'Functional Programming',
+        score: 0.96
+    }
+]; 
+--#
+
+--% first-query.sql
+SELECT students.name AS studentName, 
+       tests.title AS testTitle, 
+       tests.score AS testScore
+FROM tests 
+JOIN students
+ON students.id = tests.studentID;
+--#
+
+--% students-and-tests-map-reduce.js
+const students = [
+    {
+        id: 1,
+        name: 'Marcus',
+        birthDate: '1997-12-11'
+    },
+    {
+        id: 2,
+        name: 'Andrea',
+        birthDate: '1993-09-08'
+    },
+    {
+        id: 3,
+        name: 'Max',
+        birthDate: '1994-11-14'
+    }
+];
+
+const tests = [
+    {
+        id: 1,
+        studentID: 1,
+        title: 'Fractals',
+        score: 0.5
+    },
+    {
+        id: 2,
+        studentID: 1,
+        title: 'Functional Programming',
+        score: 0.75
+    },
+    {
+        id: 3,
+        studentID: 2,
+        title: 'Functional Programming',
+        score: 0.96
+    }
+]; 
+
+const StudentTests = tests.map( test => {
+    const student = students.find( student =>
+        student.id === test.studentID );
+    return {
+        studentName: student.name,
+        testTitle: test.title,
+        testScore: test.score 
+    };
+} );
+--#
+
+--% second-query.sql
+SELECT students.name AS studentName, 
+       COUNT( tests.id ) AS testCount 
+FROM students 
+LEFT JOIN tests
+ON students.id = tests.studentID
+GROUP BY students.id;
+--#
+
+--% group-query-mapreduce.js
+const students = [
+    {
+        id: 1,
+        name: 'Marcus',
+        birthDate: '1997-12-11'
+    },
+    {
+        id: 2,
+        name: 'Andrea',
+        birthDate: '1993-09-08'
+    },
+    {
+        id: 3,
+        name: 'Max',
+        birthDate: '1994-11-14'
+    }
+];
+
+const tests = [
+    {
+        id: 1,
+        studentID: 1,
+        title: 'Fractals',
+        score: 0.5
+    },
+    {
+        id: 2,
+        studentID: 1,
+        title: 'Functional Programming',
+        score: 0.75
+    },
+    {
+        id: 3,
+        studentID: 2,
+        title: 'Functional Programming',
+        score: 0.96
+    }
+]; 
+
+const StudentTestCount = students.map( student => {
+
+    const reducer = ( count, test ) => 
+        test.studentID === student.id ? 
+        count + 1 :
+        count;
+
+    const testCount = tests.reduce( reducer, 0 );
+
+    return {
+        StudentName: student.name,
+        testCount
+    };
+} );
+--#
+
+--% group-query-mapreducefilter.js
+const students = [
+    {
+        id: 1,
+        name: 'Marcus',
+        birthDate: '1997-12-11'
+    },
+    {
+        id: 2,
+        name: 'Andrea',
+        birthDate: '1993-09-08'
+    },
+    {
+        id: 3,
+        name: 'Max',
+        birthDate: '1994-11-14'
+    }
+];
+
+const tests = [
+    {
+        id: 1,
+        studentID: 1,
+        title: 'Fractals',
+        score: 0.5
+    },
+    {
+        id: 2,
+        studentID: 1,
+        title: 'Functional Programming',
+        score: 0.75
+    },
+    {
+        id: 3,
+        studentID: 2,
+        title: 'Functional Programming',
+        score: 0.96
+    }
+]; 
+
+const StudentTestCount = students.map( student => {
+
+    const filteredTests = tests.filter( test => 
+        test.studentID === student.id );
+    const testCount = filteredTests.length;
+
+    return {
+        studentName: student.name,
+        testCount
+    };
+} );
+--#
+
+--% filter-using-reduce.js
+const filter = ( array, filterFunction ) => {
+
+    const reducer = ( accumulator, element ) =>
+        filterFunction( element ) ?
+        [ ...accumulator, element ] :
+        accumulator;
+
+    return array.reduce( reducer, [] );
+}
+
+console.log( filter( [1, 2, 3, 4, 5], x => x < 4 ) );
+--#
+
+--% first-query.sql
+
+SELECT students.name AS studentName, 
+       tests.title AS testTitle, 
+       tests.score AS testScore
+FROM tests 
+JOIN students
+ON students.id = tests.studentID
+WHERE tests.score >= 0.7;
+--#
+
+--% filtered-students-and-tests.js
+const students = [
+    {
+        id: 1,
+        name: 'Marcus',
+        birthDate: '1997-12-11'
+    },
+    {
+        id: 2,
+        name: 'Andrea',
+        birthDate: '1993-09-08'
+    },
+    {
+        id: 3,
+        name: 'Max',
+        birthDate: '1994-11-14'
+    }
+];
+
+const tests = [
+    {
+        id: 1,
+        studentID: 1,
+        title: 'Fractals',
+        score: 0.5
+    },
+    {
+        id: 2,
+        studentID: 1,
+        title: 'Functional Programming',
+        score: 0.75
+    },
+    {
+        id: 3,
+        studentID: 2,
+        title: 'Functional Programming',
+        score: 0.96
+    }
+]; 
+
+const StudentTests = tests.filter( studentTest => 
+    studentTest.score >= 0.7 ).map( test => {
+    const student = students.find( student =>
+        student.id === test.studentID );
+    return {
+        studentName: student.name,
+        testTitle: test.title,
+        testScore: test.score 
+    };
+} );
+--#
+
+--% second-query.sql
+SELECT students.name AS studentName, 
+       COUNT( tests.id ) AS testCount 
+FROM students 
+LEFT JOIN tests
+ON students.id = tests.studentID
+GROUP BY students.id
+HAVING testCount >= 2;
+--#
+
+--% filtered-group-query.js
+const students = [
+    {
+        id: 1,
+        name: 'Marcus',
+        birthDate: '1997-12-11'
+    },
+    {
+        id: 2,
+        name: 'Andrea',
+        birthDate: '1993-09-08'
+    },
+    {
+        id: 3,
+        name: 'Max',
+        birthDate: '1994-11-14'
+    }
+];
+
+const tests = [
+    {
+        id: 1,
+        studentID: 1,
+        title: 'Fractals',
+        score: 0.5
+    },
+    {
+        id: 2,
+        studentID: 1,
+        title: 'Functional Programming',
+        score: 0.75
+    },
+    {
+        id: 3,
+        studentID: 2,
+        title: 'Functional Programming',
+        score: 0.96
+    }
+]; 
+
+const StudentTestCount = students.map( student => {
+
+    const filteredTests = tests.filter( test => 
+        test.studentID === student.id &&
+        test.score >= 0.7 );
+    const testCount = filteredTests.length;
+
+    return {
+        studentName: student.name,
+        testCount
+    };
+} ).filter( studentTestCount =>
+    studentTestCount.testCount >= 2 );
+--#
+
+--% tree-and-nodelist.js
+const nodeList = [5, 2, 4];
+
+const node = {
+    value: 5,
+    left: {
+        value: 2,
+        left: null,
+        right: {
+            value: 4,
+            left: null,
+            right: null
+        }
+    },
+    right: null  
+};
+--#
+
+--% tree-reducer.js
+const nodeList = [5, 2, 4];
+
+const reducer = ( tree, element ) => {
+    if ( tree === null ) {
+        return {
+            value: element,
+            left: null,
+            right: null
+        };
+    }
+    if ( element < tree.value ) {
+        tree.left = reducer( tree.left, element );
+    } else {
+        tree.right = reducer( tree.right, element );
+    }
+
+    return tree;
+}
+
+const tree = nodeList.reduce( reducer, null );
+
+console.log( tree );
+--#

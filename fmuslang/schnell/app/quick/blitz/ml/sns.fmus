@@ -1,0 +1,14 @@
+--% index/fmus
+__PWD,d
+	~unless[q]
+		.,d(/load=__FILE__=index/loop*)
+--#
+
+--% index/loop
+__PWD,d
+    # https://www.youtube.com/watch?v=ooqXQ37XHMM
+	?pick
+		@satu
+		@dua
+		@tiga
+--#

@@ -1,0 +1,346 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @contoh kerjaan ferdinand neman, termasuk clone repo dia...*
+        $* go get github.com/antlr/antlr4/runtime/Go/antlr
+        @https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/
+
+        .,d(/load=__FILE__=calc/contoh dengan visitor dan listener*)
+--#
+
+--% README.md
+https://www.youtube.com/results?search_query=go+antlr
+
+https://www.youtube.com/channel/UC_W51hwwUwBJrVDjwMKjFpQ/videos
+
+https://www.youtube.com/watch?v=atSZWzRiVXA
+
+# Antlr4 calulate Example in golang
+
+## Install antlr4
+
+[Install antlr4](https://github.com/antlr/antlr4/blob/master/doc/getting-started.md)
+
+### Install antlr4 golang runtime
+
+```
+go get github.com/antlr/antlr4/runtime/Go/antlr
+```
+
+## build example
+
+```
+make
+./visitor_example
+./listener_example
+```
+
+## reference
+
+[antlr4-golang](https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/)
+--#
+
+--% calc/contoh dengan visitor dan listener
+__PWD,d
+	calc.g4,f(e=__FILE__=calc/calc.g4)
+	Makefile,f(e=__FILE__=calc/Makefile)
+	visit,d(/mk)
+		main.go,f(e=__FILE__=calc/visitor)
+	listen,d(/mk)
+		main.go,f(e=__FILE__=calc/listener)
+	$* make
+	$* wsl ls -al
+--#
+
+--% calc/calc.g4
+// Calc.g4
+grammar Calc;
+
+// Tokens
+MUL: '*';
+DIV: '/';
+ADD: '+';
+SUB: '-';
+NUMBER: [0-9]+;
+WHITESPACE: [ \r\n\t]+ -> skip;
+
+// Rules
+start : expression EOF;
+
+expression
+   : expression op=('*'|'/') expression # MulDiv
+   | expression op=('+'|'-') expression # AddSub
+   | NUMBER                             # Number
+   | '(' expression ')'                 # Parenthesis
+   ;
+
+--#
+
+--% calc/Makefile
+.PHONY:all listen visitor
+antlr4=java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool
+all:listen visitor
+listen:
+	$(antlr4) -Dlanguage=Go -o listen/parser Calc.g4
+	go build -o lcalc.exe listen/main.go 
+visitor:
+	$(antlr4) -Dlanguage=Go -no-listener -visitor -o visit/parser Calc.g4
+	go build  -o vcalc.exe visit/main.go
+--#
+
+--% calc/visitor
+//for vistor pattern
+package main
+
+import (
+	"fmt"
+	"strconv"
+
+	"./parser"
+	"github.com/antlr/antlr4/runtime/Go/antlr"
+	prompt "github.com/c-bata/go-prompt"
+)
+
+type Visitor struct {
+	parser.BaseCalcVisitor
+	stack []int
+}
+
+func NewVisitor() *Visitor {
+	return &Visitor{}
+}
+
+func (l *Visitor) push(i int) {
+	l.stack = append(l.stack, i)
+}
+
+func (l *Visitor) pop() int {
+	if len(l.stack) < 1 {
+		panic("stack is empty unable to pop")
+	}
+
+	// Get the last value from the stack.
+	result := l.stack[len(l.stack)-1]
+
+	// Remove the last element from the stack.
+	l.stack = l.stack[:len(l.stack)-1]
+
+	return result
+}
+
+func (v *Visitor) visitRule(node antlr.RuleNode) interface{} {
+	node.Accept(v)
+	return nil
+}
+
+func (v *Visitor) VisitStart(ctx *parser.StartContext) interface{} {
+	return v.visitRule(ctx.Expression())
+}
+
+func (v *Visitor) VisitNumber(ctx *parser.NumberContext) interface{} {
+	i, err := strconv.Atoi(ctx.NUMBER().GetText())
+	if err != nil {
+		panic(err.Error())
+	}
+
+	v.push(i)
+	return nil
+}
+
+func (v *Visitor) VisitMulDiv(ctx *parser.MulDivContext) interface{} {
+	//push expression result to stack
+	v.visitRule(ctx.Expression(0))
+	v.visitRule(ctx.Expression(1))
+
+	//push result to stack
+	var t antlr.Token = ctx.GetOp()
+	right := v.pop()
+	left := v.pop()
+	switch t.GetTokenType() {
+	case parser.CalcParserMUL:
+		v.push(left * right)
+	case parser.CalcParserDIV:
+		v.push(left / right)
+	default:
+		panic("should not happen")
+
+	}
+
+	return nil
+}
+
+func (v *Visitor) VisitAddSub(ctx *parser.AddSubContext) interface{} {
+	//push expression result to stack
+	v.visitRule(ctx.Expression(0))
+	v.visitRule(ctx.Expression(1))
+
+	//push result to stack
+	var t antlr.Token = ctx.GetOp()
+	right := v.pop()
+	left := v.pop()
+	switch t.GetTokenType() {
+	case parser.CalcParserADD:
+		v.push(left + right)
+	case parser.CalcParserSUB:
+		v.push(left - right)
+	default:
+		panic("should not happen")
+	}
+
+	return nil
+}
+
+func (v *Visitor) VisitParenthesis(ctx *parser.ParenthesisContext) interface{} {
+	v.visitRule(ctx.Expression())
+	return nil
+}
+
+func calc(input string) int {
+
+	is := antlr.NewInputStream(input)
+
+	// Create the Lexer
+	lexer := parser.NewCalcLexer(is)
+	tokens := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
+
+	// Create the Parser
+	p := parser.NewCalcParser(tokens)
+
+	v := NewVisitor()
+	//Start is rule name of Calc.g4
+	p.Start().Accept(v)
+	return v.pop()
+}
+
+func executor(in string) {
+	fmt.Printf("Answer: %d\n", calc(in))
+}
+
+func completer(in prompt.Document) []prompt.Suggest {
+	var ret []prompt.Suggest
+	return ret
+}
+
+func main() {
+	p := prompt.New(
+		executor,
+		completer,
+		prompt.OptionPrefix(">>> "),
+		prompt.OptionTitle("calc"),
+	)
+	p.Run()
+}
+--#
+
+--% calc/listener
+package main
+
+import (
+	"fmt"
+	"strconv"
+
+	"./parser"
+	"github.com/antlr/antlr4/runtime/Go/antlr"
+	"github.com/c-bata/go-prompt"
+)
+
+type calcListener struct {
+	*parser.BaseCalcListener
+
+	stack []int
+}
+
+func (l *calcListener) push(i int) {
+	l.stack = append(l.stack, i)
+
+}
+
+func (l *calcListener) pop() int {
+	if len(l.stack) < 1 {
+		panic("stack is empty unable to pop")
+	}
+
+	// Get the last value from the stack.
+	result := l.stack[len(l.stack)-1]
+
+	// Remove the last element from the stack.
+	l.stack = l.stack[:len(l.stack)-1]
+
+	return result
+}
+
+func (l *calcListener) ExitMulDiv(c *parser.MulDivContext) {
+	right, left := l.pop(), l.pop()
+
+	switch c.GetOp().GetTokenType() {
+	case parser.CalcParserMUL:
+		l.push(left * right)
+	case parser.CalcParserDIV:
+		l.push(left / right)
+	default:
+		panic(fmt.Sprintf("unexpected op: %s", c.GetOp().GetText()))
+	}
+}
+
+func (l *calcListener) ExitAddSub(c *parser.AddSubContext) {
+	right, left := l.pop(), l.pop()
+
+	switch c.GetOp().GetTokenType() {
+	case parser.CalcParserADD:
+		l.push(left + right)
+	case parser.CalcParserSUB:
+		l.push(left - right)
+	default:
+		panic(fmt.Sprintf("unexpected op: %s", c.GetOp().GetText()))
+	}
+}
+
+func (l *calcListener) ExitNumber(c *parser.NumberContext) {
+	i, err := strconv.Atoi(c.GetText())
+	if err != nil {
+		panic(err.Error())
+	}
+
+	l.push(i)
+}
+
+// calc takes a string expression and returns the evaluated result.
+func calc(input string) int {
+	// Setup the input
+	is := antlr.NewInputStream(input)
+
+	// Create the Lexer
+	lexer := parser.NewCalcLexer(is)
+	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
+
+	// Create the Parser
+	p := parser.NewCalcParser(stream)
+
+	// Finally parse the expression (by walking the tree)
+	var listener calcListener
+	antlr.ParseTreeWalkerDefault.Walk(&listener, p.Start())
+
+	return listener.pop()
+
+}
+
+func executor(in string) {
+	fmt.Printf("Answer: %d\n", calc(in))
+}
+
+func completer(in prompt.Document) []prompt.Suggest {
+	var ret []prompt.Suggest
+	return ret
+}
+
+func main() {
+	p := prompt.New(
+		executor,
+		completer,
+		prompt.OptionPrefix(">>> "),
+		prompt.OptionTitle("calc"),
+	)
+	p.Run()
+}
+
+--#

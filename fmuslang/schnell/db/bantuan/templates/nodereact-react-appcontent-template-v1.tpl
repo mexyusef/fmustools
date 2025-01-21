@@ -1,0 +1,13 @@
+__TAB(4)$$GANTI_DENGAN_MODEL_TITLE$$,d(/mk)
+__TAB(5)%__TEMPLATE_MODELNAME=$$GANTI_DENGAN_MODEL_UPPER$$
+__TAB(5)%__TEMPLATE_Modelname=$$GANTI_DENGAN_MODEL_TITLE$$
+__TAB(5)%__TEMPLATE_modelname=$$GANTI_DENGAN_MODEL_LOWER$$
+__TAB(5)%__TEMPLATE_MODELNAMES=$$GANTI_DENGAN_MODEL_UPPER_PLURAL$$
+__TAB(5)%__TEMPLATE_modelnames=$$GANTI_DENGAN_MODEL_LOWER_PLURAL$$
+__TAB(5)CreateForm.js,f(e=utama=/np/react-antd/components/modules/$$GANTI_DENGAN_MODEL_TITLE$$/CreateForm.js)
+__TAB(5)FormProvider.js,f(e=utama=/np/react-antd/components/modules/$$GANTI_DENGAN_MODEL_TITLE$$/FormProvider.js)
+__TAB(5)FormWrapper.js,f(e=utama=/np/react-antd/components/modules/$$GANTI_DENGAN_MODEL_TITLE$$/FormWrapper.js)
+__TAB(5)List.js,f(e=utama=/np/react-antd/components/modules/$$GANTI_DENGAN_MODEL_TITLE$$/List.js)
+__TAB(5)Modal.js,f(e=utama=/np/react-antd/components/modules/$$GANTI_DENGAN_MODEL_TITLE$$/Modal.js)
+__TAB(5)UpdateForm.js,f(e=utama=/np/react-antd/components/modules/$$GANTI_DENGAN_MODEL_TITLE$$/UpdateForm.js)
+__TAB(5)$$GANTI_DENGAN_MODEL_TITLE$$.js,f(e=utama=/np/react-antd/components/modules/$$GANTI_DENGAN_MODEL_TITLE$$/$$GANTI_DENGAN_MODEL_TITLE$$.js)

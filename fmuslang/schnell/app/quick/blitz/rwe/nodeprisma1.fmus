@@ -1,0 +1,3525 @@
+--% index/fmus
+__PWD,d
+  .,d(/load=__FILE__=index/fmus/under_pwd*)
+--#
+
+--% index/fmus/under_pwd
+__REPLACE_WITH_PROJECT_DIR_OR_INPUT__,d(/mk)
+	%utama=__FILE__
+	.eslintrc.json,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/.eslintrc.json)
+	.gitignore,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/.gitignore)
+	.prettierignore,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/.prettierignore)
+	.prettierrc.json,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/.prettierrc.json)
+	app.json,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/app.json)
+	CODE_OF_CONDUCT.md,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/CODE_OF_CONDUCT.md)
+	CONTRIBUTING.md,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/CONTRIBUTING.md)
+	jest.config.js,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/jest.config.js)
+	LICENSE,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/LICENSE)
+	package.json,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/package.json)
+	Procfile,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/Procfile)
+	README.md,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/README.md)
+	tsconfig.json,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tsconfig.json)
+	.github,d(/mk)
+		dependabot.yml,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/.github/dependabot.yml)
+		workflows,d(/mk)
+			ci.yaml,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/.github/workflows/ci.yaml)
+	.husky,d(/mk)
+		.gitignore,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/.husky/.gitignore)
+		pre-commit,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/.husky/pre-commit)
+	media,d(/mk)
+		realworld.png,f(b64=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/media/realworld.png)
+	prisma,d(/mk)
+		prisma-client.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/prisma-client.ts)
+		schema.prisma,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/schema.prisma)
+		migrations,d(/mk)
+			migration_lock.toml,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/migration_lock.toml)
+			20210924222830_initial,d(/mk)
+				migration.sql,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20210924222830_initial/migration.sql)
+			20211001195651_implicit_articles,d(/mk)
+				migration.sql,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20211001195651_implicit_articles/migration.sql)
+			20211106214623_deprecated_previews,d(/mk)
+				migration.sql,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20211106214623_deprecated_previews/migration.sql)
+			20211106215130_default_image_url,d(/mk)
+				migration.sql,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20211106215130_default_image_url/migration.sql)
+			20211115100640_updated_at,d(/mk)
+				migration.sql,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20211115100640_updated_at/migration.sql)
+	public,d(/mk)
+		images,d(/mk)
+			smiley-cyrus.jpeg,f(b64=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/public/images/smiley-cyrus.jpeg)
+	src,d(/mk)
+		index.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/index.ts)
+		controllers,d(/mk)
+			article.controller.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/article.controller.ts)
+			auth.controller.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/auth.controller.ts)
+			comment.controller.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/comment.controller.ts)
+			profile.controller.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/profile.controller.ts)
+			tag.controller.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/tag.controller.ts)
+		mappers,d(/mk)
+			article.mapper.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/mappers/article.mapper.ts)
+			author.mapper.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/mappers/author.mapper.ts)
+			comment.mapper.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/mappers/comment.mapper.ts)
+			user.mapper.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/mappers/user.mapper.ts)
+		models,d(/mk)
+			article.model.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/article.model.ts)
+			comment.model.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/comment.model.ts)
+			http-exception.model.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/http-exception.model.ts)
+			profile-response.model.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/profile-response.model.ts)
+			tag.model.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/tag.model.ts)
+			user.model.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/user.model.ts)
+		routes,d(/mk)
+			routes.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/routes/routes.ts)
+		selectors,d(/mk)
+			article.selector.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/selectors/article.selector.ts)
+			comment.selector.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/selectors/comment.selector.ts)
+			profile.selector.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/selectors/profile.selector.ts)
+			user.selector.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/selectors/user.selector.ts)
+		services,d(/mk)
+			article.service.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/article.service.ts)
+			auth.service.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/auth.service.ts)
+			comment.service.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/comment.service.ts)
+			profile.service.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/profile.service.ts)
+			tag.service.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/tag.service.ts)
+		utils,d(/mk)
+			auth.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/utils/auth.ts)
+			profile.utils.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/utils/profile.utils.ts)
+			token.utils.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/utils/token.utils.ts)
+			user-request.d.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/utils/user-request.d.ts)
+	tests,d(/mk)
+		prisma-mock.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/prisma-mock.ts)
+		mappers,d(/mk)
+			article.mapper.test.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/mappers/article.mapper.test.ts)
+			author.mapper.test.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/mappers/author.mapper.test.ts)
+			comment.mapper.test.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/mappers/comment.mapper.test.ts)
+		services,d(/mk)
+			article.service.test.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/services/article.service.test.ts)
+			auth.service.test.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/services/auth.service.test.ts)
+			profile.service.test.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/services/profile.service.test.ts)
+			tag.service.test.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/services/tag.service.test.ts)
+		utils,d(/mk)
+			profile.utils.test.ts,f(e=utama=E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/utils/profile.utils.test.ts)
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/.eslintrc.json
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": ["airbnb-base", "prettier"],
+  "globals": {
+    "NodeJS": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never"
+      }
+    ],
+    "no-underscore-dangle": ["error", { "allow": ["_count"] }],
+    "no-console": ["error", { "allow": ["info"] }],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["tests/prisma-mock.ts"] }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".ts", ".d.ts", ".tsx"]
+      }
+    }
+  },
+  "ignorePatterns": ["*.d.ts"]
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/.gitignore
+/node_modules
+/dist
+
+# Keep environment variables out of version control
+.env
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/.prettierignore
+/dist
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/.prettierrc.json
+{
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "arrowParens": "avoid"
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/app.json
+{
+  "name": "RealWorld API",
+  "description": "Node / Express / Prisma API for RealWorld project",
+  "keywords": ["node", "express", "prisma", "realworld"],
+  "website": "https://gothinkster.github.io/realworld/",
+  "repository": "https://github.com/gothinkster/realworld",
+  "addons": ["heroku-postgresql"],
+  "env": {
+    "JWT_SECRET": {
+      "description": "A secret key for verifying authenticated users",
+      "generator": "secret"
+    }
+  }
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/CODE_OF_CONDUCT.md
+# Contributor Covenant Code of Conduct
+
+## Our Pledge
+
+We as members, contributors, and leaders pledge to make participation in our
+community a harassment-free experience for everyone, regardless of age, body
+size, visible or invisible disability, ethnicity, sex characteristics, gender
+identity and expression, level of experience, education, socio-economic status,
+nationality, personal appearance, race, religion, or sexual identity
+and orientation.
+
+We pledge to act and interact in ways that contribute to an open, welcoming,
+diverse, inclusive, and healthy community.
+
+## Our Standards
+
+Examples of behavior that contributes to a positive environment for our
+community include:
+
+- Demonstrating empathy and kindness toward other people
+- Being respectful of differing opinions, viewpoints, and experiences
+- Giving and gracefully accepting constructive feedback
+- Accepting responsibility and apologizing to those affected by our mistakes,
+  and learning from the experience
+- Focusing on what is best not just for us as individuals, but for the
+  overall community
+
+Examples of unacceptable behavior include:
+
+- The use of sexualized language or imagery, and sexual attention or
+  advances of any kind
+- Trolling, insulting or derogatory comments, and personal or political attacks
+- Public or private harassment
+- Publishing others' private information, such as a physical or email
+  address, without their explicit permission
+- Other conduct which could reasonably be considered inappropriate in a
+  professional setting
+
+## Enforcement Responsibilities
+
+Community leaders are responsible for clarifying and enforcing our standards of
+acceptable behavior and will take appropriate and fair corrective action in
+response to any behavior that they deem inappropriate, threatening, offensive,
+or harmful.
+
+Community leaders have the right and responsibility to remove, edit, or reject
+comments, commits, code, wiki edits, issues, and other contributions that are
+not aligned to this Code of Conduct, and will communicate reasons for moderation
+decisions when appropriate.
+
+## Scope
+
+This Code of Conduct applies within all community spaces, and also applies when
+an individual is officially representing the community in public spaces.
+Examples of representing our community include using an official e-mail address,
+posting via an official social media account, or acting as an appointed
+representative at an online or offline event.
+
+## Enforcement
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported to the community leaders responsible for enforcement at
+hello@thinkster.io.
+All complaints will be reviewed and investigated promptly and fairly.
+
+All community leaders are obligated to respect the privacy and security of the
+reporter of any incident.
+
+## Enforcement Guidelines
+
+Community leaders will follow these Community Impact Guidelines in determining
+the consequences for any action they deem in violation of this Code of Conduct:
+
+### 1. Correction
+
+**Community Impact**: Use of inappropriate language or other behavior deemed
+unprofessional or unwelcome in the community.
+
+**Consequence**: A private, written warning from community leaders, providing
+clarity around the nature of the violation and an explanation of why the
+behavior was inappropriate. A public apology may be requested.
+
+### 2. Warning
+
+**Community Impact**: A violation through a single incident or series
+of actions.
+
+**Consequence**: A warning with consequences for continued behavior. No
+interaction with the people involved, including unsolicited interaction with
+those enforcing the Code of Conduct, for a specified period of time. This
+includes avoiding interactions in community spaces as well as external channels
+like social media. Violating these terms may lead to a temporary or
+permanent ban.
+
+### 3. Temporary Ban
+
+**Community Impact**: A serious violation of community standards, including
+sustained inappropriate behavior.
+
+**Consequence**: A temporary ban from any sort of interaction or public
+communication with the community for a specified period of time. No public or
+private interaction with the people involved, including unsolicited interaction
+with those enforcing the Code of Conduct, is allowed during this period.
+Violating these terms may lead to a permanent ban.
+
+### 4. Permanent Ban
+
+**Community Impact**: Demonstrating a pattern of violation of community
+standards, including sustained inappropriate behavior, harassment of an
+individual, or aggression toward or disparagement of classes of individuals.
+
+**Consequence**: A permanent ban from any sort of public interaction within
+the community.
+
+## Attribution
+
+This Code of Conduct is adapted from the [Contributor Covenant][homepage],
+version 2.0, available at
+https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
+
+Community Impact Guidelines were inspired by [Mozilla's code of conduct
+enforcement ladder](https://github.com/mozilla/diversity).
+
+[homepage]: https://www.contributor-covenant.org
+
+For answers to common questions about this code of conduct, see the FAQ at
+https://www.contributor-covenant.org/faq. Translations are available at
+https://www.contributor-covenant.org/translations.
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/CONTRIBUTING.md
+# Contributing to RealWorld
+
+We would love for you to contribute to RealWorld and help make it even better than it is
+today! As a contributor, here are the guidelines we would like you to follow:
+
+- [Code of Conduct](#coc)
+- [Question or Problem?](#question)
+- [Issues and Bugs](#issue)
+- [Feature Requests](#feature)
+- [Submission Guidelines](#submit)
+- [Coding Rules](#rules)
+- [Commit Message Guidelines](#commit)
+
+## <a name="coc"></a> Code of Conduct
+
+Help us keep RealWorld open and inclusive. Please read and follow our [Code of Conduct][coc].
+
+## <a name="question"></a> Got a Question or Problem?
+
+Do not open issues for general support questions as we want to keep GitHub issues for bug reports and feature requests.  
+For open discussions, we encourage you to use the [Github Discussions][github-discussions] channels of the RealWorld repository.
+
+## <a name="issue"></a> Found a Bug?
+
+If you find a bug in the project, you can help us by
+[submitting an issue][github-issue] to our [GitHub Repository][github]. Even better, you can
+[submit a Pull Request](#submit-pr) with a fix.
+
+## <a name="feature"></a> Missing a Feature?
+
+This repository follows the RealWorld [specs][github-spec].  
+Please open feature requests on the RealWorld [repository][github-feature].
+
+## <a name="submit"></a> Submission Guidelines
+
+### <a name="submit-issue"></a> Submitting an Issue
+
+Before you submit an issue, please search the issue tracker, maybe an issue for your problem already exists and the discussion might inform you of workarounds readily available.
+
+You can file new issues by selecting from our [new issue templates][github-choose] and filling out the issue template.
+
+### <a name="submit-pr"></a> Submitting a Pull Request (PR)
+
+Before you submit your Pull Request (PR) consider the following guidelines:
+
+1. Search [GitHub](https://github.com/gothinkster/node-express-prisma-v2-official-app/pulls) for an open or closed PR
+   that relates to your submission. You don't want to duplicate effort.
+1. Be sure that an issue describes the problem you're fixing, or documents the design for the feature you'd like to add.
+   Discussing the design up front helps to ensure that we're ready to accept your work.
+1. Fork the gothinkster/realworld repo.
+1. Make your changes in a new git branch:
+
+   ```bash
+   git checkout -b my-fix-branch main
+   ```
+
+1. Create your patch.
+
+1. Commit your changes using a descriptive commit message that follows our
+   [commit message conventions](#commit).
+
+1. Push your branch to GitHub:
+
+   ```bash
+   git push origin my-fix-branch
+   ```
+
+1. In GitHub, send a pull request to `node-express-prisma-v2-official-app:main`.
+
+- If we suggest changes then:
+
+  - Make the required updates.
+  - Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
+
+    ```bash
+    git rebase main -i
+    git push -f
+    ```
+
+That's it! Thank you for your contribution!
+
+#### After your pull request is merged
+
+After your pull request is merged, you can safely delete your branch and pull the changes
+from the main (upstream) repository:
+
+- Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:
+
+  ```bash
+  git push origin --delete my-fix-branch
+  ```
+
+- Check out the main branch:
+
+  ```bash
+  git checkout main -f
+  ```
+
+- Delete the local branch:
+
+  ```bash
+  git branch -D my-fix-branch
+  ```
+
+- Update your main with the latest upstream version:
+
+  ```bash
+  git pull --ff upstream main
+  ```
+
+## <a name="commit"></a> Commit Message Guidelines
+
+> These guidelines have been added to the project starting from <include date>
+
+We have very precise rules over how our git commit messages can be formatted. This leads to **more
+readable messages** that are easy to follow when looking through the **project history**.
+
+### Commit Message Format
+
+Each commit message consists of a **header**, a **body** and a **footer**. The header has a special
+format that includes a **type**, a **scope** and a **subject**:
+
+```
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
+
+The **header** is mandatory and the **scope** of the header is optional.
+
+Any line of the commit message cannot be longer 100 characters! This allows the message to be easier
+to read on GitHub as well as in various git tools.
+
+The footer should contain a [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/) if any.
+
+Samples:
+
+```
+docs(changelog): update changelog to beta.5
+```
+
+### Type
+
+Must be one of the following:
+
+- **docs**: Documentation only changes
+- **feat**: A new feature
+- **fix**: A bug fix
+
+### Scope
+
+The scope should be the name of the npm package affected (as perceived by the person reading the changelog generated from commit messages).
+
+The following is the list of supported scopes:
+
+- **specs**
+- **project**
+
+### Subject
+
+The subject contains a succinct description of the change:
+
+- use the imperative, present tense: "change" not "changed" nor "changes"
+- don't capitalize the first letter
+- no dot (.) at the end
+
+### Body
+
+Just as in the **subject**, use the imperative, present tense: "change" not "changed" nor "changes".
+The body should include the motivation for the change and contrast this with previous behavior.
+
+### Footer
+
+The footer should contain any information about **Breaking Changes** and is also the place to
+reference GitHub issues that this commit **Closes**.
+
+**Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.
+
+Samples :
+
+```
+Close #394
+```
+
+```
+BREAKING CHANGE:
+change login route to /users/login
+```
+
+[coc]: https://github.com/gothinkster/node-express-prisma-v2-official-app/blob/main/CODE_OF_CONDUCT.md
+[github]: https://github.com/gothinkster/node-express-prisma-v2-official-app
+[github-issue]: https://github.com/gothinkster/node-express-prisma-v2-official-app/issues/new?assignees=&labels=bug&template=---bug-report.md&title=
+[github-feature]: https://github.com/gothinkster/realworld/issues/new?assignees=&labels=enhancement&template=---feature-request.md&title=
+[github-choose]: https://github.com/gothinkster/node-express-prisma-v2-official-app/issues/new/choose
+[github-discussions]: https://github.com/gothinkster/realworld/discussions
+[github-spec]: https://github.com/gothinkster/realworld/tree/master/spec
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/jest.config.js
+module.exports = {
+  clearMocks: true,
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  setupFilesAfterEnv: ['<rootDir>/tests/prisma-mock.ts'],
+};
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/LICENSE
+MIT License
+
+Copyright (c) 2021
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/package.json
+{
+  "name": "express-prisma-realworld-official-app",
+  "version": "1.0.1",
+  "description": "Node.js, Express.js & Prisma RealWorld official app",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "tsc",
+    "test": "jest -i",
+    "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts dev",
+    "start": "node dist/src/index.js",
+    "prisma:migrate": "prisma migrate dev --skip-seed",
+    "prisma:format": "prisma format",
+    "prisma:generate": "prisma generate",
+    "prisma:generate:watch": "prisma generate --watch",
+    "prisma:seed": "prisma db seed --preview-feature",
+    "prisma:studio": "prisma studio",
+    "prisma:reset": "prisma migrate reset",
+    "prettier:write": "npx prettier --write .",
+    "prettier:check": "npx prettier --check .",
+    "lint:check": "npx eslint src/**/*.ts",
+    "lint:fix": "npx eslint --fix src/**/*.ts",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "prisma",
+    "realworld"
+  ],
+  "author": {
+    "name": "Gerome Grignon",
+    "email": "gerome.grignon.lp2@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^3.4.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-jwt": "^6.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "slugify": "^1.6.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.12",
+    "@types/cron": "^1.7.3",
+    "@types/express": "^4.17.13",
+    "@types/express-rate-limit": "^5.1.3",
+    "@types/jest": "^27.0.2",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/node": "^15.14.9",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "husky": "^7.0.4",
+    "jest": "^27.3.1",
+    "jest-mock-extended": "^2.0.4",
+    "lint-staged": "^12.0.2",
+    "prettier": "2.4.1",
+    "prisma": "^3.4.2",
+    "ts-jest": "^27.0.7",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.4"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npm run prisma:format",
+      "npm run lint:fix",
+      "npm run prettier:write",
+      "git add"
+    ]
+  }
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/Procfile
+web: npm start
+
+release: npx prisma migrate deploy
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/README.md
+# ![Node Example App](media/realworld.png)
+
+> Official NodeJS RealWorld codebase (V2)
+
+**WORK IN PROGRESS**
+
+# Deploy to Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+# Getting started
+
+### Clone the repository
+
+run `git clone https://github.com/gothinkster/node-express-prisma-v1-official-app.git`
+
+### Install the dependancies
+
+> [NodeJS](https://nodejs.dev/) is required
+
+```
+cd node-express-prisma-v1-official-app
+npm install
+```
+
+### Download pgAdmin for PostgreSQL
+
+[PostgreSQL](https://www.postgresql.org/download/) downloads page
+
+### Create a server
+
+run **pgAdmin**  
+create a server (Object/Create/Server)  
+required fields:
+
+- name
+- HOST name/address
+
+### Connect the created server
+
+create a _.env_ file at the root of the project  
+populate it with the url of your database
+
+```
+DATABASE_URL="postgresql://<username>:<password>@<host_name>:<port>/<database_name>?schema=public"
+```
+
+### Run the project locally
+
+run `npm run dev`
+
+## Advanced usage
+
+### Prisma
+
+### Format the Prisma schema
+
+```bash
+npm run prisma:format
+```
+
+### Migrate the SQL schema
+
+```bash
+prisma migrate dev --name added_job_title
+```
+
+### Update the Prisma Client
+
+```bash
+npm run prisma:generate
+```
+
+_with watch option_
+
+```bash
+npm run prisma:generate:watch
+```
+
+### Seed the database
+
+```bash
+npm run prisma:seed
+```
+
+### Launch Prisma Studio
+
+```bash
+npm run prisma:studio
+```
+
+### Reset the database
+
+- Drop the database
+- Create a new database
+- Apply migrations
+- Seed the database with data
+
+```bash
+npm run prisma:reset
+```
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tsconfig.json
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Basic Options */
+    // "incremental": true,                   /* Enable incremental compilation */
+    "target": "es5" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */,
+    "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */,
+    "lib": ["es2015"] /* Specify library files to be included in the compilation. */,
+    // "allowJs": true,                       /* Allow javascript files to be compiled. */
+    // "checkJs": true,                       /* Report errors in .js files. */
+    // "jsx": "preserve",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
+    // "declaration": true,                   /* Generates corresponding '.d.ts' file. */
+    // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
+    // "sourceMap": true,                     /* Generates corresponding '.map' file. */
+    // "outFile": "./",                       /* Concatenate and emit output to single file. */
+    "outDir": "dist" /* Redirect output structure to the directory. */,
+    // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    // "composite": true,                     /* Enable project compilation */
+    // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
+    // "removeComments": true,                /* Do not emit comments to output. */
+    // "noEmit": true,                        /* Do not emit outputs. */
+    // "importHelpers": true,                 /* Import emit helpers from 'tslib'. */
+    // "downlevelIteration": true,            /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
+    // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
+
+    /* Strict Type-Checking Options */
+    "strict": true /* Enable all strict type-checking options. */,
+    // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
+    // "strictNullChecks": true,              /* Enable strict null checks. */
+    // "strictFunctionTypes": true,           /* Enable strict checking of function types. */
+    // "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
+    // "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
+    // "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
+    // "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
+
+    /* Additional Checks */
+    // "noUnusedLocals": true,                /* Report errors on unused locals. */
+    // "noUnusedParameters": true,            /* Report errors on unused parameters. */
+    // "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
+    // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
+
+    /* Module Resolution Options */
+    // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+    // "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
+    // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+    // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
+    // "typeRoots": [],                       /* List of folders to include type definitions from. */
+    // "types": [],                           /* Type declaration files to be included in compilation. */
+    // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
+    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
+    // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
+    // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
+
+    /* Source Map Options */
+    // "sourceRoot": "",                      /* Specify the location where debugger should locate TypeScript files instead of source locations. */
+    // "mapRoot": "",                         /* Specify the location where debugger should locate map files instead of generated locations. */
+    // "inlineSourceMap": true,               /* Emit a single file with source maps instead of having a separate file. */
+    // "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
+
+    /* Experimental Options */
+    // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
+    // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
+
+    /* Advanced Options */
+    "resolveJsonModule": true,
+    "skipLibCheck": true /* Skip type checking of declaration files. */,
+    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+  },
+  "exclude": ["tests"]
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/.github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/.github/workflows/ci.yaml
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.1
+        with:
+          node-version: '12'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        run: npm ci --no-audit --prefer-offline --progress=false
+      - name: Check prettier
+        run: npm run prettier:check
+      - name: Check ESLinter
+        run: npm run lint:check
+      - name: Check unit tests
+        run: npm run test --ci --lastCommit --maxWorkers=50%
+        env:
+          CI: true
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/.husky/.gitignore
+_
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/.husky/pre-commit
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx lint-staged
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/media/realworld.png
+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
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/prisma-client.ts
+import { PrismaClient } from '@prisma/client';
+
+// add prisma to the NodeJS global type
+// TODO : downgraded @types/node to 15.14.1 to avoid error on NodeJS.Global
+interface CustomNodeJsGlobal extends NodeJS.Global {
+  prisma: PrismaClient;
+}
+
+// Prevent multiple instances of Prisma Client in development
+declare const global: CustomNodeJsGlobal;
+
+const prisma = global.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV === 'development') {
+  global.prisma = prisma;
+}
+
+export default prisma;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/schema.prisma
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+model Article {
+  id          Int       @id @default(autoincrement())
+  slug        String    @unique
+  title       String
+  description String
+  body        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  tagList     Tag[]
+  author      User      @relation("UserArticles", fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    Int
+  favoritedBy User[]    @relation("UserFavorites", references: [id])
+  comments    Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  body      String
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  articleId Int
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  Int
+}
+
+model Tag {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  articles Article[]
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  username   String    @unique
+  password   String
+  image      String?   @default("https://api.realworld.io/images/smiley-cyrus.jpeg")
+  bio        String?
+  articles   Article[] @relation("UserArticles")
+  favorites  Article[] @relation("UserFavorites", references: [id])
+  followedBy User[]    @relation("UserFollows", references: [id])
+  following  User[]    @relation("UserFollows", references: [id])
+  comments   Comment[]
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/migration_lock.toml
+# Please do not edit this file manually
+# It should be added in your version-control system (i.e. Git)
+provider = "postgresql"
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20210924222830_initial/migration.sql
+-- CreateTable
+CREATE TABLE "Article" (
+    "id" SERIAL NOT NULL,
+    "slug" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "body" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "authorId" INTEGER NOT NULL,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ArticleTags" (
+    "articleId" INTEGER NOT NULL,
+    "tagId" INTEGER NOT NULL,
+
+    PRIMARY KEY ("articleId","tagId")
+);
+
+-- CreateTable
+CREATE TABLE "Comment" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "body" TEXT NOT NULL,
+    "articleId" INTEGER NOT NULL,
+    "authorId" INTEGER NOT NULL,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Tag" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "email" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "image" TEXT DEFAULT E'https://realworld-temp-api.herokuapp.com/images/smiley-cyrus.jpeg',
+    "bio" TEXT,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "_UserFavorites" (
+    "A" INTEGER NOT NULL,
+    "B" INTEGER NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "_UserFollows" (
+    "A" INTEGER NOT NULL,
+    "B" INTEGER NOT NULL
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Article.slug_unique" ON "Article"("slug");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User.username_unique" ON "User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_UserFavorites_AB_unique" ON "_UserFavorites"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_UserFavorites_B_index" ON "_UserFavorites"("B");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_UserFollows_AB_unique" ON "_UserFollows"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_UserFollows_B_index" ON "_UserFollows"("B");
+
+-- AddForeignKey
+ALTER TABLE "Article" ADD FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ArticleTags" ADD FOREIGN KEY ("articleId") REFERENCES "Article"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ArticleTags" ADD FOREIGN KEY ("tagId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Comment" ADD FOREIGN KEY ("articleId") REFERENCES "Article"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Comment" ADD FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_UserFavorites" ADD FOREIGN KEY ("A") REFERENCES "Article"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_UserFavorites" ADD FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_UserFollows" ADD FOREIGN KEY ("A") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_UserFollows" ADD FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20211001195651_implicit_articles/migration.sql
+/*
+  Warnings:
+
+  - You are about to drop the `ArticleTags` table. If the table is not empty, all the data it contains will be lost.
+  - A unique constraint covering the columns `[name]` on the table `Tag` will be added. If there are existing duplicate values, this will fail.
+
+*/
+-- DropForeignKey
+ALTER TABLE "ArticleTags" DROP CONSTRAINT "ArticleTags_articleId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "ArticleTags" DROP CONSTRAINT "ArticleTags_tagId_fkey";
+
+-- DropTable
+DROP TABLE "ArticleTags";
+
+-- CreateTable
+CREATE TABLE "_ArticleToTag" (
+    "A" INTEGER NOT NULL,
+    "B" INTEGER NOT NULL
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_ArticleToTag_AB_unique" ON "_ArticleToTag"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_ArticleToTag_B_index" ON "_ArticleToTag"("B");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Tag.name_unique" ON "Tag"("name");
+
+-- AddForeignKey
+ALTER TABLE "_ArticleToTag" ADD FOREIGN KEY ("A") REFERENCES "Article"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ArticleToTag" ADD FOREIGN KEY ("B") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20211106214623_deprecated_previews/migration.sql
+-- RenameIndex
+ALTER INDEX "Article.slug_unique" RENAME TO "Article_slug_key";
+
+-- RenameIndex
+ALTER INDEX "Tag.name_unique" RENAME TO "Tag_name_key";
+
+-- RenameIndex
+ALTER INDEX "User.email_unique" RENAME TO "User_email_key";
+
+-- RenameIndex
+ALTER INDEX "User.username_unique" RENAME TO "User_username_key";
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20211106215130_default_image_url/migration.sql
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "image" SET DEFAULT E'https://api.realworld.io/images/smiley-cyrus.jpeg';
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/prisma/migrations/20211115100640_updated_at/migration.sql
+-- AlterTable
+ALTER TABLE "Article" ALTER COLUMN "updatedAt" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "Comment" ALTER COLUMN "updatedAt" DROP DEFAULT;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/public/images/smiley-cyrus.jpeg
+/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/wAALCACAAIABAREA/8QAHAABAAEFAQEAAAAAAAAAAAAAAAYBBAUHCAMC/8QANBAAAQQBAgQEBgEBCQAAAAAAAQACAwQFBhEHITFBCBJRYRMUcYGRoVIjFSJEYnJzgpKy/9oACAEBAAA/AJwiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIi+69eW3YZBXiksWJOTIYWF73fQDmVKo+EmtpoPit0tkvJtvzjDT/wBSd/0o1kcbcxFt1W/Uno2m9YbMZjf9dirdERXmJwuQz9r5bGULORsDrHViMhH126fdZ+zwn1pTgM0ulskIwNyWxB5A+jST+lFXsdFK+KRjo5WHZ8b2lrmn0IPMKiIiLM6P0rd1tqOlhseAJ7Lucjhu2Jg5ue72A/J2Hddg6W0bprhJp+WSD4NOOJnmt5S24CST3c89B6NHL0Cjk/iU0NDcMIt3pmb7fMx03GP689iR9lI8yzR/E/R0tm7Yp5LBhjnm6HhprbDm4O6xuHvt7hcUTCMTyiF7pIQ9wje4bFzNz5SR2JGxXwivsFBRtZzHQ5Od1XGyWI2Wp2dY4i4Bzh6cu/bqu0pcjpPhRpiH+tTwuIA/pCPmZjt1AG7pHH15qMY/xI6Hu3BC67bpAnYT2qrmx/cjfYe5WY19w0wHFPDtlf8ABbcdH5qmXrbOcNxy3I5PYfQ/bYrjzOYS5pvM3MVkIvg3akpilaOm46EeoI2IPoVYoiLMaS1bk9E5yHLYmZsNqMFhD2+ZkjD1Y4dwdh+As7xF4tZviYKsWRbBUpVj52U6nmDHP/m7ckuI7eihSqHODHsDnBj9vO0OIDtum47/AHVERFVznODA5znBg8rA5xPlHoN+g+iop7w+40Z/hzjJ8dRZWu0XuL44LgcRA89SzYjkepb0358tyoln89f1RmbWVyc5s3rLvNJJtsOQ2AA7AAAAeyx6IiIiIiIiIiIiIi2Dwj4Rz8ULVyR93+z8ZTLWSzMaHyOe4bhrQeXTmSfZWPE3hblOGmT8lkG3ipnbVsi1uzX/AOV/8X+3ft7QxERbK4ScFrvEWUXrpmx2nmf4loAksO/jFuNtvV223Yb9sfxd4Yu4Y56vWjt/O0Lkbpa0jwBIA0gOa8DluNxzHXf2UFRERERSnh5xFynDfNfO0CJq0uzbVKR2zJ2j/wAuHPZ3b3C6x0prbTXFjByxVjDcZIzy2sXcYDJH7PYeo9HDce615qzwtYrISPn09kpMQ93P5Sy0zQD2ad/M0fcrX9zwy61rSEQjG3G9nR2vL+nNC9cd4YNYW3j5qfGY9ndz53SkfZref5WzdG+GfT2Bljs5iaTUNppBEUrPh1gf9sEl3/IkeykfEXi9geGtP5dzmXMqGAQYusQC0dvPtyjb+/QFclas1Zk9bZyfLZaf41qX+6Gt5MiYOjGDs0fvqeaxCIiIiIvWpbnoWo7NWeWrZiO8c8Dyx7D7OHMLaWm/Erq7CRsivCrnYW8t7TPhzbf62dfuCppW8WdQxj5nS9lsnf4Ftjm/sBed7xaR/DIo6XkL/W1cAH4a0qAao8QWstSxvhjuRYas7kY8awseR7yEl342WuHEue57iXPcfM5zjuXH1JPUqiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIv/9k=
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/index.ts
+import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import routes from './routes/routes';
+import HttpException from './models/http-exception.model';
+
+const app = express();
+
+/**
+ * App Configuration
+ */
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(routes);
+
+// Serves images
+app.use(express.static('public'));
+
+app.get('/', (req: Request, res: Response) => {
+  res.json({ status: 'API is running on /api' });
+});
+
+/* eslint-disable */
+app.use((err: Error | HttpException, req: Request, res: Response, next: NextFunction) => {
+  // @ts-ignore
+  if (err && err.errorCode) {
+    // @ts-ignore
+    res.status(err.errorCode).json(err.message);
+  } else if (err) {
+    res.status(500).json(err.message);
+  }
+});
+
+/**
+ * Server activation
+ */
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.info(`server up on port ${PORT}`);
+});
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/article.controller.ts
+import { NextFunction, Request, Response, Router } from 'express';
+import auth from '../utils/auth';
+import {
+  createArticle,
+  deleteArticle,
+  favoriteArticle,
+  getArticle,
+  getArticles,
+  getFeed,
+  unfavoriteArticle,
+  updateArticle,
+} from '../services/article.service';
+
+const router = Router();
+
+/**
+ * Get paginated articles
+ * @auth optional
+ * @route {GET} /articles
+ * @queryparam offset number of articles dismissed from the first one
+ * @queryparam limit number of articles returned
+ * @queryparam tag
+ * @queryparam author
+ * @queryparam favorited
+ * @returns articles: list of articles
+ */
+router.get('/articles', auth.optional, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const articles = await getArticles(req.query, req.user?.username);
+    res.json(articles);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * Get paginated feed articles
+ * @auth required
+ * @route {GET} /articles/feed
+ * @returns articles list of articles
+ */
+router.get(
+  '/articles/feed',
+  auth.required,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const articles = await getFeed(
+        Number(req.query.offset),
+        Number(req.query.limit),
+        req.user!.username,
+      );
+      res.json(articles);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/**
+ * Create article
+ * @route {POST} /articles
+ * @bodyparam  title
+ * @bodyparam  description
+ * @bodyparam  body
+ * @bodyparam  tagList list of tags
+ * @returns article created article
+ */
+router.post('/articles', auth.required, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const article = await createArticle(req.body.article, req.user!.username);
+    res.json({ article });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * Get unique article
+ * @auth optional
+ * @route {GET} /article/:slug
+ * @param slug slug of the article (based on the title)
+ * @returns article
+ */
+router.get(
+  '/articles/:slug',
+  auth.optional,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const article = await getArticle(req.params.slug, req.user?.username as string | undefined);
+      res.json({ article });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/**
+ * Update article
+ * @auth required
+ * @route {PUT} /articles/:slug
+ * @param slug slug of the article (based on the title)
+ * @bodyparam title new title
+ * @bodyparam description new description
+ * @bodyparam body new content
+ * @returns article updated article
+ */
+router.put(
+  '/articles/:slug',
+  auth.required,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const article = await updateArticle(req.body.article, req.params.slug, req.user!.username);
+      res.json({ article });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/**
+ * Delete article
+ * @auth required
+ * @route {DELETE} /article/:id
+ * @param slug slug of the article
+ */
+router.delete(
+  '/articles/:slug',
+  auth.required,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await deleteArticle(req.params.slug, req.user!.username);
+      res.sendStatus(204);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/**
+ * Favorite article
+ * @auth required
+ * @route {POST} /articles/:slug/favorite
+ * @param slug slug of the article (based on the title)
+ * @returns article favorited article
+ */
+router.post(
+  '/articles/:slug/favorite',
+  auth.required,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const article = await favoriteArticle(req.params.slug, req.user!.username);
+      res.json({ article });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/**
+ * Unfavorite article
+ * @auth required
+ * @route {DELETE} /articles/:slug/favorite
+ * @param slug slug of the article (based on the title)
+ * @returns article unfavorited article
+ */
+router.delete(
+  '/articles/:slug/favorite',
+  auth.required,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const article = await unfavoriteArticle(req.params.slug, req.user!.username);
+      res.json({ article });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+export default router;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/auth.controller.ts
+import { NextFunction, Request, Response, Router } from 'express';
+import auth from '../utils/auth';
+import { createUser, getCurrentUser, login, updateUser } from '../services/auth.service';
+
+const router = Router();
+
+/**
+ * Create an user
+ * @auth none
+ * @route {POST} /users
+ * @bodyparam user User
+ * @returns user User
+ */
+router.post('/users', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await createUser(req.body.user);
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * Login
+ * @auth none
+ * @route {POST} /users/login
+ * @bodyparam user User
+ * @returns user User
+ */
+router.post('/users/login', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await login(req.body.user);
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * Get current user
+ * @auth required
+ * @route {GET} /user
+ * @returns user User
+ */
+router.get('/user', auth.required, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await getCurrentUser(req.user!.username);
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * Update user
+ * @auth required
+ * @route {PUT} /user
+ * @bodyparam user User
+ * @returns user User
+ */
+router.put('/user', auth.required, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await updateUser(req.body.user, req.user!.username);
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+});
+
+export default router;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/comment.controller.ts
+import { NextFunction, Request, Response, Router } from 'express';
+import auth from '../utils/auth';
+import { addComment, deleteComment, getCommentsByArticle } from '../services/comment.service';
+
+const router = Router();
+
+/**
+ * Get comments from an article
+ * @auth optional
+ * @route {GET} /articles/:slug/comments
+ * @param slug slug of the article (based on the title)
+ * @returns comments list of comments
+ */
+router.get(
+  '/articles/:slug/comments',
+  auth.optional,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const comments = await getCommentsByArticle(req.params.slug, req.user?.username);
+      res.json({ comments });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/**
+ * Add comment to article
+ * @auth required
+ * @route {POST} /articles/:slug/comments
+ * @param slug slug of the article (based on the title)
+ * @bodyparam body content of the comment
+ * @returns comment created comment
+ */
+router.post(
+  '/articles/:slug/comments',
+  auth.required,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const comment = await addComment(req.body.comment.body, req.params.slug, req.user!.username);
+      res.json({ comment });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/**
+ * Delete comment
+ * @auth required
+ * @route {DELETE} /articles/:slug/comments/:id
+ * @param slug slug of the article (based on the title)
+ * @param id id of the comment
+ */
+router.delete(
+  '/articles/:slug/comments/:id',
+  auth.required,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await deleteComment(Number(req.params.id));
+      res.sendStatus(204);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+export default router;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/profile.controller.ts
+import { NextFunction, Request, Response, Router } from 'express';
+import auth from '../utils/auth';
+import { followUser, getProfile, unfollowUser } from '../services/profile.service';
+
+const router = Router();
+
+/**
+ * Get profile
+ * @auth optional
+ * @route {GET} /profiles/:username
+ * @param username string
+ * @returns Profile profile of an user
+ */
+router.get(
+  '/profiles/:username',
+  auth.optional,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const profile = await getProfile(req.params.username, req.user?.username);
+      res.json({ profile });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/**
+ * Follow user
+ * @auth required
+ * @route {POST} /profiles/:username/follow
+ * @param username string
+ * @returns Profile profile of an user
+ */
+router.post(
+  '/profiles/:username/follow',
+  auth.required,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const profile = await followUser(req.params?.username, req.user!.username);
+      res.json({ profile });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/**
+ * Unfollow user
+ * @auth required
+ * @route {DELETE} /profiles/:username/follow
+ * @param username string
+ * @returns profiles
+ */
+router.delete(
+  '/profiles/:username/follow',
+  auth.required,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const profile = await unfollowUser(req.params.username, req.user!.username);
+      res.json({ profile });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+export default router;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/controllers/tag.controller.ts
+import { NextFunction, Request, Response, Router } from 'express';
+import auth from '../utils/auth';
+import getTags from '../services/tag.service';
+
+const router = Router();
+
+/**
+ * Get top 10 popular tags
+ * @auth optional
+ * @route {GET} /api/tags
+ * @returns tags list of tag names
+ */
+router.get('/tags', auth.optional, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const tags = await getTags();
+    res.json({ tags });
+  } catch (error) {
+    next(error);
+  }
+});
+
+export default router;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/mappers/article.mapper.ts
+import { ArticleQueryResponse, ArticleResponse } from '../models/article.model';
+import authorMapper from './author.mapper';
+
+const articleMapper = (article: ArticleQueryResponse, username?: string): ArticleResponse => ({
+  slug: article.slug,
+  title: article.title,
+  description: article.description,
+  body: article.body,
+  tagList: article.tagList.map(tag => tag.name),
+  createdAt: article.createdAt,
+  updatedAt: article.updatedAt,
+  favorited: article.favoritedBy.some(item => item.username === username),
+  favoritesCount: article.favoritedBy.length,
+  author: authorMapper(article.author, username),
+});
+
+export default articleMapper;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/mappers/author.mapper.ts
+import { AuthorQueryResponse, Profile } from '../models/user.model';
+
+const authorMapper = (author: AuthorQueryResponse, username?: string): Profile => ({
+  username: author.username,
+  bio: author.bio,
+  image: author.image,
+  following: author.followedBy.some(follow => follow.username === username),
+});
+
+export default authorMapper;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/mappers/comment.mapper.ts
+import authorMapper from './author.mapper';
+import { CommentQueryResponse, CommentResponse } from '../models/comment.model';
+
+const commentMapper = (comment: CommentQueryResponse, username?: string): CommentResponse => ({
+  id: comment.id,
+  createdAt: comment.createdAt,
+  updatedAt: comment.updatedAt,
+  body: comment.body,
+  author: authorMapper(comment.author, username),
+});
+
+export default commentMapper;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/mappers/user.mapper.ts
+import generateToken from '../utils/token.utils';
+import { UserQueryResponse, UserResponse } from '../models/user.model';
+
+export const userMapper = (user: UserQueryResponse): UserResponse => ({
+  email: user.email,
+  username: user.username,
+  bio: user.bio,
+  image: user.bio,
+  token: generateToken(user),
+});
+
+export default userMapper;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/article.model.ts
+import { Tag } from './tag.model';
+import { AuthorQueryResponse, Profile, FollowersQueryReponse } from './user.model';
+
+export interface ArticleCreatePayload {
+  title: string;
+  description: string;
+  body: string;
+  tagList: ReadonlyArray<string>;
+}
+
+export interface ArticleFindQuery {
+  author?: string;
+  tag?: string;
+  favorited?: string;
+  offset?: string;
+  limit?: string;
+}
+
+export interface ArticleQueryResponse {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  tagList: ReadonlyArray<Tag>;
+  createdAt: Date;
+  updatedAt: Date;
+  favoritedBy: ReadonlyArray<FollowersQueryReponse>;
+  author: AuthorQueryResponse;
+}
+
+export interface ArticleResponse {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  tagList: ReadonlyArray<string>;
+  createdAt: Date;
+  updatedAt: Date;
+  favorited: boolean;
+  favoritesCount: number;
+  author: Profile;
+}
+
+export interface ArticleListResponse {
+  articles: ReadonlyArray<ArticleResponse>;
+  articlesCount: number;
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/comment.model.ts
+import { AuthorQueryResponse, Profile } from './user.model';
+
+export interface CommentResponse {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  body: string;
+  author: Profile;
+}
+
+export interface CommentQueryResponse {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  body: string;
+  author: AuthorQueryResponse;
+}
+
+export type CommentListResponse = ReadonlyArray<CommentResponse>;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/http-exception.model.ts
+class HttpException extends Error {
+  errorCode: number;
+
+  constructor(errorCode: number, public readonly message: string | any) {
+    super(message);
+    this.errorCode = errorCode;
+  }
+}
+
+export default HttpException;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/profile-response.model.ts
+export interface ProfileResponse {
+  username: string;
+  bio: string | null;
+  image: string | null;
+  followedBy: any;
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/tag.model.ts
+export interface Tag {
+  name: string;
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/models/user.model.ts
+export interface User {
+  username: string;
+  email: string;
+  password: string;
+  bio: string | null;
+  image: string | null;
+  // eslint-disable-next-line no-use-before-define
+  followedBy: ReadonlyArray<FollowersQueryReponse>;
+  token: string;
+  following: boolean;
+}
+
+export type UserCreatePayload = Pick<User, 'username' | 'email' | 'password'>;
+
+export type UserUpdatePayload = Pick<User, 'username' | 'image' | 'bio' | 'email' | 'password'>;
+
+export type UserLoginPayload = Pick<User, 'email' | 'password'>;
+
+export type UserQueryResponse = Pick<User, 'username' | 'image' | 'bio' | 'email'>;
+
+export type UserResponse = Pick<User, 'username' | 'image' | 'bio' | 'email' | 'token'>;
+
+export type AuthorQueryResponse = Pick<User, 'username' | 'bio' | 'image' | 'followedBy'>;
+
+export type FollowersQueryReponse = Pick<User, 'username'>;
+
+export type Profile = Pick<User, 'username' | 'bio' | 'image' | 'following'>;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/routes/routes.ts
+import { Router } from 'express';
+import tagsController from '../controllers/tag.controller';
+import articlesController from '../controllers/article.controller';
+import authController from '../controllers/auth.controller';
+import profileController from '../controllers/profile.controller';
+import commentController from '../controllers/comment.controller';
+
+const api = Router()
+  .use(tagsController)
+  .use(articlesController)
+  .use(commentController)
+  .use(profileController)
+  .use(authController);
+
+export default Router().use('/api', api);
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/selectors/article.selector.ts
+import { Prisma } from '@prisma/client';
+
+const articleSelector = Prisma.validator<Prisma.ArticleSelect>()({
+  slug: true,
+  title: true,
+  description: true,
+  body: true,
+  createdAt: true,
+  updatedAt: true,
+  tagList: {
+    select: {
+      name: true,
+    },
+  },
+  author: {
+    select: {
+      username: true,
+      bio: true,
+      image: true,
+      followedBy: true,
+    },
+  },
+  favoritedBy: {
+    select: {
+      username: true,
+    },
+  },
+  _count: {
+    select: {
+      favoritedBy: true,
+    },
+  },
+});
+
+export default articleSelector;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/selectors/comment.selector.ts
+import { Prisma } from '@prisma/client';
+
+const commentSelector = Prisma.validator<Prisma.CommentSelect>()({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  body: true,
+  author: {
+    select: {
+      username: true,
+      bio: true,
+      image: true,
+      followedBy: true,
+    },
+  },
+});
+
+export default commentSelector;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/selectors/profile.selector.ts
+import { Prisma } from '@prisma/client';
+
+const profileSelector = Prisma.validator<Prisma.UserSelect>()({
+  username: true,
+  bio: true,
+  image: true,
+  followedBy: {
+    select: {
+      username: true,
+    },
+  },
+});
+
+export default profileSelector;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/selectors/user.selector.ts
+import { Prisma } from '@prisma/client';
+
+export const userSelector = Prisma.validator<Prisma.UserSelect>()({
+  email: true,
+  username: true,
+  bio: true,
+  image: true,
+});
+
+export default userSelector;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/article.service.ts
+import slugify from 'slugify';
+import { Prisma } from '@prisma/client';
+import prisma from '../../prisma/prisma-client';
+import HttpException from '../models/http-exception.model';
+import {
+  ArticleCreatePayload,
+  ArticleFindQuery,
+  ArticleListResponse,
+  ArticleQueryResponse,
+  ArticleResponse,
+} from '../models/article.model';
+import { findUserIdByUsername } from './auth.service';
+import articleMapper from '../mappers/article.mapper';
+import articleSelector from '../selectors/article.selector';
+
+const buildFindAllQuery = (query: ArticleFindQuery): Prisma.ArticleWhereInput => {
+  const queries = [];
+
+  if (query.author) {
+    queries.push({
+      author: {
+        username: {
+          equals: query.author,
+        },
+      },
+    });
+  }
+
+  if (query.tag) {
+    queries.push({
+      tagList: {
+        some: {
+          name: query.tag,
+        },
+      },
+    });
+  }
+
+  if (query.favorited) {
+    queries.push({
+      favoritedBy: {
+        some: {
+          username: {
+            equals: query.favorited,
+          },
+        },
+      },
+    });
+  }
+
+  return {
+    AND: queries,
+  };
+};
+
+export const findManyArticles = async (
+  query: Prisma.ArticleWhereInput,
+  offset: number,
+  limit: number,
+): Promise<ArticleQueryResponse[]> =>
+  prisma.article.findMany({
+    where: query,
+    orderBy: {
+      createdAt: 'desc',
+    },
+    skip: offset || 0,
+    take: limit || 10,
+    select: articleSelector,
+  });
+
+export const getArticles = async (
+  query: ArticleFindQuery,
+  username?: string,
+): Promise<ArticleListResponse> => {
+  const queries = buildFindAllQuery(query);
+
+  const articles = await findManyArticles(queries, Number(query.offset), Number(query.limit));
+
+  return {
+    articles: articles.map(article => articleMapper(article, username)),
+    articlesCount: articles.length,
+  };
+};
+
+export const getFeed = async (
+  offset: number,
+  limit: number,
+  username: string,
+): Promise<ArticleListResponse> => {
+  const id = await findUserIdByUsername(username);
+
+  const authorQuery = Prisma.validator<Prisma.ArticleWhereInput>()({
+    author: {
+      followedBy: { some: { id } },
+    },
+  });
+
+  const articles = await findManyArticles(authorQuery, offset, limit);
+
+  return {
+    articles: articles.map(article => articleMapper(article, username)),
+    articlesCount: articles.length,
+  };
+};
+
+export const createArticle = async (
+  articlePayload: ArticleCreatePayload,
+  username: string,
+): Promise<ArticleResponse> => {
+  const { title, description, body, tagList } = articlePayload;
+
+  if (!title) {
+    throw new HttpException(422, { errors: { title: ["can't be blank"] } });
+  }
+
+  if (!description) {
+    throw new HttpException(422, { errors: { description: ["can't be blank"] } });
+  }
+
+  if (!body) {
+    throw new HttpException(422, { errors: { body: ["can't be blank"] } });
+  }
+
+  const id = await findUserIdByUsername(username);
+
+  const slug = `${slugify(title)}-${id}`;
+
+  const existingTitle = await prisma.article.findUnique({
+    where: {
+      slug,
+    },
+    select: {
+      slug: true,
+    },
+  });
+
+  if (existingTitle) {
+    throw new HttpException(422, { errors: { title: ['must be unique'] } });
+  }
+
+  const article = await prisma.article.create({
+    data: {
+      title,
+      description,
+      body,
+      slug,
+      tagList: {
+        connectOrCreate: tagList.map((tag: string) => ({
+          create: { name: tag },
+          where: { name: tag },
+        })),
+      },
+      author: {
+        connect: {
+          id,
+        },
+      },
+    },
+    select: articleSelector,
+  });
+
+  return articleMapper(article, username);
+};
+
+export const getArticle = async (slug: string, username?: string): Promise<ArticleResponse> => {
+  const article = await prisma.article.findUnique({
+    where: {
+      slug,
+    },
+    select: articleSelector,
+  });
+
+  if (!article) {
+    throw new HttpException(404, {});
+  }
+
+  return articleMapper(article, username);
+};
+
+const disconnectArticlesTags = async (slug: string): Promise<void> => {
+  await prisma.article.update({
+    where: {
+      slug,
+    },
+    data: {
+      tagList: {
+        set: [],
+      },
+    },
+  });
+};
+
+export const updateArticle = async (
+  article: ArticleCreatePayload,
+  slug: string,
+  username: string,
+): Promise<ArticleResponse> => {
+  let newSlug = null;
+  const id = await findUserIdByUsername(username);
+
+  if (article.title) {
+    newSlug = `${slugify(article.title)}-${id}`;
+
+    if (newSlug !== slug) {
+      const existingTitle = await prisma.article.findFirst({
+        where: {
+          slug: newSlug,
+        },
+        select: {
+          slug: true,
+        },
+      });
+
+      if (existingTitle) {
+        throw new HttpException(422, { errors: { title: ['must be unique'] } });
+      }
+    }
+  }
+
+  const tagList = article.tagList?.length
+    ? article.tagList.map((tag: string) => ({
+        create: { name: tag },
+        where: { name: tag },
+      }))
+    : [];
+
+  await disconnectArticlesTags(slug);
+
+  const updatedArticle = await prisma.article.update({
+    where: {
+      slug,
+    },
+    data: {
+      ...(article.title ? { title: article.title } : {}),
+      ...(article.body ? { body: article.body } : {}),
+      ...(article.description ? { description: article.description } : {}),
+      ...(newSlug ? { slug: newSlug } : {}),
+      tagList: {
+        connectOrCreate: tagList,
+      },
+    },
+    select: articleSelector,
+  });
+
+  return articleMapper(updatedArticle, username);
+};
+
+export const deleteArticle = async (slug: string, username: string): Promise<void> => {
+  const article = await prisma.article.findUnique({
+    where: {
+      slug,
+    },
+    select: {
+      author: {
+        select: {
+          username: true,
+        },
+      },
+    },
+  });
+
+  if (!article) {
+    throw new HttpException(404, {});
+  } else if (article.author.username !== username) {
+    throw new HttpException(403, {});
+  }
+
+  await prisma.article.delete({
+    where: {
+      slug,
+    },
+  });
+};
+
+export const favoriteArticle = async (slug: string, username: string): Promise<ArticleResponse> => {
+  const id = await findUserIdByUsername(username);
+
+  const article = await prisma.article.update({
+    where: {
+      slug,
+    },
+    data: {
+      favoritedBy: {
+        connect: {
+          id,
+        },
+      },
+    },
+    select: articleSelector,
+  });
+
+  return articleMapper(article, username);
+};
+
+export const unfavoriteArticle = async (
+  slug: string,
+  username: string,
+): Promise<ArticleResponse> => {
+  const id = await findUserIdByUsername(username);
+
+  const article = await prisma.article.update({
+    where: {
+      slug,
+    },
+    data: {
+      favoritedBy: {
+        disconnect: {
+          id,
+        },
+      },
+    },
+    select: articleSelector,
+  });
+
+  return articleMapper(article, username);
+};
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/auth.service.ts
+import bcrypt from 'bcryptjs';
+import prisma from '../../prisma/prisma-client';
+import HttpException from '../models/http-exception.model';
+import {
+  UserCreatePayload,
+  UserLoginPayload,
+  UserResponse,
+  UserUpdatePayload,
+} from '../models/user.model';
+import userMapper from '../mappers/user.mapper';
+import userSelector from '../selectors/user.selector';
+
+const checkUserUniqueness = async (email: string, username: string): Promise<void> => {
+  const existingUserByEmail = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  const existingUserByUsername = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (existingUserByEmail || existingUserByUsername) {
+    throw new HttpException(422, {
+      errors: {
+        ...(existingUserByEmail ? { email: ['has already been taken'] } : {}),
+        ...(existingUserByUsername ? { username: ['has already been taken'] } : {}),
+      },
+    });
+  }
+};
+
+export const createUser = async (input: UserCreatePayload): Promise<UserResponse> => {
+  const email = input.email.trim();
+  const username = input.username.trim();
+  const password = input.password.trim();
+
+  if (!email) {
+    throw new HttpException(422, { errors: { email: ["can't be blank"] } });
+  }
+
+  if (!username) {
+    throw new HttpException(422, { errors: { username: ["can't be blank"] } });
+  }
+
+  if (!password) {
+    throw new HttpException(422, { errors: { password: ["can't be blank"] } });
+  }
+
+  await checkUserUniqueness(email, username);
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const user = await prisma.user.create({
+    data: {
+      username,
+      email,
+      password: hashedPassword,
+    },
+    select: userSelector,
+  });
+
+  return userMapper(user);
+};
+
+export const login = async (userPayload: UserLoginPayload): Promise<UserResponse> => {
+  const email = userPayload.email.trim();
+  const password = userPayload.password.trim();
+
+  if (!email) {
+    throw new HttpException(422, { errors: { email: ["can't be blank"] } });
+  }
+
+  if (!password) {
+    throw new HttpException(422, { errors: { password: ["can't be blank"] } });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      email: true,
+      username: true,
+      password: true,
+      bio: true,
+      image: true,
+    },
+  });
+
+  if (user) {
+    const match = await bcrypt.compare(password, user.password);
+
+    if (match) {
+      return userMapper(user);
+    }
+  }
+
+  throw new HttpException(403, {
+    errors: {
+      'email or password': ['is invalid'],
+    },
+  });
+};
+
+export const getCurrentUser = async (username: string): Promise<UserResponse> => {
+  const user = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+    select: userSelector,
+  });
+
+  if (!user) {
+    throw new HttpException(404, {});
+  }
+
+  return userMapper(user);
+};
+
+export const updateUser = async (
+  userPayload: UserUpdatePayload,
+  loggedInUsername: string,
+): Promise<UserResponse> => {
+  const { email, username, password, image, bio } = userPayload;
+  const user = await prisma.user.update({
+    where: {
+      username: loggedInUsername,
+    },
+    data: {
+      ...(email ? { email } : {}),
+      ...(username ? { username } : {}),
+      ...(password ? { password } : {}),
+      ...(image ? { image } : {}),
+      ...(bio ? { bio } : {}),
+    },
+    select: userSelector,
+  });
+
+  return userMapper(user);
+};
+
+export const findUserIdByUsername = async (username: string): Promise<number> => {
+  const user = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (!user) {
+    throw new HttpException(404, {});
+  }
+
+  return user.id;
+};
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/comment.service.ts
+import prisma from '../../prisma/prisma-client';
+import HttpException from '../models/http-exception.model';
+import { findUserIdByUsername } from './auth.service';
+import commentMapper from '../mappers/comment.mapper';
+import { CommentListResponse, CommentResponse } from '../models/comment.model';
+import commentSelector from '../selectors/comment.selector';
+
+export const getCommentsByArticle = async (
+  slug: string,
+  username: string | undefined,
+): Promise<CommentListResponse> => {
+  const comments = await prisma.comment.findMany({
+    where: {
+      article: {
+        slug,
+      },
+    },
+    select: commentSelector,
+  });
+
+  return comments.map(comment => commentMapper(comment, username));
+};
+
+export const addComment = async (
+  body: string,
+  slug: string,
+  username: string,
+): Promise<CommentResponse> => {
+  if (!body) {
+    throw new HttpException(422, { errors: { body: ["can't be blank"] } });
+  }
+
+  const id = await findUserIdByUsername(username);
+
+  const article = await prisma.article.findUnique({
+    where: {
+      slug,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  const comment = await prisma.comment.create({
+    data: {
+      body,
+      article: {
+        connect: {
+          id: article?.id,
+        },
+      },
+      author: {
+        connect: {
+          id,
+        },
+      },
+    },
+    select: commentSelector,
+  });
+
+  return commentMapper(comment, username);
+};
+
+export const deleteComment = async (id: number): Promise<void> => {
+  await prisma.comment.delete({
+    where: {
+      id,
+    },
+  });
+};
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/profile.service.ts
+import prisma from '../../prisma/prisma-client';
+import profileMapper from '../utils/profile.utils';
+import HttpException from '../models/http-exception.model';
+import { findUserIdByUsername } from './auth.service';
+import { Profile } from '../models/user.model';
+import profileSelector from '../selectors/profile.selector';
+
+export const getProfile = async (
+  profileUsername: string | undefined,
+  username: string | undefined,
+): Promise<Profile> => {
+  const profile = await prisma.user.findUnique({
+    where: {
+      username: profileUsername,
+    },
+    select: profileSelector,
+  });
+
+  if (!profile) {
+    throw new HttpException(404, {});
+  }
+
+  return profileMapper(profile, username);
+};
+
+export const followUser = async (profileUsername: string, username: string): Promise<Profile> => {
+  const id = await findUserIdByUsername(username);
+
+  const profile = await prisma.user.update({
+    where: {
+      username: profileUsername,
+    },
+    data: {
+      followedBy: {
+        connect: {
+          id,
+        },
+      },
+    },
+    select: profileSelector,
+  });
+
+  return profileMapper(profile, username);
+};
+
+export const unfollowUser = async (profileUsername: string, username: string): Promise<Profile> => {
+  const id = await findUserIdByUsername(username);
+
+  const profile = await prisma.user.update({
+    where: {
+      username: profileUsername,
+    },
+    data: {
+      followedBy: {
+        disconnect: {
+          id,
+        },
+      },
+    },
+    select: profileSelector,
+  });
+
+  return profileMapper(profile, username);
+};
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/services/tag.service.ts
+import prisma from '../../prisma/prisma-client';
+
+const getTags = async (): Promise<string[]> => {
+  const tags = await prisma.tag.findMany({
+    where: {
+      articles: {
+        some: {},
+      },
+    },
+    select: {
+      name: true,
+    },
+    orderBy: {
+      articles: {
+        _count: 'desc',
+      },
+    },
+    take: 10,
+  });
+
+  return tags.map(tag => tag.name);
+};
+
+export default getTags;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/utils/auth.ts
+const jwt = require('express-jwt');
+
+const getTokenFromHeaders = (req: { headers: { authorization: string } }): string | null => {
+  if (
+    (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token') ||
+    (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer')
+  ) {
+    return req.headers.authorization.split(' ')[1];
+  }
+  return null;
+};
+
+const auth = {
+  required: jwt({
+    secret: process.env.JWT_SECRET || 'superSecret',
+    getToken: getTokenFromHeaders,
+    algorithms: ['HS256'],
+  }),
+  optional: jwt({
+    secret: process.env.JWT_SECRET || 'superSecret',
+    credentialsRequired: false,
+    getToken: getTokenFromHeaders,
+    algorithms: ['HS256'],
+  }),
+};
+
+export default auth;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/utils/profile.utils.ts
+import { Profile, User } from '../models/user.model';
+import { ProfileResponse } from '../models/profile-response.model';
+
+const profileMapper = (profile: ProfileResponse, username: string | undefined): Profile => ({
+  username: profile.username,
+  bio: profile.bio,
+  image: profile.image,
+  following: username
+    ? profile?.followedBy.some(
+        (followingUser: Pick<User, 'username'>) => followingUser.username === username,
+      )
+    : false,
+});
+
+export default profileMapper;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/utils/token.utils.ts
+import jwt from 'jsonwebtoken';
+import { User } from '../models/user.model';
+
+const generateToken = (user: Partial<User>): string =>
+  jwt.sign(user, process.env.JWT_SECRET || 'superSecret', { expiresIn: '60d' });
+
+export default generateToken;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/src/utils/user-request.d.ts
+declare namespace Express {
+  export interface Request {
+    user?: {
+      username: string;
+    };
+  }
+}
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/prisma-mock.ts
+import { PrismaClient } from '@prisma/client';
+import { mockDeep, mockReset, DeepMockProxy } from 'jest-mock-extended';
+
+import prisma from '../prisma/prisma-client';
+
+jest.mock('../prisma/prisma-client', () => ({
+  __esModule: true,
+  default: mockDeep<PrismaClient>(),
+}));
+
+const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
+
+beforeEach(() => {
+  mockReset(prismaMock);
+});
+
+export default prismaMock;
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/mappers/article.mapper.test.ts
+import { ArticleQueryResponse, ArticleResponse } from '../../src/models/article.model';
+import articleMapper from '../../src/mappers/article.mapper';
+
+describe('ArticleMapper', () => {
+  test('should return a formatted article', () => {
+    const articleQueryResponse: ArticleQueryResponse = {
+      author: {
+        username: 'Gerome',
+        image: '',
+        bio: '',
+        followedBy: [],
+      },
+      body: '',
+      createdAt: new Date(),
+      description: '',
+      favoritedBy: [],
+      slug: '',
+      tagList: [],
+      title: '',
+      updatedAt: new Date(),
+    };
+
+    const articleResponse: ArticleResponse = {
+      author: {
+        username: 'Gerome',
+        image: '',
+        bio: '',
+        following: false,
+      },
+      body: '',
+      createdAt: articleQueryResponse.createdAt,
+      description: '',
+      favorited: false,
+      favoritesCount: 0,
+      slug: '',
+      tagList: [],
+      title: '',
+      updatedAt: articleQueryResponse.updatedAt,
+    };
+
+    expect(articleMapper(articleQueryResponse)).toEqual(articleResponse);
+  });
+});
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/mappers/author.mapper.test.ts
+import { AuthorQueryResponse, Profile } from '../../src/models/user.model';
+import authorMapper from '../../src/mappers/author.mapper';
+
+describe('AuthorMapper', () => {
+  test('should return an author when logged out', () => {
+    const authorQueryResponse: AuthorQueryResponse = {
+      username: '',
+      image: '',
+      bio: '',
+      followedBy: [],
+    };
+
+    const authorResponse: Profile = {
+      username: '',
+      image: '',
+      bio: '',
+      following: false,
+    };
+
+    expect(authorMapper(authorQueryResponse)).toEqual(authorResponse);
+  });
+
+  test('should return an author when logged out', () => {
+    const authorQueryResponse: AuthorQueryResponse = {
+      username: '',
+      image: '',
+      bio: '',
+      followedBy: [
+        {
+          username: 'Gerome',
+        },
+      ],
+    };
+
+    const authorResponse: Profile = {
+      username: '',
+      image: '',
+      bio: '',
+      following: true,
+    };
+
+    expect(authorMapper(authorQueryResponse, 'Gerome')).toEqual(authorResponse);
+  });
+});
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/mappers/comment.mapper.test.ts
+import { CommentQueryResponse, CommentResponse } from '../../src/models/comment.model';
+import commentMapper from '../../src/mappers/comment.mapper';
+
+describe('CommentMapper', () => {
+  test('should return a comment when logged out', () => {
+    const commentQueryResponse: CommentQueryResponse = {
+      id: 0,
+      author: {
+        username: '',
+        image: '',
+        bio: '',
+        followedBy: [],
+      },
+      body: '',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    const commentResponse: CommentResponse = {
+      id: 0,
+      createdAt: commentQueryResponse.createdAt,
+      updatedAt: commentQueryResponse.updatedAt,
+      body: '',
+      author: {
+        username: '',
+        image: '',
+        bio: '',
+        following: false,
+      },
+    };
+
+    expect(commentMapper(commentQueryResponse)).toEqual(commentResponse);
+  });
+
+  test('should return a comment of an user who follow', () => {
+    const commentQueryResponse: CommentQueryResponse = {
+      id: 0,
+      author: {
+        username: '',
+        image: '',
+        bio: '',
+        followedBy: [
+          {
+            username: 'Gerome',
+          },
+        ],
+      },
+      body: '',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    const commentResponse: CommentResponse = {
+      id: 0,
+      createdAt: commentQueryResponse.createdAt,
+      updatedAt: commentQueryResponse.updatedAt,
+      body: '',
+      author: {
+        username: '',
+        image: '',
+        bio: '',
+        following: true,
+      },
+    };
+
+    expect(commentMapper(commentQueryResponse, 'Gerome')).toEqual(commentResponse);
+  });
+});
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/services/article.service.test.ts
+import prismaMock from '../prisma-mock';
+import { favoriteArticle, unfavoriteArticle } from '../../src/services/article.service';
+
+describe('ArticleService', () => {
+  describe('favoriteArticle', () => {
+    test('should return the favorited article', async () => {
+      // Given
+      const slug = 'How-to-train-your-dragon';
+      const username = 'RealWorld';
+
+      const mockedUserResponse = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+      };
+
+      const mockedArticleResponse = {
+        id: 123,
+        slug: 'How-to-train-your-dragon',
+        title: 'How to train your dragon',
+        description: '',
+        body: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        authorId: 456,
+        tagList: [],
+        favoritedBy: [
+          {
+            username: 'Gerome',
+          },
+        ],
+        author: {
+          id: 456,
+          username: 'RealWorld',
+          bio: null,
+          image: null,
+          followedBy: [],
+        },
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(mockedUserResponse);
+      prismaMock.article.update.mockResolvedValue(mockedArticleResponse);
+
+      // Then
+      await expect(favoriteArticle(slug, username)).resolves.toHaveProperty('favoritesCount');
+    });
+
+    test('should throw an error if no user is found', async () => {
+      // Given
+      const slug = 'how-to-train-your-dragon';
+      const username = 'RealWorld';
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(null);
+
+      // Then
+      await expect(favoriteArticle(slug, username)).rejects.toThrowError();
+    });
+  });
+  describe('unfavoriteArticle', () => {
+    test('should return the unfavorited article', async () => {
+      // Given
+      const slug = 'How-to-train-your-dragon';
+      const username = 'RealWorld';
+
+      const mockedUserResponse = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+      };
+
+      const mockedArticleResponse = {
+        id: 123,
+        slug: 'How-to-train-your-dragon',
+        title: 'How to train your dragon',
+        description: '',
+        body: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        authorId: 456,
+        tagList: [],
+        favoritedBy: [],
+        author: {
+          id: 456,
+          username: 'RealWorld',
+          bio: null,
+          image: null,
+          followedBy: [],
+        },
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(mockedUserResponse);
+      prismaMock.article.update.mockResolvedValue(mockedArticleResponse);
+
+      // Then
+      await expect(unfavoriteArticle(slug, username)).resolves.toHaveProperty('favoritesCount');
+    });
+
+    test('should throw an error if no user is found', async () => {
+      // Given
+      const slug = 'how-to-train-your-dragon';
+      const username = 'RealWorld';
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(null);
+
+      // Then
+      await expect(unfavoriteArticle(slug, username)).rejects.toThrowError();
+    });
+  });
+});
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/services/auth.service.test.ts
+import bcrypt from 'bcryptjs';
+import { createUser, getCurrentUser, login, updateUser } from '../../src/services/auth.service';
+import prismaMock from '../prisma-mock';
+
+describe('AuthService', () => {
+  describe('createUser', () => {
+    test('should create new user ', async () => {
+      // Given
+      const user = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+      };
+
+      const mockedResponse = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+      };
+
+      // When
+      prismaMock.user.create.mockResolvedValue(mockedResponse);
+
+      // Then
+      await expect(createUser(user)).resolves.toHaveProperty('token');
+    });
+
+    test('should throw an error when creating new user with empty username ', async () => {
+      // Given
+      const user = {
+        id: 123,
+        username: ' ',
+        email: 'realworld@me',
+        password: '1234',
+      };
+
+      // Then
+      const error = String({ errors: { username: ["can't be blank"] } });
+      await expect(createUser(user)).rejects.toThrow(error);
+    });
+
+    test('should throw an error when creating new user with empty email ', async () => {
+      // Given
+      const user = {
+        id: 123,
+        username: 'RealWorld',
+        email: '  ',
+        password: '1234',
+      };
+
+      // Then
+      const error = String({ errors: { email: ["can't be blank"] } });
+      await expect(createUser(user)).rejects.toThrow(error);
+    });
+
+    test('should throw an error when creating new user with empty password ', async () => {
+      // Given
+      const user = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: ' ',
+      };
+
+      // Then
+      const error = String({ errors: { password: ["can't be blank"] } });
+      await expect(createUser(user)).rejects.toThrow(error);
+    });
+
+    test('should throw an exception when creating a new user with already existing user on same username ', async () => {
+      // Given
+      const user = {
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+      };
+
+      const mockedExistingUser = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(mockedExistingUser);
+
+      // Then
+      const error = { email: ['has already been taken'] }.toString();
+      await expect(createUser(user)).rejects.toThrow(error);
+    });
+  });
+
+  describe('login', () => {
+    test('should return a token', async () => {
+      // Given
+      const user = {
+        email: 'realworld@me',
+        password: '1234',
+      };
+
+      const hashedPassword = await bcrypt.hash(user.password, 10);
+
+      const mockedResponse = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: hashedPassword,
+        bio: null,
+        image: null,
+        token: '',
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(mockedResponse);
+
+      // Then
+      await expect(login(user)).resolves.toHaveProperty('token');
+    });
+
+    test('should throw an error when the email is empty', async () => {
+      // Given
+      const user = {
+        email: ' ',
+        password: '1234',
+      };
+
+      // Then
+      const error = String({ errors: { email: ["can't be blank"] } });
+      await expect(login(user)).rejects.toThrow(error);
+    });
+
+    test('should throw an error when the password is empty', async () => {
+      // Given
+      const user = {
+        email: 'realworld@me',
+        password: ' ',
+      };
+
+      // Then
+      const error = String({ errors: { password: ["can't be blank"] } });
+      await expect(login(user)).rejects.toThrow(error);
+    });
+
+    test('should throw an error when no user is found', async () => {
+      // Given
+      const user = {
+        email: 'realworld@me',
+        password: '1234',
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(null);
+
+      // Then
+      const error = String({ errors: { 'email or password': ['is invalid'] } });
+      await expect(login(user)).rejects.toThrow(error);
+    });
+
+    test('should throw an error if the password is wrong', async () => {
+      // Given
+      const user = {
+        email: 'realworld@me',
+        password: '1234',
+      };
+
+      const hashedPassword = await bcrypt.hash('4321', 10);
+
+      const mockedResponse = {
+        id: 123,
+        username: 'Gerome',
+        email: 'realworld@me',
+        password: hashedPassword,
+        bio: null,
+        image: null,
+        token: '',
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(mockedResponse);
+
+      // Then
+      const error = String({ errors: { 'email or password': ['is invalid'] } });
+      await expect(login(user)).rejects.toThrow(error);
+    });
+  });
+
+  describe('getCurrentUser', () => {
+    test('should return a token', async () => {
+      // Given
+      const username = 'RealWorld';
+
+      const mockedResponse = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(mockedResponse);
+
+      // Then
+      await expect(getCurrentUser(username)).resolves.toHaveProperty('token');
+    });
+  });
+
+  describe('updateUser', () => {
+    test('should return a token', async () => {
+      // Given
+      const user = {
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+      };
+
+      const mockedResponse = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+      };
+
+      // When
+      prismaMock.user.update.mockResolvedValue(mockedResponse);
+
+      // Then
+      await expect(updateUser(user, user.username)).resolves.toHaveProperty('token');
+    });
+  });
+});
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/services/profile.service.test.ts
+import prismaMock from '../prisma-mock';
+import { followUser, getProfile, unfollowUser } from '../../src/services/profile.service';
+
+describe('ProfileService', () => {
+  describe('getProfile', () => {
+    test('should return a following property', async () => {
+      // Given
+      const profileUsername = 'RealWorld';
+      const username = 'Gerome';
+
+      const mockedResponse = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+        followedBy: [],
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(mockedResponse);
+
+      // Then
+      await expect(getProfile(profileUsername, username)).resolves.toHaveProperty('following');
+    });
+
+    test('should throw an error if no user is found', async () => {
+      // Given
+      const profileUsername = 'RealWorld';
+      const username = 'Gerome';
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(null);
+
+      // Then
+      await expect(getProfile(profileUsername, username)).rejects.toThrowError();
+    });
+  });
+
+  describe('followUser', () => {
+    test('shoud return a following property', async () => {
+      // Given
+      const usernamePayload = 'AnotherUser';
+      const usernameAuth = 'RealWorld';
+
+      const mockedAuthUser = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+        followedBy: [],
+      };
+
+      const mockedResponse = {
+        id: 123,
+        username: 'AnotherUser',
+        email: 'another@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+        followedBy: [],
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(mockedAuthUser);
+      prismaMock.user.update.mockResolvedValue(mockedResponse);
+
+      // Then
+      await expect(followUser(usernamePayload, usernameAuth)).resolves.toHaveProperty('following');
+    });
+
+    test('shoud throw an error if no user is found', async () => {
+      // Given
+      const usernamePayload = 'AnotherUser';
+      const usernameAuth = 'RealWorld';
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(null);
+
+      // Then
+      await expect(followUser(usernamePayload, usernameAuth)).rejects.toThrowError();
+    });
+  });
+
+  describe('unfollowUser', () => {
+    test('shoud return a following property', async () => {
+      // Given
+      const usernamePayload = 'AnotherUser';
+      const usernameAuth = 'RealWorld';
+
+      const mockedAuthUser = {
+        id: 123,
+        username: 'RealWorld',
+        email: 'realworld@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+        followedBy: [],
+      };
+
+      const mockedResponse = {
+        id: 123,
+        username: 'AnotherUser',
+        email: 'another@me',
+        password: '1234',
+        bio: null,
+        image: null,
+        token: '',
+        followedBy: [],
+      };
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(mockedAuthUser);
+      prismaMock.user.update.mockResolvedValue(mockedResponse);
+
+      // Then
+      await expect(unfollowUser(usernamePayload, usernameAuth)).resolves.toHaveProperty(
+        'following',
+      );
+    });
+
+    test('shoud throw an error if no user is found', async () => {
+      // Given
+      const usernamePayload = 'AnotherUser';
+      const usernameAuth = 'RealWorld';
+
+      // When
+      prismaMock.user.findUnique.mockResolvedValue(null);
+
+      // Then
+      await expect(unfollowUser(usernamePayload, usernameAuth)).rejects.toThrowError();
+    });
+  });
+});
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/services/tag.service.test.ts
+describe('TagService', () => {
+  describe('getTags', () => {
+    // TODO : prismaMock.tag.groupBy.mockResolvedValue(mockedResponse) doesn't work
+    test.todo('should return a list of strings');
+  });
+});
+
+--#
+
+--% E:/desktop-laptop/_rwe/node-express-prisma-official-app/tests/utils/profile.utils.test.ts
+import profileMapper from '../../src/utils/profile.utils';
+
+describe('ProfileUtils', () => {
+  describe('profileMapper', () => {
+    test('should return a profile', () => {
+      // Given
+      const profile = {
+        username: 'RealWorld',
+        bio: 'My happy life',
+        image: null,
+        followedBy: [],
+      };
+      const username = 'RealWorld';
+
+      // When
+      const expected = {
+        username: 'RealWorld',
+        bio: 'My happy life',
+        image: null,
+        following: false,
+      };
+
+      // Then
+      expect(profileMapper(profile, username)).toEqual(expected);
+    });
+
+    test('should return a profile followed by the user', () => {
+      // Given
+      const profile = {
+        username: 'RealWorld',
+        bio: 'My happy life',
+        image: null,
+        followedBy: [
+          {
+            username: 'RealWorld',
+          },
+        ],
+      };
+      const username = 'RealWorld';
+
+      // When
+      const expected = {
+        username: 'RealWorld',
+        bio: 'My happy life',
+        image: null,
+        following: true,
+      };
+
+      // Then
+      expect(profileMapper(profile, username)).toEqual(expected);
+    });
+
+    test('should return a profile not followed by the user', () => {
+      // Given
+      const profile = {
+        username: 'RealWorld',
+        bio: 'My happy life',
+        image: null,
+        followedBy: [
+          {
+            username: 'NotRealWorld',
+          },
+        ],
+      };
+      const username = 'RealWorld';
+
+      // When
+      const expected = {
+        username: 'RealWorld',
+        bio: 'My happy life',
+        image: null,
+        following: false,
+      };
+
+      // Then
+      expect(profileMapper(profile, username)).toEqual(expected);
+    });
+  });
+});
+
+--#
+

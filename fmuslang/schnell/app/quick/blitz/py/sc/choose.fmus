@@ -1,0 +1,7 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @oprek bs4*
+        @oprek scrapy*
+        @oprek request+xpath*
+--#

@@ -1,0 +1,10 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        $* "C:/Program Files/Mozilla Firefox/firefox.exe" -no-remote -P
+        $* "C:/Android Studio/bin/studio64.exe" __PWD
+
+        $* notepad
+        $* "C:/Program Files/Notepad++/notepad++.exe"
+        $* services.msc
+--#

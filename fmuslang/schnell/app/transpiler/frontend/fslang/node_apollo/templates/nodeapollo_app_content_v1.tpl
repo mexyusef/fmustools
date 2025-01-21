@@ -1,0 +1,11 @@
+__TAB(3)__TABLENAME_LOWER__,d(/mk)
+__TAB(4)%__TEMPLATE_MODELNAME=__TABLENAME_UPPER__
+__TAB(4)%__TEMPLATE_Modelname=__TABLENAME_CASE__
+__TAB(4)%__TEMPLATE_modelname=__TABLENAME_LOWER__
+__TAB(4)%__TEMPLATE_MODELNAMES=__TABLENAME_PLURAL__
+__TAB(4)%__TEMPLATE_modelnames=__TABLENAME_PLURAL_LOWER__
+__TAB(4)index.js,f(e=utama=/node-apollo-template/apps/__TABLENAME_LOWER__/index.js)
+__TAB(4)__TABLENAME_LOWER__.service.js,f(e=utama=/node-apollo-template/apps/__TABLENAME_LOWER__/__TABLENAME_LOWER__.service.js)
+__TAB(4)__TABLENAME_LOWER__.model.js,f(e=utama=/node-apollo-template/apps/__TABLENAME_LOWER__/__TABLENAME_LOWER__.model.js)
+__TAB(4)__TABLENAME_LOWER__.controller.js,f(e=utama=/node-apollo-template/apps/__TABLENAME_LOWER__/__TABLENAME_LOWER__.controller.js)
+__TAB(4)__TABLENAME_LOWER__.graphql.js,f(e=utama=/node-apollo-template/apps/__TABLENAME_LOWER__/__TABLENAME_LOWER__.graphql.js)

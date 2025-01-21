@@ -1,0 +1,154 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @quick simple jest with 1 test suite*
+        	.,d(/load=__FILE__=quick_simple_jest*)
+        @jest with 3 test suite, number and string and truthiness*
+        	.,d(/load=__FILE__=jest_3_suites*)
+--#
+
+--% jest_3_suites
+.,d
+    $* pnpm init -y
+    $* pnpm add jest
+    %__TEMPLATE_MAINTESTFILE_NAME=math
+    %__TEMPLATE_SECONDTESTFILE_NAME=util
+    %__TEMPLATE_THIRDTESTFILE_NAME=thruth
+    tests,d(/mk)
+        __TEMPLATE_MAINTESTFILE_NAME.test.js,f(e=__FILE__=jest_math_test)
+        __TEMPLATE_SECONDTESTFILE_NAME.test.js,f(e=__FILE__=jest_util_test)
+        __TEMPLATE_THIRDTESTFILE_NAME.test.js,f(e=__FILE__=jest_truth_test)
+    __TEMPLATE_MAINTESTFILE_NAME.js,f(e=__FILE__=jest_math_source)
+    __TEMPLATE_SECONDTESTFILE_NAME.js,f(e=__FILE__=jest_util_source)
+    __TEMPLATE_THIRDTESTFILE_NAME.js,f(e=__FILE__=jest_truth_source)
+    $* type __TEMPLATE_MAINTESTFILE_NAME.js tests\__TEMPLATE_MAINTESTFILE_NAME.test.js __TEMPLATE_SECONDTESTFILE_NAME.js tests\__TEMPLATE_SECONDTESTFILE_NAME.test.js
+    $* pnpx jest
+--#
+
+
+--% quick_simple_jest
+.,d
+    $* pnpm init -y
+    $* pnpm add jest
+    %__TEMPLATE_MAINTESTFILE_NAME=math
+    tests,d(/mk)
+        __TEMPLATE_MAINTESTFILE_NAME.test.js,f(e=__FILE__=jest_math_test)
+    __TEMPLATE_MAINTESTFILE_NAME.js,f(e=__FILE__=jest_math)
+    $* type __TEMPLATE_MAINTESTFILE_NAME.js tests\__TEMPLATE_MAINTESTFILE_NAME.test.js
+    $* pnpx jest
+--#
+
+--% jest_math_source
+function sum(a, b){
+    return a + b;
+}
+
+module.exports = {
+    sum
+}
+--#
+
+--% jest_math_test
+const { sum } = require('../__TEMPLATE_MAINTESTFILE_NAME');
+
+test('should calculate the sum of two numbers', () => {
+	expect(4).toBe(sum(2, 2));
+});
+
+
+describe('Sum Feature', () => {
+    test('should calculate the sum of two numbers', () => {
+        const results = sum(2,2);
+        expect(results).toBe(4);
+        expect(results).toBeGreaterThan(3)
+        expect(results).toBeGreaterThanOrEqual(3)
+        expect(results).toBeLessThan(5)
+        expect(results).toBeLessThanOrEqual(5);
+        expect(results).toEqual(4)
+    });
+
+    test('should calculate the sum of two floating point numbers', () => {
+        const results = sum(0.1 , 0.3);
+        expect(results).toBeCloseTo(0.4);
+    })
+});
+--#
+
+--% jest_util_test
+const {greet} = require('../__TEMPLATE_SECONDTESTFILE_NAME');
+
+describe('Greet Feature', () => {
+  it('should get the greet message', () => {
+    const results = greet('Jane');
+    expect(results).toBe('Hello Jane');
+    expect(results).toMatch('Jane');
+    expect(results).toMatch(/Jane/);    
+  })
+})
+
+--#
+
+--% jest_util_source
+function greet(name){
+    return `Hello ${name}`;
+}
+
+module.exports  ={
+    greet
+}
+--#
+
+--% jest_truth_test
+const { greet, isEven, isOdd } = require('../__TEMPLATE_THIRDTESTFILE_NAME');
+
+describe('Greet Feature', () => {
+	it('should get the greet message', () => {
+		const results = greet('Jane');
+		expect(results).toBe('Hello Jane');
+		expect(results).toMatch('Jane');
+		expect(results).toMatch(/Jane/);
+	});
+});
+
+describe('Even', () => {
+	it('should return true if number is even', () => {
+		const results = isEven(2);
+		expect(results).toBeTruthy();
+		expect(results).not.toBeFalsy();
+	});
+	it('should return false if number is not even', () => {
+		const results = isEven(3);
+		expect(results).not.toBeTruthy();
+		expect(results).toBeFalsy();
+	});
+});
+describe('Odd', () => {
+	it('should return true if number is odd', () => {
+		const results = isOdd(3);
+		expect(results).toBeTruthy();
+		expect(results).not.toBeFalsy();
+	});
+	it('should return false if number is not odd', () => {
+		const results = isOdd(4);
+		expect(results).not.toBeTruthy();
+		expect(results).toBeFalsy();
+	});
+});
+--#
+
+--% jest_truth_source
+function greet(name) {
+	return `Hello ${name}`;
+}
+function isEven(n) {
+	return n % 2 == 0;
+}
+function isOdd(n) {
+	return Math.abs(n % 2) == 1;
+}
+module.exports = {
+	greet,
+	isEven,
+	isOdd
+};
+--#

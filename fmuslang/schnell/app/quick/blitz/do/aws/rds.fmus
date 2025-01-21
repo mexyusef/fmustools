@@ -1,0 +1,528 @@
+--% index/fmus
+__PWD,d
+    style1,d(/mk)
+    	clientfactory.py,f(e=__FILE__=clientfactory.py)
+    	ec2.py,f(e=__FILE__=ecs.py)
+    	rds.py,f(e=__FILE__=rds.py)
+    	testdeploy.py,f(e=__FILE__=testdeploy.py)
+    style2,d(/mk)
+        database.ini,f(e=__FILE__=database.ini)
+        launchrdsinstance.py,f(e=__FILE__=launchrdsinstance.py)
+        sqlwithrds.py,f(e=__FILE__=sqlwithrds.py)
+--#
+
+--% database.ini
+[postgresql]
+host=postgresqlinstanceidentifier.xxxxxxxxxx.eu-west-3.rds.amazonaws.com
+database=PostgreSQLDBInstance
+user=postgres
+password=mypostgrespassword
+--#
+
+--% launchrdsinstance.py
+import boto3
+
+rds_client = boto3.client("rds", region_name="eu-west-3")
+""" :type : pyboto3.rds """
+
+
+RDS_DB_SUBNET_GROUP = "my-rds-db-subnet-group"
+
+
+def create_db_subnet_group():
+    print("Creating RDS DB Subnet Group " + RDS_DB_SUBNET_GROUP)
+    rds_client.create_db_subnet_group(
+        DBSubnetGroupName=RDS_DB_SUBNET_GROUP,
+        DBSubnetGroupDescription="My own db subnet group",
+        SubnetIds=['subnet-e086bfaa', 'subnet-12f6ec6a', 'subnet-979958fe']
+    )
+
+
+def create_db_security_group_and_add_inbound_rule():
+    ec2 = boto3.client("ec2", region_name="eu-west-3")
+    """ :type : pyboto3.ec2 """
+
+    # create security group
+    security_group = ec2.create_security_group(
+        GroupName="my-rds-public-sg",
+        Description="RDS security group to allow public access",
+        VpcId="vpc-a25693cb"
+    )
+
+    # get id of the
+    security_group_id = security_group['GroupId']
+
+    print("Created RDS security group with id " + security_group_id)
+
+    # add public access rule to sg
+    ec2.authorize_security_group_ingress(
+        GroupId=security_group_id,
+        IpPermissions=[
+            {
+                'IpProtocol': 'tcp',
+                'FromPort': 5432,
+                'ToPort': 5432,
+                'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
+            }
+        ]
+    )
+
+    print("Added inbound access rule to security group with id " + security_group_id)
+    return security_group_id
+
+
+def launch_rds_instance():
+    print("Launching AWS RDS PostgreSQL instance...")
+
+    security_group_id = create_db_security_group_and_add_inbound_rule()
+
+    create_db_subnet_group()
+    print("Created DB Subnet Group")
+
+    rds_client.create_db_instance(
+        DBName='PostgreSQLDBInstance',
+        DBInstanceIdentifier="postgresqlinstanceidentifier",
+        DBInstanceClass="db.t2.micro",
+        Engine="postgres",
+        EngineVersion="9.6.6",
+        Port=5432,
+        MasterUsername="postgres",
+        MasterUserPassword="mypostgrespassword",
+        AllocatedStorage=20,
+        MultiAZ=False,
+        StorageType="gp2",
+        PubliclyAccessible=True,
+        VpcSecurityGroupIds=[security_group_id],
+        DBSubnetGroupName=RDS_DB_SUBNET_GROUP
+    )
+
+
+if __name__ == '__main__':
+    launch_rds_instance()
+--#
+
+--% sqlwithrds.py
+from configparser import ConfigParser
+import psycopg2
+import os
+
+DB_CONFIG_FILE = os.path.dirname(__file__) + '/database.ini'
+
+
+def config(filename=DB_CONFIG_FILE, section='postgresql'):
+    # create a parser
+    parser = ConfigParser()
+
+    #read the configuration
+    parser.read(filename)
+
+    # get the section
+    db = {}
+    if parser.has_section(section):
+        params = parser.items(section)
+        for param in params:
+            db[param[0]] = param[1]
+    else:
+        raise Exception('Section {0] not found in the {1} file', format(section, filename))
+    return db
+
+
+def connect_to_rds():
+    conn = None
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the postgresql database
+        print("Connecting to the PostgreSQL database...")
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        # execute a statement
+        print("PostgreSQL Database Version:")
+        cur.execute('SELECT version()')
+
+        # fetch the data
+        db_version = cur.fetchone()
+        print(db_version)
+
+        # close the connection
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed')
+
+
+def create_tables():
+    # provide sql statements
+    commands = (
+        """
+        CREATE TABLE users (
+            user_id SERIAL PRIMARY KEY,
+            user_name VARCHAR(255) NOT NULL
+        ) 
+        """,
+        """
+        CREATE TABLE accounts (
+            account_id SERIAL PRIMARY KEY,
+            account_name VARCHAR(255) NOT NULL
+        )
+        """
+    )
+
+    conn = None
+    try:
+        params = config()
+
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+
+        # execute commands one by one
+        for command in commands:
+            cur.execute(command)
+
+        cur.close()
+
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+def insert_vendor_list(user_list):
+
+    sql = "INSERT INTO users(user_name) VALUES (%s)"
+    conn = None
+    try:
+        params = config()
+
+        conn = psycopg2.connect(**params)
+
+        cur = conn.cursor()
+
+        cur.executemany(sql, user_list)
+
+        conn.commit()
+
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+def get_users():
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute("SELECT user_id, user_name FROM users ORDER BY user_name")
+        print("Numbers of users:", cur.rowcount)
+        row = cur.fetchone()
+
+        while row is not None:
+            print(row)
+            row = cur.fetchone()
+
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+def update_user(user_id, user_name):
+    sql = """ UPDATE users
+              SET user_name = %s 
+              WHERE user_id = %s """
+
+    conn = None
+    updated_rows = 0
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute(sql, (user_name, user_id))
+
+        updated_rows = cur.rowcount
+
+        conn.commit()
+
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return updated_rows
+
+
+def delete_user(user_id):
+
+    conn = None
+    rows_deleted = 0
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute("DELETE FROM users WHERE user_id = %s", (user_id,))
+
+        rows_deleted = cur.rowcount
+
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return rows_deleted
+
+
+if __name__ == '__main__':
+    # connect_to_rds()
+    # create_tables()
+
+    # insert_vendor_list([
+    #     ('John Doe',),
+    #     ('Douglas Smith',),
+    #     ('Anthony Jenkins',),
+    #     ('David Salazar',),
+    #     ('Richard Forrester',),
+    #     ('Shawn Reddick',),
+    #     ('Philip Broyles',)
+    # ])
+
+    get_users()
+
+    #response = update_user(1, 'Niyazi')
+    #print(response)
+
+    delete_user(1)
+
+    get_users()
+--#
+
+--% clientfactory.py
+import boto3
+
+
+class ClientFactory:
+    def __init__(self, client):
+        self._client = boto3.client(client, region_name="eu-west-3")
+
+    def get_client(self):
+        return self._client
+
+
+class RDSClient(ClientFactory):
+    def __init__(self):
+        super().__init__('rds')
+
+
+class EC2Client(ClientFactory):
+    def __init__(self):
+        super().__init__('ec2')        
+--#
+
+--% ec2.py
+RDS_SECURITY_GROUP_NAME = "my-rds-public-sg"
+
+
+class EC2:
+    def __init__(self, client):
+        self._client = client
+        """ :type : pyboto3.ec2 """
+
+    def create_security_group(self):
+        print("Creating RDS Security Group with name " + RDS_SECURITY_GROUP_NAME)
+        return self._client.create_security_group(
+            GroupName=RDS_SECURITY_GROUP_NAME,
+            Description='RDS security group for public access',
+            VpcId='vpc-1732737e'
+        )
+
+    def add_inbound_rule_to_sg(self, security_group_id):
+        print("Adding inbound access rule to security group " + security_group_id)
+        self._client.authorize_security_group_ingress(
+            GroupId=security_group_id,
+            IpPermissions=[
+                {
+                    'IpProtocol': 'tcp',
+                    'FromPort': 5432,
+                    'ToPort': 5432,
+                    'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
+                }
+            ]
+        )
+--#
+
+--% rds.py
+from clientfactory import EC2Client
+from ec2 import EC2
+
+RDS_DB_SUBNET_NAME = 'my-rds-subnet-group'
+
+
+class RDS:
+    def __init__(self, client):
+        self._client = client
+        """ :type : pyboto3.rds """
+
+    def create_postgresql_instance(self):
+        print("Creating Amazon RDS PostgreSQL DB Instance...")
+
+        security_group_id = self.create_db_security_group_and_add_rules()
+
+        # create subnet group
+        self.create_db_subnet_group()
+        print("Creating DB Subnet group...")
+
+        self._client.create_db_instance(
+            DBName='MyPostgreSQLDB',
+            DBInstanceIdentifier='mypostgresdb',
+            DBInstanceClass='db.t2.micro',
+            Engine='postgres',
+            EngineVersion='9.6.6',
+            Port=5432,
+            MasterUsername='postgres',
+            MasterUserPassword='mypostgrepassword',
+            AllocatedStorage=20,
+            MultiAZ=False,
+            StorageType='gp2',
+            PubliclyAccessible=True,
+            VpcSecurityGroupIds=[security_group_id],
+            DBSubnetGroupName=RDS_DB_SUBNET_NAME,
+            Tags=[
+                {
+                    'Key': 'Name',
+                    'Value': 'Niyazi-PostgreSQL-Instance'
+                }
+            ]
+        )
+
+    def describe_instances(self):
+        print("Describing all RDS instances...")
+        return self._client.describe_db_instances()
+
+    def modify_master_user_password(self, db_identifier, new_password):
+        print("Modifying master user password...")
+        return self._client.modify_db_instance(
+            DBInstanceIdentifier=db_identifier,
+            MasterUserPassword=new_password
+        )
+
+    def take_backup_of_db_instance(self, db_identifier, db_snapshot_identifier, tags):
+        print("Backing up DB instance...")
+        return self._client.create_db_snapshot(
+            DBInstanceIdentifier=db_identifier,
+            DBSnapshotIdentifier=db_snapshot_identifier,
+            Tags=tags
+        )
+
+    def restore_db_from_backup(self, db_identifier, db_snapshot_identifier):
+
+        return self._client.restore_db_instance_from_db_snapshot(
+            DBInstanceIdentifier=db_identifier,
+            DBSnapshotIdentifier=db_snapshot_identifier
+        )
+
+    def delete_db(self, db_identifier):
+        print("Deleting RDS instance with name " + db_identifier)
+        return self._client.delete_db_instance(
+            DBInstanceIdentifier=db_identifier,
+            SkipFinalSnapshot=True
+        )
+
+
+    def create_db_subnet_group(self):
+        print("Creating RDS DB Subnet Group " + RDS_DB_SUBNET_NAME)
+        self._client.create_db_subnet_group(
+            DBSubnetGroupName=RDS_DB_SUBNET_NAME,
+            DBSubnetGroupDescription='My own subnet group for RDS DB',
+            SubnetIds=['subnet-7c961507', 'subnet-35a27478', 'subnet-c31c74aa']
+        )
+
+    def create_db_security_group_and_add_rules(self):
+        ec2_client = EC2Client().get_client()
+        ec2 = EC2(ec2_client)
+
+        # create security group
+        security_group = ec2.create_security_group()
+
+        # get id of the sg
+        security_group_id = security_group['GroupId']
+
+        print("Created RDS security group with id " + security_group_id)
+
+        # add public access rule to sg
+        ec2.add_inbound_rule_to_sg(security_group_id)
+
+        print("Added inbound public access rule to sg with id " + security_group_id)
+
+        return security_group_id
+
+--#
+
+--% testdeploy.py
+from clientfactory import RDSClient
+from rds import RDS
+
+
+def get_rds():
+    rds_client = RDSClient().get_client()
+    rds = RDS(rds_client)
+    return rds
+
+
+def deploy_resources():
+    rds_client = RDSClient().get_client()
+    rds = RDS(rds_client)
+
+    rds.create_postgresql_instance()
+
+    print("Creating RDS PostgreSQL Instance...")
+
+
+def describe_my_instances():
+    print(str(get_rds().describe_instances()))
+
+
+def modify_master_password():
+    get_rds().modify_master_user_password('mypostgresdb', 'mybrandnewpassword')
+
+
+def take_backup():
+    tags = [{'Key': 'Name', 'Value': 'MyFirstSnapshot'}]
+    get_rds().take_backup_of_db_instance('mypostgresdb', 'myveryfirstsnaphot', tags)
+
+
+def restore_db():
+    get_rds().restore_db_from_backup('mypostgresdbfromsnapshot', 'rds:mypostgresdb-2018-07-07-12-47')
+
+
+def delete_db():
+    get_rds().delete_db('mypostgresdbfromsnapshot')
+
+
+if __name__ == '__main__':
+    deploy_resources()
+    # describe_my_instances()
+    # modify_master_password()
+    # take_backup()
+    # restore_db()
+    # delete_db()
+
+
+--#

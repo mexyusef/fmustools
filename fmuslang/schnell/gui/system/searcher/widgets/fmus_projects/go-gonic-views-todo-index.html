@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TODO App</title>
+</head>
+<body>
+    <h1>TODO App</h1>
+    <form action="/todos" method="POST">
+        <input type="text" name="title" placeholder="Enter task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <br>
+    <h2>Tasks:</h2>
+    <ul>
+        {{range .todos}}
+            <li>{{.Title}} <a href="/todos/{{.ID}}">Delete</a></li>
+        {{end}}
+    </ul>
+</body>
+</html>

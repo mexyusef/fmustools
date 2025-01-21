@@ -1,0 +1,17 @@
+--% index/fmus
+__PWD,d
+    %TEMPLATE_BASEDIR=__INPUT__
+    TEMPLATE_BASEDIR,d(/mk)
+        main.py,f(e=__FILE__=main.py)
+
+        @Please open: http://localhost:8000*
+        $* wsl /home/usef/.local/bin/uvicorn main:app --reload
+--#
+
+--% main.py
+from fastapi import FastAPI
+app = FastAPI()
+@app.get('/')
+async def root():
+    return {'message':'Hello, world!'}
+--#

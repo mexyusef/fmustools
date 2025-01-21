@@ -1,0 +1,665 @@
+--% index/fmus
+__PWD,d
+    %__TEMPLATE_BASEDIR=__INPUT__
+    %__TEMPLATE_PORT=3001
+    %__TEMPLATE_CHROME_EXEC=/usr/bin/google-chrome
+    __TEMPLATE_BASEDIR,d(/mk)
+        login_admin.py,f(e=__FILE__=login_admin)
+        login_courier.py,f(e=__FILE__=login_courier)
+        login_doctor.py,f(e=__FILE__=login_doctor)
+        login_patient_doctor.py,f(e=__FILE__=login_patient_doctor)
+        login_patient_doctor.py,f(e=__FILE__=login_patient_doctor)
+        phppgadmin.py,f(e=__FILE__=phppgadmin)
+        register_admin_patient_doctor.py,f(e=__FILE__=register_admin_patient_doctor)
+        register_admin.py,f(e=__FILE__=register_admin)
+        register_courier.py,f(e=__FILE__=register_courier)
+        register_doctor.py,f(e=__FILE__=register_doctor)
+        register_patient.py,f(e=__FILE__=register_patient)
+        test_register_doctor.py,f(e=__FILE__=test_register_doctor)
+        user_up_superadmin.py,f(e=__FILE__=user_up_superadmin)
+--#
+
+--% login_admin
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost:5000/auth/login")
+
+emailField = driver1.find_element(By.ID, "email")
+emailField.send_keys("courier1@whosedoctor.com")
+
+passwordField = driver1.find_element(By.ID, "password")
+passwordField.send_keys("password")
+
+time.sleep(2)
+
+loginField = driver1.find_element(By.ID, "submit")
+loginField.click()
+if loginField:
+  print('Temukan submit element:', loginField)
+else:
+  print('submit gak ditemukan')
+
+--#
+
+--% login_courier
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost:5000/auth/login")
+
+emailField = driver1.find_element(By.ID, "email")
+emailField.send_keys("courier1@whosedoctor.com")
+
+passwordField = driver1.find_element(By.ID, "password")
+passwordField.send_keys("password")
+
+time.sleep(2)
+
+loginField = driver1.find_element(By.ID, "submit")
+loginField.click()
+if loginField:
+  print('Temukan submit element:', loginField)
+else:
+  print('submit gak ditemukan')
+
+--#
+
+--% login_doctor
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost:5000/auth/login")
+
+emailField = driver1.find_element(By.ID, "email")
+emailField.send_keys("doctor1@whosedoctor.com")
+
+passwordField = driver1.find_element(By.ID, "password")
+passwordField.send_keys("password")
+
+time.sleep(2)
+
+loginField = driver1.find_element(By.ID, "submit")
+loginField.click()
+if loginField:
+  print('Temukan submit element:', loginField)
+else:
+  print('submit gak ditemukan')
+
+--#
+
+--% login_patient
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost:5000/auth/login")
+
+emailField = driver1.find_element(By.ID, "email")
+emailField.send_keys("patient1@whosedoctor.com")
+
+passwordField = driver1.find_element(By.ID, "password")
+passwordField.send_keys("password")
+
+time.sleep(1)
+
+loginField = driver1.find_element(By.ID, "submit")
+loginField.click()
+if loginField:
+  print('Temukan submit element:', loginField)
+else:
+  print('submit gak ditemukan')
+
+--#
+
+--% login_patient_doctor
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+driver1.maximize_window()
+
+driver1.implicitly_wait(1)
+driver2.implicitly_wait(1)
+
+driver1.get("http://localhost:5000/auth/login")
+driver2.get("http://localhost:5000/auth/login")
+
+emailField = driver1.find_element(By.ID, "email")
+emailField.send_keys("patient1@whosedoctor.com")
+
+passwordField = driver1.find_element(By.ID, "password")
+passwordField.send_keys("password")
+
+emailField = driver2.find_element(By.ID, "email")
+emailField.send_keys("doctor1@whosedoctor.com")
+
+passwordField = driver2.find_element(By.ID, "password")
+passwordField.send_keys("password")
+
+time.sleep(2)
+
+loginField = driver1.find_element(By.ID, "submit")
+loginField.click()
+
+loginDoctor = driver2.find_element(By.ID, "submit")
+loginDoctor.click()
+
+--#
+
+--% phppgadmin
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+# import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost/phppgadmin")
+
+dblink_text = "docker 15432"
+# src="browser.php"
+# src="intro.php"
+# <frame src="browser.php" name="browser" id="browser" frameborder="0" />
+# <frame src="intro.php" name="detail" id="detail" frameborder="0" />
+
+# driver1.switch_to.frame("browser")
+# driver1.switch_to.frame("detail")
+# driver1.switch_to.default_content()
+driver1.switch_to.frame("browser")
+dblink = driver1.find_element_by_link_text(dblink_text)
+# dblink = driver1.find_element_by_xpath(f"//a[text()='{dblink_text}']")
+dblink.click()
+
+# driver1.switch_to_frame(driver1.find_element_by_xpath('//frame[@src="fr4_top.jhtml?NUM1=1462489510565"]'))
+driver1.switch_to.default_content()
+driver1.switch_to.frame("detail")
+
+username = driver1.find_element(By.NAME, "loginUsername")
+username.send_keys("dbadmin")
+
+password = driver1.find_element(By.ID, "loginPassword")
+password.send_keys("guess_me_not")
+
+# emailField = driver1.find_element(By.ID, "email")
+# emailField.send_keys("courier1@whosedoctor.com")
+
+# passwordField = driver1.find_element(By.ID, "password")
+# passwordField.send_keys("password")
+
+# time.sleep(2)
+
+loginField = driver1.find_element(By.NAME, "loginSubmit")
+loginField.click()
+if loginField:
+  print('OK> Temukan submit element:', loginField)
+else:
+  print('NOPE> submit gak ditemukan')
+
+--#
+
+--% register_admin_patient_doctor
+import tkinter as tk
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+from selenium import webdriver
+import time
+
+root = tk.Tk()
+
+w = root.winfo_screenwidth()
+h = root.winfo_screenheight()
+# print(w,h)
+
+users = [
+  'admin2@whosedoctor.com',
+  'patient2@whosedoctor.com',
+  'doctor2@whosedoctor.com',
+]
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+alamat1 = 'http://localhost:5000/auth/register'
+alamat2 = 'http://localhost:5000/auth/register/doctor'
+alamat3 = 'http://localhost:5000/auth/register'
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+driver3 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# admin
+x3, y3 = w//4, 10
+driver3.set_window_position(x3,y3)
+driver3.set_window_size(w//2,h)
+# driver2.implicitly_wait(1)
+driver3.get(alamat3)
+
+# patient
+# driver1.maximize_window()
+x1, y1 = 10, 10
+driver1.set_window_position(x1,y1)
+driver1.set_window_size(w//2,h)
+# driver1.implicitly_wait(1)
+driver1.get(alamat1)
+
+# doctor
+x2, y2 = w//2, 10
+driver2.set_window_position(x2,y2)
+driver2.set_window_size(w//2,h)
+# driver2.implicitly_wait(1)
+driver2.get(alamat2)
+--#
+
+--% register_admin
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost:5000/auth/register")
+
+def submit_email_password(driver1):
+  emailField = driver1.find_element(By.ID, "email")
+  emailField.send_keys("admin1@whosedoctor.com")
+
+  passwordField = driver1.find_element(By.ID, "password")
+  passwordField.send_keys("password")
+
+  time.sleep(1)
+
+  loginField = driver1.find_element(By.ID, "submit")
+  loginField.click()
+
+  time.sleep(1)
+
+# register
+submit_email_password(driver1)
+
+# if loginField:
+#   print('Temukan submit element:', loginField)
+# else:
+#   print('submit gak ditemukan')
+
+
+login_page = driver1.window_handles[0]
+
+# no login...
+# superadmin
+newid = 10
+adminurl = f"http://localhost:5000/admin/superadmin_up/user_id/{newid}"
+driver1.execute_script(f'''window.open("{adminurl}", "_blank");''')
+
+time.sleep(0.5)
+
+up_admin_page = driver1.window_handles[1]
+driver1.switch_to.window(up_admin_page)
+
+alert = """
+alert('We are ready!');
+"""
+
+driver1.execute_script(alert)
+
+time.sleep(2)
+
+driver1.switch_to.window(login_page)
+
+# login
+submit_email_password(driver1)
+--#
+
+--% register_courier
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost:5000/auth/register/courier")
+
+emailField = driver1.find_element(By.ID, "email")
+emailField.send_keys("courier1@whosedoctor.com")
+
+passwordField = driver1.find_element(By.ID, "password")
+passwordField.send_keys("password")
+
+time.sleep(2)
+
+loginField = driver1.find_element(By.ID, "submit")
+loginField.click()
+if loginField:
+  print('Temukan submit element:', loginField)
+else:
+  print('submit gak ditemukan')
+--#
+
+--% register_doctor
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost:5000/auth/register/doctor")
+
+emailField = driver1.find_element(By.ID, "email")
+emailField.send_keys("doctor1@whosedoctor.com")
+
+passwordField = driver1.find_element(By.ID, "password")
+passwordField.send_keys("password")
+
+time.sleep(2)
+
+loginField = driver1.find_element(By.ID, "submit")
+loginField.click()
+if loginField:
+  print('Temukan submit element:', loginField)
+else:
+  print('submit gak ditemukan')
+--#
+
+--% register_patient
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost:5000/auth/register")
+
+# emailField = driver1.find_element(By.ID, "email")
+# emailField.send_keys("gregoryhouse@example.com")
+
+# passwordField = driver1.find_element(By.ID, "password")
+# passwordField.send_keys("password")
+
+# time.sleep(2)
+
+# loginField = driver1.find_element(By.ID, "submit")
+# loginField.click()
+# if loginField:
+#   print('Temukan:', loginField)
+--#
+
+--% test_register_doctor
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+# exec1 = '/usr/bin/chromium'
+# exec1 = '/usr/bin/chromedriver'
+# exec1 = '/opt/google/chrome//chrome-sandbox'
+# exec1 = '/opt/google/chrome//chrome'
+# https://stackoverflow.com/questions/43382548/can-i-still-specify-a-path-to-chromedriver-using-chromeoptions-in-python
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+
+# driver2 = webdriver.Chrome(chrome_driver, options=chrome_options)
+# driver2.get("http://localhost:5000/auth/login")
+
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get("http://localhost:5000/auth/register/doctor")
+
+# emailField = driver1.find_element(By.ID, "email")
+# emailField.send_keys("gregoryhouse@example.com")
+
+# passwordField = driver1.find_element(By.ID, "password")
+# passwordField.send_keys("password")
+
+# time.sleep(2)
+
+# loginField = driver1.find_element(By.ID, "submit")
+# loginField.click()
+# if loginField:
+#   print('Temukan:', loginField)
+--#
+
+--% user_up_superadmin
+# <Rule '/admin/superadmin_up/user_id/<user_id>' 
+# (GET, HEAD, OPTIONS, POST) -> admin.superadmin_up>
+
+# kita coba dulu bikin tab
+# tab satu utk register user
+# tab dua utk up admin
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+import time
+
+exec1 = '__TEMPLATE_CHROME_EXEC'
+chrome_driver =  '/home/usef/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = exec1
+
+alamat1 = "https://google.com"
+driver1 = webdriver.Chrome(chrome_driver, options=chrome_options)
+driver1.maximize_window()
+driver1.implicitly_wait(1)
+driver1.get(alamat1)
+
+window_before = driver1.window_handles[0]
+
+alamat2 = ""
+# driver1.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 't')
+driver1.execute_script(f'''window.open("{alamat2}", "_blank");''')
+
+print(driver1.window_handles)
+
+time.sleep(3)
+window_after = driver1.window_handles[1]
+time.sleep(3)
+driver1.switch_to.window(window_after)
+
+new_html_element = '''
+var h1 = document.createElement('h1');
+h1.text = 'Ini contoh dibuat secara dinamis';
+document.body.appendChild(h1);
+'''
+
+driver1.execute_script(new_html_element)
+--#

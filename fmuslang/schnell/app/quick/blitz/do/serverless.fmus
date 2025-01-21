@@ -1,0 +1,101 @@
+--% index/fmus
+__PWD,d
+	@ /b> do/serverless *
+	?pick
+		@serverless aws*
+		@serverless gcp*
+		@serverless cloudinary*
+
+		@framework: serverless
+			$* python -m webbrowser -t https://www.serverless.com/examples/
+
+		$* python -m webbrowser -t https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html
+			@AWS Serverless Application Model*			
+		$* python -m webbrowser -t https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-command-reference.html
+
+		@https://www.youtube.com/watch?v=fEZE3rm8Ma8, Developing AWS Lambda Functions Locally in VS Code*
+
+		$* aws configure
+		$* sh awsCLIAutomation.sh
+			@lihat di bawah __FILE__/awsCLIAutomation.sh*
+		$* sam init
+		$* git clone https://github.com/aws/aws-sam-cli-app-templates
+		$* sam local invoke HelloWorldFunction -e events/event.json
+		$* sam deploy
+
+		@sam cli*
+			$* sam --version
+			$* sam -h
+			$* sam build
+			$* sam delete
+			$* sam deploy
+			$* sam init
+			$* sam local generate-event
+			$* sam local invoke
+			$* sam local start-api
+			$* sam local start-lambda
+			$* sam logs
+			$* sam package
+			$* sam pipeline bootstrap
+			$* sam pipeline init
+			$* sam publish
+			$* sam validate
+--#
+
+--% awsCLIAutomation.sh
+# https://gist.github.com/rodgtr1/6ae49449b836ff617ed0b0863ca3110f
+
+#!/bin/bash
+set -e
+
+# specify your MFA_DEVICE_ARN
+MFA_DEVICE_ARN=YOURMFAARN
+PATH_TO_CREDENTIALS_FILE=/path/to/.aws/credentials
+echo $PATH_TO_CREDENTIALS_FILE
+#1H = 3600
+#2H = 7200
+#3H = 10800
+#4H = 14400
+#5H = 18000
+#6H = 21600
+#7H = 25200
+TOKEN_DURATION_IN_SECONDS=21600
+
+if [ MFA_DEVICE_ARN = YOUR_MFA_ARN ]; then
+    echo "Please specify the MFA_DEVICE_ARN"
+    exit 1
+fi
+
+if [ -z $TOKEN_DURATION_IN_SECONDS ]; then
+    echo "Please specify the TOKEN_DURATION_IN_SECONDS"
+    exit 1
+fi
+
+read -p "Please enter MFA code: " MFA_CODE
+
+echo "You entered '$MFA_CODE'"
+
+COMMAND="aws --output text sts get-session-token \
+    --serial-number $MFA_DEVICE_ARN \
+    --token-code $MFA_CODE \
+    --duration $TOKEN_DURATION_IN_SECONDS"
+
+echo $COMMAND
+CREDS=$($COMMAND)
+
+KEY=$(echo $CREDS | cut -d" " -f2)
+SECRET=$(echo $CREDS | cut -d" " -f4)
+SESS_TOKEN=$(echo $CREDS | cut -d" " -f5)
+
+if grep -w "mfa" .aws/credentials
+then
+    sed -i '/mfa/,$d' .aws/credentials
+	#If on a mac change to:
+	#sed -i '' -e '/mfa/,$d' .aws/credentials
+fi
+
+echo "[mfa]" >> $PATH_TO_CREDENTIALS_FILE
+echo "aws_access_key_id = $KEY" >> $PATH_TO_CREDENTIALS_FILE
+echo "aws_secret_access_key = $SECRET" >> $PATH_TO_CREDENTIALS_FILE
+echo "aws_session_token = $SESS_TOKEN" >> $PATH_TO_CREDENTIALS_FILE
+--#

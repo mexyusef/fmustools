@@ -1,0 +1,19 @@
+--% index/fmus
+__PWD,d
+    ?pick
+    	@oprek HLS*
+			@https://github.com/harlanc/xiu*
+			@https://github.com/video-dev/hls.js/*
+			@https://github.com/jgainfort/hls-parser*
+			@https://github.com/valeth/javelin*
+			@https://github.com/simophin/hls-streamer*
+
+			@https://github.com/foxford/react-hls*
+			@https://codesandbox.io/examples/package/react-hls-player*
+
+			@https://www.nowtilus.tv/*
+    	@oprek DASH*
+    	@low latency streaming*
+		@header bidding*
+		@Current Video Codecs*
+--#

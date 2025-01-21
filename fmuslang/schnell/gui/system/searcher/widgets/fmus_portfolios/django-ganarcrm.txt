@@ -1,0 +1,9 @@
+C:\portfolio\_django\ganarcrm
+C:\portfolio\_django\ganarcrm\ganarcrm_django
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\django-ganacrm-ganarcrm_django.txt
+
+C:\portfolio\_django\ganarcrm\ganarcrm_vue
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\django-ganacrm-ganarcrm_vue.txt
+
+C:\portfolio\_django\ganarcrm\server_files
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\django-ganacrm-serverfiles.txt

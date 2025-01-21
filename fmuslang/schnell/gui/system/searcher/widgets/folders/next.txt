@@ -1,0 +1,47 @@
+.,d
+    pages,d
+        _app.tsx,f(t=)
+        _document.tsx,f(t=)
+        index.tsx,f(t=)
+        about.tsx,f(t=)
+        blog,d
+            index.tsx,f(t=)
+            __LKslug__RK.tsx,f(t=)
+        projects,d
+            index.tsx,f(t=)
+            __LKid__RK.tsx,f(t=)
+        404.tsx,f(t=)
+    public,d
+        images,d
+        styles,d
+    components,d
+        Header,d
+            index.tsx,f(t=)
+        Footer,d
+            index.tsx,f(t=)
+        Layout,d
+            index.tsx,f(t=)
+    lib,d
+        api.ts,f(t=)
+        constants.ts,f(t=)
+        utils.ts,f(t=)
+    styles,d
+        global.css,f(t=)
+        index.css,f(t=)
+    tests,d
+        index.test.tsx,f(t=)
+    package.json,f(t=)
+    tsconfig.json,f(t=)
+
+
+c:/hapus/oprek-dan-hapus/selasa18
+
+c:/hapus/oprek-dan-hapus,d
+    %NAMAFOLDER=selasa18
+    NAMAFOLDER,d
+        next-boilerplate,d(/load=C:\work\kenza\capcay\boilerplate-next.mk=struktur/project/fmus*)
+        /ketik)dir
+        
+C:\work\kenza\capcay\boilerplate-next.mk
+C:\work\kenza\capcay\next-folder.txt
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\next.txt

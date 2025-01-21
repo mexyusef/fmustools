@@ -1,0 +1,63 @@
+--% index/fmus
+__PWD,d
+    %TEMPLATE_BASEDIR=__INPUT__
+    TEMPLATE_BASEDIR,d(/mk)
+        README.md,f(e=__FILE__=README.md)
+        .,d(/load=__FILE__=content*)
+--#
+
+--% README.md
+isi
+--#
+
+--% content
+.,d
+	%TEMPLATE_OBJNAME=__INPUT__
+	%TEMPLATE_STRING_OBJ=Todo
+	%TEMPLATE_NUMBER_OBJ=Number
+	TEMPLATE_OBJNAME.java,f(e=__FILE__=template1)
+--#
+
+--% template1
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class TEMPLATE_OBJNAME {
+    private final String title;
+    private final Map<TEMPLATE_STRING_OBJ, TEMPLATE_NUMBER_OBJ> secondMap = new HashMap<>();
+
+    public TrainingCourse(String title) {
+        this.title = title;
+    }
+
+    public void addTEMPLATE_STRING_OBJ(TEMPLATE_STRING_OBJ first, TEMPLATE_NUMBER_OBJ second) {
+        secondMap.put(first, second);
+    }
+
+    public String getCourseName() {
+        return this.title;
+    }
+
+    public List<TEMPLATE_STRING_OBJ> getListOfTEMPLATE_STRING_OBJs() {
+        return secondMap.keySet().stream().collect(Collectors.toList());
+    }
+
+    public Integer getMaxTEMPLATE_NUMBER_OBJ() {
+        return secondMap.values().stream()
+            .map(second -> second.getScore())
+            .max(Comparator.comparing(Integer::intValue))
+            .get();
+    }
+
+    public double getAverageTEMPLATE_NUMBER_OBJ() {
+        return secondMap.values().stream()
+            .map(second -> second.getScore())
+            .mapToDouble(x -> x)
+            .average()
+            .orElse(Double.NaN);
+    }
+}
+--#

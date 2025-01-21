@@ -1,0 +1,16 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        # __FILE__ adlh output.fmus, __CURDIR__ adlh ..
+        .,d(/load=__CURDIR__/df/checkmissval.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/df/choose.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/df/colselect.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/df/dict2df.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/df/dropmissval.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/df/fillmissval.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/df/iter-col.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/df/iter-row.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/df/pdcreate.fmus=index/fmus*)
+        .,d(/load=__CURDIR__/df/rowselect.fmus=index/fmus*)
+--#
+

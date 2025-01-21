@@ -1,0 +1,72 @@
+Open sidebar
+New chat
+
+
+User
+TDD in VueJS: show me some examples
+
+ChatGPT
+Certainly! Here are some examples of using Test-Driven Development (TDD) in Vue.js.
+
+Example 1: Testing a Component
+Let's say you have a Vue component called Counter that displays a counter value and provides buttons to increment and decrement it. Here's how you can test it using TDD:
+
+javascript
+Copy code
+// counter.spec.js
+import { shallowMount } from '@vue/test-utils';
+import Counter from '@/components/Counter.vue';
+
+describe('Counter', () => {
+  it('renders the initial counter value', () => {
+    const wrapper = shallowMount(Counter);
+    expect(wrapper.find('.counter').text()).toBe('0');
+  });
+
+  it('increments the counter value when the increment button is clicked', () => {
+    const wrapper = shallowMount(Counter);
+    wrapper.find('.increment-button').trigger('click');
+    expect(wrapper.find('.counter').text()).toBe('1');
+  });
+
+  it('decrements the counter value when the decrement button is clicked', () => {
+    const wrapper = shallowMount(Counter);
+    wrapper.find('.decrement-button').trigger('click');
+    expect(wrapper.find('.counter').text()).toBe('-1');
+  });
+});
+In the above example, we're using shallowMount from @vue/test-utils to create a shallow wrapper of the Counter component for testing. We then write individual test cases for different behaviors of the component.
+
+Example 2: Testing a Vuex Store
+If you're using Vuex for state management in your Vue.js application, you can also apply TDD principles to test your Vuex store.
+
+javascript
+Copy code
+// counter.spec.js
+import { createStore } from 'vuex';
+import counterModule from '@/store/modules/counter';
+
+describe('counterModule', () => {
+  let store;
+
+  beforeEach(() => {
+    store = createStore({
+      modules: {
+        counter: counterModule,
+      },
+    });
+  });
+
+  it('increments the counter value', () => {
+    store.commit('counter/increment');
+    expect(store.state.counter.value).toBe(1);
+  });
+
+  it('decrements the counter value', () => {
+    store.commit('counter/decrement');
+    expect(store.state.counter.value).toBe(-1);
+  });
+});
+In this example, we're creating a Vuex store with the counterModule and testing the behavior of its actions and mutations.
+
+These are just a couple of examples to get you started with TDD in Vue.js. Remember that TDD is a methodology where you write tests first and then implement the code to make the tests pass.

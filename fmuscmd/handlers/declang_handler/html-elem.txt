@@ -1,0 +1,11 @@
+a=article
+f=form
+h=header
+I=Image
+i=input
+L=Link
+l=li
+m=main
+n=nav
+s=section
+u=ul

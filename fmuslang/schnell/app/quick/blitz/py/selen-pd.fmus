@@ -1,0 +1,90 @@
+--% index/fmus
+__PWD,d
+	?pick
+		main.py,f(e=__FILE__=berhasil pasardana/1)
+            $* python main.py
+		@dua
+		@tiga
+--#
+
+--% berhasil pasardana/1
+from selenium import webdriver
+
+from selenium.webdriver.chrome.options import Options as chrome_options
+# chrome_options.binary_location = exec1
+# chrome_options.headless = True
+# chrome_options.add_argument("--disable-extensions")
+# chrome_options.add_argument("--disable-gpu")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--no-sandbox")
+
+from selenium.webdriver.firefox.options import Options as ff_options
+# ff_options.binary_location = exec1
+# ff_options.headless = True
+
+from selenium.common.exceptions import WebDriverException
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
+import selenium.webdriver.support.expected_conditions as EC
+
+import time
+
+chrome_driver = 'c:/work/bin/chromedriver'
+chrome_options = webdriver.ChromeOptions()
+# chrome_options.headless = True
+
+driver1 = webdriver.Chrome(executable_path=chrome_driver, options=chrome_options)
+
+__URL__ = 'https://pasardana.id/fund/2789'
+driver1.get(__URL__)
+
+driver1.maximize_window()
+
+print('tunggu')
+WebDriverWait(driver1, 30).until(
+	EC.text_to_be_present_in_element((By.CSS_SELECTOR, 'span.normal.ng-binding'), 'Rp.')
+)
+print('lanjut')
+# __OPERATIONS__
+harga = driver1.find_element(By.CSS_SELECTOR, 'span.normal.ng-binding').text
+tanggal = driver1.find_element(By.CSS_SELECTOR, 'span.date.ng-binding').text
+
+print('harga:', harga, 'dan tanggal:', tanggal)
+
+"""
+harga: Rp. dan tanggal: 19 April 2022
+kutemukan: <selenium.webdriver.remote.webelement.WebElement 
+    (session="4740feb3bceec758efdd28284871bc8d", element="c7b408a4-0818-4677-8799-1099242df9e6")> 
+atau: [Rp. 2.405,8600
+19 April 2022]
+pecah adlh [
+    '<span class="normal ng-binding">Rp.</span> 2.405,8600', 
+    '<span class="date ng-binding">19 April 2022</span>', ''
+]
+benar adlh: ['2.405,8600', '19 April 2022']
+selesai
+"""
+
+el = driver1.find_element(By.CSS_SELECTOR, 'td.ng-binding')
+if el:
+    print('kutemukan:', el, f'atau: [{el.text}]')
+    # versi nilai benar
+    # Rp. 2.405,8600
+    # 19 April 2022
+    pecah = el.get_attribute('innerHTML').splitlines()
+    print('pecah adlh', [item.strip() for item in pecah if item])
+    # versi lebih benar
+    benar = el.text.strip().removeprefix('Rp.').strip().split(maxsplit=1)
+    print('benar adlh:', benar)
+
+else:
+    print('not found')
+
+print('selesai')
+driver1.quit()
+
+--#

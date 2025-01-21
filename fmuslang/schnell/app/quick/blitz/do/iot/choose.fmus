@@ -1,0 +1,12 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @sensor mania*
+        @raspberry mania - gpio, ...*
+        @protocol mania - mqtt, ...*        
+        @edge devices - timeseriesdb, ...*
+
+        @cloud devices - termasuk dari aws dan google*
+
+        @apa nama iot platform yg kita pernah register tea...dan open source...*
+--#

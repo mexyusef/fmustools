@@ -1,0 +1,82 @@
+# TDD Rust CLI Clap Example
+TDD in Rust CLI Clap: show me some examples
+
+ChatGPT
+Certainly! Here are some examples of using TDD (Test-Driven Development) in Rust with the CLI framework Clap.
+
+First, let's assume you have set up a new Rust project with Clap as a dependency in your Cargo.toml file:
+
+toml
+Copy code
+[dependencies]
+clap = "2.33"
+Now, let's create a simple CLI program that takes two numbers as arguments and adds them together. We'll start by writing the tests before implementing the actual functionality. Create a new file called main.rs and add the following code:
+
+rust
+Copy code
+use clap::{App, Arg};
+use std::str::FromStr;
+
+fn add_numbers(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+fn main() {
+    let matches = App::new("Adder")
+        .arg(
+            Arg::with_name("num1")
+                .help("First number")
+                .required(true)
+                .index(1),
+        )
+        .arg(
+            Arg::with_name("num2")
+                .help("Second number")
+                .required(true)
+                .index(2),
+        )
+        .get_matches();
+
+    let num1 = i32::from_str(matches.value_of("num1").unwrap()).unwrap();
+    let num2 = i32::from_str(matches.value_of("num2").unwrap()).unwrap();
+
+    let sum = add_numbers(num1, num2);
+    println!("Sum: {}", sum);
+}
+Now, let's write some tests for the add_numbers function. Create a new file called main_test.rs and add the following code:
+
+rust
+Copy code
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_add_numbers() {
+        assert_eq!(add_numbers(2, 3), 5);
+        assert_eq!(add_numbers(-1, 1), 0);
+        assert_eq!(add_numbers(10, -5), 5);
+    }
+}
+To run the tests, you can use the cargo test command in your terminal:
+
+shell
+Copy code
+$ cargo test
+If all the tests pass, you should see an output like this:
+
+shell
+Copy code
+running 1 test
+test tests::test_add_numbers ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+Now that the tests have passed, you can execute your CLI program by running cargo run -- <num1> <num2>:
+
+shell
+Copy code
+$ cargo run -- 2 3
+Sum: 5
+That's it! You've created a simple CLI program with Clap and used TDD to ensure the correctness of the add_numbers function.
+
+Feel free to modify the code and add more functionality or tests as needed.

@@ -1,0 +1,96 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main1.go,f(e=__FILE__=main1.go)
+    main2.go,f(e=__FILE__=main2.go)
+--#
+
+--% main1.go
+package main
+
+import (
+	"log"
+	"os"
+
+	"github.com/urfave/cli"
+)
+
+func main() {
+	// Create new app
+	app := cli.NewApp()
+
+	// add flags with three arguments
+	app.Flags = []cli.Flag{
+		cli.StringFlag{
+			Name:  "name",
+			Value: "stranger",
+			Usage: "your wonderful name",
+		},
+		cli.IntFlag{
+			Name:  "age",
+			Value: 0,
+			Usage: "your graceful age",
+		},
+	}
+	// This function parses and brings data in cli.Context struct
+	app.Action = func(c *cli.Context) error {
+		// c.String, c.Int looks for value of given flag
+		log.Printf("Hello %s (%d years), Welcome to the command line world", c.String("name"), c.Int("age"))
+		return nil
+	}
+
+	// Pass os.Args to cli app to parse content
+	app.Run(os.Args)
+}
+--#
+
+--% main2.go
+package main
+
+import (
+	"log"
+	"os"
+
+	"github.com/urfave/cli"
+)
+
+func main() {
+	app := cli.NewApp()
+	// define flags
+	app.Flags = []cli.Flag{
+		cli.StringFlag{
+			Name:  "save",
+			Value: "no",
+			Usage: "Should save to database (yes/no)",
+		},
+	}
+
+	app.Version = "1.0"
+	// define action
+	app.Action = func(c *cli.Context) error {
+		var args []string
+		if c.NArg() > 0 {
+			// Fetch arguments in a array
+			args = c.Args()
+			personName := args[0]
+			marks := args[1:len(args)]
+			log.Println("Person: ", personName)
+			log.Println("marks", marks)
+		}
+		// check the flag value
+		if c.String("save") == "no" {
+			log.Println("Skipping saving to the database")
+		} else {
+			// Add database logic here
+			log.Println("Saving to the database", args)
+		}
+		return nil
+	}
+
+	app.Run(os.Args)
+}
+--#

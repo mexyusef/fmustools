@@ -1,0 +1,96 @@
+--% index/fmus
+__PWD,d
+__TEMPLATE_DB_INIT
+    database.py,f(e=__FILE__=per_db)
+    $* type database.py
+--#
+
+--% per_table
+# from model import __TABLENAME_CASE__
+from pydantic import BaseModel
+class __TABLENAME_CASE__(BaseModel):
+__TEMPLATE_ASSIGNMENT_PARAMLIST_NEWLINE1
+
+collection___TABLENAME_LOWER__ = database.__TABLENAME_LOWER__
+
+async def list___TABLENAME_LOWER__():
+    __TABLENAME_LOWER__s = []
+    cursor = collection___TABLENAME_LOWER__.find({})
+    async for document in cursor:
+        __TABLENAME_LOWER__s.append(__TABLENAME_CASE__(**document))
+    return __TABLENAME_LOWER__s
+
+async def detail___TABLENAME_LOWER__(__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN):
+    document = await collection___TABLENAME_LOWER__.find_one({__TEMPLATE_ASSIGNMENT_PYDICT_FIRST})
+    return document
+
+async def create___TABLENAME_LOWER__(__TABLENAME_LOWER__):
+    document = __TABLENAME_LOWER__
+    result = await collection___TABLENAME_LOWER__.insert_one(document)
+    return document
+
+async def update___TABLENAME_LOWER__(__TEMPLATE_ASSIGNMENT_PARAMLIST_SIMPLE):
+    await collection___TABLENAME_LOWER__.update_one({__TEMPLATE_ASSIGNMENT_PYDICT_FIRST}, {"$set": {__TEMPLATE_ASSIGNMENT_PYDICT_REST}})
+    document = await collection___TABLENAME_LOWER__.find_one({__TEMPLATE_ASSIGNMENT_PYDICT_FIRST})
+    return document
+
+async def delete___TABLENAME_LOWER__(__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN):
+    await collection___TABLENAME_LOWER__.delete_one({__TEMPLATE_ASSIGNMENT_PYDICT_FIRST})
+    return True
+
+@app.get("/api/__TABLENAME_LOWER__")
+async def get___TABLENAME_LOWER__():
+    response = await list___TABLENAME_LOWER__()
+    return response
+
+@app.get("/api/__TABLENAME_LOWER__/{__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN}", response_model=__TABLENAME_CASE__)
+async def get___TABLENAME_LOWER___by___TEMPLATE_ASSIGNMENT_FIRSTCOLUMN(__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN):
+    response = await detail___TABLENAME_LOWER__(__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN)
+    if response:
+        return response
+    raise HTTPException(404, f"There is no __TABLENAME_LOWER__ with the __TEMPLATE_ASSIGNMENT_FIRSTCOLUMN {__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN}")
+
+@app.post("/api/__TABLENAME_LOWER__/", response_model=__TABLENAME_CASE__)
+async def post___TABLENAME_LOWER__(__TABLENAME_LOWER__: __TABLENAME_CASE__):
+    response = await create___TABLENAME_LOWER__(__TABLENAME_LOWER__.dict())
+    if response:
+        return response
+    raise HTTPException(400, "Something went wrong")
+
+@app.put("/api/__TABLENAME_LOWER__/{__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN}/", response_model=__TABLENAME_CASE__)
+async def put___TABLENAME_LOWER__(__TEMPLATE_ASSIGNMENT_PARAMLIST_COMMA):
+    response = await update___TABLENAME_LOWER__(__TEMPLATE_ASSIGNMENT_PARAMLIST_SIMPLE)
+    if response:
+        return response
+    raise HTTPException(404, f"There is no __TABLENAME_LOWER__ with the __TEMPLATE_ASSIGNMENT_FIRSTCOLUMN {__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN}")
+
+@app.delete("/api/__TABLENAME_LOWER__/{__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN}")
+async def delete___TABLENAME_LOWER__(__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN):
+    response = await delete___TABLENAME_LOWER__(__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN)
+    if response:
+        return "Successfully deleted __TABLENAME_LOWER__"
+    raise HTTPException(404, f"There is no __TABLENAME_LOWER__ with the __TEMPLATE_ASSIGNMENT_FIRSTCOLUMN {__TEMPLATE_ASSIGNMENT_FIRSTCOLUMN}")
+--#
+
+--% per_db
+
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+app = FastAPI()
+origins = [
+    "http://localhost:3000",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+import motor.motor_asyncio
+client = motor.motor_asyncio.AsyncIOMotorClient('mongodb://__TEMPLATE_DBUSER:__TEMPLATE_DBPASS@__TEMPLATE_DBHOST:__TEMPLATE_DBPORT/')
+database = client.__TEMPLATE_DBNAME
+
+__REPLACE_WITH_PERTABLE_CRUD__
+--#

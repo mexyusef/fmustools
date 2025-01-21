@@ -1,0 +1,176 @@
+--% index/fmus
+__PWD,d
+	custom-default-session.txt,f(e=__FILE__=custom-default-session.txt)
+	boto3-installation.txt,f(e=__FILE__=boto3-installation.txt)
+	verify-environment-setup.txt,f(e=__FILE__=verify-environment-setup.txt)
+	session-client-resource.txt,f(e=__FILE__=session-client-resource.txt)
+	windows-linux.txt,f(e=__FILE__=windows-linux.txt)
+--#
+
+--% windows-linux.txt
+AWS Automation
+with
+boto3 of Python and Lambda Functions
+Learn how to automate AWS common tasks using boto3 and Lambda
+Loop control statements or commands
+(break and continue)
+Boto3 Environment Setup on Windows Server to
+Work with AWS ServicesLearn how to automate AWS common tasks using boto3 and Lambda
+Loop control statements or commands
+(break and continue)
+Boto3 Environment setup on Windows Server
+- You’ve got the Python-3.x and boto3.
+- But, you won’t be able to use it right now, because it doesn’t know
+which AWS account it should connect to.
+- Then how about programmatic access when we want to manage AWS
+Services using our popular python scripting language ?
+- You’ll need to provide/configure some valid credentials( programmatic
+access keys)
+- You can use either root or any IAM user programmatic access keys.
+- Lets get programmatic access keysLearn how to automate AWS common tasks using boto3 and Lambda
+Loop control statements or commands
+(break and continue)
+Boto3 Environment setup on Windows Server…
+- Configure credentials of your AWS account on windows server using
+awscli commands.
+- Install awscli
+- pip3 install awscli
+- Configure root/IAM user access-keys/credentials using:
+- aws configure --profile root
+- aws configure --profile non_prod
+- aws configure --profile prodThank you
+
+AWS Automation
+with
+boto3 of Python and Lambda Functions
+Learn how to automate AWS common tasks using boto3 and Lambda
+Loop control statements or commands
+(break and continue)
+Boto3 Environment Setup on Linux Server to Work
+with AWS ServicesLearn how to automate AWS common tasks using boto3 and Lambda
+Loop control statements or commands
+(break and continue)
+Boto3 Environment setup on Linux Server…
+- Configure credentials of your AWS account on windows server using
+awscli commands.
+- Install awscli
+- From root: pip3 install awscli
+- From Linux user: pip3 install awscli --user
+- Configure root/IAM user access-keys/credentials using:
+- aws configure --profile root
+- aws configure --profile non_prod
+- aws configure --profile prod
+Thank you
+--#
+
+--% custom-default-session.txt
+aws configure --profile p_name
+
+[root]
+aws_access_key_id =
+aws_secret_access_key =
+[ec2_developer]
+aws_access_key_id =
+aws_secret_access_key =
+[s3_developer]
+aws_access_key_id =
+aws_secret_access_key =
+====================================================================
+Custom Session:
+
+import boto3
+aws_mag_con=boto3.session.Session(profile_name="root")
+
+iam_con_re=aws_mag_con.resource(service_name='iam',region_name="us-east-2")
+iam_con_client=aws_mag_con.client(service_name='iam',region_name="us-east-2")
+
+===============================================================================
+Default:
+
+import boto3
+iam_con_re=boto3.resource(service_name="iam",region_name="us-east-1")
+
+===============================================================================
+
+
+import boto3
+aws_mag_con=boto3.session.Session(profile_name="root")
+
+ec2 = aws_mag_con.resource('ec2')
+---------------------------------------------------------
+--#
+
+--% boto3-installation.txt
+You can get the steps from the url:
+https://tecadmin.net/install-python-3-7-on-centos/
+
+or 
+Use below steps:
+
+yum install gcc openssl-devel bzip2-devel libffi-devel
+cd /usr/src
+wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
+tar xzf Python-3.7.4.tgz
+cd Python-3.7.4
+./configure --enable-optimizations
+make altinstall
+cd /usr/local/bin/
+./python3.7 --version
+./pip3.7 --version
+pwd
+ln -s /usr/local/bin/python3.7 /bin/python3
+python3 --versio
+ln -s /usr/local/bin/pip3.7 /bin/pip3
+pip3 --version
+pip3 install boto3
+--#
+
+--% verify-environment-setup.txt
+Manual Steps to see/list all iam users:
+========================================
+  step1: Get AWS Management Console
+  Step2: Get IAM Console
+         Options: Users, Groups, roles......
+========================================
+import boto3
+
+aws_mag_con=boto3.session.Session(profile_name="root")
+iam_con=aws_mag_con.resource('iam')
+
+for each_user in iam_con.users.all():
+    print(each_user.name)
+========================================
+
+import boto3
+aws_mag_con=boto3.session.Session(profile_name="root")
+s3_con=aws_mag_con.resource('s3')
+==============================================================
+--#
+
+--% session-client-resource.txt
+Manual Steps to see/list all iam users:
+========================================
+  step1: Get AWS Management Console
+  Step2: Get IAM Console
+         Options: Users, Groups, roles......
+========================================
+import boto3
+
+aws_mag_con_root=boto3.session.Session(profile_name="root")
+#aws_mag_con_root=boto3.session.Session(profile_name="ec2_developer")
+
+iam_con_re=aws_mag_con_root.resource(service_name='iam',region_name="us-east-2")
+iam_con_cli=aws_mag_con_root.client(service_name='iam',region_name="us-east-2")
+
+#Listiing iam users with resource object:
+
+for each_user in iam_con_re.users.all():
+    print(each_user.name)
+
+#Listing iam users with client object:
+
+for each in iam_con_cli.list_users()['Users']:
+   print(each['UserName'])
+
+======================================================
+--#

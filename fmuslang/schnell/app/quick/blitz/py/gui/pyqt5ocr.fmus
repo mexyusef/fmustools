@@ -1,0 +1,455 @@
+--% index/fmus
+__PWD/pyqt5ocr,d(/mk)
+	%utama=__FILE__
+	README.md,f(e=utama=C:/Users/usef/work/tmp/hapus/hapus/OCRApp/README.md)
+	T-OCR,d(/mk)
+		ImgDDLabel.py,f(e=utama=C:/Users/usef/work/tmp/hapus/hapus/OCRApp/T-OCR/ImgDDLabel.py)
+		OCRApp.py,f(e=utama=C:/Users/usef/work/tmp/hapus/hapus/OCRApp/T-OCR/OCRApp.py)
+		ocr_ui.ui,f(e=utama=C:/Users/usef/work/tmp/hapus/hapus/OCRApp/T-OCR/ocr_ui.ui)
+		icons,d(/mk)
+			save.png,f(b64=utama=C:/Users/usef/work/tmp/hapus/hapus/OCRApp/T-OCR/icons/save.png)
+--#
+
+--% C:/Users/usef/work/tmp/hapus/hapus/OCRApp/README.md
+# OCRApp - The Image to Text Converter
+----------------------------------------------------------------------
+This Application can covert your selected image containing texts in text format which can be saved again in readable formats (.txt, .docx, .py or any other file format you want).
+
+***Requirements***
+<ul>
+  <li> <a href="https://www.python.org">Python 3.7</a> or above</li>
+  <li> <a href="https://pypi.org/project/PyQt5/">PyQt5</a> [pip install pyqt5]</li>
+  <li> <a href="https://pypi.org/project/pyqt5-tools/">PyQt5-tools</a> [pip install pyqt5-tools]</li>
+  <li> <a href='https://pypi.org/project/opencv-python/'>OpenCV</a> [pip install opencv-python]</li>
+  <li> <a href='https://pypi.org/project/pytesseract/'>pytesseract</a> [pip install pytesseract]</li>
+  <li> 
+   <a href="https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-v5.0.1.20220118.exe">Tesseract-OCR.exe</a>
+   </li>
+   </ul>
+Application ScreenShot:
+
+![screenshot1](https://user-images.githubusercontent.com/41276382/156905630-81791129-0e84-4f52-8aee-d155a479cf33.png)
+
+Extracted text
+![screenshot2](https://user-images.githubusercontent.com/41276382/156905661-bba65bfc-3de8-416e-8956-f28b02088c3c.png)
+
+For more help, You can contact us on: https://m.me/cideduhub or https://m.me/CIDAnPawan
+<br>
+This Project is fully Described on Youtube at :
+[![ocr_app_thumb](https://user-images.githubusercontent.com/41276382/156908157-3145c4a4-5dc7-4bf5-99ec-33a5e1cb2d7b.png)](https://youtu.be/GRTJhSi8S3U)
+
+[SUBSCRIBE](https://www.youtube.com/c/cidaneducationhub?sub_confirmation=1) for more such Projects tutorials and codes.
+
+Donate and encourage us :<br>
+PayPal: [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/cideduhub)
+
+<br>or,
+GPay: ![GPayQR](https://user-images.githubusercontent.com/41276382/156905990-831e1440-c40e-467f-8e96-2a90e69c15a1.jpg)
+
+If You liked our effort and this repo helped you, please give one star* <br>
+***Thank You***
+
+--#
+
+--% C:/Users/usef/work/tmp/hapus/hapus/OCRApp/T-OCR/ImgDDLabel.py
+# import the necessary packages
+from PyQt5 import QtCore, QtGui, QtWidgets,uic
+
+
+class ImgDDLabel(QtWidgets.QLabel):
+    def __init__(self,lineedit=None):
+        super().__init__()
+        self.setAcceptDrops(True)
+        self.lineedit = lineedit
+        self.image_path = None
+        # set center alignment of image label
+        self.setAlignment(QtCore.Qt.AlignCenter)
+        # set text on image label
+        self.setText("Drag your Image here.")
+        # set the label style
+        self.setStyleSheet('''background-color: rgb(255, 255, 255);
+color: rgb(39, 86, 115);
+
+font: 75 9pt "MS Shell Dlg 2";
+''')
+    def dragEnterEvent(self, event):
+        # check if the event has image or not
+        if event.mimeData().hasImage:
+            # if event has image then
+            # accept the event to drag
+            event.accept()
+        else:
+            # if event doesn't have image
+            # then ignore the event to drag
+            event.ignore()
+            
+    def mouseDoubleClickEvent(self, event):
+        print("mouseDoubleClickEvent triggered.")
+        try:
+            fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Select Image', 
+                '.',"Image Files (*.png *.jpg *.bmp)")
+            if fname:
+                self.image_path = fname[0]
+                self.set_image(self.image_path)
+        except Exception as e:print(e)
+        
+    def dropEvent(self, event):
+        # check if the event has image or not
+        if event.mimeData().hasImage:
+            # set drop action with copying dragged image
+            event.setDropAction(QtCore.Qt.CopyAction)
+            # get selected image path
+            image_path = event.mimeData().urls()[0].toLocalFile()
+            self.image_path = image_path
+            # call set_image() function to load
+            # image with image path parameter
+            self.set_image(image_path)
+            # if event has image then
+            # accept the event to drop
+            event.accept()
+        else:
+            # if event doesn't have image
+            # then ignore the event to drop
+            event.ignore()
+    def set_image(self, image_path):
+        # load and display image
+        try:
+            if self.lineedit:
+                self.lineedit.setText(image_path)
+            
+            image_path = QtGui.QPixmap(image_path)
+            image_path = image_path.scaled(QtCore.QSize(self.width(),
+                                           self.height()),
+                                           QtCore.Qt.KeepAspectRatio,
+                                           QtCore.Qt.SmoothTransformation)
+            self.setPixmap(image_path)
+            
+        except Exception as e:print(e)
+
+if __name__ == "__main__":
+    import sys
+    print('running')
+    try:
+        
+        app = QtWidgets.QApplication(sys.argv)
+        ui = QtWidgets.QDialog()
+        ui.setMinimumWidth(400)
+        ui.setMinimumHeight(400)
+        imgddlabel = ImgDDLabel()#Label
+        QtWidgets.QHBoxLayout(ui)
+        ui.layout().addWidget(imgddlabel)
+        ui.show()
+        app.exec_()
+    except Exception as e:print(e)
+    print('running finished')
+
+--#
+
+--% C:/Users/usef/work/tmp/hapus/hapus/OCRApp/T-OCR/OCRApp.py
+import pytesseract
+import cv2
+from PyQt5 import QtCore, QtGui, QtWidgets, uic
+import sys
+tesseractPath = "C:/Program Files/Tesseract-OCR/tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = tesseractPath
+
+from ImgDDLabel import ImgDDLabel
+
+class OCRApp:
+    def __init__(self):
+        self.img = None
+        self.main()
+    def main(self):
+        try:
+            app = QtWidgets.QApplication(sys.argv)
+            self.ui = uic.loadUi('ocr_ui.ui')
+            self.imgddlabel = ImgDDLabel()
+            self.ui.progressBar.hide()
+            self.ui.progressBar.setValue(0)
+            self.saveBtn = QtWidgets.QToolButton()
+            self.saveBtn.setToolTip("Save Extracted text")
+            self.saveBtn.setStyleSheet(u"border:none;\n"
+"background-color:none;")
+            icon = QtGui.QIcon()
+            icon.addFile(u"./icons/save.png", QtCore.QSize(),
+                         QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.saveBtn.setIcon(icon)
+            self.saveBtn.setAutoRaise(1)
+            self.ui.statusbar.addPermanentWidget(self.saveBtn)
+            self.ui.imgLayout.addWidget(self.imgddlabel)
+            self.ui.extractBtn.clicked.connect(self.extract)
+            self.saveBtn.clicked.connect(self.saveExtractedText)
+            self.ui.show()
+            app.exec_()
+        except Exception as e:
+            print(e)
+
+    def getImagePath(self):
+        self.img = self.imgddlabel.image_path
+        return self.img
+    def setProgressbarValue(self,v):
+        self.ui.progressBar.setValue(v)
+
+    def extract(self):
+        img = self.getImagePath()
+        if img:
+            try:
+                self.ui.textEdit.clear()
+                print('extracting text')
+                self.ui.progressBar.show()
+                self.ui.progressBar.setValue(0)
+                self.ui.extractBtn.setText('Extracting... Please Wait.')
+                image = cv2.imread(img)
+                self.ui.progressBar.setValue(10)
+                rgb = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+                self.ui.progressBar.setValue(20)
+                text = pytesseract.image_to_string(rgb)
+                self.ui.progressBar.setValue(90)
+                if text=='':
+                    print('No text found in image')
+                    self.ui.textEdit.setHtml(f'<html><p><b>No Text Found in reading Image "{img}"<html/>')
+                else:
+                    self.ui.textEdit.setText(text)
+                    self.ui.progressBar.setValue(100)
+                self.ui.extractBtn.setText('Extract')
+                self.ui.progressBar.setValue(0)
+                self.ui.progressBar.hide()
+            except Exception as e:
+                print(e)
+        else:
+            print('Please select any Image')
+    def saveExtractedText(self):
+        fn = 'extracted_text.txt'
+        if self.img:
+            fn = self.img.rsplit('.')[0]
+        try:
+            fname = QtWidgets.QFileDialog.getSaveFileName(self.ui,
+                                                          'Save File',
+                                                          './Extracted texts/'+fn,
+                                                          "Text Files (*.txt);;Word Files(*.docx);;Python Files(*.py);;All Files(*.*)"
+                                                          )
+            if fname:
+                et = self.ui.textEdit.toPlainText()
+                with open(fname[0],'w') as tfile:
+                    tfile.write(et)
+        except Exception as e:
+            print(e)
+            
+
+
+if __name__ == "__main__":
+    OCRApp()
+        
+
+--#
+
+--% C:/Users/usef/work/tmp/hapus/hapus/OCRApp/T-OCR/ocr_ui.ui
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>924</width>
+    <height>613</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+	background-color: rgb(57, 124, 168);
+}
+QLabel{
+	background-color: rgb(57, 124, 168);
+	color: rgb(255, 255, 255);
+}
+QFrame.QFrame{
+	background-color: rgb(209, 209, 209);
+}
+QPushButton{
+	border-radius:5px;
+	
+	color: rgb(0, 0, 0);
+	background-color: rgb(255, 0, 0);
+}
+QPushButton::hover{
+	border-radius:5px;
+	
+	color: rgb(250, 250, 250);
+	
+	background-color: rgb(0, 150, 73);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>IMAGE TO TEXT CONVERTER</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="mainFrame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="frame">
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="imgLayout"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_2">
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QTextEdit" name="textEdit"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="extractBtn">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Extract</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="value">
+       <number>24</number>
+      </property>
+      <property name="textVisible">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>924</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+--#
+
+--% C:/Users/usef/work/tmp/hapus/hapus/OCRApp/T-OCR/icons/save.png
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADLSURBVDhPYxhEoP4/k+G06x81G3b+f/bqzf+9h4+D8ZsPH+H42uNX/w2m3KiH6kAFhlNvfjCZcfs/yIBHz1/8n7p0GRijGwBSg9UQkATMgCcvX2E14PLDl2A1IAzVhgAwCe32w/89Jh0C24aMQZpBhhM0gFgM1YYA2BThw1BtCIBNET4M1YYAMImgZfdQAg4dEzQApAg5HSBjog14/f4D2BB0jNcAo2k34AbgwzgNUK3dttRo6rX/j1++xouNpl7/bzDhAqYBAwQYGAAqi7b0l2s2MgAAAABJRU5ErkJggg==
+--#
+

@@ -1,0 +1,346 @@
+--% index/fmus
+__PWD,d
+	?pick
+        map-scores-to-grade.js,f(e=__FILE__=map-scores-to-grade.js)
+        get-grade-test.js,f(e=__FILE__=get-grade-test.js)
+        advanced-get-grade.js(e=__FILE__=advanced-get-grade.js)
+        advantages-of-currying1.js,f(e=__FILE__=advantages-of-currying1.js)
+        advantages-of-currying2.js,f(e=__FILE__=advantages-of-currying2.js)
+        partial.js,f(e=__FILE__=partial.js)
+        curry.js,f(e=__FILE__=curry.js)
+        partial-and-curry-with-bind.js,f(e=__FILE__=partial-and-curry-with-bind.js)
+        partially-applied-map.js,f(e=__FILE__=partially-applied-map.js)
+        template.js,f(e=__FILE__=template.js)
+        stackoverflow.js,f(e=__FILE__=stackoverflow.js)
+        multiple-recursion.js,f(e=__FILE__=multiple-recursion.js)
+        iterative-sum-elements.js,f(e=__FILE__=iterative-sum-elements.js)
+        tco-sum-elements.js,f(e=__FILE__=tco-sum-elements.js)
+        memoization.js,f(e=__FILE__=memoization.js)
+--#
+
+--% map-scores-to-grade.js
+function mapScoresToGrades( tests, average ) {
+    let getGradeTest = average =>
+        ( ( testScore ) => testScore >= average ? 'A' : 'F' );
+    let gradeTest = getGradeTest( average );
+    return tests.map( gradeTest );
+}
+
+const grades = mapScoresToGrades( [0.3, 0.8, 1], 0.9 );
+
+console.log( grades );
+--#
+
+--% get-grade-test.js
+let getGradeTest = 
+    average =>
+    testScore => 
+    testScore >= average ? 'A' : 'F';
+
+const tester = getGradeTest( 0.8 );
+
+console.log( tester( 0.79 ) );
+console.log( tester( 0.81 ) );
+
+const newTester = getGradeTest( 0.5 );
+
+console.log( newTester( 0.79 ) );
+--#
+
+--% advanced-get-grade.js
+const getGradeTest = 
+      passGrade => 
+      failGrade =>
+      average =>
+      testScore => 
+      testScore >= average ? passGrade : failGrade;
+
+const passFailTester = getGradeTest( 'Pass' )( 'Fail' )( 0.2 );
+
+console.log( passFailTester( 0.19 ), passFailTester( 0.21 ) );
+
+const uncurriedGetGradeTest =
+    ( passGrade, failGrade, average, testScore ) =>
+    testScore >= average ? passGrade : failGrade;
+
+console.log( uncurriedGetGradeTest( '+', '-', 0.5, 0.51 ) );
+--#
+
+--% advantages-of-currying1.js
+const uncurriedGradeTest =
+    ( passGrade, failGrade, average, testScore ) =>
+    testScore >= average ? 
+        passGrade : 
+        failGrade;
+
+uncurriedGradeTest( '+', '-', 0.5, 0.46 );
+uncurriedGradeTest( '+', '-', 0.5, 0.47 );
+uncurriedGradeTest( '+', '-', 0.5, 0.48 );
+uncurriedGradeTest( '+', '-', 0.5, 0.49 );
+uncurriedGradeTest( '+', '-', 0.5, 0.5 );
+uncurriedGradeTest( '+', '-', 0.5, 0.51 );
+uncurriedGradeTest( '+', '-', 0.5, 0.52 );
+uncurriedGradeTest( '+', '-', 0.5, 0.53 );
+uncurriedGradeTest( '+', '-', 0.5, 0.54 );
+uncurriedGradeTest( '+', '-', 0.5, 0.55 );
+--#
+
+--% advantages-of-currying2.js
+const gradeTest = 
+      passGrade => 
+      failGrade =>
+      average =>
+      testScore => 
+      testScore >= average ? 
+          passGrade : 
+          failGrade;
+
+const tester = 
+    gradeTest( '+' )( '-' )( 0.5 );
+
+tester( 0.46 );
+tester( 0.47 ); 
+tester( 0.48 ); 
+tester( 0.49 ); 
+tester( 0.5 ); 
+tester( 0.51 ); 
+tester( 0.52 ); 
+tester( 0.53 ); 
+tester( 0.54 ); 
+tester( 0.55 ); 
+--#
+
+--% partial.js
+const partial = 
+    ( f, ...argList1 ) =>
+    ( ...argList2 ) =>
+    f( ...argList1, ...argList2 );
+
+const volume = (a, b, c) => a*b*c;
+
+console.log( partial( volume, 2, 3 )( 4 ) );
+
+console.log( partial( volume, 2 )( 3, 4 ) );
+
+console.log( partial( partial( volume, 2 ), 3 )( 4 ) );
+--#
+
+--% curry.js
+const partial = 
+    ( f, ...argList1 ) =>
+    ( ...argList2 ) =>
+    f( ...argList1, ...argList2 );
+
+const curry1 = f => a => (...rest) => f( a, ...rest );
+const curry2 = f => a => b => (...rest) => f( a, b, ...rest );  
+
+const curry = f => curryN( f, [] );
+const curryN =
+    ( f, acc ) =>
+    acc.length === f.length ?
+    f( ...acc ) :
+    arg => curryN( f, [ ...acc, arg ] ); 
+
+// Application sequence:
+// curry( volume )
+// curryN( volume, [] )
+// a => curryN( volume, [a] )
+// a => b => curryN( volume, [a, b] )
+// a => b => c => curryN( volume, [a, b, c] )
+// a => b => c => volume( a, b, c )
+
+
+const volume = ( a, b, c ) => a * b * c;
+
+console.log( 'partial', partial( volume, 2, 3 )( 4 ) );
+console.log( 'curry', curry( volume )( 2 )( 3 )( 4 ) );
+--#
+
+--% partial-and-curry-with-bind.js
+const partial = ( f, ...args ) => f.bind( null, ...args );
+
+const curry =
+    f =>
+    a =>
+    f.length === 1 ? f( a ) : curry( partial( f, a ) );
+
+console.log( curry( (a, b, c) => a*b*c )(2)(3)(4) );
+--#
+
+--% partially-applied-map.js
+const map =
+    f =>
+    ( [head, ...tail] ) =>
+    typeof head === 'undefined' ? 
+    [] :
+    [ f( head ), ...map( f )( tail ) ];    
+
+console.log( map( a => 2 * a )( [1, 2, 3] ) );
+--#
+
+--% template.js
+const courses = [
+    {
+        title: 'Deep Dive into Functional in JavaScript',
+        author: 'Zsolt Nagy',
+        sections: 6
+    },
+    {
+        title: 'Implementing and Testing JavaScript Applications using Functional Programming',
+        author: 'Zsolt Nagy',
+        sections: 5
+    },
+    {
+        title: 'Mastering JavaScript Functional Programming Libraries',
+        author: 'Zsolt Nagy',
+        sections: 3
+    }
+];
+
+
+const getTemplate = function( { courses } ) {
+    const headerTemplate = `
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Sections</th>
+        </tr>
+    `;
+
+    const rowTemplate = courses.map( course => `
+        <tr>
+            <td>${ course.title }</td>
+            <td>${ course.author }</td>
+            <td>${ course.sections }</td>
+        </tr>
+    `).join( '' );
+
+    return = `
+        <table>
+            <thead>${ headerTemplate }</thead>
+            <tbody>${ rowTemplate }</tbody>
+        </table>
+    `;
+}
+
+const insertTemplate = ( domNode, getTemplate, templateData ) => {
+    domNode.innerHTML = getTemplate( templateData );
+}
+
+const renderTemplate = insertTemplate.bind( null, document.body, getTemplate );
+--#
+
+--% stackoverflow.js
+const factorial = num =>
+    num <= 1 ?
+    1 :
+    num * factorial( num - 1 ); 
+
+factorial( 100000 );
+--#
+
+--% multiple-recursion.js
+const tree = {
+    value: 5,
+    left: null,
+    right: { 
+        value: 8, 
+        left: {
+            value: 6,
+            left: null,
+            right: null
+        }, 
+        right: {
+            value: 11,
+            left: null,
+            right: null
+        } 
+    }
+}
+
+const sumElements = tree => 
+    tree === null ?
+    0 :
+    tree.value + 
+    sumElements( tree.left ) + 
+    sumElements( tree.right );
+
+console.log( sumElements( tree ) );
+--#
+
+--% iterative-sum-elements.js
+const tree = {
+    value: 5,
+    left: null,
+    right: { 
+        value: 8, 
+        left: {
+            value: 6,
+            left: null,
+            right: null
+        }, 
+        right: {
+            value: 11,
+            left: null,
+            right: null
+        } 
+    }
+}
+
+const iterativeSumElements = function( tree ) {
+    let sumOfNodes = 0;
+    let nodes = [ tree ];
+
+    while ( nodes.length > 0 ) {
+        const node = nodes.pop();
+        if ( node !== null ) {
+            sumOfNodes += node.value;
+            nodes.push( node.left );
+            nodes.push( node.right );
+        }
+    }
+
+    return sumOfNodes;
+}
+
+console.log( iterativeSumElements( tree ) );
+--#
+
+--% tco-sum-elements.js
+const tree = {
+    value: 5,
+    left: null,
+    right: { 
+        value: 8, 
+        left: {
+            value: 6,
+            left: null,
+            right: null
+        }, 
+        right: {
+            value: 11,
+            left: null,
+            right: null
+        } 
+    }
+}
+
+tcoSumElements = tree => 
+    tcoSumNodeList( [tree], 0 );
+
+tcoSumNodeList = ( [head, ...tail], sum ) =>
+    typeof head === 'undefined' ?
+    sum :
+    head === null ?
+    tcoSumNodeList( tail, sum ) :
+    tcoSumNodeList( 
+        [ head.left, head.right, ...tail ],
+        sum + head.value 
+    );
+
+
+console.log( tcoSumElements( tree ) );
+--#
+
+--% memoization.js
+--#

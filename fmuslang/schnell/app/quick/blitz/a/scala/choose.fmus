@@ -1,0 +1,7 @@
+--% index/fmus
+__PWD,d
+    ?pick
+    	@create scala play project*
+    	@create scala akka project*
+    	@create scala-fx project*
+--#

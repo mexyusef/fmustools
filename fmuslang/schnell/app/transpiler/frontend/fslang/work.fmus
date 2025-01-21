@@ -1,0 +1,50 @@
+	| "dj" 		-> django
+	| "djm" 	-> django_mongo
+	| "sb" 		-> springboot
+	| "sbm"		-> springboot_mongo
+	| "fast" 	-> fastapi
+	| "fastm" -> fastapi_mongo
+	| "fl" 		-> flask
+	| "flm" 	-> flask_mongo
+	| "ns" 		-> nest
+	| "nsm" 	-> nest_mongo
+	| "dw" 		-> dropwizard
+	| "dwm" 	-> dropwizard_mongo
+	| "mn" 		-> micronaut
+	| "mnm" 	-> micronaut_mongo
+	| "q" 		-> quarkus
+	| "qm" 		-> quarkus_mongo
+
+**.,d
+  node_antd_mongo,d(/mk)
+    __init__.py,f(t=)
+  moleculer,d(/mk)
+    __init__.py,f(t=)
+  moleculer_mongo,d(/mk)
+    __init__.py,f(t=)
+  springboot,d(/mk)
+    __init__.py,f(t=)
+  springboot_mongo,d(/mk)
+    __init__.py,f(t=)
+  fastapi,d(/mk)
+    __init__.py,f(t=)
+  flask,d(/mk)
+    __init__.py,f(t=)
+  flask_mongo,d(/mk)
+    __init__.py,f(t=)
+  nest,d(/mk)
+    __init__.py,f(t=)
+  nest_mongo,d(/mk)
+    __init__.py,f(t=)
+  dropwizard,d(/mk)
+    __init__.py,f(t=)
+  dropwizard_mongo,d(/mk)
+    __init__.py,f(t=)
+  micronaut,d(/mk)
+    __init__.py,f(t=)
+  micronaut_mongo,d(/mk)
+    __init__.py,f(t=)
+  quarkus,d(/mk)
+    __init__.py,f(t=)
+  quarkus_mongo,d(/mk)
+    __init__.py,f(t=)

@@ -1,0 +1,10 @@
+--% index/fmus
+__PWD,d
+	@ini utk persiapan get jobs di upwork yg harganya rendah*
+	?pick
+		@oprek apache camel*
+		@oprek apache karaf*
+		@oprek apache spark*
+		@oprek apache storm*
+		@oprek apache tika*
+--#

@@ -1,0 +1,18 @@
+C:\portfolio\_springboot\springboot-ecommerce
+
+/exec)git remote --verbose|C:\portfolio\_springboot\springboot-ecommerce
+origin	https://github.com/hendisantika/springboot-ecommerce (fetch)
+origin	https://github.com/hendisantika/springboot-ecommerce (push)
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\springboot-springboot-ecommerce.txt
+
+C:\portfolio\_springboot\springboot-ecommerce2
+/exec)git remote --verbose|C:\portfolio\_springboot\springboot-ecommerce2
+origin	https://github.com/hendisantika/springboot-ecommerce2 (fetch)
+origin	https://github.com/hendisantika/springboot-ecommerce2 (push)
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\springboot-springboot-ecommerce2.txt
+
+C:\portfolio\_springboot\springboot-kafka-connect-jdbc-streams
+/exec)git remote --verbose|C:\portfolio\_springboot\springboot-kafka-connect-jdbc-streams
+origin	https://github.com/ivangfr/springboot-kafka-connect-jdbc-streams (fetch)
+origin	https://github.com/ivangfr/springboot-kafka-connect-jdbc-streams (push)
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\fmus_portfolios\springboot-springboot-kafka-connect-jdbc-streams.txt

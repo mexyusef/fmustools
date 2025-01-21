@@ -1,0 +1,814 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	minimal-lambda,d(/mk)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/minimal-lambda/Cargo.toml)
+		.cargo,d(/mk)
+			config,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/minimal-lambda/.cargo/config)
+		src,d(/mk)
+			main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/minimal-lambda/src/main.rs)
+	serverless,d(/mk)
+		.gitignore,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/.gitignore)
+		.travis.yml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/.travis.yml)
+		Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/Cargo.toml)
+		deploy.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/deploy.sh)
+		package.json,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/package.json)
+		README.md,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/README.md)
+		serverless.yml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/serverless.yml)
+		lambda_1,d(/mk)
+			Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/lambda_1/Cargo.toml)
+			src,d(/mk)
+				main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/lambda_1/src/main.rs)
+		lambda_2,d(/mk)
+			Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/lambda_2/Cargo.toml)
+			src,d(/mk)
+				main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/lambda_2/src/main.rs)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/minimal-lambda/Cargo.toml
+[package]
+name = "minimal-lambda"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+lambda_runtime = { git = "https://github.com/awslabs/aws-lambda-rust-runtime" }
+log = "0.4"
+rand = "0.5"
+serde = "1.0"
+serde_derive = "1.0"
+simple_logger = "1.0"
+
+[[bin]]
+name = "bootstrap"
+path = "src/main.rs"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/minimal-lambda/.cargo/config
+[build]
+target = "x86_64-unknown-linux-musl"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/minimal-lambda/src/main.rs
+use serde_derive::{Serialize, Deserialize};
+use lambda_runtime::{lambda, Context, error::HandlerError};
+use rand::Rng;
+use rand::distributions::{Bernoulli, Normal, Uniform};
+use std::error::Error;
+use std::ops::Range;
+
+#[derive(Deserialize)]
+#[serde(tag = "distribution", content = "parameters", rename_all = "lowercase")]
+enum RngRequest {
+    Uniform {
+        #[serde(flatten)]
+        range: Range<i32>,
+    },
+    Normal {
+        mean: f64,
+        std_dev: f64,
+    },
+    Bernoulli {
+        p: f64,
+    },
+}
+
+#[derive(Serialize)]
+struct RngResponse {
+    value: f64,
+}
+
+fn main() -> Result<(), Box<dyn Error>> {
+    simple_logger::init_with_level(log::Level::Debug).unwrap();
+    lambda!(rng_handler);
+    Ok(())
+}
+
+fn rng_handler(event: RngRequest, _ctx: Context) -> Result<RngResponse, HandlerError> {
+    let mut rng = rand::thread_rng();
+    let value = {
+        match event {
+            RngRequest::Uniform { range } => {
+                rng.sample(Uniform::from(range)) as f64
+            },
+            RngRequest::Normal { mean, std_dev } => {
+                rng.sample(Normal::new(mean, std_dev)) as f64
+            },
+            RngRequest::Bernoulli { p } => {
+                rng.sample(Bernoulli::new(p)) as i8 as f64
+            },
+        }
+    };
+    Ok(RngResponse { value })
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/.gitignore
+node_modules
+.serverless
+target
+rustfmt.toml
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/.travis.yml
+# required for docker
+sudo: required
+
+# for more information on configuring a rust travis build
+# see https://docs.travis-ci.com/user/languages/rust/
+language: rust
+
+rust:
+  - stable
+  # for code coverage only
+  - nightly
+
+# only build pushes to master
+# prs are build separately
+# https://docs.travis-ci.com/user/pull-requests/#how-pull-requests-are-built
+branches:
+  only:
+  - master
+
+# Cache `cargo install`ed tools, but don't cache the project's `target`
+# directory (which ends up over-caching and filling all disk space!)
+# https://levans.fr/rust_travis_cache.html
+cache:
+  directories:
+    - /home/travis/.cargo
+    - node_modules
+
+before_cache:
+  # But don't cache the cargo registry
+  - rm -rf /home/travis/.cargo/registry
+
+services:
+  # start docker to enable lambda ci compatible build env
+  - docker
+
+addons:
+  apt:
+    packages:
+      # required by tarpaulin code coverage tool
+      - libssl-dev
+
+install: |
+  # https://github.com/xd009642/tarpaulin/issues/150
+  if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
+    RUSTFLAGS="--cfg procmacro2_semver_exempt" cargo install cargo-tarpaulin -f
+  fi
+
+script:
+  # fail fast if build fails
+  - cargo check
+  # test changes to behavior
+  - cargo test
+  # package application here to cache build artifacts for future build/deploys
+  - npm i --silent && npx serverless package
+
+# report coverage to coveralls (on nightly)
+# see https://github.com/xd009642/tarpaulin for more information
+after_success: |
+  if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
+    cargo tarpaulin --ciserver travis-ci --coveralls $TRAVIS_JOB_ID
+
+    # Uncomment the following two lines create and upload a report for codecov.io
+    # cargo tarpaulin --out Xml
+    # bash <(curl -s https://codecov.io/bash)
+  fi
+
+# deploy on pushes to master branch
+# assumes aws credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+# are configured in travis settings
+# see https://serverless.com/framework/docs/providers/aws/guide/credentials/
+# for more information
+deploy:
+  - provider: script
+    script: npx serverless deploy --conceal
+    skip_cleanup: true
+    on:
+      branch: master
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/Cargo.toml
+[workspace]
+members = [
+    "lambda_1",
+    "lambda_2",
+]
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/deploy.sh
+set -e
+
+extract() {
+    echo "$DATA" | grep $1 | cut -d " " -f2
+}
+
+deploy() {
+    echo "ASSETS DOWNLOADING"
+    curl -L https://api.github.com/repos/aws-samples/aws-serverless-workshops/tarball \
+        | tar xz --directory assets --wildcards "*/WebApplication/1_StaticWebHosting/website" --strip-components=4
+    echo "LAMBDAS BUILDING"
+    sls deploy
+    echo "ASSETSi UPLOADING"
+    sls client deploy
+    echo "CONFIGURATION UPLOADING"
+    DATA=`sls info -v`
+    POOL_ID=`extract PoolId`
+    POOL_CLIENT_ID=`extract PoolClientId`
+    REGION=`extract region`
+    ENDPOINT=`extract ServiceEndpoint`
+
+    CONFIG="
+    window._config = {
+        cognito: {
+            userPoolId: '$POOL_ID',
+            userPoolClientId: '$POOL_CLIENT_ID',
+            region: '$REGION'
+        },
+        api: {
+            invokeUrl: '$ENDPOINT'
+        }
+    };
+    "
+
+    echo "$CONFIG" | aws s3 cp - s3://rust-sls-aws/js/config.js
+    INDEX=`extract BucketURL`
+    echo "INDEX: $INDEX"
+}
+
+update() {
+    sls deploy
+}
+
+remove() {
+    echo "ASSETS REMOVING"
+    sls client remove
+    echo "LAMBDAS REMOVING"
+    sls remove
+    echo "ASSETS CLEANUP"
+    rm -rf assets
+    mkdir assets
+    touch assets/.gitkeep
+}
+
+case $1 in
+    "deploy")
+        deploy
+        ;;
+    "update")
+        update
+        ;;
+    "remove")
+        remove
+        ;;
+    *)
+        echo "Available subcommands: deploy | remove"
+        ;;
+esac
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/package.json
+{
+  "devDependencies": {
+    "serverless": "^1.36.3",
+    "serverless-rust": "^0.2.0"
+  },
+  "name": "qotd",
+  "dependencies": {
+    "serverless-finch": "^2.3.2"
+  }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/README.md
+# serverless AWS Rust multi-function template
+
+A sample template for bootstraping a multi function [Rustlang AWS Lambda](https://github.com/awslabs/aws-lambda-rust-runtime/) applications with ⚡ serverless framework ⚡ using [Cargo workspaces](https://doc.rust-lang.org/1.30.0/book/second-edition/ch14-03-cargo-workspaces.html)
+
+## ✨ features
+
+* 🦀 Build Rustlang applications with ease
+* 🛵 Continuous integration testing with travis CI
+* 🚀 Continuous deployment with travis CI
+* 🧪 Getting started unit tests
+
+## 📦 install
+
+Install the [serverless framework](https://serverless.com/framework/) cli.
+
+Then then run the following in your terminal
+
+```bash
+$ npx serverless install \
+  --url https://github.com/softprops/serverless-aws-rust-multi \
+  --name my-new-multi-func-app
+```
+
+This will download the source of a sample Rustlang application and unpack it as a new service named
+"my-new-multi-func-app" in a directory called "my-new-multi-func-app"
+
+
+## 🧙 how to be a wizard
+
+Assumming you have [aws credentials with appropriate deployment permissions configured](https://serverless.com/framework/docs/providers/aws/guide/credentials/) (if you already use any existing AWS tooling installed you likely already have this configured), you could impress your friends by creating a project
+that is _born_ in production.
+
+```bash
+$ npx serverless install \
+  --url https://github.com/softprops/serverless-aws-rust-multi \
+  --name my-new-multi-func-app \
+  && cd my-new-multi-func-app \
+  && npm i \
+  && npx serverless deploy
+```
+
+`npm i` will make sure npm dependencies are installed, this only needs run once.
+The first time you run `npx serverless deploy` it will pull down and compile the base set
+of dependencies and your application. Unless the dependencies change afterwards,
+this should only happen once, resulting in an out of the box rapid deployment
+cycle.
+
+## 🛵 continuous integration and deployment
+
+This template includes an example [travis](https://travis-ci.org/) [configuration file](.travis.yml) which can unlock a virtuous cycle of continuous integration and deployment
+( i.e all tests are run on prs and every push to master results in a deployment ).
+
+To set up travis you will need to do a view things.
+
+Firstly, version control your source. [Github](https://github.com/) is free for opensource.
+
+```bash
+$ git init
+$ git remote add origin git@github.com:{username}/{my-new-service}.git
+```
+
+Using the [travis cli](https://github.com/travis-ci/travis.rb#installation),
+ bootstrap your git repos' travis integration.
+
+```bash
+$ travis enable
+# set up AWS credentials for serverless deployment
+# https://serverless.com/framework/docs/providers/aws/guide/credentials/
+$ travis env set AWS_ACCESS_KEY_ID 'xxx'
+$ travis env set AWS_SECRET_ACCESS_KEY 'xxx'
+```
+
+> ⭐ You can optionally generate code coverage reports with [coveralls](http://coveralls.io/) by enabling your repo [here](https://coveralls.io/repos/new). You may need to sync repos first. You can then view your coverage reports at https://coveralls.io/github/{username}/{my-new-service}
+
+Add your changes to git and push them to github.
+
+Finally, https://travis-ci.org/{username}/{my-new-service} in your browser and grab a bucket of popcorn 🍿
+
+## 🔫 function triggering
+
+With your function deployed you can now start triggering it using `serverless` framework directly or
+the AWS integration you've configured to trigger it on your behalf
+
+```sh
+$ npx serverless invoke -f hello -d '{"foo":"bar"}'
+```
+
+## 🔬 logs
+
+With your function deployed you can now tail it's logs right from your project
+
+```sh
+$ npx serverless logs -f hello
+```
+
+```sh
+$ npx serverless logs -f world
+```
+
+## 👴 retiring
+
+Good code should be easily replaceable. Good code is should also be easily disposable. Retiring applications should be as easy as creating and deploying them them. The dual of `serverless deploy` is `serverless remove`. Use this for retiring services and cleaning up resources.
+
+```bash
+$ npx serverless remove
+```
+
+## ℹ️  additional information
+
+* See the [serverless-rust plugin's documentation](https://github.com/softprops/serverless-rust) for more information on plugin usage.
+
+* See the [aws rust runtime's documentation](https://github.com/awslabs/aws-lambda-rust-runtime) for more information on writing Rustlang lambda functions
+
+## 👯 Contributing
+
+This template's intent is to set a minimal baseline for getting engineers up an running with a set of repeatable best practices. See something you'd like in this template that would help others? Feel free to [open a new github issue](https://github.com/softprops/serverless-aws-rust-multi/issues/new). Pull requests are also welcome.
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/serverless.yml
+service: rust-sls
+provider:
+  name: aws
+  runtime: rust
+  memorySize: 128
+
+package:
+  individually: true
+
+plugins:
+  - serverless-rust
+  - serverless-finch
+
+functions:
+  lambda_1:
+    handler: lambda_1
+    role: RustSlsLambdaRole
+    events:
+      - http:
+          path: ride
+          method: post
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: RustSlsApiGatewayAuthorizer
+  lambda_2:
+    handler: lambda_2
+    events:
+      - http:
+          path: check
+          method: get
+
+resources:
+  Resources:
+    RustSlsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: rust-sls-aws
+        WebsiteConfiguration:
+          IndexDocument: index.html
+    RustSlsBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: "RustSlsBucket"
+        PolicyDocument:
+          Statement:
+            -
+              Effect: "Allow"
+              Principal: "*"
+              Action:
+                - "s3:GetObject"
+              Resource:
+                Fn::Join:
+                  - ""
+                  -
+                    - "arn:aws:s3:::"
+                    -
+                      Ref: "RustSlsBucket"
+                    - "/*"
+    RustSlsCognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: RustSls
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+    RustSlsCognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: RustSlsWebApp
+        GenerateSecret: false
+        UserPoolId:
+          Ref: "RustSlsCognitoUserPool"
+    RustSlsDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Rides
+        AttributeDefinitions:
+          - AttributeName: RideId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: RideId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    RustSlsLambdaRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: RustSlsLambda
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: DynamoDBWriteAccess
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource:
+                    - 'Fn::Join':
+                      - ':'
+                      -
+                        - 'arn:aws:logs'
+                        - Ref: 'AWS::Region'
+                        - Ref: 'AWS::AccountId'
+                        - 'log-group:/aws/lambda/*:*:*'
+                - Effect: Allow
+                  Action:
+                    - dynamodb:PutItem
+                  Resource:
+                    'Fn::GetAtt': [ RustSlsDynamoDBTable, Arn ]
+    RustSlsApiGatewayAuthorizer:
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        Name: RustSls
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        Type: COGNITO_USER_POOLS
+        ProviderARNs:
+          - Fn::GetAtt: [ RustSlsCognitoUserPool, Arn ]
+        IdentitySource: method.request.header.Authorization
+  Outputs:
+    RustSlsBucketURL:
+      Description: "RustSls Bucket Website URL"
+      Value:
+        "Fn::GetAtt": [ RustSlsBucket, WebsiteURL ]
+    RustSlsCognitoUserPoolId:
+      Description: "RustSls Cognito User Pool ID"
+      Value:
+        Ref: "RustSlsCognitoUserPool"
+    RustSlsCognitoUserPoolClientId:
+      Description: "RustSls Cognito User Pool Client ID"
+      Value:
+        Ref: "RustSlsCognitoUserPoolClient"
+    RustSlsDynamoDbARN:
+      Description: "RustSls DynamoDB ARN"
+      Value:
+        "Fn::GetAtt": [ RustSlsDynamoDBTable, Arn ]
+
+custom:
+  client:
+    bucketName: rust-sls-aws
+    distributionFolder: assets
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/lambda_1/Cargo.toml
+[package]
+name = "lambda_1"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+chrono = "0.4"
+lambda_runtime = { git = "https://github.com/awslabs/aws-lambda-rust-runtime" }
+log = "0.4"
+rand = "0.6"
+rusoto_core = {version = "0.35.0", default_features = false, features=["rustls"]}
+rusoto_dynamodb = {version = "0.35.0", default_features = false, features=["rustls"]}
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+simple_logger = "1.0"
+uuid = { version = "0.7", features = ["v4"] }
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/lambda_1/src/main.rs
+use chrono::Utc;
+use lambda_runtime::{error::HandlerError, lambda, Context};
+use log::debug;
+use rand::thread_rng;
+use rand::seq::IteratorRandom;
+use rusoto_core::Region;
+use rusoto_dynamodb::{AttributeValue, DynamoDb, DynamoDbClient, PutItemError, PutItemInput, PutItemOutput};
+use serde_derive::{Serialize, Deserialize};
+use std::collections::HashMap;
+use std::error::Error;
+use uuid::Uuid;
+
+fn main() -> Result<(), Box<dyn Error>> {
+    simple_logger::init_with_level(log::Level::Debug)?;
+    debug!("Starting lambda with Rust...");
+    lambda!(handler);
+    Ok(())
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "PascalCase")]
+struct Location {
+    latitude: f64,
+    longitude: f64,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct Request {
+    body: String,
+    request_context: RequestContext,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct RequestContext {
+    authorizer: Authorizer,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct Authorizer {
+    claims: HashMap<String, String>,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "PascalCase")]
+struct RequestBody {
+    pickup_location: Location,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "PascalCase")]
+struct Unicorn {
+    name: String,
+    color: String,
+    gender: String,
+}
+
+impl Unicorn {
+    fn new(name: &str, color: &str, gender: &str) -> Self {
+        Unicorn {
+            name: name.to_owned(),
+            color: color.to_owned(),
+            gender: gender.to_owned(),
+        }
+    }
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "PascalCase")]
+struct ResponseBody {
+    ride_id: String,
+    unicorn: Unicorn,
+    unicorn_name: String,
+    eta: String,
+    rider: String,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct Response {
+    body: String,
+    status_code: u16,
+    headers: HashMap<String, String>,
+}
+
+fn find_unicorn(location: &Location) -> Unicorn {
+    debug!("Finding unicorn for {}, {}", location.latitude, location.longitude);
+    let unicorns = [
+        Unicorn::new("Bucephalus", "Golden", "Male"),
+        Unicorn::new("Shadowfax", "White", "Male"),
+        Unicorn::new("Rocinante", "Yellow", "Female"),
+    ];
+    let mut rng = thread_rng();
+    unicorns.iter().choose(&mut rng).cloned().unwrap()
+}
+
+fn s_attr<T: AsRef<str>>(s: T) -> AttributeValue {
+    AttributeValue {
+        s: Some(s.as_ref().to_owned()),
+        ..Default::default()
+    }
+}
+
+fn unicorn_map(unicorn: &Unicorn) -> AttributeValue {
+    let mut item = HashMap::new();
+    item.insert("Name".into(), s_attr(&unicorn.name));
+    item.insert("Color".into(), s_attr(&unicorn.color));
+    item.insert("Gender".into(), s_attr(&unicorn.gender));
+    AttributeValue {
+        m: Some(item),
+        ..Default::default()
+    }
+}
+
+fn record_ride(
+    conn: &DynamoDbClient,
+    ride_id: &str,
+    username: &str,
+    unicorn: &Unicorn,
+) -> Result<PutItemOutput, PutItemError> {
+    let mut item: HashMap<String, AttributeValue> = HashMap::new();
+    item.insert("RideId".into(), s_attr(ride_id));
+    item.insert("User".into(), s_attr(username));
+    item.insert("UnicornName".into(), s_attr(&unicorn.name));
+    let timestamp = Utc::now().to_string();
+    item.insert("RequestTime".into(), s_attr(&timestamp));
+    item.insert("Unicorn".into(), unicorn_map(unicorn));
+    let put = PutItemInput {
+        table_name: "Rides".into(),
+        item,
+        ..Default::default()
+    };
+    conn.put_item(put).sync()
+}
+
+fn handler(event: Request, _: Context) -> Result<Response, HandlerError> {
+    let region = Region::default();
+    let client = DynamoDbClient::new(region);
+    let username = event
+        .request_context
+        .authorizer
+        .claims
+        .get("cognito:username")
+        .unwrap()
+        .to_owned();
+    debug!("USERNAME: {}", username);
+    let ride_id = Uuid::new_v4().to_string();
+    let request: RequestBody = serde_json::from_str(&event.body).unwrap();
+    let unicorn = find_unicorn(&request.pickup_location);
+    record_ride(&client, &ride_id, &username, &unicorn).unwrap();
+    let body = ResponseBody {
+        ride_id: ride_id.clone(),
+        unicorn_name: unicorn.name.clone(),
+        unicorn,
+        eta: "30 seconds".into(),
+        rider: username.clone(),
+    };
+    let mut headers = HashMap::new();
+    headers.insert("Access-Control-Allow-Origin".into(), "*".into());
+    let body = serde_json::to_string(&body).unwrap();
+    let resp = Response {
+        status_code: 201,
+        body,
+        headers,
+    };
+    Ok(resp)
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/lambda_2/Cargo.toml
+[package]
+name = "lambda_2"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+lambda_runtime = { git = "https://github.com/awslabs/aws-lambda-rust-runtime.git" }
+lambda_http = { git = "https://github.com/awslabs/aws-lambda-rust-runtime.git" }
+serde_json = "1.0"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter17/serverless/lambda_2/src/main.rs
+use lambda_http::{lambda, IntoResponse, Request};
+use lambda_runtime::{error::HandlerError, Context};
+use serde_json::json;
+
+fn main() {
+    lambda!(handler)
+}
+
+fn handler(
+    _: Request,
+    _: Context,
+) -> Result<impl IntoResponse, HandlerError> {
+    Ok(json!({
+    "message": "Go Serverless v1.0! Your function executed successfully!"
+    }))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn handler_handles() {
+        let request = Request::default();
+        let expected = json!({
+        "message": "Go Serverless v1.0! Your function executed successfully!"
+        })
+        .into_response();
+        let response = handler(request, Context::default())
+            .expect("expected Ok(_) value")
+            .into_response();
+        assert_eq!(response.body(), expected.body())
+    }
+}
+--#
+

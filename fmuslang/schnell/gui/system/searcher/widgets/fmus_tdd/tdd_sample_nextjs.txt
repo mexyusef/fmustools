@@ -1,0 +1,104 @@
+# TDD in NextJS: Examples
+TDD in NextJS: show me some examples
+
+ChatGPT
+Certainly! Test-driven development (TDD) is a development approach where tests are written before the code is implemented. Here are some examples of how you can use TDD with Next.js:
+
+Testing a React component:
+jsx
+Copy code
+// components/Counter.js
+import React, { useState } from 'react';
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+};
+
+export default Counter;
+jsx
+Copy code
+// components/Counter.test.js
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import Counter from './Counter';
+
+describe('Counter component', () => {
+  test('renders initial count', () => {
+    const { getByText } = render(<Counter />);
+    const countElement = getByText(/Count:/);
+    expect(countElement).toHaveTextContent('Count: 0');
+  });
+
+  test('increments count on button click', () => {
+    const { getByText } = render(<Counter />);
+    const incrementButton = getByText('Increment');
+    fireEvent.click(incrementButton);
+    const countElement = getByText(/Count:/);
+    expect(countElement).toHaveTextContent('Count: 1');
+  });
+});
+Testing an API endpoint:
+jsx
+Copy code
+// pages/api/greetings.js
+export default (req, res) => {
+  const { name } = req.query;
+  const greeting = `Hello, ${name}!`;
+  res.status(200).json({ greeting });
+};
+jsx
+Copy code
+// pages/api/greetings.test.js
+import { createMocks } from 'node-mocks-http';
+import greetingsHandler from './greetings';
+
+describe('/api/greetings', () => {
+  test('returns correct greeting', async () => {
+    const { req, res } = createMocks({
+      method: 'GET',
+      query: { name: 'John' },
+    });
+
+    await greetingsHandler(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual({ greeting: 'Hello, John!' });
+  });
+});
+Testing a Next.js page:
+jsx
+Copy code
+// pages/index.js
+import React from 'react';
+
+const Home = () => {
+  return <div>Welcome to the homepage!</div>;
+};
+
+export default Home;
+jsx
+Copy code
+// pages/index.test.js
+import { render, screen } from '@testing-library/react';
+import Home from './index';
+
+describe('Home page', () => {
+  test('renders welcome message', () => {
+    render(<Home />);
+    const welcomeElement = screen.getByText(/Welcome to the homepage!/);
+    expect(welcomeElement).toBeInTheDocument();
+  });
+});
+
+These are just a few examples of how you can apply TDD principles in Next.js. By writing tests first, you ensure that your code meets the desired requirements and remains maintainable as you continue to make changes.

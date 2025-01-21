@@ -1,0 +1,35 @@
+--% index/fmus
+__PWD,d
+    .,d(/load=__FILE__=index_under_pwd*)
+--#
+
+--% index_under_pwd
+.,d(/mk)
+    main.go,f(e=__FILE__=main.go)
+    run.sh,f(n=go run main.go)
+    run.bat,f(n=go run main.go)
+    $* go run main.go
+--#
+
+--% main.go
+package main
+
+import (
+	"io"
+	"log"
+	"net/http"
+	"time"
+)
+
+// HealthCheck API returns date time to client
+func HealthCheck(w http.ResponseWriter, req *http.Request) {
+	currentTime := time.Now()
+	io.WriteString(w, currentTime.String())
+}
+
+func main() {
+    // http://localhost:8000/health
+	http.HandleFunc("/health", HealthCheck)
+	log.Fatal(http.ListenAndServe(":8000", nil))
+}
+--#

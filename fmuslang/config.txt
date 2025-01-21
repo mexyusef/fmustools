@@ -1,0 +1,17 @@
+C:\work\kenza\capcay\
+/exec)wsl openssl rand -base64 32
+/exec)wsl tree -L 1 -I "node_modules__PP__test____PPcoverage__PPdocs" /mnt/c/hapus/oprek-dan-hapus/boilerplates/express-prisma-ts-boilerplate
+/exec)tree /A 
+/exec)tree /F 
+/ketik)C:/work/usr/local/wbin/find.exe ULIBPY_ROOTDIR/schnell/app -name "*.fmus"
+|wait:tunggu dong
+set ANDROID_HOME=%USERPROFILE%\AppData\Local\Android\sdk
+$env:ANDROID_HOME = "$env:USERPROFILE\AppData\Local\Android\sdk"
+pnpm android
+set JAVA_HOME=C:\Program Files\Java\jdk-17.0.5
+%homepath%\appdata\local\android\sdk\emulator\emulator -avd Pixel_XL_API_30
+/ketik)cd C:\Users\usef\work\sidoarjo\data\system | dir *saas*
+/ketik)cd C:\Users\usef\work\sidoarjo\data\system | grep -r "saas"
+c:\work\kenza\appgen,d\n\t/ketik)for /F "tokens=*" %a in (down.txt) do git clone %a
+c:\hapus\oprek-dan-hapus,d\n\t%NAMAPROYEK=cepat-csharp-wpf\n\t/ketik)[name=kerjaan]dotnet new wpf -n NAMAPROYEK\n\t/ketik)[target=kerjaan]wait:tunggu creation sblm build|cd NAMAPROYEK|dotnet build|wait:tunggu build sblm run|dotnet run
+c:\hapus\oprek-dan-hapus,d\n\t%NAMAPROYEK=latihan_android\n\tNAMAPROYEK,d\n\t\t/fmus)C:\Users\usef\work\sidoarjo\data\kenza\android\KNote.fmus\n\t\t/ketik)[name=1]dir

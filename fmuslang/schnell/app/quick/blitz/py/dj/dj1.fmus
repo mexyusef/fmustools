@@ -1,0 +1,59 @@
+--% index/fmus
+__PWD,d
+	@Masukkan nama virtualenv folder*
+	%__TEMPLATE_NAMA_VENV_FOLDER=__INPUT__    
+	?pick
+		#@ venv linux*
+		#    $* python -m venv __TEMPLATE_NAMA_VENV_FOLDER
+		#    @ jalankan: source __TEMPLATE_NAMA_VENV_FOLDER/bin/activate*
+		@ venv windows*
+			.,d(/load=__FILE__=info_django_create_venv*)
+	@selesai 2/2*
+--#
+
+--% info_django_create_venv
+.,d
+	%__TEMPLATE_DJANGOPROJECT=__INPUT__
+	__TEMPLATE_DJANGOPROJECT,d
+		info.txt,f(e=__FILE__=info_harus_panjang)
+		$* wsl cat info.txt
+		.,d(/load=__FILE__=.ebextensions*)
+		$* virtualenv __TEMPLATE_NAMA_VENV_FOLDER
+		$* cmd /k __TEMPLATE_NAMA_VENV_FOLDER\Scripts\activate
+	@selesai 1/2*
+--#
+
+--% .ebextensions
+.,d
+	.ebextensions,d(/mk)
+		@Masukkan folder berisi wsgi:application (misal "main"): *
+		%__TEMPLATE_WSGI_APP=__INPUT__
+		django.config,f(e=__FILE__=template1)
+--#
+
+--% template1
+option_settings:
+  aws:elasticbeanstalk:container:python:
+	WSGIPath: __TEMPLATE_WSGI_APP.wsgi:application
+--#
+
+
+--% info_harus_panjang
+
+pip install Django==3.2.12
+pip freeze
+pip freeze > requirements.txt
+django-admin startproject __TEMPLATE_DJANGOPROJECT
+python manage.py runserver 0.0.0.0:__NILAI_SERVER_PORT__
+
+--#
+
+
+--% create django
+.,d
+	%__TEMPLATE_DJANGOPROJECT=__INPUT__
+	$* django-admin startproject __TEMPLATE_DJANGOPROJECT
+	__TEMPLATE_DJANGOPROJECT,d
+		.,d(/load=__CURDIR__/../devops/eb1.fmus=index/fmus*)
+		$* python manage.py runserver 0.0.0.0:__NILAI_SERVER_PORT__
+--#

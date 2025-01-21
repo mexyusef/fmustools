@@ -1,0 +1,44 @@
+--% index/fmus
+__PWD,d
+	@masukkan nama folder dan file (sama) cpp*
+	%__TEMPLATE_FILENAME=__INPUT__
+	__TEMPLATE_FILENAME,d(/mk)
+		CMakeLists.txt,f(e=__FILE__=cmakefile)
+		__TEMPLATE_FILENAME.cpp,f(t=)
+		build,d(/mk)
+			#$* cmake ..
+			#$* make
+			#$* ls -al
+--#
+
+--% kodesumber
+#include <iostream>
+#include <boost/chrono.hpp> // apt install boost-headers
+
+int main(void)
+{
+    using namespace boost::chrono;
+
+    std::cout << "Date/Time: " <<  system_clock::now() << '\n';
+    return 0;
+}
+--#
+
+--% cmakefile
+cmake_minimum_required(VERSION 3.6)
+project(chapter01)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_custom_target(hasil)
+
+function(example number)
+    add_executable(hasil${number} __TEMPLATE_FILENAME.cpp)
+    target_compile_definitions(hasil${number} PRIVATE EXAMPLE${number} BOOST_LOG_DYN_LINK)
+    add_dependencies(hasil hasil${number})
+    target_link_libraries(hasil${number} boost_chrono boost_log boost_system pthread)
+endfunction(example)
+
+example(01)
+example(02)
+--#

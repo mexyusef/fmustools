@@ -1,0 +1,557 @@
+
+[/monyong]{@Article,#}slug,slug,dbi,len=255,u;author,fk//profiles.Profile/d/rn=articles;tags,mm/articles.Tag/rn=articles;body,t;description,t;title,s,dbi,len=255|{@Tag,#}tag,s,len=255;slug,slug,dbi,u|{@Comment}body,t;article,fk//articles.Article/d/rn=comments;author,fk//profiles.Profile/d/rn=comments
+
+kita bikin table:
+Article
+  slug
+  author
+  tags
+  body
+  description
+  title
+Tag
+  tag
+  slug
+Comment
+  body
+  article
+  author
+
+
+
+[usef:rahasia@gisel.ddns.net:9022/ecomm]{@Review=#100}user,fk/user/d=setnull,n;product,fk/Product/d=setnull,n;name,s,len=200,n,b;rating,i,n,b,df=0;comment,t,n,b;_id,auto,pk,E|{@Order=#100}user,fk/User/d=setnull,n;paymentMethod,s,len=200,n,b;taxPrice,dec,digits=7,places=2,n,b;shippingPrice,dec,digits=7,places=2,n,b;totalPrice,dec,digits=7,places=2,n,b;isPaid,b,df=False;paidAt,ts,ana,n,b;isDelivered,b,df=False;deliveredAt,ts,ana,n,b;createdAt,ts,ana;_id,auto,pk,E|{@OrderItem=#100}product,fk/Product/d=setnull,n;order,fk/Order/d=setnull,n;name,s,len=200,n,b;qty,i,n,b,df=0;price,dec,digits=7,places=2,n,b;image,s,len=200,n,b;_id,auto,pk,E|{@Product=#100}user,fk/User/d=setnull,u;name,s,len=200,n,b;brand,s,len=200,n,b;category,s,len=200,n,b;description,t,n,b;rating,dec,digits=7,places=2,n,b;price,dec,digits=7,places=2,n,b;numreviews,i,n,b,df=0;countInStock,i,n,b,df=0;createdAt,ts,ana;_id,auto,pk,E;image,img,n,b|{@ShippingAddress=#100}order,11/Order/d=cascade,n,b;address,s,len=200,n,b;city,s,len=200,n,b;postalCode,s,len=200,n,b;country,s,len=200,n,b;shippingPrice,dec,digits=7,places=2,n,b;_id,auto,pk,E 
+
+database
+  dbconfig
+    userpass
+      user      usef
+      pass      rahasia
+    hostport
+      host      gisel.ddns.net
+      port      9022
+    dbspec
+      dbname    ecomm
+  table
+    configuration
+      config_name_number
+        config_name_spec
+          schema_table
+            tablename   Review
+        config_number_spec
+          number_of_data        100
+    statement
+      column_name       user
+      column_type_spec
+        django_foreign_key
+          rel_to_object user
+          action_list
+            delete_action
+              delete_setnull
+      column_constraint_spec
+        yes_null
+    insn_separator
+    statement
+      column_name       product
+      column_type_spec
+        django_foreign_key
+          rel_to_object Product
+          action_list
+            delete_action
+              delete_setnull
+      column_constraint_spec
+        yes_null
+    insn_separator
+    statement
+      column_name       name
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       rating
+      column_type_spec
+        integer
+      column_constraint_spec
+        yes_null
+        yes_blank
+        column_constraint
+          nilai_default 0
+    insn_separator
+    statement
+      column_name       comment
+      column_type_spec
+        text
+      column_constraint_spec
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       _id
+      column_type_spec
+        auto
+      column_constraint_spec
+        primary_key
+        no_editable
+  table_separator
+  table
+    configuration
+      config_name_number
+        config_name_spec
+          schema_table
+            tablename   Order
+        config_number_spec
+          number_of_data        100
+    statement
+      column_name       user
+      column_type_spec
+        django_foreign_key
+          rel_to_object User
+          action_list
+            delete_action
+              delete_setnull
+      column_constraint_spec
+        yes_null
+    insn_separator
+    statement
+      column_name       paymentMethod
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       taxPrice
+      column_type_spec
+        decimal
+      column_constraint_spec
+        max_digits      7
+        decimal_places  2
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       shippingPrice
+      column_type_spec
+        decimal
+      column_constraint_spec
+        max_digits      7
+        decimal_places  2
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       totalPrice
+      column_type_spec
+        decimal
+      column_constraint_spec
+        max_digits      7
+        decimal_places  2
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       isPaid
+      column_type_spec
+        boolean
+      column_constraint_spec
+        column_constraint
+          nilai_default False
+    insn_separator
+    statement
+      column_name       paidAt
+      column_type_spec
+        timestamp
+      column_constraint_spec
+        auto_now
+    insn_separator
+    statement
+      column_name       a
+      column_type_spec
+        number
+      column_constraint_spec
+        yes_blank
+    insn_separator
+    statement
+      column_name       isDelivered
+      column_type_spec
+        boolean
+      column_constraint_spec
+        column_constraint
+          nilai_default False
+    insn_separator
+    statement
+      column_name       deliveredAt
+      column_type_spec
+        timestamp
+      column_constraint_spec
+        auto_now_add
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       createdAt
+      column_type_spec
+        timestamp
+      column_constraint_spec
+        auto_now_add
+    insn_separator
+    statement
+      column_name       _id
+      column_type_spec
+        auto
+      column_constraint_spec
+        primary_key
+        no_editable
+  table_separator
+  table
+    configuration
+      config_name_number
+        config_name_spec
+          schema_table
+            tablename   OrderItem
+        config_number_spec
+          number_of_data        100
+    statement
+      column_name       product
+      column_type_spec
+        django_foreign_key
+          rel_to_object Product
+          action_list
+            delete_action
+              delete_setnull
+      column_constraint_spec
+        yes_null
+    insn_separator
+    statement
+      column_name       order
+      column_type_spec
+        django_foreign_key
+          rel_to_object Order
+          action_list
+            delete_action
+              delete_setnull
+      column_constraint_spec
+        yes_null
+    insn_separator
+    statement
+      column_name       name
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       qty
+      column_type_spec
+        integer
+      column_constraint_spec
+        yes_null
+        yes_blank
+        column_constraint
+          nilai_default 0
+    insn_separator
+    statement
+      column_name       price
+      column_type_spec
+        decimal
+      column_constraint_spec
+        max_digits      7
+        decimal_places  2
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       image
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       _id
+      column_type_spec
+        auto
+      column_constraint_spec
+        primary_key
+        no_editable
+  table_separator
+  table
+    configuration
+      config_name_number
+        config_name_spec
+          schema_table
+            tablename   Product
+        config_number_spec
+          number_of_data        100
+    statement
+      column_name       user
+      column_type_spec
+        django_foreign_key
+          rel_to_object User
+          action_list
+            delete_action
+              delete_setnull
+      column_constraint_spec
+        unique
+    insn_separator
+    statement
+      column_name       name
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       brand
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       category
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       description
+      column_type_spec
+        text
+      column_constraint_spec
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       rating
+      column_type_spec
+        decimal
+      column_constraint_spec
+        max_digits      7
+        decimal_places  2
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       price
+      column_type_spec
+        decimal
+      column_constraint_spec
+        max_digits      7
+        decimal_places  2
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       numreviews
+      column_type_spec
+        integer
+      column_constraint_spec
+        yes_null
+        yes_blank
+        column_constraint
+          nilai_default 0
+    insn_separator
+    statement
+      column_name       countInStock
+      column_type_spec
+        integer
+      column_constraint_spec
+        yes_null
+        yes_blank
+        column_constraint
+          nilai_default 0
+    insn_separator
+    statement
+      column_name       createdAt
+      column_type_spec
+        timestamp
+      column_constraint_spec
+        auto_now_add
+    insn_separator
+    statement
+      column_name       _id
+      column_type_spec
+        auto
+      column_constraint_spec
+        primary_key
+        no_editable
+    insn_separator
+    statement
+      column_name       image
+      column_type_spec
+        integer
+    insn_separator
+    statement
+      column_name       mg
+      column_type_spec
+        number
+      column_constraint_spec
+        yes_blank
+  table_separator
+  table
+    configuration
+      config_name_number
+        config_name_spec
+          schema_table
+            tablename   ShippingAddress
+        config_number_spec
+          number_of_data        100
+    statement
+      column_name       order
+      column_type_spec
+        django_one_to_one
+          rel_to_object Order
+          action_list
+            delete_action
+              delete_cascade
+      column_constraint_spec
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       address
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       city
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       postalCode
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       country
+      column_type_spec
+        string
+      column_constraint_spec
+        max_length      200
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       shippingPrice
+      column_type_spec
+        decimal
+      column_constraint_spec
+        max_digits      7
+        decimal_places  2
+        yes_null
+        yes_blank
+    insn_separator
+    statement
+      column_name       _id
+      column_type_spec
+        auto
+      column_constraint_spec
+        primary_key
+        no_editable
+
+coba analisis:
+django_foreign_key
+  rel_to_object User
+  action_list           <- constr
+    delete_action       <- crud_tree
+      delete_setnull    <- crud_tree.children = deltype
+      
+elif constr.data == 'action_list':
+  crud_tree = constr.children[0]
+  crud = crud_tree.data
+  if crud == 'delete_action':
+    # bisa models.CASCADE atau models.SET_NULL
+    # default cascade
+    StatementNode.foreignKeyOnDelete = 'models.CASCADE'
+    if len(crud_tree.children) > 0:
+      deltype = crud_tree.children[0]
+      cascade_or_setnull = deltype.children[0] <- gak ada 0
+      if cascade_or_setnull.data == 'delete_setnull':
+        StatementNode.foreignKeyOnDelete = 'models.SET_NULL'
+
+repl run() err: 'Fakesey' object has no attribute '_django_foreign_key'
+Traceback (most recent call last):
+  File "/home/usef/dahsyat/bantuan/main.py", line 192, in run
+    self.process(text)
+  File "/home/usef/dahsyat/bantuan/main.py", line 245, in process
+    gen_django(RootNode)
+  File "../bantuan/generator/gen_django.py", line 516, in gen_django
+    kwargs = generate_faker(table=tbl)
+  File "../bantuan/generator/gen_django.py", line 472, in generate_faker
+    kembali = getattr(faker_instance, f'_{maintype}') ()
+AttributeError: 'Fakesey' object has no attribute '_django_foreign_key'
+
+==
+config_spec: config_name_spec "=" config_number_spec -> config_name_number
+	| config_name_spec
+	| "ts" -> config_timestamp_spec
+	| "-id" -> config_remove_attribute_id
+	| "->" has_one_syntax
+	| "<-" belongs_to_syntax
+
+has_one_syntax: assoc_table "/" foreign_column "/" domestic_column ("/" as_column)
+belongs_to_syntax: assoc_table "/" foreign_column "/" domestic_column ("/" as_column)
+assoc_table: HURUF_SPACE_MINUS
+foreign_column: HURUF_SPACE_MINUS
+domestic_column: HURUF_SPACE_MINUS
+as_column: HURUF_SPACE_MINUS
+
+{@User,ts,-id,->Profile/id/profile_id}
+{@User,ts,-id,->Profile/id/profile_id/profile}
+
+PostReport,ts
+  post_id,bi,N
+  user_id,bi,N
+  content,t
+  PostReport.hasOne(User, {
+    foreignKey: "id",
+    sourceKey: "user_id",
+    as: "user",
+  });
+
+{@PostReport,ts,-id,h1:User/id/user_id/user}
+{@PostReport,ts,-id,bl:User/id/user_id/user}
+
+{@PostReport,ts,-id,->User/id/user_id/user}
+{@PostReport,ts,-id,-*User/id/user_id/user}
+{@PostReport,ts,-id,-*User/id/user_id/user}
+
+{@PostReport,ts,-id,-@User/id/user_id/user}
+
+{@PostReport,ts,-id,->>User/id/user_id/user}
+{@PostReport,ts,-id,-b>User/id/user_id/user}
+{@PostReport,ts,-id,-b:User/id/user_id/user}
+
+{@PostReport,ts,-id}category,s,N
+{@PostReport,ts,-id,->User/id/user_id/user}category,s,N
+{@PostReport,ts,-id,=>User/id/user_id/user}category,s,N

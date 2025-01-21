@@ -1,0 +1,122 @@
+.,d
+    manage.py,f(t=)
+    requirements.txt,f(t=)
+    myproject,d
+        __init__.py,f(t=)
+        settings,d
+            __init__.py,f(t=)
+            base.py,f(t=)
+            development.py,f(t=)
+            production.py,f(t=)
+        urls.py,f(t=)
+        wsgi.py,f(t=)
+    myapp,d
+        __init__.py,f(t=)
+        admin.py,f(t=)
+        apps.py,f(t=)
+        models.py,f(t=)
+        serializers.py,f(t=)
+        tests,d
+            __init__.py,f(t=)
+            test_models.py,f(t=)
+            test_serializers.py,f(t=)
+        views.py,f(t=)
+        urls.py,f(t=)
+
+langkah buat proyek django di sini:
+1.
+2.
+3.
+4.
+5.
+
+kita lihat struktur dari api-server django
+api-server-django,d
+    api,d
+        authentication,d
+            migrations,d
+            models,d
+                active_session.py
+                __init__.py
+            serializers,d
+                login.py
+                register.py
+                __init__.py
+            viewsets,d
+                active_session.py
+                login.py
+                logout.py
+                register.py
+                social_login.py
+                __init__.py
+            apps.py
+            backends.py
+            tests.py
+            __init__.py
+        fixtures,d
+            user.py
+            __init__.py
+        user,d
+            migrations,d
+            __init__.py
+            apps.py
+            models.py
+            serializers.py
+            tests.py
+            viewsets.py
+        apps.py
+        routers.py
+        __init__.py
+    core,d
+        asgi.py
+        settings.py
+        test_runner.py
+        urls.py
+        wsgi.py
+        __init__.py
+    nginx,d
+        myapp.conf
+    .env
+    .dockerignore
+    docker-compose.yml
+    Dockerfile
+    manage.py
+    requirements.txt
+
+*****************
+react
+*****************
+/mnt/c/hapus/oprek-dan-hapus/datadm
+├── Dockerfile
+├── Dockerfile.cuda
+├── LICENSE
+├── README.md
+├── datadm
+│   ├── __init__.py
+│   ├── agent.py
+│   ├── agents
+│   │   ├── __init__.py
+│   │   ├── baseline.py
+│   │   └── cotmultistep.py
+│   ├── app.py
+│   ├── backend.py
+│   ├── conversation.py
+│   └── repl.py
+├── datadm-header.png
+├── datadm.ipynb
+├── demos
+│   ├── data
+│   │   ├── country-regions.csv
+│   │   └── world_happiness_report.csv
+│   ├── datadm_happiness_qa_and_plots.mp4
+│   ├── demo.ipynb
+│   └── mouse_helper.js
+├── dev-requirements.txt
+├── pyproject.toml
+└── tests
+    ├── __init__.py
+    └── test_repl.py
+
+5 directories, 24 files
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\django.txt

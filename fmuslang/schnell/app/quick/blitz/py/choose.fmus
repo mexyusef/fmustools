@@ -1,0 +1,133 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        $* sudo apt install -y python3-venv
+        $* pip install virtualenv
+        $* python -mvenv venv
+        $* source venv/bin/activate
+        $* pipenv shell
+        $* pip install Django==3.2.12
+        $* pip install Flask
+        $* pip install fastapi
+        $* pip install sqlalchemy
+        $* python -mdjango --version
+        $* python -c"import django;print(django.__version__)"
+        
+        $* pip freeze
+        $* pip freeze > requirements.txt
+        $* pip install -r requirements.txt
+
+        @ virtualenv __TEMPLATE_VIRTUALENV_FOLDER*
+            %__TEMPLATE_VIRTUALENV_FOLDER=__INPUT__
+            $* virtualenv __TEMPLATE_VIRTUALENV_FOLDER
+            ?pick
+                $* __TEMPLATE_VIRTUALENV_FOLDER\Scripts\activate
+                $* source __TEMPLATE_VIRTUALENV_FOLDER/bin/activate
+
+        @ python -mvenv __TEMPLATE_VIRTUALENV_FOLDER
+            %__TEMPLATE_VIRTUALENV_FOLDER=__INPUT__
+            $* python -mvenv __TEMPLATE_VIRTUALENV_FOLDER
+            ?pick
+                $* __TEMPLATE_VIRTUALENV_FOLDER\Scripts\activate
+                $* source __TEMPLATE_VIRTUALENV_FOLDER/bin/activate
+
+        @let's code!*
+            ?pick
+                .,d(/load=__FILE__=letscode/empty-pwd*)
+                .,d(/load=__FILE__=letscode/empty-input*)
+                .,d(/load=__FILE__=letscode/input-folder*)
+                .,d(/load=__FILE__=letscode/pytest*)
+                .,d(/load=__FILE__=letscode/unittest*)
+
+        @play around with database - py firebase, sqlalchemy*
+            ?pick
+                .,d(/load=__CURDIR__/db/firebase.fmus=index/fmus*)
+                @main2 dg sqlalchemy di sini*
+                @main2 dg alembic di sini*
+
+        @play around with gui - kivy*
+            .,d(/load=__CURDIR__/gui/kivy.fmus=index/fmus*)
+
+        @create virtualenv folder + activate*
+            .,d(/load=__FILE__=virtualenv folder*)
+
+        .,d(/load=__FILE__=dahsyaterz*)
+--#
+
+--% dahsyaterz
+.,d
+    ?pick
+        @ /D>dj|csvcode *
+            %__TEMPLATE_CSVCODE=__INPUT__
+            /D>dj|__TEMPLATE_CSVCODE
+        @ /D>dj|[usef:rahasia@localhost:5432/tempdb]csvcode *
+            %__TEMPLATE_CSVCODE=__INPUT__
+            /D>dj|[usef:rahasia@localhost:5432/tempdb]__TEMPLATE_CSVCODE
+        @ /D>fa|csvcode *
+            %__TEMPLATE_CSVCODE=__INPUT__
+            /D>fa|__TEMPLATE_CSVCODE
+        @ /D>fl|csvcode *
+            %__TEMPLATE_CSVCODE=__INPUT__
+            /D>fl|__TEMPLATE_CSVCODE
+
+        @ /D>fl|[usef:rahasia@localhost:5432/tempdb]csvcode *
+            @coba gunakan input gui...*
+            %__TEMPLATE_CSVCODE=__INPUTGUI__
+            /D>fl|[usef:rahasia@localhost:5432/tempdb]__TEMPLATE_CSVCODE
+
+        @ /D>=filepath=barisentry*
+            @coba gunakan dari barisentry*
+            /D>=__CURDIR__/codes.fmus=order/us
+--#
+
+
+--% letscode/empty-pwd
+__PWD__,d
+    $* code .
+--#
+
+--% letscode/empty-input
+__INPUT__,d
+    $* code .
+--#
+
+--% letscode/input-folder
+__INPUT__,d
+    main.py,f(e=__FILE__=letscode/template1)
+    $* code main.py
+--#
+
+--% letscode/template1
+def main():
+    """
+    """
+
+if __name__ == '__main__':
+  main()
+--#
+
+--% letscode/unittest
+__INPUT__,d
+    main,py,f(e=__FILE__=letscode/template1)
+    $* code main.py
+--#
+
+--% letscode/pytest
+__INPUT__,d
+    main,py,f(e=__FILE__=letscode/template1)
+    $* code main.py
+--#
+
+
+--% virtualenv folder
+.,d
+    %__TEMPLATE_VIRTUALENV_FOLDER=__INPUT__
+    ?pick
+        $* python -mvenv __TEMPLATE_VIRTUALENV_FOLDER
+        $* virtualenv __TEMPLATE_VIRTUALENV_FOLDER
+    ?pick
+        $* source __TEMPLATE_VIRTUALENV_FOLDER/bin/activate
+        $* __TEMPLATE_VIRTUALENV_FOLDER\Scripts\activate
+    ?pick
+        $* pip install Django==3.2.12
+--#

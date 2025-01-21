@@ -1,0 +1,11 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan sitarang*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+kan ada permainan gis, peta/leaflet etc.
+coba gabungkan dg https://github.com/ResidentMario/geoplot
+--#

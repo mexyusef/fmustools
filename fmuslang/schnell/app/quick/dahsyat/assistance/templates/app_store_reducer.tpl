@@ -1,0 +1,5 @@
+__TAB(1)__TABLENAME_LOWER__Create : __TABLENAME_LOWER__CreateReducer,
+__TAB(1)__TABLENAME_LOWER__List   : __TABLENAME_LOWER__ListReducer,
+__TAB(1)__TABLENAME_LOWER__Detail : __TABLENAME_LOWER__DetailReducer,
+__TAB(1)__TABLENAME_LOWER__Update : __TABLENAME_LOWER__UpdateReducer,
+__TAB(1)__TABLENAME_LOWER__Delete : __TABLENAME_LOWER__DeleteReducer,

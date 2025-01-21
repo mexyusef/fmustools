@@ -1,0 +1,53 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan trg termasuk risti, portal-jelajah-semesta, inti, intelix dan jabas*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+ada apa saja...
+- training telco
+- fiona, inms, anms, ...
+- dari inti vocoder??? sox player?
+- call center
+- ivr
+- freeradius...
+- iptv / broadcast / mplayer / ffmpeg
+	disini ada bbrp konsep
+	mpeg-ts (ada juga mpeg-ps klo gak salah...)
+	dvb
+	vbi utk vertical blanking interface dan ad...
+	(ini relevant utk apply nowtilus yg pake hls, dash, dst.)
+- billing
+	ada voip billing
+	ternyata da open source billing:
+		https://killbill.io/
+		https://www.youtube.com/c/KillbillIoOSS/videos
+		https://github.com/orgs/killbill/repositories
+		https://demo.killbill.io/admin_tenants/9
+wah revisit masa lalu...
+
+konsep telcos masuk sini saja?
+--#
+
+--% pt-inet/fmus
+--#
+
+--% trg/fmus
+--#
+
+--% pt-inti/fmus
+--#
+
+--% risti-telkom/fmus
+--#
+
+--% portal-jelajah-semesta/fmus
+--#
+
+--% intelix-global-crossing/fmus
+--#
+
+--% pt-jabas/fmus
+--#

@@ -1,0 +1,1188 @@
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\resources\application.properties
+management.security.enabled=false
+spring.datasource.name=ecommercedb
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+#H2 settings
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\resources\logback.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
+#################################################
+#################################################
+#################################################
+#################################################
+#################################################C:\portfolio\_springboot\springboot-ecommerce\pom.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.0.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.hendisantika.ecommerce</groupId>
+    <artifactId>springboot-ecommerce</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>springboot-ecommerce</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.210</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\SpringbootEcommerceApplication.java
+package com.hendisantika.ecommerce.springbootecommerce;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.Product;
+import com.hendisantika.ecommerce.springbootecommerce.service.ProductService;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+@SpringBootApplication
+public class SpringbootEcommerceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootEcommerceApplication.class, args);
+    }
+
+    @Bean
+    CommandLineRunner runner(ProductService productService) {
+        return args -> {
+            productService.save(new Product(1L, "Samsung TV Set", 300.00, "https://encrypted-tbn0.gstatic" +
+                    ".com/images?q=tbn:ANd9GcSHs_Q_HmDxOPprg7CJHWYf_qMf3qUtubTQ8nsSoC4FRdhsaT5ffg&s"));
+            productService.save(new Product(2L, "Game Console", 200.00, "https://images-na.ssl-images-amazon" +
+                    ".com/images/I/71jN27mYlhL._AC_SL1500_.jpg"));
+            productService.save(new Product(3L, "Sofa", 100.00, "https://media.4rgos.it/i/Argos/9182723_R_Z001A?w=750" +
+                    "&h=440&qlt=70"));
+            productService.save(new Product(4L, "Ice Cream", 5.00, "https://mmc.tirto.id/image/otf/500x0/2020/03/31" +
+                    "/header-walls-vienetta_ratio-16x9.jpg"));
+            productService.save(new Product(5L, "Marjan", 3.00, "https://ecs7.tokopedia" +
+                    ".net/img/cache/700/product-1/2018/10/18/4395737/4395737_869adbbe-e65e-4491-82eb" +
+                    "-7f66cce49488_394_394.jpg"));
+            productService.save(new Product(6L, "iPhone 11X", 500.00, "https://www.concept-phones" +
+                    ".com/wp-content/uploads/2019/08/iPhone-11X-concept-phone-Hasan-Kaymak-1.jpg"));
+            productService.save(new Product(7L, "Watch", 30.00, "https://p.ipricegroup" +
+                    ".com/uploaded_16689895db8e5bf4e35f115583693d64.jpg"));
+            productService.save(new Product(8L, "MI TV Set", 300.00, "https://i01.appmifile" +
+                    ".com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1586239648.44731389.jpg"));
+            productService.save(new Product(9L, "Brompton", 350.00, "https://www.brompton" +
+                    ".com/~/media/images/core-site-content/interactive-bike-block/explore/bromptonexplore_740x600" +
+                    ".png?h=600&la=en&w=740"));
+        };
+    }
+
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\controller\OrderController.java
+package com.hendisantika.ecommerce.springbootecommerce.controller;
+
+import com.hendisantika.ecommerce.springbootecommerce.dto.OrderProductDto;
+import com.hendisantika.ecommerce.springbootecommerce.exception.ResourceNotFoundException;
+import com.hendisantika.ecommerce.springbootecommerce.model.Order;
+import com.hendisantika.ecommerce.springbootecommerce.model.OrderProduct;
+import com.hendisantika.ecommerce.springbootecommerce.model.OrderStatus;
+import com.hendisantika.ecommerce.springbootecommerce.service.OrderProductService;
+import com.hendisantika.ecommerce.springbootecommerce.service.OrderService;
+import com.hendisantika.ecommerce.springbootecommerce.service.ProductService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:17
+ */
+@RestController
+@RequestMapping("/api/orders")
+public class OrderController {
+
+    ProductService productService;
+    OrderService orderService;
+    OrderProductService orderProductService;
+
+    public OrderController(ProductService productService, OrderService orderService, OrderProductService orderProductService) {
+        this.productService = productService;
+        this.orderService = orderService;
+        this.orderProductService = orderProductService;
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public @NotNull Iterable<Order> listAllOrders() {
+        return this.orderService.getAllOrders();
+    }
+
+    @PostMapping
+    public ResponseEntity<Order> create(@RequestBody OrderForm form) {
+        List<OrderProductDto> formDtos = form.getProductOrders();
+        validateProductsExistence(formDtos);
+        Order order = new Order();
+        order.setStatus(OrderStatus.PAID.name());
+        order = this.orderService.create(order);
+
+        List<OrderProduct> orderProducts = new ArrayList<>();
+        for (OrderProductDto dto : formDtos) {
+            orderProducts.add(orderProductService.create(new OrderProduct(order, productService.getProduct(dto
+                    .getProduct()
+                    .getId()), dto.getQuantity())));
+        }
+
+        order.setOrderProducts(orderProducts);
+
+        this.orderService.update(order);
+
+        String uri = ServletUriComponentsBuilder
+                .fromCurrentServletMapping()
+                .path("/orders/{id}")
+                .buildAndExpand(order.getId())
+                .toString();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", uri);
+
+        return new ResponseEntity<>(order, headers, HttpStatus.CREATED);
+    }
+
+    private void validateProductsExistence(List<OrderProductDto> orderProducts) {
+        List<OrderProductDto> list = orderProducts
+                .stream()
+                .filter(op -> Objects.isNull(productService.getProduct(op
+                        .getProduct()
+                        .getId())))
+                .collect(Collectors.toList());
+
+        if (!CollectionUtils.isEmpty(list)) {
+            new ResourceNotFoundException("Product not found");
+        }
+    }
+
+    public static class OrderForm {
+
+        private List<OrderProductDto> productOrders;
+
+        public List<OrderProductDto> getProductOrders() {
+            return productOrders;
+        }
+
+        public void setProductOrders(List<OrderProductDto> productOrders) {
+            this.productOrders = productOrders;
+        }
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\controller\ProductController.java
+package com.hendisantika.ecommerce.springbootecommerce.controller;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.Product;
+import com.hendisantika.ecommerce.springbootecommerce.service.ProductService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.constraints.NotNull;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:21
+ */
+@RestController
+@RequestMapping("/api/products")
+public class ProductController {
+
+    private ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping(value = {"", "/"})
+    public @NotNull Iterable<Product> getProducts() {
+        return productService.getAllProducts();
+    }
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\dto\OrderProductDto.java
+package com.hendisantika.ecommerce.springbootecommerce.dto;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.Product;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:08
+ */
+public class OrderProductDto {
+    private Product product;
+    private Integer quantity;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\exception\ApiExceptionHandler.java
+package com.hendisantika.ecommerce.springbootecommerce.exception;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:08
+ */
+@RestControllerAdvice
+public class ApiExceptionHandler {
+    @SuppressWarnings("rawtypes")
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> handle(ConstraintViolationException e) {
+        ErrorResponse errors = new ErrorResponse();
+        for (ConstraintViolation violation : e.getConstraintViolations()) {
+            ErrorItem error = new ErrorItem();
+            error.setCode(violation.getMessageTemplate());
+            error.setMessage(violation.getMessage());
+            errors.addError(error);
+        }
+
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @SuppressWarnings("rawtypes")
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorItem> handle(ResourceNotFoundException e) {
+        ErrorItem error = new ErrorItem();
+        error.setMessage(e.getMessage());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    public static class ErrorItem {
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String code;
+
+        private String message;
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+    }
+
+    public static class ErrorResponse {
+
+        private List<ErrorItem> errors = new ArrayList<>();
+
+        public List<ErrorItem> getErrors() {
+            return errors;
+        }
+
+        public void setErrors(List<ErrorItem> errors) {
+            this.errors = errors;
+        }
+
+        public void addError(ErrorItem error) {
+            this.errors.add(error);
+        }
+
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\exception\ResourceNotFoundException.java
+package com.hendisantika.ecommerce.springbootecommerce.exception;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:11
+ */
+public class ResourceNotFoundException extends RuntimeException {
+
+    private static final long serialVersionUID = 5861310537366287163L;
+
+    public ResourceNotFoundException() {
+        super();
+    }
+
+    public ResourceNotFoundException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
+    public ResourceNotFoundException(final String message) {
+        super(message);
+    }
+
+    public ResourceNotFoundException(final Throwable cause) {
+        super(cause);
+    }
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\model\Order.java
+package com.hendisantika.ecommerce.springbootecommerce.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.persistence.*;
+import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:03
+ */
+@Entity
+@Table(name = "orders")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderProducts")
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateCreated;
+
+    private String status;
+
+    @OneToMany(mappedBy = "pk.order")
+    @Valid
+    private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    @Transient
+    public Double getTotalOrderPrice() {
+        double sum = 0D;
+        List<OrderProduct> orderProducts = getOrderProducts();
+        for (OrderProduct op : orderProducts) {
+            sum += op.getTotalPrice();
+        }
+
+        return sum;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<OrderProduct> getOrderProducts() {
+        return orderProducts;
+    }
+
+    public void setOrderProducts(List<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
+    }
+
+    @Transient
+    public int getNumberOfProducts() {
+        return this.orderProducts.size();
+    }
+
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\model\OrderProduct.java
+package com.hendisantika.ecommerce.springbootecommerce.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:06
+ */
+@Entity
+public class OrderProduct {
+
+    @EmbeddedId
+    @JsonIgnore
+    private OrderProductPK pk;
+
+    @Column(nullable = false)
+    private Integer quantity;
+
+    public OrderProduct() {
+        super();
+    }
+
+    public OrderProduct(Order order, Product product, Integer quantity) {
+        pk = new OrderProductPK();
+        pk.setOrder(order);
+        pk.setProduct(product);
+        this.quantity = quantity;
+    }
+
+    @Transient
+    public Product getProduct() {
+        return this.pk.getProduct();
+    }
+
+    @Transient
+    public Double getTotalPrice() {
+        return getProduct().getPrice() * getQuantity();
+    }
+
+    public OrderProductPK getPk() {
+        return pk;
+    }
+
+    public void setPk(OrderProductPK pk) {
+        this.pk = pk;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((pk == null) ? 0 : pk.hashCode());
+
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        OrderProduct other = (OrderProduct) obj;
+        if (pk == null) {
+            return other.pk == null;
+        } else return pk.equals(other.pk);
+
+    }
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\model\OrderProductPK.java
+package com.hendisantika.ecommerce.springbootecommerce.model;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:06
+ */
+@Embeddable
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "order")
+public class OrderProductPK implements Serializable {
+
+    private static final long serialVersionUID = 476151177562655457L;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+
+        result = prime * result + ((order.getId() == null)
+                ? 0
+                : order
+                .getId()
+                .hashCode());
+        result = prime * result + ((product.getId() == null)
+                ? 0
+                : product
+                .getId()
+                .hashCode());
+
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        OrderProductPK other = (OrderProductPK) obj;
+        if (order == null) {
+            if (other.order != null) {
+                return false;
+            }
+        } else if (!order.equals(other.order)) {
+            return false;
+        }
+
+        if (product == null) {
+            return other.product == null;
+        } else return product.equals(other.product);
+
+    }
+}
+
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\model\OrderStatus.java
+package com.hendisantika.ecommerce.springbootecommerce.model;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:05
+ */
+public enum OrderStatus {
+    PAID,
+    UNPAID,
+    FAILED,
+    CANCEL
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\model\Product.java
+package com.hendisantika.ecommerce.springbootecommerce.model;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:04
+ */
+@Entity
+public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull(message = "Product name is required.")
+    @Basic(optional = false)
+    private String name;
+
+    private Double price;
+
+    private String pictureUrl;
+
+    public Product(Long id, @NotNull(message = "Product name is required.") String name, Double price, String pictureUrl) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.pictureUrl = pictureUrl;
+    }
+
+    public Product() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\repository\OrderProductRepository.java
+package com.hendisantika.ecommerce.springbootecommerce.repository;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.OrderProduct;
+import com.hendisantika.ecommerce.springbootecommerce.model.OrderProductPK;
+import org.springframework.data.repository.CrudRepository;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:12
+ */
+public interface OrderProductRepository extends CrudRepository<OrderProduct, OrderProductPK> {
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\repository\OrderRepository.java
+package com.hendisantika.ecommerce.springbootecommerce.repository;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.Order;
+import org.springframework.data.repository.CrudRepository;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:12
+ */
+public interface OrderRepository extends CrudRepository<Order, Long> {
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\repository\ProductRepository.java
+package com.hendisantika.ecommerce.springbootecommerce.repository;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.Product;
+import org.springframework.data.repository.CrudRepository;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:13
+ */
+public interface ProductRepository extends CrudRepository<Product, Long> {
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\service\OrderProductService.java
+package com.hendisantika.ecommerce.springbootecommerce.service;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.OrderProduct;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:13
+ */
+@Validated
+public interface OrderProductService {
+
+    OrderProduct create(@NotNull(message = "The products for order cannot be null.") @Valid OrderProduct orderProduct);
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\service\OrderProductServiceImpl.java
+package com.hendisantika.ecommerce.springbootecommerce.service;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.OrderProduct;
+import com.hendisantika.ecommerce.springbootecommerce.repository.OrderProductRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:14
+ */
+@Service
+@Transactional
+public class OrderProductServiceImpl implements OrderProductService {
+
+    private OrderProductRepository orderProductRepository;
+
+    public OrderProductServiceImpl(OrderProductRepository orderProductRepository) {
+        this.orderProductRepository = orderProductRepository;
+    }
+
+    @Override
+    public OrderProduct create(OrderProduct orderProduct) {
+        return this.orderProductRepository.save(orderProduct);
+    }
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\service\OrderService.java
+package com.hendisantika.ecommerce.springbootecommerce.service;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.Order;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:14
+ */
+@Validated
+public interface OrderService {
+
+    @NotNull Iterable<Order> getAllOrders();
+
+    Order create(@NotNull(message = "The order cannot be null.") @Valid Order order);
+
+    void update(@NotNull(message = "The order cannot be null.") @Valid Order order);
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\service\OrderServiceImpl.java
+package com.hendisantika.ecommerce.springbootecommerce.service;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.Order;
+import com.hendisantika.ecommerce.springbootecommerce.repository.OrderRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:15
+ */
+@Service
+@Transactional
+public class OrderServiceImpl implements OrderService {
+
+    private OrderRepository orderRepository;
+
+    public OrderServiceImpl(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
+    @Override
+    public Iterable<Order> getAllOrders() {
+        return this.orderRepository.findAll();
+    }
+
+    @Override
+    public Order create(Order order) {
+        order.setDateCreated(LocalDate.now());
+
+        return this.orderRepository.save(order);
+    }
+
+    @Override
+    public void update(Order order) {
+        this.orderRepository.save(order);
+    }
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\service\ProductService.java
+package com.hendisantika.ecommerce.springbootecommerce.service;
+
+import com.hendisantika.ecommerce.springbootecommerce.model.Product;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:15
+ */
+@Validated
+public interface ProductService {
+
+    @NotNull Iterable<Product> getAllProducts();
+
+    Product getProduct(@Min(value = 1L, message = "Invalid product ID.") long id);
+
+    Product save(Product product);
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\main\java\com\hendisantika\ecommerce\springbootecommerce\service\ProductServiceImpl.java
+package com.hendisantika.ecommerce.springbootecommerce.service;
+
+import com.hendisantika.ecommerce.springbootecommerce.exception.ResourceNotFoundException;
+import com.hendisantika.ecommerce.springbootecommerce.model.Product;
+import com.hendisantika.ecommerce.springbootecommerce.repository.ProductRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:16
+ */
+@Service
+@Transactional
+public class ProductServiceImpl implements ProductService {
+
+    private ProductRepository productRepository;
+
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    @Override
+    public Iterable<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public Product getProduct(long id) {
+        return productRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+    }
+
+    @Override
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+}
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\test\java\com\hendisantika\ecommerce\springbootecommerce\EcommerceApplicationIntegrationTest.java
+package com.hendisantika.ecommerce.springbootecommerce;
+
+import com.hendisantika.ecommerce.springbootecommerce.controller.OrderController;
+import com.hendisantika.ecommerce.springbootecommerce.controller.ProductController;
+import com.hendisantika.ecommerce.springbootecommerce.dto.OrderProductDto;
+import com.hendisantika.ecommerce.springbootecommerce.model.Order;
+import com.hendisantika.ecommerce.springbootecommerce.model.Product;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Collections;
+
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.junit.Assert.assertThat;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : springboot-ecommerce
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-04-26
+ * Time: 06:24
+ */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {SpringbootEcommerceApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class EcommerceApplicationIntegrationTest {
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private ProductController productController;
+
+    @Autowired
+    private OrderController orderController;
+
+    @Test
+    public void contextLoads() {
+        Assertions
+                .assertThat(productController)
+                .isNotNull();
+        Assertions
+                .assertThat(orderController)
+                .isNotNull();
+    }
+
+    @Test
+    public void givenGetProductsApiCall_whenProductListRetrieved_thenSizeMatchAndListContainsProductNames() {
+        ResponseEntity<Iterable<Product>> responseEntity = restTemplate.exchange("http://localhost:" + port + "/api/products", HttpMethod.GET, null, new ParameterizedTypeReference<Iterable<Product>>() {
+        });
+        Iterable<Product> products = responseEntity.getBody();
+        Assertions
+                .assertThat(products)
+                .hasSize(7);
+
+        assertThat(products, hasItem(hasProperty("name", is("TV Set"))));
+        assertThat(products, hasItem(hasProperty("name", is("Game Console"))));
+        assertThat(products, hasItem(hasProperty("name", is("Sofa"))));
+        assertThat(products, hasItem(hasProperty("name", is("Icecream"))));
+        assertThat(products, hasItem(hasProperty("name", is("Beer"))));
+        assertThat(products, hasItem(hasProperty("name", is("Phone"))));
+        assertThat(products, hasItem(hasProperty("name", is("Watch"))));
+    }
+
+    @Test
+    public void givenPostOrder_whenBodyRequestMatcherJson_thenResponseContainsEqualObjectProperties() {
+        final ResponseEntity<Order> postResponse = restTemplate.postForEntity("http://localhost:" + port + "/api/orders", prepareOrderForm(), Order.class);
+        Order order = postResponse.getBody();
+        Assertions
+                .assertThat(postResponse.getStatusCode())
+                .isEqualByComparingTo(HttpStatus.CREATED);
+
+        assertThat(order, hasProperty("status", is("PAID")));
+        assertThat(order.getOrderProducts(), hasItem(hasProperty("quantity", is(2))));
+    }
+
+    private OrderController.OrderForm prepareOrderForm() {
+        OrderController.OrderForm orderForm = new OrderController.OrderForm();
+        OrderProductDto productDto = new OrderProductDto();
+        productDto.setProduct(new Product(1L, "TV Set", 300.00, "http://placehold.it/200x100"));
+        productDto.setQuantity(2);
+        orderForm.setProductOrders(Collections.singletonList(productDto));
+
+        return orderForm;
+    }
+}
+
+#################################################C:\portfolio\_springboot\springboot-ecommerce\src\test\java\com\hendisantika\ecommerce\springbootecommerce\SpringbootEcommerceApplicationTests.java
+package com.hendisantika.ecommerce.springbootecommerce;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class SpringbootEcommerceApplicationTests {
+
+    @Test
+    public void contextLoads() {
+    }
+
+}

@@ -1,0 +1,2201 @@
+#################################################C:\portfolio\_django\wey\wey_frontend\vite.config.js
+import { fileURLToPath, URL } from 'node:url'
+
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
+})
+
+#################################################C:\portfolio\_django\wey\wey_frontend\tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+
+#################################################C:\portfolio\_django\wey\wey_frontend\postcss.config.js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+#################################################C:\portfolio\_django\wey\wey_frontend\package.json
+{
+  "name": "wey_frontend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.3.5",
+    "pinia": "^2.0.32",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.3.1",
+    "vite": "^4.1.4"
+  }
+}
+
+#################################################C:\portfolio\_django\wey\wey_frontend\index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+#################################################C:\portfolio\_django\wey\wey_frontend\src\main.js
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+
+import App from './App.vue'
+import router from './router'
+import axios from 'axios'
+
+import './assets/main.css'
+
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
+
+const app = createApp(App)
+
+app.use(createPinia())
+app.use(router, axios)
+
+app.mount('#app')
+
+#################################################C:\portfolio\_django\wey\wey_frontend\src\App.vue
+<template>
+    <nav class="py-10 px-8 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between">
+                <div class="menu-left">
+                    <a href="#" class="text-xl">Wey</a>
+                </div>
+
+                <div class="menu-center flex space-x-12" v-if="userStore.user.isAuthenticated">
+                    <RouterLink to="/feed" class="text-purple-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>
+                    </RouterLink>
+
+                    <RouterLink to="/chat">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"></path>
+                        </svg>                              
+                    </RouterLink>
+
+                    <RouterLink to="/notifications">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"></path>
+                        </svg>                              
+                    </RouterLink>
+
+                    <RouterLink to="/search">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+                        </svg>                                                         
+                    </RouterLink>
+                </div>
+
+                <div class="menu-right">
+                    <template v-if="userStore.user.isAuthenticated && userStore.user.id">
+                        <RouterLink :to="{name: 'profile', params:{'id': userStore.user.id}}">
+                            <img :src="userStore.user.avatar" class="w-12 rounded-full">
+                        </RouterLink>
+                    </template>
+
+                    <template v-else>
+                        <RouterLink to="/login" class="mr-4 py-4 px-6 bg-gray-600 text-white rounded-lg">Log in</RouterLink>
+                        <RouterLink to="/signup" class="py-4 px-6 bg-purple-600 text-white rounded-lg">Sign up</RouterLink>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="px-8 py-6 bg-gray-100">
+        <RouterView />
+    </main>
+
+    <Toast />
+</template>
+
+<script>
+    import axios from 'axios'
+    import Toast from '@/components/Toast.vue'
+    import { useUserStore } from '@/stores/user'
+
+    export default {
+        setup() {
+            const userStore = useUserStore()
+
+            return {
+                userStore
+            }
+        },
+
+        components: {
+            Toast
+        },
+
+        beforeCreate() {
+            this.userStore.initStore()
+
+            const token = this.userStore.user.access
+
+            if (token) {
+                axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+            } else {
+                axios.defaults.headers.common["Authorization"] = "";
+            }
+        }
+    }
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\router\index.js
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import FeedView from '../views/FeedView.vue'
+import SignupView from '../views/SignupView.vue'
+import LoginView from '../views/LoginView.vue'
+import SearchView from '../views/SearchView.vue'
+import ProfileView from '../views/ProfileView.vue'
+import FriendsView from '../views/FriendsView.vue'
+import PostView from '../views/PostView.vue'
+import ChatView from '../views/ChatView.vue'
+import TrendView from '../views/TrendView.vue'
+import EditProfileView from '../views/EditProfileView.vue'
+import EditPasswordView from '../views/EditPasswordView.vue'
+import NotificationsView from '../views/NotificationsView.vue'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/feed',
+      name: 'feed',
+      component: FeedView
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignupView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: SearchView
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: ChatView
+    },
+    {
+      path: '/notifications',
+      name: 'notifications',
+      component: NotificationsView
+    },
+    {
+      path: '/profile/edit',
+      name: 'editprofile',
+      component: EditProfileView
+    },
+    {
+      path: '/profile/edit/password',
+      name: 'editpassword',
+      component: EditPasswordView
+    },
+    {
+      path: '/profile/:id',
+      name: 'profile',
+      component: ProfileView
+    },
+    {
+      path: '/profile/:id/friends',
+      name: 'friends',
+      component: FriendsView
+    },
+    {
+      path: '/:id',
+      name: 'postview',
+      component: PostView
+    },
+    {
+      path: '/trends/:id',
+      name: 'trendview',
+      component: TrendView
+    },
+    {
+      path: '/about',
+      name: 'about',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AboutView.vue')
+    }
+  ]
+})
+
+export default router
+
+#################################################C:\portfolio\_django\wey\wey_frontend\src\stores\counter.js
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', () => {
+  const count = ref(0)
+  const doubleCount = computed(() => count.value * 2)
+  function increment() {
+    count.value++
+  }
+
+  return { count, doubleCount, increment }
+})
+
+#################################################C:\portfolio\_django\wey\wey_frontend\src\stores\toast.js
+import { defineStore } from 'pinia'
+
+export const useToastStore = defineStore({
+    id: 'toast',
+
+    state: () => ({
+        ms: 0,
+        message: '',
+        classes: '',
+        isVisible: false
+    }),
+
+    actions: {
+        showToast(ms, message, classes) {
+            this.ms = parseInt(ms)
+            this.message = message
+            this.classes = classes
+            this.isVisible = true
+
+            setTimeout(() => {
+                this.classes += ' -translate-y-28'
+            }, 10)
+
+            setTimeout(() => {
+                this.classes = this.classes.replace('-translate-y-28', '')
+            }, this.ms - 500)
+
+            setTimeout(() => {
+                this.isVisible = false
+            }, this.ms)
+        }
+    }
+})
+#################################################C:\portfolio\_django\wey\wey_frontend\src\stores\user.js
+import { defineStore } from 'pinia'
+import axios from 'axios'
+
+export const useUserStore = defineStore({
+    id: 'user',
+
+    state: () => ({
+        user: {
+            isAuthenticated: false,
+            id: null,
+            name: null,
+            email: null,
+            access: null,
+            refresh: null,
+            avatar: null
+        }
+    }),
+
+    actions: {
+        initStore() {
+            console.log('initStore', localStorage.getItem('user.access'))
+
+            if (localStorage.getItem('user.access')) {
+                console.log('User has access!')
+
+                this.user.access = localStorage.getItem('user.access')
+                this.user.refresh = localStorage.getItem('user.refresh')
+                this.user.id = localStorage.getItem('user.id')
+                this.user.name = localStorage.getItem('user.name')
+                this.user.email = localStorage.getItem('user.email')
+                this.user.avatar = localStorage.getItem('user.avatar')
+                this.user.isAuthenticated = true
+
+                this.refreshToken()
+
+                console.log('Initialized user:', this.user)
+            }
+        },
+
+        setToken(data) {
+            console.log('setToken', data)
+
+            this.user.access = data.access
+            this.user.refresh = data.refresh
+            this.user.isAuthenticated = true
+
+            localStorage.setItem('user.access', data.access)
+            localStorage.setItem('user.refresh', data.refresh)
+
+            console.log('user.access: ', localStorage.getItem('user.access'))
+        },
+
+        removeToken() {
+            console.log('removeToken')
+
+            this.user.refresh = null
+            this.user.access = null
+            this.user.isAuthenticated = false
+            this.user.id = null
+            this.user.name = null
+            this.user.email = null
+            this.user.avatar = null
+
+            localStorage.setItem('user.access', '')
+            localStorage.setItem('user.refresh', '')
+            localStorage.setItem('user.id', '')
+            localStorage.setItem('user.name', '')
+            localStorage.setItem('user.email', '')
+            localStorage.setItem('user.avatar', '')
+        },
+
+        setUserInfo(user) {
+            console.log('setUserInfo', user)
+
+            this.user.id = user.id
+            this.user.name = user.name
+            this.user.email = user.email
+            this.user.avatar = user.avatar
+
+            localStorage.setItem('user.id', this.user.id)
+            localStorage.setItem('user.name', this.user.name)
+            localStorage.setItem('user.email', this.user.email)
+            localStorage.setItem('user.avatar', this.user.avatar)
+
+            console.log('User', this.user)
+        },
+
+        refreshToken() {
+            axios.post('/api/refresh/', {
+                refresh: this.user.refresh
+            })
+                .then((response) => {
+                    this.user.access = response.data.access
+
+                    localStorage.setItem('user.access', response.data.access)
+
+                    axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.access
+                })
+                .catch((error)=>{
+                    console.log(error)
+
+                    this.removeToken()
+                })
+        },
+    }
+})
+
+#################################################C:\portfolio\_django\wey\wey_frontend\src\components\CommentItem.vue
+<template>
+    <div class="mb-6 flex items-center justify-between">
+        <div class="flex items-center space-x-6">
+            <img :src="comment.created_by.get_avatar" class="w-[40px] rounded-full">
+            
+            <p>
+                <strong>
+                    <RouterLink :to="{name: 'profile', params:{'id': comment.created_by.id}}">{{ comment.created_by.name }}</RouterLink>
+                </strong>
+            </p>
+        </div>
+
+        <p class="text-gray-600">{{ comment.created_at_formatted }} ago</p>
+    </div>
+
+    <p>{{ comment.body }}</p> 
+</template>
+
+<script>
+import { RouterLink } from 'vue-router'
+
+export default {
+    props: {
+        comment: Object
+    },
+    components: { RouterLink }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\components\FeedItem.vue
+<template>
+    <div class="mb-6 flex items-center justify-between">
+        <div class="flex items-center space-x-6">
+            <img :src="post.created_by.get_avatar" class="w-[40px] rounded-full">
+            
+            <p>
+                <strong>
+                    <RouterLink :to="{name: 'profile', params:{'id': post.created_by.id}}">{{ post.created_by.name }}</RouterLink>
+                </strong>
+            </p>
+        </div>
+
+        <p class="text-gray-600">{{ post.created_at_formatted }} ago</p>
+    </div>
+
+    <template v-if="post.attachments.length">
+        <img v-for="image in post.attachments" v-bind:key="image.id" :src="image.get_image" class="w-full mb-4 rounded-xl">
+    </template>
+
+    <p>{{ post.body }}</p>
+
+    <div class="my-6 flex justify-between">
+        <div class="flex space-x-6">
+            <div class="flex items-center space-x-2" @click="likePost(post.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
+                </svg>  
+                
+                <span class="text-gray-500 text-xs">{{ post.likes_count }} likes</span>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"></path>
+                </svg> 
+
+                <RouterLink :to="{name: 'postview', params: {id: post.id}}" class="text-gray-500 text-xs">{{ post.comments_count }} comments</RouterLink>
+            </div>
+        </div>
+        
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"></path>
+            </svg>   
+        </div>   
+    </div>  
+</template>
+
+<script>
+import axios from 'axios'
+import { RouterLink } from 'vue-router'
+
+export default {
+    props: {
+        post: Object
+    },
+    methods: {
+        likePost(id) {
+            axios
+                .post(`/api/posts/${id}/like/`)
+                .then(response => {
+                if (response.data.message == "like created") {
+                    this.post.likes_count += 1;
+                }
+            })
+                .catch(error => {
+                console.log("error", error);
+            });
+        }
+    },
+    components: { RouterLink }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\components\PeopleYouMayKnow.vue
+<template>
+<div class="p-4 bg-white border border-gray-200 rounded-lg">
+        <h3 class="mb-6 text-xl">People you may know</h3>
+
+        <div class="space-y-4">
+            <div 
+                class="flex items-center justify-between"
+                v-for="user in users"
+                v-bind:key="user.id"
+            >
+                <div class="flex items-center space-x-2">
+                    <img :src="user.get_avatar" class="w-[40px] rounded-full">
+                    
+                    <p class="text-xs"><strong>{{ user.name }}</strong></p>
+                </div>
+
+                <RouterLink :to="{name: 'profile', params: {id: user.id}}" class="py-2 px-3 bg-purple-600 text-white text-xs rounded-lg">Show</RouterLink>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+    data() {
+        return {
+            users: []
+        }
+    },
+
+    mounted() {
+        this.getFriendSuggestions()
+    },
+
+    methods: {
+        getFriendSuggestions() {
+            axios
+                .get('/api/friends/suggested/')
+                .then(response => {
+                    console.log(response.data)
+
+                    this.users = response.data
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\components\Toast.vue
+<script setup>
+import { useToastStore } from '@/stores/toast'
+
+const store = useToastStore()
+</script>
+
+<template>
+    <div
+        v-if="store.isVisible"
+        class="transition ease-in-out delay-500 duration-500 px-6 py-6 fixed top-full right-8 rounded-xl shadow-xl"
+        :class="store.classes"
+    >
+        {{ store.message }}
+    </div>
+</template>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\components\Trends.vue
+<template>
+    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+        <h3 class="mb-6 text-xl">Trends</h3>
+
+        <div class="space-y-4">
+            <div 
+                class="flex items-center justify-between"
+                v-for="trend in trends"
+                v-bind:key="trend.id"
+            >
+                <p class="text-xs">
+                    <strong>#{{ trend.hashtag }}</strong><br>
+                    <span class="text-gray-500">{{ trend.occurences }} posts</span>
+                </p>
+
+                <RouterLink :to="{name: 'trendview', params: {id: trend.hashtag}}" class="py-2 px-3 bg-purple-600 text-white text-xs rounded-lg">Explore</RouterLink>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+    name: 'trends',
+
+    data() {
+        return {
+            trends: []
+        }
+    },
+
+    mounted() {
+        this.getTrends()
+    },
+
+    methods: {
+        getTrends() {
+            axios
+                .get('/api/posts/trends/')
+                .then(response => {
+                    console.log(response.data)
+
+                    this.trends = response.data
+                })
+                .catch(error => {
+                    console.log('Error: ', error)
+                })
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\AboutView.vue
+<template>
+  <div class="about">
+    <h1>This is an about page</h1>
+  </div>
+</template>
+
+<style>
+@media (min-width: 1024px) {
+  .about {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+}
+</style>
+
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\ChatView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+        <div class="main-left col-span-1">
+            <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                <div class="space-y-4">
+                    <div 
+                        class="flex items-center justify-between"
+                        v-for="conversation in conversations"
+                        v-bind:key="conversation.id"
+                        v-on:click="setActiveConversation(conversation.id)"
+                    >
+                        <div class="flex items-center space-x-2">
+                            <template
+                                v-for="user in conversation.users"
+                                v-bind:key="user.id"
+                            >
+                                <img :src="user.get_avatar" class="w-[40px] rounded-full">
+
+                                <p 
+                                    class="text-xs font-bold"
+                                    v-if="user.id !== userStore.user.id"
+                                >{{ user.name }}</p>
+                            </template>
+                        </div>
+
+                        <span class="text-xs text-gray-500">{{ conversation.modified_at_formatted }} ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-center col-span-3 space-y-4">
+            <div class="bg-white border border-gray-200 rounded-lg">
+                <div class="flex flex-col flex-grow p-4">
+                    <template
+                        v-for="message in activeConversation.messages"
+                        v-bind:key="message.id"
+                    >
+                        <div 
+                            class="flex w-full mt-2 space-x-3 max-w-md ml-auto justify-end"
+                            v-if="message.created_by.id == userStore.user.id"
+                        >
+                            <div>
+                                <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
+                                    <p class="text-sm">{{ message.body }}</p>
+                                </div>
+                                <span class="text-xs text-gray-500 leading-none">{{ message.created_at_formatted }} ago</span>
+                            </div>
+                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
+                                <img :src="message.created_by.get_avatar" class="w-[40px] rounded-full">
+                            </div>
+                        </div>
+
+                        <div 
+                            class="flex w-full mt-2 space-x-3 max-w-md"
+                            v-else
+                        >
+                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
+                                <img :src="message.created_by.get_avatar" class="w-[40px] rounded-full">
+                            </div>
+                            <div>
+                                <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                                    <p class="text-sm">{{ message.body }}</p>
+                                </div>
+                                <span class="text-xs text-gray-500 leading-none">{{ message.created_at_formatted }} ago</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg">
+                <form v-on:submit.prevent="submitForm">
+                    <div class="p-4">  
+                        <textarea v-model="body" class="p-4 w-full bg-gray-100 rounded-lg" placeholder="What do you want to say?"></textarea>
+                    </div>
+
+                    <div class="p-4 border-t border-gray-100 flex justify-between">
+                        <button class="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+import { useUserStore } from '@/stores/user'
+
+export default {
+    name: 'chat',
+
+    setup() {
+        const userStore = useUserStore()
+
+        return {
+            userStore
+        }
+    },
+
+    data() {
+        return {
+            conversations: [],
+            activeConversation: {},
+            body: ''
+        }
+    },
+
+    mounted() {
+        this.getConversations()
+    },
+    
+    methods: {
+        setActiveConversation(id) {
+            console.log('setActiveConversation', id)
+
+            this.activeConversation = id
+            this.getMessages()
+        },
+        getConversations() {
+            console.log('getConversations')
+
+            axios
+                .get('/api/chat/')
+                .then(response => {
+                    console.log(response.data)
+
+                    this.conversations = response.data
+
+                    if (this.conversations.length) {
+                        this.activeConversation = this.conversations[0].id
+                    }
+
+                    this.getMessages()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+
+        getMessages() {
+            console.log('getMessages')
+
+            axios
+                .get(`/api/chat/${this.activeConversation}/`)
+                .then(response => {
+                    console.log(response.data)
+
+                    this.activeConversation = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+
+        submitForm() {
+            console.log('submitForm', this.body)
+
+            axios
+                .post(`/api/chat/${this.activeConversation.id}/send/`, {
+                    body: this.body
+                })
+                .then(response => {
+                    console.log(response.data)
+
+                    this.activeConversation.messages.push(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\EditPasswordView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-2 gap-4">
+        <div class="main-left">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <h1 class="mb-6 text-2xl">Edit password</h1>
+
+                <p class="mb-6 text-gray-500">
+                    Here you can change your password!
+                </p>
+            </div>
+        </div>
+
+        <div class="main-right">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <form class="space-y-6" v-on:submit.prevent="submitForm">
+                    <div>
+                        <label>Old password</label><br>
+                        <input type="password" v-model="form.old_password" placeholder="Your old password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>New password</label><br>
+                        <input type="password" v-model="form.new_password1" placeholder="Your new password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+                    
+                    <div>
+                        <label>Repeat password</label><br>
+                        <input type="password" v-model="form.new_password2" placeholder="Repeat password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <template v-if="errors.length > 0">
+                        <div class="bg-red-300 text-white rounded-lg p-6">
+                            <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                        </div>
+                    </template>
+
+                    <div>
+                        <button class="py-4 px-6 bg-purple-600 text-white rounded-lg">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+import { useToastStore } from '@/stores/toast'
+import { useUserStore } from '@/stores/user'
+
+export default {
+    setup() {
+        const toastStore = useToastStore()
+        const userStore = useUserStore()
+
+        return {
+            toastStore,
+            userStore
+        }
+    },
+
+    data() {
+        return {
+            form: {
+                old_password: '',
+                new_password1: '',
+                new_password2: '',
+            },
+            errors: [],
+        }
+    },
+
+    methods: {
+        submitForm() {
+            this.errors = []
+
+            if (this.form.password1 !== this.form.password2) {
+                this.errors.push('The password does not match')
+            }
+
+            if (this.errors.length === 0) {
+                let formData = new FormData()
+                formData.append('old_password', this.form.old_password)
+                formData.append('new_password1', this.form.new_password1)
+                formData.append('new_password2', this.form.new_password2)
+
+                axios
+                    .post('/api/editpassword/', formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        }
+                    })
+                    .then(response => {
+                        if (response.data.message === 'success') {
+                            this.toastStore.showToast(5000, 'The information was saved', 'bg-emerald-500')
+
+                            this.$router.push(`/profile/${this.userStore.user.id}`)
+                        } else {
+                            const data = JSON.parse(response.data.message)
+
+                            for (const key in data){
+                                this.errors.push(data[key][0].message)
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log('error', error)
+                    })
+            }
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\EditProfileView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-2 gap-4">
+        <div class="main-left">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <h1 class="mb-6 text-2xl">Edit profile</h1>
+
+                <p class="mb-6 text-gray-500">
+                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+                </p>
+
+                <RouterLink to="/profile/edit/password" class="underline">Edit password</RouterLink>
+            </div>
+        </div>
+
+        <div class="main-right">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <form class="space-y-6" v-on:submit.prevent="submitForm">
+                    <div>
+                        <label>Name</label><br>
+                        <input type="text" v-model="form.name" placeholder="Your full name" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>E-mail</label><br>
+                        <input type="email" v-model="form.email" placeholder="Your e-mail address" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>Avatar</label><br>
+                        <input type="file" ref="file">
+                    </div>
+
+                    <template v-if="errors.length > 0">
+                        <div class="bg-red-300 text-white rounded-lg p-6">
+                            <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                        </div>
+                    </template>
+
+                    <div>
+                        <button class="py-4 px-6 bg-purple-600 text-white rounded-lg">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+import { useToastStore } from '@/stores/toast'
+import { useUserStore } from '@/stores/user'
+
+export default {
+    setup() {
+        const toastStore = useToastStore()
+        const userStore = useUserStore()
+
+        return {
+            toastStore,
+            userStore
+        }
+    },
+
+    data() {
+        return {
+            form: {
+                email: this.userStore.user.email,
+                name: this.userStore.user.name
+            },
+            errors: [],
+        }
+    },
+
+    methods: {
+        submitForm() {
+            this.errors = []
+
+            if (this.form.email === '') {
+                this.errors.push('Your e-mail is missing')
+            }
+
+            if (this.form.name === '') {
+                this.errors.push('Your name is missing')
+            }
+
+            if (this.errors.length === 0) {
+                let formData = new FormData()
+                formData.append('avatar', this.$refs.file.files[0])
+                formData.append('name', this.form.name)
+                formData.append('email', this.form.email)
+
+                axios
+                    .post('/api/editprofile/', formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        }
+                    })
+                    .then(response => {
+                        if (response.data.message === 'information updated') {
+                            this.toastStore.showToast(5000, 'The information was saved', 'bg-emerald-500')
+
+                            this.userStore.setUserInfo({
+                                id: this.userStore.user.id,
+                                name: this.form.name,
+                                email: this.form.email,
+                                avatar: response.data.user.get_avatar
+                            })
+
+                            this.$router.back()
+                        } else {
+                            this.toastStore.showToast(5000, `${response.data.message}. Please try again`, 'bg-red-300')
+                        }
+                    })
+                    .catch(error => {
+                        console.log('error', error)
+                    })
+            }
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\FeedView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+        <div class="main-center col-span-3 space-y-4">
+            <div class="bg-white border border-gray-200 rounded-lg">
+                <form v-on:submit.prevent="submitForm" method="post">
+                    <div class="p-4">  
+                        <textarea v-model="body" class="p-4 w-full bg-gray-100 rounded-lg" placeholder="What are you thinking about?"></textarea>
+                    </div>
+
+                    <div class="p-4 border-t border-gray-100 flex justify-between">
+                        <a href="#" class="inline-block py-4 px-6 bg-gray-600 text-white rounded-lg">Attach image</a>
+
+                        <button class="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg">Post</button>
+                    </div>
+                </form>
+            </div>
+
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg"
+                v-for="post in posts"
+                v-bind:key="post.id"
+            >
+                <FeedItem v-bind:post="post" />
+            </div>
+        </div>
+
+        <div class="main-right col-span-1 space-y-4">
+            <PeopleYouMayKnow />
+
+            <Trends />
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'
+import Trends from '../components/Trends.vue'
+import FeedItem from '../components/FeedItem.vue'
+
+export default {
+    name: 'FeedView',
+
+    components: {
+        PeopleYouMayKnow,
+        Trends,
+        FeedItem
+    },
+
+    data() {
+        return {
+            posts: [],
+            body: '',
+        }
+    },
+
+    mounted() {
+        this.getFeed()
+    },
+
+    methods: {
+        getFeed() {
+            axios
+                .get('/api/posts/')
+                .then(response => {
+                    console.log('data', response.data)
+
+                    this.posts = response.data
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        },
+
+        submitForm() {
+            console.log('submitForm', this.body)
+
+            axios
+                .post('/api/posts/create/', {
+                    'body': this.body
+                })
+                .then(response => {
+                    console.log('data', response.data)
+
+                    this.posts.unshift(response.data)
+                    this.body = ''
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\FriendsView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+        <div class="main-left col-span-1">
+            <div class="p-4 bg-white border border-gray-200 text-center rounded-lg">
+                <img :src="user.get_avatar" class="mb-6 rounded-full">
+                
+                <p><strong>{{ user.name }}</strong></p>
+
+                <div class="mt-6 flex space-x-8 justify-around">
+                    <p class="text-xs text-gray-500">{{ user.friends_count }} friends</p>
+                    <p class="text-xs text-gray-500">{{ user.posts_count }} posts</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-center col-span-2 space-y-4">
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg"
+                v-if="friendshipRequests.length"
+            >
+                <h2 class="mb-6 text-xl">Friendship requests</h2>
+
+                <div 
+                    class="p-4 text-center bg-gray-100 rounded-lg"
+                    v-for="friendshipRequest in friendshipRequests"
+                    v-bind:key="friendshipRequest.id"
+                >
+                    <img :src="friendshipRequest.created_by.get_avatar" class="mb-6 mx-auto rounded-full">
+                
+                    <p>
+                        <strong>
+                            <RouterLink :to="{name: 'profile', params:{'id': friendshipRequest.created_by.id}}">{{ friendshipRequest.created_by.name }}</RouterLink>
+                        </strong>
+                    </p>
+
+                    <div class="mt-6 flex space-x-8 justify-around">
+                        <p class="text-xs text-gray-500">{{ user.friends_count }} friends</p>
+                        <p class="text-xs text-gray-500">{{ user.posts_count }} posts</p>
+                    </div>
+
+                    <div class="mt-6 space-x-4">
+                        <button class="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg" @click="handleRequest('accepted', friendshipRequest.created_by.id)">Accept</button>
+                        <button class="inline-block py-4 px-6 bg-red-600 text-white rounded-lg" @click="handleRequest('rejected', friendshipRequest.created_by.id)">Reject</button>
+                    </div>
+                </div>
+
+                <hr>
+            </div>
+
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg grid grid-cols-2 gap-4"
+                v-if="friends.length"
+            >
+                <div 
+                    class="p-4 text-center bg-gray-100 rounded-lg"
+                    v-for="user in friends"
+                    v-bind:key="user.id"
+                >
+                    <img :src="user.get_avatar" class="mb-6 rounded-full">
+                
+                    <p>
+                        <strong>
+                            <RouterLink :to="{name: 'profile', params:{'id': user.id}}">{{ user.name }}</RouterLink>
+                        </strong>
+                    </p>
+
+                    <div class="mt-6 flex space-x-8 justify-around">
+                        <p class="text-xs text-gray-500">{{ user.friends_count }} friends</p>
+                        <p class="text-xs text-gray-500">{{ user.posts_count }} posts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-right col-span-1 space-y-4">
+            <PeopleYouMayKnow />
+
+            <Trends />
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'
+import Trends from '../components/Trends.vue'
+import FeedItem from '../components/FeedItem.vue'
+import { useUserStore } from '@/stores/user'
+
+export default {
+    name: 'FriendsView',
+
+    setup() {
+        const userStore = useUserStore()
+
+        return {
+            userStore
+        }
+    },
+
+    components: {
+        PeopleYouMayKnow,
+        Trends
+    },
+
+    data() {
+        return {
+            user: {},
+            friendshipRequests: [],
+            friends: []
+        }
+    },
+
+    mounted() {
+        this.getFriends()
+    },
+
+    methods: {
+        getFriends() {
+            axios
+                .get(`/api/friends/${this.$route.params.id}/`)
+                .then(response => {
+                    console.log('data', response.data)
+
+                    this.friendshipRequests = response.data.requests
+                    this.friends = response.data.friends
+                    this.user = response.data.user
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        },
+
+        handleRequest(status, pk) {
+            console.log('handleRequest', status)
+
+            axios
+                .post(`/api/friends/${pk}/${status}/`)
+                .then(response => {
+                    console.log('data', response.data)
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\HomeView.vue
+<template>
+  <main>
+    <h1>Welcome</h1>
+  </main>
+</template>
+
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\LoginView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-2 gap-4">
+        <div class="main-left">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <h1 class="mb-6 text-2xl">Log in</h1>
+
+                <p class="mb-6 text-gray-500">
+                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+                </p>
+
+                <p class="font-bold">
+                    Don't have an account? <RouterLink :to="{'name': 'signup'}" class="underline">Click here</RouterLink> to create one!
+                </p>
+            </div>
+        </div>
+
+        <div class="main-right">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <form class="space-y-6" v-on:submit.prevent="submitForm">
+                    <div>
+                        <label>E-mail</label><br>
+                        <input type="email" v-model="form.email" placeholder="Your e-mail address" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>Password</label><br>
+                        <input type="password" v-model="form.password" placeholder="Your password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <template v-if="errors.length > 0">
+                        <div class="bg-red-300 text-white rounded-lg p-6">
+                            <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                        </div>
+                    </template>
+
+                    <div>
+                        <button class="py-4 px-6 bg-purple-600 text-white rounded-lg">Log in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+import { useUserStore } from '@/stores/user'
+
+export default {
+    setup() {
+        const userStore = useUserStore()
+
+        return {
+            userStore
+        }
+    },
+
+    data() {
+        return {
+            form: {
+                email: '',
+                password: '',
+            },
+            errors: []
+        }
+    },
+    methods: {
+        async submitForm() {
+            this.errors = []
+
+            if (this.form.email === '') {
+                this.errors.push('Your e-mail is missing')
+            }
+
+            if (this.form.password === '') {
+                this.errors.push('Your password is missing')
+            }
+
+            if (this.errors.length === 0) {
+                await axios
+                    .post('/api/login/', this.form)
+                    .then(response => {
+                        this.userStore.setToken(response.data)
+
+                        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.access;
+                    })
+                    .catch(error => {
+                        console.log('error', error)
+
+                        this.errors.push('The email or password is incorrect! Or the user is not activated!')
+                    })
+            }
+            
+            if (this.errors.length === 0) {
+                await axios
+                    .get('/api/me/')
+                    .then(response => {
+                        this.userStore.setUserInfo(response.data)
+
+                        this.$router.push('/feed')
+                    })
+                    .catch(error => {
+                        console.log('error', error)
+                    })
+            }
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\NotificationsView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+        <div class="main-center col-span-3 space-y-4">
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg"
+                v-for="notification in notifications"
+                v-bind:key="notification.id"
+                v-if="notifications.length"
+            >
+                {{ notification.body }} 
+
+                <button class="underline" @click="readNotification(notification)">Read more</button>
+            </div>
+
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg"
+                v-else
+            >
+                You don't have any unread notifications!
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+    name: 'notifications',
+
+    data() {
+        return {
+            notifications: []
+        }
+    },
+
+    mounted() {
+        this.getNotifications()
+    },
+
+    methods: {
+        getNotifications() {
+            axios
+                .get('/api/notifications/')
+                .then(response => {
+                    console.log(response.data)
+
+                    this.notifications = response.data
+                })
+                .catch(error => {
+                    console.log('Error: ', error)
+                })
+        },
+
+        async readNotification(notification) {
+            console.log('readNotification', notification.id)
+
+            await axios
+                .post(`/api/notifications/read/${notification.id}/`)
+                .then(response => {
+                    console.log(response.data)
+
+                    if (notification.type_of_notification == 'post_like' || notification.type_of_notification == 'post_comment') {
+                        this.$router.push({name: 'postview', params: {id: notification.post_id}})
+                    } else {
+                        this.$router.push({name: 'friends', params: {id: notification.created_for_id}})
+                    }
+                })
+                .catch(error => {
+                    console.log('Error: ', error)
+                })
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\PostView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+        <div class="main-center col-span-3 space-y-4">
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg"
+                v-if="post.id"
+            >
+                <FeedItem v-bind:post="post" />
+            </div>
+
+            <div
+                class="p-4 ml-6 bg-white border border-gray-200 rounded-lg"
+                v-for="comment in post.comments"
+                v-bind:key="comment.id"
+            >
+                <CommentItem v-bind:comment="comment" />
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg">
+                <form v-on:submit.prevent="submitForm" method="post">
+                    <div class="p-4">  
+                        <textarea v-model="body" class="p-4 w-full bg-gray-100 rounded-lg" placeholder="What do you think?"></textarea>
+                    </div>
+
+                    <div class="p-4 border-t border-gray-100">
+                        <button class="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg">Comment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="main-right col-span-1 space-y-4">
+            <PeopleYouMayKnow />
+
+            <Trends />
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'
+import Trends from '../components/Trends.vue'
+import FeedItem from '../components/FeedItem.vue'
+import CommentItem from '../components/CommentItem.vue'
+
+export default {
+    name: 'PostView',
+
+    components: {
+        PeopleYouMayKnow,
+        Trends,
+        FeedItem,
+        CommentItem
+    },
+
+    data() {
+        return {
+            post: {
+                id: null,
+                comments: []
+            },
+            body: ''
+        }
+    },
+
+    mounted() {
+        this.getPost()
+    },
+
+    methods: {
+        getPost() {
+            axios
+                .get(`/api/posts/${this.$route.params.id}/`)
+                .then(response => {
+                    console.log('data', response.data)
+
+                    this.post = response.data.post
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        },
+
+        submitForm() {
+            console.log('submitForm', this.body)
+
+            axios
+                .post(`/api/posts/${this.$route.params.id}/comment/`, {
+                    'body': this.body
+                })
+                .then(response => {
+                    console.log('data', response.data)
+
+                    this.post.comments.push(response.data)
+                    this.post.comments_count += 1
+                    this.body = ''
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\ProfileView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+        <div class="main-left col-span-1">
+            <div class="p-4 bg-white border border-gray-200 text-center rounded-lg">
+                <img :src="user.get_avatar" class="mb-6 rounded-full">
+                
+                <p><strong>{{ user.name }}</strong></p>
+
+                <div class="mt-6 flex space-x-8 justify-around" v-if="user.id">
+                    <RouterLink :to="{name: 'friends', params: {id: user.id}}" class="text-xs text-gray-500">{{ user.friends_count }} friends</RouterLink>
+                    <p class="text-xs text-gray-500">{{ user.posts_count }} posts</p>
+                </div>
+
+                <div class="mt-6">
+                    <button 
+                        class="inline-block py-4 px-3 bg-purple-600 text-xs text-white rounded-lg" 
+                        @click="sendFriendshipRequest"
+                        v-if="userStore.user.id !== user.id && can_send_friendship_request"
+                    >
+                        Send friendship request
+                    </button>
+
+                    <button 
+                        class="inline-block mt-4 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg" 
+                        @click="sendDirectMessage"
+                        v-if="userStore.user.id !== user.id"
+                    >
+                        Send direct message
+                    </button>
+
+                    <RouterLink 
+                        class="inline-block mr-2 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg" 
+                        to="/profile/edit"
+                        v-if="userStore.user.id === user.id"
+                    >
+                        Edit profile
+                    </RouterLink>
+
+                    <button 
+                        class="inline-block py-4 px-3 bg-red-600 text-xs text-white rounded-lg" 
+                        @click="logout"
+                        v-if="userStore.user.id === user.id"
+                    >
+                        Log out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-center col-span-2 space-y-4">
+            <div 
+                class="bg-white border border-gray-200 rounded-lg"
+                v-if="userStore.user.id === user.id"
+            >
+                <form v-on:submit.prevent="submitForm" method="post">
+                    <div class="p-4">  
+                        <textarea v-model="body" class="p-4 w-full bg-gray-100 rounded-lg" placeholder="What are you thinking about?"></textarea>
+
+                        <div id="preview" v-if="url">
+                            <img :src="url" class="w-[100px] mt-3 rounded-xl" />
+                        </div>
+                    </div>
+
+                    <div class="p-4 border-t border-gray-100 flex justify-between">
+                        <label class="inline-block py-4 px-6 bg-gray-600 text-white rounded-lg">
+                            <input type="file" ref="file" @change="onFileChange">
+                            Attach image
+                        </label>
+
+                        <button class="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg">Post</button>
+                    </div>
+                </form>
+            </div>
+
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg"
+                v-for="post in posts"
+                v-bind:key="post.id"
+            >
+                <FeedItem v-bind:post="post" />
+            </div>
+        </div>
+
+        <div class="main-right col-span-1 space-y-4">
+            <PeopleYouMayKnow />
+
+            <Trends />
+        </div>
+    </div>
+</template>
+
+<style>
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+</style>
+
+<script>
+import axios from 'axios'
+import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'
+import Trends from '../components/Trends.vue'
+import FeedItem from '../components/FeedItem.vue'
+import { useUserStore } from '@/stores/user'
+import { useToastStore } from '@/stores/toast'
+
+export default {
+    name: 'FeedView',
+
+    setup() {
+        const userStore = useUserStore()
+        const toastStore = useToastStore()
+
+        return {
+            userStore,
+            toastStore
+        }
+    },
+
+    components: {
+        PeopleYouMayKnow,
+        Trends,
+        FeedItem
+    },
+
+    data() {
+        return {
+            posts: [],
+            user: {
+                id: ''
+            },
+            can_send_friendship_request: null,
+            body: '',
+            url: null,
+        }
+    },
+
+    mounted() {
+        this.getFeed()
+    },
+
+    watch: { 
+        '$route.params.id': {
+            handler: function() {
+                this.getFeed()
+            },
+            deep: true,
+            immediate: true
+        }
+    },
+
+    methods: {
+        onFileChange(e) {
+            const file = e.target.files[0];
+            this.url = URL.createObjectURL(file);
+        },
+
+        sendDirectMessage() {
+            console.log('sendDirectMessage')
+
+            axios
+                .get(`/api/chat/${this.$route.params.id}/get-or-create/`)
+                .then(response => {
+                    console.log(response.data)
+
+                    this.$router.push('/chat')
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        },
+
+        sendFriendshipRequest() {
+            axios
+                .post(`/api/friends/${this.$route.params.id}/request/`)
+                .then(response => {
+                    console.log('data', response.data)
+
+                    this.can_send_friendship_request = false
+
+                    if (response.data.message == 'request already sent') {
+                        this.toastStore.showToast(5000, 'The request has already been sent!', 'bg-red-300')
+                    } else {
+                        this.toastStore.showToast(5000, 'The request was sent!', 'bg-emerald-300')
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        },
+
+        getFeed() {
+            axios
+                .get(`/api/posts/profile/${this.$route.params.id}/`)
+                .then(response => {
+                    console.log('data', response.data)
+
+                    this.posts = response.data.posts
+                    this.user = response.data.user
+                    this.can_send_friendship_request = response.data.can_send_friendship_request
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        },
+
+        submitForm() {
+            console.log('submitForm', this.body)
+
+            let formData = new FormData()
+            formData.append('image', this.$refs.file.files[0])
+            formData.append('body', this.body)
+
+            axios
+                .post('/api/posts/create/', formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    }
+                })
+                .then(response => {
+                    console.log('data', response.data)
+
+                    this.posts.unshift(response.data)
+                    this.body = ''
+                    this.$refs.file.value = null
+                    this.url = null
+                    this.user.posts_count += 1
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        },
+
+        logout() {
+            console.log('Log out')
+
+            this.userStore.removeToken()
+
+            this.$router.push('/login')
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\SearchView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+        <div class="main-left col-span-3 space-y-4">
+            <div class="bg-white border border-gray-200 rounded-lg">
+                <form v-on:submit.prevent="submitForm" class="p-4 flex space-x-4">  
+                    <input v-model="query" type="search" class="p-4 w-full bg-gray-100 rounded-lg" placeholder="What are you looking for?">
+
+                    <button class="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg grid grid-cols-4 gap-4"
+                v-if="users.length"
+            >
+                <div 
+                    class="p-4 text-center bg-gray-100 rounded-lg"
+                    v-for="user in users"
+                    v-bind:key="user.id"
+                >
+                    <img :src="user.get_avatar" class="mb-6 rounded-full">
+                
+                    <p>
+                        <strong>
+                            <RouterLink :to="{name: 'profile', params:{'id': user.id}}">{{ user.name }}</RouterLink>
+                        </strong>
+                    </p>
+
+                    <div class="mt-6 flex space-x-8 justify-around">
+                        <p class="text-xs text-gray-500">{{ user.friends_count }} friends</p>
+                        <p class="text-xs text-gray-500">{{ user.posts_count }} posts</p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg"
+                v-for="post in posts"
+                v-bind:key="post.id"
+            >
+                <FeedItem v-bind:post="post" />
+            </div>
+        </div>
+
+        <div class="main-right col-span-1 space-y-4">
+            <PeopleYouMayKnow />
+
+            <Trends />
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'
+import Trends from '../components/Trends.vue'
+import FeedItem from '../components/FeedItem.vue'
+
+export default {
+    name: 'SearchView',
+
+    components: {
+        PeopleYouMayKnow,
+        Trends,
+        FeedItem,
+    },
+
+    data() {
+        return {
+            query: '',
+            users: [],
+            posts: []
+        }
+    },
+
+    methods: {
+        submitForm() {
+            console.log('submitForm', this.query)
+
+            axios
+                .post('/api/search/', {
+                    query: this.query
+                })
+                .then(response => {
+                    console.log('response:', response.data)
+
+                    this.users = response.data.users
+                    this.posts = response.data.posts
+                })
+                .catch(error => {
+                    console.log('error:', error)
+                })
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\SignupView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-2 gap-4">
+        <div class="main-left">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <h1 class="mb-6 text-2xl">Sign up</h1>
+
+                <p class="mb-6 text-gray-500">
+                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+                </p>
+
+                <p class="font-bold">
+                    Already have an account? <RouterLink :to="{'name': 'login'}" class="underline">Click here</RouterLink> to log in!
+                </p>
+            </div>
+        </div>
+
+        <div class="main-right">
+            <div class="p-12 bg-white border border-gray-200 rounded-lg">
+                <form class="space-y-6" v-on:submit.prevent="submitForm">
+                    <div>
+                        <label>Name</label><br>
+                        <input type="text" v-model="form.name" placeholder="Your full name" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>E-mail</label><br>
+                        <input type="email" v-model="form.email" placeholder="Your e-mail address" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>Password</label><br>
+                        <input type="password" v-model="form.password1" placeholder="Your password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label>Repeat password</label><br>
+                        <input type="password" v-model="form.password2" placeholder="Repeat your password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                    </div>
+
+                    <template v-if="errors.length > 0">
+                        <div class="bg-red-300 text-white rounded-lg p-6">
+                            <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                        </div>
+                    </template>
+
+                    <div>
+                        <button class="py-4 px-6 bg-purple-600 text-white rounded-lg">Sign up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+import { useToastStore } from '@/stores/toast'
+
+export default {
+    setup() {
+        const toastStore = useToastStore()
+
+        return {
+            toastStore
+        }
+    },
+
+    data() {
+        return {
+            form: {
+                email: '',
+                name: '',
+                password1: '',
+                password2: ''
+            },
+            errors: [],
+        }
+    },
+
+    methods: {
+        submitForm() {
+            this.errors = []
+
+            if (this.form.email === '') {
+                this.errors.push('Your e-mail is missing')
+            }
+
+            if (this.form.name === '') {
+                this.errors.push('Your name is missing')
+            }
+
+            if (this.form.password1 === '') {
+                this.errors.push('Your password is missing')
+            }
+
+            if (this.form.password1 !== this.form.password2) {
+                this.errors.push('The password does not match')
+            }
+
+            if (this.errors.length === 0) {
+                axios
+                    .post('/api/signup/', this.form)
+                    .then(response => {
+                        if (response.data.message === 'success') {
+                            this.toastStore.showToast(5000, 'The user is registered. Please activate your account by clicking your email link.', 'bg-emerald-500')
+
+                            this.form.email = ''
+                            this.form.name = ''
+                            this.form.password1 = ''
+                            this.form.password2 = ''
+                        } else {
+                            const data = JSON.parse(response.data.message)
+                            for (const key in data){
+                                this.errors.push(data[key][0].message)
+                            }
+
+                            this.toastStore.showToast(5000, 'Something went wrong. Please try again', 'bg-red-300')
+                        }
+                    })
+                    .catch(error => {
+                        console.log('error', error)
+                    })
+            }
+        }
+    }
+}
+</script>
+#################################################C:\portfolio\_django\wey\wey_frontend\src\views\TrendView.vue
+<template>
+    <div class="max-w-7xl mx-auto grid grid-cols-4 gap-4">
+        <div class="main-center col-span-3 space-y-4">
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg"
+            >
+                <h2 class="text-xl">Trend: #{{ $route.params.id }}</h2>
+            </div>
+            
+            <div 
+                class="p-4 bg-white border border-gray-200 rounded-lg"
+                v-for="post in posts"
+                v-bind:key="post.id"
+            >
+                <FeedItem v-bind:post="post" />
+            </div>
+        </div>
+
+        <div class="main-right col-span-1 space-y-4">
+            <PeopleYouMayKnow />
+
+            <Trends />
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+import PeopleYouMayKnow from '../components/PeopleYouMayKnow.vue'
+import Trends from '../components/Trends.vue'
+import FeedItem from '../components/FeedItem.vue'
+
+export default {
+    name: 'FeedView',
+
+    components: {
+        PeopleYouMayKnow,
+        Trends,
+        FeedItem
+    },
+
+    data() {
+        return {
+            posts: [],
+        }
+    },
+
+    mounted() {
+        this.getFeed()
+    },
+
+    watch: { 
+        '$route.params.id': {
+            handler: function() {
+                this.getFeed()
+            },
+            deep: true,
+            immediate: true
+        }
+    },
+
+    methods: {
+        getFeed() {
+            axios
+                .get(`/api/posts/?trend=${this.$route.params.id}`)
+                .then(response => {
+                    console.log('data', response.data)
+
+                    this.posts = response.data
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
+        },
+    }
+}
+</script>

@@ -1,0 +1,2447 @@
+--% index/fmus
+__PWD,d
+  .,d(/load=__FILE__=index/fmus/under_pwd*)
+--#
+
+--% index/fmus/under_pwd
+__REPLACE_WITH_PROJECT_DIR_OR_INPUT__,d(/mk)
+	%utama=__FILE__
+	.gitignore,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/.gitignore)
+	CONTRIBUTORS.md,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/CONTRIBUTORS.md)
+	data.yaml,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/data.yaml)
+	LICENSE,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/LICENSE)
+	manage.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/manage.py)
+	Procfile,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/Procfile)
+	pytest.ini,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/pytest.ini)
+	README.md,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/README.md)
+	requirements.txt,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/requirements.txt)
+	runtime.txt,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/runtime.txt)
+	start.sh,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/start.sh)
+	.github,d(/mk)
+		workflows,d(/mk)
+			main.yml,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/.github/workflows/main.yml)
+	articles,d(/mk)
+		admin.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/admin.py)
+		apps.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/apps.py)
+		forms.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/forms.py)
+		mixins.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/mixins.py)
+		models.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/models.py)
+		test_articles.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/test_articles.py)
+		views.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/views.py)
+		__init__.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/__init__.py)
+		migrations,d(/mk)
+			0001_initial.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/migrations/0001_initial.py)
+			__init__.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/migrations/__init__.py)
+	home,d(/mk)
+		admin.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/home/admin.py)
+		apps.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/home/apps.py)
+		forms.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/home/forms.py)
+		test_home.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/home/test_home.py)
+		views.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/home/views.py)
+		__init__.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/home/__init__.py)
+		management,d(/mk)
+			commands,d(/mk)
+				createdata.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/home/management/commands/createdata.py)
+	profiles,d(/mk)
+		admin.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/admin.py)
+		apps.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/apps.py)
+		forms.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/forms.py)
+		models.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/models.py)
+		tests.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/tests.py)
+		views.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/views.py)
+		__init__.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/__init__.py)
+		migrations,d(/mk)
+			0001_initial.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/migrations/0001_initial.py)
+			0002_profile_favorites.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/migrations/0002_profile_favorites.py)
+			__init__.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/migrations/__init__.py)
+	realworld,d(/mk)
+		asgi.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/asgi.py)
+		models.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/models.py)
+		settings.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/settings.py)
+		settings_test.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/settings_test.py)
+		urls.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/urls.py)
+		wsgi.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/wsgi.py)
+		__init__.py,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/__init__.py)
+	templates,d(/mk)
+		base.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/base.html)
+		index.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/index.html)
+		login.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/login.html)
+		signup.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/signup.html)
+		articles,d(/mk)
+			detail.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/detail.html)
+			edit.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/edit.html)
+			list.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/list.html)
+			_add_comment.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_add_comment.html)
+			_comment.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_comment.html)
+			_comments_list.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_comments_list.html)
+			_comment_confirm_delete.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_comment_confirm_delete.html)
+			_edit_comment.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_edit_comment.html)
+			_login_to_add_comment.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_login_to_add_comment.html)
+		profile,d(/mk)
+			detail.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/profile/detail.html)
+			edit.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/profile/edit.html)
+			_follow.html,f(e=utama=E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/profile/_follow.html)
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/.gitignore
+assets/
+
+
+# Created by https://www.toptal.com/developers/gitignore/api/python
+# Edit at https://www.toptal.com/developers/gitignore?templates=python
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+pytestdebug.log
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+doc/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pythonenv*
+.vscode
+.idea
+.nova
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# profiling data
+.prof
+
+# End of https://www.toptal.com/developers/gitignore/api/python
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/CONTRIBUTORS.md
+# Contributors to the Hotwire Django implementation
+
+* [Bo Lopker](https://github.com/blopker)
+* [Luan Fonseca](https://github.com/luanfonceca)
+* [Christopher Grande](https://github.com/chrisgrande)
+* [Nikita Marchant](https://github.com/C4ptainCrunch)
+
+# Inspiration and base work
+This app is based on the excellent work of [Thinkster](https://thinkster.io/) and makes heavy use of their [templates](https://github.com/gothinkster/realworld-starter-kit/blob/master/FRONTEND_INSTRUCTIONS.md#layout) under MIT License.
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/data.yaml
+- model: auth.user
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$216000$3VF4tYd8Utli$AIYVOt432vZ5AhBFxDj3mMpaXGLp/HQSVfaFDQrkfis=
+    last_login: null
+    is_superuser: false
+    username: ericsimons
+    first_name: Eric
+    last_name: Simons
+    email: eric@example.com
+    is_staff: false
+    is_active: true
+    date_joined: 2021-01-05 02:02:25+00:00
+    groups: []
+    user_permissions: []
+- model: articles.article
+  pk: 1
+  fields:
+    created_at: 2021-01-05 02:09:02.446298+00:00
+    updated_at: 2021-01-05 02:09:02.446336+00:00
+    slug: how-to-build-webapps-that-scale
+    title: How to build webapps that scale
+    description: How to build webapps that scale
+    body: How to build webapps that scale
+    author: 1
+    tags:
+      - 1
+- model: articles.tag
+  pk: 1
+  fields:
+    created_at: 2021-01-05 02:08:42.985315+00:00
+    updated_at: 2021-01-05 02:08:42.985346+00:00
+    tag: emberjs
+    slug: emberjs
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/LICENSE
+The MIT License
+
+Copyright 2021 by the contributors listed in CONTRIBUTORS.md
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice including CONTRIBUTORS.md, and this permission notice
+shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/manage.py
+#!/usr/bin/env python
+"""Django's command-line utility for administrative tasks."""
+import os
+import sys
+
+
+def main():
+    """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'realworld.settings')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(sys.argv)
+
+
+if __name__ == '__main__':
+    main()
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/Procfile
+web: ./start.sh
+release: python manage.py migrate && python manage.py createdata 1
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/pytest.ini
+[pytest]
+DJANGO_SETTINGS_MODULE = realworld.settings_test
+
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/README.md
+# hotwire-django-realworld
+
+A RealWorld Django app using Turbo. See [RealWorld](https://github.com/gothinkster/realworld). A live demo is [hosted on Heroku](https://hotwire-django-realworld.herokuapp.com/)
+
+## Install
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+./manage.py migrate
+./manage.py createdata 10
+./manage.py runserver
+```
+
+## Tests
+
+Run `pytest`.
+
+# License
+hotwire-django-realworld is released under the MIT License to keep compatibility with both the Hotwire project and the [RealWorld starter kit](https://github.com/gothinkster/realworld-starter-kit).
+
+If you submit a pull request. Remember to add yourself to CONTRIBUTORS.md!
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/requirements.txt
+Django
+pytest
+pytest-django
+black
+pyyaml
+random-username
+essential-generators
+uvicorn[standard]
+django-heroku
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/runtime.txt
+python-3.9.1
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/start.sh
+#!/usr/bin/env bash
+set -ex
+
+exec uvicorn --limit-max-requests 10000 --limit-concurrency 1000 --host=0.0.0.0 --port=${PORT:-5000} realworld.asgi:application
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/.github/workflows/main.yml
+name: Test app
+
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run unit tests
+        run: pytest
+      - name: Setup app
+        run: |
+          ./manage.py migrate
+          ./start.sh &
+      - name: Run integration tests
+        run: curl http://localhost:5000/
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/admin.py
+from django.contrib import admin
+from .models import Article, Comment, Tag
+
+admin.site.register(Article)
+admin.site.register(Tag)
+admin.site.register(Comment)
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/apps.py
+from django.apps import AppConfig
+
+
+class ArticlesConfig(AppConfig):
+    name = 'articles'
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/forms.py
+
+import random
+import string
+
+from django.forms import ModelForm, Textarea, CharField, TextInput
+
+from .models import Article, Comment, Tag
+
+
+def make_slug(title):
+    rnd = "".join(random.choices(string.ascii_letters + string.digits, k=6))
+    slug = title.lower().replace(" ", "-")
+    allowed = string.ascii_lowercase + "-"
+    return "".join([a for a in slug if a in allowed])[:20].strip(" -") + f"-{rnd}"
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']
+        widgets = {
+            "body": Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Write a comment...",
+                    "rows": 3,
+                }
+            )
+        }
+
+
+class ArticleForm(ModelForm):
+    tags = CharField(
+        widget=TextInput(
+            attrs={
+                "class": "form-control form-control-lg",
+                "placeholder": "Enter tags"
+            }
+        )
+    )
+
+    class Meta:
+        model = Article
+        fields = ("title", "description", "body", "tags")
+        widgets = {
+            "title": TextInput(
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "Article Title",
+                }
+            ),
+            "description": TextInput(
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "What's this article about?",
+                }
+            ),
+            "body": Textarea(
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "Write your article (in markdown)",
+                    "rows": 8,
+                }
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['tags'].widget.format_value = self._format_tags_value
+
+    def _format_tags_value(self, queryset):
+        return ', '.join(
+            self.instance.tags.values_list('tag', flat=True)
+        )
+
+    def clean_tags(self, *args, **kwargs):
+        return [
+            Tag.objects.get_or_create(
+                tag=tag.strip(),
+                defaults={'slug': make_slug(tag.strip())}
+            )[0]
+            for tag in self.cleaned_data['tags'].split(',')
+        ]
+
+    def save(self, user):
+        if not self.instance.pk:
+            self.instance.author = user.profile
+            self.instance.slug = make_slug(self.instance.title)
+
+        return super().save()
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/mixins.py
+from django.core.exceptions import PermissionDenied
+
+
+class UserIsAuthorMixin(object):
+    """
+    Checks that the user is the author of the object. If they are not, raise a
+    403 error
+    """
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.profile.pk is not self.get_object().author.pk:
+            raise PermissionDenied
+
+        return super(UserIsAuthorMixin, self).dispatch(request, *args, **kwargs)
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/models.py
+from django.db import models
+from django.urls import reverse
+
+from realworld.models import TimestampedModel
+
+
+class Article(TimestampedModel):
+    slug = models.SlugField(db_index=True, max_length=255, primary_key=True)
+    title = models.CharField(db_index=True, max_length=255)
+
+    description = models.TextField()
+    body = models.TextField()
+
+    # Every article must have an author. This will answer questions like "Who
+    # gets credit for writing this article?" and "Who can edit this article?".
+    # Unlike the `User` <-> `Profile` relationship, this is a simple foreign
+    # key (or one-to-many) relationship. In this case, one `Profile` can have
+    # many `Article`s.
+    author = models.ForeignKey(
+        "profiles.Profile", on_delete=models.CASCADE, related_name="articles"
+    )
+
+    tags = models.ManyToManyField("articles.Tag", related_name="articles")
+
+    def get_absolute_url(self):
+        return reverse('article_view', args=[str(self.slug)])
+
+    def __str__(self):
+        return self.title
+
+
+class Comment(TimestampedModel):
+    body = models.TextField()
+
+    article = models.ForeignKey(
+        "articles.Article", related_name="comments", on_delete=models.CASCADE
+    )
+
+    author = models.ForeignKey(
+        "profiles.Profile", related_name="comments", on_delete=models.CASCADE
+    )
+
+    def get_absolute_url(self):
+        return reverse('view_comment', args=[str(self.pk)])
+
+
+class Tag(TimestampedModel):
+    tag = models.CharField(max_length=255)
+    slug = models.SlugField(db_index=True, unique=True)
+
+    def __str__(self):
+        return self.tag
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/test_articles.py
+from django.test import TestCase
+from django.test import Client
+
+
+class MyTest(TestCase):
+    fixtures = ["data.yaml"]
+
+    def test_list(self):
+        response = Client().get("/article/")
+        assert response.status_code == 200
+        assert b"How to build webapps that scale" in response.content
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/views.py
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, TemplateView, ListView
+from django.http import HttpResponseRedirect, StreamingHttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.db.models import Count
+
+from .models import Article, Comment, Tag
+from .forms import ArticleForm, CommentForm
+from .mixins import UserIsAuthorMixin
+
+
+class ViewArticle(DetailView):
+    model = Article
+    template_name = "articles/detail.html"
+    context_object_name = "article"
+
+
+class AddComment(LoginRequiredMixin, CreateView):
+    model = Comment
+    template_name = "articles/_add_comment.html"
+    form_class = CommentForm
+
+    def get_login_url(self):
+        return reverse_lazy("login_to_add_comment", kwargs={"slug": self.kwargs["slug"]})
+
+    def form_valid(self, form):
+        form.instance.article = Article.objects.get(slug=self.kwargs["slug"])
+        form.instance.author = self.request.user.profile
+        new_comment = form.save()
+        comment_author = self.request.user
+
+        def render_comment_turbo_stream():
+            new_comment_partial = render_to_string("articles/_comment.html",
+                                                   {"comment": new_comment, "user": comment_author})
+            return f'<turbo-stream target="comments" action="prepend">' \
+                   f'<template>{new_comment_partial}<template>' \
+                   f'</turbo-stream>'
+
+        return StreamingHttpResponse(render_comment_turbo_stream(), content_type="text/vnd.turbo-stream.html")
+
+
+class LoginToAddComment(TemplateView):
+    template_name = "articles/_login_to_add_comment.html"
+
+
+class ViewComment(DetailView):
+    model = Comment
+    template_name = "articles/_comment.html"
+    context_object_name = "comment"
+
+
+class ViewCommentsForArticle(ListView):
+    template_name = "articles/_comments_list.html"
+    context_object_name = "comments"
+
+    def get_queryset(self):
+        self.article = get_object_or_404(Article, slug=self.kwargs['slug'])
+        return Comment.objects.filter(article=self.article)
+
+
+class EditComment(UserIsAuthorMixin, LoginRequiredMixin, UpdateView):
+    model = Comment
+    template_name = 'articles/_edit_comment.html'
+    form_class = CommentForm
+    context_object_name = 'comment'
+
+
+class DeletedComment(TemplateView):
+    comment_deleted = True
+    template_name = "articles/_comment.html"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            content_type="text/vnd.turbo-stream.html", *args, **kwargs
+        )
+
+
+class DeleteComment(UserIsAuthorMixin, LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = "articles/_comment_confirm_delete.html"
+    context_object_name = "comment"
+
+    def get_success_url(self):
+        return reverse_lazy("deleted_comment", kwargs={"pk": self.object.pk})
+
+
+class ListArticle(ListView):
+    template_name = "articles/list.html"
+    paginate_by = 10
+    model = Article
+
+    def _make_tabs(self, ctx):
+        tabs = []
+        url = reverse_lazy("article_list")
+        default_active = not any(
+            [ctx.get(a) for a in ["followed_by", "favorited", "tag"]]
+        )
+        if ctx["profile"]:
+            profile = ctx["profile"]
+            tabs.append(
+                {
+                    "url": url + f"?profile={profile}",
+                    "text": "My Articles",
+                    "active": default_active,
+                }
+            )
+            tabs.append(
+                {
+                    "url": url + f"?favorited={profile}&profile={profile}",
+                    "text": "Favorited Articles",
+                    "active": ctx.get("favorited") is not None,
+                }
+            )
+        else:
+            if self.request.user.is_authenticated:
+                tabs.append(
+                    {
+                        "url": url + f"?followed_by={self.request.user}",
+                        "text": "Your Feed",
+                        "active": ctx.get("followed_by") is not None,
+                    }
+                )
+            tabs.append(
+                {
+                    "url": url,
+                    "text": "Global",
+                    "active": default_active,
+                }
+            )
+            if ctx.get("tag"):
+                tabs.append(
+                    {
+                        "url": url + f'?tag={ctx.get("tag").slug}',
+                        "text": ctx.get("tag"),
+                        "active": ctx.get("tag") is not None,
+                    }
+                )
+        return tabs
+
+    def _get_query_context(self):
+        ctx = {
+            "tag": None,
+            "query_string": [],
+            "profile": None,
+            "author": None,
+            "favorited": None,
+            "followed_by": None,
+            "type": None,
+            "tabs": [],
+        }
+
+        tag_slug = self.request.GET.get("tag")
+        if tag_slug:
+            tag = get_object_or_404(Tag, slug=tag_slug)
+            ctx["tag"] = tag
+            ctx["query_string"].append(f"tag={tag_slug}")
+
+        profile = self.request.GET.get("profile")
+        if profile:
+            ctx["profile"] = profile
+            ctx["query_string"].append(f"profile={profile}")
+
+        favorited = self.request.GET.get("favorited")
+        if favorited:
+            ctx["favorited"] = favorited
+            ctx["query_string"].append(f"favorited={favorited}")
+
+        followed_by = self.request.GET.get("followed_by")
+        if followed_by:
+            ctx["followed_by"] = followed_by
+            ctx["query_string"].append(f"followed_by={followed_by}")
+
+        ctx["query_string"] = "&".join(ctx["query_string"])
+        ctx["tabs"] = self._make_tabs(ctx)
+        return ctx
+
+    def get_queryset(self):
+        qs = (
+            Article.objects.all()
+            .select_related("author__user")
+            .annotate(favorited_by__count=Count("favorited_by"))
+            .order_by("-created_at")
+        )
+        ctx = self._get_query_context()
+        if tag := ctx["tag"]:
+            qs = qs.filter(tags__slug=tag.slug)
+
+        if profile := ctx["profile"]:
+            qs = qs.filter(author__user__username=profile)
+
+        if favorited := ctx["favorited"]:
+            qs = qs.filter(favorited_by__user__username=favorited)
+
+        if favorited := ctx["followed_by"]:
+            # FIXFIX get articles by author the user follows
+            qs = qs.filter(favorited_by__user__username=favorited)
+
+        return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx.update(self._get_query_context())
+        return ctx
+
+
+class EditArticle(UserIsAuthorMixin, LoginRequiredMixin, UpdateView):
+    template_name = "articles/edit.html"
+    model = Article
+    form_class = ArticleForm
+    extra_context = {"nav_link": "new_post"}
+
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form.
+        Turbo wants a 422 on errors.
+        """
+        return self.render_to_response(self.get_context_data(form=form), status=422)
+
+    def form_valid(self, form):
+        """Security check complete. Log the user in.
+        Turbo wants a 303 on success.
+        """
+        self.object = form.save(self.request.user)
+        return HttpResponseRedirect(self.get_success_url(), status=303)
+
+
+class CreateArticle(LoginRequiredMixin, CreateView):
+    template_name = "articles/edit.html"
+    model = Article
+    form_class = ArticleForm
+    extra_context = {"nav_link": "new_post"}
+
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form.
+        Turbo wants a 422 on errors.
+        """
+        return self.render_to_response(self.get_context_data(form=form), status=422)
+
+    def form_valid(self, form):
+        """Security check complete. Log the user in.
+        Turbo wants a 303 on success.
+        """
+        self.object = form.save(self.request.user)
+        return HttpResponseRedirect(self.get_success_url(), status=303)
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/__init__.py
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/migrations/0001_initial.py
+# Generated by Django 3.1.5 on 2021-01-06 02:37
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = [
+        ('profiles', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Article',
+            fields=[
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('slug', models.SlugField(max_length=255, primary_key=True, serialize=False)),
+                ('title', models.CharField(db_index=True, max_length=255)),
+                ('description', models.TextField()),
+                ('body', models.TextField()),
+                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='articles', to='profiles.profile')),
+            ],
+            options={
+                'ordering': ['-created_at', '-updated_at'],
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Tag',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('tag', models.CharField(max_length=255)),
+                ('slug', models.SlugField(unique=True)),
+            ],
+            options={
+                'ordering': ['-created_at', '-updated_at'],
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Comment',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('body', models.TextField()),
+                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='articles.article')),
+                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='profiles.profile')),
+            ],
+            options={
+                'ordering': ['-created_at', '-updated_at'],
+                'abstract': False,
+            },
+        ),
+        migrations.AddField(
+            model_name='article',
+            name='tags',
+            field=models.ManyToManyField(related_name='articles', to='articles.Tag'),
+        ),
+    ]
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/articles/migrations/__init__.py
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/home/admin.py
+from django.contrib import admin
+
+# Register your models here.
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/home/apps.py
+from django.apps import AppConfig
+
+
+class HomeConfig(AppConfig):
+    name = 'home'
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/home/forms.py
+import unicodedata
+from django import forms
+from django.contrib.auth import (
+    password_validation,
+)
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm as AuthAuthenticationForm
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
+
+class UsernameField(forms.CharField):
+    def to_python(self, value):
+        return unicodedata.normalize("NFKC", super().to_python(value))
+
+    def widget_attrs(self, widget):
+        return {
+            **super().widget_attrs(widget),
+            "autocapitalize": "none",
+            "autocomplete": "username",
+            "placeholder": "Username",
+            "class": "form-control form-control-lg",
+        }
+
+
+class UserLoginForm(AuthAuthenticationForm):
+    username = UsernameField()
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "autocomplete": "current-password",
+                "class": "form-control form-control-lg",
+                "placeholder": "Password",
+            }
+        ),
+    )
+
+
+class UserCreationForm(forms.ModelForm):
+    """
+    A form that creates a user, with no privileges, from the given username and
+    password.
+    """
+
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "placeholder": "Password",
+                "class": "form-control form-control-lg",
+            }
+        ),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+
+    class Meta:
+        model = User
+        fields = ("username",)
+        field_classes = {"username": UsernameField}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self._meta.model.USERNAME_FIELD in self.fields:
+            self.fields[self._meta.model.USERNAME_FIELD].widget.attrs[
+                "autofocus"
+            ] = True
+
+    def _post_clean(self):
+        super()._post_clean()
+        # Validate the password after self.instance is updated with form data
+        # by super().
+        password = self.cleaned_data.get("password")
+        if password:
+            try:
+                password_validation.validate_password(password, self.instance)
+            except ValidationError as error:
+                self.add_error("password", error)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/home/test_home.py
+from django.test import TestCase
+from django.test import Client
+
+
+class MyTest(TestCase):
+    fixtures = ["data.yaml"]
+
+    def test_index(self):
+        response = Client().get("/")
+        assert response.status_code == 200
+        assert b"conduit" in response.content
+        assert b"emberjs" in response.content
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/home/views.py
+from django.shortcuts import get_object_or_404, render
+from articles.models import Tag
+from django.contrib.auth import login as auth_login, authenticate
+from django.http import HttpResponseRedirect
+from django.contrib.auth.views import LoginView as AuthLoginView
+from django.shortcuts import redirect
+from .forms import UserCreationForm, UserLoginForm
+
+
+def index(request):
+    tags = Tag.objects.all()
+
+    return render(
+        request,
+        "index.html",
+        context={"tags": tags, "nav_link": "home"},
+    )
+
+
+class LoginView(AuthLoginView):
+    template_name = "login.html"
+    form_class = UserLoginForm
+    extra_context = {"nav_link": "sign_in"}
+
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form.
+        Turbo wants a 422 on errors.
+        """
+        return self.render_to_response(self.get_context_data(form=form), status=422)
+
+    def form_valid(self, form):
+        """Security check complete. Log the user in.
+        Turbo wants a 303 on success.
+        """
+        auth_login(self.request, form.get_user())
+        return HttpResponseRedirect(self.get_success_url(), status=303)
+
+
+def signup(request):
+    status = 200
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get("username")
+            raw_password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=raw_password)
+            auth_login(request, user)
+            a = redirect("index")
+            # Turbo expects a 303 response on form success
+            a.status_code = 303
+            return a
+        # Turbo expects a 422 response on form errors
+        status = 422
+    else:
+        form = UserCreationForm()
+    return render(
+        request, "signup.html", {"form": form, "nav_link": "sign_up"}, status=status
+    )
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/home/__init__.py
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/home/management/commands/createdata.py
+from django.core.management.base import BaseCommand
+from django.contrib.auth import get_user_model
+from random_username.generate import generate_username
+from essential_generators import DocumentGenerator
+from articles.models import Article, Comment, Tag
+import string
+import random
+from articles.forms import make_slug
+
+
+tags = [
+    ("Radical Red", "radicalred"),
+    ("Wild Watermelon", "wildwatermelon"),
+    ("Outrageous Orange", "outrageousorange"),
+    ("Atomic Tangerine", "atomictangerine"),
+    ("Neon Carrot", "neoncarrot"),
+    ("Sunglow", "sunglow"),
+    ("Laser Lemon", "laserlemon"),
+    ("Unmellow Yellow", "unmellowyellow"),
+    ("Electric Lime", "electriclime"),
+    ("Screamin' Green", "screamingreen"),
+    ("Magic Mint", "magicmint"),
+    ("Blizzard Blue", "blizzardblue"),
+    ("Shocking Pink", "shockingpink"),
+    ("Razzle Dazzle Rose", "razzledazzlerose"),
+    ("Hot Magenta", "hotmagenta"),
+    ("Purple Pizzazz", "purplepizzazz"),
+]
+
+
+class Command(BaseCommand):
+    help = "Generates users, articles, tag, follows and comments."
+    article_upper_bound = 5
+    follows_upper_bounds = 10
+    favorties_upper_bounds = 10
+    password = "turbodjango"
+
+    def add_arguments(self, parser):
+        parser.add_argument("num_users", type=int)
+
+    def handle(self, *args, **options):
+        Tag.objects.bulk_create(
+            [Tag(tag=t[0], slug=t[1]) for t in tags], ignore_conflicts=True
+        )
+        names = generate_username(int(options["num_users"]))
+        User = get_user_model()
+        users = [
+            User.objects.create_user(username=n, password=self.password) for n in names
+        ]
+        print(users)
+        gen = DocumentGenerator()
+        gen.init_word_cache(5000)
+        gen.init_sentence_cache(5000)
+        for user in users:
+            user = User.objects.get(username=user.username)
+            user.profile.bio = gen.sentence()
+            user.profile.save()
+            articles = Article.objects.bulk_create(
+                [
+                    Article(
+                        slug=make_slug(gen.sentence()),
+                        title=gen.sentence(),
+                        description=gen.sentence(),
+                        body=gen.paragraph(),
+                        author=user.profile,
+                    )
+                    # Make sure every user has at least 1 article
+                    for _ in range(random.randrange(1, self.article_upper_bound))
+                ]
+            )
+            print(articles)
+            # Make sure every article has 1 tag, could add more later
+            for article in articles:
+                article.tags.add(Tag.objects.get(slug=random.choice(tags)[1]))
+        self.stdout.write(self.style.SUCCESS(f"Created {len(users)} users"))
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/admin.py
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+
+from .models import Profile
+
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = "Profile"
+    fk_name = "user"
+
+
+class CustomUserAdmin(UserAdmin):
+    inlines = (ProfileInline,)
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super(CustomUserAdmin, self).get_inline_instances(request, obj)
+
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/apps.py
+from django.apps import AppConfig
+
+
+class ProfilesConfig(AppConfig):
+    name = 'profiles'
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/forms.py
+from django import forms
+from .models import Profile
+from home.forms import UserCreationForm
+from django.db import models
+from django.contrib.auth import (
+    password_validation,
+)
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
+
+class EditProfileForm(forms.Form):
+    """
+    A form that creates a user, with no privileges, from the given username and
+    password.
+    """
+
+    password = forms.CharField(
+        required=False,
+        label=_("New Password"),
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "placeholder": "New Password",
+                "class": "form-control form-control-lg",
+            }
+        ),
+    )
+
+    image = forms.URLField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control form-control-lg",
+                "placeholder": "Image URL",
+            }
+        ),
+    )
+
+    bio = forms.CharField(
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control form-control-lg",
+                "placeholder": "Short bio about you",
+            }
+        ),
+    )
+
+    def _post_clean(self):
+        super()._post_clean()
+        # Validate the password after self.instance is updated with form data
+        # by super().
+        password = self.cleaned_data.get("password")
+        if password:
+            try:
+                password_validation.validate_password(password, self.instance)
+            except ValidationError as error:
+                self.add_error("password", error)
+
+    def save(self, user, commit=True):
+        password = self.cleaned_data.get("password")
+        if password:
+            user.set_password(password)
+            user.save()
+        user.profile.image = self.cleaned_data.get("image")
+        user.profile.bio = self.cleaned_data.get("bio")
+        user.profile.save()
+        return user
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/models.py
+from django.db import models
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
+from django.urls import reverse
+
+from realworld.models import TimestampedModel
+
+
+class Profile(TimestampedModel):
+    # As mentioned, there is an inherent relationship between the Profile and
+    # User models. By creating a one-to-one relationship between the two, we
+    # are formalizing this relationship. Every user will have one -- and only
+    # one -- related Profile model.
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    # Each user profile will have a field where they can tell other users
+    # something about themselves. This field will be empty when the user
+    # creates their account, so we specify `blank=True`.
+    bio = models.TextField(blank=True)
+
+    # In addition to the `bio` field, each user may have a profile image or
+    # avatar. Similar to `bio`, this field is not required. It may be blank.
+    image = models.URLField(blank=True)
+
+    # This is an example of a Many-To-Many relationship where both sides of the
+    # relationship are of the same model. In this case, the model is `Profile`.
+    # As mentioned in the text, this relationship will be one-way. Just because
+    # you are following mean does not mean that I am following you. This is
+    # what `symmetrical=False` does for us.
+    follows = models.ManyToManyField(
+        "self", related_name="followed_by", symmetrical=False, blank=True
+    )
+
+    favorites = models.ManyToManyField(
+        "articles.Article", related_name="favorited_by", blank=True
+    )
+
+    def __str__(self):
+        return self.user.username
+
+    def follow(self, profile):
+        """Follow `profile` if we're not already following `profile`."""
+        self.follows.add(profile)
+
+    def unfollow(self, profile):
+        """Unfollow `profile` if we're already following `profile`."""
+        self.follows.remove(profile)
+
+    def is_following(self, profile):
+        """Returns True if we're following `profile`; False otherwise."""
+        return self.follows.filter(pk=profile.pk).exists()
+
+    def is_followed_by(self, profile):
+        """Returns True if `profile` is following us; False otherwise."""
+        return self.followed_by.filter(pk=profile.pk).exists()
+
+    def favorite(self, article):
+        """Favorite `article` if we haven't already favorited it."""
+        self.favorites.add(article)
+
+    def unfavorite(self, article):
+        """Unfavorite `article` if we've already favorited it."""
+        self.favorites.remove(article)
+
+    def has_favorited(self, article):
+        """Returns True if we have favorited `article`; else False."""
+        return self.favorites.filter(pk=article.pk).exists()
+
+    def img(self):
+        if self.image:
+            return self.image
+        return "https://static.productionready.io/images/smiley-cyrus.jpg"
+
+    def name(self):
+        return f"{self.user.first_name} {self.user.last_name}"
+
+    def get_absolute_url(self):
+        return reverse('profile_view', args=[str(self)])
+
+
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/tests.py
+from django.test import TestCase
+
+# Create your tests here.
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/views.py
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
+from .forms import EditProfileForm
+from django.db.models import Count
+from articles.models import Article
+from django.contrib.auth import get_user_model
+
+
+def view(req, profile):
+    user = get_object_or_404(get_user_model(), username=profile)
+    context = {
+        "article_user": user,
+    }
+    if req.user == user:
+        context["nav_link"] = "profile"
+    return render(req, "profile/detail.html", context=context)
+
+
+@login_required
+def edit(request):
+    status = 200
+    initial = {
+        "image": request.user.profile.image,
+        "bio": request.user.profile.bio,
+    }
+
+    if request.method == "POST":
+        form = EditProfileForm(request.POST, initial=initial)
+        if form.is_valid():
+            form.save(request.user)
+            a = redirect("profile_view", profile=request.user.username)
+            # Turbo expects a 303 response on form success
+            a.status_code = 303
+            return a
+        else:
+            # Turbo expects a 422 response on form errors
+            status = 422
+    else:
+        form = EditProfileForm(initial=initial)
+
+    return render(
+        request,
+        "profile/edit.html",
+        {"form": form, "nav_link": "settings"},
+        status=status,
+    )
+
+
+def follow(request, profile):
+    target_user = get_object_or_404(get_user_model(), username=profile)
+    if request.user.is_authenticated:
+        is_following = request.user.profile.is_following(target_user.profile)
+    else:
+        is_following = False
+
+    context = {
+        "target_user": target_user,
+        "is_following": is_following,
+    }
+
+    if request.method == "GET":
+        return render(request, "profile/_follow.html", context)
+    elif request.method == "POST" and request.user.is_authenticated:
+        if is_following:
+            request.user.profile.unfollow(target_user.profile)
+        else:
+            request.user.profile.follow(target_user.profile)
+        return HttpResponseRedirect(reverse('profile_follow', kwargs={"profile": profile}), status=303)
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/__init__.py
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/migrations/0001_initial.py
+# Generated by Django 3.1.5 on 2021-01-06 02:37
+
+from django.conf import settings
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Profile',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('bio', models.TextField(blank=True)),
+                ('image', models.URLField(blank=True)),
+                ('follows', models.ManyToManyField(blank=True, related_name='followed_by', to='profiles.Profile')),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'ordering': ['-created_at', '-updated_at'],
+                'abstract': False,
+            },
+        ),
+    ]
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/migrations/0002_profile_favorites.py
+# Generated by Django 3.1.5 on 2021-01-06 02:37
+
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('articles', '0001_initial'),
+        ('profiles', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.AddField(
+            model_name='profile',
+            name='favorites',
+            field=models.ManyToManyField(blank=True, related_name='favorited_by', to='articles.Article'),
+        ),
+    ]
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/profiles/migrations/__init__.py
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/asgi.py
+"""
+ASGI config for realworld project.
+
+It exposes the ASGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/
+"""
+
+import os
+
+from django.core.asgi import get_asgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'realworld.settings')
+
+application = get_asgi_application()
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/models.py
+from django.db import models
+
+
+class TimestampedModel(models.Model):
+    # A timestamp representing when this object was created.
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    # A timestamp reprensenting when this object was last updated.
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+        # By default, any model that inherits from `TimestampedModel` should
+        # be ordered in reverse-chronological order. We can override this on a
+        # per-model basis as needed, but reverse-chronological is a good
+        # default ordering for most models.
+        ordering = ["-created_at", "-updated_at"]
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/settings.py
+"""
+Django settings for realworld project.
+
+Generated by 'django-admin startproject' using Django 3.1.5.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/3.1/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/3.1/ref/settings/
+"""
+
+from pathlib import Path
+import django_heroku
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = "_q0#lk7r8ayc6z6g8zxyky1e%k&rygjwg_t!puey-7)c$ht+i-"
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
+
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "profiles",
+    "articles",
+    "home",
+]
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+ROOT_URLCONF = "realworld.urls"
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = "realworld.wsgi.application"
+
+
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
+
+# Password validation
+# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+]
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.1/topics/i18n/
+
+LANGUAGE_CODE = "en-us"
+
+TIME_ZONE = "UTC"
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATIC_URL = "/static/"
+STATICFILES_DIRS = []
+
+STATIC_ROOT = BASE_DIR / "assets"
+
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "index"
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/settings_test.py
+from .settings import *
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": ":memory:",
+    }
+}
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/urls.py
+"""realworld URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path
+from home import views as home_views
+from articles import views as articles_views
+from profiles import views as profile_views
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", home_views.index, name="index"),
+    path("article/<slug:slug>/", articles_views.ViewArticle.as_view(), name="article_view"),
+    path("article/<slug:slug>/add_comment", articles_views.AddComment.as_view(), name="add_comment"),
+    path("article/<slug:slug>/comments", articles_views.ViewCommentsForArticle.as_view(), name="view_comments_for_article"),
+    path("article/comment/login_to_add/<slug:slug>", articles_views.LoginToAddComment.as_view(), name="login_to_add_comment"),
+    path("article/comment/<int:pk>", articles_views.ViewComment.as_view(), name="view_comment"),
+    path("article/comment/<int:pk>/edit", articles_views.EditComment.as_view(), name="edit_comment"),
+    path("article/comment/<int:pk>/delete", articles_views.DeleteComment.as_view(), name="delete_comment"),
+    path("article/comment/<int:pk>/deleted", articles_views.DeletedComment.as_view(), name="deleted_comment"),
+    path("article/", articles_views.ListArticle.as_view(), name="article_list"),    
+    path("editor/<slug:slug>/", articles_views.EditArticle.as_view(), name="article_edit"),
+    path("editor/", articles_views.CreateArticle.as_view(), name="article_create"),
+    path("@<slug:profile>/", profile_views.view, name="profile_view"),
+    path("@<slug:profile>/follow/", profile_views.follow, name="profile_follow"),
+    path("settings/", profile_views.edit, name="profile_edit"),
+    path("register/", home_views.signup, name="signup"),
+    path("login/", home_views.LoginView.as_view(), name="login"),
+]
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/wsgi.py
+"""
+WSGI config for realworld project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/3.1/howto/deployment/wsgi/
+"""
+
+import os
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'realworld.settings')
+
+application = get_wsgi_application()
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/realworld/__init__.py
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/base.html
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Conduit</title>
+    <!-- Import Ionicon icons & Google Fonts our Bootstrap theme relies on -->
+    <link
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Import the custom Bootstrap 4 theme from our hosted CDN -->
+    <link rel="stylesheet" href="https://demo.productionready.io/main.css" />
+    <script
+      src="https://unpkg.com/@hotwired/turbo@7.1.0/dist/turbo.es2017-umd.js"
+      defer
+      data-turbo-track="reload"
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">conduit</a>
+        <ul class="nav navbar-nav pull-xs-right">
+          <li class="nav-item">
+            <!-- Add "active" class when you're on that page" -->
+            <a
+              class="nav-link {% if nav_link == 'home' %}active{% endif %}"
+              href="{% url 'index' %}"
+              >Home</a
+            >
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a
+              class="nav-link {% if nav_link == 'new_post' %}active{% endif %}"
+              href="{% url 'article_create' %}"
+            >
+              <i class="ion-compose"></i>&nbsp;New Post
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link {% if nav_link == 'settings' %}active{% endif %}"
+              href="{% url 'profile_edit' %}"
+            >
+              <i class="ion-gear-a"></i>&nbsp;Settings
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link {% if nav_link == 'profile' %}active{% endif %}"
+              href="{{ user.profile.get_absolute_url }}"
+            >
+              {{user.username}}
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a
+              class="nav-link {% if nav_link == 'sign_in' %}active{% endif %}"
+              href="{% url 'login' %}"
+            >
+              &nbsp;Sign in
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link {% if nav_link == 'sign_up' %}active{% endif %}"
+              href="{% url 'signup' %}"
+              >Sign up</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    {% block content %} {% endblock %}
+    <footer>
+      <div class="container">
+        <a href="/" class="logo-font">conduit</a>
+        <span class="attribution">
+          A
+          <a href="https://github.com/gothinkster/realworld">RealWorld</a>
+          implementation with Django and
+          <a href="https://hotwire.dev/">Hotwire</a> by the
+          <a href="https://github.com/hotwire-django">Hotwire Django team</a>.
+          Code &amp; design licensed under MIT. Source on
+          <a href="https://github.com/hotwire-django/hotwire-django-realworld"
+            >GitHub</a
+          >.
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/index.html
+{% extends 'base.html' %} {% block content %}
+<div class="home-page">
+  <div class="banner">
+    <div class="container">
+      <h1 class="logo-font">conduit</h1>
+      <p>A Hotwire Django implementation.</p>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-9">
+        <turbo-frame id="article-list" src="{% url 'article_list'%}">
+        </turbo-frame>
+      </div>
+
+      <div class="col-md-3">
+        <div class="sidebar">
+          <p>Popular Tags</p>
+          <div class="tag-list">
+            {% for tag in tags %}
+            <a
+              href="{% url 'article_list' %}?tag={{ tag.slug }}"
+              class="tag-pill tag-default"
+              data-turbo-frame="article-list"
+              >{{ tag }}</a
+            >
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/login.html
+{% extends 'base.html' %} {% block content %}
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign in</h1>
+        <p class="text-xs-center">
+          <a href="{% url 'signup' %}">Need an account?</a>
+        </p>
+
+        <div class="error-messages">
+          {{ form.non_field_errors }} {{ form.username.errors }} {{ form.password.errors }}
+        </div>
+
+        <form method="post">
+          {% csrf_token %}
+          <fieldset class="form-group">{{ form.username }}</fieldset>
+          <fieldset class="form-group">{{ form.password }}</fieldset>
+          <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+            Sign in
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/signup.html
+{% extends 'base.html' %} {% block content %}
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign up</h1>
+        <p class="text-xs-center">
+          <a href="{% url 'login' %}">Have an account?</a>
+        </p>
+
+        <div class="error-messages">
+          {{ form.non_field_errors }} {{ form.username.errors }} {{ form.password.errors }}
+        </div>
+
+        <form method="post">
+          {% csrf_token %}
+          <fieldset class="form-group">{{ form.username }}</fieldset>
+          <fieldset class="form-group">{{ form.password }}</fieldset>
+          <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+            Sign up
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/detail.html
+{% extends 'base.html' %} {% block content %}
+<div class="article-page">
+  <div class="banner">
+    <div class="container">
+      <h1>{{ article.title }}</h1>
+
+      <div class="article-meta">
+        <a href="{{ article.author.get_absolute_url }}"><img src="{{ article.author.img }}" /></a>
+        <div class="info">
+          <a href="{{ article.author.get_absolute_url }}" class="author">{{ article.author }}</a>
+          <span class="date">{{ article.created_at }}</span>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary">
+          <i class="ion-plus-round"></i>
+          &nbsp; Follow {{ article.author }} <span class="counter">({{ article.author.followed_by.count }})</span>
+        </button>
+        &nbsp;&nbsp;
+        <button class="btn btn-sm btn-outline-primary">
+          <i class="ion-heart"></i>
+          &nbsp; Favorite Post <span class="counter">({{ article.favorited_by.count }})</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row article-content">
+      <div class="col-md-12">
+        <p>
+            {{ article.description }}
+        </p>
+        <p>{{ article.body|linebreaks }}</p>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="article-actions">
+      <div class="article-meta">
+        <a href="{{ article.author.get_absolute_url }}"><img src="{{ article.author.img }}" /></a>
+        <div class="info">
+          <a href="{{ article.author.get_absolute_url }}" class="author">{{ article.author }}</a>
+          <span class="date">{{ article.created_at }}</span>
+        </div>
+
+        <button class="btn btn-sm btn-outline-secondary">
+          <i class="ion-plus-round"></i>
+          &nbsp; Follow {{ article.author }} <span class="counter">({{ article.author.followed_by.count }})</span>
+        </button>
+        &nbsp;
+        <button class="btn btn-sm btn-outline-primary">
+          <i class="ion-heart"></i>
+          &nbsp; Favorite Post <span class="counter">({{ article.favorited_by.count }})</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-8 offset-md-2">
+
+       <turbo-frame id="add_comment" src="{% url 'add_comment' article.slug %}">
+       </turbo-frame>
+
+      <turbo-frame id="comments" loading="lazy" src="{% url 'view_comments_for_article' article.slug %}">
+      </turbo-frame>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/edit.html
+{% extends 'base.html' %} {% block content %}
+
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+        <div class="error-messages">
+          {{ form.title.errors }} {{ form.description.errors }} 
+          {{ form.body.errors }} {{ form.tags.errors }}
+        </div>
+
+        <form method="post">
+          {% csrf_token %}
+          <fieldset class="form-group">{{ form.title }}</fieldset>
+          <fieldset class="form-group">{{ form.description }}</fieldset>
+          <fieldset class="form-group">{{ form.body }}</fieldset>
+          <fieldset class="form-group">{{ form.tags }}</fieldset>
+          <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+            Publish Article
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/list.html
+<turbo-frame id="article-list">
+  <div class="feed-toggle">
+    <ul class="nav nav-pills outline-active">
+      {% for tab in tabs %}
+      <li class="nav-item">
+        <a
+          class="nav-link {% if tab.active %}active{% endif %}"
+          href="{{tab.url}}"
+          >{{tab.text}}</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% for article in page_obj %}
+  <div class="article-preview">
+    <div class="article-meta">
+      <a
+        href="{{ article.author.get_absolute_url }}"
+        target="_top"
+        ><img src="{{ article.author.img }}"
+      /></a>
+      <div class="info">
+        <a
+          href="{{ article.author.get_absolute_url }}"
+          class="author"
+          target="_top"
+        >
+          {{ article.author.user.username }}
+        </a>
+        <span class="date">{{ article.created_at }}</span>
+      </div>
+      <button class="btn btn-outline-primary btn-sm pull-xs-right">
+        <i class="ion-heart"></i> {{ article.favorited_by__count }}
+      </button>
+    </div>
+    <a
+      href="{{ article.get_absolute_url }}"
+      class="preview-link"
+      target="_top"
+    >
+      <h1>{{ article.title }}</h1>
+      <p>{{ article.description }}</p>
+      <span>Read more...</span>
+    </a>
+  </div>
+  {% empty %}
+  <div class="article-preview">No articles are here... yet.</div>
+  {% endfor %}
+
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+      <a
+        onClick="toTop()"
+        href="{% url 'article_list' %}?page=1&{{query_string}}"
+        >&laquo; first</a
+      >
+      <a
+        onClick="toTop()"
+        href="{% url 'article_list' %}?page={{ page_obj.previous_page_number }}&{{query_string}}"
+        >previous</a
+      >
+      {% endif %}
+
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+      <a
+        onClick="toTop()"
+        href="{% url 'article_list' %}?page={{ page_obj.next_page_number }}&{{query_string}}"
+        >next</a
+      >
+      <a
+        onClick="toTop()"
+        href="{% url 'article_list' %}?page={{ page_obj.paginator.num_pages }}&{{query_string}}"
+        >last &raquo;</a
+      >
+      {% endif %}
+    </span>
+    <script>
+      function toTop() {
+        window.scrollTo(0, 0);
+      }
+    </script>
+  </div>
+</turbo-frame>
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_add_comment.html
+<turbo-frame id="add_comment">
+    <form action="{{ view.request.get_full_path }}" class="card comment-form" method="post">
+    {% csrf_token %}
+        <div class="card-block">
+            {{ form.body }}
+        </div>
+        <div class="card-footer">
+            <img
+                    src="{{ user.profile.img }}"
+                    class="comment-author-img"
+            />
+            <span class="comment-author">Commenting as <a href="{{ user.profile.get_absolute_url }}" data-turbo-frame="_top">{{ user }}</a></span>
+            <button class="btn btn-sm btn-primary" type="submit">Post Comment</button>
+        </div>
+    </form>
+</turbo-frame>
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_comment.html
+{% if view.comment_deleted %}
+    <turbo-stream action="remove" target="comment-{{ view.kwargs.pk }}">
+    </turbo-stream>
+{% else %}
+    <turbo-frame id="comment-{{ comment.pk }}">
+        <div class="card">
+            <div class="card-block">
+                <p class="card-text">
+                    {{ comment.body }}
+                </p>
+            </div>
+            <div class="card-footer">
+                <a href="{{ comment.author.get_absolute_url }}" class="comment-author" data-turbo-frame="_top">
+                    <img
+                            src="{{ comment.author.img }}"
+                            class="comment-author-img"
+                    />
+                </a>
+                &nbsp;
+                <a href="{{ comment.author.get_absolute_url }}" class="comment-author" data-turbo-frame="_top">{{ comment.author }}</a>
+                <span class="date-posted">{{ comment.updated_at }}</span>
+
+                {% if user.profile == comment.author %}
+                <span class="mod-options">
+                    <a href="{% url 'edit_comment' comment.pk %}"><i class="ion-edit"></i></a>
+                    <a href="{% url 'delete_comment' comment.pk %}"><i class="ion-trash-a"></i></a>
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+    </turbo-frame>
+{% endif %}
+
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_comments_list.html
+<turbo-frame id="comments">
+    {% for comment in comments %}
+
+        {% include 'articles/_comment.html' %}
+
+    {% endfor %}
+</turbo-frame>
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_comment_confirm_delete.html
+<turbo-frame id="comment-{{ comment.pk }}">
+    <div class="card">
+        <div class="card-block">
+            <p class="card-text">
+                Are you sure you want to delete your comment "{{ comment.body }}"?
+            </p>
+        </div>
+            <div class="card-footer">
+            <form method="post" action="{% url 'delete_comment' comment.pk %}">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-sm btn-danger" value="Confirm Delete">
+                <a href="{% url 'view_comment' comment.pk %}" class="btn btn-default">Cancel</a>
+            </form>
+            </div>
+    </div>
+
+</turbo-frame>
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_edit_comment.html
+<turbo-frame id="comment-{{ comment.pk }}">
+    <form action="{{ view.request.get_full_path }}" class="card comment-form" method="post">
+    {% csrf_token %}
+        <div class="card-block">
+            {{ form.body }}
+        </div>
+        <div class="card-footer">
+
+            <button class="btn btn-sm btn-primary" type="submit">Update Comment</button>
+            <a href="{% url 'view_comment' comment.pk %}" class="btn btn-sm">Cancel</a>
+        </div>
+    </form>
+</turbo-frame>
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/articles/_login_to_add_comment.html
+<turbo-frame id="add_comment">
+    <div class="card m-5">
+        <a href="{% url 'login' %}?next={% url 'article_view' view.kwargs.slug %}" class="btn btn-sm btn-block btn-primary" data-turbo-frame="_top">Login to Comment</a>
+    </div>
+</turbo-frame>
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/profile/detail.html
+{% extends 'base.html' %} {% block content %}
+<div class="profile-page">
+  <div class="user-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 offset-md-1">
+          <img src="{{ article_user.profile.img }}" class="user-img" />
+          <h4>{{ article_user.username }}</h4>
+          <p>{{ article_user.profile.bio }}</p>
+          <turbo-frame
+                  id="follow-button-{{ article_user.username }}"
+                  src="{% url 'profile_follow' article_user.username %}"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-10 offset-md-1">
+        <turbo-frame
+          id="article-list"
+          src="{% url 'article_list'%}?profile={{article_user}}"
+        >
+        </turbo-frame>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/profile/edit.html
+{% extends 'base.html' %} {% block content %}
+
+<div class="settings-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Your Settings</h1>
+        <div class="error-messages">
+          {{ form.bio.errors }} {{ form.password.errors }} 
+          {{ form.image.errors }}
+        </div>
+
+        <form method="post">
+          {% csrf_token %}
+          <fieldset class="form-group">{{ form.image }}</fieldset>
+          <fieldset class="form-group">{{ form.bio }}</fieldset>
+          <fieldset class="form-group">{{ form.password }}</fieldset>
+          <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+            Update Settings
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+--#
+
+--% E:/desktop-laptop/_rwe/hotwire-django-realworld/templates/profile/_follow.html
+<turbo-frame id="follow-button-{{ target_user.username }}">
+    {% if request.user.is_authenticated %}
+        <form method="POST" action="{% url 'profile_follow' target_user.profile %}">
+            {% csrf_token %}
+            <button class="btn btn-sm btn-outline-secondary action-btn">
+                <i class="ion-plus-round"></i>&nbsp;
+                {% if not is_following %} Follow {% else %} Unfollow {% endif %}
+                @{{ target_user.username }}
+                <span class="counter">({{ target_user.profile.followed_by.count }})</span>
+            </button>
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-sm btn-outline-secondary action-btn">
+            Log in to join <span class="counter">{{ target_user.profile.followed_by.count }} followers</span>
+        </a>
+    {% endif %}
+</turbo-frame>
+
+--#
+

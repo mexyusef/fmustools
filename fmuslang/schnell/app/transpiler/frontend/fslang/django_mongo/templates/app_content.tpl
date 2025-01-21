@@ -1,0 +1,16 @@
+__TABLENAME_LOWER__,d(/mk)
+__TAB(1)%__TEMPLATE_MODELNAME_CAP=__TABLENAME_CASE__
+__TAB(1)%__TEMPLATE_MODELNAME=__TABLENAME__
+__TAB(1)%__TEMPLATE_modelname=__TABLENAME_LOWER__
+__TAB(1)%__TEMPLATE_modelnames=__TABLENAME__s
+__TAB(1)__init__.py,f(e=utama=kosong)
+__TAB(1)apps.py,f(e=utama=/apps/app/apps.py)
+__TAB(1)admin.py,f(e=utama=/apps/app/admin.py)
+__TAB(1)models.py,f(e=utama=/apps/__TABLENAME__/models.py)
+__TAB(1)schema.py,f(e=utama=/apps/__TABLENAME__/schema.py)
+__TAB(1)websocket.py,f(e=utama=/apps/__TABLENAME__/websocket.py)
+__TAB(1)urls.py,f(e=utama=/apps/app/urls.py/viewset)
+__TAB(1)views.py,f(e=utama=/apps/app/views.py/viewset)
+__TAB(1)serializers.py,f(e=utama=/apps/app/serializers.py)
+__TAB(1)fixtures,d(/mk)
+__TAB(1)__TAB(1)__TABLENAME_LOWER__.json,f(e=utama=/apps/__TABLENAME__/__TABLENAME_LOWER__.json)

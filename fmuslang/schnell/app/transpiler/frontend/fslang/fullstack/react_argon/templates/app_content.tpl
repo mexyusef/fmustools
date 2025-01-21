@@ -1,0 +1,8 @@
+__TAB(3)__TABLENAME_LOWER__,d(/mk)
+__TAB(4)Create.js,f(e=utama=/argon/src/apps/__TABLENAME_LOWER__/Create.js)
+__TAB(4)Dashboard.js,f(e=utama=/argon/src/apps/__TABLENAME_LOWER__/Dashboard.js)
+__TAB(4)Delete.js,f(e=utama=/argon/src/apps/__TABLENAME_LOWER__/Delete.js)
+__TAB(4)Detail.js,f(e=utama=/argon/src/apps/__TABLENAME_LOWER__/Detail.js)
+__TAB(4)Gallery.js,f(e=utama=/argon/src/apps/__TABLENAME_LOWER__/Gallery.js)
+__TAB(4)Read.js,f(e=utama=/argon/src/apps/__TABLENAME_LOWER__/Read.js)
+__TAB(4)Update.js,f(e=utama=/argon/src/apps/__TABLENAME_LOWER__/Update.js)

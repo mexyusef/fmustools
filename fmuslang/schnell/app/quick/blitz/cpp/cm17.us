@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.6)
+project(chapter01)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_custom_target(hasil)
+
+add_executable(hasil01 filename.cpp)
+target_compile_definitions(hasil01 PRIVATE EXAMPLE01 BOOST_LOG_DYN_LINK)
+add_dependencies(hasil hasil01)
+target_link_libraries(hasil01 boost_chrono boost_log boost_system pthread)

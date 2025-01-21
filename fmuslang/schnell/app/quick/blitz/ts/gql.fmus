@@ -1,0 +1,87 @@
+--% index/fmus
+__PWD,d
+    ~unless[q]
+        .,d(/load=__FILE__=jack-herrington*)
+--#
+
+--% jack-herrington
+__PWD,d
+    @https://www.youtube.com/watch?v=XzE-PzALyDc *
+    ?pick
+        $* yarn create next-app next-gql-dogs
+        $* yarn add --dev typescript @types/react @types/node
+        $* yarn add micro
+        $* yarn add graphql class-validator type-graphql reflect-metadata
+        $* yarn add react-query graphql-request
+        $* yarn add @mantine/core @mantine/next @mantine/form @mantine/hooks
+        $* yarn add tabler-icons-react
+        $* yarn generate
+        $* graphql-codegen        
+        $* yarn dev
+        $* code .
+        pages,d
+            api,d
+                hello.ts,f(t=)
+                graphql.ts,f(e=__FILE__=graphql.ts)
+--#
+
+--% graphql.ts
+import 'reflect-metadata';
+import { ApolloServer } from 'apollo-server-micro';
+import {
+	Arg,
+	Ctx,
+	Field,
+    ID,
+	InputType,
+	Int,
+	MiddlewareFn,
+	Mutation,
+	ObjectType,
+	Resolver,
+	Query,
+	UseMiddleware,
+
+	buildSchema,
+} from 'type-graphql';
+
+@ObjectType()
+export class Dog {
+    @Field(() => ID)
+    name: string;
+}
+
+@Resolver(Dog)
+export class DogsResolver {
+    @Query(() => [Dog])
+    dogs(): Dog[] {
+        return [
+            { name: 'Satu' },
+            { name: 'Dua' },
+        ];
+    }
+}
+
+const schema = await buildSchema({
+    resolvers: [DogsResolver],
+});
+
+const server = new ApolloServer({
+    schema,
+});
+
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};
+
+const startServer = server.start();
+
+export default async function handler(req, res) {
+    await startServer;
+    await server.createHandler({
+        path: '/api/graphql',
+    })(req, res);
+}
+--#

@@ -1,0 +1,475 @@
+--% index/fmus
+kafka-streams-scala-examples2,d(/mk)
+    .travis.yml,f(e=__FILE__=.travis.yml)
+    build.sbt,f(e=__FILE__=build.sbt)
+    init-stack-kafka-with-data.sh,f(e=__FILE__=init-stack-kafka-with-data.sh)
+    README.md,f(e=__FILE__=README.md)
+    test-message-kafka.sh,f(e=__FILE__=test-message-kafka.sh)
+    project,d(/mk)
+        build.properties,f(e=__FILE__=project/build.properties)
+    src,d(/mk)
+        main,d(/mk)
+            resources,d(/mk)
+                logback.xml,f(e=__FILE__=src/main/resources/logback.xml)
+            scala,d(/mk)
+                com,d(/mk)
+                    github,d(/mk)
+                        polomarcus,d(/mk)
+                            MyStream.scala,f(e=__FILE__=src/main/scala/com/github/polomarcus/MyStream.scala)
+                            conf,d(/mk)
+                                ConfService.scala,f(e=__FILE__=src/main/scala/com/github/polomarcus/conf/ConfService.scala)
+        test,d(/mk)
+            data,d(/mk)
+                lyrics-jeanjass-caba.txt,f(e=__FILE__=src/test/data/lyrics-jeanjass-caba.txt)
+            resources,d(/mk)
+                docker-compose.yml,f(e=__FILE__=src/test/resources/docker-compose.yml)
+--#
+
+--% kafka-streams-scala-examples2/.travis.yml
+sudo: required
+
+language: scala
+scala:
+  - 2.12.7
+
+services:
+  - docker
+
+before_install:
+  - ./init-stack-kafka-with-data.sh
+
+script:
+  - sbt run  & read -t 120 || kill $!
+  - ./test-message-kafka.sh
+--#
+
+--% kafka-streams-scala-examples2/build.sbt
+name := "kafka-streams-scala-examples"
+
+organization := "com.github.polomarcus"
+
+version := "0.0.1"
+
+scalaVersion := "2.12.7"
+val kafkfaVersion = "2.0.0"
+val logback = "1.2.3"
+
+scalacOptions := Seq("-Xexperimental", "-unchecked", "-deprecation")
+
+// JSON
+//Add Circe if needed
+
+// logging
+libraryDependencies += "ch.qos.logback" % "logback-classic" % logback
+libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0"
+
+// Kafka
+libraryDependencies += "org.apache.kafka" %% "kafka-streams-scala" % kafkfaVersion
+//Fix the weirdest bug ever, without this line we cannot get kafka-streams-scala
+libraryDependencies += "javax.ws.rs" % "javax.ws.rs-api" % "2.1" artifacts( Artifact("javax.ws.rs-api", "jar", "jar")) // this is a workaround for https://github.com/jax-rs/api/issues/571
+// change it : libraryDependencies += "org.apache.kafka" % "kafka-streams-test-utils" % kafkfaVersion % Test
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % Test
+--#
+
+--% kafka-streams-scala-examples2/init-stack-kafka-with-data.sh
+#!/bin/bash
+set -e
+#### Description: Init kafka with messages
+
+# Init values
+container_name='resources_kafka1_1'
+destination='/root/'
+topic='lyrics'
+file_name='lyrics-jeanjass-caba.txt'
+number_messages="108"
+kafka_server='localhost:9092'
+
+## Create stack
+docker-compose -f src/test/resources/docker-compose.yml up -d
+sleep 3
+
+echo -e "\nCopying some messages inside Kafka container"
+docker cp src/test/data/$file_name $container_name:$destination
+echo -e "\nSending messages to kafka"
+echo 'kafka-console-producer --broker-list localhost:9092 --topic '$topic
+docker exec $container_name /bin/sh -c 'kafka-console-producer --broker-list '$kafka_server' --topic '$topic' < /'$destination$file_name
+
+echo -e "\nReading from Kafka to see if messages were well received..."
+read_topic(){
+    docker exec $container_name /bin/sh -c \
+     'kafka-console-consumer --bootstrap-server '$kafka_server' --topic '$topic' --from-beginning --timeout-ms 2000 | wc -l'
+}
+
+rows=$(read_topic)
+if [ "$rows" == "$number_messages" ]; then
+    echo -e '\nSuccess!'
+else
+    echo 'Initialization problem: ' $rows
+fi
+--#
+
+--% kafka-streams-scala-examples2/README.md
+# Kafka streams scala examples [![Build Status](https://travis-ci.org/polomarcus/kafka-streams-scala-examples.svg?branch=master)](https://travis-ci.org/polomarcus/kafka-streams-scala-examples)
+With docker-compose, launch a Kafka env to process a stream of data using Kafka Streams
+## Run
+### Kafka stack
+```
+# Spin up 1 ZK, 1 Kafka and Topics UI
+./init-stack-kafka-with-data.sh
+```
+
+You can check messages with Topics UI:
+*  http://localhost:8000/#/cluster/default/topic/n/lyrics/
+
+### Sbt
+```
+# Run the app
+sbt run
+```
+
+### Check output topic
+Log inside the kafka container
+```
+# docker ps --> to get container_name
+docker exec -ti resources_kafka1_1 bash
+# all kafka scripts are available, example:
+# kafka-console-producer --broker-list localhost:9092 --topic lyrics
+```
+Check output topic content
+```
+kafka-console-consumer --bootstrap-server localhost:9092 \
+        --topic wordcount-out \
+        --from-beginning \
+        --formatter kafka.tools.DefaultMessageFormatter \
+        --property print.key=true \
+        --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+        --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+```
+Result
+```dtd
+mets	118
+du	116
+respect	110
+sur	106
+mon	112
+nom	106
+```
+
+## CI - Test - Travis 
+Tests used in Travis, see [.travis.yml](https://github.com/polomarcus/kafka-streams-scala-examples/blob/master/.travis.yml)
+
+Run the streams app during 60 seconds and stop it
+```
+timeout 60 sbt run 
+```
+Then, test if the output topic contains messages
+```
+./test-message-kafka.sh
+```
+## Documentation
+
+### Streams
+* https://docs.confluent.io/current/streams/quickstart.html#
+* https://kafka.apache.org/20/documentation/streams/developer-guide/dsl-api.html#scala-dsl
+* https://kafka.apache.org/20/documentation/streams/developer-guide/write-streams.html
+* https://cwiki.apache.org/confluence/display/KAFKA/KIP-270+-+A+Scala+Wrapper+Library+for+Kafka+Streams
+* https://legacy.gitbook.com/book/jaceklaskowski/mastering-kafka-streams
+### How to test
+* https://kafka.apache.org/20/documentation/streams/developer-guide/testing.html
+
+### Logging
+* https://jaceklaskowski.gitbooks.io/mastering-kafka-streams/kafka-logging.html
+
+## Special credits
+Thanks to Alexis Seigneurin for creating the [Scala Kafka Streams API](https://github.com/aseigneurin/kafka-streams-scala) in 2017
+--#
+
+--% kafka-streams-scala-examples2/test-message-kafka.sh
+#!/bin/bash
+set -e
+#### Description: Test if messages were well processed by Kafka Streams
+
+# Init values
+container_name='resources_kafka1_1'
+topic='wordcount-out'
+kafka_server='localhost:9092'
+
+echo -e "\nReading from Kafka to see if messages were well received..."
+read_topic(){
+    docker exec $container_name /bin/sh -c \
+     'kafka-console-consumer --bootstrap-server '$kafka_server' --topic '$topic' --from-beginning --timeout-ms 2000 | wc -l'
+}
+
+rows=$(read_topic)
+if [ "$rows" != "0" ]; then
+    echo -e '\nSuccess!'
+else
+    echo 'Initialization problem: ' $rows
+fi
+--#
+
+--% kafka-streams-scala-examples2/project/build.properties
+sbt.version=1.2.6
+--#
+
+--% kafka-streams-scala-examples2/src/main/resources/logback.xml
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <logger name="com.github.polomarcus" level="debug"
+            additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <root level="WARN">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
+--#
+
+--% kafka-streams-scala-examples2/src/main/scala/com/github/polomarcus/MyStream.scala
+package com.github.polomarcus
+
+import java.util.Properties
+import java.util.concurrent.TimeUnit
+
+import com.github.polomarcus.conf.ConfService
+import com.typesafe.scalalogging.Logger
+import org.apache.kafka.streams.scala.ImplicitConversions._
+import org.apache.kafka.streams.scala._
+import org.apache.kafka.streams.scala.kstream._
+import org.apache.kafka.streams.{KafkaStreams, StreamsConfig}
+
+/**
+  * From https://kafka.apache.org/20/documentation/streams/developer-guide/dsl-api.html#scala-dsl
+  */
+object WordCountApplication extends App {
+  val logger = Logger(WordCountApplication.getClass)
+
+  import Serdes._
+
+  val props: Properties = {
+    val p = new Properties()
+    p.put(StreamsConfig.APPLICATION_ID_CONFIG, "wordcount-application")
+    p.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, ConfService.BOOTSTRAP_SERVERS_CONFIG)
+    p
+  }
+
+  val builder: StreamsBuilder = new StreamsBuilder
+  val textLines: KStream[String, String] = builder.stream[String, String](ConfService.TOPIC_IN)
+  val wordCounts: KTable[String, Long] = textLines
+    .flatMapValues(textLine => textLine.toLowerCase.split("\\W+"))
+    .groupBy((_, word) => word)
+    .count()
+
+  wordCounts.toStream.to(ConfService.TOPIC_OUT)
+
+  val streams: KafkaStreams = new KafkaStreams(builder.build(), props)
+
+  logger.info("Stream started")
+  streams.start()
+
+  sys.ShutdownHookThread {
+    logger.info("Stream closed")
+    streams.close(10, TimeUnit.SECONDS)
+  }
+}
+--#
+
+--% kafka-streams-scala-examples2/src/main/scala/com/github/polomarcus/conf/ConfService.scala
+package com.github.polomarcus.conf
+
+object ConfService {
+  val BOOTSTRAP_SERVERS_CONFIG = "localhost:9092"
+  val APPLICATION_ID = "localhost:9092"
+  val GROUP_ID = "my-app"
+  val TOPIC_IN = "lyrics"
+  val TOPIC_OUT = "wordcount-out"
+
+
+}
+--#
+
+--% kafka-streams-scala-examples2/src/test/data/lyrics-jeanjass-caba.txt
+Tu dis que je rappe mal à tous tes homies
+Mets du respect sur mon nom
+Mais personne ne t'aime, t'es comme la police
+Mets du respect sur mon nom
+C'est pas de la coco, non c'est du parmesan
+Mets du respect sur mon nom
+Que des menteurs, c'est comme au parlement
+Mets du respect sur mon nom
+Mets du respect sur mon nom, mets du respect sur mon nom
+Encore, encore !
+Mets du respect sur mon nom, mets du respect sur mon nom
+Mets-en plein, mets-en plein !
+Mets du respect sur mon nom, mets du respect sur mon nom
+J'ai dis, mets du respect sur mon nom
+Mets du respect sur mon nom, mets du respect sur mon nom
+
+Caba c'est le pharaon blanc alias
+Jeune Toutankhamon
+Sappé en Ralph Lauren ou bien à poil
+Je suis tout le temps canon
+Elle pensait que j'allais lui payer une paire
+De Louboutin, jamais !
+Elle m'a dit à l'oreille qu'elle était vierge
+J'ai mit tout le boudin, ah !
+Si elle n'avait pas cramé 1 000 balles en cess
+Si elle n'aimait pas Louis Vuitton, si elle n'aimait pas Lancel
+Si les balances n'avaient pas balancés
+On serait dans un monde sans pute ni traîtres
+Mon pote, mais ça ça n'existe pas
+Elle est belle l'époque où j'étais encore un de ces MC's de base
+Tu parles fort, et si je te baffe, tu vas faire quoi ?
+Fume avec moi, hey, mets du respect sur mon nom
+Mets du respect sur mon nom, vas-tu percer ?
+Sûrement que non, vas-tu percer ? Sûrement que non !
+Pas assez de flow, pas assez de swag
+Pas assez de mmh..., bref, pas assez de moi-même
+Tu peux être blanc, vendre des kilos
+T'auras moins de soucis que si tu t'appelais Mohamed
+Et fuck ce monde, j'étais en bas, maintenant faut que je monte
+Comme mon nombre de vues, pétasse, pétasse
+Je me sens comme Lucky Luke, même mon ombre te fume
+Numero uno, ma liasse grossit comme le ventre d'Homer
+Je fais le taff mieux que vous
+Vous n'auriez jamais du sortir de la fente de vos mères
+
+[Refrain : Caballero & JeanJass]
+Tu dis que je rappe mal à tous tes homies
+Mets du respect sur mon nom
+Mais personne ne t'aime, t'es comme la police
+Mets du respect sur mon nom
+C'est pas de la coco, non c'est du parmesan
+Mets du respect sur mon nom
+Que des menteurs, c'est comme au parlement
+Mets du respect sur mon nom
+Mets du respect sur mon nom, mets du respect sur mon nom
+Encore, encore !
+Mets du respect sur mon nom, mets du respect sur mon nom
+Mets-en plein, mets-en plein !
+Mets du respect sur mon nom, mets du respect sur mon nom
+J'ai dis, mets du respect sur mon nom
+Mets du respect sur mon nom, mets du respect sur mon nom
+
+JJ, Jeune et Jénial, merdeux, tu vas retenir
+Tu vas prendre une dose et demain, tu vas revenir
+Rien à foutre que ta pétasse ait la voix douce et les seins durs
+Promis c'est promis, cette année j'explose, comme la ceinture
+Ça fait boum, comme un coup franc de Juninho
+Dès que j'arrive au studio, puis t'en auras pour ton billet
+La weed et la bouffe, c'est tout bio
+Doucement, n'écoute pas les rappeurs car tous mentent
+Ne me parlez pas de piège, piège
+On sait que vous mendiez des pièces, pièces, ahah !
+Dans la street, personne te respecte comme le feu orange
+Tu le sais, y'en a pas deux comme Jean
+Pèpère, on fume de la beuh d'hollande, où t'as trouvé ce polo ?
+Shit, c'est le même que moi, où t'as trouvé ce flow, hein ?
+Shit, c'est le même que moi ! Achète, achète
+Tu ne seras jamais riche ma gueule
+Le succès et toi c'est sans rapport
+Nos vies ne sont pas vraiment les mêmes
+Je prend l'appart, toi tu prends la porte
+Bibi par ci, bibi par là, mytho, c'est du "pipi, caca"
+JJ, Caba, ça joue bien, c'est le tiki-taka
+
+Tu dis que je rappe mal à tous tes homies
+Mets du respect sur mon nom
+Mais personne ne t'aime, t'es comme la police
+Mets du respect sur mon nom
+C'est pas de la coco, non c'est du parmesan
+Mets du respect sur mon nom
+Que des menteurs, c'est comme au parlement
+Mets du respect sur mon nom
+Mets du respect sur mon nom, mets du respect sur mon nom
+Encore, encore !
+Mets du respect sur mon nom, mets du respect sur mon nom
+Mets-en plein, mets-en plein !
+Mets du respect sur mon nom, mets du respect sur mon nom
+J'ai dis, mets du respect sur mon nom
+Mets du respect sur mon nom, mets du respect sur mon nom
+
+Mets du respect sur mon nom, mets du respect sur mon nom
+Mets du respect sur mon nom
+Mets du respect sur mon nom, mets du respect sur mon nom
+Mets du respect sur mon nom
+Mets du respect sur mon nom, mets du respect sur mon nom
+Mets du respect sur mon nom
+Mets du respect sur mon nom, mets du respect sur mon nom
+Mets du respect sur mon nom, respect, respect !
+--#
+
+--% kafka-streams-scala-examples2/src/test/resources/docker-compose.yml
+version: '2.1'
+
+services:
+  zoo1:
+    image: zookeeper:3.4.9
+    hostname: zoo1
+    ports:
+    - "2181:2181"
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_PORT: 2181
+      ZOO_SERVERS: server.1=zoo1:2888:3888
+ #   volumes:
+ #   - ./zk-single-kafka-single/zoo1/data:/data
+ #   - ./zk-single-kafka-single/zoo1/datalog:/datalog
+
+  kafka1:
+    image: confluentinc/cp-kafka:5.0.0
+    hostname: kafka1
+    ports:
+    - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+ #   volumes:
+ #   - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
+    depends_on:
+    - zoo1
+
+  kafka-rest-proxy:
+    image: confluentinc/cp-kafka-rest:5.0.0
+    hostname: kafka-rest-proxy
+    ports:
+    - "8082:8082"
+    environment:
+      # KAFKA_REST_ZOOKEEPER_CONNECT: zoo1:2181
+      KAFKA_REST_LISTENERS: http://0.0.0.0:8082/
+      KAFKA_REST_SCHEMA_REGISTRY_URL: http://kafka-schema-registry:8081/
+      KAFKA_REST_HOST_NAME: kafka-rest-proxy
+      KAFKA_REST_BOOTSTRAP_SERVERS: PLAINTEXT://kafka1:19092
+    depends_on:
+    - zoo1
+    - kafka1
+
+  kafka-topics-ui:
+    image: landoop/kafka-topics-ui:0.9.4
+    hostname: kafka-topics-ui
+    ports:
+    - "8000:8000"
+    environment:
+      KAFKA_REST_PROXY_URL: "http://kafka-rest-proxy:8082/"
+      PROXY: "true"
+    depends_on:
+    - zoo1
+    - kafka1
+    - kafka-rest-proxy
+--#
+

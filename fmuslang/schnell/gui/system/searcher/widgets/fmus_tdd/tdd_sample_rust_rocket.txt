@@ -1,0 +1,56 @@
+Open sidebar
+Rust Rocket TDD Examples
+
+
+User
+TDD in Rust Rocket: show me some examples
+
+ChatGPT
+Certainly! Here are a few examples of writing tests using Test-Driven Development (TDD) in Rust with the Rocket web framework.
+
+Assuming you have a basic setup with Rocket installed and a sample application structure, let's start by writing a simple test for a GET endpoint.
+
+rust
+Copy code
+// main.rs
+#[macro_use]
+extern crate rocket;
+
+#[get("/")]
+fn index() -> &'static str {
+    "Hello, world!"
+}
+
+#[launch]
+fn rocket() -> _ {
+    rocket::build().mount("/", routes![index])
+}
+Now let's write a test for the / endpoint using the rocket::local::Client:
+
+rust
+Copy code
+// tests.rs
+#[cfg(test)]
+mod tests {
+    use rocket::local::blocking::Client;
+    use rocket::http::Status;
+
+    #[test]
+    fn test_index() {
+        let client = Client::tracked(rocket::build()).expect("valid rocket instance");
+        let mut response = client.get("/").dispatch();
+
+        assert_eq!(response.status(), Status::Ok);
+        assert_eq!(response.into_string(), Some("Hello, world!".into()));
+    }
+}
+In this test, we use rocket::local::blocking::Client to create a client instance and make a GET request to the / endpoint. We then assert that the response status is Status::Ok and the response body matches the expected value.
+
+You can run this test using the following command:
+
+bash
+Copy code
+cargo test
+This was a basic example of testing a GET endpoint. You can extend it to test other routes, handle different request methods, test with query parameters, and so on. Remember to add more tests for different scenarios to cover a broader range of cases in your application.
+
+TDD encourages writing tests before implementing the corresponding functionality, so you can repeat this process for each new feature or endpoint you want to add to your Rocket application.

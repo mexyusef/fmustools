@@ -1,0 +1,7 @@
+--% index/fmus
+__PWD,d
+    %__TEMPLATE_NAMA_VENV_FOLDER=__INPUT__
+    $* python -m venv __TEMPLATE_NAMA_VENV_FOLDER
+    @ jalankan: source __TEMPLATE_NAMA_VENV_FOLDER/bin/activate*
+    @selesai venv play*
+--#

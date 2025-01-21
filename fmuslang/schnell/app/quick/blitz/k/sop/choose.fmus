@@ -1,0 +1,10 @@
+--% index/fmus
+__PWD,d
+	?pick
+		@kerjaan SOP terutama bikin versi mongo cepat*
+			**showtext=__FILE__=readme
+--#
+
+--% readme
+sementara bikin versi original lalu bikin versi updated/new package version
+--#

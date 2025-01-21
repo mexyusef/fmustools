@@ -1,0 +1,1427 @@
+--% index/fmus
+.,d(/mk)
+	%utama=__FILE__
+	docker-compose.prod.yml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/docker-compose.prod.yml)
+	docker-compose.test.yml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/docker-compose.test.yml)
+	prepare.sh,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/prepare.sh)
+	microservices,d(/mk)
+		content,d(/mk)
+			.dockerignore,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/.dockerignore)
+			Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/Cargo.toml)
+			Dockerfile,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/Dockerfile)
+			Rocket.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/Rocket.toml)
+			src,d(/mk)
+				comment.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/src/comment.rs)
+				main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/src/main.rs)
+		dbsync,d(/mk)
+			.dcokerignore,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/.dcokerignore)
+			Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/Cargo.toml)
+			diesel.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/diesel.toml)
+			Dockerfile,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/Dockerfile)
+			Dockerfile.hidden,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/Dockerfile.hidden)
+			migrations,d(/mk)
+				.gitkeep,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/migrations/.gitkeep)
+				2018-11-22-192300_create_tables,d(/mk)
+					down.sql,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/migrations/2018-11-22-192300_create_tables/down.sql)
+					up.sql,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/migrations/2018-11-22-192300_create_tables/up.sql)
+			src,d(/mk)
+				main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/src/main.rs)
+		mails,d(/mk)
+			.dockerignore,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/.dockerignore)
+			Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/Cargo.toml)
+			Dockerfile,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/Dockerfile)
+			src,d(/mk)
+				main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/src/main.rs)
+			templates,d(/mk)
+				confirm.tpl,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/templates/confirm.tpl)
+		router,d(/mk)
+			.dockerignore,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/.dockerignore)
+			Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/Cargo.toml)
+			Dockerfile,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/Dockerfile)
+			.vscode,d(/mk)
+				launch.json,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/.vscode/launch.json)
+			src,d(/mk)
+				main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/src/main.rs)
+			static,d(/mk)
+				comments.html,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/static/comments.html)
+				index.html,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/static/index.html)
+				login.html,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/static/login.html)
+				script.js,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/static/script.js)
+		users,d(/mk)
+			.dockerignore,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/.dockerignore)
+			Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/Cargo.toml)
+			config.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/config.toml)
+			diesel.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/diesel.toml)
+			Dockerfile,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/Dockerfile)
+			src,d(/mk)
+				main.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/src/main.rs)
+				models.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/src/models.rs)
+				schema.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/src/schema.rs)
+	nightly,d(/mk)
+		Dockerfile,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/nightly/Dockerfile)
+	utils,d(/mk)
+		wait-pg,d(/mk)
+			Cargo.toml,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/utils/wait-pg/Cargo.toml)
+			src,d(/mk)
+				lib.rs,f(e=utama=C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/utils/wait-pg/src/lib.rs)
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/docker-compose.prod.yml
+version: "3.6"
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - database_data:/var/lib/postgresql/data
+  smtp:
+    image: juanluisbaptiste/postfix
+    restart: always
+    environment:
+      - SMTP_SERVER=smtp.example.com
+      - SMTP_USERNAME=admin@example.com
+      - SMTP_PASSWORD=password
+      - SERVER_HOSTNAME=smtp.example.com
+  dbsync:
+    build: ./microservices/dbsync
+    depends_on:
+      - db
+    environment:
+      - RUST_LOG=dbsync_worker=debug
+      - RUST_BACKTRACE=1
+      - DBSYNC_DATABASE=postgresql://postgres:password@db:5432
+  mails:
+    build: ./microservices/mails
+    depends_on:
+      - smtp
+    environment:
+      - RUST_LOG=mails_microservice=debug
+      - RUST_BACKTRACE=1
+      - MAILS_ADDRESS=0.0.0.0:8000
+  users:
+    build: ./microservices/users
+    environment:
+      - RUST_LOG=users_microservice=debug
+      - RUST_BACKTRACE=1
+      - USERS_ADDRESS=0.0.0.0:8000
+      - USERS_DATABASE=postgresql://postgres:password@db:5432
+    depends_on:
+      - dbsync
+      - mails
+  content:
+    build: ./microservices/content
+    depends_on:
+      - dbsync
+    ports:
+      - 8888:8000
+    environment:
+      - RUST_LOG=content_microservice=debug
+      - RUST_BACKTRACE=1
+      - ROCKET_ADDRESS=0.0.0.0
+      - ROCKET_PORT=8000
+      - ROCKET_DATABASES={postgres_database={url="postgresql://postgres:password@db:5432"}}
+  router:
+    build: ./microservices/router
+    depends_on:
+      - users
+      - content
+    ports:
+      - 8080:8000
+    environment:
+      - RUST_LOG=router_microservice=debug
+      - RUST_BACKTRACE=1
+      - ROUTER_ADDRESS=0.0.0.0:8000
+      - ROUTER_USERS=http://users:8000
+      - ROUTER_CONTENT=http://content:8000
+
+volumes:
+  database_data:
+    driver: local
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/docker-compose.test.yml
+version: "3.6"
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5432:5432
+  smtp:
+    image: juanluisbaptiste/postfix
+    restart: always
+    environment:
+      - SMTP_SERVER=smtp.example.com
+      - SMTP_USERNAME=admin@example.com
+      - SMTP_PASSWORD=password
+      - SERVER_HOSTNAME=smtp.example.com
+    ports:
+      - "2525:25"
+  dbsync:
+    build: ./microservices/dbsync
+    depends_on:
+      - db
+    environment:
+      - RUST_LOG=dbsync_worker=debug
+      - RUST_BACKTRACE=1
+      - DBSYNC_DATABASE=postgresql://postgres:password@db:5432
+  mails:
+    build: ./microservices/mails
+    depends_on:
+      - smtp
+    environment:
+      - RUST_LOG=mails_microservice=debug
+      - RUST_BACKTRACE=1
+      - MAILS_ADDRESS=0.0.0.0:8000
+      - MAILS_SMTP_ADDRESS=smtp:2525
+      - MAILS_SMTP_LOGIN=admin@example.com
+      - MAILS_SMTP_PASSWORD=password
+    ports:
+      - 8002:8000
+  users:
+    build: ./microservices/users
+    environment:
+      - RUST_LOG=users_microservice=debug
+      - RUST_BACKTRACE=1
+      - USERS_ADDRESS=0.0.0.0:8000
+      - USERS_DATABASE=postgresql://postgres:password@db:5432
+    depends_on:
+      - dbsync
+      - mails
+    ports:
+      - 8001:8000
+  content:
+    build: ./microservices/content
+    depends_on:
+      - dbsync
+    ports:
+      - 8888:8000
+    environment:
+      - RUST_LOG=content_microservice=debug
+      - RUST_BACKTRACE=1
+      - ROCKET_ADDRESS=0.0.0.0
+      - ROCKET_PORT=8000
+      - ROCKET_DATABASES={postgres_database={url="postgresql://postgres:password@db:5432"}}
+    ports:
+      - 8003:8000
+  router:
+    build: ./microservices/router
+    depends_on:
+      - users
+      - content
+    ports:
+      - 8080:8000
+    environment:
+      - RUST_LOG=router_microservice=debug
+      - RUST_BACKTRACE=1
+      - ROUTER_ADDRESS=0.0.0.0:8000
+      - ROUTER_USERS=http://users:8000
+      - ROUTER_CONTENT=http://content:8000
+    ports:
+      - 7000:8000
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/prepare.sh
+docker build -t rust:nightly nightly
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/.dockerignore
+target
+Cargo.lock
+**/*.rs.bk
+files
+*.db
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/Cargo.toml
+[package]
+name = "content-microservice"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+
+[dependencies]
+rocket = "0.4.0-rc.1"
+rocket_contrib = { version = "0.4.0-rc.1", features = ["diesel_postgres_pool"] }
+serde = "1.0"
+serde_json = "1.0"
+serde_derive = "1.0"
+diesel = { version = "1.3", features = ["sqlite", "r2d2"] }
+diesel_migrations = "1.3"
+log = "0.4"
+postgres = "0.15"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/Dockerfile
+FROM rust:nightly
+
+RUN USER=root cargo new --bin content-microservice
+WORKDIR /content-microservice
+COPY ./Cargo.toml ./Cargo.toml
+RUN cargo build
+
+RUN rm src/*.rs
+COPY ./src ./src
+RUN rm ./target/debug/deps/content_microservice*
+RUN cargo build
+
+CMD ["./target/debug/content-microservice"]
+
+EXPOSE 8000
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/Rocket.toml
+[global]
+template_dir = "static"
+address = "127.0.0.1"
+port = 8003
+
+[global.databases.postgres_database]
+url = "postgres://localhost/"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/src/comment.rs
+use diesel::{self, prelude::*};
+
+mod schema {
+    table! {
+        comments {
+            id -> Nullable<Integer>,
+            uid -> Text,
+            text -> Text,
+        }
+    }
+}
+
+use self::schema::comments;
+use self::schema::comments::dsl::{comments as all_comments};
+
+#[table_name="comments"]
+#[derive(Serialize, Queryable, Insertable, Debug, Clone)]
+pub struct Comment {
+    pub id: Option<i32>,
+    pub uid: String,
+    pub text: String,
+}
+
+#[derive(FromForm)]
+pub struct NewComment {
+    pub uid: String,
+    pub text: String,
+}
+
+impl Comment {
+    pub fn all(conn: &PgConnection) -> Vec<Comment> {
+        all_comments.order(comments::id.desc()).load::<Comment>(conn).unwrap()
+    }
+
+    pub fn insert(comment: NewComment, conn: &PgConnection) -> bool {
+        let t = Comment { id: None, uid: comment.uid, text: comment.text };
+        diesel::insert_into(comments::table).values(&t).execute(conn).is_ok()
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/content/src/main.rs
+#![feature(proc_macro_hygiene, decl_macro)]
+
+#[macro_use]
+extern crate rocket;
+#[macro_use]
+extern crate diesel;
+#[macro_use]
+extern crate log;
+#[macro_use]
+extern crate serde_derive;
+#[macro_use]
+extern crate rocket_contrib;
+
+mod comment;
+
+use comment::{Comment, NewComment};
+use diesel::PgConnection;
+use rocket::request::Form;
+use rocket_contrib::json::Json;
+
+#[database("postgres_database")]
+pub struct Db(PgConnection);
+
+#[get("/")]
+fn index() -> &'static str {
+    "Content Microservice"
+}
+
+#[post("/new_comment", data = "<comment_form>")]
+fn add_new(comment_form: Form<NewComment>, conn: Db) -> Json<()> {
+    let comment = comment_form.into_inner();
+    Comment::insert(comment, &conn);
+    Json(())
+}
+
+#[get("/list")]
+fn list(conn: Db) -> Json<Vec<Comment>> {
+    Json(Comment::all(&conn))
+}
+
+fn main() {
+    rocket::ignite()
+        .attach(Db::fairing())
+        .mount("/", routes![index, add_new, list])
+        .launch();
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/.dcokerignore
+target
+Cargo.lock
+**/*.rs.bk
+files
+*.db
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/Cargo.toml
+[package]
+name = "dbsync-worker"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+
+[dependencies]
+clap = "2.32"
+config = "0.9"
+diesel = { version = "^1.1.0", features = ["postgres", "r2d2"] }
+diesel_migrations = "1.3"
+env_logger = "0.6"
+failure = "0.1"
+log = "0.4"
+postgres = "0.15"
+r2d2 = "0.8"
+serde = "1.0"
+serde_derive = "1.0"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/diesel.toml
+# For documentation on how to configure this file,
+# see diesel.rs/guides/configuring-diesel-cli
+
+[print_schema]
+file = "src/schema.rs"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/Dockerfile
+FROM rust:nightly
+
+RUN USER=root cargo new --bin dbsync-worker
+WORKDIR /dbsync-worker
+COPY ./Cargo.toml ./Cargo.toml
+RUN cargo build
+
+RUN rm src/*.rs
+COPY ./src ./src
+COPY ./migrations ./migrations
+COPY ./diesel.toml ./diesel.toml
+RUN rm ./target/debug/deps/dbsync_worker*
+RUN cargo build
+
+CMD ["./target/debug/dbsync-worker"]
+
+EXPOSE 8000
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/Dockerfile.hidden
+FROM rust:nightly as builder
+
+RUN USER=root cargo new --bin dbsync-worker
+WORKDIR /dbsync-worker
+COPY ./Cargo.toml ./Cargo.toml
+RUN cargo build
+
+RUN rm src/*.rs
+COPY ./src ./src
+COPY ./migrations ./migrations
+COPY ./diesel.toml ./diesel.toml
+RUN rm ./target/debug/deps/dbsync_worker*
+RUN cargo build
+
+FROM buildpack-deps:stretch
+
+COPY --from=builder /dbsync-worker/target/debug/dbsync-worker  /app/
+
+ENV RUST_LOG=debug
+
+ENTRYPOINT ["/app/dbsync-worker"]
+
+EXPOSE 8000
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/migrations/.gitkeep
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/migrations/2018-11-22-192300_create_tables/down.sql
+DROP TABLE users;
+
+DROP TABLE comments;
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/migrations/2018-11-22-192300_create_tables/up.sql
+CREATE TABLE users (
+  id TEXT PRIMARY KEY NOT NULL,
+  email TEXT NOT NULL,
+  password TEXT NOT NULL
+);
+
+CREATE TABLE comments (
+  id SERIAL PRIMARY KEY,
+  uid TEXT NOT NULL,
+  text TEXT NOT NULL
+);
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/dbsync/src/main.rs
+extern crate config;
+#[macro_use]
+extern crate diesel;
+#[macro_use]
+extern crate diesel_migrations;
+extern crate env_logger;
+extern crate failure;
+extern crate log;
+extern crate serde_derive;
+
+use diesel::prelude::*;
+use diesel::dsl::{exists, select};
+use diesel::connection::Connection;
+use failure::{format_err, Error};
+use log::debug;
+use serde_derive::Deserialize;
+
+embed_migrations!();
+
+#[derive(Deserialize)]
+struct Config {
+    database: Option<String>,
+}
+fn main() -> Result<(), Error> {
+    env_logger::init();
+    let mut config = config::Config::default();
+    config.merge(config::Environment::with_prefix("DBSYNC"))?;
+    let config: Config = config.try_into()?;
+    let db_address = config.database.unwrap_or("postgres://localhost/".into());
+    debug!("Waiting for database...");
+    loop {
+        let conn: Result<PgConnection, _> = Connection::establish(&db_address);
+        if let Ok(conn) = conn {
+            debug!("Database connected");
+            embedded_migrations::run(&conn)?;
+            break;
+        }
+    }
+    debug!("Database migrated");
+    Ok(())
+}
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/.dockerignore
+target
+Cargo.lock
+**/*.rs.bk
+files
+*.db
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/Cargo.toml
+[package]
+name = "mails-microservice"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+
+[dependencies]
+config = "0.9"
+env_logger = "0.6"
+failure = "0.1"
+log = "0.4"
+lettre = { git = "https://github.com/lettre/lettre" }
+lettre_email = { git = "https://github.com/lettre/lettre" }
+nickel = "0.10"
+serde = "1.0"
+serde_derive = "1.0"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/Dockerfile
+FROM rust:nightly
+
+RUN USER=root cargo new --bin mails-microservice
+WORKDIR /mails-microservice
+COPY ./Cargo.toml ./Cargo.toml
+RUN cargo build
+
+RUN rm src/*.rs
+COPY ./src ./src
+COPY ./templates ./templates
+RUN rm ./target/debug/deps/mails_microservice*
+RUN cargo build
+
+CMD ["./target/debug/mails-microservice"]
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/src/main.rs
+extern crate config;
+extern crate env_logger;
+extern crate failure;
+#[macro_use]
+extern crate nickel;
+extern crate lettre;
+extern crate log;
+extern crate serde_derive;
+
+use failure::{format_err, Error};
+use lettre::{ClientSecurity, SendableEmail, EmailAddress, Envelope, SmtpClient, SmtpTransport, Transport};
+use lettre::smtp::authentication::Credentials;
+use log::{debug, error};
+use nickel::{Nickel, HttpRouter, FormBody, Request, Response, MiddlewareResult};
+use nickel::status::StatusCode;
+use nickel::template_cache::{ReloadPolicy, TemplateCache};
+use serde_derive::Deserialize;
+use std::collections::HashMap;
+use std::thread;
+use std::sync::Mutex;
+use std::sync::mpsc::{channel, Sender};
+
+fn spawn_sender(address: String, login: String, password: String) -> Sender<SendableEmail> {
+    let (tx, rx) = channel();
+    debug!("Waiting for SMTP server");
+    let client = (|| loop {
+        if let Ok(smtp) = SmtpClient::new(&address, ClientSecurity::None) {
+            let credentials = Credentials::new(login, password);
+            let client = smtp.credentials(credentials);
+            return client;
+        }
+    })();
+    debug!("SMTP connected");
+    thread::spawn(move || {
+        let mut mailer = SmtpTransport::new(client);
+        for email in rx.iter() {
+            let result = mailer.send(email);
+            if let Err(err) = result {
+                error!("Can't send mail: {}", err);
+            }
+        }
+        mailer.close();
+    });
+    tx
+}
+
+fn send_impl(req: &mut Request<Data>) -> Result<(), Error> {
+    let (to, code) = {
+        let params = req.form_body().map_err(|(_, err)| format_err!("can't read form: {}", err))?;
+        let to = params.get("to").ok_or(format_err!("to field not set"))?.to_owned();
+        let code = params.get("code").ok_or(format_err!("code field not set"))?.to_owned();
+        (to, code)
+    };
+    let data = req.server_data();
+    let to = EmailAddress::new(to.to_owned())?;
+    let envelope = Envelope::new(None, vec![to])?;
+    let mut params: HashMap<&str, &str> = HashMap::new();
+    params.insert("code", &code);
+    let mut body: Vec<u8> = Vec::new();
+    data.cache.render("templates/confirm.tpl", &mut body, &params)?;
+    let email = SendableEmail::new(envelope, "Confirm email".to_string(), Vec::new());
+    let sender = data.sender.lock().unwrap().clone();
+    sender.send(email).map_err(|err| format_err!("can't send email: {}", err))?;
+    Ok(())
+}
+
+fn send<'mw>(req: &mut Request<Data>, res: Response<'mw, Data>) -> MiddlewareResult<'mw, Data> {
+    try_with!(res, send_impl(req).map_err(|_| StatusCode::BadRequest));
+    res.send("true")
+}
+
+struct Data {
+    sender: Mutex<Sender<SendableEmail>>,
+    cache: TemplateCache,
+}
+
+#[derive(Deserialize)]
+struct Config {
+    address: Option<String>,
+    smtp_address: Option<String>,
+    smtp_login: String,
+    smtp_password: String,
+}
+
+fn main() -> Result<(), Error> {
+    env_logger::init();
+    let mut config = config::Config::default();
+    config.merge(config::Environment::with_prefix("MAILS"))?;
+    let config: Config = config.try_into()?;
+    let bind_address = config.address.unwrap_or("0.0.0.0:8000".into());
+    let smtp_address = config.smtp_address.unwrap_or("127.0.0.1:2525".into());
+    let smtp_login = config.smtp_login;
+    let smtp_password = config.smtp_password;
+    let tx = spawn_sender(smtp_address, smtp_login, smtp_password);
+    let data = Data {
+        sender: Mutex::new(tx),
+        cache: TemplateCache::with_policy(ReloadPolicy::Always),
+    };
+
+    let mut server = Nickel::with_data(data);
+    server.get("/", middleware!("Mailer Microservice"));
+    server.post("/send", send);
+    server.listen(bind_address)
+        .map_err(|err| format_err!("can't bind server: {}", err))?;
+    Ok(())
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/mails/templates/confirm.tpl
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Confirm Email</title>
+  </head>
+  <body>
+    <!-- page content -->
+  </body>
+</html>
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/.dockerignore
+target
+Cargo.lock
+**/*.rs.bk
+files
+*.db
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/Cargo.toml
+[package]
+name = "router-microservice"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+
+[dependencies]
+actix = "0.7"
+actix-web = "0.7"
+config = "0.9"
+env_logger = "0.5"
+failure = "0.1"
+futures = "0.1"
+log = "0.4"
+serde = "1.0"
+serde_derive = "1.0"
+serde_urlencoded = "0.5"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/Dockerfile
+FROM rust:nightly
+
+RUN USER=root cargo new --bin router-microservice
+WORKDIR /router-microservice
+COPY ./Cargo.toml ./Cargo.toml
+RUN cargo build
+
+RUN rm src/*.rs
+COPY ./src ./src
+COPY ./static ./static
+RUN rm ./target/debug/deps/router_microservice*
+RUN cargo build
+
+CMD ["./target/debug/router-microservice"]
+
+EXPOSE 8000
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/.vscode/launch.json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'router-microservice'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=router-microservice",
+                    "--package=router-microservice"
+                ],
+                "filter": {
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'router-microservice'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=router-microservice",
+                    "--package=router-microservice"
+                ],
+                "filter": {
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/src/main.rs
+extern crate actix;
+extern crate actix_web;
+extern crate config;
+extern crate env_logger;
+extern crate failure;
+extern crate futures;
+extern crate log;
+extern crate serde;
+extern crate serde_derive;
+extern crate serde_urlencoded;
+
+use actix_web::{
+    client, middleware, server, fs, App, Error, Form, HttpMessage,
+    HttpRequest, HttpResponse, FutureResponse,
+};
+use actix_web::http::{self, header, StatusCode};
+use actix_web::middleware::identity::RequestIdentity;
+use actix_web::middleware::identity::{CookieIdentityPolicy, IdentityService};
+use failure::format_err;
+use futures::{IntoFuture, Future};
+use log::{debug, error};
+use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
+use std::sync::Arc;
+
+fn boxed<I, E, F>(fut: F) -> Box<Future<Item = I, Error = E>>
+where
+    F: Future<Item = I, Error = E> + 'static,
+{
+    Box::new(fut)
+}
+
+fn get_req(url: &str) -> impl Future<Item = Vec<u8>, Error = Error> {
+    client::ClientRequest::get(url)
+        .finish().into_future()
+        .and_then(|req| {
+            req.send()
+                .map_err(Error::from)
+                .and_then(|resp| resp.body().from_err())
+                .map(|bytes| bytes.to_vec())
+        })
+}
+
+fn request<T, O>(url: &str, params: T) -> impl Future<Item = O, Error = Error>
+where
+    T: Serialize,
+    O: for <'de> Deserialize<'de> + 'static,
+{
+    client::ClientRequest::post(url)
+        .form(params)
+        .into_future()
+        .and_then(|req| {
+            req.send()
+                .map_err(Error::from)
+                .and_then(|resp| {
+                    if resp.status().is_success() {
+                        let fut = resp
+                            .json::<O>()
+                            .from_err();
+                        boxed(fut)
+                    } else {
+                        error!("Microservice error: {}", resp.status());
+                        let fut = Err(format_err!("microservice error"))
+                            .into_future()
+                            .from_err();
+                        boxed(fut)
+                    }
+                })
+        })
+}
+
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct UserForm {
+    email: String,
+    password: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct UserId {
+    id: String,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Comment {
+    pub id: Option<i32>,
+    pub uid: String,
+    pub text: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct AddComment {
+    pub text: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct NewComment {
+    pub uid: String,
+    pub text: String,
+}
+
+fn signup((req, params): (HttpRequest<State>, Form<UserForm>)) -> FutureResponse<HttpResponse> {
+    debug!("/api/signup called ({:?})", params);
+    let url = format!("{}/signup", req.state().users());
+    let fut = request(&url, params.into_inner())
+        .map(|_: ()| {
+            HttpResponse::Found()
+            .header(header::LOCATION, "/login.html")
+            .finish()
+        });
+    Box::new(fut)
+}
+
+fn signin((req, params): (HttpRequest<State>, Form<UserForm>)) -> FutureResponse<HttpResponse> {
+    debug!("/api/signin called ({:?})", params);
+    let url = format!("{}/signin", req.state().users());
+    let fut = request(&url, params.into_inner())
+        .map(move |id: UserId| {
+            req.remember(id.id);
+            HttpResponse::build_from(&req)
+            .status(StatusCode::FOUND)
+            .header(header::LOCATION, "/comments.html")
+            .finish()
+        });
+    Box::new(fut)
+}
+
+fn new_comment((req, params): (HttpRequest<State>, Form<AddComment>)) -> FutureResponse<HttpResponse> {
+    debug!("/api/new_comment called ({:?})", params);
+    let url = format!("{}/new_comment", req.state().content());
+    let fut = req.identity()
+        .ok_or(format_err!("not authorized").into())
+        .into_future()
+        .and_then(move |uid| {
+            let params = NewComment {
+                uid,
+                text: params.into_inner().text,
+            };
+            request::<_, ()>(&url, params)
+        })
+        .then(move |_| {
+            let res = HttpResponse::build_from(&req)
+                .status(StatusCode::FOUND)
+                .header(header::LOCATION, "/comments.html")
+                .finish();
+            Ok(res)
+        });
+    Box::new(fut)
+}
+
+fn comments(req: HttpRequest<State>) -> FutureResponse<HttpResponse> {
+    debug!("/api/comments called");
+    let url = format!("{}/list", req.state().content());
+    let fut = get_req(&url)
+        .map(|data| {
+            HttpResponse::Ok().body(data)
+        });
+    Box::new(fut)
+}
+
+fn healthcheck(_req: HttpRequest<State>) -> &'static str {
+    "Router Microservice"
+}
+
+#[derive(Debug, Deserialize)]
+struct Config {
+    address: Option<String>,
+    users: Option<String>,
+    content: Option<String>,
+}
+
+#[derive(Clone)]
+struct State {
+    users: Arc<String>,
+    content: Arc<String>,
+}
+
+impl State {
+    fn users(&self) -> &str {
+        self.users.as_ref()
+    }
+
+    fn content(&self) -> &str {
+        self.content.as_ref()
+    }
+}
+
+fn main() -> Result<(), failure::Error> {
+    env_logger::init();
+    let mut config = config::Config::default();
+    config.merge(config::Environment::with_prefix("ROUTER"))?;
+    let config: Config = config.try_into()?;
+    debug!("Router config: {:?}", config);
+    let sys = actix::System::new("router");
+
+    let users = config.users.unwrap_or("http://127.0.0.1:8001".into());
+    let content = config.content.unwrap_or("http://127.0.0.1:8003".into());
+    let state = State {
+        users: Arc::new(users),
+        content: Arc::new(content),
+    };
+    let address = config.address.unwrap_or("127.0.0.1:8080".into());
+    server::new(move || {
+        App::with_state(state.clone())
+            .middleware(middleware::Logger::default())
+            .middleware(IdentityService::new(
+                    CookieIdentityPolicy::new(&[0; 32])
+                    .name("auth-example")
+                    .secure(false),
+                    ))
+            .route("/healthcheck", http::Method::GET, healthcheck)
+            .scope("/api", |scope| {
+                scope
+                    .route("/signup", http::Method::POST, signup)
+                    .route("/signin", http::Method::POST, signin)
+                    .route("/new_comment", http::Method::POST, new_comment)
+                    .route("/comments", http::Method::GET, comments)
+            })
+            .handler(
+                "/",
+                fs::StaticFiles::new("./static/").unwrap().index_file("index.html")
+            )
+    }).workers(1)
+        .bind(&address)
+        .unwrap()
+        .start();
+
+    debug!("Started http server: {}", address);
+    let _ = sys.run();
+    Ok(())
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/static/comments.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <form action="/api/new_comment" method="post">
+        Comment:<br>
+        <input type="text" name="text"><br>
+        <button type="submit">Add</button>
+    </form>
+    <div id="comments"></div>
+  </body>
+</html>
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/static/index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <form action="/api/signup" method="post">
+        Email:<br>
+        <input type="text" name="email"><br>
+        Password<br>
+        <input type="password" name="password"><br>
+        <button type="submit">Signup</button>
+    </form>
+  </body>
+</html>
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/static/login.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <form action="/api/signin" method="post">
+        Email:<br>
+        <input type="text" name="email"><br>
+        Password<br>
+        <input type="password" name="password"><br>
+        <button type="submit">Login</button>
+    </form>
+  </body>
+</html>
+
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/router/static/script.js
+
+function create_node(text) {
+    var element = document.getElementById("comments");
+    var para = document.createElement("p");
+    var node = document.createTextNode(text);
+    para.appendChild(node);
+    element.appendChild(para);
+}
+
+fetch('/api/comments')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        console.log(data);
+        for(var i in data)
+        {
+            var item = data[i];
+            create_node(item.uid);
+            create_node(item.text);
+        }
+        console.log(JSON.stringify(comments));
+    });
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/.dockerignore
+target
+Cargo.lock
+**/*.rs.bk
+files
+*.db
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/Cargo.toml
+[package]
+name = "users-microservice"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+
+[dependencies]
+clap = "2.32"
+config = "0.9"
+diesel = { version = "^1.1.0", features = ["postgres", "r2d2"] }
+diesel_migrations = "1.3"
+env_logger = "0.6"
+failure = "0.1"
+log = "0.4"
+postgres = "0.15"
+r2d2 = "0.8"
+rouille = "2.2"
+rust-crypto = "0.2"
+serde = "1.0"
+serde_derive = "1.0"
+uuid = { version = "0.5", features = ["serde", "v4"] }
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/config.toml
+address = "0.0.0.0:8001"
+database = "postgresql://postgres:password@localhost:5432"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/diesel.toml
+# For documentation on how to configure this file,
+# see diesel.rs/guides/configuring-diesel-cli
+
+[print_schema]
+file = "src/schema.rs"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/Dockerfile
+FROM rust:nightly
+
+RUN USER=root cargo new --bin users-microservice
+WORKDIR /users-microservice
+COPY ./Cargo.toml ./Cargo.toml
+RUN cargo build
+
+RUN rm src/*.rs
+COPY ./src ./src
+COPY ./diesel.toml ./diesel.toml
+RUN rm ./target/debug/deps/users_microservice*
+RUN cargo build
+
+CMD ["./target/debug/users-microservice"]
+
+EXPOSE 8000
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/src/main.rs
+extern crate config;
+extern crate crypto;
+#[macro_use]
+extern crate diesel;
+extern crate env_logger;
+extern crate failure;
+extern crate log;
+extern crate postgres;
+#[macro_use]
+extern crate rouille;
+extern crate serde_derive;
+
+use crypto::pbkdf2::{pbkdf2_check, pbkdf2_simple};
+use diesel::prelude::*;
+use diesel::dsl::{exists, select};
+use diesel::r2d2::ConnectionManager;
+use failure::{format_err, Error};
+use log::debug;
+use postgres::{Connection, TlsMode};
+use rouille::{router, Request, Response};
+use serde_derive::{Deserialize, Serialize};
+
+type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
+
+mod models;
+mod schema;
+
+#[derive(Deserialize)]
+struct Config {
+    address: Option<String>,
+    database: Option<String>,
+}
+
+#[derive(Serialize)]
+struct UserId {
+    id: String,
+}
+
+fn main() -> Result<(), Error> {
+    env_logger::init();
+    let mut config = config::Config::default();
+    config.merge(config::Environment::with_prefix("USERS"))?;
+    let config: Config = config.try_into()?;
+    let bind_address = config.address.unwrap_or("0.0.0.0:8000".into());
+    let db_address = config.database.unwrap_or("postgres://localhost/".into());
+    let manager = ConnectionManager::<PgConnection>::new(db_address);
+    let pool = Pool::builder()
+        .build(manager)
+        .expect("Failed to create pool.");
+    debug!("Starting microservice...");
+    rouille::start_server(bind_address, move |request| {
+        match handler(&request, &pool) {
+            Ok(response) => {
+                response
+            },
+            Err(err) => {
+                Response::text(err.to_string())
+                    .with_status_code(500)
+            }
+        }
+    })
+}
+
+fn handler(request: &Request, pool: &Pool) -> Result<Response, Error> {
+    debug!("Request: {:?}", request);
+    let resp = router!(request,
+        (GET) (/) => {
+            Response::text("Users Microservice")
+        },
+        (POST) (/signup) => {
+            let data = post_input!(request, {
+                email: String,
+                password: String,
+            })?;
+            debug!("Signup for {}", data.email);
+            let user_email = data.email.trim().to_lowercase();
+            let user_password = pbkdf2_simple(&data.password, 12345)?;
+            {
+                use self::schema::users::dsl::*;
+                let conn = pool.get()?;
+                let user_exists: bool = select(exists(users.filter(email.eq(user_email.clone()))))
+                    .get_result(&conn)?;
+                if !user_exists {
+                    let uuid = uuid::Uuid::new_v4().to_string();
+                    let new_user = models::NewUser {
+                        id: &uuid,
+                        email: &user_email,
+                        password: &user_password,
+                    };
+
+                    diesel::insert_into(schema::users::table)
+                        .values(&new_user)
+                        .execute(&conn)?;
+
+                    Response::json(&())
+                } else {
+                    Response::text(format!("user {} exists", data.email))
+                        .with_status_code(400)
+                }
+            }
+        },
+        (POST) (/signin) => {
+            let data = post_input!(request, {
+                email: String,
+                password: String,
+            })?;
+            debug!("Signin for {}", data.email);
+            let user_email = data.email.trim().to_lowercase();
+            let user_password = data.password;
+            {
+                use self::schema::users::dsl::*;
+                let conn = pool.get()?;
+                let user = users.filter(email.eq(user_email))
+                    .first::<models::User>(&conn)?;
+                let valid = pbkdf2_check(&user_password, &user.password)
+                    .map_err(|err| format_err!("pass check error: {}", err))?;
+                if valid {
+                    let user_id = UserId {
+                        id: user.id,
+                    };
+                    Response::json(&user_id)
+                        .with_status_code(200)
+                } else {
+                    Response::text("access denied")
+                        .with_status_code(403)
+                }
+            }
+        },
+        _ => {
+            Response::empty_404()
+        }
+    );
+    Ok(resp)
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/src/models.rs
+use serde_derive::Serialize;
+use super::schema::users;
+
+#[derive(Debug, Serialize, Queryable)]
+pub struct User {
+    pub id: String,
+    pub email: String,
+    pub password: String,
+}
+
+#[derive(Insertable)]
+#[table_name = "users"]
+pub struct NewUser<'a> {
+    pub id: &'a str,
+    pub email: &'a str,
+    pub password: &'a str,
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/microservices/users/src/schema.rs
+table! {
+    users (id) {
+        id -> Text,
+        email -> Text,
+        password -> Text,
+    }
+}
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/nightly/Dockerfile
+# https://github.com/rust-lang-nursery/docker-rust-nightly/blob/master/nightly/Dockerfile
+FROM buildpack-deps:stretch
+
+ENV RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH
+
+RUN set -eux; \
+    url="https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init"; \
+    wget "$url"; \
+    chmod +x rustup-init; \
+    ./rustup-init -y --no-modify-path --default-toolchain nightly; \
+    rm rustup-init; \
+    chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
+    rustup --version; \
+    cargo --version; \
+    rustc --version;
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/utils/wait-pg/Cargo.toml
+[package]
+name = "wait-pg"
+version = "0.1.0"
+authors = ["Yusef Ulum <yusef314159@gmail.com>"]
+
+[dependencies]
+failure = "0.1"
+postgres = "0.15"
+
+--#
+
+--% C:/work/github/rust/Hands-On-Microservices-with-Rust/Chapter15/deploy/utils/wait-pg/src/lib.rs
+extern crate failure;
+extern crate postgres;
+
+
+pub fn wait_pg(url: &str) {
+    use postgres::{Connection, TlsMode};
+    while Connection::connect("postgres://postgres@localhost:5433", TlsMode::None).is_err() { }
+}
+
+--#
+

@@ -1,0 +1,22 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        @visit firebase console*
+            $* python -m webbrowser -t https://console.firebase.google.com/?pli=1
+        @install firebase to current project*
+            ?pick
+                $* yarn add firebase
+                $* pnpm add firebase
+                $* npm i -S firebase
+--#
+
+--% REACT_APP_FIREBASE_KEY
+REACT_APP_FIREBASE_KEY=
+--#
+
+--% firebase structure
+.,d
+    src,d(/mk)
+        firebase.js,f(t=)
+--#
+

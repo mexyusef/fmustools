@@ -1,0 +1,41 @@
+.,d
+    app,d
+        config,d
+            index.js,f(t=)
+            database.js,f(t=)
+            middleware.js,f(t=)
+        controllers,d
+            index.js,f(t=)
+            userController.js,f(t=)
+            authController.js,f(t=)
+        models,d
+            index.js,f(t=)
+            user.js,f(t=)
+            post.js,f(t=)
+        routes,d
+            index.js,f(t=)
+            userRoutes.js,f(t=)
+            authRoutes.js,f(t=)
+        services,d
+            index.js,f(t=)
+            userService.js,f(t=)
+            authService.js,f(t=)
+        utils,d
+            index.js,f(t=)
+            helperFunctions.js,f(t=)
+            logger.js,f(t=)
+        app.js,f(t=)
+        package.json,f(t=)
+
+C:\work\kenza\capcay\node-folder.txt
+C:\work\kenza\capcay\boilerplate-node.mk
+c:/hapus/oprek-dan-hapus/selasa18
+
+c:/hapus/oprek-dan-hapus,d
+    %NAMAFOLDER=selasa18
+    NAMAFOLDER,d
+        node-boilerplate,d(/load=C:\work\kenza\capcay\boilerplate-node.mk=struktur/project/fmus*)
+        /ketik)dir
+
+C:\Users\usef\work\sidoarjo\schnell\gui\system\searcher\widgets\folders\node.txt
+

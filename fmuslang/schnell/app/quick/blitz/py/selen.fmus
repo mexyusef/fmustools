@@ -1,0 +1,6 @@
+--% index/fmus
+__PWD,d
+    ?pick
+        .,d(/load=__CURDIR__/selen-wd.fmus=index/fmus*)
+--#
+
